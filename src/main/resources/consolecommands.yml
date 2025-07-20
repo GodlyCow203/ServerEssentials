@@ -1,0 +1,11 @@
+first-join:
+  console:
+    - "say Everyone Welcome %player%"
+    - "rank set %player% member"
+  player:
+    - ""
+every-join:
+  console:
+    - ""
+  player:
+    - ""

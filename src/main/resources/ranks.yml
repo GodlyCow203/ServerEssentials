@@ -1,0 +1,56 @@
+ranks:
+  owner:
+    display: "Owner"
+    prefix: "<#FF0000>&l[Owner] "
+    color: "RED"
+    group: "owner"
+    weight: 100
+
+  admin:
+    display: "Admin"
+    prefix: "<#FF5555>&l[Admin] "
+    color: "RED"
+    group: "admin"
+    weight: 90
+
+  moderator:
+    display: "Moderator"
+    prefix: "<#FFAA00>&l[Mod] "
+    color: "GOLD"
+    group: "moderator"
+    weight: 80
+
+  helper:
+    display: "Helper"
+    prefix: "<#55FF55>&l[Helper] "
+    color: "GREEN"
+    group: "helper"
+    weight: 70
+
+  vip:
+    display: "VIP"
+    prefix: "<#00FFAA>&l[VIP] "
+    color: "AQUA"
+    group: "vip"
+    weight: 60
+
+  premium:
+    display: "Premium"
+    prefix: "<#00AAFF>&l[Premium] "
+    color: "BLUE"
+    group: "premium"
+    weight: 50
+
+  member:
+    display: "Member"
+    prefix: "<#AAAAAA>[Member] "
+    color: "GRAY"
+    group: "member"
+    weight: 40
+
+  guest:
+    display: "Guest"
+    prefix: "<#888888>[Guest] "
+    color: "DARK_GRAY"
+    group: "guest"
+    weight: 30
