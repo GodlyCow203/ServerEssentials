@@ -1,0 +1,21 @@
+gui-title: "<#66ffff>Daily Rewards - Page %page%"
+gui-title-placeholder: "Daily Rewards" # do not change
+
+previous-page: "<#ffaa00>Previous Page"
+next-page: "<#ffaa00>Next Page"
+close-button: "<#ff5555>Close"
+
+reward-name: "<#00ffaa>Day %day%"
+reward-claimed-name: "<#00ff00>Reward Claimed"
+reward-claimed-lore: "<#aaaaaa>You've already claimed this reward."
+reward-locked-name: "<#ff0000>Reward Locked"
+reward-locked-cooldown: "<bold><#2971FF>[</bold><#7AA7FF><bold>DAILY</bold><bold><#2971FF>]</bold><#CC0000> Next reward in: <gray>%time%</gray>"
+reward-locked-previous: "<bold><#2971FF>[</bold><#7AA7FF><bold>DAILY</bold><bold><#2971FF>]</bold><#CC0000> Claim previous rewards first."
+
+claim-success: "<bold><#2971FF>[</bold><#7AA7FF><bold>DAILY</bold><bold><#2971FF>]</bold><#ffffff> You claimed your Day <gray>%day%</gray> reward!"
+claim-already: "<bold><#2971FF>[</bold><#7AA7FF><bold>DAILY</bold><bold><#2971FF>]</bold><#ffffff> You have already claimed this reward."
+claim-previous: "<bold><#2971FF>[</bold><#7AA7FF><bold>DAILY</bold><bold><#2971FF>]</bold><#CC0000> Please claim previous days first."
+claim-cooldown: "<bold><#2971FF>[</bold><#7AA7FF><bold>DAILY</bold><bold><#2971FF>]</bold><#CC0000> You can claim your next reward in: <gray>%time%</gray>"
+no-permission: "<bold><#2971FF>[</bold><#7AA7FF><bold>DAILY</bold><bold><#2971FF>]</bold><#CC0000> You do not have permission: <gray>%permission%</gray>"
+
+

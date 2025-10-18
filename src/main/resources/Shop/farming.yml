@@ -1,0 +1,299 @@
+size: 54
+pages: 100
+player-head-slot: 4
+close-button-slot: 49
+
+layout:
+  "0":
+    material: GRAY_STAINED_GLASS_PANE
+    name: " "
+    clickable: false
+  "1":
+    material: GRAY_STAINED_GLASS_PANE
+    name: " "
+    clickable: false
+  "2":
+    material: WHITE_STAINED_GLASS_PANE
+    name: " "
+    clickable: false
+  "3":
+    material: WHITE_STAINED_GLASS_PANE
+    name: " "
+    clickable: false
+  "5":
+    material: WHITE_STAINED_GLASS_PANE
+    name: " "
+    clickable: false
+  "6":
+    material: WHITE_STAINED_GLASS_PANE
+    name: " "
+    clickable: false
+  "7":
+    material: GRAY_STAINED_GLASS_PANE
+    name: " "
+    clickable: false
+  "8":
+    material: GRAY_STAINED_GLASS_PANE
+    name: " "
+    clickable: false
+  "9":
+    material: GRAY_STAINED_GLASS_PANE
+    name: " "
+    clickable: false
+  "17":
+    material: GRAY_STAINED_GLASS_PANE
+    name: " "
+    clickable: false
+  "45":
+    material: ARROW
+    name: "&#FFE000Previous Page"
+    previous-page: true
+    clickable: true
+  "53":
+    material: ARROW
+    name: "&#FFE000Next Page"
+    next-page: true
+    clickable: true
+
+
+
+items:
+  "wheat":
+    material: WHEAT
+    name: "&fWheat"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 10
+    page: 1
+    clickable: true
+
+  "carrot":
+    material: CARROT
+    name: "&fCarrot"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 12
+    page: 1
+    clickable: true
+
+  "potato":
+    material: POTATO
+    name: "&fPotato"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 14
+    page: 1
+    clickable: true
+
+  "beetroot":
+    material: BEETROOT
+    name: "&fBeetroot"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 16
+    page: 1
+    clickable: true
+
+  "melon":
+    material: MELON
+    name: "&fMelon Block"
+    lore:
+      - "&7Buy: &a8"
+      - "&7Sell: &c3"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 8.0
+    sell-price: 3.0
+    amount: 1
+    slot: 19
+    page: 1
+    clickable: true
+
+  "pumpkin":
+    material: PUMPKIN
+    name: "&fPumpkin"
+    lore:
+      - "&7Buy: &a6"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 6.0
+    sell-price: 2.0
+    amount: 1
+    slot: 21
+    page: 1
+    clickable: true
+
+  "sugar_cane":
+    material: SUGAR_CANE
+    name: "&fSugar Cane"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 23
+    page: 1
+    clickable: true
+
+  "cactus":
+    material: CACTUS
+    name: "&fCactus"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 25
+    page: 1
+    clickable: true
+
+  "wheat_seeds":
+    material: WHEAT_SEEDS
+    name: "&fWheat Seeds"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 28
+    page: 1
+    clickable: true
+
+  "beetroot_seeds":
+    material: BEETROOT_SEEDS
+    name: "&fBeetroot Seeds"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 30
+    page: 1
+    clickable: true
+
+  "melon_seeds":
+    material: MELON_SEEDS
+    name: "&fMelon Seeds"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 32
+    page: 1
+    clickable: true
+
+  "pumpkin_seeds":
+    material: PUMPKIN_SEEDS
+    name: "&fPumpkin Seeds"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 34
+    page: 1
+    clickable: true
+
+  "cocoa_beans":
+    material: COCOA_BEANS
+    name: "&fCocoa Beans"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 37
+    page: 1
+    clickable: true
+
+  "sweet_berries":
+    material: SWEET_BERRIES
+    name: "&fSweet Berries"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 39
+    page: 1
+    clickable: true
+
+  "nether_wart":
+    material: NETHER_WART
+    name: "&fNether Wart"
+    lore:
+      - "&7Buy: &a5"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 5.0
+    sell-price: 2.0
+    amount: 1
+    slot: 41
+    page: 1
+    clickable: true
+
+  "glow_berries":
+    material: GLOW_BERRIES
+    name: "&fGlow Berries"
+    lore:
+      - "&7Buy: &a6"
+      - "&7Sell: &c3"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 6.0
+    sell-price: 3.0
+    amount: 1
+    slot: 43
+    page: 1
+    clickable: true

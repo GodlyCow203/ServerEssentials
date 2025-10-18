@@ -1,0 +1,40 @@
+gui:
+  title: "<gradient:#000000:#2E2E2E><bold>RTP Menu</gradient>"
+
+  overworld:
+    name: "<#2BA81B><bold>Overworld</#2BA81B>"
+    lore:
+      - "<#3D3D3D>» <white>Randomly teleport</white>"
+      - "<#3D3D3D>» <white>within the</white> <#2BA81B><bold>Overworld</#2BA81B>"
+
+  nether:
+    name: "<#991818><bold>Nether</#991818>"
+    lore:
+      - "<#3D3D3D>» <white>Randomly teleport</white>"
+      - "<#3D3D3D>» <white>within the </white><#991818><bold>Nether</#991818>"
+
+  end:
+    name: "<#FFDE5E><bold>The End</#FFDE5E>"
+    lore:
+      - "<#3D3D3D>» <white>Randomly teleport</white>"
+      - "<#3D3D3D>» <white>within the</white> <#FFDE5E><bold>End</#FFDE5E>"
+
+
+prefix: "<gradient:#2971FF:#7AA7FF>[RTP]</gradient>"
+
+only-player: "<gradient:#2971FF:#7AA7FF>[RTP]</gradient> <gradient:#CC0000:#FF5555><bold>Only players can execute this command!</bold></gradient>"
+
+no-permission: "<gradient:#2971FF:#7AA7FF>[RTP]</gradient> <gradient:#CC0000:#FF5555><bold>You do not have permission to use this command!</bold></gradient>"
+
+reload-success: "<gradient:#2971FF:#7AA7FF>[RTP]</gradient> <gradient:#00FF00:#55FF55><bold>Configuration reloaded successfully!</bold></gradient> <click:run_command:'/rtp reload'><hover:show_text:'Click to reload again'><gradient:#FFD700:#FFA500>[RELOAD]</gradient></hover></click>"
+
+world-disabled: "<gradient:#2971FF:#7AA7FF>[RTP]</gradient> <gradient:#CC0000:#FF5555><bold>Random teleportation is disabled in this world!</bold></gradient>"
+
+cooldown: "<gradient:#2971FF:#7AA7FF>[RTP]</gradient> <gradient:#FFAA00:#FFD700><bold>You are on cooldown!</bold></gradient> Try again in <gradient:#AAAAAA:#CCCCCC>{seconds}</gradient> seconds."
+
+teleport-success: "<gradient:#2971FF:#7AA7FF>[RTP]</gradient> <gradient:#00FFAA:#00FF55><bold>Teleported successfully!</bold></gradient> Location: <click:run_command:'/rtp'><hover:show_text:'Click to teleport again'><gradient:#FFD700:#FFA500>{world}</gradient></hover></click>"
+
+no-safe-location: "<gradient:#2971FF:#7AA7FF>[RTP]</gradient> <gradient:#CC0000:#FF5555><bold>No safe location found. Try again.</bold></gradient>"
+
+world-not-loaded: "<gradient:#2971FF:#7AA7FF>[RTP]</gradient> <gradient:#CC0000:#FF5555><bold>This world isn’t loaded!</bold></gradient>"
+

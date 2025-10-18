@@ -1,0 +1,213 @@
+title: "Misc Shop"
+size: 54
+pages: 2
+player-head-slot: 4
+close-button-slot: 49
+
+layout:
+  "0":
+    material: GRAY_STAINED_GLASS_PANE
+    name: " "
+    clickable: false
+
+  "1":
+    material: GRAY_STAINED_GLASS_PANE
+    name: " "
+    clickable: false
+
+  "2":
+    material: WHITE_STAINED_GLASS_PANE
+    name: " "
+    clickable: false
+
+  "3":
+    material: WHITE_STAINED_GLASS_PANE
+    name: " "
+    clickable: false
+
+  "5":
+    material: WHITE_STAINED_GLASS_PANE
+    name: " "
+    clickable: false
+
+  "6":
+    material: WHITE_STAINED_GLASS_PANE
+    name: " "
+    clickable: false
+
+  "7":
+    material: GRAY_STAINED_GLASS_PANE
+    name: " "
+    clickable: false
+
+  "8":
+    material: GRAY_STAINED_GLASS_PANE
+    name: " "
+    clickable: false
+
+  "9":
+    material: GRAY_STAINED_GLASS_PANE
+    name: " "
+    clickable: false
+
+  "17":
+    material: GRAY_STAINED_GLASS_PANE
+    name: " "
+    clickable: false
+
+  "53":
+    material: ARROW
+    name: "&#FFE000Next Page"
+    next-page: true
+    clickable: true
+
+  "45":
+    material: ARROW
+    name: "&#FFE000Previous Page"
+    previous-page: true
+    clickable: true
+
+items:
+  "torch":
+    material: TORCH
+    amount: 16
+    name: "&fTorch"
+    lore:
+      - "&7Buy: &a$2"
+      - "&7Sell: &c$1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    slot: 10
+    page: 1
+    buy-price: 2
+    sell-price: 1
+
+  "bucket":
+    material: WATER_BUCKET
+    amount: 1
+    name: "&fWater Bucket"
+    lore:
+      - "&7Buy: &a$3"
+      - "&7Sell: &c$1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    slot: 12
+    page: 1
+    buy-price: 3
+    sell-price: 1
+
+  "shears":
+    material: SHEARS
+    amount: 1
+    name: "&fShears"
+    lore:
+      - "&7Buy: &a$10"
+      - "&7Sell: &c$5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    slot: 14
+    page: 1
+    buy-price: 10
+    sell-price: 5
+
+  "compass":
+    material: COMPASS
+    amount: 1
+    name: "&fCompass"
+    lore:
+      - "&7Buy: &a$8"
+      - "&7Sell: &c$4"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    slot: 16
+    page: 1
+    buy-price: 8
+    sell-price: 4
+
+  "clock":
+    material: CLOCK
+    amount: 1
+    name: "&fClock"
+    lore:
+      - "&7Buy: &a$12"
+      - "&7Sell: &c$6"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    slot: 19
+    page: 1
+    buy-price: 12
+    sell-price: 6
+
+  "name_tag":
+    material: NAME_TAG
+    amount: 1
+    name: "&fName Tag"
+    lore:
+      - "&7Buy: &a$15"
+      - "&7Sell: &c$7"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    slot: 21
+    page: 1
+    buy-price: 15
+    sell-price: 7
+
+  "book":
+    material: BOOK
+    amount: 1
+    name: "&fBook"
+    lore:
+      - "&7Buy: &a$5"
+      - "&7Sell: &c$2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    slot: 23
+    page: 1
+    buy-price: 5
+    sell-price: 2
+
+  "arrow":
+    material: ARROW
+    amount: 1
+    name: "&fArrow"
+    lore:
+      - "&7Buy: &a$1"
+      - "&7Sell: &c$0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    slot: 25
+    page: 1
+    buy-price: 1
+    sell-price: 0.5
+
+
+
+  "fishing_rod":
+    material: FISHING_ROD
+    amount: 1
+    name: "&fFishing Rod"
+    lore:
+      - "&7Buy: &a$10"
+      - "&7Sell: &c$5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    slot: 28
+    page: 1
+    buy-price: 10
+    sell-price: 5
+
+  "saddle":
+    material: SADDLE
+    amount: 1
+    name: "&fSaddle"
+    lore:
+      - "&7Buy: &a$20"
+      - "&7Sell: &c$10"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    slot: 30
+    page: 1
+    buy-price: 20
+    sell-price: 10
+
+

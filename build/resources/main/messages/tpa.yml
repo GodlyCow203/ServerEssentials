@@ -1,0 +1,43 @@
+prefix: "<bold><#73F527>➔</bold>"
+
+# Request
+request-sent: "<prefix> <white>Sent TPA request to <gray>%player%</gray>"
+request-sent-here: "<prefix> <white>Sent TPAHere request to <gray>%player%</gray>."
+request-sent-all: "<prefix> <white>Sent TPA request to all players."
+
+request-received: "<prefix> <gray>%player%</gray> <white>wants to teleport to you.(<green>/tpaccept</green> or <red>/tpdeny</red>)"
+request-received-here: "<prefix> <gray>%player%</gray> <white>wants you to teleport to them.(<green>/tpaccept</green> or <red>/tpdeny</red>)"
+request-received-all: "<prefix> <gray>%player%</gray> <white>has requested everyone to teleport to them."
+
+request-accepted: "<prefix> <white>You accepted <gray>%player%</gray>'s request."
+request-accepted-target: "<prefix> <white><gray>%player%</gray> accepted your teleport request!"
+
+request-denied: "<prefix> <#FF0000>You denied <gray>%player%</gray>'s request."
+request-denied-target: "<prefix> <#FF0000><gray>%player%</gray> denied your teleport request."
+
+request-expired: "<prefix> <white>Your request to <gray>%player%</gray> expired."
+request-expired-target: "<prefix> <white><gray>%player%</gray>'s request to you expired."
+
+request-cancelled: "<prefix> <#FF0000>You cancelled your request to <gray>%player%</gray>."
+request-cancelled-target: "<prefix> <#FF0000><gray>%player%</gray> cancelled their teleport request."
+
+# Info
+request-info: "<prefix> <white>Pending request from <gray>%player%</gray> (<gray>%type%</gray>)."
+no-request: "<prefix> <#FF0000>You have no pending requests."
+
+# Toggles
+toggle-on: "<prefix> <#FF0000>You are now <bold>blocking</bold> TPA requests."
+toggle-off: "<prefix> <white>You are now <bold>accepting</bold> TPA requests again."
+target-toggled: "<prefix> <gray>%player%</gray><white> is not accepting teleport requests."
+
+# Restrictions
+no-player: "<prefix> <#FF0000>That player is not online."
+crossworld-disabled: "<prefix> <#FF0000>Cross-world teleporting is disabled."
+blocked-world: "<prefix> <#FF0000>You cannot teleport in this world."
+
+# Cooldowns & economy
+cooldown: "<prefix> <#FF0000>You must wait before sending another request."
+not-enough-money: "<prefix> <#FF0000>You need <gray>$%cost%</gray> to do that!"
+
+# Misc
+teleport-cancelled-move: "<prefix> <#FF0000>Teleport cancelled due to movement."

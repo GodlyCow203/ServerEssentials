@@ -1,0 +1,4 @@
+balance:
+  default: "<yellow>%balance%</yellow>"
+balance_formatted:
+  default: "<green>Balance: %balance%</green>"

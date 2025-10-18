@@ -1,0 +1,56 @@
+
+prefix: "" # we inline everything – no global prefix needed
+
+balancetop:
+  limit: 10
+  header: "<gradient:#FFFFFF:#3D3D3D>--------</gradient><white><bold> Balance Top </bold><gradient:#FFFFFF:#3D3D3D>--------"
+  entry: "<#FFDB00>%rank%.<white> | %player% | %balance%<#86F736>$"
+  footer: "<gradient:#FFFFFF:#3D3D3D>--------</gradient> ============ <gradient:#FFFFFF:#3D3D3D>--------"
+
+# /eco give / take / reset
+usage: "<#86F736><bold>Economy</bold> <#8C8C8C><bold>>></bold><#ffffff> Usage:  /<#FF0000>eco</#FF0000> <#FF0000>give<white>|<#FF0000>take<white>|<#FF0000>reset<white> <<#FF0000>player<#FF0000><white>> [<#FF0000>amount</#FF0000><white>]"
+give-usage: "<#86F736><bold>Economy</bold> <#8C8C8C><bold>>></bold><#FFFFFF> /<#FF0000>eco<white> give <<#FF0000>player<white>> <<#FF0000>amount<white>>"
+take-usage: "<#86F736><bold>Economy</bold> <#8C8C8C><bold>>></bold><#FFFFFF> /<#FF0000>eco<white> take <<#FF0000>player<white>> <<#FF0000>amount<white>>"
+unknown-subcommand: "<#86F736><bold>Economy</bold> <#8C8C8C><bold>>></bold><#FF0000> Unknown <white>sub-command "
+invalid-amount: "<#86F736><bold>Economy</bold> <#8C8C8C><bold>>></bold><#FFFFFF> Amount must be a <#FF0000>positive <white>number"
+player-not-found: "<#86F736><bold>Economy</bold> <#8C8C8C><bold>>></bold><#FFFFFF> Player <#FF0000>not<white> found"
+
+give-success: "<#86F736><bold>Economy</bold> <#8C8C8C><bold>>></bold><#FFFFFF> Gave {amount}<#86F736>$<white> to <#86F736>{player}<white> !"
+take-success: "<#86F736><bold>Economy</bold> <#8C8C8C><bold>>></bold><#FFFFFF> Took %amount%<#86F736>$<white> from <#86F736>%player%<white> !"
+reset-success: "<#86F736><bold>Economy</bold> <#8C8C8C><bold>>></bold><#FFFFFF> Reset <#86F736>%player%’s<white> Balance to <#86F736>0<white> !"
+# toggle confirmations
+messages:
+  pay-confirm-enabled: "<#86F736><bold>Economy</bold> <#8C8C8C><bold>>></bold><#FFFFFF> Payment confirmations <color:#86F736>enabled</#86F736><white> !"
+  pay-confirm-disabled: "<#86F736><bold>Economy</bold> <#8C8C8C><bold>>></bold><#FFFFFF> Payment confirmations <color:#FF0000>disabled<white> !"
+
+# balance
+balance-self: "<#86F736><bold>Economy</bold> <#8C8C8C><bold>>></bold><#FFFFFF> Balance: <#86F736>%balance%$<white> !"
+balance-other: "<#86F736><bold>Economy</bold> <#8C8C8C><bold>>></bold><#FFFFFF> <#86F736>%player%’s <white>Balance: <#86F736>%balance%$<white> !"
+
+# pay
+pay:
+  only-players: "<#86F736><bold>Economy</bold> <#8C8C8C><bold>>></bold><#FFFFFF> Only <#FF0000>players<white> can send money !"
+  usage: "<#86F736><bold>Economy</bold> <#8C8C8C><bold>>></bold><#FFFFFF> /<#FF0000>pay <white><<#FF0000>player<white>> <<#FF0000>amount<white>>"
+  player-not-found: "<#86F736><bold>Economy</bold> <#8C8C8C><bold>>></bold><#FFFFFF> Player <#FF0000>not<white> found."
+  self-payment: "<#86F736><bold>Economy</bold> <#8C8C8C><bold>>></bold><#FFFFFF> You <#FF0000>can't<white> pay yourself."
+  invalid-amount: "<#86F736><bold>Economy</bold> <#8C8C8C><bold>>></bold><#FFFFFF> <#FF0000>Invalid <white>amount."
+  positive-amount: "<#86F736><bold>Economy</bold> <#8C8C8C><bold>>></bold><#FFFFFF> Amount must be <#FF0000>greater<white> than <#FF0000>zero<white>."
+  not-enough: "<#86F736><bold>Economy</bold> <#8C8C8C><bold>>></bold><#FFFFFF> You <#FF0000>don't<white> have enough money."
+  target-disabled: "<#86F736><bold>Economy</bold> <#8C8C8C><bold>>></bold><#FFFFFF> That player has <#FF0000>disabled <white>incoming payments."
+  confirmation-expired: "<#86F736><bold>Economy</bold> <#8C8C8C><bold>>></bold><#FFFFFF> Confirmation <#FF0000>timed out<white>. Try again."
+  pending-other: "<#86F736><bold>Economy</bold> <#8C8C8C><bold>>></bold><#FFFFFF> Pending: <#86F736>%amount$ <white>to <#86F736>%player%<white>. <#86F736>Confirm <white>first."
+  confirm-message: "<#86F736><bold>Economy</bold> <#8C8C8C><bold>>></bold><#FFFFFF> <#FF0000><bold>CONFIRM PAYMENT</bold></#FF0000><gray> | <white>Send <#86F736>%amount%$ <white>to %player% ?"
+  confirm-instruction: "<#86F736><bold>Economy</bold> <#8C8C8C><bold>>></bold><#FFFFFF> Type /pay %player% <#86F736>%amount%$ <white> again within the next <#FF0000>15<white> seconds !"
+  success-sender: "<#86F736><bold>Economy</bold> <#8C8C8C><bold>>></bold><#FFFFFF> You paid %player% <#86F736>%amount%$ <white> !"
+  success-target: "<#86F736><bold>Economy</bold> <#8C8C8C><bold>>></bold><#FFFFFF> You received <#86F736>%amount%$<white> from %player%"
+  toggle-enabled: "<#86F736><bold>Economy</bold> <#8C8C8C><bold>>></bold><#FFFFFF> Incoming payments <#86F736>enabled<white> !"
+  toggle-disabled: "<#86F736><bold>Economy</bold> <#8C8C8C><bold>>></bold><#FFFFFF> Incoming payments <#FF0000>disabled<white> !"
+
+# coinflip
+coinflip:
+  usage: "<#86F736><bold>Economy</bold> <#8C8C8C><bold>>></bold><#FFFFFF> /<#FF0000>coinflip <white> <<#FF0000>amount<white>>"
+  invalid-amount: "<#86F736><bold>Economy</bold> <#8C8C8C><bold>>></bold><#FFFFFF> <#FF0000>Invalid <white>amount !"
+  amount-positive: "<#86F736><bold>Economy</bold> <#8C8C8C><bold>>></bold><#FFFFFF> Amount must be <#FF0000>greater<white> than <#FF0000>0 <white> !"
+  not-enough-money: "<#86F736><bold>Economy</bold> <#8C8C8C><bold>>></bold><#FFFFFF> Not <#FF0000>enough<white> Money !"
+  win: "<#86F736><bold>Economy</bold> <#8C8C8C><bold>>></bold><#FFFFFF> You Won ! <#86F736><bold>GG</bold> <white> !"
+  lose: "<#86F736><bold>Economy</bold> <#8C8C8C><bold>>></bold><#FFFFFF> You lost ! <#FF0000><bold>AWW</bold> <white>!"

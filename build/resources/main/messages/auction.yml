@@ -1,0 +1,52 @@
+
+gui:
+  border: " "  # Black stained glass border in GUIs
+  auction:
+    title: "<#B9FF5E><bold>Auction House</bold> <white>-</white> <#B9FF5E>Page <#99FA19>%page%"
+    item-name: "<#72C702>Price<white>:</white> <#99FA19><bold>%price%"
+    item-lore:
+      seller: "<#72C702>Seller<white>:</white> <#99FA19><bold>%seller%"
+      expires: "<#72C702>Expires<white>:</white> <#99FA19><bold>%expires%"
+      click: "<#B9FF5E>Click to buy this item!"
+  my-items:
+    title: "<#B9FF5E><bold>Your Items</bold> <white>-</white> <#B9FF5E>Page <#99FA19>%page%"
+    item-name: "<#72C702>Name<white>:</white> <#99FA19><bold>%name%"
+    item-lore:
+      price: "<#72C702>Price<white>:</white> <#99FA19><bold>%price%"
+      expires: "<#72C702>Expires<white>:</white> <#99FA19><bold>%expires%"
+      click: "<#B9FF5E>Click to remove this item!"
+  balance: "<#72C702>Your Balance: <#99FA19><bold>%balance%"
+  remove:
+    title: "<#B9FF5E><bold>Confirm Remove"
+    confirm: "<#6CBA00>Confirm"
+    cancel: "<#A82416>Cancel"
+  navigation:
+    prev: "<#72C702><bold>Previous Page"
+    next: "<#72C702><bold>Next Page"
+    refresh: "<#3E69BD><bold>Refresh Auction"
+    my-items: "<#C6C91C><bold>My Listed Items"
+    close: "<#A82416><bold>Close"
+
+auction:
+  refresh: "<bold><#B9FF5E>Auction</bold> <bold><#404040>>></bold> Auction refreshed!"
+  not-enough-money: "<bold><#2971FF>[</bold><#7AA7FF><bold>AUCTION</bold><bold><#2971FF>]</bold><#cc0000> You don't have enough money!"
+  purchase: "<bold><#2971FF>[</bold><#7AA7FF><bold>AUCTION</bold><bold><#2971FF>]</bold><#ffffff> You bought this item for <gold>%price%<green>!"
+  sold: "<bold><#2971FF>[</bold><#7AA7FF><bold>AUCTION</bold><bold><#2971FF>]</bold><#ffffff> %player% bought your item for <gold>%price%<green>!"
+  balance: "<bold><#2971FF>[</bold><#7AA7FF><bold>AUCTION</bold><bold><#2971FF>]</bold><#ffffff> Your balance: <gold>%balance%"
+
+remove:
+  success: "<bold><#2971FF>[</bold><#7AA7FF><bold>AUCTION</bold><bold><#2971FF>]</bold><#ffffff> Item removed from auction and returned to your inventory!"
+  not-found: "<bold><#2971FF>[</bold><#7AA7FF><bold>AUCTION</bold><bold><#2971FF>]</bold><#cc0000> This item could not be found."
+  cancel: "<bold><#2971FF>[</bold><#7AA7FF><bold>AUCTION</bold><bold><#2971FF>]</bold><#cc0000> Item removal canceled."
+
+
+command:
+  only-players: "<bold><#2971FF>[</bold><#7AA7FF><bold>AUCTION</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command!"
+  usage: "<bold><#2971FF>[</bold><#7AA7FF><bold>AUCTION</bold><bold><#2971FF>]</bold><#cc0000> Usage: /auction [my|sell <price>]"
+  sell:
+    no-item: "<bold><#2971FF>[</bold><#7AA7FF><bold>AUCTION</bold><bold><#2971FF>]</bold><#cc0000> You must hold an item to sell!"
+    usage: "<bold><#2971FF>[</bold><#7AA7FF><bold>AUCTION</bold><bold><#2971FF>]</bold><#cc0000> Usage: /auction sell <price>"
+    invalid-price: "<bold><#2971FF>[</bold><#7AA7FF><bold>AUCTION</bold><bold><#2971FF>]</bold><#cc0000> Invalid price!"
+    max-limit: "<bold><#2971FF>[</bold><#7AA7FF><bold>AUCTION</bold><bold><#2971FF>]</bold><#cc0000> You cannot sell more than <gold>%max%<red> items at once!"
+    success: "<bold><#2971FF>[</bold><#7AA7FF><bold>AUCTION</bold><bold><#2971FF>]</bold><#ffffff> Item listed for sale at price: <gold>%price%"
+

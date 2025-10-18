@@ -1,0 +1,283 @@
+rewards:
+  "1":
+    page: 1
+    slot: 10
+    items:
+      - type: IRON_INGOT
+        amount: 5
+        lore: ""
+  "2":
+    page: 1
+    slot: 12
+    items:
+      - type: GOLD_INGOT
+        amount: 8
+        lore: ""
+  "3":
+    page: 1
+    slot: 14
+    items:
+      - type: DIAMOND
+        amount: 2
+        lore: ""
+  "4":
+    page: 1
+    slot: 16
+    items:
+      - type: EMERALD
+        amount: 4
+        lore: ""
+  "5":
+    page: 1
+    slot: 19
+    items:
+      - type: COOKED_BEEF
+        amount: 16
+        lore: ""
+  "6":
+    page: 1
+    slot: 21
+    items:
+      - type: LAPIS_LAZULI
+        amount: 20
+        lore: ""
+  "7":
+    page: 1
+    slot: 23
+    items:
+      - type: ENDER_PEARL
+        amount: 2
+        lore: ""
+  "8":
+    page: 1
+    slot: 25
+    items:
+      - type: REDSTONE
+        amount: 32
+        lore: ""
+  "9":
+    page: 1
+    slot: 28
+    items:
+      - type: DIAMOND
+        amount: 4
+        lore: ""
+  "10":
+    page: 1
+    slot: 30
+    items:
+      - type: GOLDEN_APPLE
+        amount: 2
+        lore: ""
+  "11":
+    page: 1
+    slot: 32
+    items:
+      - type: OBSIDIAN
+        amount: 16
+        lore: ""
+  "12":
+    page: 1
+    slot: 34
+    items:
+      - type: EXPERIENCE_BOTTLE
+        amount: 32
+        lore: ""
+  "13":
+    page: 1
+    slot: 37
+    items:
+      - type: SLIME_BALL
+        amount: 8
+        lore: ""
+  "14":
+    page: 1
+    slot: 39
+    items:
+      - type: IRON_BLOCK
+        amount: 4
+        lore: ""
+  "15":
+    page: 1
+    slot: 41
+    items:
+      - type: DIAMOND
+        amount: 6
+        lore: ""
+  "16":
+    page: 1
+    slot: 43
+    items:
+      - type: GOLD_BLOCK
+        amount: 2
+        lore: ""
+  "17":
+    page: 1
+    slot: 45
+    items:
+      - type: DIAMOND_BLOCK
+        amount: 1
+        lore: ""
+  "18":
+    page: 1
+    slot: 47
+    items:
+      - type: SHULKER_SHELL
+        amount: 2
+        lore: ""
+  "19":
+    page: 1
+    slot: 49
+    items:
+      - type: ENCHANTED_GOLDEN_APPLE
+        amount: 1
+        lore: ""
+  "20":
+    page: 1
+    slot: 51
+    items:
+      - type: NETHERITE_SCRAP
+        amount: 2
+        lore: ""
+
+  # --- Page 2 ---
+  "21":
+    page: 2
+    slot: 10
+    items:
+      - type: DIAMOND
+        amount: 8
+        lore: ""
+  "22":
+    page: 2
+    slot: 12
+    items:
+      - type: GOLD_BLOCK
+        amount: 3
+        lore: ""
+  "23":
+    page: 2
+    slot: 14
+    items:
+      - type: DIAMOND_BLOCK
+        amount: 2
+        lore: ""
+  "24":
+    page: 2
+    slot: 16
+    items:
+      - type: EMERALD_BLOCK
+        amount: 2
+        lore: ""
+  "25":
+    page: 2
+    slot: 19
+    items:
+      - type: GOLDEN_APPLE
+        amount: 4
+        lore: ""
+  "26":
+    page: 2
+    slot: 21
+    items:
+      - type: EXPERIENCE_BOTTLE
+        amount: 64
+        lore: ""
+  "27":
+    page: 2
+    slot: 23
+    items:
+      - type: ENDER_PEARL
+        amount: 6
+        lore: ""
+  "28":
+    page: 2
+    slot: 25
+    items:
+      - type: DIAMOND_SWORD
+        amount: 1
+        lore: ""
+  "29":
+    page: 2
+    slot: 28
+    items:
+      - type: DIAMOND_PICKAXE
+        amount: 1
+        lore: ""
+  "30":
+    page: 2
+    slot: 30
+    items:
+      - type: OBSIDIAN
+        amount: 32
+        lore: ""
+  "31":
+    page: 2
+    slot: 32
+    items:
+      - type: TOTEM_OF_UNDYING
+        amount: 1
+        lore: ""
+  "32":
+    page: 2
+    slot: 34
+    items:
+      - type: NETHERITE_SCRAP
+        amount: 4
+        lore: ""
+  "33":
+    page: 2
+    slot: 37
+    items:
+      - type: SHULKER_BOX
+        amount: 1
+        lore: ""
+  "34":
+    page: 2
+    slot: 39
+    items:
+      - type: NETHERITE_INGOT
+        amount: 1
+        lore: ""
+  "35":
+    page: 2
+    slot: 41
+    items:
+      - type: ENCHANTED_GOLDEN_APPLE
+        amount: 2
+        lore: ""
+  "36":
+    page: 2
+    slot: 43
+    items:
+      - type: DIAMOND_BLOCK
+        amount: 3
+        lore: ""
+  "37":
+    page: 2
+    slot: 45
+    items:
+      - type: NETHERITE_INGOT
+        amount: 2
+        lore: ""
+  "38":
+    page: 2
+    slot: 47
+    items:
+      - type: TOTEM_OF_UNDYING
+        amount: 2
+        lore: ""
+  "39":
+    page: 2
+    slot: 49
+    items:
+      - type: NETHER_STAR
+        amount: 1
+        lore: ""
+  "40":
+    page: 2
+    slot: 51
+    items:
+      - type: NETHERITE_BLOCK
+        amount: 1
+        lore: ""

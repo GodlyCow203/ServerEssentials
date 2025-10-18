@@ -1,0 +1,86 @@
+BroadcastWorld:
+  Usage: "<bold><#2971FF>[</bold><#7AA7FF><bold>SERVER</bold><bold><#2971FF>]</bold><#cc0000> Usage: /broadcastworld <world> <message>"
+  WorldNotFound: "<bold><#2971FF>[</bold><#7AA7FF><bold>SERVER</bold><bold><#2971FF>]</bold><#cc0000> World '<gray>{world}</gray>' not found!"
+  MessageSent: "<bold><#2971FF>[</bold><#7AA7FF><bold>SERVER</bold><bold><#2971FF>]</bold><#ffffff> broadcasted to world '<gray>{world}</gray>'!"
+  Broadcast: "<bold><#2971FF>[</bold><#7AA7FF><bold>SERVER</bold><bold><#2971FF>]</bold><#ffffff> {message}"
+
+Spawner:
+  PlayerOnly: "<bold><#2971FF>[</bold><#7AA7FF><bold>SERVER</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command!"
+  NoPermission: "<bold><#2971FF>[</bold><#7AA7FF><bold>SERVER</bold><bold><#2971FF>]</bold><#cc0000> You don’t have permission to set a spawner to <gray>{mob}</gray>!"
+  LookAtSpawner: "<bold><#2971FF>[</bold><#7AA7FF><bold>SERVER</bold><bold><#2971FF>]</bold><#cc0000> Look at a spawner to change it!"
+  Usage: "<bold><#2971FF>[</bold><#7AA7FF><bold>SERVER</bold><bold><#2971FF>]</bold><#cc0000> Usage: /spawner <mob>"
+  InvalidMob: "<bold><#2971FF>[</bold><#7AA7FF><bold>SERVER</bold><bold><#2971FF>]</bold><#cc0000> Invalid mob type: <gray>{mob}</gray>"
+  Changed: "<bold><#2971FF>[</bold><#7AA7FF><bold>SERVER</bold><bold><#2971FF>]</bold><#ffffff> Spawner type changed to <gray>{mob}<gray>"
+
+motd:
+  reload-success: "<bold><#2971FF>[</bold><#7AA7FF><bold>SERVER</bold><bold><#2971FF>]</bold><#ffffff> MOTD reloaded from motd.yml and will be shown on ping."
+  file-created: "<bold><#2971FF>[</bold><#7AA7FF><bold>SERVER</bold><bold><#2971FF>]</bold><#ffffff> Default motd.yml created."
+  file-missing: "<bold><#2971FF>[</bold><#7AA7FF><bold>SERVER</bold><bold><#2971FF>]</bold><#cc0000> Error: motd.yml is missing from both plugin folder and JAR resources."
+  file-empty: "<bold><#2971FF>[</bold><#7AA7FF><bold>SERVER</bold><bold><#2971FF>]</bold><#cc0000> Your motd.yml is empty or malformed."
+
+reboot:
+  usage: "<bold><#2971FF>[</bold><#7AA7FF><bold>SERVER</bold><bold><#2971FF>]</bold><#cc0000> Usage: /reboot <minutes>"
+  announce-scheduled: "<bold><#2971FF>[</bold><#7AA7FF><bold>SERVER</bold><bold><#2971FF>]</bold><#ffffff> <#FFD900>⚠</#FFD900> Server will reboot in <time> minute(s)."
+  announce-minutes: "<bold><#2971FF>[</bold><#7AA7FF><bold>SERVER</bold><bold><#2971FF>]</bold><#ffffff> <#7A7A7A>⏳</#7A7A7A> Reboot in <time> minute(s)."
+  announce-seconds: "<bold><#2971FF>[</bold><#7AA7FF><bold>SERVER</bold><bold><#2971FF>]</bold><#ffffff> <#7A7A7A>⏳</#7A7A7A> Reboot in <time> second(s)."
+  announce-now: "<bold><#2971FF>[</bold><#7AA7FF><bold>SERVER</bold><bold><#2971FF>]</bold><#cc0000><bold>⚠ Rebooting now!"
+
+stickyrules:
+  list-header: "<green>Server Rules:</green>"
+  accept-tip: "<gray>Type <yellow>/stickyrules accept</yellow> to continue.</gray>"
+  accepted: "<green>You have accepted the server rules. Welcome!</green>"
+  must-accept: "<red>You must accept the server rules with /stickyrules accept before joining.</red>"
+
+
+titles:
+  minute-warning: "<#F5DF71>⏳ Reboot in <white><time></white> minute(s)."
+  second-warning: "<#F5DF71><bold><time></bold>"
+  reboot-now: "<#FF0000><bold>⚠ Rebooting now!"
+
+worldlist:
+  no-permission: "<bold><#2971FF>[</bold><#7AA7FF><bold>SERVER</bold><bold><#2971FF>]</bold><#cc0000> You do not have permission to use /worldlist."
+  header: "<white><bold>Worlds on this server:"
+  entry: "<gray>- <aqua><world></aqua> : <status> <gray>| Chunks: <yellow><chunks> <gray>| Entities: <yellow><entities> <gray>| Players: <yellow><players>"
+  status-loaded: "<green>Loaded"
+  status-unloaded: "<red>Unloaded"
+unloadworld:
+  usage: "<bold><#2971FF>[</bold><#7AA7FF><bold>SERVER</bold><bold><#2971FF>]</bold><#cc0000> Usage: /unloadworld <world_name>"
+  not-found: "<bold><#2971FF>[</bold><#7AA7FF><bold>SERVER</bold><bold><#2971FF>]</bold><#cc0000> World '<gray><world></gray>' not found."
+  failed: "<bold><#2971FF>[</bold><#7AA7FF><bold>SERVER</bold><bold><#2971FF>]</bold><#cc0000> Failed to unload world '<gray><world></gray>'."
+  success: "<bold><#2971FF>[</bold><#7AA7FF><bold>SERVER</bold><bold><#2971FF>]</bold><#ffffff> World '<gray><world></gray>' has been unloaded successfully."
+
+uptime:
+  info: "<bold><#2971FF>[</bold><#7AA7FF><bold>SERVER</bold><bold><#2971FF>]</bold><#ffffff> Server Uptime: <gray><uptime></gray>"
+
+loadworld:
+  no-permission: "<bold><#2971FF>[</bold><#7AA7FF><bold>SERVER</bold><bold><#2971FF>]</bold><#cc0000> You don't have permission to use this command."
+  usage: "<bold><#2971FF>[</bold><#7AA7FF><bold>SERVER</bold><bold><#2971FF>]</bold><#cc0000> Usage: /loadworld <worldname>"
+  already-loaded: "<bold><#2971FF>[</bold><#7AA7FF><bold>SERVER</bold><bold><#2971FF>]</bold><#cc0000> World '<gray><world></gray>' is already loaded."
+  success: "<bold><#2971FF>[</bold><#7AA7FF><bold>SERVER</bold><bold><#2971FF>]</bold><#ffffff> World '<gray><world></gray>' loaded successfully."
+  failed: "<bold><#2971FF>[</bold><#7AA7FF><bold>SERVER</bold><bold><#2971FF>]</bold><#cc0000> Failed to load world '<world>'. Make sure the world folder exists."
+
+ServerInfo:
+  only-players: "<bold><#2971FF>[</bold><#7AA7FF><bold>SERVER</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command."
+  header: "<white><bold>---- <gray>Server Info</gray> ----"
+  ram: "<gray>RAM Usage: <white>{used}MB / {max}MB"
+  disk: "<gray>Disk Space: <white>{free}MB free / {total}MB total"
+  tps: "<gray>TPS: <white>{tps}"
+  cpu: "<gray>CPU Cores: <white>{cores} | Load: <white>{load}"
+  os: "<gray>OS: <white>{name} {version} ({arch})"
+  uptime: "<gray>JVM Uptime: <white>{hours}h {minutes}m {seconds}s"
+  java: "<gray>Java Version: <white>{version}"
+  host: "<gray>Host: <white>{hostname} ({address})"
+  net: "<gray>Network Interfaces: <white>{interfaces}"
+  plugins: "<gray>Plugins Loaded: <white>{count}"
+  minecraft: "<gray>Minecraft Version: <white>{version}"
+  paper: "<gray>Server Version: <white>{version}"
+  players: "<gray>Players Online: <white>{online}/{max}"
+  gpu: "<gray>GPU: <white>{gpu}"
+  jvm: "<gray>JVM Arguments: <white>{args}"
+
+broadcast:
+  no_permission: "<bold><#2971FF>[</bold><#7AA7FF><bold>SERVER</bold><bold><#2971FF>]</bold><#cc0000> You do not have permission to use this command."
+  usage: "<bold><#2971FF>[</bold><#7AA7FF><bold>SERVER</bold><bold><#2971FF>]</bold><#cc0000> Usage: /broadcast <message>"
+  format: "[Server] <white>{message}</white>"
+
+

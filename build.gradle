@@ -1,47 +1,80 @@
 plugins {
     id 'java'
-    id 'com.github.johnrengelman.shadow' version '8.1.1'
+    id 'com.gradleup.shadow' version '8.3.5'   // or 9.x beta
+
 }
 
 group = 'com.serveressentials'
-version = '1.10'
+version = '2.0.3.1'
 description = 'ServerEssentials Plugin'
 
 java {
     toolchain {
+        // Paper 1.21+ supports Java 21, but if you deploy to older servers you can lower this
         languageVersion = JavaLanguageVersion.of(21)
     }
 }
 
 repositories {
     mavenCentral()
-    maven { url = 'https://repo.papermc.io/repository/maven-public/' } // Paper API
-    maven { url = 'https://repo.extendedclip.com/content/repositories/placeholderapi/' } // PlaceholderAPI
-    maven { url = 'https://repo.lucko.me' } // LuckPerms
-    maven { url = 'https://repo.codemc.org/repository/maven-public/' } // VaultAPI
+    maven { url = 'https://repo.papermc.io/repository/maven-public/' }
+    maven { url = 'https://repo.extendedclip.com/content/repositories/placeholderapi/' }
+    maven { url = 'https://repo.lucko.me' }
+    maven { url = 'https://repo.codemc.org/repository/maven-public/' }
 }
 
 dependencies {
-    // Paper API and common APIs
+    // ✅ Paper + APIs
     compileOnly 'io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT'
     compileOnly 'me.clip:placeholderapi:2.11.5'
     compileOnly 'net.milkbowl.vault:VaultAPI:1.7'
     compileOnly 'net.luckperms:api:5.4'
 
-    // JSON + System Info (optional utilities)
+    // ✅ Utilities & libs you already had
     implementation 'org.json:json:20240303'
     implementation 'com.github.oshi:oshi-core:6.4.0'
-
-    // Adventure Text & Bukkit Integration
+    implementation 'com.zaxxer:HikariCP:5.0.1'
     implementation 'net.kyori:adventure-text-minimessage:4.14.0'
     implementation 'net.kyori:adventure-text-serializer-legacy:4.14.0'
     implementation 'net.kyori:adventure-platform-bukkit:4.3.2'
 
+    // ✅ Firebase + Firestore
+    implementation 'com.google.firebase:firebase-admin:9.2.0'
+    implementation 'com.google.cloud:google-cloud-firestore:3.7.5'
+
+    // ✅ Yaml (for plugin configs)
+    implementation 'org.yaml:snakeyaml:2.2'
+}
+
+shadowJar {
+    archiveClassifier = ''          // produces ServerEssentials-2_0_3.jar
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    // --- shade every runtime dependency into the jar ---
+    configurations = [project.configurations.runtimeClasspath]
+
+    // optional tidy-up
+    exclude 'META-INF/DEPENDENCIES'
+    exclude 'META-INF/LICENSE*'
+    exclude 'META-INF/NOTICE*'
+    exclude 'META-INF/*.SF'
+    exclude 'META-INF/*.RSA'
+    exclude 'META-INF/*.DSA'
 }
 
 
+
+
+tasks.processResources {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from(sourceSets.main.resources.srcDirs) {
+        include '**/*.yml'
+    }
+}
+
 configurations.all {
     resolutionStrategy {
+        // Ensure Paper API resolves correctly
         force 'io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT'
     }
 }
@@ -50,16 +83,11 @@ tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
 }
 
-tasks.shadowJar {
-    archiveBaseName.set("ServerEssentials")
-    archiveVersion.set("")
-    archiveClassifier.set("")
-}
-
 tasks.build {
     dependsOn shadowJar
 }
 
+// Copy final shaded JAR into a local `plugins` folder for testing
 tasks.register('copyPlugin', Copy) {
     dependsOn shadowJar
     from tasks.shadowJar.get().archiveFile

@@ -1,0 +1,57 @@
+gui:
+  editwarp:
+    title: "&eEdit Warp: %warpname%"
+    items:
+      name:
+        material: "NAME_TAG"
+        displayname: "&bChange Name"
+        lore:
+          - "&7Current: &f%current%"
+      description:
+        material: "PAPER"
+        displayname: "&bChange Description"
+        lore:
+          - "&7Current: &f%current%"
+      category:
+        material: "BOOK"
+        displayname: "&bChange Category"
+        lore:
+          - "&7Current: &f%current%"
+      icon:
+        material: "PLAYER_HEAD"
+        displayname: "&bChange Icon"
+        lore:
+          - "&7Click with any item in hand"
+      location:
+        material: "COMPASS"
+        displayname: "&bSet New Location"
+        lore:
+          - "&7Current location will be updated"
+      cooldown:
+        material: "CLOCK"
+        displayname: "&bSet Cooldown"
+        lore:
+          - "&7Current: &f%current%s"
+
+  category:
+    title: "§9Choose a Category"
+    item:
+      material: "BOOK"
+      displayname: "§b%category%"
+
+  warplist:
+    title: "&aWarps: %category%"
+    item:
+      material: "ENDER_PEARL"
+      displayname: "&f%warpname%"
+      lore:
+        - "&7Owner: &f%owner%"
+        - "&7%description%"
+
+categories:
+  - "Default"
+  - "Admin"
+  - "Fun"
+
+messages:
+# Your custom messages here (optional)

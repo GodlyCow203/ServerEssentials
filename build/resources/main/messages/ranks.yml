@@ -1,0 +1,12 @@
+Rank:
+  Usage:
+    General: "<yellow>Usage:"
+    Reload: "<red>/rank reload"
+    List: "<red>/rank list"
+    Set: "<red>/rank <player> <rank>"
+  Reloaded: "<green>Rank config reloaded."
+  AvailableRanks: "<green>Available ranks:"
+  PlayerNotFound: "<red>Player not found or not online."
+  RankNotFound: "<red>Rank not found."
+  SetRankTarget: "<green>Set rank of {player} to {rank}"
+  SetRankSelf: "<green>Your rank has been set to {rank}"

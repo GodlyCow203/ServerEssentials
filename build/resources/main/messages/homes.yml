@@ -1,0 +1,33 @@
+# GUI Titles
+gui:
+  title:
+    main: "<white><bold>Homes</bold></white>"
+    confirm: "<white><bold>Confirm Home Action</bold></white>"
+  home-title: "<yellow>Home {home}</yellow>"
+  home-dye-title: "<yellow>Home slot {home}</yellow>"
+  confirm.title: "<white>Confirm {mode} for Home {home}</white>"
+  filler: "<gray> "
+
+# Messages
+msg:
+  no-permission: "<bold><#2971FF>[</bold><#7AA7FF><bold>HOMES</bold><bold><#2971FF>]</bold><#CC0000> You don't have permission to do that."
+  confirm: "<bold><#2971FF>[</bold><#7AA7FF><bold>HOMES</bold><bold><#2971FF>]</bold><#fffff> Confirm"
+  cancel: "<bold><#2971FF>[</bold><#7AA7FF><bold>HOMES</bold><bold><#2971FF>]</bold><#ffffff> Cancel"
+  home-set: "<bold><#2971FF>[</bold><#7AA7FF><bold>HOMES</bold><bold><#2971FF>]</bold><#ffffff> Home <gray>{home}</gray> set at <gray>{x}, {y}, {z}</gray>."
+  home-removed: "<bold><#2971FF>[</bold><#7AA7FF><bold>HOMES</bold><bold><#2971FF>]</bold><#ffffff> Home <gray>{home}</gray> removed."
+  rename-prompt: "<bold><#2971FF>[</bold><#7AA7FF><bold>HOMES</bold><bold><#2971FF>]</bold><#ffffff> Type the new name for your home in chat..."
+  renamed: "<bold><#2971FF>[</bold><#7AA7FF><bold>HOMES</bold><bold><#2971FF>]</bold><#ffffff> Home renamed to <gray>{name}</gray>."
+  teleport: "<bold><#2971FF>[</bold><#7AA7FF><bold>HOMES</bold><bold><#2971FF>]</bold><#ffffff> Teleporting to <gray>{home}</gray>..."
+  home-world-missing: "<bold><#2971FF>[</bold><#7AA7FF><bold>HOMES</bold><bold><#2971FF>]</bold><#CC0000> Home world missing."
+
+# Lore for items
+lore:
+  empty: "<gray>Empty"
+  click:
+    set: "<#00FF00>Click to set this home."
+    remove: "<#FF0000>Click to remove this home."
+    rename: "<#00FFFF>Click to rename this home."
+    teleport: "<#AAAAAA>Click to teleport."
+    manage: "<#AAAAAA>Right click to manage."
+  name: "<green>Name: <aqua>{name}</aqua>"
+  coords: "<green>Coords: <gold>{x}, {y}, {z}</gold>"

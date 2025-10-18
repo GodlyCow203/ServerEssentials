@@ -1,0 +1,7006 @@
+
+size: 54
+pages: 100
+player-head-slot: 4
+close-button-slot: 49
+
+layout:
+  "0":
+    material: GRAY_STAINED_GLASS_PANE
+    name: " "
+    clickable: false
+  "1":
+    material: GRAY_STAINED_GLASS_PANE
+    name: " "
+    clickable: false
+  "2":
+    material: WHITE_STAINED_GLASS_PANE
+    name: " "
+    clickable: false
+  "3":
+    material: WHITE_STAINED_GLASS_PANE
+    name: " "
+    clickable: false
+  "5":
+    material: WHITE_STAINED_GLASS_PANE
+    name: " "
+    clickable: false
+  "6":
+    material: WHITE_STAINED_GLASS_PANE
+    name: " "
+    clickable: false
+  "7":
+    material: GRAY_STAINED_GLASS_PANE
+    name: " "
+    clickable: false
+  "8":
+    material: GRAY_STAINED_GLASS_PANE
+    name: " "
+    clickable: false
+  "9":
+    material: GRAY_STAINED_GLASS_PANE
+    name: " "
+    clickable: false
+  "17":
+    material: GRAY_STAINED_GLASS_PANE
+    name: " "
+    clickable: false
+  "45":
+    material: ARROW
+    name: "&#FFE000Previous Page"
+    previous-page: true
+    clickable: true
+  "53":
+    material: ARROW
+    name: "&#FFE000Next Page"
+    next-page: true
+    clickable: true
+
+items:
+  "chiseled_stone_bricks":
+    material: CHISELED_STONE_BRICKS
+    name: "&fChiseled Stone Bricks"
+    lore:
+      - "&7Buy: &a5"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 5.0
+    sell-price: 2.0
+    amount: 1
+    slot: 10
+    page: 1
+    clickable: true
+
+  "infested_chiseled_stone_bricks":
+    material: INFESTED_CHISELED_STONE_BRICKS
+    name: "&fInfested Chiseled Stone Bricks"
+    lore:
+      - "&7Buy: &a6"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 6.0
+    sell-price: 2.0
+    amount: 1
+    slot: 12
+    page: 1
+    clickable: true
+
+  "infested_mossy_stone_bricks":
+    material: INFESTED_MOSSY_STONE_BRICKS
+    name: "&fInfested Mossy Stone Bricks"
+    lore:
+      - "&7Buy: &a6"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 6.0
+    sell-price: 2.0
+    amount: 1
+    slot: 14
+    page: 1
+    clickable: true
+
+  "infested_stone_bricks":
+    material: INFESTED_STONE_BRICKS
+    name: "&fInfested Stone Bricks"
+    lore:
+      - "&7Buy: &a6"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 6.0
+    sell-price: 2.0
+    amount: 1
+    slot: 16
+    page: 1
+    clickable: true
+
+  "mossy_stone_brick_stairs":
+    material: MOSSY_STONE_BRICK_STAIRS
+    name: "&fMossy Stone Brick Stairs"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 19
+    page: 1
+    clickable: true
+
+  "mossy_stone_bricks":
+    material: MOSSY_STONE_BRICKS
+    name: "&fMossy Stone Bricks"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 21
+    page: 1
+    clickable: true
+
+  "smooth_stone_slab":
+    material: SMOOTH_STONE_SLAB
+    name: "&fSmooth Stone Slab"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 23
+    page: 1
+    clickable: true
+
+  "stone_brick_slab":
+    material: STONE_BRICK_SLAB
+    name: "&fStone Brick Slab"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 25
+    page: 1
+    clickable: true
+
+  "stone_brick_wall":
+    material: STONE_BRICK_WALL
+    name: "&fStone Brick Wall"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 28
+    page: 1
+    clickable: true
+
+  "stone_button":
+    material: STONE_BUTTON
+    name: "&fStone Button"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 30
+    page: 1
+    clickable: true
+
+  "stone_slab":
+    material: STONE_SLAB
+    name: "&fStone Slab"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 32
+    page: 1
+    clickable: true
+
+  "cracked_stone_bricks":
+    material: CRACKED_STONE_BRICKS
+    name: "&fCracked Stone Bricks"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 34
+    page: 1
+    clickable: true
+
+  "infested_cracked_stone_bricks":
+    material: INFESTED_CRACKED_STONE_BRICKS
+    name: "&fInfested Cracked Stone Bricks"
+    lore:
+      - "&7Buy: &a6"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 6.0
+    sell-price: 2.0
+    amount: 1
+    slot: 37
+    page: 1
+    clickable: true
+
+  "infested_stone":
+    material: INFESTED_STONE
+    name: "&fInfested Stone"
+    lore:
+      - "&7Buy: &a5"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 5.0
+    sell-price: 2.0
+    amount: 1
+    slot: 39
+    page: 1
+    clickable: true
+
+  "mossy_stone_brick_slab":
+    material: MOSSY_STONE_BRICK_SLAB
+    name: "&fMossy Stone Brick Slab"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 41
+    page: 1
+    clickable: true
+
+  "mossy_stone_brick_wall":
+    material: MOSSY_STONE_BRICK_WALL
+    name: "&fMossy Stone Brick Wall"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 43
+    page: 1
+    clickable: true
+
+  "smooth_stone":
+    material: SMOOTH_STONE
+    name: "&fSmooth Stone"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 10
+    page: 2
+    clickable: true
+
+  "stone":
+    material: STONE
+    name: "&fStone"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 12
+    page: 2
+    clickable: true
+
+  "stone_brick_stairs":
+    material: STONE_BRICK_STAIRS
+    name: "&fStone Brick Stairs"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 14
+    page: 2
+    clickable: true
+
+  "stone_bricks":
+    material: STONE_BRICKS
+    name: "&fStone Bricks"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 16
+    page: 2
+    clickable: true
+
+  "stone_pressure_plate":
+    material: STONE_PRESSURE_PLATE
+    name: "&fStone Pressure Plate"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 19
+    page: 2
+    clickable: true
+
+  "stone_stairs":
+    material: STONE_STAIRS
+    name: "&fStone Stairs"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 21
+    page: 2
+    clickable: true
+
+  "chiseled_tuff":
+    material: CHISELED_TUFF
+    name: "&fChiseled Tuff"
+    lore:
+      - "&7Buy: &a5"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 5.0
+    sell-price: 2.0
+    amount: 1
+    slot: 23
+    page: 2
+    clickable: true
+
+  "polished_tuff":
+    material: POLISHED_TUFF
+    name: "&fPolished Tuff"
+    lore:
+      - "&7Buy: &a5"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 5.0
+    sell-price: 2.0
+    amount: 1
+    slot: 25
+    page: 2
+    clickable: true
+
+  "polished_tuff_stairs":
+    material: POLISHED_TUFF_STAIRS
+    name: "&fPolished Tuff Stairs"
+    lore:
+      - "&7Buy: &a5"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 5.0
+    sell-price: 2.0
+    amount: 1
+    slot: 28
+    page: 2
+    clickable: true
+
+  "tuff":
+    material: TUFF
+    name: "&fTuff"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 30
+    page: 2
+    clickable: true
+
+  "tuff_brick_stairs":
+    material: TUFF_BRICK_STAIRS
+    name: "&fTuff Brick Stairs"
+    lore:
+      - "&7Buy: &a5"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 5.0
+    sell-price: 2.0
+    amount: 1
+    slot: 32
+    page: 2
+    clickable: true
+
+  "tuff_bricks":
+    material: TUFF_BRICKS
+    name: "&fTuff Bricks"
+    lore:
+      - "&7Buy: &a5"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 5.0
+    sell-price: 2.0
+    amount: 1
+    slot: 34
+    page: 2
+    clickable: true
+
+  "tuff_stairs":
+    material: TUFF_STAIRS
+    name: "&fTuff Stairs"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 37
+    page: 2
+    clickable: true
+
+  "chiseled_tuff_bricks":
+    material: CHISELED_TUFF_BRICKS
+    name: "&fChiseled Tuff Bricks"
+    lore:
+      - "&7Buy: &a5"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 5.0
+    sell-price: 2.0
+    amount: 1
+    slot: 39
+    page: 2
+    clickable: true
+
+  "polished_tuff_slab":
+    material: POLISHED_TUFF_SLAB
+    name: "&fPolished Tuff Slab"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 41
+    page: 2
+    clickable: true
+
+  "polished_tuff_wall":
+    material: POLISHED_TUFF_WALL
+    name: "&fPolished Tuff Wall"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 43
+    page: 2
+    clickable: true
+
+
+  "tuff_brick_slab":
+    material: TUFF_BRICK_SLAB
+    name: "&fTuff Brick Slab"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 10
+    page: 3
+    clickable: true
+
+  "tuff_brick_wall":
+    material: TUFF_BRICK_WALL
+    name: "&fTuff Brick Wall"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 12
+    page: 3
+    clickable: true
+
+  "tuff_slab":
+    material: TUFF_SLAB
+    name: "&fTuff Slab"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 14
+    page: 3
+    clickable: true
+
+  "tuff_wall":
+    material: TUFF_WALL
+    name: "&fTuff Wall"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 16
+    page: 3
+    clickable: true
+
+  "granite":
+    material: GRANITE
+    name: "&fGranite"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 19
+    page: 3
+    clickable: true
+
+  "granite_stairs":
+    material: GRANITE_STAIRS
+    name: "&fGranite Stairs"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 21
+    page: 3
+    clickable: true
+
+  "polished_granite":
+    material: POLISHED_GRANITE
+    name: "&fPolished Granite"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 23
+    page: 3
+    clickable: true
+
+  "polished_granite_stairs":
+    material: POLISHED_GRANITE_STAIRS
+    name: "&fPolished Granite Stairs"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 25
+    page: 3
+    clickable: true
+
+  "granite_slab":
+    material: GRANITE_SLAB
+    name: "&fGranite Slab"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 28
+    page: 3
+    clickable: true
+
+  "granite_wall":
+    material: GRANITE_WALL
+    name: "&fGranite Wall"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 30
+    page: 3
+    clickable: true
+
+  "polished_granite_slab":
+    material: POLISHED_GRANITE_SLAB
+    name: "&fPolished Granite Slab"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 32
+    page: 3
+    clickable: true
+
+  "diorite":
+    material: DIORITE
+    name: "&fDiorite"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 34
+    page: 3
+    clickable: true
+
+  "diorite_stairs":
+    material: DIORITE_STAIRS
+    name: "&fDiorite Stairs"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 37
+    page: 3
+    clickable: true
+
+  "polished_diorite":
+    material: POLISHED_DIORITE
+    name: "&fPolished Diorite"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 39
+    page: 3
+    clickable: true
+
+  "polished_diorite_stairs":
+    material: POLISHED_DIORITE_STAIRS
+    name: "&fPolished Diorite Stairs"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 41
+    page: 3
+    clickable: true
+
+  "diorite_slab":
+    material: DIORITE_SLAB
+    name: "&fDiorite Slab"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 43
+    page: 3
+    clickable: true
+
+
+  "diorite_wall":
+    material: DIORITE_WALL
+    name: "&fDiorite Wall"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 10
+    page: 4
+    clickable: true
+
+  "polished_diorite_slab":
+    material: POLISHED_DIORITE_SLAB
+    name: "&fPolished Diorite Slab"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 12
+    page: 4
+    clickable: true
+
+  "chiseled_deepslate":
+    material: CHISELED_DEEPSLATE
+    name: "&fChiseled Deepslate"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 14
+    page: 4
+    clickable: true
+
+  "cobbled_deepslate_slab":
+    material: COBBLED_DEEPSLATE_SLAB
+    name: "&fCobbled Deepslate Slab"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 16
+    page: 4
+    clickable: true
+
+  "cobbled_deepslate_wall":
+    material: COBBLED_DEEPSLATE_WALL
+    name: "&fCobbled Deepslate Wall"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 19
+    page: 4
+    clickable: true
+
+  "cracked_deepslate_tiles":
+    material: CRACKED_DEEPSLATE_TILES
+    name: "&fCracked Deepslate Tiles"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 21
+    page: 4
+    clickable: true
+
+  "deepslate_brick_slab":
+    material: DEEPSLATE_BRICK_SLAB
+    name: "&fDeepslate Brick Slab"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 23
+    page: 4
+    clickable: true
+
+  "deepslate_brick_wall":
+    material: DEEPSLATE_BRICK_WALL
+    name: "&fDeepslate Brick Wall"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 25
+    page: 4
+    clickable: true
+
+  "deepslate_tile_slab":
+    material: DEEPSLATE_TILE_SLAB
+    name: "&fDeepslate Tile Slab"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 28
+    page: 4
+    clickable: true
+
+  "deepslate_tile_wall":
+    material: DEEPSLATE_TILE_WALL
+    name: "&fDeepslate Tile Wall"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 30
+    page: 4
+    clickable: true
+
+  "polished_deepslate":
+    material: POLISHED_DEEPSLATE
+    name: "&fPolished Deepslate"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 32
+    page: 4
+    clickable: true
+
+  "polished_deepslate_stairs":
+    material: POLISHED_DEEPSLATE_STAIRS
+    name: "&fPolished Deepslate Stairs"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 34
+    page: 4
+    clickable: true
+
+  "cobbled_deepslate":
+    material: COBBLED_DEEPSLATE
+    name: "&fCobbled Deepslate"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 37
+    page: 4
+    clickable: true
+
+  "cobbled_deepslate_stairs":
+    material: COBBLED_DEEPSLATE_STAIRS
+    name: "&fCobbled Deepslate Stairs"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 39
+    page: 4
+    clickable: true
+
+  "cracked_deepslate_bricks":
+    material: CRACKED_DEEPSLATE_BRICKS
+    name: "&fCracked Deepslate Bricks"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 41
+    page: 4
+    clickable: true
+
+  "deepslate":
+    material: DEEPSLATE
+    name: "&fDeepslate"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 43
+    page: 4
+    clickable: true
+
+  "deepslate_brick_stairs":
+    material: DEEPSLATE_BRICK_STAIRS
+    name: "&fDeepslate Brick Stairs"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 10
+    page: 5
+    clickable: true
+
+  "deepslate_bricks":
+    material: DEEPSLATE_BRICKS
+    name: "&fDeepslate Bricks"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 12
+    page: 5
+    clickable: true
+
+  "deepslate_tile_stairs":
+    material: DEEPSLATE_TILE_STAIRS
+    name: "&fDeepslate Tile Stairs"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 14
+    page: 5
+    clickable: true
+
+  "deepslate_tiles":
+    material: DEEPSLATE_TILES
+    name: "&fDeepslate Tiles"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 16
+    page: 5
+    clickable: true
+
+  "polished_deepslate_slab":
+    material: POLISHED_DEEPSLATE_SLAB
+    name: "&fPolished Deepslate Slab"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 19
+    page: 5
+    clickable: true
+
+  "polished_deepslate_wall":
+    material: POLISHED_DEEPSLATE_WALL
+    name: "&fPolished Deepslate Wall"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 21
+    page: 5
+    clickable: true
+
+  "cobblestone":
+    material: COBBLESTONE
+    name: "&fCobblestone"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 23
+    page: 5
+    clickable: true
+
+  "cobblestone_stairs":
+    material: COBBLESTONE_STAIRS
+    name: "&fCobblestone Stairs"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 25
+    page: 5
+    clickable: true
+
+  "infested_cobblestone":
+    material: INFESTED_COBBLESTONE
+    name: "&fInfested Cobblestone"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c0"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 0.0
+    amount: 1
+    slot: 28
+    page: 5
+    clickable: true
+
+  "mossy_cobblestone_slab":
+    material: MOSSY_COBBLESTONE_SLAB
+    name: "&fMossy Cobblestone Slab"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 30
+    page: 5
+    clickable: true
+
+  "mossy_cobblestone_wall":
+    material: MOSSY_COBBLESTONE_WALL
+    name: "&fMossy Cobblestone Wall"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 32
+    page: 5
+    clickable: true
+
+  "cobblestone_slab":
+    material: COBBLESTONE_SLAB
+    name: "&fCobblestone Slab"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 34
+    page: 5
+    clickable: true
+
+  "cobblestone_wall":
+    material: COBBLESTONE_WALL
+    name: "&fCobblestone Wall"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 37
+    page: 5
+    clickable: true
+
+  "mossy_cobblestone":
+    material: MOSSY_COBBLESTONE
+    name: "&fMossy Cobblestone"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 39
+    page: 5
+    clickable: true
+
+  "mossy_cobblestone_stairs":
+    material: MOSSY_COBBLESTONE_STAIRS
+    name: "&fMossy Cobblestone Stairs"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 41
+    page: 5
+    clickable: true
+
+  "blackstone":
+    material: BLACKSTONE
+    name: "&fBlackstone"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 43
+    page: 5
+    clickable: true
+
+  "blackstone_stairs":
+    material: BLACKSTONE_STAIRS
+    name: "&fBlackstone Stairs"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 10
+    page: 6
+    clickable: true
+
+  "chiseled_polished_blackstone":
+    material: CHISELED_POLISHED_BLACKSTONE
+    name: "&fChiseled Polished Blackstone"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 12
+    page: 6
+    clickable: true
+
+  "gilded_blackstone":
+    material: GILDED_BLACKSTONE
+    name: "&fGilded Blackstone"
+    lore:
+      - "&7Buy: &a5"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 5.0
+    sell-price: 2.0
+    amount: 1
+    slot: 14
+    page: 6
+    clickable: true
+
+  "polished_blackstone_brick_slab":
+    material: POLISHED_BLACKSTONE_BRICK_SLAB
+    name: "&fPolished Blackstone Brick Slab"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 16
+    page: 6
+    clickable: true
+
+  "polished_blackstone_brick_wall":
+    material: POLISHED_BLACKSTONE_BRICK_WALL
+    name: "&fPolished Blackstone Brick Wall"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 19
+    page: 6
+    clickable: true
+
+  "polished_blackstone_button":
+    material: POLISHED_BLACKSTONE_BUTTON
+    name: "&fPolished Blackstone Button"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 21
+    page: 6
+    clickable: true
+
+  "polished_blackstone_slab":
+    material: POLISHED_BLACKSTONE_SLAB
+    name: "&fPolished Blackstone Slab"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 23
+    page: 6
+    clickable: true
+
+  "polished_blackstone_wall":
+    material: POLISHED_BLACKSTONE_WALL
+    name: "&fPolished Blackstone Wall"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 25
+    page: 6
+    clickable: true
+
+  "blackstone_slab":
+    material: BLACKSTONE_SLAB
+    name: "&fBlackstone Slab"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 28
+    page: 6
+    clickable: true
+
+  "blackstone_wall":
+    material: BLACKSTONE_WALL
+    name: "&fBlackstone Wall"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 30
+    page: 6
+    clickable: true
+
+  "cracked_polished_blackstone_bricks":
+    material: CRACKED_POLISHED_BLACKSTONE_BRICKS
+    name: "&fCracked Polished Blackstone Bricks"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 32
+    page: 6
+    clickable: true
+
+  "polished_blackstone":
+    material: POLISHED_BLACKSTONE
+    name: "&fPolished Blackstone"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 34
+    page: 6
+    clickable: true
+
+  "polished_blackstone_brick_stairs":
+    material: POLISHED_BLACKSTONE_BRICK_STAIRS
+    name: "&fPolished Blackstone Brick Stairs"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 37
+    page: 6
+    clickable: true
+
+  "polished_blackstone_bricks":
+    material: POLISHED_BLACKSTONE_BRICKS
+    name: "&fPolished Blackstone Bricks"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 39
+    page: 6
+    clickable: true
+
+  "polished_blackstone_pressure_plate":
+    material: POLISHED_BLACKSTONE_PRESSURE_PLATE
+    name: "&fPolished Blackstone Pressure Plate"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 41
+    page: 6
+    clickable: true
+
+  "blackstone_stairs":
+    material: BLACKSTONE_STAIRS
+    name: "&fBlackstone Stairs"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 10
+    page: 6
+    clickable: true
+
+  "chiseled_polished_blackstone":
+    material: CHISELED_POLISHED_BLACKSTONE
+    name: "&fChiseled Polished Blackstone"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 12
+    page: 6
+    clickable: true
+
+  "gilded_blackstone":
+    material: GILDED_BLACKSTONE
+    name: "&fGilded Blackstone"
+    lore:
+      - "&7Buy: &a5"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 5.0
+    sell-price: 2.0
+    amount: 1
+    slot: 14
+    page: 6
+    clickable: true
+
+  "polished_blackstone_brick_slab":
+    material: POLISHED_BLACKSTONE_BRICK_SLAB
+    name: "&fPolished Blackstone Brick Slab"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 16
+    page: 6
+    clickable: true
+
+  "polished_blackstone_brick_wall":
+    material: POLISHED_BLACKSTONE_BRICK_WALL
+    name: "&fPolished Blackstone Brick Wall"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 19
+    page: 6
+    clickable: true
+
+  "polished_blackstone_button":
+    material: POLISHED_BLACKSTONE_BUTTON
+    name: "&fPolished Blackstone Button"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 21
+    page: 6
+    clickable: true
+
+  "polished_blackstone_slab":
+    material: POLISHED_BLACKSTONE_SLAB
+    name: "&fPolished Blackstone Slab"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 23
+    page: 6
+    clickable: true
+
+  "polished_blackstone_wall":
+    material: POLISHED_BLACKSTONE_WALL
+    name: "&fPolished Blackstone Wall"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 25
+    page: 6
+    clickable: true
+
+  "blackstone_slab":
+    material: BLACKSTONE_SLAB
+    name: "&fBlackstone Slab"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 28
+    page: 6
+    clickable: true
+
+  "blackstone_wall":
+    material: BLACKSTONE_WALL
+    name: "&fBlackstone Wall"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 30
+    page: 6
+    clickable: true
+
+  "cracked_polished_blackstone_bricks":
+    material: CRACKED_POLISHED_BLACKSTONE_BRICKS
+    name: "&fCracked Polished Blackstone Bricks"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 32
+    page: 6
+    clickable: true
+
+  "polished_blackstone":
+    material: POLISHED_BLACKSTONE
+    name: "&fPolished Blackstone"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 34
+    page: 6
+    clickable: true
+
+  "polished_blackstone_brick_stairs":
+    material: POLISHED_BLACKSTONE_BRICK_STAIRS
+    name: "&fPolished Blackstone Brick Stairs"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 37
+    page: 6
+    clickable: true
+
+  "polished_blackstone_bricks":
+    material: POLISHED_BLACKSTONE_BRICKS
+    name: "&fPolished Blackstone Bricks"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 39
+    page: 6
+    clickable: true
+
+  "polished_blackstone_pressure_plate":
+    material: POLISHED_BLACKSTONE_PRESSURE_PLATE
+    name: "&fPolished Blackstone Pressure Plate"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 41
+    page: 6
+    clickable: true
+
+  "Bricks":
+    material: Bricks
+    name: "&fBricks"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 43
+    page: 6
+    clickable: true
+
+  "brick_stairs":
+    material: BRICK_STAIRS
+    name: "&fBrick Stairs"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 10
+    page: 7
+    clickable: true
+
+  "brick_slab":
+    material: BRICK_SLAB
+    name: "&fBrick Slab"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 12
+    page: 7
+    clickable: true
+
+  "brick_wall":
+    material: BRICK_WALL
+    name: "&fBrick Wall"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 14
+    page: 7
+    clickable: true
+
+  "end_stone_brick_slab":
+    material: END_STONE_BRICK_SLAB
+    name: "&fEnd Stone Brick Slab"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 16
+    page: 7
+    clickable: true
+
+  "end_stone_brick_wall":
+    material: END_STONE_BRICK_WALL
+    name: "&fEnd Stone Brick Wall"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 19
+    page: 7
+    clickable: true
+
+  "end_stone":
+    material: END_STONE
+    name: "&fEnd Stone"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 21
+    page: 7
+    clickable: true
+
+  "end_stone_brick_stairs":
+    material: END_STONE_BRICK_STAIRS
+    name: "&fEnd Stone Brick Stairs"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 23
+    page: 7
+    clickable: true
+
+  "end_stone_bricks":
+    material: END_STONE_BRICKS
+    name: "&fEnd Stone Bricks"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 25
+    page: 7
+    clickable: true
+
+  "mud_brick_slab":
+    material: MUD_BRICK_SLAB
+    name: "&fMud Brick Slab"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 28
+    page: 7
+    clickable: true
+
+  "mud_brick_wall":
+    material: MUD_BRICK_WALL
+    name: "&fMud Brick Wall"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 30
+    page: 7
+    clickable: true
+
+  "mud_brick_stairs":
+    material: MUD_BRICK_STAIRS
+    name: "&fMud Brick Stairs"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 32
+    page: 7
+    clickable: true
+
+  "mud_bricks":
+    material: MUD_BRICKS
+    name: "&fMud Bricks"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 34
+    page: 7
+    clickable: true
+
+  "chiseled_nether_bricks":
+    material: CHISELED_NETHER_BRICKS
+    name: "&fChiseled Nether Bricks"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 37
+    page: 7
+    clickable: true
+
+  "nether_brick_slab":
+    material: NETHER_BRICK_SLAB
+    name: "&fNether Brick Slab"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 39
+    page: 7
+    clickable: true
+
+  "nether_brick_wall":
+    material: NETHER_BRICK_WALL
+    name: "&fNether Brick Wall"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 41
+    page: 7
+    clickable: true
+
+  "cracked_nether_bricks":
+    material: CRACKED_NETHER_BRICKS
+    name: "&fCracked Nether Bricks"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 43
+    page: 7
+    clickable: true
+  "nether_brick_fence":
+    material: NETHER_BRICK_FENCE
+    name: "&fNether Brick Fence"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 10
+    page: 8
+    clickable: true
+
+  "nether_brick_stairs":
+    material: NETHER_BRICK_STAIRS
+    name: "&fNether Brick Stairs"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 12
+    page: 8
+    clickable: true
+
+  "nether_bricks":
+    material: NETHER_BRICKS
+    name: "&fNether Bricks"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 14
+    page: 8
+    clickable: true
+
+  "red_nether_brick_slab":
+    material: RED_NETHER_BRICK_SLAB
+    name: "&fRed Nether Brick Slab"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 16
+    page: 8
+    clickable: true
+
+  "red_nether_brick_wall":
+    material: RED_NETHER_BRICK_WALL
+    name: "&fRed Nether Brick Wall"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 19
+    page: 8
+    clickable: true
+
+  "red_nether_brick_stairs":
+    material: RED_NETHER_BRICK_STAIRS
+    name: "&fRed Nether Brick Stairs"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 21
+    page: 8
+    clickable: true
+
+  "red_nether_bricks":
+    material: RED_NETHER_BRICKS
+    name: "&fRed Nether Bricks"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 23
+    page: 8
+    clickable: true
+
+  "prismarine_bricks":
+    material: PRISMARINE_BRICKS
+    name: "&fPrismarine Bricks"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 25
+    page: 8
+    clickable: true
+
+  "prismarine_brick_slab":
+    material: PRISMARINE_BRICK_SLAB
+    name: "&fPrismarine Brick Slab"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 28
+    page: 8
+    clickable: true
+
+  "prismarine_brick_stairs":
+    material: PRISMARINE_BRICK_STAIRS
+    name: "&fPrismarine Brick Stairs"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 30
+    page: 8
+    clickable: true
+
+  "prismarine":
+    material: PRISMARINE
+    name: "&fPrismarine"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 32
+    page: 8
+    clickable: true
+
+  "prismarine_stairs":
+    material: PRISMARINE_STAIRS
+    name: "&fPrismarine Stairs"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 34
+    page: 8
+    clickable: true
+
+  "prismarine_slab":
+    material: PRISMARINE_SLAB
+    name: "&fPrismarine Slab"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 37
+    page: 8
+    clickable: true
+
+  "prismarine_wall":
+    material: PRISMARINE_WALL
+    name: "&fPrismarine Wall"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 39
+    page: 8
+    clickable: true
+
+  "quartz_block":
+    material: QUARTZ_BLOCK
+    name: "&fQuartz Block"
+    lore:
+      - "&7Buy: &a5"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 5.0
+    sell-price: 2.0
+    amount: 1
+    slot: 41
+    page: 8
+    clickable: true
+
+  "quartz_stairs":
+    material: QUARTZ_STAIRS
+    name: "&fQuartz Stairs"
+    lore:
+      - "&7Buy: &a5"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 5.0
+    sell-price: 2.0
+    amount: 1
+    slot: 43
+    page: 8
+    clickable: true
+
+  "quartz_slab":
+    material: QUARTZ_SLAB
+    name: "&fQuartz Slab"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 10
+    page: 9
+    clickable: true
+
+  "quartz":
+    material: QUARTZ
+    name: "&fQuartz"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 12
+    page: 9
+    clickable: true
+
+  "chiseled_quartz_block":
+    material: CHISELED_QUARTZ_BLOCK
+    name: "&fChiseled Quartz Block"
+    lore:
+      - "&7Buy: &a5"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 5.0
+    sell-price: 2.0
+    amount: 1
+    slot: 14
+    page: 9
+    clickable: true
+
+  "quartz_bricks":
+    material: QUARTZ_BRICKS
+    name: "&fQuartz Bricks"
+    lore:
+      - "&7Buy: &a5"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 5.0
+    sell-price: 2.0
+    amount: 1
+    slot: 16
+    page: 9
+    clickable: true
+
+  "quartz_pillar":
+    material: QUARTZ_PILLAR
+    name: "&fQuartz Pillar"
+    lore:
+      - "&7Buy: &a5"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 5.0
+    sell-price: 2.0
+    amount: 1
+    slot: 19
+    page: 9
+    clickable: true
+
+  "smooth_quartz":
+    material: SMOOTH_QUARTZ
+    name: "&fSmooth Quartz"
+    lore:
+      - "&7Buy: &a5"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 5.0
+    sell-price: 2.0
+    amount: 1
+    slot: 21
+    page: 9
+    clickable: true
+
+  "smooth_quartz_stairs":
+    material: SMOOTH_QUARTZ_STAIRS
+    name: "&fSmooth Quartz Stairs"
+    lore:
+      - "&7Buy: &a5"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 5.0
+    sell-price: 2.0
+    amount: 1
+    slot: 23
+    page: 9
+    clickable: true
+
+  "smooth_quartz_slab":
+    material: SMOOTH_QUARTZ_SLAB
+    name: "&fSmooth Quartz Slab"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 25
+    page: 9
+    clickable: true
+
+  "acacia_log":
+    material: ACACIA_LOG
+    name: "&fAcacia Log"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 28
+    page: 9
+    clickable: true
+
+  "acacia_wood":
+    material: ACACIA_WOOD
+    name: "&fAcacia Wood"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 30
+    page: 9
+    clickable: true
+
+  "stripped_acacia_log":
+    material: STRIPPED_ACACIA_LOG
+    name: "&fStripped Acacia Log"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 32
+    page: 9
+    clickable: true
+
+  "stripped_acacia_wood":
+    material: STRIPPED_ACACIA_WOOD
+    name: "&fStripped Acacia Wood"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 34
+    page: 9
+    clickable: true
+
+  "acacia_planks":
+    material: ACACIA_PLANKS
+    name: "&fAcacia Planks"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 37
+    page: 9
+    clickable: true
+
+  "acacia_stairs":
+    material: ACACIA_STAIRS
+    name: "&fAcacia Stairs"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 39
+    page: 9
+    clickable: true
+
+  "acacia_slab":
+    material: ACACIA_SLAB
+    name: "&fAcacia Slab"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 41
+    page: 9
+    clickable: true
+
+  "acacia_fence":
+    material: ACACIA_FENCE
+    name: "&fAcacia Fence"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 43
+    page: 9
+    clickable: true
+
+  "acacia_fence_gate":
+    material: ACACIA_FENCE_GATE
+    name: "&fAcacia Fence Gate"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 10
+    page: 10
+    clickable: true
+
+  "acacia_door":
+    material: ACACIA_DOOR
+    name: "&fAcacia Door"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 12
+    page: 10
+    clickable: true
+
+  "acacia_trapdoor":
+    material: ACACIA_TRAPDOOR
+    name: "&fAcacia Trapdoor"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 14
+    page: 10
+    clickable: true
+
+  "acacia_pressure_plate":
+    material: ACACIA_PRESSURE_PLATE
+    name: "&fAcacia Pressure Plate"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 16
+    page: 10
+    clickable: true
+
+  "acacia_button":
+    material: ACACIA_BUTTON
+    name: "&fAcacia Button"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 19
+    page: 10
+    clickable: true
+
+  "acacia_sign":
+    material: ACACIA_SIGN
+    name: "&fAcacia Sign"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 21
+    page: 10
+    clickable: true
+
+  "acacia_hanging_sign":
+    material: ACACIA_HANGING_SIGN
+    name: "&fAcacia Hanging Sign"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 23
+    page: 10
+    clickable: true
+
+  "oak_log":
+    material: OAK_LOG
+    name: "&fOak Log"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 25
+    page: 10
+    clickable: true
+
+  "oak_wood":
+    material: OAK_WOOD
+    name: "&fOak Wood"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 28
+    page: 10
+    clickable: true
+
+  "stripped_oak_log":
+    material: STRIPPED_OAK_LOG
+    name: "&fStripped Oak Log"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 30
+    page: 10
+    clickable: true
+
+  "stripped_oak_wood":
+    material: STRIPPED_OAK_WOOD
+    name: "&fStripped Oak Wood"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 32
+    page: 10
+    clickable: true
+
+  "oak_planks":
+    material: OAK_PLANKS
+    name: "&fOak Planks"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 34
+    page: 10
+    clickable: true
+
+  "oak_stairs":
+    material: OAK_STAIRS
+    name: "&fOak Stairs"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 37
+    page: 10
+    clickable: true
+
+  "oak_slab":
+    material: OAK_SLAB
+    name: "&fOak Slab"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 39
+    page: 10
+    clickable: true
+
+  "oak_fence":
+    material: OAK_FENCE
+    name: "&fOak Fence"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 41
+    page: 10
+    clickable: true
+
+  "oak_fence_gate":
+    material: OAK_FENCE_GATE
+    name: "&fOak Fence Gate"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 43
+    page: 10
+    clickable: true
+
+  "oak_door":
+    material: OAK_DOOR
+    name: "&fOak Door"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 10
+    page: 11
+    clickable: true
+
+  "oak_trapdoor":
+    material: OAK_TRAPDOOR
+    name: "&fOak Trapdoor"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 12
+    page: 11
+    clickable: true
+
+  "oak_pressure_plate":
+    material: OAK_PRESSURE_PLATE
+    name: "&fOak Pressure Plate"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 14
+    page: 11
+    clickable: true
+
+  "oak_button":
+    material: OAK_BUTTON
+    name: "&fOak Button"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 16
+    page: 11
+    clickable: true
+
+  "oak_sign":
+    material: OAK_SIGN
+    name: "&fOak Sign"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 19
+    page: 11
+    clickable: true
+
+  "oak_hanging_sign":
+    material: OAK_HANGING_SIGN
+    name: "&fOak Hanging Sign"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 21
+    page: 11
+    clickable: true
+
+  "spruce_log":
+    material: SPRUCE_LOG
+    name: "&fSpruce Log"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 23
+    page: 11
+    clickable: true
+
+  "spruce_wood":
+    material: SPRUCE_WOOD
+    name: "&fSpruce Wood"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 25
+    page: 11
+    clickable: true
+
+  "stripped_spruce_log":
+    material: STRIPPED_SPRUCE_LOG
+    name: "&fStripped Spruce Log"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 28
+    page: 11
+    clickable: true
+
+  "stripped_spruce_wood":
+    material: STRIPPED_SPRUCE_WOOD
+    name: "&fStripped Spruce Wood"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 30
+    page: 11
+    clickable: true
+
+  "spruce_planks":
+    material: SPRUCE_PLANKS
+    name: "&fSpruce Planks"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 32
+    page: 11
+    clickable: true
+
+  "spruce_stairs":
+    material: SPRUCE_STAIRS
+    name: "&fSpruce Stairs"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 34
+    page: 11
+    clickable: true
+
+  "spruce_slab":
+    material: SPRUCE_SLAB
+    name: "&fSpruce Slab"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 37
+    page: 11
+    clickable: true
+
+  "spruce_fence":
+    material: SPRUCE_FENCE
+    name: "&fSpruce Fence"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 39
+    page: 11
+    clickable: true
+
+  "spruce_fence_gate":
+    material: SPRUCE_FENCE_GATE
+    name: "&fSpruce Fence Gate"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 41
+    page: 11
+    clickable: true
+
+  "spruce_door":
+    material: SPRUCE_DOOR
+    name: "&fSpruce Door"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 43
+    page: 11
+    clickable: true
+
+  "spruce_trapdoor":
+    material: SPRUCE_TRAPDOOR
+    name: "&fSpruce Trapdoor"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 10
+    page: 12
+    clickable: true
+
+  "spruce_pressure_plate":
+    material: SPRUCE_PRESSURE_PLATE
+    name: "&fSpruce Pressure Plate"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 12
+    page: 12
+    clickable: true
+
+  "spruce_button":
+    material: SPRUCE_BUTTON
+    name: "&fSpruce Button"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 14
+    page: 12
+    clickable: true
+
+  "spruce_sign":
+    material: SPRUCE_SIGN
+    name: "&fSpruce Sign"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 16
+    page: 12
+    clickable: true
+
+  "spruce_hanging_sign":
+    material: SPRUCE_HANGING_SIGN
+    name: "&fSpruce Hanging Sign"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 19
+    page: 12
+    clickable: true
+
+  "birch_log":
+    material: BIRCH_LOG
+    name: "&fBirch Log"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 21
+    page: 12
+    clickable: true
+
+  "birch_wood":
+    material: BIRCH_WOOD
+    name: "&fBirch Wood"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 23
+    page: 12
+    clickable: true
+
+  "stripped_birch_log":
+    material: STRIPPED_BIRCH_LOG
+    name: "&fStripped Birch Log"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 25
+    page: 12
+    clickable: true
+
+  "stripped_birch_wood":
+    material: STRIPPED_BIRCH_WOOD
+    name: "&fStripped Birch Wood"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 28
+    page: 12
+    clickable: true
+
+  "birch_planks":
+    material: BIRCH_PLANKS
+    name: "&fBirch Planks"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 30
+    page: 12
+    clickable: true
+
+  "birch_stairs":
+    material: BIRCH_STAIRS
+    name: "&fBirch Stairs"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 32
+    page: 12
+    clickable: true
+
+  "birch_slab":
+    material: BIRCH_SLAB
+    name: "&fBirch Slab"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 34
+    page: 12
+    clickable: true
+
+  "birch_fence":
+    material: BIRCH_FENCE
+    name: "&fBirch Fence"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 37
+    page: 12
+    clickable: true
+
+  "birch_fence_gate":
+    material: BIRCH_FENCE_GATE
+    name: "&fBirch Fence Gate"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 39
+    page: 12
+    clickable: true
+
+  "birch_door":
+    material: BIRCH_DOOR
+    name: "&fBirch Door"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 41
+    page: 12
+    clickable: true
+
+  "birch_trapdoor":
+    material: BIRCH_TRAPDOOR
+    name: "&fBirch Trapdoor"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 43
+    page: 12
+    clickable: true
+
+  "birch_pressure_plate":
+    material: BIRCH_PRESSURE_PLATE
+    name: "&fBirch Pressure Plate"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 10
+    page: 13
+    clickable: true
+
+  "birch_button":
+    material: BIRCH_BUTTON
+    name: "&fBirch Button"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 12
+    page: 13
+    clickable: true
+
+  "birch_sign":
+    material: BIRCH_SIGN
+    name: "&fBirch Sign"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 14
+    page: 13
+    clickable: true
+
+  "birch_hanging_sign":
+    material: BIRCH_HANGING_SIGN
+    name: "&fBirch Hanging Sign"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 16
+    page: 13
+    clickable: true
+
+  "jungle_log":
+    material: JUNGLE_LOG
+    name: "&fJungle Log"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 19
+    page: 13
+    clickable: true
+
+  "jungle_wood":
+    material: JUNGLE_WOOD
+    name: "&fJungle Wood"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 21
+    page: 13
+    clickable: true
+
+  "stripped_jungle_log":
+    material: STRIPPED_JUNGLE_LOG
+    name: "&fStripped Jungle Log"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 23
+    page: 13
+    clickable: true
+
+  "stripped_jungle_wood":
+    material: STRIPPED_JUNGLE_WOOD
+    name: "&fStripped Jungle Wood"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 25
+    page: 13
+    clickable: true
+
+  "jungle_planks":
+    material: JUNGLE_PLANKS
+    name: "&fJungle Planks"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 28
+    page: 13
+    clickable: true
+
+  "jungle_stairs":
+    material: JUNGLE_STAIRS
+    name: "&fJungle Stairs"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 30
+    page: 13
+    clickable: true
+
+  "jungle_slab":
+    material: JUNGLE_SLAB
+    name: "&fJungle Slab"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 32
+    page: 13
+    clickable: true
+
+  "jungle_fence":
+    material: JUNGLE_FENCE
+    name: "&fJungle Fence"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 34
+    page: 13
+    clickable: true
+
+  "jungle_fence_gate":
+    material: JUNGLE_FENCE_GATE
+    name: "&fJungle Fence Gate"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 37
+    page: 13
+    clickable: true
+
+  "jungle_door":
+    material: JUNGLE_DOOR
+    name: "&fJungle Door"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 39
+    page: 13
+    clickable: true
+
+  "jungle_trapdoor":
+    material: JUNGLE_TRAPDOOR
+    name: "&fJungle Trapdoor"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 41
+    page: 13
+    clickable: true
+
+  "jungle_pressure_plate":
+    material: JUNGLE_PRESSURE_PLATE
+    name: "&fJungle Pressure Plate"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 43
+    page: 13
+    clickable: true
+
+  "jungle_button":
+    material: JUNGLE_BUTTON
+    name: "&fJungle Button"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 10
+    page: 14
+    clickable: true
+
+  "jungle_sign":
+    material: JUNGLE_SIGN
+    name: "&fJungle Sign"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 12
+    page: 14
+    clickable: true
+
+  "jungle_hanging_sign":
+    material: JUNGLE_HANGING_SIGN
+    name: "&fJungle Hanging Sign"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 14
+    page: 14
+    clickable: true
+
+  "dark_oak_log":
+    material: DARK_OAK_LOG
+    name: "&fDark Oak Log"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 16
+    page: 14
+    clickable: true
+
+  "dark_oak_wood":
+    material: DARK_OAK_WOOD
+    name: "&fDark Oak Wood"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 19
+    page: 14
+    clickable: true
+
+  "stripped_dark_oak_log":
+    material: STRIPPED_DARK_OAK_LOG
+    name: "&fStripped Dark Oak Log"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 21
+    page: 14
+    clickable: true
+
+  "stripped_dark_oak_wood":
+    material: STRIPPED_DARK_OAK_WOOD
+    name: "&fStripped Dark Oak Wood"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 23
+    page: 14
+    clickable: true
+
+  "dark_oak_planks":
+    material: DARK_OAK_PLANKS
+    name: "&fDark Oak Planks"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 25
+    page: 14
+    clickable: true
+
+  "dark_oak_stairs":
+    material: DARK_OAK_STAIRS
+    name: "&fDark Oak Stairs"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 28
+    page: 14
+    clickable: true
+
+  "dark_oak_slab":
+    material: DARK_OAK_SLAB
+    name: "&fDark Oak Slab"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 30
+    page: 14
+    clickable: true
+
+  "dark_oak_fence":
+    material: DARK_OAK_FENCE
+    name: "&fDark Oak Fence"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 32
+    page: 14
+    clickable: true
+
+  "dark_oak_fence_gate":
+    material: DARK_OAK_FENCE_GATE
+    name: "&fDark Oak Fence Gate"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 34
+    page: 14
+    clickable: true
+
+  "dark_oak_door":
+    material: DARK_OAK_DOOR
+    name: "&fDark Oak Door"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 37
+    page: 14
+    clickable: true
+
+  "dark_oak_trapdoor":
+    material: DARK_OAK_TRAPDOOR
+    name: "&fDark Oak Trapdoor"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 39
+    page: 14
+    clickable: true
+
+  "dark_oak_pressure_plate":
+    material: DARK_OAK_PRESSURE_PLATE
+    name: "&fDark Oak Pressure Plate"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 41
+    page: 14
+    clickable: true
+
+  "dark_oak_button":
+    material: DARK_OAK_BUTTON
+    name: "&fDark Oak Button"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 43
+    page: 14
+    clickable: true
+
+  "dark_oak_sign":
+    material: DARK_OAK_SIGN
+    name: "&fDark Oak Sign"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 10
+    page: 15
+    clickable: true
+
+  "dark_oak_hanging_sign":
+    material: DARK_OAK_HANGING_SIGN
+    name: "&fDark Oak Hanging Sign"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 12
+    page: 15
+    clickable: true
+
+  "mangrove_log":
+    material: MANGROVE_LOG
+    name: "&fMangrove Log"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 14
+    page: 15
+    clickable: true
+
+  "mangrove_wood":
+    material: MANGROVE_WOOD
+    name: "&fMangrove Wood"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 16
+    page: 15
+    clickable: true
+
+  "stripped_mangrove_log":
+    material: STRIPPED_MANGROVE_LOG
+    name: "&fStripped Mangrove Log"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 19
+    page: 15
+    clickable: true
+
+  "stripped_mangrove_wood":
+    material: STRIPPED_MANGROVE_WOOD
+    name: "&fStripped Mangrove Wood"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 21
+    page: 15
+    clickable: true
+
+  "mangrove_planks":
+    material: MANGROVE_PLANKS
+    name: "&fMangrove Planks"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 23
+    page: 15
+    clickable: true
+
+  "mangrove_stairs":
+    material: MANGROVE_STAIRS
+    name: "&fMangrove Stairs"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 25
+    page: 15
+    clickable: true
+
+  "mangrove_slab":
+    material: MANGROVE_SLAB
+    name: "&fMangrove Slab"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 28
+    page: 15
+    clickable: true
+
+  "mangrove_fence":
+    material: MANGROVE_FENCE
+    name: "&fMangrove Fence"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 30
+    page: 15
+    clickable: true
+
+  "mangrove_fence_gate":
+    material: MANGROVE_FENCE_GATE
+    name: "&fMangrove Fence Gate"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 32
+    page: 15
+    clickable: true
+
+  "mangrove_door":
+    material: MANGROVE_DOOR
+    name: "&fMangrove Door"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 34
+    page: 15
+    clickable: true
+
+  "mangrove_trapdoor":
+    material: MANGROVE_TRAPDOOR
+    name: "&fMangrove Trapdoor"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 37
+    page: 15
+    clickable: true
+
+  "mangrove_pressure_plate":
+    material: MANGROVE_PRESSURE_PLATE
+    name: "&fMangrove Pressure Plate"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 39
+    page: 15
+    clickable: true
+
+  "mangrove_button":
+    material: MANGROVE_BUTTON
+    name: "&fMangrove Button"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 41
+    page: 15
+    clickable: true
+
+  "mangrove_sign":
+    material: MANGROVE_SIGN
+    name: "&fMangrove Sign"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 43
+    page: 15
+    clickable: true
+
+  "mangrove_hanging_sign":
+    material: MANGROVE_HANGING_SIGN
+    name: "&fMangrove Hanging Sign"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 10
+    page: 16
+    clickable: true
+
+  "cherry_log":
+    material: CHERRY_LOG
+    name: "&fCherry Log"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 12
+    page: 16
+    clickable: true
+
+  "cherry_wood":
+    material: CHERRY_WOOD
+    name: "&fCherry Wood"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 14
+    page: 16
+    clickable: true
+
+  "stripped_cherry_log":
+    material: STRIPPED_CHERRY_LOG
+    name: "&fStripped Cherry Log"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 16
+    page: 16
+    clickable: true
+
+  "stripped_cherry_wood":
+    material: STRIPPED_CHERRY_WOOD
+    name: "&fStripped Cherry Wood"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 19
+    page: 16
+    clickable: true
+
+  "cherry_planks":
+    material: CHERRY_PLANKS
+    name: "&fCherry Planks"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 21
+    page: 16
+    clickable: true
+
+  "cherry_stairs":
+    material: CHERRY_STAIRS
+    name: "&fCherry Stairs"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 23
+    page: 16
+    clickable: true
+
+  "cherry_slab":
+    material: CHERRY_SLAB
+    name: "&fCherry Slab"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 25
+    page: 16
+    clickable: true
+
+  "cherry_fence":
+    material: CHERRY_FENCE
+    name: "&fCherry Fence"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 28
+    page: 16
+    clickable: true
+
+  "cherry_fence_gate":
+    material: CHERRY_FENCE_GATE
+    name: "&fCherry Fence Gate"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 30
+    page: 16
+    clickable: true
+
+  "cherry_door":
+    material: CHERRY_DOOR
+    name: "&fCherry Door"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 32
+    page: 16
+    clickable: true
+
+  "cherry_trapdoor":
+    material: CHERRY_TRAPDOOR
+    name: "&fCherry Trapdoor"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 34
+    page: 16
+    clickable: true
+
+  "cherry_pressure_plate":
+    material: CHERRY_PRESSURE_PLATE
+    name: "&fCherry Pressure Plate"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 37
+    page: 16
+    clickable: true
+
+  "cherry_button":
+    material: CHERRY_BUTTON
+    name: "&fCherry Button"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 39
+    page: 16
+    clickable: true
+
+  "cherry_sign":
+    material: CHERRY_SIGN
+    name: "&fCherry Sign"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 41
+    page: 16
+    clickable: true
+
+  "cherry_hanging_sign":
+    material: CHERRY_HANGING_SIGN
+    name: "&fCherry Hanging Sign"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 43
+    page: 16
+    clickable: true
+
+
+  "bamboo_block":
+    material: BAMBOO_BLOCK
+    name: "&fBamboo Block"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 10
+    page: 17
+    clickable: true
+
+  "stripped_bamboo_block":
+    material: STRIPPED_BAMBOO_BLOCK
+    name: "&fStripped Bamboo Block"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 12
+    page: 17
+    clickable: true
+
+  "bamboo_planks":
+    material: BAMBOO_PLANKS
+    name: "&fBamboo Planks"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 14
+    page: 17
+    clickable: true
+
+  "bamboo_mosaic":
+    material: BAMBOO_MOSAIC
+    name: "&fBamboo Mosaic"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 16
+    page: 17
+    clickable: true
+
+  "bamboo_stairs":
+    material: BAMBOO_STAIRS
+    name: "&fBamboo Stairs"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 19
+    page: 17
+    clickable: true
+
+  "bamboo_mosaic_stairs":
+    material: BAMBOO_MOSAIC_STAIRS
+    name: "&fBamboo Mosaic Stairs"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 21
+    page: 17
+    clickable: true
+
+  "bamboo_slab":
+    material: BAMBOO_SLAB
+    name: "&fBamboo Slab"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 23
+    page: 17
+    clickable: true
+
+  "bamboo_mosaic_slab":
+    material: BAMBOO_MOSAIC_SLAB
+    name: "&fBamboo Mosaic Slab"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 25
+    page: 17
+    clickable: true
+
+  "bamboo_fence":
+    material: BAMBOO_FENCE
+    name: "&fBamboo Fence"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 28
+    page: 17
+    clickable: true
+
+  "bamboo_fence_gate":
+    material: BAMBOO_FENCE_GATE
+    name: "&fBamboo Fence Gate"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 30
+    page: 17
+    clickable: true
+
+  "bamboo_door":
+    material: BAMBOO_DOOR
+    name: "&fBamboo Door"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 32
+    page: 17
+    clickable: true
+
+  "bamboo_trapdoor":
+    material: BAMBOO_TRAPDOOR
+    name: "&fBamboo Trapdoor"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 34
+    page: 17
+    clickable: true
+
+  "bamboo_pressure_plate":
+    material: BAMBOO_PRESSURE_PLATE
+    name: "&fBamboo Pressure Plate"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 37
+    page: 17
+    clickable: true
+
+  "bamboo_button":
+    material: BAMBOO_BUTTON
+    name: "&fBamboo Button"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 39
+    page: 17
+    clickable: true
+
+  "bamboo_sign":
+    material: BAMBOO_SIGN
+    name: "&fBamboo Sign"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 41
+    page: 17
+    clickable: true
+
+  "bamboo_hanging_sign":
+    material: BAMBOO_HANGING_SIGN
+    name: "&fBamboo Hanging Sign"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 43
+    page: 17
+    clickable: true
+
+  "crimson_stem":
+    material: CRIMSON_STEM
+    name: "&fCrimson Stem"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 10
+    page: 18
+    clickable: true
+
+  "crimson_hyphae":
+    material: CRIMSON_HYPHAE
+    name: "&fCrimson Hyphae"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 12
+    page: 18
+    clickable: true
+
+  "stripped_crimson_stem":
+    material: STRIPPED_CRIMSON_STEM
+    name: "&fStripped Crimson Stem"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 14
+    page: 18
+    clickable: true
+
+  "stripped_crimson_hyphae":
+    material: STRIPPED_CRIMSON_HYPHAE
+    name: "&fStripped Crimson Hyphae"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 16
+    page: 18
+    clickable: true
+
+  "crimson_planks":
+    material: CRIMSON_PLANKS
+    name: "&fCrimson Planks"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 19
+    page: 18
+    clickable: true
+
+  "crimson_stairs":
+    material: CRIMSON_STAIRS
+    name: "&fCrimson Stairs"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 21
+    page: 18
+    clickable: true
+
+  "crimson_slab":
+    material: CRIMSON_SLAB
+    name: "&fCrimson Slab"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 23
+    page: 18
+    clickable: true
+
+  "crimson_fence":
+    material: CRIMSON_FENCE
+    name: "&fCrimson Fence"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 25
+    page: 18
+    clickable: true
+
+  "crimson_fence_gate":
+    material: CRIMSON_FENCE_GATE
+    name: "&fCrimson Fence Gate"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 28
+    page: 18
+    clickable: true
+
+  "crimson_door":
+    material: CRIMSON_DOOR
+    name: "&fCrimson Door"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 30
+    page: 18
+    clickable: true
+
+  "crimson_trapdoor":
+    material: CRIMSON_TRAPDOOR
+    name: "&fCrimson Trapdoor"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 32
+    page: 18
+    clickable: true
+
+  "crimson_pressure_plate":
+    material: CRIMSON_PRESSURE_PLATE
+    name: "&fCrimson Pressure Plate"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 34
+    page: 18
+    clickable: true
+
+  "crimson_button":
+    material: CRIMSON_BUTTON
+    name: "&fCrimson Button"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 37
+    page: 18
+    clickable: true
+
+  "crimson_sign":
+    material: CRIMSON_SIGN
+    name: "&fCrimson Sign"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 39
+    page: 18
+    clickable: true
+
+  "crimson_hanging_sign":
+    material: CRIMSON_HANGING_SIGN
+    name: "&fCrimson Hanging Sign"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 41
+    page: 18
+    clickable: true
+
+  "warped_stem":
+    material: WARPED_STEM
+    name: "&fWarped Stem"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 43
+    page: 18
+    clickable: true
+
+  "warped_hyphae":
+    material: WARPED_HYPHAE
+    name: "&fWarped Hyphae"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 10
+    page: 19
+    clickable: true
+
+  "stripped_warped_stem":
+    material: STRIPPED_WARPED_STEM
+    name: "&fStripped Warped Stem"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 12
+    page: 19
+    clickable: true
+
+  "stripped_warped_hyphae":
+    material: STRIPPED_WARPED_HYPHAE
+    name: "&fStripped Warped Hyphae"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 14
+    page: 19
+    clickable: true
+
+  "warped_planks":
+    material: WARPED_PLANKS
+    name: "&fWarped Planks"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 16
+    page: 19
+    clickable: true
+
+  "warped_stairs":
+    material: WARPED_STAIRS
+    name: "&fWarped Stairs"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 19
+    page: 19
+    clickable: true
+
+  "warped_slab":
+    material: WARPED_SLAB
+    name: "&fWarped Slab"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 21
+    page: 19
+    clickable: true
+
+  "warped_fence":
+    material: WARPED_FENCE
+    name: "&fWarped Fence"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 23
+    page: 19
+    clickable: true
+
+  "warped_fence_gate":
+    material: WARPED_FENCE_GATE
+    name: "&fWarped Fence Gate"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 25
+    page: 19
+    clickable: true
+
+  "warped_door":
+    material: WARPED_DOOR
+    name: "&fWarped Door"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 28
+    page: 19
+    clickable: true
+
+  "warped_trapdoor":
+    material: WARPED_TRAPDOOR
+    name: "&fWarped Trapdoor"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 30
+    page: 19
+    clickable: true
+
+  "warped_pressure_plate":
+    material: WARPED_PRESSURE_PLATE
+    name: "&fWarped Pressure Plate"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 32
+    page: 19
+    clickable: true
+
+  "warped_button":
+    material: WARPED_BUTTON
+    name: "&fWarped Button"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 34
+    page: 19
+    clickable: true
+
+  "warped_sign":
+    material: WARPED_SIGN
+    name: "&fWarped Sign"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 37
+    page: 19
+    clickable: true
+
+  "warped_hanging_sign":
+    material: WARPED_HANGING_SIGN
+    name: "&fWarped Hanging Sign"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 39
+    page: 19
+    clickable: true
+
+  "sandstone":
+    material: SANDSTONE
+    name: "&fSandstone"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 41
+    page: 19
+    clickable: true
+
+  "sandstone_stairs":
+    material: SANDSTONE_STAIRS
+    name: "&fSandstone Stairs"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 43
+    page: 19
+    clickable: true
+
+
+  "sandstone_slab":
+    material: SANDSTONE_SLAB
+    name: "&fSandstone Slab"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 10
+    page: 20
+    clickable: true
+
+  "sandstone_wall":
+    material: SANDSTONE_WALL
+    name: "&fSandstone Wall"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 12
+    page: 20
+    clickable: true
+
+  "chiseled_sandstone":
+    material: CHISELED_SANDSTONE
+    name: "&fChiseled Sandstone"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 14
+    page: 20
+    clickable: true
+
+  "smooth_sandstone":
+    material: SMOOTH_SANDSTONE
+    name: "&fSmooth Sandstone"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 16
+    page: 20
+    clickable: true
+
+  "smooth_sandstone_stairs":
+    material: SMOOTH_SANDSTONE_STAIRS
+    name: "&fSmooth Sandstone Stairs"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 19
+    page: 20
+    clickable: true
+
+  "smooth_sandstone_slab":
+    material: SMOOTH_SANDSTONE_SLAB
+    name: "&fSmooth Sandstone Slab"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 21
+    page: 20
+    clickable: true
+
+  "cut_sandstone":
+    material: CUT_SANDSTONE
+    name: "&fCut Sandstone"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 23
+    page: 20
+    clickable: true
+
+  "cut_sandstone_slab":
+    material: CUT_SANDSTONE_SLAB
+    name: "&fCut Sandstone Slab"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 25
+    page: 20
+    clickable: true
+
+  "red_sandstone":
+    material: RED_SANDSTONE
+    name: "&fRed Sandstone"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 28
+    page: 20
+    clickable: true
+
+  "red_sandstone_stairs":
+    material: RED_SANDSTONE_STAIRS
+    name: "&fRed Sandstone Stairs"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 30
+    page: 20
+    clickable: true
+
+  "red_sandstone_slab":
+    material: RED_SANDSTONE_SLAB
+    name: "&fRed Sandstone Slab"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 32
+    page: 20
+    clickable: true
+
+  "red_sandstone_wall":
+    material: RED_SANDSTONE_WALL
+    name: "&fRed Sandstone Wall"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 34
+    page: 20
+    clickable: true
+
+  "chiseled_red_sandstone":
+    material: CHISELED_RED_SANDSTONE
+    name: "&fChiseled Red Sandstone"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 37
+    page: 20
+    clickable: true
+
+  "smooth_red_sandstone":
+    material: SMOOTH_RED_SANDSTONE
+    name: "&fSmooth Red Sandstone"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 39
+    page: 20
+    clickable: true
+
+  "smooth_red_sandstone_stairs":
+    material: SMOOTH_RED_SANDSTONE_STAIRS
+    name: "&fSmooth Red Sandstone Stairs"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 41
+    page: 20
+    clickable: true
+
+  "smooth_red_sandstone_slab":
+    material: SMOOTH_RED_SANDSTONE_SLAB
+    name: "&fSmooth Red Sandstone Slab"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 43
+    page: 20
+    clickable: true
+
+  "cut_red_sandstone":
+    material: CUT_RED_SANDSTONE
+    name: "&fCut Red Sandstone"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 10
+    page: 21
+    clickable: true
+
+  "cut_red_sandstone_slab":
+    material: CUT_RED_SANDSTONE_SLAB
+    name: "&fCut Red Sandstone Slab"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 12
+    page: 21
+    clickable: true
+
+  "basalt":
+    material: BASALT
+    name: "&fBasalt"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 14
+    page: 21
+    clickable: true
+
+  "smooth_basalt":
+    material: SMOOTH_BASALT
+    name: "&fSmooth Basalt"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 16
+    page: 21
+    clickable: true
+
+  "polished_basalt":
+    material: POLISHED_BASALT
+    name: "&fPolished Basalt"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 19
+    page: 21
+    clickable: true
+
+  "purpur_block":
+    material: PURPUR_BLOCK
+    name: "&fPurpur Block"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 21
+    page: 21
+    clickable: true
+
+  "purpur_pillar":
+    material: PURPUR_PILLAR
+    name: "&fPurpur Pillar"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 23
+    page: 21
+    clickable: true
+
+  "purpur_stairs":
+    material: PURPUR_STAIRS
+    name: "&fPurpur Stairs"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 25
+    page: 21
+    clickable: true
+
+  "purpur_slab":
+    material: PURPUR_SLAB
+    name: "&fPurpur Slab"
+    lore:
+      - "&7Buy: &a1"
+      - "&7Sell: &c0.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 28
+    page: 21
+    clickable: true
+
+  "copper_block":
+    material: COPPER_BLOCK
+    name: "&fCopper Block"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 30
+    page: 21
+    clickable: true
+
+  "exposed_copper":
+    material: EXPOSED_COPPER
+    name: "&fExposed Copper"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 32
+    page: 21
+    clickable: true
+
+  "weathered_copper":
+    material: WEATHERED_COPPER
+    name: "&fWeathered Copper"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 34
+    page: 21
+    clickable: true
+
+  "oxidized_copper":
+    material: OXIDIZED_COPPER
+    name: "&fOxidized Copper"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 37
+    page: 21
+    clickable: true
+
+  "waxed_copper_block":
+    material: WAXED_COPPER_BLOCK
+    name: "&fWaxed Copper Block"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 39
+    page: 21
+    clickable: true
+
+  "waxed_exposed_copper":
+    material: WAXED_EXPOSED_COPPER
+    name: "&fWaxed Exposed Copper"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 41
+    page: 21
+    clickable: true
+
+  "waxed_weathered_copper":
+    material: WAXED_WEATHERED_COPPER
+    name: "&fWaxed Weathered Copper"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 43
+    page: 21
+    clickable: true
+
+  "waxed_oxidized_copper":
+    material: WAXED_OXIDIZED_COPPER
+    name: "&fWaxed Oxidized Copper"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 10
+    page: 22
+    clickable: true
+
+  "cut_copper":
+    material: CUT_COPPER
+    name: "&fCut Copper"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.5
+    amount: 1
+    slot: 12
+    page: 22
+    clickable: true
+
+  "exposed_cut_copper":
+    material: EXPOSED_CUT_COPPER
+    name: "&fExposed Cut Copper"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.5
+    amount: 1
+    slot: 14
+    page: 22
+    clickable: true
+
+  "weathered_cut_copper":
+    material: WEATHERED_CUT_COPPER
+    name: "&fWeathered Cut Copper"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.5
+    amount: 1
+    slot: 16
+    page: 22
+    clickable: true
+
+  "oxidized_cut_copper":
+    material: OXIDIZED_CUT_COPPER
+    name: "&fOxidized Cut Copper"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.5
+    amount: 1
+    slot: 19
+    page: 22
+    clickable: true
+
+  "waxed_cut_copper":
+    material: WAXED_CUT_COPPER
+    name: "&fWaxed Cut Copper"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.5
+    amount: 1
+    slot: 21
+    page: 22
+    clickable: true
+
+  "waxed_exposed_cut_copper":
+    material: WAXED_EXPOSED_CUT_COPPER
+    name: "&fWaxed Exposed Cut Copper"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.5
+    amount: 1
+    slot: 23
+    page: 22
+    clickable: true
+
+  "waxed_weathered_cut_copper":
+    material: WAXED_WEATHERED_CUT_COPPER
+    name: "&fWaxed Weathered Cut Copper"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.5
+    amount: 1
+    slot: 25
+    page: 22
+    clickable: true
+
+  "waxed_oxidized_cut_copper":
+    material: WAXED_OXIDIZED_CUT_COPPER
+    name: "&fWaxed Oxidized Cut Copper"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1.5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.5
+    amount: 1
+    slot: 28
+    page: 22
+    clickable: true
+
+  "cut_copper_slab":
+    material: CUT_COPPER_SLAB
+    name: "&fCut Copper Slab"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 30
+    page: 22
+    clickable: true
+
+  "exposed_cut_copper_slab":
+    material: EXPOSED_CUT_COPPER_SLAB
+    name: "&fExposed Cut Copper Slab"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 32
+    page: 22
+    clickable: true
+
+  "weathered_cut_copper_slab":
+    material: WEATHERED_CUT_COPPER_SLAB
+    name: "&fWeathered Cut Copper Slab"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 34
+    page: 22
+    clickable: true
+
+  "oxidized_cut_copper_slab":
+    material: OXIDIZED_CUT_COPPER_SLAB
+    name: "&fOxidized Cut Copper Slab"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 37
+    page: 22
+    clickable: true
+
+  "waxed_cut_copper_slab":
+    material: WAXED_CUT_COPPER_SLAB
+    name: "&fWaxed Cut Copper Slab"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 39
+    page: 22
+    clickable: true
+
+  "waxed_exposed_cut_copper_slab":
+    material: WAXED_EXPOSED_CUT_COPPER_SLAB
+    name: "&fWaxed Exposed Cut Copper Slab"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 41
+    page: 22
+    clickable: true
+
+  "waxed_weathered_cut_copper_slab":
+    material: WAXED_WEATHERED_CUT_COPPER_SLAB
+    name: "&fWaxed Weathered Cut Copper Slab"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 43
+    page: 22
+    clickable: true
+
+  "cut_copper_stairs":
+    material: CUT_COPPER_STAIRS
+    name: "&fCut Copper Stairs"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 10
+    page: 23
+    clickable: true
+
+  "exposed_cut_copper_stairs":
+    material: EXPOSED_CUT_COPPER_STAIRS
+    name: "&fExposed Cut Copper Stairs"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 12
+    page: 23
+    clickable: true
+
+  "weathered_cut_copper_stairs":
+    material: WEATHERED_CUT_COPPER_STAIRS
+    name: "&fWeathered Cut Copper Stairs"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 14
+    page: 23
+    clickable: true
+
+  "oxidized_cut_copper_stairs":
+    material: OXIDIZED_CUT_COPPER_STAIRS
+    name: "&fOxidized Cut Copper Stairs"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 16
+    page: 23
+    clickable: true
+
+  "waxed_cut_copper_stairs":
+    material: WAXED_CUT_COPPER_STAIRS
+    name: "&fWaxed Cut Copper Stairs"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 19
+    page: 23
+    clickable: true
+
+  "waxed_exposed_cut_copper_stairs":
+    material: WAXED_EXPOSED_CUT_COPPER_STAIRS
+    name: "&fWaxed Exposed Cut Copper Stairs"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 21
+    page: 23
+    clickable: true
+
+  "waxed_weathered_cut_copper_stairs":
+    material: WAXED_WEATHERED_CUT_COPPER_STAIRS
+    name: "&fWaxed Weathered Cut Copper Stairs"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 23
+    page: 23
+    clickable: true
+
+  "waxed_oxidized_cut_copper_stairs":
+    material: WAXED_OXIDIZED_CUT_COPPER_STAIRS
+    name: "&fWaxed Oxidized Cut Copper Stairs"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 25
+    page: 23
+    clickable: true
+
+  "chiseled_copper":
+    material: CHISELED_COPPER
+    name: "&fChiseled Copper"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 28
+    page: 23
+    clickable: true
+
+  "exposed_chiseled_copper":
+    material: EXPOSED_CHISELED_COPPER
+    name: "&fExposed Chiseled Copper"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 30
+    page: 23
+    clickable: true
+
+  "weathered_chiseled_copper":
+    material: WEATHERED_CHISELED_COPPER
+    name: "&fWeathered Chiseled Copper"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 32
+    page: 23
+    clickable: true
+
+  "oxidized_chiseled_copper":
+    material: OXIDIZED_CHISELED_COPPER
+    name: "&fOxidized Chiseled Copper"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 34
+    page: 23
+    clickable: true
+
+  "waxed_chiseled_copper":
+    material: WAXED_CHISELED_COPPER
+    name: "&fWaxed Chiseled Copper"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 37
+    page: 23
+    clickable: true
+
+  "waxed_exposed_chiseled_copper":
+    material: WAXED_EXPOSED_CHISELED_COPPER
+    name: "&fWaxed Exposed Chiseled Copper"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 39
+    page: 23
+    clickable: true
+
+  "waxed_weathered_chiseled_copper":
+    material: WAXED_WEATHERED_CHISELED_COPPER
+    name: "&fWaxed Weathered Chiseled Copper"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 41
+    page: 23
+    clickable: true
+
+  "waxed_oxidized_cut_copper_slab":
+    material: WAXED_OXIDIZED_CUT_COPPER_SLAB
+    name: "&fWaxed Oxidized Cut Copper Slab"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 43
+    page: 23
+    clickable: true
+
+  "waxed_oxidized_chiseled_copper":
+    material: WAXED_OXIDIZED_CHISELED_COPPER
+    name: "&fWaxed Oxidized Chiseled Copper"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 10
+    page: 24
+    clickable: true
+
+  "copper_grate":
+    material: COPPER_GRATE
+    name: "&fCopper Grate"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 12
+    page: 24
+    clickable: true
+
+  "exposed_copper_grate":
+    material: EXPOSED_COPPER_GRATE
+    name: "&fExposed Copper Grate"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 14
+    page: 24
+    clickable: true
+
+  "weathered_copper_grate":
+    material: WEATHERED_COPPER_GRATE
+    name: "&fWeathered Copper Grate"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 16
+    page: 24
+    clickable: true
+
+  "oxidized_copper_grate":
+    material: OXIDIZED_COPPER_GRATE
+    name: "&fOxidized Copper Grate"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 19
+    page: 24
+    clickable: true
+
+  "waxed_copper_grate":
+    material: WAXED_COPPER_GRATE
+    name: "&fWaxed Copper Grate"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 21
+    page: 24
+    clickable: true
+
+  "waxed_exposed_copper_grate":
+    material: WAXED_EXPOSED_COPPER_GRATE
+    name: "&fWaxed Exposed Copper Grate"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 23
+    page: 24
+    clickable: true
+
+  "waxed_weathered_copper_grate":
+    material: WAXED_WEATHERED_COPPER_GRATE
+    name: "&fWaxed Weathered Copper Grate"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 25
+    page: 24
+    clickable: true
+
+  "waxed_oxidized_copper_grate":
+    material: WAXED_OXIDIZED_COPPER_GRATE
+    name: "&fWaxed Oxidized Copper Grate"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 28
+    page: 24
+    clickable: true
+
+  "copper_door":
+    material: COPPER_DOOR
+    name: "&fCopper Door"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 30
+    page: 24
+    clickable: true
+
+  "exposed_copper_door":
+    material: EXPOSED_COPPER_DOOR
+    name: "&fExposed Copper Door"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 32
+    page: 24
+    clickable: true
+
+  "weathered_copper_door":
+    material: WEATHERED_COPPER_DOOR
+    name: "&fWeathered Copper Door"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 34
+    page: 24
+    clickable: true
+
+  "oxidized_copper_door":
+    material: OXIDIZED_COPPER_DOOR
+    name: "&fOxidized Copper Door"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 37
+    page: 24
+    clickable: true
+
+  "waxed_copper_door":
+    material: WAXED_COPPER_DOOR
+    name: "&fWaxed Copper Door"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 39
+    page: 24
+    clickable: true
+
+  "waxed_exposed_copper_door":
+    material: WAXED_EXPOSED_COPPER_DOOR
+    name: "&fWaxed Exposed Copper Door"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 41
+    page: 24
+    clickable: true
+
+  "waxed_weathered_copper_door":
+    material: WAXED_WEATHERED_COPPER_DOOR
+    name: "&fWaxed Weathered Copper Door"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 43
+    page: 24
+    clickable: true
+
+  "waxed_oxidized_copper_door":
+    material: WAXED_OXIDIZED_COPPER_DOOR
+    name: "&fWaxed Oxidized Copper Door"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 10
+    page: 25
+    clickable: true
+
+  "copper_trapdoor":
+    material: COPPER_TRAPDOOR
+    name: "&fCopper Trapdoor"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 12
+    page: 25
+    clickable: true
+
+  "exposed_copper_trapdoor":
+    material: EXPOSED_COPPER_TRAPDOOR
+    name: "&fExposed Copper Trapdoor"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 14
+    page: 25
+    clickable: true
+
+  "weathered_copper_trapdoor":
+    material: WEATHERED_COPPER_TRAPDOOR
+    name: "&fWeathered Copper Trapdoor"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 16
+    page: 25
+    clickable: true
+
+  "oxidized_copper_trapdoor":
+    material: OXIDIZED_COPPER_TRAPDOOR
+    name: "&fOxidized Copper Trapdoor"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 19
+    page: 25
+    clickable: true
+
+  "waxed_copper_trapdoor":
+    material: WAXED_COPPER_TRAPDOOR
+    name: "&fWaxed Copper Trapdoor"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 21
+    page: 25
+    clickable: true
+
+  "waxed_exposed_copper_trapdoor":
+    material: WAXED_EXPOSED_COPPER_TRAPDOOR
+    name: "&fWaxed Exposed Copper Trapdoor"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 23
+    page: 25
+    clickable: true
+
+  "waxed_weathered_copper_trapdoor":
+    material: WAXED_WEATHERED_COPPER_TRAPDOOR
+    name: "&fWaxed Weathered Copper Trapdoor"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 25
+    page: 25
+    clickable: true
+
+  "waxed_oxidized_copper_trapdoor":
+    material: WAXED_OXIDIZED_COPPER_TRAPDOOR
+    name: "&fWaxed Oxidized Copper Trapdoor"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 28
+    page: 25
+    clickable: true
+
+  "copper_bulb":
+    material: COPPER_BULB
+    name: "&fCopper Bulb"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 30
+    page: 25
+    clickable: true
+
+  "exposed_copper_bulb":
+    material: EXPOSED_COPPER_BULB
+    name: "&fExposed Copper Bulb"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 32
+    page: 25
+    clickable: true
+
+  "weathered_copper_bulb":
+    material: WEATHERED_COPPER_BULB
+    name: "&fWeathered Copper Bulb"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 34
+    page: 25
+    clickable: true
+
+  "oxidized_copper_bulb":
+    material: OXIDIZED_COPPER_BULB
+    name: "&fOxidized Copper Bulb"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 37
+    page: 25
+    clickable: true
+
+  "waxed_copper_bulb":
+    material: WAXED_COPPER_BULB
+    name: "&fWaxed Copper Bulb"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 39
+    page: 25
+    clickable: true
+
+  "waxed_exposed_copper_bulb":
+    material: WAXED_EXPOSED_COPPER_BULB
+    name: "&fWaxed Exposed Copper Bulb"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 41
+    page: 25
+    clickable: true
+
+  "waxed_weathered_copper_bulb":
+    material: WAXED_WEATHERED_COPPER_BULB
+    name: "&fWaxed Weathered Copper Bulb"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 43
+    page: 25
+    clickable: true
+
+  "grass_block":
+    material: GRASS_BLOCK
+    name: "&fGrass Block"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 10
+    page: 26
+    clickable: true
+
+  "podzol":
+    material: PODZOL
+    name: "&fPodzol"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 12
+    page: 26
+    clickable: true
+
+  "mycelium":
+    material: MYCELIUM
+    name: "&fMycelium"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 14
+    page: 26
+    clickable: true
+
+  "dirt":
+    material: DIRT
+    name: "&fDirt"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 16
+    page: 26
+    clickable: true
+
+  "coarse_dirt":
+    material: COARSE_DIRT
+    name: "&fCoarse Dirt"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 19
+    page: 26
+    clickable: true
+
+  "rooted_dirt":
+    material: ROOTED_DIRT
+    name: "&fRooted Dirt"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 21
+    page: 26
+    clickable: true
+
+  "mud":
+    material: MUD
+    name: "&fMud"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 23
+    page: 26
+    clickable: true
+
+  "clay":
+    material: CLAY
+    name: "&fClay"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 25
+    page: 26
+    clickable: true
+
+  "gravel":
+    material: GRAVEL
+    name: "&fGravel"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 28
+    page: 26
+    clickable: true
+
+  "sand":
+    material: SAND
+    name: "&fSand"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 30
+    page: 26
+    clickable: true
+
+  "red_sand":
+    material: RED_SAND
+    name: "&fRed Sand"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 32
+    page: 26
+    clickable: true
+
+  "ice":
+    material: ICE
+    name: "&fIce"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 34
+    page: 26
+    clickable: true
+
+  "packed_ice":
+    material: PACKED_ICE
+    name: "&fPacked Ice"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 37
+    page: 26
+    clickable: true
+
+  "blue_ice":
+    material: BLUE_ICE
+    name: "&fBlue Ice"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 39
+    page: 26
+    clickable: true
+
+  "snow_block":
+    material: SNOW_BLOCK
+    name: "&fSnow Block"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 41
+    page: 26
+    clickable: true
+
+  "moss_block":
+    material: MOSS_BLOCK
+    name: "&fMoss Block"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 43
+    page: 26
+    clickable: true
+
+  "grass_block":
+    material: GRASS_BLOCK
+    name: "&fGrass Block"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 10
+    page: 26
+    clickable: true
+
+  "podzol":
+    material: PODZOL
+    name: "&fPodzol"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 12
+    page: 26
+    clickable: true
+
+  "mycelium":
+    material: MYCELIUM
+    name: "&fMycelium"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 14
+    page: 26
+    clickable: true
+
+  "dirt":
+    material: DIRT
+    name: "&fDirt"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 16
+    page: 26
+    clickable: true
+
+  "coarse_dirt":
+    material: COARSE_DIRT
+    name: "&fCoarse Dirt"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 19
+    page: 26
+    clickable: true
+
+  "rooted_dirt":
+    material: ROOTED_DIRT
+    name: "&fRooted Dirt"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 21
+    page: 26
+    clickable: true
+
+  "mud":
+    material: MUD
+    name: "&fMud"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 23
+    page: 26
+    clickable: true
+
+  "clay":
+    material: CLAY
+    name: "&fClay"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 25
+    page: 26
+    clickable: true
+
+  "gravel":
+    material: GRAVEL
+    name: "&fGravel"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 28
+    page: 26
+    clickable: true
+
+  "sand":
+    material: SAND
+    name: "&fSand"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 30
+    page: 26
+    clickable: true
+
+  "red_sand":
+    material: RED_SAND
+    name: "&fRed Sand"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 32
+    page: 26
+    clickable: true
+
+  "ice":
+    material: ICE
+    name: "&fIce"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 34
+    page: 26
+    clickable: true
+
+  "packed_ice":
+    material: PACKED_ICE
+    name: "&fPacked Ice"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 37
+    page: 26
+    clickable: true
+
+  "blue_ice":
+    material: BLUE_ICE
+    name: "&fBlue Ice"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 39
+    page: 26
+    clickable: true
+
+  "snow_block":
+    material: SNOW_BLOCK
+    name: "&fSnow Block"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 41
+    page: 26
+    clickable: true
+
+  "moss_block":
+    material: MOSS_BLOCK
+    name: "&fMoss Block"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 43
+    page: 26
+    clickable: true
+
+  "calcite":
+    material: CALCITE
+    name: "&fCalcite"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 10
+    page: 27
+    clickable: true
+
+  "dripstone_block":
+    material: DRIPSTONE_BLOCK
+    name: "&fDripstone Block"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 12
+    page: 27
+    clickable: true
+
+  "magma_block":
+    material: MAGMA_BLOCK
+    name: "&fMagma Block"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 14
+    page: 27
+    clickable: true
+
+  "obsidian":
+    material: OBSIDIAN
+    name: "&fObsidian"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 16
+    page: 27
+    clickable: true
+
+  "crying_obsidian":
+    material: CRYING_OBSIDIAN
+    name: "&fCrying Obsidian"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 19
+    page: 27
+    clickable: true
+
+  "dried_kelp_block":
+    material: DRIED_KELP_BLOCK
+    name: "&fDried Kelp Block"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 21
+    page: 27
+    clickable: true
+
+  "ochre_froglight":
+    material: OCHRE_FROGLIGHT
+    name: "&fOchre Froglight"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 23
+    page: 27
+    clickable: true
+
+  "verdant_froglight":
+    material: VERDANT_FROGLIGHT
+    name: "&fVerdant Froglight"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 25
+    page: 27
+    clickable: true
+
+  "pearlescent_froglight":
+    material: PEARLESCENT_FROGLIGHT
+    name: "&fPearlescent Froglight"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 28
+    page: 27
+    clickable: true
+
+  "sponge":
+    material: SPONGE
+    name: "&fSponge"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 30
+    page: 27
+    clickable: true
+
+  "wet_sponge":
+    material: WET_SPONGE
+    name: "&fWet Sponge"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 32
+    page: 27
+    clickable: true
+
+  "bone_block":
+    material: BONE_BLOCK
+    name: "&fBone Block"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 34
+    page: 27
+    clickable: true
+
+  "amethyst_block":
+    material: AMETHYST_BLOCK
+    name: "&fAmethyst Block"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 37
+    page: 27
+    clickable: true
+
+  "budding_amethyst":
+    material: BUDDING_AMETHYST
+    name: "&fBudding Amethyst"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 39
+    page: 27
+    clickable: true
+
+  "brown_mushroom_block":
+    material: BROWN_MUSHROOM_BLOCK
+    name: "&fBrown Mushroom Block"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 41
+    page: 27
+    clickable: true
+
+  "red_mushroom_block":
+    material: RED_MUSHROOM_BLOCK
+    name: "&fRed Mushroom Block"
+    lore:
+      - "&7Buy: &a1.5"
+      - "&7Sell: &c0.75"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 43
+    page: 27
+    clickable: true

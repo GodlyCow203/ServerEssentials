@@ -1,0 +1,361 @@
+Book:
+  Title: "ServerEssentials"
+  Author: "SE Plugin"
+  Pages:
+    - "Welcome to the server!"
+    - "Use /help for commands."
+    - "Enjoy your stay!"
+  Messages:
+    PlayerOnly: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command."
+    NoPermission: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> You do not have permission to use this command."
+    Success: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> Book added to your inventory!"
+
+
+Weather:
+  Messages:
+    PlayerOnly: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command."
+    NoPermission: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> You do not have permission to use this command."
+    Usage: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Usage: /weather <clear|rain|thunderstorm>"
+    Clear: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> Weather set to <gray>clear</gray>."
+    Rain: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> Weather set to <gray>rain</gray>."
+    Thunderstorm: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> Weather set to <gray>thunderstorm</gray>."
+    InvalidType: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Invalid weather type. Use: clear, rain, or thunderstorm."
+
+EditSign:
+  Messages:
+    OnlyPlayers: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command."
+    NotLookingAtSign: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> You are not looking at a sign."
+    Usage: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Usage: /editsign <line1>|<line2>|<line3>|<line4>"
+    Success: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> Sign updated successfully!"
+
+Near:
+  Messages:
+    PlayerOnly: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command."
+    Header: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> Players near you:"
+    Entry: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> - <name> <gray>(<distance> blocks)"
+    None: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> No players are nearby."
+
+Ignore:
+  Messages:
+    PlayerOnly: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command."
+    Usage: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Usage: /ignore <player>"
+    NotFound: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Player not found!"
+    Self: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> You cannot ignore yourself!"
+    Add: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> You are now ignoring <gray><player></gray>."
+    Remove: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> You are no longer ignoring <gray><player></gray>."
+
+InventorySort:
+  PlayerOnly: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command!"
+  Success: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> Your inventory has been stacked and sorted!"
+
+MsgToggle:
+  PlayerOnly: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command!"
+  Enabled: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> Private messages <gray>enabled</gray>!"
+  Disabled: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> Private messages <gray>disabled</gray>!"
+  DisabledTarget: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> <gray>{player}</gray> has private messages disabled!"
+
+condense:
+  only-players: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command!"
+  success: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> Your items have been condensed into blocks!"
+  not-enough: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> You don't have enough items to condense."
+
+ext:
+  only-players: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command!"
+  player-not-found: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Player not found!"
+  self: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> You have been extinguished!"
+  target: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> You extinguished <gray>{target}!"
+
+seen:
+  usage: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Usage: /seen <player>"
+  player-not-found: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Player not found!"
+  result: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> {player} was last seen on <gray>{lastSeen}"
+  never-joined: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> <gray>{player}</gray> has never joined the server."
+
+tree:
+  only-players: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command!"
+  specify-type: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Please specify a tree type."
+  invalid-type: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000>Invalid tree type! Valid types: <gray>{types}"
+  tree-planted: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Tree planted: <gray>{type}"
+
+recipe:
+  usage: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Usage: /recipe <recipe>"
+  not-found: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Recipe not found!"
+  result: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> Recipe for: <yellow>{item}"
+  shaped-header: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> Shaped Recipe Ingredients:"
+  shapeless-header: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> Shapeless Recipe Ingredients:"
+  ingredient-line: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> - {char}: {item} x{amount}"
+  ingredient-line-shapeless: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff>  .{item} x{amount}"
+  unknown-type: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Unknown recipe type!"
+
+
+
+
+report:
+  usage: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Usage: {usage}"
+  invalid-player: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Player <gray>{player}</gray> not found!"
+  submitted: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> You reported <gray>{player}</gray> <gray>for: <gray>{reason}"
+  notify: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#ffffff> <#FF0000>[Report]</#ff0000> <gray>ID: <white>{id} <gray>Reporter: <white>{reporter} <gray>Target: <white>{target} <gray>Reason: <white>{reason}"
+  no-permission: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> You don’t have permission!"
+reportclear:
+  usage: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Usage: {usage}"
+  cleared: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> Report <gray>{id}</Gray> cleared!"
+  invalid: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Report <gray>{id}</gray> not found!"
+
+reports:
+  header: "<white><bold>=== <gray>Active Reports</gray> ==="
+  entry: "<gray>ID: <white>{id} <gray>Reporter: <white>{reporter} <gray>Target: <white>{target} <gray>Reason: <white>{reason}"
+  footer: "<white><bold>======================="
+  none: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#cc0000> No active reports found."
+
+nick:
+  usage: '<#FFEE00><bold>➔</bold><#FF0000> Usage: <white>/nick <newNick></white>'
+  set: '<#FFEE00><bold>➔</bold><#ffffff> Your nickname has been set to <#F57627>%nick%</#F57627>'
+  invalid_length: '<#FFEE00><bold>➔</bold><#FF0000> Nick must be between <white>%min%</white> and <white>%max%</white>
+    characters.'
+  blocked_word: '<#FFEE00><bold>➔</bold><#FF0000> Your nickname contains a blocked word: <white>%word%</white>'
+  no_formatting: '<#FFEE00><bold>➔</bold><#FF0000> Formatting is not allowed in nicknames!'
+  reset_self: '<#FFEE00><bold>➔</bold><#ffffff> Your nickname has been reset to your original name!'
+
+nicks:
+  reload: "<green>Nick config and messages reloaded!"
+  reset: "<yellow>Nickname for %player% has been reset.</yellow>"
+  not_found: "<red>Player <yellow>%player%</yellow> not found."
+
+
+
+
+rename:
+  usage: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Usage: /rename <name>"
+  no-item: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> You're not holding an item."
+  no-meta: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Could not get item meta."
+  renamed: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> Item renamed to: <gray>{item}"
+
+setlore:
+  usage: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Usage: /setloreline <text>"
+  no-player: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command."
+  no-item: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> You're not holding an item."
+  lore-set: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> Lore set to: <gray>{lore}"
+
+Kill:
+  only-players: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command."
+  kill-count: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> You have <gray>{kills}</gray> <gray>player</gray> kills."
+
+Rules:
+  no-permission: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> You don't have permission to perform this action."
+  reloaded: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> Rules reloaded."
+  header: ">---- Server Rules ----<"
+  rule-line: "<gray>{rule}"
+
+Back:
+  no-permission: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> You don't have permission to use this command."
+  no-back: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> No previous location saved."
+  invalid-back: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000>  Your last location is invalid."
+  teleported-back: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> Teleported back to your previous location."
+  lobby-not-set: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Lobby location not set."
+  teleported-lobby: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> Teleported to the lobby."
+  no-death-location: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> No death location found."
+  teleported-death: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> Teleported to your last death location."
+  unknown-usage: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Unknown command. Use: /back, /back lobby, /back death."
+
+notes:
+  only-players: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command."
+  view: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> Note '<name>': <gray>><content>"
+  not-found: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> No note found with name '<name>'."
+  saved: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> Saved note '<name>': <gray><content>"
+  usage-header: ""
+  usage-add: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000>  - /notes <name> <content> <gray>(to add/update a note)"
+  usage-view: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000>  - /notes <name> <gray>(to view a note)"
+  no-permission-read: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> No Permission"
+
+reply:
+  only-players: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command."
+  usage: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Usage: /reply <message>"
+  no-reply: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> No one to reply to."
+  target-offline: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> The player you are trying to reply to is not online."
+  sender: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> To <gray><target></gray>: <gray><message>"
+  receiver: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> From <gray><sender></gray>: <gray><message>"
+
+iteminfo:
+  only-players: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command."
+  no-permission: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> You do not have permission to use /iteminfo."
+  no-item: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> You are not holding any item."
+  header: "<white><bold>Item Information:"
+  type: "<gray>Type: <white><type>"
+  amount: "<gray>Amount: <white><amount>"
+  name: "<gray>Name: <white><name>"
+  lore-header: "<gray>Lore:"
+  lore-line: "<dark_gray> - <gray><line>"
+  enchants-header: "<gray>Enchantments:"
+  enchant-line: "<dark_gray> - <gray><enchant> <level>"
+  flags-header: "<gray>Item Flags:"
+  flag-line: "<dark_gray> - <gray><flag>"
+
+session:
+  only-players: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command."
+  not-tracked: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Your session hasn't been tracked."
+  info: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> Current session: <yellow><current></yellow> | Longest session: <gold><longest></gold>"
+
+tpp:
+  no-permission: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> You do not have permission to teleport."
+  usage: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Usage: /tpp <player> <world> [x y z]"
+  world-not-loaded: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> World '<world>' is not loaded."
+  player-not-found: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Player '<player>' not found."
+  invalid-coords: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Invalid coordinates. Please use numbers."
+  teleported-target: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> You have teleported <gray><player></gray> to <gray><world></gray>."
+  teleported-self: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> You have been teleported to <gray><world></gray> at <gray>x:<x> y:<y> z:<z></gray>."
+
+Playtime:
+  playtime: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> <gray>{player}</gray>'s playtime: <gray>{hours}</gray>h <gray>{minutes}</gray>m"
+  not-a-player: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command."
+  usage: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Usage: /playtime <player>"
+
+World:
+  only-players: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command."
+  usage: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Usage: /world"
+  current-world: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> <gray>{player}</gray>, you are currently in world: <gray>{world}"
+
+Track:
+  only-players: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command."
+  usage: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Usage: /track <player>"
+  not-found: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Player <gray>{target}</gray> not found."
+  success: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> Compass is now tracking <gray>{target}</gray>."
+
+Top:
+  only-players: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command."
+  teleported: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> Teleported to top!"
+  no-block: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> No solid block above you found!"
+
+Swap:
+  only-players: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command."
+  usage: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Usage: /swap <player>"
+  not-found: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Player <gray>{target}</gray> not found or invalid."
+  success: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> You swapped with <gray>{target}</gray>."
+  target-notified: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> You swapped with <gray>{player}</gray>."
+
+Suicide:
+  only-players: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command."
+  success: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> You have committed suicide."
+
+Speed:
+  only-players: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command."
+  usage: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Usage: /speed [1-10]"
+  fly-set: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> Fly speed set to <gray>{speed}</gray>."
+  walk-set: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> Walk speed set to <gray>{speed}</gray>."
+  invalid-number: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Invalid number! Use 1-10."
+
+Sleep:
+  only-players: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command."
+  broadcast: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> <gray>{player}</gray> slept and skipped the night."
+
+Repair:
+  only-players: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command."
+  no-item: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> You're not holding an item."
+  success: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> Item repaired!"
+  cannot-repair: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> This item cannot be repaired."
+
+RealName:
+  only-players: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000>  Only players can use this command."
+  usage: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Usage: /realname <nickname>"
+  found: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> Real name of <gray>{nickname}</gray> is <gray>{realname}"
+  not-found: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> No player found with nickname <gray>{nickname}"
+
+PTime:
+  only-players: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command."
+  usage: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Usage: /ptime <day|night|reset>"
+  no-permission: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> You don't have permission to use this option."
+  invalid-option: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Invalid argument! Use day, night, or reset."
+  success: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> Your personal time has been updated to <gray>{option}</gray>."
+
+Ping:
+  only-players: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command."
+  show: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> Your ping: <gray>{ping}</gray>ms"
+
+Night:
+  only-players: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command."
+  success: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> Time set to night."
+
+Mail:
+  only-players: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command."
+  no-mail: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> You have no mail."
+  header: "<white><bold>--- Your Mail ---"
+  message: "<white>- {message}"
+  from: "<gray>From {sender}: <white>{message}"
+  sent: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> Mail sent to {target}!"
+  usage: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Usage: /mail send <player> <message> or /mail read"
+
+Magnet.on: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> Magnet <red>ON"
+
+Magnet.off: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> Magnet <green>OFF"
+
+Magnet.only-players: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command."
+
+Launch:
+  only-players: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command."
+  launched: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> Woosh! You’ve been launched!"
+
+Hat:
+  only-players: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command."
+  no-item: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> You're not holding an item."
+  success: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> You are now wearing your held item as a hat!"
+
+Gravity:
+  only-players: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000>  Only players can use this command."
+  no-permission: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000>  You don't have permission."
+  toggled: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> Gravity toggled <gray>{state}"
+
+Feed:
+  only-players: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command."
+  fed: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> You have been fed!"
+
+
+
+EnderChest:
+  only-players: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command."
+  opening: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> Opening your Ender Chest..."
+
+Disposal:
+  only-players: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command."
+  opened: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> Opened disposal inventory."
+
+Death:
+  only-players: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Only players can run this command."
+  count: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> You have died <gray>{deaths}</gray> times."
+
+Day:
+  only-players: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Only players can run this command."
+  success: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> Time set to day."
+
+Compass:
+  only-players: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command."
+  facing: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> You are facing: <gray>{direction}"
+
+
+burn:
+  usage: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Usage: /burn <player> [seconds]"
+  player_not_found: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Player not found."
+  immune_gamemode: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> That player is in a game mode that is immune to fire."
+  invalid_number: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> Invalid number."
+  target_burned: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> You have been set on fire by <gray>{sender}</gray>!"
+  sender_burned: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> <gray>{target}</gray> has been set on fire for <gray>{seconds}</gray> seconds."
+
+break:
+  no_block: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> You are not looking at a breakable block within <gray>{distance}</gray> blocks."
+  success: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> Broke the block you are looking at."
+
+bottom:
+  success: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#ffffff> Teleported to bottom!"
+  no_safe_ground: "<bold><#2971FF>[</bold><#7AA7FF><bold>Player</bold><bold><#2971FF>]</bold><#cc0000> No safe ground below!"
+
+editsign:
+  only-players: "<bold><#2971FF>[</bold><#7AA7FF><bold>UTILITY</bold><bold><#2971FF>]</bold><#cc0000> Only players can edit signs!"
+  not-looking-at-sign: "<bold><#2971FF>[</bold><#7AA7FF><bold>UTILITY</bold><bold><#2971FF>]</bold><#cc0000> You must be looking at a sign to edit it."
+  usage: "<bold><#2971FF>[</bold><#7AA7FF><bold>UTILITY</bold><bold><#2971FF>]</bold><#cc0000> Usage: /editsign <line 1> | <line 2> | <line 3> | <line 4>"
+  success: "<bold><#2971FF>[</bold><#7AA7FF><bold>UTILITY</bold><bold><#2971FF>]</bold><#ffffff> Sign updated successfully!"
+
+
+
+
+
+
+
+

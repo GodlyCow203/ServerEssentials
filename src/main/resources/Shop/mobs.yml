@@ -1,0 +1,451 @@
+
+size: 54
+pages: 100
+player-head-slot: 4
+close-button-slot: 49
+
+layout:
+  "0":
+    material: GRAY_STAINED_GLASS_PANE
+    name: " "
+    clickable: false
+  "1":
+    material: GRAY_STAINED_GLASS_PANE
+    name: " "
+    clickable: false
+  "2":
+    material: WHITE_STAINED_GLASS_PANE
+    name: " "
+    clickable: false
+  "3":
+    material: WHITE_STAINED_GLASS_PANE
+    name: " "
+    clickable: false
+  "5":
+    material: WHITE_STAINED_GLASS_PANE
+    name: " "
+    clickable: false
+  "6":
+    material: WHITE_STAINED_GLASS_PANE
+    name: " "
+    clickable: false
+  "7":
+    material: GRAY_STAINED_GLASS_PANE
+    name: " "
+    clickable: false
+  "8":
+    material: GRAY_STAINED_GLASS_PANE
+    name: " "
+    clickable: false
+  "9":
+    material: GRAY_STAINED_GLASS_PANE
+    name: " "
+    clickable: false
+  "17":
+    material: GRAY_STAINED_GLASS_PANE
+    name: " "
+    clickable: false
+  "45":
+    material: ARROW
+    name: "&#FFE000Previous Page"
+    previous-page: true
+    clickable: true
+  "53":
+    material: ARROW
+    name: "&#FFE000Next Page"
+    next-page: true
+    clickable: true
+
+
+
+items:
+  "rotten_flesh":
+    material: ROTTEN_FLESH
+    name: "&fRotten Flesh"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 10
+    page: 1
+    clickable: true
+
+  "bone":
+    material: BONE
+    name: "&fBone"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 1.0
+    amount: 1
+    slot: 12
+    page: 1
+    clickable: true
+
+  "string":
+    material: STRING
+    name: "&fString"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 14
+    page: 1
+    clickable: true
+
+  "spider_eye":
+    material: SPIDER_EYE
+    name: "&fSpider Eye"
+    lore:
+      - "&7Buy: &a5"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 5.0
+    sell-price: 2.0
+    amount: 1
+    slot: 16
+    page: 1
+    clickable: true
+
+  "gunpowder":
+    material: GUNPOWDER
+    name: "&fGunpowder"
+    lore:
+      - "&7Buy: &a6"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 6.0
+    sell-price: 2.0
+    amount: 1
+    slot: 19
+    page: 1
+    clickable: true
+
+  "ender_pearl":
+    material: ENDER_PEARL
+    name: "&fEnder Pearl"
+    lore:
+      - "&7Buy: &a10"
+      - "&7Sell: &c5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 10.0
+    sell-price: 5.0
+    amount: 1
+    slot: 21
+    page: 1
+    clickable: true
+
+  "blaze_rod":
+    material: BLAZE_ROD
+    name: "&fBlaze Rod"
+    lore:
+      - "&7Buy: &a8"
+      - "&7Sell: &c4"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 8.0
+    sell-price: 4.0
+    amount: 1
+    slot: 23
+    page: 1
+    clickable: true
+
+  "ghast_tear":
+    material: GHAST_TEAR
+    name: "&fGhast Tear"
+    lore:
+      - "&7Buy: &a15"
+      - "&7Sell: &c6"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 15.0
+    sell-price: 6.0
+    amount: 1
+    slot: 25
+    page: 1
+    clickable: true
+
+  "magma_cream":
+    material: MAGMA_CREAM
+    name: "&fMagma Cream"
+    lore:
+      - "&7Buy: &a6"
+      - "&7Sell: &c3"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 6.0
+    sell-price: 3.0
+    amount: 1
+    slot: 28
+    page: 1
+    clickable: true
+
+  "slime_ball":
+    material: SLIME_BALL
+    name: "&fSlimeball"
+    lore:
+      - "&7Buy: &a5"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 5.0
+    sell-price: 2.0
+    amount: 1
+    slot: 30
+    page: 1
+    clickable: true
+
+  "phantom_membrane":
+    material: PHANTOM_MEMBRANE
+    name: "&fPhantom Membrane"
+    lore:
+      - "&7Buy: &a12"
+      - "&7Sell: &c5"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 12.0
+    sell-price: 5.0
+    amount: 1
+    slot: 32
+    page: 1
+    clickable: true
+
+  "shulker_shell":
+    material: SHULKER_SHELL
+    name: "&fShulker Shell"
+    lore:
+      - "&7Buy: &a20"
+      - "&7Sell: &c10"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 20.0
+    sell-price: 10.0
+    amount: 1
+    slot: 34
+    page: 1
+    clickable: true
+
+  "prismarine_shard":
+    material: PRISMARINE_SHARD
+    name: "&fPrismarine Shard"
+    lore:
+      - "&7Buy: &a6"
+      - "&7Sell: &c3"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 6.0
+    sell-price: 3.0
+    amount: 1
+    slot: 37
+    page: 1
+    clickable: true
+
+  "prismarine_crystals":
+    material: PRISMARINE_CRYSTALS
+    name: "&fPrismarine Crystals"
+    lore:
+      - "&7Buy: &a6"
+      - "&7Sell: &c3"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 6.0
+    sell-price: 3.0
+    amount: 1
+    slot: 39
+    page: 1
+    clickable: true
+
+  "glow_ink_sac":
+    material: GLOW_INK_SAC
+    name: "&fGlow Ink Sac"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 41
+    page: 1
+    clickable: true
+
+  "ink_sac":
+    material: INK_SAC
+    name: "&fInk Sac"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 43
+    page: 1
+    clickable: true
+
+
+  "leather":
+    material: LEATHER
+    name: "&fLeather"
+    lore:
+      - "&7Buy: &a4"
+      - "&7Sell: &c2"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 10
+    page: 2
+    clickable: true
+
+  "raw_beef":
+    material: BEEF
+    name: "&fRaw Beef"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 12
+    page: 2
+    clickable: true
+
+  "raw_mutton":
+    material: MUTTON
+    name: "&fRaw Mutton"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 14
+    page: 2
+    clickable: true
+
+  "raw_porkchop":
+    material: PORKCHOP
+    name: "&fRaw Porkchop"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 16
+    page: 2
+    clickable: true
+
+  "raw_chicken":
+    material: CHICKEN
+    name: "&fRaw Chicken"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 19
+    page: 2
+    clickable: true
+
+  "feather":
+    material: FEATHER
+    name: "&fFeather"
+    lore:
+      - "&7Buy: &a2"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 21
+    page: 2
+    clickable: true
+
+  "rabbit_hide":
+    material: RABBIT_HIDE
+    name: "&fRabbit Hide"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 23
+    page: 2
+    clickable: true
+
+  "rabbit_foot":
+    material: RABBIT_FOOT
+    name: "&fRabbit's Foot"
+    lore:
+      - "&7Buy: &a8"
+      - "&7Sell: &c3"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 8.0
+    sell-price: 3.0
+    amount: 1
+    slot: 25
+    page: 2
+    clickable: true
+
+  "raw_cod":
+    material: COD
+    name: "&fRaw Cod"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 28
+    page: 2
+    clickable: true
+
+  "raw_salmon":
+    material: SALMON
+    name: "&fRaw Salmon"
+    lore:
+      - "&7Buy: &a3"
+      - "&7Sell: &c1"
+      - "&eLeft-Click to Buy"
+      - "&eRight-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 30
+    page: 2
+    clickable: true

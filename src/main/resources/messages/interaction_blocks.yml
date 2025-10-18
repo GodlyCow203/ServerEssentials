@@ -1,0 +1,43 @@
+# General
+only-players: "<bold><#2971FF>[</bold><#7AA7FF><bold>GUI</bold><bold><#2971FF>]</bold><#FFFFFF> Only players can use this command!"
+not-implemented-lore: "<gray>This feature is not implemented yet."
+
+clicked-barrier: "<bold><#2971FF>[</bold><#7AA7FF><bold>GUI</bold><bold><#2971FF>]</bold><#CC0000> Error"
+
+# Smoker
+opened-smoker: "<bold><#2971FF>[</bold><#7AA7FF><bold>GUI</bold><bold><#2971FF>]</bold><#FFFFFF> Opened Smoker!"
+gui-title-smoker: "<gold>Smoker"
+
+# Brewing Stand
+opened-brewing: "<bold><#2971FF>[</bold><#7AA7FF><bold>GUI</bold><bold><#2971FF>]</bold><#FFFFFF> Opened Brewing Stand!"
+gui-title-brewing: "<gold>Brewing Stand"
+
+# Furnace
+opened-furnace: "<bold><#2971FF>[</bold><#7AA7FF><bold>GUI</bold><bold><#2971FF>]</bold><#FFFFFF> Opened Furnace!"
+gui-title-furnace: "<gold>Furnace"
+
+# Blast Furnace
+opened-blast-furnace: "<bold><#2971FF>[</bold><#7AA7FF><bold>GUI</bold><bold><#2971FF>]</bold><#FFFFFF> Opened Blast Furnace!"
+gui-title-blast-furnace: "<gold>Blast Furnace"
+
+# Loom
+opened-loom: "<bold><#2971FF>[</bold><#7AA7FF><bold>GUI</bold><bold><#2971FF>]</bold><#FFFFFF> Opened Loom!"
+gui-title-looms: "<gold>Loom"
+
+# Grindstone
+opened-grindstone: "<bold><#2971FF>[</bold><#7AA7FF><bold>GUI</bold><bold><#2971FF>]</bold><#FFFFFF> Opened Grindstone!"
+
+# Crafting Table
+opened-crafting-table: "<bold><#2971FF>[</bold><#7AA7FF><bold>GUI</bold><bold><#2971FF>]</bold><#FFFFFF> Opened Crafting Table!"
+
+# Smithing Table
+opened-smithing-table: "<bold><#2971FF>[</bold><#7AA7FF><bold>GUI</bold><bold><#2971FF>]</bold><#FFFFFF> Opened Smithing Table!"
+
+# Cartography Table
+opened-cartography-table: "<bold><#2971FF>[</bold><#7AA7FF><bold>GUI</bold><bold><#2971FF>]</bold><#FFFFFF> Opened Cartography Table!"
+
+# Stonecutter
+opened-stonecutter: "<bold><#2971FF>[</bold><#7AA7FF><bold>GUI</bold><bold><#2971FF>]</bold><#FFFFFF> Opened Stonecutter!"
+
+# Anvil
+opened-anvil: "<bold><#2971FF>[</bold><#7AA7FF><bold>GUI</bold><bold><#2971FF>]</bold><#FFFFFF> Opened Anvil!"

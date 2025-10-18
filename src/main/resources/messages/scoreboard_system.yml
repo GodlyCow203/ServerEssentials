@@ -1,0 +1,11 @@
+commands:
+  help: "<bold><#2971FF>[</bold><#7AA7FF><bold>SCOREBOARD</bold><bold><#2971FF>]</bold><#CC0000> Usage: /scoreboard <reload|toggle|color>"
+  reload:
+    success: "<bold><#2971FF>[</bold><#7AA7FF><bold>SCOREBOARD</bold><bold><#2971FF>]</bold><#FFFFFF> Scoreboard configs reloaded!"
+  toggle:
+    enabled: "<bold><#2971FF>[</bold><#7AA7FF><bold>SCOREBOARD</bold><bold><#2971FF>]</bold><#FFFFFF> Your scoreboard has been enabled."
+    disabled: "<bold><#2971FF>[</bold><#7AA7FF><bold>SCOREBOARD</bold><bold><#2971FF>]</bold><#FFFFFF> Your scoreboard has been disabled."
+  color:
+    usage: "<bold><#2971FF>[</bold><#7AA7FF><bold>SCOREBOARD</bold><bold><#2971FF>]</bold><#CC0000> Usage: /scoreboard color <layout>"
+    changed: "<bold><#2971FF>[</bold><#7AA7FF><bold>SCOREBOARD</bold><bold><#2971FF>]</bold><#FFFFFF> Your scoreboard layout has been set to <white><layout></white>."
+    not-found: "<bold><#2971FF>[</bold><#7AA7FF><bold>SCOREBOARD</bold><bold><#2971FF>]</bold><#CC0000> That layout does not exist."

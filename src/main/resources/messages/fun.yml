@@ -1,0 +1,65 @@
+
+Canon:
+  Messages:
+    PlayerOnly: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command."
+    Success: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#FFFFFF> Woosh! You were launched into the air!"
+
+Explosion:
+  PlayerOnly: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command!"
+  NoRadius: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#cc0000> Please specify a radius!"
+  InvalidRadius: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#cc0000> Invalid radius: <gray>{input}</gray>"
+  Created: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#FFFFFF> Explosion created with radius <gray>{radius}</gray>!"
+
+KittyCannon:
+  PlayerOnly: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command!"
+  Fired: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#FFFFFF> Kitty cannon fired with velocity <gray>{velocity}</gray>!"
+  Name: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#FFFFFF> Kitty Cannon!"
+  Velocity: 2.0
+
+Beezooka:
+  PlayerOnly: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command!"
+  Fired: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#ffffff> Beezooka fired with velocity <gray>{velocity}</gray>!"
+  Name: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#ffffff> Beezooka Bee!"
+  Velocity: 2.5
+
+Thunder:
+  PlayerOnly: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command!"
+  Struck: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#ffffff> Thunder effect summoned at <gray>{target}</gray>!"
+  SelfName: "<gray>yourself</gray>"
+
+Fireball:
+  PlayerOnly: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command!"
+  Launched: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#ffffff> Fireball launched!"
+
+nuke:
+  only-players: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command!"
+  deployed: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#ffffff> Nuke deployed!"
+
+lightning:
+  only-players: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command!"
+  struck: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#ffffff> Lightning struck!"
+
+powertool:
+  only-players: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command!"
+  usage: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#cc0000> Usage: /powertool <command> | <uses> | <name> | <tool> | enchanted <yes/no>"
+  invalid-uses: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#cc0000> Uses must be a number or -1 for infinite."
+  invalid-tool: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#cc0000> Invalid tool material: <white>{tool}"
+  received-tool: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#ffffff> You received a PowerTool: <white>{name}"
+  tool-out-of-uses: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#cc0000> Your PowerTool has run out of uses!"
+
+glow:
+  only-players: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#cc0000> Only players can toggle glow."
+  no-permission: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#cc0000> You don't have permission to use this command."
+  enabled: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#ffffff> Glow effect <green>enabled</green>."
+  disabled: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#ffffff> Glow effect <red>disabled</red>."
+
+Gravity:
+  only-players: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command."
+  toggled: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#cc0000> Gravity toggled: {state}"
+
+celebrate:
+  message: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#cc0000> <gray>🎉</gray> Boom! Celebration!"
+
+
+
+

@@ -1,0 +1,20 @@
+database:
+  # "sqlite" (default) or "mysql"
+  type: sqlite
+
+  mysql:
+    host: "localhost"
+    port: 3306
+    database: "serveressentials"
+    user: "root"
+    password: "password"
+
+# The format for OP players.
+# %player% will be replaced with the player's name.
+# Supports full MiniMessage syntax: gradients, hex, bold, italics, etc.
+op-format: "<red><%player%></red>"
+
+# The format for normal players.
+# %player% will be replaced with the player's name.
+# You can also change this to any MiniMessage-supported format.
+normal-format: "<white><%player%></white>"

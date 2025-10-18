@@ -1,0 +1,21 @@
+# General
+no-kits-defined: "<bold><#2971FF>[</bold><#7AA7FF><bold>KIT</bold><bold><#2971FF>]</bold><#cc0000> No kits are defined in the config."
+only-players: "<bold><#2971FF>[</bold><#7AA7FF><bold>KIT</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command."
+reload-no-permission: "<bold><#2971FF>[</bold><#7AA7FF><bold>KIT</bold><bold><#2971FF>]</bold><#cc0000> You do not have permission to reload kits."
+reload-success: "<bold><#2971FF>[</bold><#7AA7FF><bold>KIT</bold><bold><#2971FF>]</bold><#ffffff> Kit configuration reloaded."
+
+# GUI
+gui-title: "<#FFFFFF>Available Kits"
+gui-preview-title: "<#FFFFFF>Preview Kit: <#00FFFF>%kit%"
+gui-claim-button: "<#1BFF00>Claim Kit"
+gui-back-button: "<#FF0000>Back"
+gui-locked-name: "<#FF0000>Locked: <#AAAAAA>%kit%"
+gui-locked-lore-no-perm: "<#AAAAAA>You don't have permission to use this kit."
+gui-locked-lore-required: "<#AAAAAA>Required: <#FFFFFF>%permission%"
+gui-locked-lore-cooldown: "<#AAAAAA>Cooldown: <#FF0000>%time%s remaining"
+
+# Claiming kits
+claim.no-permission: "<bold><#2971FF>[</bold><#7AA7FF><bold>KIT</bold><bold><#2971FF>]</bold><#ffffff> <gray>%player%</gray>, you don't have permission to claim kit <gray>%kit%</gray>."
+claim.cooldown: "<bold><#2971FF>[</bold><#7AA7FF><bold>KIT</bold><bold><#2971FF>]</bold><#cc0000> You must wait <gray>%time%</gray> seconds before using kit <gray>%kit%</gray> again."
+claim.success: "<bold><#2971FF>[</bold><#7AA7FF><bold>KIT</bold><bold><#2971FF>]</bold><#ffffff> You claimed kit: <gray>%kit%</gray>"
+

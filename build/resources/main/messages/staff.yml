@@ -1,0 +1,197 @@
+# -------------------------------
+# Staff Commands Messages
+# -------------------------------
+
+# GENERAL PERMISSIONS / MESSAGES
+no-permission: "  <bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#CC0000> You don't have permission."
+
+# -------------------------------
+# Unmute Command
+# -------------------------------
+unmute.usage: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#CC0000> Usage: /unmute <player>"
+unmute.player-not-found: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#CC0000>  <#ffffff>%player% <#cc0000>not found."
+unmute.unmuted: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#FFFFFF> Successfully unmuted <#00ffff>%player%"
+unmute.not-muted: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#CC0000> That player is not muted."
+
+# -------------------------------
+# Clear Chat Command
+# -------------------------------
+clearchat.no-permission: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#CC0000> You do not have permission to use this command."
+clearchat.cleared: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#FFFFFF> Chat has been cleared by <#ff0000>%player%"
+
+# -------------------------------
+# TPOffline Command
+# -------------------------------
+tpoffline.usage: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#CC0000> Usage: /tpoffline <player>"
+tpoffline.offline-location: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#CC0000> Player is offline and location is unavailable."
+tpoffline.teleported: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#FFFFFF> Teleported to #ffff00%player%"
+
+# -------------------------------
+# Staff List Command
+# -------------------------------
+stafflist.header: "<#ffffff>--- Online Staff ---"
+stafflist.none: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#CC0000> No staff members online."
+stafflist.format: "#00ff00• #ffff00%player%"
+
+# -------------------------------
+# Unban Command
+# -------------------------------
+unban.no-permission: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#CC0000> You don't have permission."
+unban.usage: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#CC0000> Usage: /unban <player>"
+unban.player-not-found: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#CC0000> Could not find banned player with name <#ffffff>'%player%'."
+unban.not-banned: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#CC0000> <#ffffff>%player% <#cc0000>is not currently banned."
+unban.success: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#FFFFFF> %player% has been unbanned."
+
+
+
+
+
+# -------------------------------
+# Alts Command
+# -------------------------------
+alts.usage: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#CC0000> Usage: /alts <player>"
+alts.player-offline: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#CC0000> Player must be online to check their IP."
+alts.header: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#FFFFFF> Players with the same IP as %player%:"
+alts.none: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#CC0000> - None found online."
+alts.found: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#FFFFFF>- %player%"
+
+# -------------------------------
+# Heal Command
+# -------------------------------
+heal:
+  no-permission: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#cc0000> You don't have permission."
+  only-players: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command."
+  success: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#ffffff> You have been healed!"
+
+
+
+reports:
+  notifier:
+    header: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#ffffff> You have new reports:"
+    entry: "<gray>- %message%"
+
+banlist:
+  no-permission: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#cc0000> You don't have permission."
+  empty: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#cc0000> There are no banned players."
+  header: "<green>------<gray>[ <white>Banned Players <gray>]<green>------"
+  format: "<red>%player% <gray>- <white>%reason% <gray>(<aqua>%time%</aqua>)"
+  footer: "<green>-----------------------------"
+
+playerinfo:
+  usage: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#cc0000> Usage: /playerinfo <player>"
+  not-found: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#cc0000> Player not found."
+  header: "<#ffffff>----- <gray>Player Info <#ffffff>-----"
+  name: "<white>Name: <gray>%player%"
+  uuid: "<white>UUID: <gray>%uuid%"
+  health: "<white>Health: <gray>%health%<white>/<gray>%maxhealth%"
+  food: "<white>Food: <gray>%food%"
+  location: "<white>Location: <gray>%location%"
+
+fly:
+  only-players: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command."
+  enabled: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#ffffff> Flight <green>enabled<white>."
+  disabled: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#ffffff> Flight <red>disabled<white>."
+  no-permission: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#cc0000> You don’t have permission to use this command!"
+ban:
+  no-permission: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#cc0000> You don't have permission."
+  usage: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#cc0000> Usage: /ban <player> <time> <reason>"
+  never-joined: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#cc0000> That player has never joined the server."
+  invalid-time: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#cc0000> Invalid time format. Use <yellow>s/m/h/d</yellow> or <yellow>perm</yellow>"
+  success: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#ffffff> <gray><player></gray> <#ffffff>has been banned."
+  kick-message: |
+    <red>You have been banned!
+    <gray>Reason: <reason>
+    <gray>Banned by: <banner>
+    <gray>Until: <until>
+
+
+pingall:
+  no-permission: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#cc0000> You do not have permission to use this command."
+  header: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#ffffff> Online Player Pings:"
+  player-line: "<white><player>: <gray><ping>"
+  ping-na: "<gray>N<white>/<gray>A"
+
+
+mute:
+  no-permission: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#cc0000> You don't have permission."
+  usage: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#cc0000> Usage: /mute <player> <reason>"
+  not-found: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#cc0000> Player not found."
+  already-muted: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#cc0000> <white><player> <#cc0000>is already muted for <white><reason></white>."
+  success: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#ffffff> You muted <gray><player></gray> <gray>for <gray><reason></gray>."
+  notify: "<bold><#2971FF>[</bold><#7AA7FF><bold>INFO</bold><bold><#2971FF>]</bold><#ffffff> You have been muted! <gray>Reason:</gray> <reason>"
+
+adminchat:
+  format: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#ffffff> <gray>%player%: <white>%message%"
+  only-players: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command."
+  no-permission: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#cc0000> You do not have permission to use admin chat."
+  toggle: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#ffffff> Admin chat toggled <gray>%state%</gray>"
+
+kickall:
+  usage: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#cc0000> Usage: /kickall <reason>"
+  kick-message: "<red>You were kicked by <gold>%admin%</gold> for: <white>%reason%</white>"
+  sender-message: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#ffffff> Successfully kicked <gray>%count%</gray> players for: <gray>%reason%</gray>"
+
+adminutilities:
+  only-players: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this."
+  player-not-found: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#cc0000> Player not found."
+
+  vanish:
+    vanished: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#ffffff> You have <gray>vanished."
+    visible: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#ffffff> You are now <gray>visible."
+
+  god:
+    enabled: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#ffffff> God mode <green>enabled."
+    disabled: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#ffffff> God mode <red>disabled."
+
+  invsee:
+    usage: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#cc0000> Usage: /invsee <player>"
+    success: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#ffffff> Opening <gray>%target%</gray>'s inventory."
+
+  invclear:
+    cleared: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#cc0000> Your inventory was cleared."
+    cleared-other: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#ffffff> Cleared <gray>%target%</gray>'s inventory."
+
+  tp:
+    usage: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#cc0000> Usage: /tp <player>"
+    success: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#ffffff> Teleported to <gray>%target%</gray>."
+
+Lockdown:
+  no-permission: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#cc0000> You don't have permission to use this command."
+  not-active: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#cc0000> Lockdown is not active."
+  trigger-confirm: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#ffffff> Are you sure you want to trigger LOCKDOWN? Type '/lockdown confirm' to proceed."
+  triggered: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#ffffff> !!! LOCKDOWN IS NOW ACTIVE !!!"
+  lockdown-enabled-op: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#ffffff> ⚠ LOCKDOWN ENABLED ⚠"
+  disabled: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#ffffff> Lockdown has been disabled."
+  usage: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#cc0000> Usage: /lockdown confirm or /lockdown disable"
+  kick-message: "<red>LOCKDOWN is active. Come back later."
+  motd-lockdown: "<red><bold>⚠ LOCKDOWN MODE ⚠\n<yellow>Server access restricted"
+
+unfreeze:
+  only-players: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command."
+  usage: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#cc0000> Usage: /unfreeze <player>"
+  not-found: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#cc0000> Player not found or not online."
+  not-frozen: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#cc0000> <gray><player></gray> was not frozen."
+  success: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#ffffff> Unfroze <player>."
+  target: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#ffffff> You are no longer frozen."
+
+freeze:
+  only-players: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command."
+  usage: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#cc0000> Usage: /freeze <player>"
+  not-found: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#cc0000> Player not found or not online."
+  froze: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#ffffff> Froze <gray>{player}</gray>."
+  unfroze: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#ffffff> Unfroze <gray>{player}</gray>."
+  you-frozen: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#ffffff> You have been frozen!"
+  you-unfrozen: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#ffffff> You have been unfrozen."
+
+endersee:
+  usage: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#cc0000> Usage: {usage}"
+  invalid-player: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#cc0000> Player <gray>{player}</gray> not found!"
+  no-permission: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#cc0000> You don’t have permission to use this command!"
+  opened: "<bold><#2971FF>[</bold><#7AA7FF><bold>STAFF</bold><bold><#2971FF>]</bold><#ffffff> Opened EnderChest of <gray>{player}"
+
+
+
+
+
+
+
