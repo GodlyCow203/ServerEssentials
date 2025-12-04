@@ -281,8 +281,8 @@ commands:
     permission: serveressentials.workbench
   enderchest:
     description: Open your ender chest.
-    usage: /enderchest <player>
-    permission: serveressentials.enderchest
+    usage: /enderchest
+    permission: serveressentials.command.enderchest
   endersee:
     description: View another player's ender chest.
     usage: /endersee <player>
@@ -574,7 +574,7 @@ commands:
     permission: serveressentials.command.recipe
   near:
     description: Show nearby players
-    usage: /near
+    usage: /nears
     permission: serveressentials.command.near
 
   top:
@@ -1071,6 +1071,9 @@ permissions:
     default: op
   serveressentials.delwarp.all:
     description: Allows deleting any warp
+    default: op
+  serveressentials.command.enderchest.others:
+    description: Open the Enderchest of other Players
     default: op
 
 

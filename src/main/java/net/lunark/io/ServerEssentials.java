@@ -244,6 +244,8 @@ public class ServerEssentials extends JavaPlugin implements Listener {
     private PlaytimeCommand playtimeCommand;
     private RecipeConfig recipeConfig;
     private RecipeCommand recipeCommand;
+    private EnderChestConfig enderChestConfig;
+    private EnderChestCommand enderChestCommand;
 
 
 
@@ -371,6 +373,9 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         this.recipeConfig = new RecipeConfig(this);
         this.recipeCommand = new RecipeCommand(playerLanguageManager, recipeConfig, commandDataStorage);
 
+        this.enderChestConfig = new EnderChestConfig(this);
+        this.enderChestCommand = new EnderChestCommand(playerLanguageManager, enderChestConfig, commandDataStorage);
+
 
 
 
@@ -413,6 +418,8 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         getCommand("weather").setExecutor(weatherCommand);
         getCommand("playtime").setExecutor(playtimeCommand);
         getCommand("recipe").setExecutor(recipeCommand);
+        getCommand("enderchest").setExecutor(enderChestCommand);
+
 
 
 
@@ -783,7 +790,6 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         if (!isCommandDisabled("gravity")) getCommand("gravity").setExecutor(new GravityCommand(funMessages));
         if (!isCommandDisabled("repair")) this.getCommand("repair").setExecutor(new RepairCommand(this));
         if (!isCommandDisabled("workbench")) getCommand("workbench").setExecutor(new WorkbenchCommand());
-        if (!isCommandDisabled("enderchest")) getCommand("enderchest").setExecutor(new EnderChestCommand());
 
 
 
