@@ -1,7 +1,7 @@
-Vault:
-  only-players: "<bold><#2971FF>[</bold><#7AA7FF><bold>VAULT</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command."
-  usage: "<bold><#2971FF>[</bold><#7AA7FF><bold>VAULT</bold><bold><#2971FF>]</bold><#cc0000> Usage: /pv <1-10>"
-  invalid-number: "<bold><#2971FF>[</bold><#7AA7FF><bold>VAULT</bold><bold><#2971FF>]</bold><#cc0000> Invalid vault number. Use /pv <1-10>"
-  saved: "<bold><#2971FF>[</bold><#7AA7FF><bold>VAULT</bold><bold><#2971FF>]</bold><#ffffff> Vault <gray>{vault}</gray> saved."
-  admin-saved: "<bold><#2971FF>[</bold><#7AA7FF><bold>VAULT</bold><bold><#2971FF>]</bold><#ffffff> Saved edits to <gray>{player}</gray>'s vault </gray>{vault}."
 
+Vault:
+  only-players: '<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> Only players can use this command.'
+  usage: '<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> Usage: <#808080>/pv <1-10></#808080>'
+  invalid-number: '<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> Invalid vault number. Use <#808080>/pv <1-10></#808080>'
+  saved: '<#424242>[<bold><#4CAF50>!</bold>]</#424242><#FFFFFF> Vault <#808080>{vault}</#808080> saved.'
+  admin-saved: '<#424242>[<bold><#4CAF50>!</bold>]</#424242><#FFFFFF> Saved edits to <#808080>{player}</#808080>''s vault <#808080>{vault}</#808080>.'

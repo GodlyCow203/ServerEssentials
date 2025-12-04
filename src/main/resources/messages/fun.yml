@@ -1,65 +1,76 @@
+# --------------------------------
+# Fun Module Messages
+# --------------------------------
 
-Canon:
-  Messages:
-    PlayerOnly: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command."
-    Success: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#FFFFFF> Woosh! You were launched into the air!"
+Canon.Messages:
+  PlayerOnly: "<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> Only players can use this command."
+  Success: "<#424242>[<bold><#4CAF50>!</bold>]</#424242><#FFFFFF> Woosh! You were launched into the air!"
 
 Explosion:
-  PlayerOnly: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command!"
-  NoRadius: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#cc0000> Please specify a radius!"
-  InvalidRadius: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#cc0000> Invalid radius: <gray>{input}</gray>"
-  Created: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#FFFFFF> Explosion created with radius <gray>{radius}</gray>!"
+  PlayerOnly: "<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> Only players can use this command!"
+  NoRadius: "<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> Please specify a radius!"
+  InvalidRadius: "<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> Invalid radius: <gray>{input}</gray>"
+  Created: "<#424242>[<bold><#4CAF50>!</bold>]</#424242><#FFFFFF> Explosion created with radius <gray>{radius}</gray>!"
 
 KittyCannon:
-  PlayerOnly: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command!"
-  Fired: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#FFFFFF> Kitty cannon fired with velocity <gray>{velocity}</gray>!"
-  Name: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#FFFFFF> Kitty Cannon!"
+  PlayerOnly: "<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> Only players can use this command!"
+  Fired: "<#424242>[<bold><#4CAF50>!</bold>]</#424242><#FFFFFF> Kitty cannon fired with velocity <gray>{velocity}</gray>!"
+  Name: "<#424242>[<bold><#FFF176>!</bold>]</#424242><#FFFFFF> Kitty Cannon!"
   Velocity: 2.0
 
 Beezooka:
-  PlayerOnly: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command!"
-  Fired: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#ffffff> Beezooka fired with velocity <gray>{velocity}</gray>!"
-  Name: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#ffffff> Beezooka Bee!"
+  PlayerOnly: "<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> Only players can use this command!"
+  Fired: "<#424242>[<bold><#4CAF50>!</bold>]</#424242><#FFFFFF> Beezooka fired with velocity <gray>{velocity}</gray>!"
+  Name: "<#424242>[<bold><#FFF176>!</bold>]</#424242><#FFFFFF> Beezooka Bee!"
   Velocity: 2.5
 
 Thunder:
-  PlayerOnly: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command!"
-  Struck: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#ffffff> Thunder effect summoned at <gray>{target}</gray>!"
+  PlayerOnly: "<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> Only players can use this command!"
+  Struck: "<#424242>[<bold><#4CAF50>!</bold>]</#424242><#FFFFFF> Thunder effect summoned at <gray>{target}</gray>!"
   SelfName: "<gray>yourself</gray>"
 
 Fireball:
-  PlayerOnly: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command!"
-  Launched: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#ffffff> Fireball launched!"
+  PlayerOnly: "<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> Only players can use this command!"
+  Launched: "<#424242>[<bold><#4CAF50>!</bold>]</#424242><#FFFFFF> Fireball launched!"
 
 nuke:
-  only-players: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command!"
-  deployed: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#ffffff> Nuke deployed!"
+  only-players: "<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> Only players can use this command!"
+  deployed: "<#424242>[<bold><#4CAF50>!</bold>]</#424242><#FFFFFF> Nuke deployed!"
 
 lightning:
-  only-players: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command!"
-  struck: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#ffffff> Lightning struck!"
+  only-players: "<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> Only players can use this."
+  player-not-found: "<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> Player not found."
+  no-permission: "<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> Missing permission: <#FFFFFF>serveressentials.lightning"
+  struck-self: "<#424242>[<bold><#4CAF50>!</bold>]</#424242><#FFFFFF> Lightning cracks above you."
+  struck-other: "<#424242>[<bold><#4CAF50>!</bold>]</#424242><#FFFFFF> Lightning cracks above <#FFFFFF><target><#FFFFFF>."
 
 powertool:
-  only-players: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command!"
-  usage: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#cc0000> Usage: /powertool <command> | <uses> | <name> | <tool> | enchanted <yes/no>"
-  invalid-uses: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#cc0000> Uses must be a number or -1 for infinite."
-  invalid-tool: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#cc0000> Invalid tool material: <white>{tool}"
-  received-tool: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#ffffff> You received a PowerTool: <white>{name}"
-  tool-out-of-uses: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#cc0000> Your PowerTool has run out of uses!"
+  only-players: "<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> Only players can use this command!"
+  usage: "<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> Usage: /powertool <command> | <uses> | <name> | <tool> | enchanted <yes/no>"
+  invalid-uses: "<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> Uses must be a number or -1 for infinite."
+  invalid-tool: "<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> Invalid tool material: <#FFFFFF>{tool}"
+  received-tool: "<#424242>[<bold><#4CAF50>!</bold>]</#424242><#FFFFFF> You received a PowerTool: <#FFFFFF>{name}"
+  tool-out-of-uses: "<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> Your PowerTool has run out of uses!"
 
 glow:
-  only-players: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#cc0000> Only players can toggle glow."
-  no-permission: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#cc0000> You don't have permission to use this command."
-  enabled: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#ffffff> Glow effect <green>enabled</green>."
-  disabled: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#ffffff> Glow effect <red>disabled</red>."
+  only-players: "<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> Only players can toggle glow."
+  no-permission: "<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> You don't have permission to use this command."
+  enabled: "<#424242>[<bold><#4CAF50>!</bold>]</#424242><#FFFFFF> Glow effect <#4CAF50>enabled<#FFFFFF>."
+  disabled: "<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> Glow effect <#E57373>disabled<#FFFFFF>."
 
-Gravity:
-  only-players: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#cc0000> Only players can use this command."
-  toggled: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#cc0000> Gravity toggled: {state}"
+gravity:
+  only-players: "<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> Only players can use this."
+  player-not-found: "<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> Player not found."
+  no-permission: "<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> Missing permission: <#FFFFFF>essentials.gravity"
+  toggled-self: "<#424242>[<bold><#4CAF50>!</bold>]</#424242><#FFFFFF> Gravity <#FFFFFF>{state}<#FFFFFF>."
+  toggled-other: "<#424242>[<bold><#4CAF50>!</bold>]</#424242><#FFFFFF> Gravity <#FFFFFF>{state}<#FFFFFF> for <#FFFFFF>{target}<#FFFFFF>."
 
 celebrate:
-  message: "<bold><#2971FF>[</bold><#7AA7FF><bold>FUN</bold><bold><#2971FF>]</bold><#cc0000> <gray>🎉</gray> Boom! Celebration!"
-
+  message: "<#424242>[<bold><#FFF176>!</bold>]</#424242><#FFFFFF> 🎉 Boom! Celebration!"
+  message-other: "<#424242>[<bold><#FFF176>!</bold>]</#424242><#FFFFFF> 🎉 Celebration for <#FFFFFF><target><#FFFFFF>!"
+  only-players: "<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> Only players can use this."
+  player-not-found: "<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> Player not found."
+  no-permission: "<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> Missing permission: <#FFFFFF>serveressentials.celebrate"
 
 
 

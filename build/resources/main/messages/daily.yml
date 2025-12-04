@@ -1,21 +1,21 @@
-gui-title: "<#66ffff>Daily Rewards - Page %page%"
-gui-title-placeholder: "Daily Rewards" # do not change
 
-previous-page: "<#ffaa00>Previous Page"
-next-page: "<#ffaa00>Next Page"
-close-button: "<#ff5555>Close"
+gui-title: '<#424242>[<bold><#4CAF50>!</bold>]</#424242><#FFFFFF> Daily Rewards - Page <#FFF176>%page%</#FFF176>'
+gui-title-placeholder: 'Daily Rewards'   # do not change
 
-reward-name: "<#00ffaa>Day %day%"
-reward-claimed-name: "<#00ff00>Reward Claimed"
-reward-claimed-lore: "<#aaaaaa>You've already claimed this reward."
-reward-locked-name: "<#ff0000>Reward Locked"
-reward-locked-cooldown: "<bold><#2971FF>[</bold><#7AA7FF><bold>DAILY</bold><bold><#2971FF>]</bold><#CC0000> Next reward in: <gray>%time%</gray>"
-reward-locked-previous: "<bold><#2971FF>[</bold><#7AA7FF><bold>DAILY</bold><bold><#2971FF>]</bold><#CC0000> Claim previous rewards first."
+previous-page: '<#424242>[<bold><#FFF176>‹</bold>]</#424242><#FFFFFF> Previous Page'
+next-page: '<#424242>[<bold><#FFF176>›</bold>]</#424242><#FFFFFF> Next Page'
+close-button: '<#424242>[<bold><#E57373>✖</bold>]</#424242><#FFFFFF> Close'
 
-claim-success: "<bold><#2971FF>[</bold><#7AA7FF><bold>DAILY</bold><bold><#2971FF>]</bold><#ffffff> You claimed your Day <gray>%day%</gray> reward!"
-claim-already: "<bold><#2971FF>[</bold><#7AA7FF><bold>DAILY</bold><bold><#2971FF>]</bold><#ffffff> You have already claimed this reward."
-claim-previous: "<bold><#2971FF>[</bold><#7AA7FF><bold>DAILY</bold><bold><#2971FF>]</bold><#CC0000> Please claim previous days first."
-claim-cooldown: "<bold><#2971FF>[</bold><#7AA7FF><bold>DAILY</bold><bold><#2971FF>]</bold><#CC0000> You can claim your next reward in: <gray>%time%</gray>"
-no-permission: "<bold><#2971FF>[</bold><#7AA7FF><bold>DAILY</bold><bold><#2971FF>]</bold><#CC0000> You do not have permission: <gray>%permission%</gray>"
+reward-name: '<#424242>[<bold><#4CAF50>✦</bold>]</#424242><#FFFFFF> Day <#FFF176>%day%</#FFF176>'
+reward-claimed-name: '<#424242>[<bold><#4CAF50>✔</bold>]</#424242><#FFFFFF> Reward Claimed'
+reward-claimed-lore: '<#808080>You''ve already claimed this reward.'
+reward-locked-name: '<#424242>[<bold><#E57373>✖</bold>]</#424242><#FFFFFF> Reward Locked'
 
+reward-locked-cooldown: '<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> Next reward in: <#808080>%time%</#808080>'
+reward-locked-previous: '<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> Claim previous rewards first.'
 
+claim-success: '<#424242>[<bold><#4CAF50>!</bold>]</#424242><#FFFFFF> You claimed your Day <#808080>%day%</#808080> reward!'
+claim-already: '<#424242>[<bold><#FFF176>!</bold>]</#424242><#FFFFFF> You have already claimed this reward.'
+claim-previous: '<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> Please claim previous days first.'
+claim-cooldown: '<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> You can claim your next reward in: <#808080>%time%</#808080>'
+no-permission: '<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> You do not have permission: <#808080>%permission%</#808080>'

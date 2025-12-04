@@ -1,43 +1,44 @@
-# General
-only-players: "<bold><#2971FF>[</bold><#7AA7FF><bold>GUI</bold><bold><#2971FF>]</bold><#FFFFFF> Only players can use this command!"
-not-implemented-lore: "<gray>This feature is not implemented yet."
 
-clicked-barrier: "<bold><#2971FF>[</bold><#7AA7FF><bold>GUI</bold><bold><#2971FF>]</bold><#CC0000> Error"
+
+# General
+only-players: '<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> Only players can use this command!'
+not-implemented-lore: '<#808080>This feature is not implemented yet.'
+clicked-barrier: '<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> Error'
 
 # Smoker
-opened-smoker: "<bold><#2971FF>[</bold><#7AA7FF><bold>GUI</bold><bold><#2971FF>]</bold><#FFFFFF> Opened Smoker!"
-gui-title-smoker: "<gold>Smoker"
+opened-smoker: '<#424242>[<bold><#4CAF50>!</bold>]</#424242><#FFFFFF> Opened Smoker!'
+gui-title-smoker: '<#424242>[<bold><#FFA500>⬤</bold>]</#424242><#FFFFFF> Smoker'
 
 # Brewing Stand
-opened-brewing: "<bold><#2971FF>[</bold><#7AA7FF><bold>GUI</bold><bold><#2971FF>]</bold><#FFFFFF> Opened Brewing Stand!"
-gui-title-brewing: "<gold>Brewing Stand"
+opened-brewing: '<#424242>[<bold><#4CAF50>!</bold>]</#424242><#FFFFFF> Opened Brewing Stand!'
+gui-title-brewing: '<#424242>[<bold><#FFA500>⬤</bold>]</#424242><#FFFFFF> Brewing Stand'
 
 # Furnace
-opened-furnace: "<bold><#2971FF>[</bold><#7AA7FF><bold>GUI</bold><bold><#2971FF>]</bold><#FFFFFF> Opened Furnace!"
-gui-title-furnace: "<gold>Furnace"
+opened-furnace: '<#424242>[<bold><#4CAF50>!</bold>]</#424242><#FFFFFF> Opened Furnace!'
+gui-title-furnace: '<#424242>[<bold><#FFA500>⬤</bold>]</#424242><#FFFFFF> Furnace'
 
 # Blast Furnace
-opened-blast-furnace: "<bold><#2971FF>[</bold><#7AA7FF><bold>GUI</bold><bold><#2971FF>]</bold><#FFFFFF> Opened Blast Furnace!"
-gui-title-blast-furnace: "<gold>Blast Furnace"
+opened-blast-furnace: '<#424242>[<bold><#4CAF50>!</bold>]</#424242><#FFFFFF> Opened Blast Furnace!'
+gui-title-blast-furnace: '<#424242>[<bold><#FFA500>⬤</bold>]</#424242><#FFFFFF> Blast Furnace'
 
 # Loom
-opened-loom: "<bold><#2971FF>[</bold><#7AA7FF><bold>GUI</bold><bold><#2971FF>]</bold><#FFFFFF> Opened Loom!"
-gui-title-looms: "<gold>Loom"
+opened-loom: '<#424242>[<bold><#4CAF50>!</bold>]</#424242><#FFFFFF> Opened Loom!'
+gui-title-looms: '<#424242>[<bold><#FFA500>⬤</bold>]</#424242><#FFFFFF> Loom'
 
 # Grindstone
-opened-grindstone: "<bold><#2971FF>[</bold><#7AA7FF><bold>GUI</bold><bold><#2971FF>]</bold><#FFFFFF> Opened Grindstone!"
+opened-grindstone: '<#424242>[<bold><#4CAF50>!</bold>]</#424242><#FFFFFF> Opened Grindstone!'
 
 # Crafting Table
-opened-crafting-table: "<bold><#2971FF>[</bold><#7AA7FF><bold>GUI</bold><bold><#2971FF>]</bold><#FFFFFF> Opened Crafting Table!"
+opened-crafting-table: '<#424242>[<bold><#4CAF50>!</bold>]</#424242><#FFFFFF> Opened Crafting Table!'
 
 # Smithing Table
-opened-smithing-table: "<bold><#2971FF>[</bold><#7AA7FF><bold>GUI</bold><bold><#2971FF>]</bold><#FFFFFF> Opened Smithing Table!"
+opened-smithing-table: '<#424242>[<bold><#4CAF50>!</bold>]</#424242><#FFFFFF> Opened Smithing Table!'
 
 # Cartography Table
-opened-cartography-table: "<bold><#2971FF>[</bold><#7AA7FF><bold>GUI</bold><bold><#2971FF>]</bold><#FFFFFF> Opened Cartography Table!"
+opened-cartography-table: '<#424242>[<bold><#4CAF50>!</bold>]</#424242><#FFFFFF> Opened Cartography Table!'
 
 # Stonecutter
-opened-stonecutter: "<bold><#2971FF>[</bold><#7AA7FF><bold>GUI</bold><bold><#2971FF>]</bold><#FFFFFF> Opened Stonecutter!"
+opened-stonecutter: '<#424242>[<bold><#4CAF50>!</bold>]</#424242><#FFFFFF> Opened Stonecutter!'
 
 # Anvil
-opened-anvil: "<bold><#2971FF>[</bold><#7AA7FF><bold>GUI</bold><bold><#2971FF>]</bold><#FFFFFF> Opened Anvil!"
+opened-anvil: '<#424242>[<bold><#4CAF50>!</bold>]</#424242><#FFFFFF> Opened Anvil!'

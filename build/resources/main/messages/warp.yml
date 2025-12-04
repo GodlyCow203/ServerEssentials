@@ -1,9 +1,11 @@
-no-permission: "<bold><#2971FF>[</bold><#7AA7FF><bold>WARPS</bold><bold><#2971FF>]</bold><#CC0000> You do not have permission to do that."
-warp-not-found: "<bold><#2971FF>[</bold><#7AA7FF><bold>WARPS</bold><bold><#2971FF>]</bold><#CC0000> Warp <gray><warp></gray> not found."
-warp-success: "<bold><#2971FF>[</bold><#7AA7FF><bold>WARPS</bold><bold><#2971FF>]</bold><#ffffff> Teleported to warp <gray><warp></gray>!"
-warp-set: "<bold><#2971FF>[</bold><#7AA7FF><bold>WARPS</bold><bold><#2971FF>]</bold><#ffffff> Warp <gray><warp></gray> has been set!"
-warp-removed: "<bold><#2971FF>[</bold><#7AA7FF><bold>WARPS</bold><bold><#2971FF>]</bold><#ffffff> Warp <gray><warp></gray> has been removed!"
-usage: "<bold><#2971FF>[</bold><#7AA7FF><bold>WARPS</bold><bold><#2971FF>]</bold><#CC0000> Usage: <command>"
-warp-list-header: "<gradient:#ff0000:#ffff00>--- Warps ---"
-warp-list-entry: "<hover:show_text:'Click to teleport'><click:run_command:'/warp <warp>'><blue>- <warp></click></hover>" # this works too xD
-warp-list-empty: "<yellow>No warps have been set yet."
+
+
+no-permission: '<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> You do not have permission to do that.'
+warp-not-found: '<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> Warp <#808080><warp></#808080> not found.'
+warp-success: '<#424242>[<bold><#4CAF50>!</bold>]</#424242><#FFFFFF> Teleported to warp <#808080><warp></#808080>!'
+warp-set: '<#424242>[<bold><#4CAF50>!</bold>]</#424242><#FFFFFF> Warp <#808080><warp></#808080> has been set!'
+warp-removed: '<#424242>[<bold><#4CAF50>!</bold>]</#424242><#FFFFFF> Warp <#808080><warp></#808080> has been removed!'
+usage: '<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> Usage: <#808080><command></#808080>'
+warp-list-header: '<#424242>[<bold><#FFF176>!</bold>]</#424242><#FFFFFF> --- Warps ---'
+warp-list-entry: '<#424242>[<bold><#4CAF50>▸</bold>]</#424242> <warp>'
+warp-list-empty: '<#424242>[<bold><#FFF176>!</bold>]</#424242><#FFFFFF> No warps have been set yet.'

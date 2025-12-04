@@ -1,43 +1,40 @@
-prefix: "<bold><#73F527>➔</bold>"
 
-# Request
-request-sent: "<prefix> <white>Sent TPA request to <gray>%player%</gray>"
-request-sent-here: "<prefix> <white>Sent TPAHere request to <gray>%player%</gray>."
-request-sent-all: "<prefix> <white>Sent TPA request to all players."
 
-request-received: "<prefix> <gray>%player%</gray> <white>wants to teleport to you.(<green>/tpaccept</green> or <red>/tpdeny</red>)"
-request-received-here: "<prefix> <gray>%player%</gray> <white>wants you to teleport to them.(<green>/tpaccept</green> or <red>/tpdeny</red>)"
-request-received-all: "<prefix> <gray>%player%</gray> <white>has requested everyone to teleport to them."
+prefix: '<#424242>[<bold><#4CAF50>➔</bold>]</#424242>'   # only used if you still want it; plugin ignores it otherwise | use <prefix> to show
+# Example: <prefix> Sent TPA request to <#808080>%player%</#808080>.
 
-request-accepted: "<prefix> <white>You accepted <gray>%player%</gray>'s request."
-request-accepted-target: "<prefix> <white><gray>%player%</gray> accepted your teleport request!"
+request-sent: '<#424242>[<bold><#4CAF50>!</bold>]</#424242><#FFFFFF> Sent TPA request to <#808080>%player%</#808080>.'
+request-sent-here: '<#424242>[<bold><#4CAF50>!</bold>]</#424242><#FFFFFF> Sent TPAhere request to <#808080>%player%</#808080>.'
+request-sent-all: '<#424242>[<bold><#4CAF50>!</bold>]</#424242><#FFFFFF> Sent TPA request to all players.'
 
-request-denied: "<prefix> <#FF0000>You denied <gray>%player%</gray>'s request."
-request-denied-target: "<prefix> <#FF0000><gray>%player%</gray> denied your teleport request."
+request-received: '<#424242>[<bold><#FFF176>!</bold>]</#424242><#FFFFFF> <#808080>%player%</#808080> wants to teleport to you. (<#4CAF50>/tpaccept</#4CAF50> or <#E57373>/tpdeny</#E57373>)'
+request-received-here: '<#424242>[<bold><#FFF176>!</bold>]</#424242><#FFFFFF> <#808080>%player%</#808080> wants you to teleport to them. (<#4CAF50>/tpaccept</#4CAF50> or <#E57373>/tpdeny</#E57373>)'
+request-received-all: '<#424242>[<bold><#FFF176>!</bold>]</#424242><#FFFFFF> <#808080>%player%</#808080> has requested everyone to teleport to them.'
 
-request-expired: "<prefix> <white>Your request to <gray>%player%</gray> expired."
-request-expired-target: "<prefix> <white><gray>%player%</gray>'s request to you expired."
+request-accepted: '<#424242>[<bold><#4CAF50>!</bold>]</#424242><#FFFFFF> You accepted <#808080>%player%</#808080>''s request.'
+request-accepted-target: '<#424242>[<bold><#4CAF50>!</bold>]</#424242><#FFFFFF> <#808080>%player%</#808080> accepted your teleport request!'
 
-request-cancelled: "<prefix> <#FF0000>You cancelled your request to <gray>%player%</gray>."
-request-cancelled-target: "<prefix> <#FF0000><gray>%player%</gray> cancelled their teleport request."
+request-denied: '<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> You denied <#808080>%player%</#808080>''s request.'
+request-denied-target: '<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> <#808080>%player%</#808080> denied your teleport request.'
 
-# Info
-request-info: "<prefix> <white>Pending request from <gray>%player%</gray> (<gray>%type%</gray>)."
-no-request: "<prefix> <#FF0000>You have no pending requests."
+request-expired: '<#424242>[<bold><#FFF176>!</bold>]</#424242><#FFFFFF> Your request to <#808080>%player%</#808080> expired.'
+request-expired-target: '<#424242>[<bold><#FFF176>!</bold>]</#424242><#FFFFFF> <#808080>%player%</#808080>''s request to you expired.'
 
-# Toggles
-toggle-on: "<prefix> <#FF0000>You are now <bold>blocking</bold> TPA requests."
-toggle-off: "<prefix> <white>You are now <bold>accepting</bold> TPA requests again."
-target-toggled: "<prefix> <gray>%player%</gray><white> is not accepting teleport requests."
+request-cancelled: '<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> You cancelled your request to <#808080>%player%</#808080>.'
+request-cancelled-target: '<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> <#808080>%player%</#808080> cancelled their teleport request.'
 
-# Restrictions
-no-player: "<prefix> <#FF0000>That player is not online."
-crossworld-disabled: "<prefix> <#FF0000>Cross-world teleporting is disabled."
-blocked-world: "<prefix> <#FF0000>You cannot teleport in this world."
+request-info: '<#424242>[<bold><#FFF176>!</bold>]</#424242><#FFFFFF> Pending request from <#808080>%player%</#808080> (<#808080>%type%</#808080>).'
+no-request: '<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> You have no pending requests.'
 
-# Cooldowns & economy
-cooldown: "<prefix> <#FF0000>You must wait before sending another request."
-not-enough-money: "<prefix> <#FF0000>You need <gray>$%cost%</gray> to do that!"
+toggle-on: '<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> You are now <bold>blocking</bold> TPA requests.'
+toggle-off: '<#424242>[<bold><#4CAF50>!</bold>]</#424242><#FFFFFF> You are now <bold>accepting</bold> TPA requests again.'
+target-toggled: '<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> <#808080>%player%</#808080> is not accepting teleport requests.'
 
-# Misc
-teleport-cancelled-move: "<prefix> <#FF0000>Teleport cancelled due to movement."
+no-player: '<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> That player is not online.'
+crossworld-disabled: '<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> Cross-world teleporting is disabled.'
+blocked-world: '<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> You cannot teleport in this world.'
+
+cooldown: '<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> You must wait before sending another request.'
+not-enough-money: '<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> You need <#808080>$%cost%</#808080> to do that!'
+
+teleport-cancelled-move: '<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> Teleport cancelled due to movement.'

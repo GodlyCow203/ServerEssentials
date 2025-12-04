@@ -1,20 +1,211 @@
-database:
-  # "sqlite" (default) or "mysql"
-  type: sqlite
+databases:
+  # Use SQLite for everything - simple, reliable, no server needed!
+  rtp:
+    type: sqlite
+    file: rtp.db
+    pool_size: 5
 
-  mysql:
-    host: "localhost"
-    port: 3306
-    database: "serveressentials"
-    user: "root"
-    password: "password"
+  kits:
+    type: sqlite
+    file: kits.db
+    pool_size: 5
 
-# The format for OP players.
-# %player% will be replaced with the player's name.
-# Supports full MiniMessage syntax: gradients, hex, bold, italics, etc.
-op-format: "<red><%player%></red>"
+  playerdata:
+    type: sqlite
+    file: playerdata.db
+    pool_size: 5
 
-# The format for normal players.
-# %player% will be replaced with the player's name.
-# You can also change this to any MiniMessage-supported format.
-normal-format: "<white><%player%></white>"
+
+# TPA Module Configuration
+tpa:
+  settings:
+    cooldown: 5                    # Seconds between TPA requests
+    timeout: 60                    # Seconds before request expires
+    warmup: 1                      # Seconds warmup before teleport (0 to disable)
+    teleport-delay: 3              # Seconds delay after warmup
+    cancel-on-move: true           # Cancel teleport if player moves
+    block-move-threshold-blocks: true  # Check movement at block level (vs vector level)
+
+  notifications:
+    chat: true                     # Show messages in chat
+    actionbar: false               # Show messages in actionbar
+    bossbar: false                 # Show messages in bossbar
+    bossbar-color: "BLUE"          # BLUE, GREEN, PINK, PURPLE, RED, WHITE, YELLOW
+    bossbar-style: "SOLID"         # SOLID, SEGMENTED_6, SEGMENTED_10, SEGMENTED_12, SEGMENTED_20
+    bossbar-duration: 5            # Seconds to show bossbar
+    title: false                   # Show title message
+
+  restrictions:
+    cross-world: false             # Allow teleport between worlds
+    blocked-worlds:               # Worlds players cannot teleport TO
+      - "world_nether"
+      - "world_the_end"
+
+  economy:
+    enabled: false                 # Require money for TPA
+    cost:
+      tpa: 100.0                   # Cost for /tpa
+      tpahere: 100.0               # Cost for /tpahere
+      tpall: 500.0                 # Cost for /tpall
+    refund-on-deny: true           # Refund money if request denied
+    refund-on-expire: true         # Refund money if request expires
+
+  particles:
+    enabled: true                  # Show particles on teleport
+    type: "PORTAL"                 # Particle type (PORTAL, END_ROD, etc.)
+
+  sounds:
+    request: "ENTITY_EXPERIENCE_ORB_PICKUP"
+    accept: "ENTITY_EXPERIENCE_ORB_PICKUP"
+    deny: "ENTITY_VILLAGER_NO"
+    teleport: "ENTITY_ENDERMAN_TELEPORT"
+
+  # Message colors for titles
+  notifications:
+    title-color: "<gold>"
+    subtitle-color: "<yellow>"
+
+
+
+  # Sounds when toggling
+  sounds:
+    enabled: "ENTITY_BAT_TAKEOFF"
+    disabled: "ENTITY_BAT_DEATH"
+
+
+mail:
+  cooldown: 5                    # Seconds between sending mail
+  max-length: 500               # Max characters per mail message
+  join-notify-delay: 40         # Ticks before join notification (2 seconds)
+
+
+reports:
+  cooldown: 60                  # Seconds between reports per player
+  max-reason-length: 200        # Max characters in report reason
+  auto-clear-after-days: 7      # Auto-remove old reports (0 to disable)
+  notify-online-only: false     # Only notify online staff, don't mark pending
+  join-notify-delay: 40         # Ticks before notifying staff on join
+
+shop:
+  main:
+    title: "<green>Main Shop"
+    size: 54
+    close-button-slot: 49
+
+  section:
+    size: 54
+    player-head-slot: 4
+    max-pages: 10
+
+  economy:
+    currency-symbol: "$"
+    enable-sell: true
+
+rtp:
+  world:
+    enabled: true
+    min_radius: 1000
+    max_radius: 5000
+    cooldown_seconds: 300
+  world_nether:
+    enabled: true
+    min_radius: 500
+    max_radius: 2500
+    cooldown_seconds: 600
+
+
+sellgui:
+  enabled: false
+  title: "<gold>💰 Sell Items"
+  size: 54
+  currency-symbol: "$"
+
+daily:
+  enabled: true
+# -------------------------------------------------------------------------------------------
+rename:
+  allow-color-codes: true
+  max-name-length: 50
+near:
+  max-distance: 20
+nuke:
+  fire: true
+  power: 0.5
+  break-blocks: true
+weather:
+  duration-seconds: 600
+  notify-world: true
+
+book:
+  title: "ServerEssentials"
+  author: "SE Plugin"
+  pages:
+    - "<green>Welcome to our server!"
+    - "<yellow>Rule 1: Be respectful to all players"
+    - "<aqua>Rule 2: No griefing, stealing, or cheating"
+    - "<gold>Rule 3: Keep chat clean and friendly"
+    - "<light_purple>Rule 4: Have fun!"
+magnet:
+  radius: 5.0
+  speed: 0.5
+  tick-interval: 10
+
+
+
+
+
+
+kits:
+  gui:
+    title: "<bold><green>Available Kits"
+    size: 54
+    preview-title: "<white>Preview Kit: <yellow>{kit}"
+
+  messages:
+    cooldown: "<red>Please wait <yellow>{time}s</yellow> before claiming <white>{kit}</white> again!"
+    no-permission: "<red>You don't have permission to claim <white>{kit}</white>!"
+    claim-success: "<green>✓ Successfully claimed kit <white>{kit}</white>!"
+    kit-not-found: "<red>Kit <white>{kit}</white> not found!"
+    locked-name: "<red>Locked: <gray>{kit}"
+    requires-permission: "<gray>Requires: <white>{permission}"
+    cooldown-info: "<gray>Cooldown: <red>{time}s remaining"
+    claim-button: "<green>✓ Claim Kit"
+    cooldown-button: "<red>⏱ On Cooldown"
+    back-button: "<red>← Back"
+    no-kits-defined: "<red>No kits are currently defined!"
+    gui-title: "Available Kits"
+
+
+rules:
+  # GUI Title (MiniMessage supported)
+  title: "<green><bold>⚔ Server Rules ⚔"
+
+  # Force players to accept rules before playing
+  must-accept: true
+
+  # Prevent closing GUI before acceptance
+  force-acceptance: true
+
+  # Kick message for declining (MiniMessage)
+  kick-message: "<red><bold>You must accept the rules to join this server!"
+
+  # GUI Button Configuration
+  accept-button-text: "<green><bold>✓ Accept Rules"
+  decline-button-text: "<red><bold>✗ Decline & Leave"
+
+  # Button slots (0-53)
+  buttons:
+    accept:
+      slot: 45
+    decline:
+      slot: 53
+
+  # GUI filler material
+  gui:
+    filler-material: "GRAY_STAINED_GLASS_PANE"
+
+  # Weather duration after change
+  duration-seconds: 600
+
+disabled-commands:
+  - example_command

@@ -1,16 +1,14 @@
 plugins {
     id 'java'
-    id 'com.gradleup.shadow' version '8.3.5'   // or 9.x beta
-
+    id 'com.gradleup.shadow' version '8.3.5'
 }
 
 group = 'com.serveressentials'
-version = '2.0.3.1'
+version = '2.0.6'
 description = 'ServerEssentials Plugin'
 
 java {
     toolchain {
-        // Paper 1.21+ supports Java 21, but if you deploy to older servers you can lower this
         languageVersion = JavaLanguageVersion.of(21)
     }
 }
@@ -24,36 +22,35 @@ repositories {
 }
 
 dependencies {
-    // ✅ Paper + APIs
-    compileOnly 'io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT'
+    // --- Spigot / Paper dependencies (DO NOT SHADE) ---
+    compileOnly 'io.papermc.paper:paper-api:1.21.9-R0.1-SNAPSHOT'
     compileOnly 'me.clip:placeholderapi:2.11.5'
     compileOnly 'net.milkbowl.vault:VaultAPI:1.7'
     compileOnly 'net.luckperms:api:5.4'
 
-    // ✅ Utilities & libs you already had
+    // --- Small, lightweight libraries to include ---
     implementation 'org.json:json:20240303'
-    implementation 'com.github.oshi:oshi-core:6.4.0'
     implementation 'com.zaxxer:HikariCP:5.0.1'
     implementation 'net.kyori:adventure-text-minimessage:4.14.0'
     implementation 'net.kyori:adventure-text-serializer-legacy:4.14.0'
     implementation 'net.kyori:adventure-platform-bukkit:4.3.2'
-
-    // ✅ Firebase + Firestore
-    implementation 'com.google.firebase:firebase-admin:9.2.0'
-    implementation 'com.google.cloud:google-cloud-firestore:3.7.5'
-
-    // ✅ Yaml (for plugin configs)
     implementation 'org.yaml:snakeyaml:2.2'
+
+
+    // Optional: OSHI is big (~20 MB with deps)
+    // If you only need a few system stats, consider excluding transitive dependencies:
+    implementation('com.github.oshi:oshi-core:6.4.0') {
+        exclude group: 'net.java.dev.jna'
+    }
 }
 
 shadowJar {
-    archiveClassifier = ''          // produces ServerEssentials-2_0_3.jar
+    archiveClassifier = ''
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 
-    // --- shade every runtime dependency into the jar ---
     configurations = [project.configurations.runtimeClasspath]
 
-    // optional tidy-up
+    // Exclude unnecessary meta files
     exclude 'META-INF/DEPENDENCIES'
     exclude 'META-INF/LICENSE*'
     exclude 'META-INF/NOTICE*'
@@ -61,9 +58,6 @@ shadowJar {
     exclude 'META-INF/*.RSA'
     exclude 'META-INF/*.DSA'
 }
-
-
-
 
 tasks.processResources {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
@@ -74,7 +68,6 @@ tasks.processResources {
 
 configurations.all {
     resolutionStrategy {
-        // Ensure Paper API resolves correctly
         force 'io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT'
     }
 }
@@ -87,7 +80,6 @@ tasks.build {
     dependsOn shadowJar
 }
 
-// Copy final shaded JAR into a local `plugins` folder for testing
 tasks.register('copyPlugin', Copy) {
     dependsOn shadowJar
     from tasks.shadowJar.get().archiveFile

@@ -1,11 +1,13 @@
+
+
 commands:
-  help: "<bold><#2971FF>[</bold><#7AA7FF><bold>SCOREBOARD</bold><bold><#2971FF>]</bold><#CC0000> Usage: /scoreboard <reload|toggle|color>"
+  help: '<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> Usage: <#808080>/scoreboard <reload|toggle|color></#808080>'
   reload:
-    success: "<bold><#2971FF>[</bold><#7AA7FF><bold>SCOREBOARD</bold><bold><#2971FF>]</bold><#FFFFFF> Scoreboard configs reloaded!"
+    success: '<#424242>[<bold><#4CAF50>!</bold>]</#424242><#FFFFFF> Scoreboard configs reloaded!'
   toggle:
-    enabled: "<bold><#2971FF>[</bold><#7AA7FF><bold>SCOREBOARD</bold><bold><#2971FF>]</bold><#FFFFFF> Your scoreboard has been enabled."
-    disabled: "<bold><#2971FF>[</bold><#7AA7FF><bold>SCOREBOARD</bold><bold><#2971FF>]</bold><#FFFFFF> Your scoreboard has been disabled."
+    enabled: '<#424242>[<bold><#4CAF50>!</bold>]</#424242><#FFFFFF> Your scoreboard has been enabled.'
+    disabled: '<#424242>[<bold><#4CAF50>!</bold>]</#424242><#FFFFFF> Your scoreboard has been disabled.'
   color:
-    usage: "<bold><#2971FF>[</bold><#7AA7FF><bold>SCOREBOARD</bold><bold><#2971FF>]</bold><#CC0000> Usage: /scoreboard color <layout>"
-    changed: "<bold><#2971FF>[</bold><#7AA7FF><bold>SCOREBOARD</bold><bold><#2971FF>]</bold><#FFFFFF> Your scoreboard layout has been set to <white><layout></white>."
-    not-found: "<bold><#2971FF>[</bold><#7AA7FF><bold>SCOREBOARD</bold><bold><#2971FF>]</bold><#CC0000> That layout does not exist."
+    usage: '<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> Usage: <#808080>/scoreboard color <layout></#808080>'
+    changed: '<#424242>[<bold><#4CAF50>!</bold>]</#424242><#FFFFFF> Your scoreboard layout has been set to <#FFF176><layout></#FFF176>.'
+    not-found: '<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> That layout does not exist.'

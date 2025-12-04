@@ -1,40 +1,33 @@
+
+
 gui:
-  title: "<gradient:#000000:#2E2E2E><bold>RTP Menu</gradient>"
+  title: '<#424242>[<bold><#808080>RTP</bold>]</#424242> <#FFFFFF>Menu'
 
   overworld:
-    name: "<#2BA81B><bold>Overworld</#2BA81B>"
+    name: '<#424242>[<bold><#4CAF50>⬤</bold>]</#424242> <#4CAF50><bold>Overworld</bold>'
     lore:
-      - "<#3D3D3D>» <white>Randomly teleport</white>"
-      - "<#3D3D3D>» <white>within the</white> <#2BA81B><bold>Overworld</#2BA81B>"
+      - '<#808080>» <white>Randomly teleport</white>'
+      - '<#808080>» <white>within the</white> <#4CAF50><bold>Overworld</bold>'
 
   nether:
-    name: "<#991818><bold>Nether</#991818>"
+    name: '<#424242>[<bold><#E57373>⬤</bold>]</#424242> <#E57373><bold>Nether</bold>'
     lore:
-      - "<#3D3D3D>» <white>Randomly teleport</white>"
-      - "<#3D3D3D>» <white>within the </white><#991818><bold>Nether</#991818>"
+      - '<#808080>» <white>Randomly teleport</white>'
+      - '<#808080>» <white>within the</white> <#E57373><bold>Nether</bold>'
 
   end:
-    name: "<#FFDE5E><bold>The End</#FFDE5E>"
+    name: '<#424242>[<bold><#FFF176>⬤</bold>]</#424242> <#FFF176><bold>The End</bold>'
     lore:
-      - "<#3D3D3D>» <white>Randomly teleport</white>"
-      - "<#3D3D3D>» <white>within the</white> <#FFDE5E><bold>End</#FFDE5E>"
+      - '<#808080>» <white>Randomly teleport</white>'
+      - '<#808080>» <white>within the</white> <#FFF176><bold>End</bold>'
 
+prefix: '<#424242>[<bold><#4CAF50>RTP</bold>]</#424242>'   # plugin ignores this if unused
 
-prefix: "<gradient:#2971FF:#7AA7FF>[RTP]</gradient>"
-
-only-player: "<gradient:#2971FF:#7AA7FF>[RTP]</gradient> <gradient:#CC0000:#FF5555><bold>Only players can execute this command!</bold></gradient>"
-
-no-permission: "<gradient:#2971FF:#7AA7FF>[RTP]</gradient> <gradient:#CC0000:#FF5555><bold>You do not have permission to use this command!</bold></gradient>"
-
-reload-success: "<gradient:#2971FF:#7AA7FF>[RTP]</gradient> <gradient:#00FF00:#55FF55><bold>Configuration reloaded successfully!</bold></gradient> <click:run_command:'/rtp reload'><hover:show_text:'Click to reload again'><gradient:#FFD700:#FFA500>[RELOAD]</gradient></hover></click>"
-
-world-disabled: "<gradient:#2971FF:#7AA7FF>[RTP]</gradient> <gradient:#CC0000:#FF5555><bold>Random teleportation is disabled in this world!</bold></gradient>"
-
-cooldown: "<gradient:#2971FF:#7AA7FF>[RTP]</gradient> <gradient:#FFAA00:#FFD700><bold>You are on cooldown!</bold></gradient> Try again in <gradient:#AAAAAA:#CCCCCC>{seconds}</gradient> seconds."
-
-teleport-success: "<gradient:#2971FF:#7AA7FF>[RTP]</gradient> <gradient:#00FFAA:#00FF55><bold>Teleported successfully!</bold></gradient> Location: <click:run_command:'/rtp'><hover:show_text:'Click to teleport again'><gradient:#FFD700:#FFA500>{world}</gradient></hover></click>"
-
-no-safe-location: "<gradient:#2971FF:#7AA7FF>[RTP]</gradient> <gradient:#CC0000:#FF5555><bold>No safe location found. Try again.</bold></gradient>"
-
-world-not-loaded: "<gradient:#2971FF:#7AA7FF>[RTP]</gradient> <gradient:#CC0000:#FF5555><bold>This world isn’t loaded!</bold></gradient>"
-
+only-player: '<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> Only players can execute this command.'
+no-permission: '<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> You do not have permission to use this command.'
+reload-success: '<#424242>[<bold><#4CAF50>!</bold>]</#424242><#FFFFFF> Configuration reloaded successfully.'
+world-disabled: '<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> Random teleportation is disabled in this world.'
+cooldown: '<#424242>[<bold><#FFF176>!</bold>]</#424242><#FFFFFF> You are on cooldown! Try again in <#808080>{seconds}</#808080> seconds.'
+teleport-success: '<#424242>[<bold><#4CAF50>!</bold>]</#424242><#FFFFFF> Teleported successfully.'
+no-safe-location: '<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> No safe location found. Try again.'
+world-not-loaded: '<#424242>[<bold><#E57373>!</bold>]</#424242><#FFFFFF> This world isn’t loaded.'
