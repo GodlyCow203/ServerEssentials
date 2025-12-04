@@ -574,7 +574,7 @@ commands:
     permission: serveressentials.command.recipe
   near:
     description: Show nearby players
-    usage: /<command>
+    usage: /near
     permission: serveressentials.command.near
 
   top:
