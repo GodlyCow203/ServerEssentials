@@ -570,8 +570,8 @@ commands:
     permission: serveressentials.command.book
   recipe:
     description: Show a recipe
-    usage: /<command>
-    permission: serveressentials.recipe
+    usage: /recipe
+    permission: serveressentials.command.recipe
   near:
     description: Show nearby players
     usage: /<command>

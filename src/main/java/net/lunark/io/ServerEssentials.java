@@ -242,6 +242,8 @@ public class ServerEssentials extends JavaPlugin implements Listener {
     private RulesGUI rulesGUI;
     private PlaytimeConfig playtimeConfig;
     private PlaytimeCommand playtimeCommand;
+    private RecipeConfig recipeConfig;
+    private RecipeCommand recipeCommand;
 
 
 
@@ -366,6 +368,11 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         this.playtimeConfig = new PlaytimeConfig(this);
         this.playtimeCommand = new PlaytimeCommand(playerLanguageManager, playtimeConfig, commandDataStorage);
 
+        this.recipeConfig = new RecipeConfig(this);
+        this.recipeCommand = new RecipeCommand(playerLanguageManager, recipeConfig, commandDataStorage);
+
+
+
 
 
 
@@ -405,6 +412,8 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         getCommand("nuke").setExecutor(nukeCommand);
         getCommand("weather").setExecutor(weatherCommand);
         getCommand("playtime").setExecutor(playtimeCommand);
+        getCommand("recipe").setExecutor(recipeCommand);
+
 
 
 
@@ -415,6 +424,8 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         // Tab Completer
         getCommand("tpp").setTabCompleter(tppCommand);
         getCommand("weather").setTabCompleter(weatherCommand);
+        getCommand("recipe").setTabCompleter(recipeCommand);
+
 
 
 

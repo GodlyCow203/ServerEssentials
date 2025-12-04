@@ -1,0 +1,18 @@
+rules:
+  - text: "<red>No griefing or stealing from other players!"
+    slot: 10
+
+  - text: "<yellow>Be respectful and kind in chat."
+    slot: 12
+
+  - text: "<green>No cheating, hacking, or exploits."
+    slot: 14
+
+  - text: "<blue>Build responsibly - no lag machines."
+    slot: 16
+
+  - text: "<purple>Report bugs and issues to staff."
+    slot: 28
+
+  - text: "<gold>Have fun and enjoy the server!"
+    slot: 34
