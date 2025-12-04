@@ -234,7 +234,7 @@ commands:
 
   lobby:
     description: Teleport to the lobby or manage it
-    usage: /<command> [set|remove|world]
+    usage: /lobby [set|remove|world]
     permission: serveressentials.lobby
     permission-message: You do not have permission to use this command
 
