@@ -240,6 +240,8 @@ public class ServerEssentials extends JavaPlugin implements Listener {
     private WeatherConfig weatherConfig;
     private WeatherCommand weatherCommand;
     private RulesGUI rulesGUI;
+    private PlaytimeConfig playtimeConfig;
+    private PlaytimeCommand playtimeCommand;
 
 
 
@@ -361,6 +363,9 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         this.weatherConfig = new WeatherConfig(this);
         this.weatherCommand = new WeatherCommand(playerLanguageManager, weatherConfig, commandDataStorage);
 
+        this.playtimeConfig = new PlaytimeConfig(this);
+        this.playtimeCommand = new PlaytimeCommand(playerLanguageManager, playtimeConfig, commandDataStorage);
+
 
 
 
@@ -399,6 +404,8 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         getCommand("condense").setExecutor(condenseCommand);
         getCommand("nuke").setExecutor(nukeCommand);
         getCommand("weather").setExecutor(weatherCommand);
+        getCommand("playtime").setExecutor(playtimeCommand);
+
 
 
 
@@ -658,11 +665,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         }
 
         if (!isCommandDisabled("broadcastworld")) getCommand("broadcastworld").setExecutor(new BroadcastWorldCommand(serverMessages));
-        if (!isCommandDisabled("recipe")) {
-            RecipeCommand recipeCommand = new RecipeCommand(playerMessages, plugin);
-            getCommand("recipe").setExecutor(recipeCommand);
-            getCommand("recipe").setTabCompleter(recipeCommand);
-        }
+
 
 
         if (!isCommandDisabled("stonecutter")) getCommand("stonecutter").setExecutor(new StonecutterCommand(this));
@@ -724,7 +727,6 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         SessionManager sessionManager = new SessionManager(this);
         getServer().getPluginManager().registerEvents(new PlayerJoinListener(sessionManager), this);
         if (!isCommandDisabled("session")) getCommand("session").setExecutor(new SessionCommand(playerMessages, sessionManager));
-        if (!isCommandDisabled("playtime")) getCommand("playtime").setExecutor(new PlaytimeCommand(playerMessages));
 
         if (!isCommandDisabled("vanish")) getCommand("vanish").setExecutor(adminUtils);
         if (!isCommandDisabled("god")) getCommand("god").setExecutor(adminUtils);

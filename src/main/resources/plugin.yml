@@ -258,7 +258,7 @@ commands:
   playtime:
     description: View your total playtime
     usage: /playtime
-    permission: serveressentials.playtime
+    permission: serveressentials.command.playtime
   playerinfo:
     description: View info about a player
     usage: /playerinfo <player>
@@ -904,6 +904,10 @@ permissions:
   serveressentials.command.weather.thunderstorm:
     description: Allows setting weather to thunderstorm
     default: op
+  serveressentials.command.rules.reload:
+    description: Reload the rules
+    default: op
+
   serveressentials.spawner:
     description: Allows use of /spawner command
     default: op
