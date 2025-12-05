@@ -21,6 +21,7 @@ public class DatabaseManager {
     private final Map<String, HikariDataSource> pools = new ConcurrentHashMap<>();
     private final Map<String, DatabaseStatus> statusMap = new ConcurrentHashMap<>();
 
+
     public record DatabaseStatus(boolean connected, String message, Instant lastCheck) {}
 
     public DatabaseManager(Plugin plugin) {
@@ -67,7 +68,6 @@ public class DatabaseManager {
                 if (conn.isValid(3)) {
                     pools.put(key, ds);
                     statusMap.put(key, new DatabaseStatus(true, "Connected successfully", Instant.now()));
-                    plugin.getLogger().info("✅ Database pool '" + key + "' is active!");
                 } else {
                     ds.close();
                     throw new SQLException("Connection validation failed");
@@ -75,7 +75,7 @@ public class DatabaseManager {
             }
 
         } catch (Exception ex) {
-            plugin.getLogger().log(Level.SEVERE, "❌ Failed to initialize database pool: " + key, ex);
+            plugin.getLogger().log(Level.SEVERE, "Failed to initialize database pool: " + key, ex);
             statusMap.put(key, new DatabaseStatus(false, ex.getMessage(), Instant.now()));
 
             // Show MySQL troubleshooting if applicable

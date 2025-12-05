@@ -207,5 +207,23 @@ rules:
   # Weather duration after change
   duration-seconds: 600
 
+
+# /back command configuration
+back:
+  # When to automatically save player locations for /back
+  save-on-teleport: true
+  save-on-death: true
+  save-on-quit: true
+  save-on-respawn: true
+
+  # Lobby location for /back lobby
+  lobby:
+    world: "world"
+    x: 0.0
+    y: 100.0
+    z: 0.0
+    yaw: 0.0
+    pitch: 0.0
+
 disabled-commands:
   - example_command

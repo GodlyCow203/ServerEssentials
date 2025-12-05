@@ -1,4 +1,8 @@
 package net.lunark.io.commands.config;
 
-public class SeenConfig {
+import org.bukkit.plugin.Plugin;
+
+public final class SeenConfig {
+    public SeenConfig(Plugin plugin) {
+    }
 }

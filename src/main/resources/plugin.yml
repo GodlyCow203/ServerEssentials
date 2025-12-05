@@ -241,7 +241,7 @@ commands:
   back:
     description: Teleport to your last location, lobby, or death location.
     usage: /back [back|lobby|death]
-    permission: serveressentials.back
+    permission: serveressentials.command.back
     permission-message: You do not have permission to use /back.
   heal:
     description: Heal yourself
@@ -529,8 +529,8 @@ commands:
     permission: serveressentials.whois
   seen:
     description: Check when a player was last online
-    usage: /<command>
-    permission: serveressentials.seen
+    usage: /seen <player>
+    permission: serveressentials.command.seen
   ext:
     description: Extension command
     usage: /<command>
@@ -1074,6 +1074,15 @@ permissions:
     default: op
   serveressentials.command.enderchest.others:
     description: Open the Enderchest of other Players
+    default: op
+  serveressentials.command.back:
+    description: Base permission for /back command
+    default: op
+  serveressentials.command.back.lobby:
+    description: Allow /back lobby subcommand
+    default: op
+  serveressentials.command.back.death:
+    description: Allow /back death subcommand
     default: op
 
 

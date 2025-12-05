@@ -234,14 +234,14 @@ commands:
 
   lobby:
     description: Teleport to the lobby or manage it
-    usage: /<command> [set|remove|world]
+    usage: /lobby [set|remove|world]
     permission: serveressentials.lobby
     permission-message: You do not have permission to use this command
 
   back:
     description: Teleport to your last location, lobby, or death location.
     usage: /back [back|lobby|death]
-    permission: serveressentials.back
+    permission: serveressentials.command.back
     permission-message: You do not have permission to use /back.
   heal:
     description: Heal yourself
@@ -258,7 +258,7 @@ commands:
   playtime:
     description: View your total playtime
     usage: /playtime
-    permission: serveressentials.playtime
+    permission: serveressentials.command.playtime
   playerinfo:
     description: View info about a player
     usage: /playerinfo <player>
@@ -281,8 +281,8 @@ commands:
     permission: serveressentials.workbench
   enderchest:
     description: Open your ender chest.
-    usage: /enderchest <player>
-    permission: serveressentials.enderchest
+    usage: /enderchest
+    permission: serveressentials.command.enderchest
   endersee:
     description: View another player's ender chest.
     usage: /endersee <player>
@@ -529,8 +529,8 @@ commands:
     permission: serveressentials.whois
   seen:
     description: Check when a player was last online
-    usage: /<command>
-    permission: serveressentials.seen
+    usage: /seen <player>
+    permission: serveressentials.command.seen
   ext:
     description: Extension command
     usage: /<command>
@@ -570,11 +570,11 @@ commands:
     permission: serveressentials.command.book
   recipe:
     description: Show a recipe
-    usage: /<command>
-    permission: serveressentials.recipe
+    usage: /recipe
+    permission: serveressentials.command.recipe
   near:
     description: Show nearby players
-    usage: /<command>
+    usage: /nears
     permission: serveressentials.command.near
 
   top:
@@ -904,6 +904,10 @@ permissions:
   serveressentials.command.weather.thunderstorm:
     description: Allows setting weather to thunderstorm
     default: op
+  serveressentials.command.rules.reload:
+    description: Reload the rules
+    default: op
+
   serveressentials.spawner:
     description: Allows use of /spawner command
     default: op
@@ -1067,6 +1071,18 @@ permissions:
     default: op
   serveressentials.delwarp.all:
     description: Allows deleting any warp
+    default: op
+  serveressentials.command.enderchest.others:
+    description: Open the Enderchest of other Players
+    default: op
+  serveressentials.command.back:
+    description: Base permission for /back command
+    default: op
+  serveressentials.command.back.lobby:
+    description: Allow /back lobby subcommand
+    default: op
+  serveressentials.command.back.death:
+    description: Allow /back death subcommand
     default: op
 
 

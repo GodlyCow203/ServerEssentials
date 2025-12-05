@@ -21,6 +21,9 @@ import net.lunark.io.TPA.TPAStorage;
 import net.lunark.io.Vault.VaultCommand;
 import net.lunark.io.Vault.VaultManager;
 import net.lunark.io.auction.*;
+import net.lunark.io.back.BackDataStorage;
+import net.lunark.io.back.BackListener;
+import net.lunark.io.back.BackManager;
 import net.lunark.io.commands.CommandDataStorage;
 import net.lunark.io.commands.DatabaseCommand;
 import net.lunark.io.commands.LanguageCommand;
@@ -246,6 +249,15 @@ public class ServerEssentials extends JavaPlugin implements Listener {
     private RecipeCommand recipeCommand;
     private EnderChestConfig enderChestConfig;
     private EnderChestCommand enderChestCommand;
+    private SeenConfig seenConfig;
+    private SeenCommand seenCommand;
+    private BackConfig backConfig;
+    private BackManager backManager;
+    private BackListener backListener;
+    private BackCommand backCommand;
+    private BackDataStorage backDataStorage;
+
+
 
 
 
@@ -256,32 +268,27 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         long start = System.currentTimeMillis();
         saveDefaultConfig();
 
-        instance = this; // Set instance early
+        instance = this;
 
-        // 1. Language Manager
         languageManager = new LanguageManager(this);
         languageManager.loadLanguages();
         languageManager.setDefaultLanguage(getConfig().getString("default_language", "en"));
 
-        // 2. Database Manager (initialize ALL pools here)
         databaseManager = new DatabaseManager(this);
-        initializeDatabases(); // MUST include "shop" pool
+        initializeDatabases();
 
-        // 3. Check for Vault and load economy BEFORE features that need it
         if (getServer().getPluginManager().getPlugin("Vault") == null) {
             getLogger().severe("=== VAULT NOT FOUND ===");
             getLogger().severe("ServerEssentials requires Vault for economy features!");
             getLogger().severe("Please install Vault and an economy plugin (or use ServerEssentials' built-in economy).");
             getLogger().severe("Plugin will continue without economy support.");
-            vaultEconomy = null; // Set to null to indicate no economy
+            vaultEconomy = null;
         } else {
             getLogger().info("Vault detected. Setting up economy provider...");
 
-            // Register ServerEssentials' economy provider FIRST
             economyService = new EconomyService(this, databaseManager);
             economyService.register();
 
-            // NOW ask Vault for the economy provider (could be ours or another plugin's)
             RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
             if (rsp == null) {
                 getLogger().warning("No economy provider registered! Economy features will be disabled.");
@@ -292,11 +299,9 @@ public class ServerEssentials extends JavaPlugin implements Listener {
             }
         }
 
-        // 4. Player Language Manager (depends on databaseManager + languageManager)
         PlayerLanguageStorage langStorage = new PlayerLanguageStorage.YamlStorage(this);
         playerLanguageManager = new PlayerLanguageManager(langStorage, languageManager);
 
-        // 5. Feature Modules (depends on playerLanguageManager + databaseManager + vaultEconomy)
         initializeKitSystem();
         initializeTPASystem();
         initializeCommandModules();
@@ -306,7 +311,9 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         initializeRtpSystem();
         initializeSellSystem();
         initializeDailySystem();
-        initializeRulesSystem();// Only initialize if economy is available
+        initializeRulesSystem();
+        initializeBackSystem();
+
 
 
 
@@ -376,10 +383,8 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         this.enderChestConfig = new EnderChestConfig(this);
         this.enderChestCommand = new EnderChestCommand(playerLanguageManager, enderChestConfig, commandDataStorage);
 
-
-
-
-
+        this.seenConfig = new SeenConfig(this);
+        this.seenCommand = new SeenCommand(playerLanguageManager, seenConfig, commandDataStorage);
 
         // Commands
         getCommand("fly").setExecutor(flyCommand);
@@ -419,6 +424,8 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         getCommand("playtime").setExecutor(playtimeCommand);
         getCommand("recipe").setExecutor(recipeCommand);
         getCommand("enderchest").setExecutor(enderChestCommand);
+        getCommand("seen").setExecutor(seenCommand);
+
 
 
 
@@ -452,15 +459,12 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         RtpConfig rtpConfig = new RtpConfig(this);
         rtpLocationStorage = new RtpLocationStorage(this, databaseManager, "rtp");
         CooldownManager cooldownManager = new CooldownManager();
-        BackManager backManager = new BackManager();
 
         getCommand("language").setExecutor(new LanguageCommand(languageManager, playerLanguageManager));
         getCommand("database").setExecutor(new DatabaseCommand(databaseManager, languageManager));
         getCommand("rtp").setExecutor(new RtpCommand(this, playerLanguageManager, rtpConfig));
         getCommand("kit").setExecutor(kitCommand);
 
-        getServer().getPluginManager().registerEvents(
-                new RtpListener(this, playerLanguageManager, rtpLocationStorage, cooldownManager, backManager, rtpConfig), this);
 
         // ... rest of your initialization code (simplified for brevity)
         homeManager = new HomeManager(this);
@@ -648,7 +652,6 @@ public class ServerEssentials extends JavaPlugin implements Listener {
 
 
         if (!isCommandDisabled("whois")) getCommand("whois").setExecutor(new WhoIsCommand());
-        if (!isCommandDisabled("seen")) getCommand("seen").setExecutor(new SeenCommand(this));
 
         KittyCannonCommand kittyCannonCommand = new KittyCannonCommand(funMessages);
         if (!isCommandDisabled("kittycannon")) {
@@ -768,12 +771,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         Bukkit.getPluginManager().registerEvents(new LobbyListener(), this);
         if (!isCommandDisabled("lobby")) getCommand("lobby").setExecutor(new LobbyCommand());
 
-        BackCommand backCommand = new BackCommand(playerMessages);
-        if (!isCommandDisabled("back")) {
-            getCommand("back").setExecutor(backCommand);
-            getCommand("back").setTabCompleter(backCommand);
-        }
-        getServer().getPluginManager().registerEvents(new BackListener(), this);
+
 
         if (!isCommandDisabled("death")) getCommand("death").setExecutor(new DeathCommand());
         if (!isCommandDisabled("motd")) getCommand("motd").setExecutor(new MotdCommand(this));
@@ -1280,6 +1278,8 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         databaseManager.initializePool("sellgui",
                 new DatabaseConfig(DatabaseType.SQLITE, "sellgui.db", null, 0, null, null, null, 5));
 
+        databaseManager.initializePool("back",
+                new DatabaseConfig(DatabaseType.SQLITE, "back.db", null, 0, null, null, null, 5));
 
         databaseManager.initializePool("economy", new DatabaseConfig(
                 DatabaseType.SQLITE, "economy.db", null, 0, null, null, null, 10
@@ -1287,7 +1287,6 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         databaseManager.initializePool("daily", new DatabaseConfig(DatabaseType.SQLITE, "daily.db", null, 0, null, null, null, 5));
         databaseManager.initializePool("reports", new DatabaseConfig(DatabaseType.SQLITE, "reports.db", null,0,null,null,null,15));
         databaseManager.initializePool("shop", new DatabaseConfig(DatabaseType.SQLITE, "shop.db", null, 0, null, null, null, 5));        databaseManager.initializePool("command_data", new DatabaseConfig(DatabaseType.SQLITE, "command_data.db", null, 0, null, null, null, 10));
-        // TPA DB
         databaseManager.initializePool("tpa",
                 new DatabaseConfig(DatabaseType.SQLITE, "tpa.db", null, 0, null, null, null, 5));
     }
@@ -1388,7 +1387,6 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         return languageManager;
     }
 
-    // Helper method to get namespaced version
     private String getNameSpaced(String command) {
         return getName().toLowerCase() + ":" + command.toLowerCase();
     }
@@ -1397,23 +1395,17 @@ public class ServerEssentials extends JavaPlugin implements Listener {
 
 
     private void initializeKitSystem() {
-        // Setup config
         kitConfig = new KitConfig(this);
 
-        // Setup storage
         kitStorage = new KitStorage(this, databaseManager, "kits");
 
-        // CREATE GUI listener FIRST
         kitGuiListener = new KitGUIListener(this, playerLanguageManager, kitStorage, kitConfig);
 
-        // Setup command
         kitCommand = new KitCommand(this, playerLanguageManager, kitStorage, kitConfig, kitGuiListener);
         getCommand("kit").setExecutor(kitCommand);
 
-        // Register GUI listener
         getServer().getPluginManager().registerEvents(kitGuiListener, this);
 
-        // Load kits
         KitConfigManager.setup(this);
         KitManager.loadKits(KitConfigManager.getConfig());
 
@@ -1427,7 +1419,6 @@ public class ServerEssentials extends JavaPlugin implements Listener {
     private void initializeCommandModules() {
         commandDataStorage = new CommandDataStorage(this, databaseManager);
 
-        // Initialize fly command
         flyCommand = new FlyCommand(this, playerLanguageManager, commandDataStorage);
         flyListener = new FlyListener(flyCommand);
     }
@@ -1437,7 +1428,6 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         RtpConfig rtpConfig = new RtpConfig(this);
         rtpLocationStorage = new RtpLocationStorage(this, databaseManager, "rtp");
         CooldownManager cooldownManager = new CooldownManager();
-        BackManager backManager = new BackManager();
 
         getCommand("rtp").setExecutor(new RtpCommand(this, playerLanguageManager, rtpConfig));
         getServer().getPluginManager().registerEvents(
@@ -1466,9 +1456,25 @@ public class ServerEssentials extends JavaPlugin implements Listener {
 
 
 
+    private void initializeBackSystem() {
+        this.backConfig = new BackConfig(this);
+        this.backDataStorage = new BackDataStorage(this, databaseManager);
+        this.backManager = new BackManager(backDataStorage);
+        this.backListener = new BackListener(backManager, backConfig);
+        this.backCommand = new BackCommand(
+                playerLanguageManager,
+                backConfig,
+                backManager,
+                commandDataStorage,
+                this
+        );
 
+        getCommand("back").setExecutor(backCommand);
+        getCommand("back").setTabCompleter(backCommand);
+        getServer().getPluginManager().registerEvents(backListener, this);
 
-
+        getLogger().info("Back system initialized with dedicated table");
+    }
 
 
 }
