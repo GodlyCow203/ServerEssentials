@@ -273,6 +273,8 @@ public class ServerEssentials extends JavaPlugin implements Listener {
     private SessionConfig sessionConfig;
     private SessionCommand sessionCommand;
     private SessionListener sessionListener;
+    private ItemInfoConfig itemInfoConfig;
+    private ItemInfoCommand itemInfoCommand;
 
 
 
@@ -405,6 +407,9 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         NotesStorage notesStorage = new NotesStorage(this, databaseManager);
         NotesConfig notesConfig = new NotesConfig(this);
 
+        this.itemInfoConfig = new ItemInfoConfig(this);
+        this.itemInfoCommand = new ItemInfoCommand(playerLanguageManager, itemInfoConfig, commandDataStorage);
+
         this.sessionManager = new SessionManager(databaseManager, commandDataStorage);
 
         this.sessionConfig = new SessionConfig(this);
@@ -458,6 +463,8 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         getCommand("seen").setExecutor(seenCommand);
         getCommand("tree").setExecutor(treeCommand);
         getCommand("session").setExecutor(sessionCommand);
+        getCommand("iteminfo").setExecutor(itemInfoCommand);
+
 
 
         // Tab Completer
@@ -850,7 +857,6 @@ public class ServerEssentials extends JavaPlugin implements Listener {
 
         getServer().getPluginManager().registerEvents(new ToolMoveFixListener(this), this);
 
-        if (!isCommandDisabled("iteminfo")) getCommand("iteminfo").setExecutor(new ItemInfoCommand(playerMessages));
         if (!isCommandDisabled("pingall")) getCommand("pingall").setExecutor(new PingAllCommand(this));
         if (!isCommandDisabled("warps")) getCommand("warps").setExecutor(new WarpsCommand(this));
         if (!isCommandDisabled("compass")) getCommand("compass").setExecutor(new CompassCommand());

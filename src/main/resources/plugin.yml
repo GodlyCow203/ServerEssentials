@@ -41,7 +41,7 @@ commands:
   session:
     description: Shows how long you've been online this session.
     usage: /session
-    permission: serveressentials.session
+    permission: serveressentials.command.session
     permission-message: You do not have permission to use /session.
   lockitem:
     description: Locks the item in your hand to its hotbar slot.
@@ -52,7 +52,7 @@ commands:
   iteminfo:
     description: Shows information about the item in your hand.
     usage: /iteminfo
-    permission: serveressentials.iteminfo
+    permission: serveressentials.command.iteminfo
     permission-message: You do not have permission to use /iteminfo.
   tpp:
     description: Teleport a player to a world or specific coordinates.
