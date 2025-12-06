@@ -119,7 +119,7 @@ commands:
   tree:
     descirption: e
     usage: /tree <type>
-    permission: serveressentials.tree
+    permission: serveressentials.command.tree
 
   rtp:
     description: Random teleport.

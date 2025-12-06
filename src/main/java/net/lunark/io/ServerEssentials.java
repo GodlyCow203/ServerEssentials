@@ -256,6 +256,8 @@ public class ServerEssentials extends JavaPlugin implements Listener {
     private BackListener backListener;
     private BackCommand backCommand;
     private BackDataStorage backDataStorage;
+    private TreeConfig treeConfig;
+    private TreeCommand treeCommand;
 
 
 
@@ -267,13 +269,10 @@ public class ServerEssentials extends JavaPlugin implements Listener {
     public void onEnable() {
         long start = System.currentTimeMillis();
         saveDefaultConfig();
-
         instance = this;
-
         languageManager = new LanguageManager(this);
         languageManager.loadLanguages();
         languageManager.setDefaultLanguage(getConfig().getString("default_language", "en"));
-
         databaseManager = new DatabaseManager(this);
         initializeDatabases();
 
@@ -285,10 +284,8 @@ public class ServerEssentials extends JavaPlugin implements Listener {
             vaultEconomy = null;
         } else {
             getLogger().info("Vault detected. Setting up economy provider...");
-
             economyService = new EconomyService(this, databaseManager);
             economyService.register();
-
             RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
             if (rsp == null) {
                 getLogger().warning("No economy provider registered! Economy features will be disabled.");
@@ -313,9 +310,6 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         initializeDailySystem();
         initializeRulesSystem();
         initializeBackSystem();
-
-
-
 
 
         nearConfig = new NearConfig(this);
@@ -386,6 +380,9 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         this.seenConfig = new SeenConfig(this);
         this.seenCommand = new SeenCommand(playerLanguageManager, seenConfig, commandDataStorage);
 
+        this.treeConfig = new TreeConfig(this);
+        this.treeCommand = new TreeCommand(playerLanguageManager, treeConfig, commandDataStorage);
+
         // Commands
         getCommand("fly").setExecutor(flyCommand);
         getCommand("tpa").setExecutor(tpaCommand);
@@ -425,20 +422,15 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         getCommand("recipe").setExecutor(recipeCommand);
         getCommand("enderchest").setExecutor(enderChestCommand);
         getCommand("seen").setExecutor(seenCommand);
-
-
-
-
-
-
-
-
+        getCommand("tree").setExecutor(treeCommand);
 
 
         // Tab Completer
         getCommand("tpp").setTabCompleter(tppCommand);
         getCommand("weather").setTabCompleter(weatherCommand);
         getCommand("recipe").setTabCompleter(recipeCommand);
+        getCommand("tree").setTabCompleter(treeCommand);
+
 
 
 
@@ -724,7 +716,6 @@ public class ServerEssentials extends JavaPlugin implements Listener {
 
 
 
-        if (!isCommandDisabled("tree")) getCommand("tree").setExecutor(new TreeCommand(playerMessages));
 
         CanonCommand canonCommand = new CanonCommand(funMessages);
         if (!isCommandDisabled("canon") && getCommand("canon") != null) getCommand("canon").setExecutor(canonCommand);
