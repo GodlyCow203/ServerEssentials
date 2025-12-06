@@ -51,13 +51,16 @@ import net.lunark.io.mail.MailConfig;
 import net.lunark.io.mail.MailListener;
 import net.lunark.io.mail.MailStorage;
 import net.lunark.io.nick.NickManager;
+import net.lunark.io.notes.NotesStorage;
 import net.lunark.io.pw.WarpStorage;
 import net.lunark.io.reports.*;
 import net.lunark.io.rules.RulesGUI;
 import net.lunark.io.rules.RulesListener;
 import net.lunark.io.rules.RulesStorage;
-import net.lunark.io.scoreboard.CustomScoreboardManager;
-import net.lunark.io.scoreboard.util.ScoreboardJoinListener;
+
+import net.lunark.io.scoreboard.ScoreboardListener;
+import net.lunark.io.scoreboard.ScoreboardStorage;
+import net.lunark.io.scoreboard.ScoreboardUpdater;
 import net.lunark.io.server.*;
 import net.lunark.io.serverEssentials.ServerEssentialsCommand;
 import net.lunark.io.serverEssentials.VersionChecker;
@@ -119,7 +122,6 @@ public class ServerEssentials extends JavaPlugin implements Listener {
     private File pwFile;
     private FileConfiguration pwConfig;
     private BukkitAudiences adventure;
-    private CustomScoreboardManager scoreboard;
     private static Economy economy;
     private FileConfiguration offlineConfig;
     private File offlineFile;
@@ -132,7 +134,6 @@ public class ServerEssentials extends JavaPlugin implements Listener {
     private static final int BSTATS_PLUGIN_ID = 27221;
     private ServerMessages serverMessages;
     private KillTracker killTracker;
-    private NotesCommand notesCommand;
     private List<String> reloadedItems = new ArrayList<>();
     private VaultMessages vaultMessages;
     private VaultManager vaultManager;
@@ -258,6 +259,15 @@ public class ServerEssentials extends JavaPlugin implements Listener {
     private BackDataStorage backDataStorage;
     private TreeConfig treeConfig;
     private TreeCommand treeCommand;
+    private NotesConfig notesConfig;
+    private NotesStorage notesStorage;
+    private NotesCommand notesCommand;
+
+    private ScoreboardConfig scoreboardConfig;
+    private ScoreboardStorage scoreboardStorage;
+    private ScoreboardUpdater scoreboardUpdater;
+    private ScoreboardListener scoreboardListener;
+    private ScoreboardCommand scoreboardCommand;
 
 
 
@@ -310,6 +320,8 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         initializeDailySystem();
         initializeRulesSystem();
         initializeBackSystem();
+        initializeNotesSystem();
+        initializeScoreboardSystem();
 
 
         nearConfig = new NearConfig(this);
@@ -382,6 +394,11 @@ public class ServerEssentials extends JavaPlugin implements Listener {
 
         this.treeConfig = new TreeConfig(this);
         this.treeCommand = new TreeCommand(playerLanguageManager, treeConfig, commandDataStorage);
+
+        NotesStorage notesStorage = new NotesStorage(this, databaseManager);
+        NotesConfig notesConfig = new NotesConfig(this);
+
+
 
         // Commands
         getCommand("fly").setExecutor(flyCommand);
@@ -493,7 +510,6 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         }
 
         this.adventure = BukkitAudiences.create(this);
-        scoreboard = new CustomScoreboardManager(this);
 
         File messagesDir = new File(getDataFolder(), "messages");
         if (!messagesDir.exists()) messagesDir.mkdirs();
@@ -542,7 +558,6 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         this.startTime = System.currentTimeMillis();
         originalMotd = Bukkit.getMotd();
 
-        CustomScoreboardManager manager = new CustomScoreboardManager(this);
         String originalMotd = Bukkit.getMotd();
 
         LockdownCommand lockdownCommand = new LockdownCommand(this, messagesManager, originalMotd);
@@ -809,11 +824,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         if (!isCommandDisabled("sleep")) getCommand("sleep").setExecutor(new SleepCommand(this));
 
         playerMessages = new PlayerMessages(this);
-        notesCommand = new NotesCommand(playerMessages, this);
-        if (!isCommandDisabled("notes")) {
-            getCommand("notes").setExecutor(notesCommand);
-            getCommand("notes").setTabCompleter(notesCommand);
-        }
+
         Bukkit.getPluginManager().registerEvents(this, this);
 
 
@@ -842,7 +853,6 @@ public class ServerEssentials extends JavaPlugin implements Listener {
 
 
 
-        getServer().getPluginManager().registerEvents(new ScoreboardJoinListener(manager), this);
 
         getServer().getPluginManager().registerEvents(new org.bukkit.event.Listener() {
             @org.bukkit.event.EventHandler
@@ -913,9 +923,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
     public static ServerEssentials getInstance() {
         return instance;
     }
-    public CustomScoreboardManager getScoreboardManager() {
-        return scoreboard;
-    }
+
     public BanManager getBanManager() {
         return banManager;
     }
@@ -1011,9 +1019,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         if (this.adventure != null) {
             this.adventure.close();
         }
-        if (notesCommand != null) {
-            notesCommand.saveNotes();
-        }
+
         if (homeManager != null) {
             homeManager.saveAll();
         }
@@ -1263,44 +1269,57 @@ public class ServerEssentials extends JavaPlugin implements Listener {
                     new DatabaseConfig(DatabaseType.SQLITE, "kits.db", null, 0, null, null, null, 5)
             );
         }
+        databaseManager.initializePool("scoreboard", new DatabaseConfig(DatabaseType.SQLITE, "scoreboard.db", null, 0, null, null, null, 10));
         databaseManager.initializePool("rules", new DatabaseConfig(DatabaseType.SQLITE, "rules.db", null, 0, null, null, null, 5));
         databaseManager.initializePool("mail", new DatabaseConfig(DatabaseType.SQLITE, "mail.db", null,0,null,null,null,15));
-
-        databaseManager.initializePool("sellgui",
-                new DatabaseConfig(DatabaseType.SQLITE, "sellgui.db", null, 0, null, null, null, 5));
-
-        databaseManager.initializePool("back",
-                new DatabaseConfig(DatabaseType.SQLITE, "back.db", null, 0, null, null, null, 5));
-
-        databaseManager.initializePool("economy", new DatabaseConfig(
-                DatabaseType.SQLITE, "economy.db", null, 0, null, null, null, 10
-        ));
+        databaseManager.initializePool("sellgui", new DatabaseConfig(DatabaseType.SQLITE, "sellgui.db", null, 0, null, null, null, 5));
+        databaseManager.initializePool("back", new DatabaseConfig(DatabaseType.SQLITE, "back.db", null, 0, null, null, null, 5));
+        databaseManager.initializePool("economy", new DatabaseConfig(DatabaseType.SQLITE, "economy.db", null, 0, null, null, null, 10));
+        databaseManager.initializePool("notes", new DatabaseConfig(DatabaseType.SQLITE, "notes.db", null, 0, null, null, null, 5));
         databaseManager.initializePool("daily", new DatabaseConfig(DatabaseType.SQLITE, "daily.db", null, 0, null, null, null, 5));
         databaseManager.initializePool("reports", new DatabaseConfig(DatabaseType.SQLITE, "reports.db", null,0,null,null,null,15));
         databaseManager.initializePool("shop", new DatabaseConfig(DatabaseType.SQLITE, "shop.db", null, 0, null, null, null, 5));        databaseManager.initializePool("command_data", new DatabaseConfig(DatabaseType.SQLITE, "command_data.db", null, 0, null, null, null, 10));
-        databaseManager.initializePool("tpa",
-                new DatabaseConfig(DatabaseType.SQLITE, "tpa.db", null, 0, null, null, null, 5));
+        databaseManager.initializePool("tpa", new DatabaseConfig(DatabaseType.SQLITE, "tpa.db", null, 0, null, null, null, 5));
+    }
+
+    private void initializeScoreboardSystem() {
+        this.scoreboardConfig = new ScoreboardConfig(this);
+        this.scoreboardStorage = new ScoreboardStorage(this, databaseManager);
+        this.scoreboardUpdater = new ScoreboardUpdater(this, scoreboardConfig, scoreboardStorage);
+        this.scoreboardListener = new ScoreboardListener(this ,playerLanguageManager, scoreboardConfig, scoreboardStorage, scoreboardUpdater);
+        this.scoreboardCommand = new ScoreboardCommand(this, playerLanguageManager, scoreboardConfig, scoreboardStorage, scoreboardUpdater);
+
+        getCommand("scoreboard").setExecutor(scoreboardCommand);
+        getServer().getPluginManager().registerEvents(scoreboardListener, this);
+
+        getLogger().info("Scoreboard system initialized with " + scoreboardConfig.layouts.size() + " layouts");
     }
     private void initializeShopSystem() {
         shopConfig = new ShopConfig(this);
-        shopStorage = new ShopStorage(databaseManager); // Create storage once
+        shopStorage = new ShopStorage(databaseManager);
         shopGuiManager = new ShopGUIManager(this, playerLanguageManager, shopStorage, shopConfig, vaultEconomy);
         shopCommand = new ShopCommand(this, playerLanguageManager, databaseManager, shopConfig, vaultEconomy);
         shopGuiListener = new ShopGUIListener(shopGuiManager);
     }
     private void initializeRulesSystem() {
-        // Initialize config, storage, and GUI first
         this.rulesConfig = new RulesConfig(this);
         this.rulesStorage = new RulesStorage(this, databaseManager);
         this.rulesGUI = new RulesGUI(playerLanguageManager, rulesStorage, rulesConfig, this);
 
-        // Initialize command and listener (depend on GUI)
         this.rulesListener = new RulesListener(playerLanguageManager, rulesStorage, rulesConfig, this);
         this.rulesCommand = new RulesCommand(playerLanguageManager, rulesConfig, rulesStorage, this);
 
-        // Register with Bukkit
         getCommand("rules").setExecutor(rulesCommand);
         getServer().getPluginManager().registerEvents(rulesListener, this);
+    }
+
+    private void initializeNotesSystem() {
+        this.notesConfig = new NotesConfig(this);
+        this.notesStorage = new NotesStorage(this, databaseManager);
+
+        this.notesCommand = new NotesCommand(playerLanguageManager, notesConfig, notesStorage);
+
+        getCommand("notes").setExecutor(notesCommand);
     }
 
     private void initializeDailySystem() {

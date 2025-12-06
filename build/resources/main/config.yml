@@ -208,6 +208,34 @@ rules:
   duration-seconds: 600
 
 
+scoreboard:
+  enabled: true
+  debug-mode: false
+  update-interval: 20
+  default-layout: default
+  layouts:
+    default:
+      title: "<red>Server Scoreboard"
+      lines:
+        - "<yellow>Welcome {player_name}!"
+        - "<gray>Online: <green>{online_players}"
+        - "<gray>World: <green>{world}"
+        - ""
+        - "<gold>play.lunark.io"
+      max-lines: 15
+    nether:
+      title: "<dark_red>Nether Scoreboard"
+      lines:
+        - "<yellow>Nether Mode"
+        - "<gray>Be careful!"
+      max-lines: 5
+  world-settings:
+    world_nether:
+      enabled: true
+      layout: nether
+    world_the_end:
+      enabled: false
+
 # /back command configuration
 back:
   # When to automatically save player locations for /back

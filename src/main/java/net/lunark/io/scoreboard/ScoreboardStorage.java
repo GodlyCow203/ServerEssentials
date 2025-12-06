@@ -1,104 +1,105 @@
 package net.lunark.io.scoreboard;
 
-import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
-
-import java.io.File;
-import java.io.IOException;
+import net.lunark.io.database.DatabaseManager;
+import org.bukkit.plugin.Plugin;
 import java.util.*;
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.*;
 
-public class ScoreboardStorage {
 
-    private final File file;
-    private YamlConfiguration config;
+public final class ScoreboardStorage {
+    private final DatabaseManager dbManager;
+    private final String poolKey = "scoreboard";
+    private final Map<UUID, ScoreboardPlayerData> cache = new ConcurrentHashMap<>();
+    private final AtomicInteger enabledCount = new AtomicInteger(0);
 
-    private final Map<UUID, Boolean> scoreboardStates = new HashMap<>();
+    public record ScoreboardPlayerData(boolean enabled, String layout, long lastUpdate, long joinTime) {}
 
-    public ScoreboardStorage(JavaPlugin plugin) {
-        this.file = new File(plugin.getDataFolder(), "storage/scoreboard.yml");
-        reload();
-        loadCachedStates();
+    public ScoreboardStorage(Plugin plugin, DatabaseManager dbManager) {
+        this.dbManager = dbManager;
+        initTable();
+        plugin.getLogger().info("Scoreboard storage initialized with async support");
     }
 
-    public void reload() {
-        if (!file.exists()) {
-            file.getParentFile().mkdirs();
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
+
+    private void initTable() {
+        String sql = "CREATE TABLE IF NOT EXISTS scoreboard_players (" +
+                "player_uuid TEXT PRIMARY KEY, enabled BOOLEAN, layout TEXT, last_update BIGINT, join_time BIGINT)";
+        dbManager.executeUpdate(poolKey, sql);
+    }
+
+    public CompletableFuture<ScoreboardPlayerData> loadPlayer(UUID playerId) {
+        String sql = "SELECT enabled, layout, last_update, join_time FROM scoreboard_players WHERE player_uuid = ?";
+        return dbManager.executeQuery(poolKey, sql, rs -> {
+            if (rs.next()) {
+                return new ScoreboardPlayerData(
+                        rs.getBoolean("enabled"),
+                        rs.getString("layout"),
+                        rs.getLong("last_update"),
+                        rs.getLong("join_time")
+                );
+            }
+            return null;
+        }, playerId.toString()).thenApply(opt -> {
+            ScoreboardPlayerData data = opt.orElse(new ScoreboardPlayerData(true, null, 0, System.currentTimeMillis()));
+            cache.put(playerId, data);
+            if (data.enabled()) enabledCount.incrementAndGet();
+            return data;
+        });
+    }
+
+    public CompletableFuture<Void> savePlayer(UUID playerId, boolean enabled, String layout) {
+        long now = System.currentTimeMillis();
+        long joinTime = cache.containsKey(playerId) ? cache.get(playerId).joinTime() : now;
+
+        cache.put(playerId, new ScoreboardPlayerData(enabled, layout, now, joinTime));
+
+        String sql = "INSERT OR REPLACE INTO scoreboard_players VALUES (?, ?, ?, ?, ?)";
+        return dbManager.executeUpdate(poolKey, sql,
+                playerId.toString(), enabled, layout, now, joinTime);
+    }
+
+    public CompletableFuture<Void> setEnabled(UUID playerId, boolean enabled) {
+        ScoreboardPlayerData current = cache.getOrDefault(playerId,
+                new ScoreboardPlayerData(true, null, 0, System.currentTimeMillis()));
+
+        if (current.enabled() != enabled) {
+            if (enabled) {
+                enabledCount.incrementAndGet();
+            } else {
+                enabledCount.decrementAndGet();
             }
         }
-        config = YamlConfiguration.loadConfiguration(file);
-        loadCachedStates();
+
+        return savePlayer(playerId, enabled, current.layout());
     }
 
-    private void loadCachedStates() {
-        scoreboardStates.clear();
+    public CompletableFuture<Void> setLayout(UUID playerId, String layout) {
+        ScoreboardPlayerData current = cache.getOrDefault(playerId,
+                new ScoreboardPlayerData(true, null, 0, System.currentTimeMillis()));
+        return savePlayer(playerId, current.enabled(), layout);
+    }
 
-        // 1. read file
-        if (config.isConfigurationSection("players")) {
-            for (String uuidStr : config.getConfigurationSection("players").getKeys(false)) {
-                boolean enabled = config.getBoolean("players." + uuidStr + ".enabled", true);
-                try {
-                    scoreboardStates.put(UUID.fromString(uuidStr), enabled);
-                } catch (IllegalArgumentException ignored) {}
-            }
+    public boolean isEnabled(UUID playerId) {
+        return cache.getOrDefault(playerId, new ScoreboardPlayerData(true, null, 0, 0)).enabled();
+    }
+
+    public String getLayout(UUID playerId) {
+        return cache.getOrDefault(playerId, new ScoreboardPlayerData(true, null, 0, 0)).layout();
+    }
+
+    public void removeFromCache(UUID playerId) {
+        ScoreboardPlayerData data = cache.remove(playerId);
+        if (data != null && data.enabled()) {
+            enabledCount.decrementAndGet();
         }
-
-        for (Player p : Bukkit.getOnlinePlayers()) {
-            UUID id = p.getUniqueId();
-            scoreboardStates.putIfAbsent(id, true);
-        }
-        scoreboardStates.keySet().removeIf(uuid -> Bukkit.getPlayer(uuid) == null);
     }
 
-    public void setEnabled(Player player, boolean enabled) {
-        UUID uuid = player.getUniqueId();
-        scoreboardStates.put(uuid, enabled);
-        config.set("players." + uuid + ".enabled", enabled);
-        save();
+    public int getEnabledPlayerCount() {
+        return enabledCount.get();
     }
 
-
-    void setCachedState(UUID uuid, boolean enabled) {
-        scoreboardStates.put(uuid, enabled);
-    }
-    void removeCachedState(UUID uuid) {
-        scoreboardStates.remove(uuid);
-    }
-
-    public boolean togglePlayer(Player player) {
-        UUID uuid = player.getUniqueId();
-        boolean newState = !isEnabled(player);
-
-        scoreboardStates.put(uuid, newState);
-        config.set("players." + uuid + ".enabled", newState);
-        save();
-
-        return newState;
-    }
-
-    public boolean isEnabled(Player player) {
-        return scoreboardStates.getOrDefault(player.getUniqueId(), true);
-    }
-
-    public void setPlayerLayout(Player player, String layout) {
-        config.set("players." + player.getUniqueId() + ".layout", layout);
-        save();
-    }
-
-    public String getPlayerLayout(Player player) {
-        return config.getString("players." + player.getUniqueId() + ".layout", "default");
-    }
-
-    private void save() {
-        try {
-            config.save(file);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public Map<UUID, ScoreboardPlayerData> getCacheSnapshot() {
+        return Map.copyOf(cache);
     }
 }

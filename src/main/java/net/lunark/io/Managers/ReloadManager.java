@@ -11,7 +11,6 @@ import net.lunark.io.kit.KitManager;
 import net.lunark.io.lobby.LobbyManager;
 import net.lunark.io.lobby.LobbyMessages;
 import net.lunark.io.nick.NickManager;
-import net.lunark.io.scoreboard.CustomScoreboardManager;
 import net.lunark.io.staff.BanManager;
 import net.lunark.io.language.LanguageManager; // Add this import
 
@@ -54,7 +53,6 @@ public class ReloadManager {
         JoinLeaveManager.reload();
         LobbyManager.reload();
         NickManager.reload();
-        CustomScoreboardManager.reloadAll();
 
         EconomyMessagesManager.reload();
 

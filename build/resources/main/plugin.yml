@@ -119,7 +119,7 @@ commands:
   tree:
     descirption: e
     usage: /tree <type>
-    permission: serveressentials.tree
+    permission: serveressentials.command.tree
 
   rtp:
     description: Random teleport.
@@ -738,8 +738,8 @@ commands:
     permission: serveressentials.broadcast
   scoreboard:
     description: Reload scoreboard config
-    usage: /<command> reload | enable | disable
-    permission: serveressentials.scoreboard
+    usage: /scoreboard reload | enable | disable
+    permission: serveressentials.command.scoreboard
   serverinfo:
     description: Displays detailed server statistics
     usage: /serverinfo
@@ -1083,6 +1083,16 @@ permissions:
     default: op
   serveressentials.command.back.death:
     description: Allow /back death subcommand
+    default: op
+  serveressentials.command.scoreboard.reload:
+    description: Reload scoreboard configurations
+    default: op
+  serveressentials.command.scoreboard.toggle:
+    description: Toggle personal scoreboard
+    default: op
+
+  serveressentials.command.scoreboard.color:
+    description: Change personal scoreboard layout
     default: op
 
 

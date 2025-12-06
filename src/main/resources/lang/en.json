@@ -216,6 +216,95 @@
       "rain": "<#34D399>Weather set to rain for <white>{duration} <#34D399>seconds.",
       "thunderstorm": "<#34D399>Weather set to thunderstorm for <white>{duration} <#34D399>seconds.",
       "invalid-type": "<#F87171>Invalid weather type. Use: clear, rain, or thunderstorm."
+    },
+    "playtime": {
+      "only-player": "<#F87171>Only players can use this command.",
+      "no-permission": "<#F87171>You need permission <#FBBF24>{permission}</#FBBF24>!",
+      "usage": "<#F87171>Usage: <white>/playtime",
+      "playtime": "<#34D399>Your playtime: <#FBBF24>{hours}h {minutes}m"
+    },
+    "recipe": {
+      "only-player": "<#F87171>Only players can use this command.",
+      "no-permission": "<#F87171>You need permission <#FBBF24>{permission}</#FBBF24>!",
+      "usage": "<#F87171>Usage: <white>/recipe <recipe>",
+      "not-found": "<#F87171>Recipe not found!",
+      "result": "<#34D399>Recipe for: <#FBBF24>{item}",
+      "shaped-header": "<#34D399>Shaped Recipe Ingredients:",
+      "shapeless-header": "<#34D399>Shapeless Recipe Ingredients:",
+      "ingredient-line": "<#FBBF24>- {char}: <white>{item} <#FBBF24>x{amount}",
+      "ingredient-line-shapeless": "<#FBBF24>- <white>{item} <#FBBF24>x{amount}",
+      "unknown-type": "<#F87171>Unknown recipe type!"
+    },
+    "enderchest": {
+      "only-player": "<#F87171>Only players can use this command.",
+      "no-permission": "<#F87171>You need permission <#FBBF24>{permission}</#FBBF24>!",
+      "no-permission-others": "<#F87171>You need permission <#FBBF24>{permission}</#FBBF24>!",
+      "usage": "<#F87171>Usage: <white>/enderchest [player]",
+      "opening": "<#34D399>Opening your ender chest...",
+      "opening-other": "<#34D399>Opening <#FBBF24>{player}'s <#34D399>ender chest...",
+      "player-not-found": "<#F87171>Player <#FBBF24>{player}</#FBBF24> not found.",
+      "offline-not-supported": "<#F87171>Cannot open ender chest of offline player <#FBBF24>{player}</#FBBF24>."
+    },
+    "seen": {
+      "only-player": "<#F87171>Only players can use this command.",
+      "no-permission": "<#F87171>You need permission <#FBBF24>{permission}</#FBBF24>!",
+      "usage": "<#FBBF24>Usage: <white>/seen <player>",
+      "player-not-found": "<#F87171>Player <#FBBF24>{player}</#FBBF24> not found.",
+      "result": "<#34D399>{player} was last seen on <white>{lastSeen}",
+      "result-online": "<#34D399>{player} <#34D399>is currently <bold>online</bold>!",
+      "never-joined": "<#FBBF24>{player} has never joined the server."
+    },
+    "back": {
+      "only-player": "<#F87171>Only players can use this command.",
+      "no-permission": "<#F87171>You need permission <#FBBF24>{permission}</#FBBF24>!",
+      "no-permission-sub": "<#F87171>You need permission <#FBBF24>{subpermission}</#FBBF24>!",
+      "usage": "<#FBBF24>Usage: <white>/back [lobby|death|back]",
+      "no-back": "<#F87171>No previous location saved.",
+      "invalid-back": "<#F87171>Your last location is invalid.",
+      "teleported-back": "<#34D399>Teleported back to your previous location.",
+      "lobby-not-set": "<#F87171>Lobby location not set or world is unloaded.",
+      "teleported-lobby": "<#34D399>Teleported to the lobby.",
+      "no-death-location": "<#F87171>No death location found.",
+      "teleported-death": "<#34D399>Teleported to your last death location.",
+      "unknown-usage": "<#F87171>Unknown subcommand. Use: <white>/back, /back lobby, /back death"
+    },
+    "tree": {
+      "only-player": "<#F87171>Only players can use this command.",
+      "no-permission": "<#F87171>You need permission <#FBBF24>{permission}</#FBBF24>!",
+      "specify-type": "<#F87171>Please specify a tree type.",
+      "invalid-type": "<#F87171>Invalid tree type! Valid types: <#FBBF24>{types}",
+      "tree-planted": "<#34D399>Tree planted: <#FBBF24>{type}",
+      "cannot-grow": "<#F87171>Tree cannot grow here! Make sure there's enough space and suitable ground."
+    },
+    "notes": {
+      "only-player": "<#F87171>Only players can use notes.",
+      "no-permission": "<#F87171>You need permission <#FBBF24>{permission}</#FBBF24> to use notes!",
+      "usage": "<#FBBF24>Usage:</#FBBF24> <white>/notes <name> [content]",
+      "list-empty": "<#9CA3AF>You have no saved notes.",
+      "list-header": "<#FBBF24>Your notes:</#FBBF24> ",
+      "not-found": "<#F87171>Note '<#FBBF24>{name}</#FBBF24>' not found.",
+      "view": "<#FBBF24>Note '<#34D399>{name}</#34D399>':</#FBBF24> <white>{content}",
+      "saved": "<#34D399>Saved note '<#FBBF24>{name}</#FBBF24>':</#34D399> <white>{content}"
+    },
+    "scoreboard": {
+      "only-player": "<#F87171>Only players can use scoreboard commands.",
+      "no-permission": "<#F87171>You need permission <#FBBF24>{permission}</#FBBF24> to use this!",
+      "no-permission-reload": "<#F87171>You need permission <#FBBF24>{permission}</#FBBF24> to reload!",
+      "no-permission-toggle": "<#F87171>You need permission <#FBBF24>{permission}</#FBBF24> to toggle!",
+      "no-permission-color": "<#F87171>You need permission <#FBBF24>{permission}</#FBBF24> to change layouts!",
+      "usage": "<#FBBF24>Usage:</#FBBF24> <white>/scoreboard <reload|toggle|color> [layout]",
+      "toggle": {
+        "enabled": "<#34D399>Scoreboard enabled!</#34D399>",
+        "disabled": "<#9CA3AF>Scoreboard disabled!</#9CA3AF>"
+      },
+      "reload": {
+        "success": "<#34D399>All scoreboards reloaded successfully!"
+      },
+      "color": {
+        "usage": "<#F87171>Usage: /scoreboard color <layout>",
+        "not-found": "<#F87171>Layout '<#FBBF24>{layout}</#FBBF24>' not found!",
+        "changed": "<#34D399>Layout changed to <#FBBF24>{layout}</#FBBF24>!"
+      }
     }
   },
   "general": {
@@ -306,7 +395,7 @@
     "footer": "<#FBBF24>-------------------- <#9CA3AF>({count} messages)",
     "cooldown": "<#F87171>Please wait {time} seconds before sending mail again.",
     "player-not-found": "<#F87171>Player <#FBBF24>{player}</#FBBF24> not found.",
-    "message-too-long": "<#F87171>Message too long! Max {max} characters.",
+    "message-too-long": "<#F87171>Message too long! Max <#FBBF24>{max}</#FBBF24> characters.",
     "sent": "<#34D399>Mail sent to <#FBBF24>{player}</#FBBF24>.",
     "received": "<#34D399>You have new mail from <#FBBF24>{sender}</#FBBF24>! Use <white>/mail read</white>",
     "error": "<#F87171>Error processing mail. Please try again.",

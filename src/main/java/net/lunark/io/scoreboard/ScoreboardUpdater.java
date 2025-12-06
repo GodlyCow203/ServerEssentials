@@ -1,110 +1,159 @@
 package net.lunark.io.scoreboard;
 
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.lunark.io.commands.config.ScoreboardConfig;
+import net.lunark.io.scoreboard.util.PlaceholderUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.scoreboard.*;
-import net.lunark.io.scoreboard.util.PlaceholderUtil;
 
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
 
-public class ScoreboardUpdater {
+public final class ScoreboardUpdater {
+    private static final MiniMessage MINI_MESSAGE = MiniMessage.miniMessage();
+    private static final int MAX_LINES = 15;
+    private static final long PLACEHOLDER_CACHE_TTL = TimeUnit.SECONDS.toMillis(1);
 
-    private final CustomScoreboardManager manager;
-    private final MiniMessage mini = MiniMessage.miniMessage();
+    private final Plugin plugin;
+    private final ScoreboardConfig config;
+    private final ScoreboardStorage storage;
+    private final Map<UUID, Scoreboard> playerBoards = new ConcurrentHashMap<>();
+    private final Map<UUID, Objective> playerObjectives = new ConcurrentHashMap<>();
+    private final Map<UUID, Map<Integer, Team>> playerTeams = new ConcurrentHashMap<>();
+    private final Map<UUID, Map<String, String>> placeholderCache = new ConcurrentHashMap<>();
+    private final Map<UUID, Long> lastPlaceholderUpdate = new ConcurrentHashMap<>();
+    private final boolean debugMode;
+    private static final String INVISIBLE_CHAR = "§";
 
-    public ScoreboardUpdater(CustomScoreboardManager manager) {
-        this.manager = manager;
+    public ScoreboardUpdater(Plugin plugin, ScoreboardConfig config, ScoreboardStorage storage) {
+        this.plugin = plugin;
+        this.config = config;
+        this.storage = storage;
+        this.debugMode = plugin.getConfig().getBoolean("scoreboard.debug-mode", false);
+        startTask();
+        plugin.getLogger().info("Scoreboard updater started in " + (debugMode ? "debug" : "production") + " mode");
     }
 
-    public void start() {
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                for (Player player : Bukkit.getOnlinePlayers()) {
-                    if (manager.getStorage().isEnabled(player)) {
-                        update(player); // auto layout
-                    } else {
-                        clear(player);
-                    }
-                }
-            }
-        }.runTaskTimer(manager.getPlugin(), 20L, 20L); // 1 second
+    private void startTask() {
+        Bukkit.getScheduler().runTaskTimerAsynchronously(plugin,
+                () -> Bukkit.getOnlinePlayers().forEach(this::updateAsync),
+                20L, config.updateInterval
+        );
     }
-    public void refreshAll() {
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            if (manager.getStorage().isEnabled(player)) {
-                update(player);
-            } else {
-                clear(player);
-            }
+
+    private void updateAsync(Player player) {
+        if (!storage.isEnabled(player.getUniqueId())) {
+            Bukkit.getScheduler().runTask(plugin, () -> clear(player));
+            return;
         }
+
+        String layout = config.getLayoutForPlayer(player, storage);
+        Bukkit.getScheduler().runTask(plugin, () -> update(player, layout));
+    }
+
+    public void refreshAll() {
+        Bukkit.getOnlinePlayers().forEach(this::updateAsync);
     }
 
     public void clear(Player player) {
+        UUID uuid = player.getUniqueId();
         player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
+        playerBoards.remove(uuid);
+        playerObjectives.remove(uuid);
+        playerTeams.remove(uuid);
+        placeholderCache.remove(uuid);
+        lastPlaceholderUpdate.remove(uuid);
     }
 
     public void update(Player player) {
-        if (!manager.getStorage().isEnabled(player)) {
+        if (!storage.isEnabled(player.getUniqueId())) {
             clear(player);
             return;
         }
-        String layout = manager.getConfigHandler().getLayoutForPlayer(player, manager.getStorage());
+        String layout = config.getLayoutForPlayer(player, storage);
         update(player, layout);
     }
 
     public void update(Player player, String layout) {
-        if (!manager.getStorage().isEnabled(player)) {
+        if (!Bukkit.isPrimaryThread()) {
+            Bukkit.getScheduler().runTask(plugin, () -> update(player, layout));
+            return;
+        }
+
+        if (!storage.isEnabled(player.getUniqueId())) {
             clear(player);
             return;
         }
 
         String world = player.getWorld().getName();
-        if (!manager.getConfigHandler().isWorldEnabled(world)) {
+        if (!config.isWorldEnabled(world)) {
             clear(player);
             return;
         }
 
-        String title = PlaceholderUtil.apply(player, manager.getConfigHandler().getTitle(layout));
-        List<String> lines = manager.getConfigHandler().getLines(layout);
+        UUID uuid = player.getUniqueId();
+        ScoreboardConfig.Layout layoutData = config.getLayout(layout);
 
-        Scoreboard board = player.getScoreboard();
-        if (board == Bukkit.getScoreboardManager().getMainScoreboard() || board == null) {
-            board = Bukkit.getScoreboardManager().getNewScoreboard();
+        Scoreboard board = playerBoards.computeIfAbsent(uuid,
+                k -> Bukkit.getScoreboardManager().getNewScoreboard());
+
+        Objective obj = playerObjectives.computeIfAbsent(uuid, k -> {
+            Objective o = board.registerNewObjective("se_sb", "dummy",
+                    MINI_MESSAGE.deserialize(layoutData.title()));
+            o.setDisplaySlot(DisplaySlot.SIDEBAR);
+            return o;
+        });
+
+        obj.displayName(MINI_MESSAGE.deserialize(layoutData.title()));
+
+        Map<Integer, Team> teams = playerTeams.computeIfAbsent(uuid, k -> new ConcurrentHashMap<>());
+        Map<String, String> cache = placeholderCache.computeIfAbsent(uuid, k -> new ConcurrentHashMap<>());
+        long lastUpdate = lastPlaceholderUpdate.getOrDefault(uuid, 0L);
+        long now = System.currentTimeMillis();
+
+        if (now - lastUpdate > PLACEHOLDER_CACHE_TTL) {
+            cache.clear();
+            lastPlaceholderUpdate.put(uuid, now);
         }
 
-        Objective obj = board.getObjective("sidebar");
-        if (obj == null) {
-            obj = board.registerNewObjective("sidebar", "dummy", mini.deserialize(title));
-            obj.setDisplaySlot(DisplaySlot.SIDEBAR);
-        } else {
-            obj.displayName(mini.deserialize(title));
-        }
+        List<String> lines = layoutData.lines();
+        int visibleLines = Math.min(lines.size(), layoutData.maxLines());
 
-        // === FIX: Completely wipe ALL old entries and teams ===
-        for (String entry : board.getEntries()) {
-            if (entry.startsWith("§")) {
-                board.resetScores(entry);
-                Team t = board.getTeam("line" + entry.substring(1));
-                if (t != null) {
-                    t.unregister();
-                }
+
+        for (int i = 0; i < visibleLines; i++) {
+            String line = lines.get(i);
+            String cachedLine = cache.get(line);
+
+            if (cachedLine == null) {
+                cachedLine = PlaceholderUtil.apply(player, line);
+                cache.put(line, cachedLine);
             }
+
+            String entry = INVISIBLE_CHAR + (char)('a' + i);
+
+            int finalI = i;
+            Team team = teams.computeIfAbsent(i, k -> {
+                Team t = board.registerNewTeam("se_line_" + uuid + "_" + finalI);
+                t.addEntry(entry);
+                return t;
+            });
+
+            team.prefix(MINI_MESSAGE.deserialize(cachedLine));
+            obj.getScore(entry).setScore(visibleLines - i);
         }
 
-        // === Add fresh lines with hidden scores ===
-        for (int i = 0; i < lines.size(); i++) {
-            String replaced = PlaceholderUtil.apply(player, lines.get(i));
-            String entry = "§" + i;
-
-            Team team = board.registerNewTeam("line" + i);
-            team.addEntry(entry);
-            team.prefix(mini.deserialize(replaced));
-            obj.getScore(entry).setScore(0); // Hide numbers
+        for (int i = visibleLines; i < MAX_LINES; i++) {
+            Team team = teams.remove(i);
+            if (team != null) team.unregister();
         }
 
-        player.setScoreboard(board);
+        if (player.getScoreboard() != board) {
+            player.setScoreboard(board);
+        }
     }
 }

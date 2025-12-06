@@ -1,21 +1,34 @@
 package net.lunark.io.scoreboard;
 
-
+import net.lunark.io.commands.config.ScoreboardConfig;
+import net.lunark.io.language.PlayerLanguageManager;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.plugin.Plugin;
 
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
+import java.util.logging.Level;
 
-public class ScoreboardListener implements Listener {
+public final class ScoreboardListener implements Listener {
+    private final Plugin plugin;
+    private final PlayerLanguageManager langManager;
+    private final ScoreboardConfig config;
+    private final ScoreboardStorage storage;
+    private final ScoreboardUpdater updater;
 
-    private final CustomScoreboardManager manager;
-
-    public ScoreboardListener(CustomScoreboardManager manager) {
-        this.manager = manager;
+    public ScoreboardListener(Plugin plugin, PlayerLanguageManager langManager, ScoreboardConfig config,
+                              ScoreboardStorage storage, ScoreboardUpdater updater) {
+        this.plugin = plugin;
+        this.langManager = langManager;
+        this.config = config;
+        this.storage = storage;
+        this.updater = updater;
     }
 
     @EventHandler
@@ -23,17 +36,32 @@ public class ScoreboardListener implements Listener {
         Player player = event.getPlayer();
         UUID uuid = player.getUniqueId();
 
-        manager.getDatabase().load(uuid).thenAccept(data -> {
-            boolean enabled = data.enabled();
-            String layout = data.layout();
+        CompletableFuture.runAsync(() -> {
+            try {
+                storage.loadPlayer(uuid).thenAccept(data -> {
+                    Bukkit.getScheduler().runTask(plugin, () -> {
+                        if (!config.isWorldEnabled(player.getWorld().getName())) {
+                            updater.clear(player);
+                            return;
+                        }
 
-            manager.getStorage().setPlayerLayout(player, layout);
-            manager.getStorage().setCachedState(uuid, enabled);
+                        String layout = data.layout() != null ? data.layout() :
+                                config.getWorldLayout(player.getWorld().getName());
+                        if (layout == null) layout = config.defaultLayout;
 
-            manager.getPlugin().getServer().getScheduler().runTask(manager.getPlugin(), () -> {
-                if (enabled) manager.getUpdater().update(player);
-                else         manager.getUpdater().clear(player);
-            });
+                        if (data.enabled()) {
+                            updater.update(player, layout);
+                        }
+                    });
+                }).exceptionally(ex -> {
+                    plugin.getLogger().log(Level.WARNING,
+                            "Failed to load scoreboard data for " + player.getName(), ex);
+                    return null;
+                });
+            } catch (Exception e) {
+                plugin.getLogger().log(Level.SEVERE,
+                        "Critical error in scoreboard join handler", e);
+            }
         });
     }
 
@@ -42,18 +70,35 @@ public class ScoreboardListener implements Listener {
         Player player = event.getPlayer();
         UUID uuid = player.getUniqueId();
 
-        boolean enabled = manager.getStorage().isEnabled(player);
-        String layout  = manager.getStorage().getPlayerLayout(player);
+        boolean enabled = storage.isEnabled(uuid);
+        String layout = storage.getLayout(uuid);
 
-        manager.getDatabase().save(uuid, enabled, layout);
+        storage.savePlayer(uuid, enabled, layout).thenAccept(v -> {
+            storage.removeFromCache(uuid);
+        }).exceptionally(ex -> {
+            plugin.getLogger().log(Level.WARNING,
+                    "Failed to save scoreboard data for " + player.getName(), ex);
+            return null;
+        });
 
-        manager.getStorage().removeCachedState(uuid);
+        updater.clear(player);
     }
 
     @EventHandler
     public void onWorldChange(PlayerChangedWorldEvent event) {
         Player player = event.getPlayer();
+        String world = player.getWorld().getName();
 
-        manager.getUpdater().update(player);
+        if (!config.isWorldEnabled(world)) {
+            updater.clear(player);
+            return;
+        }
+
+        String worldLayout = config.getWorldLayout(world);
+        if (worldLayout != null) {
+            updater.update(player, worldLayout);
+        } else {
+            updater.update(player);
+        }
     }
 }
