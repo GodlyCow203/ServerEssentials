@@ -19,76 +19,61 @@ databases:
 # TPA Module Configuration
 tpa:
   settings:
-    cooldown: 5                    # Seconds between TPA requests
-    timeout: 60                    # Seconds before request expires
-    warmup: 1                      # Seconds warmup before teleport (0 to disable)
-    teleport-delay: 3              # Seconds delay after warmup
-    cancel-on-move: true           # Cancel teleport if player moves
-    block-move-threshold-blocks: true  # Check movement at block level (vs vector level)
-
-  notifications:
-    chat: true                     # Show messages in chat
-    actionbar: false               # Show messages in actionbar
-    bossbar: false                 # Show messages in bossbar
-    bossbar-color: "BLUE"          # BLUE, GREEN, PINK, PURPLE, RED, WHITE, YELLOW
-    bossbar-style: "SOLID"         # SOLID, SEGMENTED_6, SEGMENTED_10, SEGMENTED_12, SEGMENTED_20
-    bossbar-duration: 5            # Seconds to show bossbar
-    title: false                   # Show title message
+    cooldown: 5 # Seconds between TPA requests
+    timeout: 60 # Seconds before request expires
+    warmup: 1 # Seconds warmup before teleport (0 to disable)
+    teleport-delay: 3 # Seconds delay after warmup
+    cancel-on-move: true # Cancel teleport if player moves
+    block-move-threshold-blocks: true # Check movement at block level (vs vector level)
 
   restrictions:
-    cross-world: false             # Allow teleport between worlds
-    blocked-worlds:               # Worlds players cannot teleport TO
-      - "world_nether"
-      - "world_the_end"
+    cross-world: false # Allow teleport between worlds
+    blocked-worlds: # Worlds players cannot teleport TO
+      - world_nether
+      - world_the_end
 
   economy:
-    enabled: false                 # Require money for TPA
+    enabled: false # Require money for TPA
     cost:
-      tpa: 100.0                   # Cost for /tpa
-      tpahere: 100.0               # Cost for /tpahere
-      tpall: 500.0                 # Cost for /tpall
-    refund-on-deny: true           # Refund money if request denied
-    refund-on-expire: true         # Refund money if request expires
+      tpa: 100.0 # Cost for /tpa
+      tpahere: 100.0 # Cost for /tpahere
+      tpall: 500.0 # Cost for /tpall
+    refund-on-deny: true # Refund money if request denied
+    refund-on-expire: true # Refund money if request expires
 
   particles:
-    enabled: true                  # Show particles on teleport
-    type: "PORTAL"                 # Particle type (PORTAL, END_ROD, etc.)
-
-  sounds:
-    request: "ENTITY_EXPERIENCE_ORB_PICKUP"
-    accept: "ENTITY_EXPERIENCE_ORB_PICKUP"
-    deny: "ENTITY_VILLAGER_NO"
-    teleport: "ENTITY_ENDERMAN_TELEPORT"
+    enabled: true # Show particles on teleport
+    type: PORTAL # Particle type (PORTAL, END_ROD, etc.)
 
   # Message colors for titles
   notifications:
-    title-color: "<gold>"
-    subtitle-color: "<yellow>"
+    title-color: <gold>
+    subtitle-color: <yellow>
 
 
 
   # Sounds when toggling
   sounds:
-    enabled: "ENTITY_BAT_TAKEOFF"
-    disabled: "ENTITY_BAT_DEATH"
+    enabled: ENTITY_BAT_TAKEOFF
+    disabled: ENTITY_BAT_DEATH
 
 
 mail:
-  cooldown: 5                    # Seconds between sending mail
-  max-length: 500               # Max characters per mail message
-  join-notify-delay: 40         # Ticks before join notification (2 seconds)
+  cooldown: 5 # Seconds between sending mail
+  max-length: 500 # Max characters per mail message
+  join-notify-delay: 40 # Ticks before join notification (2 seconds)
 
 
 reports:
-  cooldown: 60                  # Seconds between reports per player
-  max-reason-length: 200        # Max characters in report reason
-  auto-clear-after-days: 7      # Auto-remove old reports (0 to disable)
-  notify-online-only: false     # Only notify online staff, don't mark pending
-  join-notify-delay: 40         # Ticks before notifying staff on join
+  cooldown: 60 # Seconds between reports per player
+  max-reason-length: 200 # Max characters in report reason
+  auto-clear-after-days: 7 # Auto-remove old reports (0 to disable)
+  notify-online-only: false # Only notify online staff, don't mark pending
+  join-notify-delay: 40 # Ticks before notifying staff on join
 
 shop:
   main:
-    title: "<green>Main Shop"
+    title: <green>Main Shop
     size: 54
     close-button-slot: 49
 
@@ -98,7 +83,7 @@ shop:
     max-pages: 10
 
   economy:
-    currency-symbol: "$"
+    currency-symbol: $
     enable-sell: true
 
 rtp:
@@ -116,9 +101,9 @@ rtp:
 
 sellgui:
   enabled: false
-  title: "<gold>💰 Sell Items"
+  title: <gold>💰 Sell Items
   size: 54
-  currency-symbol: "$"
+  currency-symbol: $
 
 daily:
   enabled: true
@@ -137,14 +122,14 @@ weather:
   notify-world: true
 
 book:
-  title: "ServerEssentials"
-  author: "SE Plugin"
+  title: ServerEssentials
+  author: SE Plugin
   pages:
-    - "<green>Welcome to our server!"
-    - "<yellow>Rule 1: Be respectful to all players"
-    - "<aqua>Rule 2: No griefing, stealing, or cheating"
-    - "<gold>Rule 3: Keep chat clean and friendly"
-    - "<light_purple>Rule 4: Have fun!"
+    - <green>Welcome to our server!
+    - '<yellow>Rule 1: Be respectful to all players'
+    - '<aqua>Rule 2: No griefing, stealing, or cheating'
+    - '<gold>Rule 3: Keep chat clean and friendly'
+    - '<light_purple>Rule 4: Have fun!'
 magnet:
   radius: 5.0
   speed: 0.5
@@ -157,28 +142,29 @@ magnet:
 
 kits:
   gui:
-    title: "<bold><green>Available Kits"
+    title: <bold><green>Available Kits
     size: 54
-    preview-title: "<white>Preview Kit: <yellow>{kit}"
+    preview-title: '<white>Preview Kit: <yellow>{kit}'
 
   messages:
-    cooldown: "<red>Please wait <yellow>{time}s</yellow> before claiming <white>{kit}</white> again!"
-    no-permission: "<red>You don't have permission to claim <white>{kit}</white>!"
-    claim-success: "<green>✓ Successfully claimed kit <white>{kit}</white>!"
-    kit-not-found: "<red>Kit <white>{kit}</white> not found!"
-    locked-name: "<red>Locked: <gray>{kit}"
-    requires-permission: "<gray>Requires: <white>{permission}"
-    cooldown-info: "<gray>Cooldown: <red>{time}s remaining"
-    claim-button: "<green>✓ Claim Kit"
-    cooldown-button: "<red>⏱ On Cooldown"
-    back-button: "<red>← Back"
-    no-kits-defined: "<red>No kits are currently defined!"
-    gui-title: "Available Kits"
+    cooldown: <red>Please wait <yellow>{time}s</yellow> before claiming <white>{kit}</white>
+      again!
+    no-permission: <red>You don't have permission to claim <white>{kit}</white>!
+    claim-success: <green>✓ Successfully claimed kit <white>{kit}</white>!
+    kit-not-found: <red>Kit <white>{kit}</white> not found!
+    locked-name: '<red>Locked: <gray>{kit}'
+    requires-permission: '<gray>Requires: <white>{permission}'
+    cooldown-info: '<gray>Cooldown: <red>{time}s remaining'
+    claim-button: <green>✓ Claim Kit
+    cooldown-button: <red>⏱ On Cooldown
+    back-button: <red>← Back
+    no-kits-defined: <red>No kits are currently defined!
+    gui-title: Available Kits
 
 
 rules:
   # GUI Title (MiniMessage supported)
-  title: "<green><bold>⚔ Server Rules ⚔"
+  title: <green><bold>⚔ Server Rules ⚔
 
   # Force players to accept rules before playing
   must-accept: true
@@ -187,11 +173,11 @@ rules:
   force-acceptance: true
 
   # Kick message for declining (MiniMessage)
-  kick-message: "<red><bold>You must accept the rules to join this server!"
+  kick-message: <red><bold>You must accept the rules to join this server!
 
   # GUI Button Configuration
-  accept-button-text: "<green><bold>✓ Accept Rules"
-  decline-button-text: "<red><bold>✗ Decline & Leave"
+  accept-button-text: <green><bold>✓ Accept Rules
+  decline-button-text: <red><bold>✗ Decline & Leave
 
   # Button slots (0-53)
   buttons:
@@ -202,7 +188,7 @@ rules:
 
   # GUI filler material
   gui:
-    filler-material: "GRAY_STAINED_GLASS_PANE"
+    filler-material: GRAY_STAINED_GLASS_PANE
 
   # Weather duration after change
   duration-seconds: 600
@@ -215,26 +201,24 @@ scoreboard:
   default-layout: default
   layouts:
     default:
-      title: "<red>Server Scoreboard"
+      title: <#0079FF>ʏᴏᴜʀѕᴇʀᴠᴇʀɴᴀᴍᴇ</#0079FF>
       lines:
-        - "<yellow>Welcome {player_name}!"
-        - "<gray>Online: <green>{online_players}"
-        - "<gray>World: <green>{world}"
-        - ""
-        - "<gold>play.lunark.io"
+        - ⌚ %server_time_kk:mm% | %server_time_dd/MM%
+        - ''
+        - <#0079FF>%player_name%</#0079FF>
+        - ' <#0079FF>|</#0079FF> ʙᴀʟᴀɴᴄᴇ: $%vault_eco_balance_formatted%'
+        - ' <#0079FF>|</#0079FF> ᴋɪʟʟѕ: %statistic_player_kills%'
+        - ' <#0079FF>|</#0079FF> ᴅᴇᴀᴛʜѕ: %statistic_deaths%'
+        - ' <#0079FF>|</#0079FF> ᴡᴏʀʟᴅ: %player_world%'
+        - ''
+        - <#0079FF>Server Name</#0079FF>
+        - ' <#0079FF>|</#0079FF> ᴏɴʟɪɴᴇ: %server_online%/%server_max_players%'
+        - ' <#0079FF>|</#0079FF> ᴊᴏɪɴѕ: %server_unique_joins% '
+        - ''
+        - 'ᴘʟᴀʏᴇʀ.ѕᴇʀᴠᴇʀ '
       max-lines: 15
-    nether:
-      title: "<dark_red>Nether Scoreboard"
-      lines:
-        - "<yellow>Nether Mode"
-        - "<gray>Be careful!"
-      max-lines: 5
-  world-settings:
-    world_nether:
-      enabled: true
-      layout: nether
-    world_the_end:
-      enabled: false
+    example:
+
 
 # /back command configuration
 back:
@@ -246,7 +230,7 @@ back:
 
   # Lobby location for /back lobby
   lobby:
-    world: "world"
+    world: world
     x: 0.0
     y: 100.0
     z: 0.0

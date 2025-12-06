@@ -269,6 +269,11 @@ public class ServerEssentials extends JavaPlugin implements Listener {
     private ScoreboardListener scoreboardListener;
     private ScoreboardCommand scoreboardCommand;
 
+    private SessionManager sessionManager;
+    private SessionConfig sessionConfig;
+    private SessionCommand sessionCommand;
+    private SessionListener sessionListener;
+
 
 
 
@@ -322,6 +327,8 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         initializeBackSystem();
         initializeNotesSystem();
         initializeScoreboardSystem();
+        initializeSessionSystem();
+
 
 
         nearConfig = new NearConfig(this);
@@ -398,6 +405,16 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         NotesStorage notesStorage = new NotesStorage(this, databaseManager);
         NotesConfig notesConfig = new NotesConfig(this);
 
+        this.sessionManager = new SessionManager(databaseManager, commandDataStorage);
+
+        this.sessionConfig = new SessionConfig(this);
+        this.sessionCommand = new SessionCommand(
+                playerLanguageManager,
+                sessionConfig,
+                sessionManager,
+                commandDataStorage
+        );
+
 
 
         // Commands
@@ -440,6 +457,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         getCommand("enderchest").setExecutor(enderChestCommand);
         getCommand("seen").setExecutor(seenCommand);
         getCommand("tree").setExecutor(treeCommand);
+        getCommand("session").setExecutor(sessionCommand);
 
 
         // Tab Completer
@@ -462,9 +480,10 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(shopGuiListener, this);
         getServer().getPluginManager().registerEvents(dailyListener, this);
         getServer().getPluginManager().registerEvents(rulesListener, this);
+        getServer().getPluginManager().registerEvents(new SessionListener(sessionManager), this);
 
 
-        // CONTINUE WITH REST OF INITIALIZATION (simplified)
+
         RtpConfig rtpConfig = new RtpConfig(this);
         rtpLocationStorage = new RtpLocationStorage(this, databaseManager, "rtp");
         CooldownManager cooldownManager = new CooldownManager();
@@ -475,11 +494,9 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         getCommand("kit").setExecutor(kitCommand);
 
 
-        // ... rest of your initialization code (simplified for brevity)
         homeManager = new HomeManager(this);
         warpManager = new WarpManager(this);
 
-        // ... all other commands and listeners ...
 
         long elapsed = System.currentTimeMillis() - start;
         BannerUtil.printBanner(elapsed);
@@ -751,9 +768,6 @@ public class ServerEssentials extends JavaPlugin implements Listener {
 
         killTracker = new KillTracker(this);
 
-        SessionManager sessionManager = new SessionManager(this);
-        getServer().getPluginManager().registerEvents(new PlayerJoinListener(sessionManager), this);
-        if (!isCommandDisabled("session")) getCommand("session").setExecutor(new SessionCommand(playerMessages, sessionManager));
 
         if (!isCommandDisabled("vanish")) getCommand("vanish").setExecutor(adminUtils);
         if (!isCommandDisabled("god")) getCommand("god").setExecutor(adminUtils);
@@ -1463,6 +1477,47 @@ public class ServerEssentials extends JavaPlugin implements Listener {
             }
         }
     }
+
+    private void initializeSessionSystem() {
+        this.sessionManager = new SessionManager(databaseManager, commandDataStorage);
+
+        sessionManager.initialize();
+
+        this.sessionConfig = new SessionConfig(this);
+        this.sessionCommand = new SessionCommand(
+                playerLanguageManager,
+                sessionConfig,
+                sessionManager,
+                commandDataStorage
+        );
+
+        this.sessionListener = new SessionListener(sessionManager);
+        getServer().getPluginManager().registerEvents(sessionListener, this);
+
+        getCommand("session").setExecutor(sessionCommand);
+
+        getLogger().info("Session system initialized");
+    }
+
+    public static class SessionListener implements org.bukkit.event.Listener {
+        private final SessionManager sessionManager;
+
+        public SessionListener(SessionManager sessionManager) {
+            this.sessionManager = sessionManager;
+        }
+
+        @org.bukkit.event.EventHandler
+        public void onPlayerJoin(org.bukkit.event.player.PlayerJoinEvent event) {
+            sessionManager.startSession(event.getPlayer());
+        }
+
+        @org.bukkit.event.EventHandler
+        public void onPlayerQuit(org.bukkit.event.player.PlayerQuitEvent event) {
+            sessionManager.endSession(event.getPlayer());
+        }
+    }
+
+
 
 
 

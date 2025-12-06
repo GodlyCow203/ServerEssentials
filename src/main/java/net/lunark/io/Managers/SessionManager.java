@@ -1,51 +1,61 @@
 package net.lunark.io.Managers;
 
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
+import net.lunark.io.commands.CommandDataStorage;
+import net.lunark.io.database.DatabaseConfig;
+import net.lunark.io.database.DatabaseManager;
+import net.lunark.io.database.DatabaseType;
 import org.bukkit.entity.Player;
-import net.lunark.io.ServerEssentials;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
+
 
 public class SessionManager {
+    private final Map<UUID, Long> currentSessions = new HashMap<>();
+    private final Map<UUID, Long> longestSessions = new HashMap<>();
 
-    private final ServerEssentials plugin;
-    private final File file;
-    private FileConfiguration config;
+    private final DatabaseManager databaseManager;
+    private final CommandDataStorage dataStorage;
+    private final String poolKey = "session";
 
-    private final HashMap<UUID, Long> currentSessions = new HashMap<>();
-    private final HashMap<UUID, Long> longestSessions = new HashMap<>();
+    private boolean initialized = false;
 
-    public SessionManager(ServerEssentials plugin) {
-        this.plugin = plugin;
-        file = new File(plugin.getDataFolder(), "storage/session.yml");
-
-        if (!file.getParentFile().exists()) file.getParentFile().mkdirs();
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        config = YamlConfiguration.loadConfiguration(file);
-        loadLongestSessions();
+    public SessionManager(DatabaseManager databaseManager, CommandDataStorage dataStorage) {
+        this.databaseManager = databaseManager;
+        this.dataStorage = dataStorage;
     }
 
-    private void loadLongestSessions() {
-        for (String uuidStr : config.getKeys(false)) {
-            UUID uuid = UUID.fromString(uuidStr);
-            longestSessions.put(uuid, config.getLong(uuidStr, 0));
-        }
+
+    public void initialize() {
+        if (initialized) return;
+
+        DatabaseConfig config = new DatabaseConfig(
+                DatabaseType.SQLITE,
+                "session.db",
+                null, 0, null, null, null, 5
+        );
+        databaseManager.initializePool(poolKey, config);
+
+        initTable();
+        initialized = true;
     }
+
+    private void initTable() {
+        String sql = "CREATE TABLE IF NOT EXISTS session_data (" +
+                "player_uuid TEXT PRIMARY KEY, " +
+                "longest_session_ms BIGINT NOT NULL DEFAULT 0, " +
+                "last_updated BIGINT NOT NULL)";
+
+        databaseManager.executeUpdate(poolKey, sql).join();
+    }
+
 
     public void startSession(Player player) {
         currentSessions.put(player.getUniqueId(), System.currentTimeMillis());
     }
+
 
     public void endSession(Player player) {
         UUID uuid = player.getUniqueId();
@@ -55,12 +65,14 @@ public class SessionManager {
         long duration = System.currentTimeMillis() - startTime;
         currentSessions.remove(uuid);
 
-        long previousLongest = longestSessions.getOrDefault(uuid, 0L);
-        if (duration > previousLongest) {
-            longestSessions.put(uuid, duration);
-            save();
-        }
+        getLongestSession(player).thenAccept(previousLongest -> {
+            if (duration > previousLongest) {
+                longestSessions.put(uuid, duration);
+                saveLongestSession(uuid, duration);
+            }
+        });
     }
+
 
     public long getCurrentSession(Player player) {
         Long startTime = currentSessions.get(player.getUniqueId());
@@ -68,23 +80,28 @@ public class SessionManager {
         return System.currentTimeMillis() - startTime;
     }
 
-    public long getLongestSession(Player player) {
+    public CompletableFuture<Long> getLongestSession(Player player) {
         UUID uuid = player.getUniqueId();
-        long current = getCurrentSession(player); // current session duration
-        long longest = longestSessions.getOrDefault(uuid, 0L);
-        return Math.max(current, longest);
+
+        // Return cached value if available
+        if (longestSessions.containsKey(uuid)) {
+            return CompletableFuture.completedFuture(longestSessions.get(uuid));
+        }
+
+        return dataStorage.getState(uuid, "session", "longest")
+                .thenApply(opt -> {
+                    long longest = opt.map(Long::parseLong).orElse(0L);
+                    longestSessions.put(uuid, longest); // Cache it
+                    return longest;
+                });
     }
 
 
-    private void save() {
-        for (UUID uuid : longestSessions.keySet()) {
-            config.set(uuid.toString(), longestSessions.get(uuid));
-        }
-
-        try {
-            config.save(file);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void saveLongestSession(UUID uuid, long duration) {
+        dataStorage.setState(uuid, "session", "longest", String.valueOf(duration))
+                .exceptionally(ex -> {
+                    System.err.println("Failed to save longest session for " + uuid + ": " + ex.getMessage());
+                    return null;
+                });
     }
 }
