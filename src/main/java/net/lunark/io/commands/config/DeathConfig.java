@@ -1,4 +1,9 @@
 package net.lunark.io.commands.config;
 
-public class DeathConfig {
+import org.bukkit.plugin.Plugin;
+
+public final class DeathConfig {
+
+    public DeathConfig(Plugin plugin) {
+    }
 }

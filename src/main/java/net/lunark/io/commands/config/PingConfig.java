@@ -1,4 +1,10 @@
 package net.lunark.io.commands.config;
 
-public class PingConfig {
+import org.bukkit.plugin.Plugin;
+
+public final class PingConfig {
+
+    public PingConfig(Plugin plugin) {
+
+    }
 }

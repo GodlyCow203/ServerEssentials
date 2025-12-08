@@ -13,7 +13,6 @@ import java.util.UUID;
 import static net.lunark.io.language.LanguageManager.ComponentPlaceholder;
 
 public final class PayConfirmToggleCommand implements CommandExecutor {
-    // HARDCODED PERMISSION - NOT CONFIGURABLE
     private static final String PERMISSION = "serveressentials.command.payconfirmtoggle";
     private static final String COMMAND_NAME = "payconfirmtoggle";
 

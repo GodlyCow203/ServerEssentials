@@ -33,6 +33,10 @@ public final class ScoreboardListener implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
+        if (!config.enabled) {
+            return;
+        }
+
         Player player = event.getPlayer();
         UUID uuid = player.getUniqueId();
 
@@ -67,6 +71,10 @@ public final class ScoreboardListener implements Listener {
 
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
+        if (!config.enabled) {
+            return;
+        }
+
         Player player = event.getPlayer();
         UUID uuid = player.getUniqueId();
 
@@ -86,6 +94,10 @@ public final class ScoreboardListener implements Listener {
 
     @EventHandler
     public void onWorldChange(PlayerChangedWorldEvent event) {
+        if (!config.enabled) {
+            return;
+        }
+
         Player player = event.getPlayer();
         String world = player.getWorld().getName();
 

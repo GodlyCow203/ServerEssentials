@@ -2,9 +2,10 @@ package net.lunark.io.sellgui;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
-import net.lunark.io.language.LanguageManager;
+import net.lunark.io.commands.config.SellConfig;
+import net.lunark.io.economy.ServerEssentialsEconomy;
 import net.lunark.io.language.PlayerLanguageManager;
-import net.milkbowl.vault.economy.Economy;
+import net.lunark.io.language.LanguageManager.ComponentPlaceholder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -16,7 +17,6 @@ import org.bukkit.plugin.Plugin;
 
 import java.text.DecimalFormat;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class SellGUIManager {
     private static final MiniMessage mini = MiniMessage.miniMessage();
@@ -24,12 +24,12 @@ public class SellGUIManager {
     private final PlayerLanguageManager langManager;
     private final SellStorage storage;
     private final SellConfig config;
-    private final Economy economy;
-    private final Map<UUID, Double> pendingValues = new ConcurrentHashMap<>();
+    private final ServerEssentialsEconomy economy;
+    private final Map<UUID, Double> pendingValues = new HashMap<>();
     private final DecimalFormat formatter = new DecimalFormat("#,##0.00");
 
     public SellGUIManager(Plugin plugin, PlayerLanguageManager langManager, SellStorage storage,
-                          SellConfig config, Economy economy) {
+                          SellConfig config, ServerEssentialsEconomy economy) {
         this.plugin = plugin;
         this.langManager = langManager;
         this.storage = storage;
@@ -40,12 +40,12 @@ public class SellGUIManager {
     public void openSellGUI(Player player) {
         if (!config.enabled) {
             player.sendMessage(langManager.getMessageFor(player, "economy.sellgui.disabled",
-                    "<#F87171>The sell GUI is currently disabled."));
+                    "<red>The sell GUI is currently disabled."));
             return;
         }
 
         Component title = langManager.getMessageFor(player, "economy.sellgui.title",
-                String.valueOf(Component.text("Sell Items")));
+                "<gold>💰 Sell Items");
         Inventory inv = Bukkit.createInventory(null, config.guiSize, title);
         createBorder(inv);
         createInfoPanel(player, inv);
@@ -73,29 +73,17 @@ public class SellGUIManager {
         ItemStack emerald = new ItemStack(Material.EMERALD_BLOCK);
         ItemMeta meta = emerald.getItemMeta();
         if (meta != null) {
-            // Get title from JSON
             meta.displayName(langManager.getMessageFor(player, "economy.sellgui.info.title",
-                    String.valueOf(mini.deserialize("<green><bold>✓ SELL ZONE"))));
+                    "<green><bold>✓ SELL ZONE"));
 
-            // Build lore from individual JSON fields
             List<Component> lore = new ArrayList<>();
-
-            // Add subtitle (line 1)
             lore.add(langManager.getMessageFor(player, "economy.sellgui.info.subtitle",
-                    String.valueOf(mini.deserialize("<gray>Place items here to sell"))));
-
-            // Add instruction (line 2)
+                    "<gray>Place items here to sell"));
             lore.add(langManager.getMessageFor(player, "economy.sellgui.info.instruction",
-                    String.valueOf(mini.deserialize("<gray>Close inventory to process"))));
-
-            // Add empty line (line 3)
+                    "<gray>Close inventory to process"));
             lore.add(Component.empty());
-
-            // Add value line (line 4) - will be updated dynamically
-            String valuePrefix = langManager.getMessageFor(player, "economy.sellgui.info.value-prefix",
-                            String.valueOf(mini.deserialize("<gold>Total Value: <yellow>")))
-                    .toString();
-            lore.add(mini.deserialize(valuePrefix + "$0.00"));
+            lore.add(langManager.getMessageFor(player, "economy.sellgui.info.value-prefix",
+                    "<gold>Total Value: <yellow>$0.00"));
 
             meta.lore(lore);
             emerald.setItemMeta(meta);
@@ -104,7 +92,7 @@ public class SellGUIManager {
     }
 
     public boolean isSellable(Material material) {
-        return config.getSellPrice(material) > 0;
+        return config.isSellable(material);
     }
 
     public void updateValueDisplay(Player player, Inventory inv, double totalValue) {
@@ -115,11 +103,10 @@ public class SellGUIManager {
             if (meta != null && meta.hasLore()) {
                 List<Component> lore = meta.lore();
                 if (lore.size() >= 4) {
-                    // Reconstruct the value line with current total
                     String valuePrefix = langManager.getMessageFor(player, "economy.sellgui.info.value-prefix",
-                                    String.valueOf(mini.deserialize("<gold>Total Value: <yellow>")))
+                                    "<gold>Total Value: <yellow>")
                             .toString()
-                            .replaceAll("</yellow>$", "");
+                            .replaceAll("\\$0.00$", "");
 
                     lore.set(3, mini.deserialize(valuePrefix + formatter.format(totalValue)));
                     meta.lore(lore);
@@ -162,10 +149,10 @@ public class SellGUIManager {
             player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 0.7f, 1f);
 
             player.sendMessage(langManager.getMessageFor(player, "economy.sellgui.sold-success",
-                    "<green><bold>✓ SOLD <white>{amount}x items</white> for <gold>{symbol}{price}</gold></bold>",
-                    LanguageManager.ComponentPlaceholder.of("{amount}", String.valueOf(itemsSold)),
-                    LanguageManager.ComponentPlaceholder.of("{symbol}", config.currencySymbol),
-                    LanguageManager.ComponentPlaceholder.of("{price}", formatter.format(totalValue))));
+                    "<green><bold>✓ SOLD</bold> <white>{amount}x items</white> for <gold>{symbol}{price}",
+                    ComponentPlaceholder.of("{amount}", String.valueOf(itemsSold)),
+                    ComponentPlaceholder.of("{symbol}", config.currencySymbol),
+                    ComponentPlaceholder.of("{price}", formatter.format(totalValue))));
         }
 
         if (!itemsToReturn.isEmpty()) {
@@ -182,7 +169,7 @@ public class SellGUIManager {
             if (totalValue == 0) {
                 player.sendMessage(langManager.getMessageFor(player, "economy.sellgui.returned-items",
                         "<gray>Returned <white>{amount}x unsellable items</white> to your inventory",
-                        LanguageManager.ComponentPlaceholder.of("{amount}", String.valueOf(itemsToReturn.size()))));
+                        ComponentPlaceholder.of("{amount}", String.valueOf(itemsToReturn.size()))));
             }
         }
 

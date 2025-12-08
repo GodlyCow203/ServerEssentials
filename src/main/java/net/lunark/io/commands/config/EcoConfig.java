@@ -1,4 +1,9 @@
 package net.lunark.io.commands.config;
 
-public class EcoConfig {
+import org.bukkit.plugin.Plugin;
+
+public final class EcoConfig {
+
+    public EcoConfig(Plugin plugin) {
+    }
 }

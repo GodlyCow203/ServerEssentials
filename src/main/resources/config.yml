@@ -100,7 +100,7 @@ rtp:
 
 
 sellgui:
-  enabled: false
+  enabled: true
   title: <gold>💰 Sell Items
   size: 54
   currency-symbol: $
@@ -135,7 +135,95 @@ magnet:
   speed: 0.5
   tick-interval: 10
 
+launch:
+  # Power multiplier for horizontal launch (default: 2.0)
+  power: 2.0
 
+  # Vertical launch height (default: 1.5)
+  height: 1.5
+
+# /disposal command configuration
+disposal:
+  # Inventory size (must be multiple of 9, max 54)
+  inventory-size: 54
+
+  # Automatically clear items when inventory is closed
+  clear-on-close: true
+# /burn command configuration
+burn:
+  # Default burn duration in seconds
+  default-duration: 5
+
+  # Maximum burn duration allowed (1-60)
+  max-duration: 30
+# /feed command configuration
+feed:
+  # Food level to set (0-20)
+  food-level: 20
+
+  # Saturation to set (0-20)
+  saturation: 20
+
+# /hat command configuration
+hat:
+  # Restrict to allowed items only (true/false)
+  require-allowed-list: false
+
+  # List of allowed items (if require-allowed-list is true)
+  # Use Material names: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html
+  allowed-items:
+    - "PUMPKIN"
+    - "JACK_O_LANTERN"
+    - "PLAYER_HEAD"
+    - "CREEPER_HEAD"
+    - "ZOMBIE_HEAD"
+    - "SKELETON_SKULL"
+    - "WITHER_SKELETON_SKULL"
+    - "DRAGON_HEAD"
+
+# /ptime command configuration
+ptime:
+  # Time value for day (in ticks, 0-24000)
+  day-time: 1000
+
+  # Time value for night (in ticks, 0-24000)
+  night-time: 13000
+
+# /night command configuration
+night:
+  # Time value for night (in ticks, 0-24000)
+  time-ticks: 13000
+
+commands:
+  auction:
+    gui:
+      rows: 6
+      titles:
+        auction: "<green>Auction House - Page {page}"
+        my-items: "<green>Your Items - Page {page}"
+        remove-confirm: "<red>Confirm Removal"
+    items-per-page: 36
+    max-sell-limit: 64
+    expiration-days: 7
+# /sleep command configuration
+sleep:
+  # Time to set (0 = morning, 6000 = noon, 12000 = evening, 18000 = midnight)
+  time-to-set: 0
+
+  # Clear weather when skipping night
+  clear-weather: true
+
+  # How long to keep weather clear (in ticks, 20 ticks = 1 second)
+  weather-duration: 6000
+
+  # Broadcast message to all players
+  broadcast-message: true
+repair:
+  # Play anvil sound when repairing
+  play-sound: true
+
+  # Require permission check for each use (set to true if you use permission plugins that modify perms dynamically)
+  require-permission-each-use: false
 
 
 
@@ -198,26 +286,136 @@ scoreboard:
   enabled: true
   debug-mode: false
   update-interval: 20
-  default-layout: default
+  default-layout: yellow
+
   layouts:
-    default:
-      title: <#0079FF>ʏᴏᴜʀѕᴇʀᴠᴇʀɴᴀᴍᴇ</#0079FF>
+
+    yellow:
+      title: <#FFE600>ʏᴏᴜʀѕᴇʀᴠᴇʀɴᴀᴍᴇ</#FFE600>
       lines:
         - ⌚ %server_time_kk:mm% | %server_time_dd/MM%
         - ''
-        - <#0079FF>%player_name%</#0079FF>
-        - ' <#0079FF>|</#0079FF> ʙᴀʟᴀɴᴄᴇ: $%vault_eco_balance_formatted%'
-        - ' <#0079FF>|</#0079FF> ᴋɪʟʟѕ: %statistic_player_kills%'
-        - ' <#0079FF>|</#0079FF> ᴅᴇᴀᴛʜѕ: %statistic_deaths%'
-        - ' <#0079FF>|</#0079FF> ᴡᴏʀʟᴅ: %player_world%'
+        - <#FFE600>%player_name%</#FFE600>
+        - ' <#FFE600>|</#FFE600> ʙᴀʟᴀɴᴄᴇ: $%vault_eco_balance_formatted%'
+        - ' <#FFE600>|</#FFE600> ᴋɪʟʟѕ: %statistic_player_kills%'
+        - ' <#FFE600>|</#FFE600> ᴅᴇᴀᴛʜѕ: %statistic_deaths%'
+        - ' <#FFE600>|</#FFE600> ᴡᴏʀʟᴅ: %player_world%'
         - ''
-        - <#0079FF>Server Name</#0079FF>
-        - ' <#0079FF>|</#0079FF> ᴏɴʟɪɴᴇ: %server_online%/%server_max_players%'
-        - ' <#0079FF>|</#0079FF> ᴊᴏɪɴѕ: %server_unique_joins% '
+        - <#FFE600>Server Name</#FFE600>
+        - ' <#FFE600>|</#FFE600> ᴏɴʟɪɴᴇ: %server_online%/%server_max_players%'
+        - ' <#FFE600>|</#FFE600> ᴊᴏɪɴѕ: %server_unique_joins% '
         - ''
         - 'ᴘʟᴀʏᴇʀ.ѕᴇʀᴠᴇʀ '
       max-lines: 15
-    example:
+
+    cyan:
+      title: <#00E1FF>ʏᴏᴜʀѕᴇʀᴠᴇʀɴᴀᴍᴇ</#00E1FF>
+      lines:
+        - ⌚ %server_time_kk:mm% | %server_time_dd/MM%
+        - ''
+        - <#00E1FF>%player_name%</#00E1FF>
+        - ' <#00E1FF>|</#00E1FF> ʙᴀʟᴀɴᴄᴇ: $%vault_eco_balance_formatted%'
+        - ' <#00E1FF>|</#00E1FF> ᴋɪʟʟѕ: %statistic_player_kills%'
+        - ' <#00E1FF>|</#00E1FF> ᴅᴇᴀᴛʜѕ: %statistic_deaths%'
+        - ' <#00E1FF>|</#00E1FF> ᴡᴏʀʟᴅ: %player_world%'
+        - ''
+        - <#00E1FF>Server Name</#00E1FF>
+        - ' <#00E1FF>|</#00E1FF> ᴏɴʟɪɴᴇ: %server_online%/%server_max_players%'
+        - ' <#00E1FF>|</#00E1FF> ᴊᴏɪɴѕ: %server_unique_joins% '
+        - ''
+        - 'ᴘʟᴀʏᴇʀ.ѕᴇʀᴠᴇʀ '
+      max-lines: 15
+
+    lime:
+      title: <#7CFF00>ʏᴏᴜʀѕᴇʀᴠᴇʀɴᴀᴍᴇ</#7CFF00>
+      lines:
+        - ⌚ %server_time_kk:mm% | %server_time_dd/MM%
+        - ''
+        - <#7CFF00>%player_name%</#7CFF00>
+        - ' <#7CFF00>|</#7CFF00> ʙᴀʟᴀɴᴄᴇ: $%vault_eco_balance_formatted%'
+        - ' <#7CFF00>|</#7CFF00> ᴋɪʟʟѕ: %statistic_player_kills%'
+        - ' <#7CFF00>|</#7CFF00> ᴅᴇᴀᴛʜѕ: %statistic_deaths%'
+        - ' <#7CFF00>|</#7CFF00> ᴡᴏʀʟᴅ: %player_world%'
+        - ''
+        - <#7CFF00>Server Name</#7CFF00>
+        - ' <#7CFF00>|</#7CFF00> ᴏɴʟɪɴᴇ: %server_online%/%server_max_players%'
+        - ' <#7CFF00>|</#7CFF00> ᴊᴏɪɴѕ: %server_unique_joins% '
+        - ''
+        - 'ᴘʟᴀʏᴇʀ.ѕᴇʀᴠᴇʀ '
+      max-lines: 15
+
+    pink:
+      title: <#FF4FE3>ʏᴏᴜʀѕᴇʀᴠᴇʀɴᴀᴍᴇ</#FF4FE3>
+      lines:
+        - ⌚ %server_time_kk:mm% | %server_time_dd/MM%
+        - ''
+        - <#FF4FE3>%player_name%</#FF4FE3>
+        - ' <#FF4FE3>|</#FF4FE3> ʙᴀʟᴀɴᴄᴇ: $%vault_eco_balance_formatted%'
+        - ' <#FF4FE3>|</#FF4FE3> ᴋɪʟʟѕ: %statistic_player_kills%'
+        - ' <#FF4FE3>|</#FF4FE3> ᴅᴇᴀᴛʜѕ: %statistic_deaths%'
+        - ' <#FF4FE3>|</#FF4FE3> ᴡᴏʀʟᴅ: %player_world%'
+        - ''
+        - <#FF4FE3>Server Name</#FF4FE3>
+        - ' <#FF4FE3>|</#FF4FE3> ᴏɴʟɪɴᴇ: %server_online%/%server_max_players%'
+        - ' <#FF4FE3>|</#FF4FE3> ᴊᴏɪɴѕ: %server_unique_joins% '
+        - ''
+        - 'ᴘʟᴀʏᴇʀ.ѕᴇʀᴠᴇʀ '
+      max-lines: 15
+
+    orange:
+      title: <#FF8C00>ʏᴏᴜʀѕᴇʀᴠᴇʀɴᴀᴍᴇ</#FF8C00>
+      lines:
+        - ⌚ %server_time_kk:mm% | %server_time_dd/MM%
+        - ''
+        - <#FF8C00>%player_name%</#FF8C00>
+        - ' <#FF8C00>|</#FF8C00> ʙᴀʟᴀɴᴄᴇ: $%vault_eco_balance_formatted%'
+        - ' <#FF8C00>|</#FF8C00> ᴋɪʟʟѕ: %statistic_player_kills%'
+        - ' <#FF8C00>|</#FF8C00> ᴅᴇᴀᴛʜѕ: %statistic_deaths%'
+        - ' <#FF8C00>|</#FF8C00> ᴡᴏʀʟᴅ: %player_world%'
+        - ''
+        - <#FF8C00>Server Name</#FF8C00>
+        - ' <#FF8C00>|</#FF8C00> ᴏɴʟɪɴᴇ: %server_online%/%server_max_players%'
+        - ' <#FF8C00>|</#FF8C00> ᴊᴏɪɴѕ: %server_unique_joins% '
+        - ''
+        - 'ᴘʟᴀʏᴇʀ.ѕᴇʀᴠᴇʀ '
+      max-lines: 15
+
+    red:
+      title: <#FF0000>ʏᴏᴜʀѕᴇʀᴠᴇʀɴᴀᴍᴇ</#FF0000>
+      lines:
+        - ⌚ %server_time_kk:mm% | %server_time_dd/MM%
+        - ''
+        - <#FF0000>%player_name%</#FF0000>
+        - ' <#FF0000>|</#FF0000> ʙᴀʟᴀɴᴄᴇ: $%vault_eco_balance_formatted%'
+        - ' <#FF0000>|</#FF0000> ᴋɪʟʟѕ: %statistic_player_kills%'
+        - ' <#FF0000>|</#FF0000> ᴅᴇᴀᴛʜѕ: %statistic_deaths%'
+        - ' <#FF0000>|</#FF0000> ᴡᴏʀʟᴅ: %player_world%'
+        - ''
+        - <#FF0000>Server Name</#FF0000>
+        - ' <#FF0000>|</#FF0000> ᴏɴʟɪɴᴇ: %server_online%/%server_max_players%'
+        - ' <#FF0000>|</#FF0000> ᴊᴏɪɴѕ: %server_unique_joins% '
+        - ''
+        - 'ᴘʟᴀʏᴇʀ.ѕᴇʀᴠᴇʀ '
+      max-lines: 15
+
+    purple:
+      title: <#C300FF>ʏᴏᴜʀѕᴇʀᴠᴇʀɴᴀᴍᴇ</#C300FF>
+      lines:
+        - ⌚ %server_time_kk:mm% | %server_time_dd/MM%
+        - ''
+        - <#C300FF>%player_name%</#C300FF>
+        - ' <#C300FF>|</#C300FF> ʙᴀʟᴀɴᴄᴇ: $%vault_eco_balance_formatted%'
+        - ' <#C300FF>|</#C300FF> ᴋɪʟʟѕ: %statistic_player_kills%'
+        - ' <#C300FF>|</#C300FF> ᴅᴇᴀᴛʜѕ: %statistic_deaths%'
+        - ' <#C300FF>|</#C300FF> ᴡᴏʀʟᴅ: %player_world%'
+        - ''
+        - <#C300FF>Server Name</#C300FF>
+        - ' <#C300FF>|</#C300FF> ᴏɴʟɪɴᴇ: %server_online%/%server_max_players%'
+        - ' <#C300FF>|</#C300FF> ᴊᴏɪɴѕ: %server_unique_joins% '
+        - ''
+        - 'ᴘʟᴀʏᴇʀ.ѕᴇʀᴠᴇʀ '
+      max-lines: 15
+
 
 
 # /back command configuration

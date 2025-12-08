@@ -1,4 +1,9 @@
 package net.lunark.io.commands.config;
 
-public class RealNameConfig {
+import org.bukkit.plugin.Plugin;
+
+public final class RealNameConfig {
+
+    public RealNameConfig(Plugin plugin) {
+    }
 }

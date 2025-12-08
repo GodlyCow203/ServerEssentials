@@ -19,14 +19,13 @@ public final class RulesCommand implements CommandExecutor {
     private final PlayerLanguageManager langManager;
     private final RulesConfig config;
     private final RulesStorage storage;
-    private final Plugin plugin; // FIXED: Added plugin field
+    private final Plugin plugin;
 
-    // FIXED: Added Plugin parameter to constructor
     public RulesCommand(PlayerLanguageManager langManager, RulesConfig config, RulesStorage storage, Plugin plugin) {
         this.langManager = langManager;
         this.config = config;
         this.storage = storage;
-        this.plugin = plugin; // FIXED: Initialize plugin
+        this.plugin = plugin;
     }
 
     @Override
@@ -45,7 +44,6 @@ public final class RulesCommand implements CommandExecutor {
         }
 
         if (args.length == 0) {
-            // FIXED: Use this.plugin instead of undefined 'plugin'
             new RulesGUI(langManager, storage, config, this.plugin).showRules(player);
             return true;
         }
@@ -61,6 +59,11 @@ public final class RulesCommand implements CommandExecutor {
     }
 
     private void handleAccept(Player player) {
+        if (player.hasMetadata("accepting_rules")) {
+            return;
+        }
+        player.setMetadata("accepting_rules", new org.bukkit.metadata.FixedMetadataValue(plugin, true));
+
         storage.getLatestVersion().thenCompose(version -> {
             if (version == 0) {
                 player.sendMessage(langManager.getMessageFor(player, "commands.rules.no-rules",
@@ -76,9 +79,19 @@ public final class RulesCommand implements CommandExecutor {
                 }
 
                 return storage.acceptRules(player.getUniqueId(), version)
-                        .thenAccept(v -> player.sendMessage(langManager.getMessageFor(player, "commands.rules.accept-success",
-                                "<green>You have successfully accepted the rules!")));
+                        .thenAccept(v -> {
+                            player.sendMessage(langManager.getMessageFor(player, "commands.rules.accept-success",
+                                    "<green>You have successfully accepted the rules!"));
+                            player.removeMetadata("accepting_rules", plugin);
+                        });
             });
+        }).exceptionally(ex -> {
+            player.removeMetadata("accepting_rules", plugin);
+            player.sendMessage(langManager.getMessageFor(player, "commands.rules.error",
+                    "<red>An error occurred: {error}",
+                    ComponentPlaceholder.of("{error}", ex.getMessage())));
+            plugin.getLogger().warning("Error in /rules accept for " + player.getName() + ": " + ex.getMessage());
+            return null;
         });
     }
 

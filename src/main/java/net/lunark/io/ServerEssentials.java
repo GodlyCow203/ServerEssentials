@@ -9,7 +9,6 @@ import net.lunark.io.Fun.*;
 import net.lunark.io.Managers.*;
 import net.lunark.io.PlaceholderAPI.ServerEssentialsPlaceholder;
 import net.lunark.io.PlaceholderAPI.TopPlaytimePlaceholder;
-import net.lunark.io.Player.*;
 import net.lunark.io.Rtp.RtpCommand;
 import net.lunark.io.Rtp.RtpConfig;
 import net.lunark.io.Rtp.RtpListener;
@@ -38,7 +37,6 @@ import net.lunark.io.homes.HomesGUI;
 import net.lunark.io.interaction_blocks.*;
 import net.lunark.io.kit.*;
 import net.lunark.io.kit.storage.KitStorage;
-import net.lunark.io.commands.*;
 import net.lunark.io.commands.impl.*;
 import net.lunark.io.commands.config.*;
 import net.lunark.io.language.LanguageManager;
@@ -102,8 +100,6 @@ import java.util.regex.Pattern;
 public class ServerEssentials extends JavaPlugin implements Listener {
 
     private static ServerEssentials instance;
-    private static final Map<UUID, Double> balances = new HashMap<>();
-    private Listener DailyRewardGUI;
     BanManager banManager = new BanManager(this);
     private long startTime;
     private LockdownCommand lockdownCommand;
@@ -114,7 +110,6 @@ public class ServerEssentials extends JavaPlugin implements Listener {
     private static final Pattern HEX_PATTERN = Pattern.compile("<#([A-Fa-f0-9]{6})>");
     private File prefixFile;
     private FileConfiguration prefixConfig;
-    private File starterMoneyFile;
     private FileConfiguration starterMoneyConfig;
     private PlaytimeManager PlaytimeManager;
     private GUIConfig guiConfig;
@@ -125,10 +120,8 @@ public class ServerEssentials extends JavaPlugin implements Listener {
     private static Economy economy;
     private FileConfiguration offlineConfig;
     private File offlineFile;
-    private AuctionManager auctionManager;
-    private GUIManager guiManager;
+    private AuctionGUIListener guiManager;
     private Economy vaultEconomy;
-    private AuctionMessagesManager auctionMessagesManager;
     private MessagesManager messagesManager;
     private PlayerMessages playerMessages;
     private static final int BSTATS_PLUGIN_ID = 27221;
@@ -181,14 +174,10 @@ public class ServerEssentials extends JavaPlugin implements Listener {
     private ReportCommand reportCommand;
     private ReportsListCommand reportsListCommand;
     private ReportListener reportListener;
-    private EconomyService economyService;
     private AFKManager afkManager;
 
-    private ShopConfig shopConfig;
     private ShopCommand shopCommand;
-    private ShopGUIListener shopGuiListener;
-    private ShopGUIManager shopGuiManager;
-    private ShopStorage shopStorage;
+
 
     private SellConfig sellConfig;
     private SellStorage sellStorage;
@@ -262,30 +251,75 @@ public class ServerEssentials extends JavaPlugin implements Listener {
     private NotesConfig notesConfig;
     private NotesStorage notesStorage;
     private NotesCommand notesCommand;
-
     private ScoreboardConfig scoreboardConfig;
     private ScoreboardStorage scoreboardStorage;
     private ScoreboardUpdater scoreboardUpdater;
     private ScoreboardListener scoreboardListener;
     private ScoreboardCommand scoreboardCommand;
-
     private SessionManager sessionManager;
     private SessionConfig sessionConfig;
     private SessionCommand sessionCommand;
     private SessionListener sessionListener;
     private ItemInfoConfig itemInfoConfig;
     private ItemInfoCommand itemInfoCommand;
-
-
-
-
-
+    private DeathConfig deathConfig;
+    private DeathCommand deathCommand;
+    private RealNameConfig realNameConfig;
+    private RealNameCommand realNameCommand;
+    private SpeedConfig speedConfig;
+    private SpeedCommand speedCommand;
+    private LaunchConfig launchConfig;
+    private LaunchCommand launchCommand;
+    private RepairConfig repairConfig;
+    private RepairCommand repairCommand;
+    private SleepConfig sleepConfig;
+    private SleepCommand sleepCommand;
+    private PingConfig pingConfig;
+    private PingCommand pingCommand;
+    private DisposalConfig disposalConfig;
+    private DisposalCommand disposalCommand;
+    private DisposalListener disposalListener;
+    private CompassConfig compassConfig;
+    private CompassCommand compassCommand;
+    private TopConfig topConfig;
+    private TopCommand topCommand;
+    private BurnConfig burnConfig;
+    private BurnCommand burnCommand;
+    private FeedConfig feedConfig;
+    private FeedCommand feedCommand;
+    private HatConfig hatConfig;
+    private HatCommand hatCommand;
+    private PTimeConfig pTimeConfig;
+    private PTimeCommand pTimeCommand;
+    private NightConfig nightConfig;
+    private NightCommand nightCommand;
+    private AuctionConfig auctionConfig;
+    private AuctionStorage auctionStorage;
+    private AuctionGUIListener auctionGUIListener;
+    private AuctionCommand auctionCommand;
+    private PayToggleConfig payToggleConfig;
+    private PayToggleCommand payToggleCommand;
+    private ServerEssentialsEconomy economyProvider;
+    private PayConfig payConfig;
+    private PayCommand payCommand;
+    private EcoConfig ecoConfig;
+    private EcoCommand ecoCommand;
+    private PayConfirmToggleConfig payConfirmToggleConfig;
+    private PayConfirmToggleCommand payConfirmToggleCommand;
+    private BalanceConfig balanceConfig;
+    private BalanceCommand balanceCommand;
+    private BalanceTopConfig balanceTopConfig;
+    private BalanceTopCommand balanceTopCommand;
+    private CoinFlipConfig coinFlipConfig;
+    private CoinFlipCommand coinFlipCommand;
+    private ShopConfig shopConfig;
 
 
     @Override
     public void onEnable() {
         long start = System.currentTimeMillis();
         saveDefaultConfig();
+        saveResourceFolder("shop");
         instance = this;
         languageManager = new LanguageManager(this);
         languageManager.loadLanguages();
@@ -296,20 +330,27 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         if (getServer().getPluginManager().getPlugin("Vault") == null) {
             getLogger().severe("=== VAULT NOT FOUND ===");
             getLogger().severe("ServerEssentials requires Vault for economy features!");
-            getLogger().severe("Please install Vault and an economy plugin (or use ServerEssentials' built-in economy).");
             getLogger().severe("Plugin will continue without economy support.");
-            vaultEconomy = null;
+            economyProvider = null;
         } else {
-            getLogger().info("Vault detected. Setting up economy provider...");
-            economyService = new EconomyService(this, databaseManager);
-            economyService.register();
-            RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
-            if (rsp == null) {
-                getLogger().warning("No economy provider registered! Economy features will be disabled.");
-                vaultEconomy = null;
+            getLogger().info("Vault detected. Setting up ServerEssentials economy provider...");
+
+            economyProvider = new ServerEssentialsEconomy(this, databaseManager);
+            getServer().getServicesManager().register(
+                    net.milkbowl.vault.economy.Economy.class,
+                    economyProvider,
+                    this,
+                    org.bukkit.plugin.ServicePriority.Highest
+            );
+
+            if (economyProvider == null) {
+                getLogger().warning("Failed to initialize ServerEssentials economy! Economy features disabled.");
             } else {
-                vaultEconomy = rsp.getProvider();
-                getLogger().info("Economy provider loaded: " + vaultEconomy.getName());
+                getLogger().info("ServerEssentials economy provider loaded: " + economyProvider.getName());
+
+                payToggleConfig = new PayToggleConfig(this);
+                payToggleCommand = new PayToggleCommand(playerLanguageManager, payToggleConfig, economyProvider);
+                getCommand("paytoggle").setExecutor(payToggleCommand);
             }
         }
 
@@ -321,15 +362,16 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         initializeCommandModules();
         initializeMailSystem();
         initializeReportSystem();
-        initializeShopSystem();
         initializeRtpSystem();
-        initializeSellSystem();
         initializeDailySystem();
         initializeRulesSystem();
         initializeBackSystem();
         initializeNotesSystem();
         initializeScoreboardSystem();
         initializeSessionSystem();
+        initializeAuctionSystem();
+        initializeSellGuiSystem();
+
 
 
 
@@ -412,6 +454,12 @@ public class ServerEssentials extends JavaPlugin implements Listener {
 
         this.sessionManager = new SessionManager(databaseManager, commandDataStorage);
 
+        this.deathConfig = new DeathConfig(this);
+        this.deathCommand = new DeathCommand(playerLanguageManager, deathConfig, commandDataStorage);
+
+        this.realNameConfig = new RealNameConfig(this);
+        this.realNameCommand = new RealNameCommand(playerLanguageManager, realNameConfig, commandDataStorage);
+
         this.sessionConfig = new SessionConfig(this);
         this.sessionCommand = new SessionCommand(
                 playerLanguageManager,
@@ -419,6 +467,69 @@ public class ServerEssentials extends JavaPlugin implements Listener {
                 sessionManager,
                 commandDataStorage
         );
+
+        this.speedConfig = new SpeedConfig(this);
+        this.speedCommand = new SpeedCommand(playerLanguageManager, speedConfig, commandDataStorage);
+
+        this.launchConfig = new LaunchConfig(this);
+        this.launchCommand = new LaunchCommand(playerLanguageManager, launchConfig, commandDataStorage);
+
+        this.repairConfig = new RepairConfig(this);
+        this.repairCommand = new RepairCommand(playerLanguageManager, repairConfig, commandDataStorage);
+
+        this.sleepConfig = new SleepConfig(this);
+        this.sleepCommand = new SleepCommand(playerLanguageManager, sleepConfig, commandDataStorage);
+
+        this.pingConfig = new PingConfig(this);
+        this.pingCommand = new PingCommand(playerLanguageManager, pingConfig, commandDataStorage);
+
+        this.disposalConfig = new DisposalConfig(this);
+        this.disposalCommand = new DisposalCommand(playerLanguageManager, disposalConfig, commandDataStorage);
+        this.disposalListener = new DisposalListener(disposalConfig);
+
+        this.compassConfig = new CompassConfig(this);
+        this.compassCommand = new CompassCommand(playerLanguageManager, compassConfig, commandDataStorage);
+
+        this.topConfig = new TopConfig(this);
+        this.topCommand = new TopCommand(playerLanguageManager, topConfig, commandDataStorage);
+
+        this.burnConfig = new BurnConfig(this);
+        this.burnCommand = new BurnCommand(playerLanguageManager, burnConfig, commandDataStorage);
+
+        this.feedConfig = new FeedConfig(this);
+        this.feedCommand = new FeedCommand(playerLanguageManager, feedConfig, commandDataStorage);
+
+        this.hatConfig = new HatConfig(this);
+        this.hatCommand = new HatCommand(playerLanguageManager, hatConfig, commandDataStorage);
+
+        this.pTimeConfig = new PTimeConfig(this);
+        this.pTimeCommand = new PTimeCommand(playerLanguageManager, pTimeConfig, commandDataStorage);
+        this.nightConfig = new NightConfig(this);
+        this.nightCommand = new NightCommand(playerLanguageManager, nightConfig, commandDataStorage);
+        payToggleConfig = new PayToggleConfig(this);
+        payToggleCommand = new PayToggleCommand(playerLanguageManager, payToggleConfig, economy);
+
+        payConfig = new PayConfig(this);
+        payCommand = new PayCommand(this,playerLanguageManager, payConfig, (ServerEssentialsEconomy) economy);
+
+        ecoConfig = new EcoConfig(this);
+        ecoCommand = new EcoCommand(playerLanguageManager, ecoConfig, (ServerEssentialsEconomy) economy);
+
+        payConfirmToggleConfig = new PayConfirmToggleConfig(this);
+        payConfirmToggleCommand = new PayConfirmToggleCommand(playerLanguageManager, payConfirmToggleConfig, (ServerEssentialsEconomy) economy);
+
+        balanceConfig = new BalanceConfig(this);
+        balanceCommand = new BalanceCommand(playerLanguageManager, balanceConfig, (ServerEssentialsEconomy) economy);
+
+        balanceTopConfig = new BalanceTopConfig(this);
+        balanceTopCommand = new BalanceTopCommand(playerLanguageManager, balanceTopConfig, (ServerEssentialsEconomy) economy);
+
+        coinFlipConfig = new CoinFlipConfig(this);
+        coinFlipCommand = new CoinFlipCommand(playerLanguageManager, coinFlipConfig, (ServerEssentialsEconomy) economy);
+
+        shopConfig = new ShopConfig(this);
+        shopCommand = new ShopCommand(this, playerLanguageManager, databaseManager, shopConfig, (ServerEssentialsEconomy) economy);
+
 
 
 
@@ -464,6 +575,32 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         getCommand("tree").setExecutor(treeCommand);
         getCommand("session").setExecutor(sessionCommand);
         getCommand("iteminfo").setExecutor(itemInfoCommand);
+        getCommand("death").setExecutor(deathCommand);
+        getCommand("realname").setExecutor(realNameCommand);
+        getCommand("speed").setExecutor(speedCommand);
+        getCommand("launch").setExecutor(launchCommand);
+        getCommand("repair").setExecutor(repairCommand);
+        getCommand("sleep").setExecutor(sleepCommand);
+        getCommand("ping").setExecutor(pingCommand);
+        getCommand("disposal").setExecutor(disposalCommand);
+        getCommand("compass").setExecutor(compassCommand);
+        getCommand("top").setExecutor(topCommand);
+        getCommand("burn").setExecutor(burnCommand);
+        getCommand("feed").setExecutor(feedCommand);
+        getCommand("hat").setExecutor(hatCommand);
+        getCommand("ptime").setExecutor(pTimeCommand);
+        getCommand("night").setExecutor(nightCommand);
+        getCommand("auction").setExecutor(auctionCommand);
+        getCommand("paytoggle").setExecutor(payToggleCommand);
+        getCommand("pay").setExecutor(payCommand);
+        getCommand("eco").setExecutor(ecoCommand);
+        getCommand("payconfirmtoggle").setExecutor(payConfirmToggleCommand);
+        getCommand("balance").setExecutor(balanceCommand);
+        getCommand("balancetop").setExecutor(balanceTopCommand);
+        getCommand("coinflip").setExecutor(coinFlipCommand);
+        getCommand("shop").setExecutor(shopCommand);
+        getCommand("sell").setExecutor(sellCommand);
+
 
 
 
@@ -472,8 +609,10 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         getCommand("weather").setTabCompleter(weatherCommand);
         getCommand("recipe").setTabCompleter(recipeCommand);
         getCommand("tree").setTabCompleter(treeCommand);
-
-
+        getCommand("ptime").setTabCompleter(pTimeCommand);
+        getCommand("auction").setTabCompleter(auctionCommand);
+        getCommand("eco").setTabCompleter(ecoCommand);
+        getCommand("coinflip").setTabCompleter(coinFlipCommand);
 
 
 
@@ -484,10 +623,19 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(reportListener, this);
         getServer().getPluginManager().registerEvents(tpaListener, this);
         getServer().getPluginManager().registerEvents(mailListener, this);
-        getServer().getPluginManager().registerEvents(shopGuiListener, this);
         getServer().getPluginManager().registerEvents(dailyListener, this);
         getServer().getPluginManager().registerEvents(rulesListener, this);
         getServer().getPluginManager().registerEvents(new SessionListener(sessionManager), this);
+        getServer().getPluginManager().registerEvents(disposalListener, this);
+        getServer().getPluginManager().registerEvents(auctionGUIListener, this);
+        if (shopCommand != null) {
+            getServer().getPluginManager().registerEvents(
+                    new ShopGUIListener(shopCommand.getGuiManager()),
+                    this
+            );
+        }
+
+
 
 
 
@@ -558,8 +706,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         MessagesManager messagesManager = new MessagesManager(this);
         messagesManager.load("fun.yml");
 
-        auctionManager = new AuctionManager(this);
-        guiManager = new GUIManager(this);
+
 
         File messagesFile = new File(getDataFolder(), "messages/scoreboard_system.yml");
         if (!messagesFile.exists()) saveResource("messages/scoreboard_system.yml", false);
@@ -598,8 +745,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         this.warpStorage = new WarpStorage(this, guiConfig);
         warpStorage.loadAll();
 
-        auctionMessagesManager = new AuctionMessagesManager(this);
-        auctionMessagesManager.loadMessages(); // load auction.yml
+
 
         playerMessages = new PlayerMessages(this);
         KillTracker killTracker = new KillTracker(this);
@@ -657,11 +803,6 @@ public class ServerEssentials extends JavaPlugin implements Listener {
 
 
 
-        if (!isCommandDisabled("balance")) this.getCommand("balance").setExecutor(new BalanceCommand(vaultEconomy));
-        if (!isCommandDisabled("balancetop")) this.getCommand("balancetop").setExecutor(new BalanceTopCommand(this, vaultEconomy));
-        if (!isCommandDisabled("eco")) this.getCommand("eco").setExecutor(new EcoCommand(vaultEconomy));
-        if (!isCommandDisabled("pay")) this.getCommand("pay").setExecutor(new PayCommand(vaultEconomy));
-        if (!isCommandDisabled("coinflip")) this.getCommand("coinflip").setExecutor(new CoinFlipCommand(vaultEconomy));
 
 
         if (!isCommandDisabled("glow")) getCommand("glow").setExecutor(new GlowCommand(funMessages));
@@ -669,16 +810,11 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         if (!isCommandDisabled("unban")) getCommand("unban").setExecutor(new UnbanCommand(this, banManager));
         if (!isCommandDisabled("powertool")) getCommand("powertool").setExecutor(new PowerToolCommand(this, funMessages));
         if (!isCommandDisabled("editsign")) this.getCommand("editsign").setExecutor(new EditSignCommand(this));
-        if (!isCommandDisabled("auction")) getCommand("auction").setExecutor(new AuctionCommand(this));
 
         File shopFolder = new File(getDataFolder(), "shop");
-        EconomyMessagesManager.setup(this);
-        EconomyMessagesManager economymessages = new EconomyMessagesManager();
-        getServer().getPluginManager().registerEvents(new AuctionListeners(this), this);
+
 
         if (!isCommandDisabled("spawner")) getCommand("spawner").setExecutor(new SpawnerCommand(serverMessages));
-        if (!isCommandDisabled("paytoggle")) getCommand("paytoggle").setExecutor(new PayToggleCommand());
-        if (!isCommandDisabled("payconfirmtoggle")) getCommand("payconfirmtoggle").setExecutor(new PayConfirmToggleCommand());
 
 
 
@@ -793,27 +929,18 @@ public class ServerEssentials extends JavaPlugin implements Listener {
 
         if (!isCommandDisabled("adminchat")) getCommand("adminchat").setExecutor(new AdminChatCommand());
         if (!isCommandDisabled("broadcast")) getCommand("broadcast").setExecutor(new BroadcastCommand(serverMessages));
-        if (!isCommandDisabled("ping")) this.getCommand("ping").setExecutor(new PingCommand(this));
 
         Bukkit.getPluginManager().registerEvents(new LobbyListener(), this);
         if (!isCommandDisabled("lobby")) getCommand("lobby").setExecutor(new LobbyCommand());
 
 
 
-        if (!isCommandDisabled("death")) getCommand("death").setExecutor(new DeathCommand());
         if (!isCommandDisabled("motd")) getCommand("motd").setExecutor(new MotdCommand(this));
         if (!isCommandDisabled("heal")) getCommand("heal").setExecutor(new HealCommand(this));
-        if (!isCommandDisabled("feed")) getCommand("feed").setExecutor(new FeedCommand());
 
-        PTimeCommand pTimeCommand = new PTimeCommand(this);
-        if (!isCommandDisabled("ptime")) {
-            this.getCommand("ptime").setExecutor(pTimeCommand);
-            this.getCommand("ptime").setTabCompleter(pTimeCommand);
-        }
+
         if (!isCommandDisabled("playerinfo")) getCommand("playerinfo").setExecutor(new PlayerInfoCommand(this));
-        if (!isCommandDisabled("launch")) this.getCommand("launch").setExecutor(new LaunchCommand());
         if (!isCommandDisabled("gravity")) getCommand("gravity").setExecutor(new GravityCommand(funMessages));
-        if (!isCommandDisabled("repair")) this.getCommand("repair").setExecutor(new RepairCommand(this));
         if (!isCommandDisabled("workbench")) getCommand("workbench").setExecutor(new WorkbenchCommand());
 
 
@@ -826,7 +953,6 @@ public class ServerEssentials extends JavaPlugin implements Listener {
 
         if (!isCommandDisabled("mute")) getCommand("mute").setExecutor(new MuteCommand(this));
         if (!isCommandDisabled("unmute")) getCommand("unmute").setExecutor(new UnmuteCommand(this));
-        if (!isCommandDisabled("night")) getCommand("night").setExecutor(new NightCommand(this));
 
 
 
@@ -836,13 +962,9 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         if (!isCommandDisabled("kickall")) getCommand("kickall").setExecutor(new KickAllCommand());
         if (!isCommandDisabled("alts")) getCommand("alts").setExecutor(new AltsCommand(this));
         if (!isCommandDisabled("reboot")) getCommand("reboot").setExecutor(new RebootCommand(this, serverMessages));
-        if (!isCommandDisabled("disposal")) getCommand("disposal").setExecutor(new DisposalCommand());
-        if (!isCommandDisabled("top")) getCommand("top").setExecutor(new TopCommand(this));
         if (!isCommandDisabled("clearchat")) getCommand("clearchat").setExecutor(new ClearChatCommand(this));
         if (!isCommandDisabled("tpoffline")) getCommand("tpoffline").setExecutor(new TPOfflineCommand(this));
-        if (!isCommandDisabled("speed")) getCommand("speed").setExecutor(new SpeedCommand(this));
         if (!isCommandDisabled("swap")) getCommand("swap").setExecutor(new SwapCommand(this, funMessages));
-        if (!isCommandDisabled("sleep")) getCommand("sleep").setExecutor(new SleepCommand(this));
 
         playerMessages = new PlayerMessages(this);
 
@@ -850,8 +972,6 @@ public class ServerEssentials extends JavaPlugin implements Listener {
 
 
         if (!isCommandDisabled("fakeop")) getCommand("fakeop").setExecutor(new FaekOPCommand());
-        if (!isCommandDisabled("hat")) getCommand("hat").setExecutor(new HatCommand());
-        if (!isCommandDisabled("realname")) getCommand("realname").setExecutor(new RealNameCommand(this));
         if (!isCommandDisabled("freeze")) getCommand("freeze").setExecutor(new FreezeCommand(getMessagesManager(), this));
         if (!isCommandDisabled("unfreeze")) getCommand("unfreeze").setExecutor(new UnfreezeCommand(new MessagesManager(this)));
 
@@ -859,9 +979,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
 
         if (!isCommandDisabled("pingall")) getCommand("pingall").setExecutor(new PingAllCommand(this));
         if (!isCommandDisabled("warps")) getCommand("warps").setExecutor(new WarpsCommand(this));
-        if (!isCommandDisabled("compass")) getCommand("compass").setExecutor(new CompassCommand());
         if (!isCommandDisabled("stafflist")) getCommand("stafflist").setExecutor(new StaffListCommand(this));
-        if (!isCommandDisabled("burn")) getCommand("burn").setExecutor(new BurnCommand(playerMessages));
         if (!isCommandDisabled("celebrate")) getCommand("celebrate").setExecutor(new CelebrateCommand(funMessages));
         if (!isCommandDisabled("serverinfo")) getCommand("serverinfo").setExecutor(new ServerInfoCommand(serverMessages));
         if (!isCommandDisabled("banlist")) getCommand("banlist").setExecutor(new BanListCommand(this, banManager));
@@ -931,9 +1049,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
             saveResource(path, false);
         }
     }
-    public AuctionMessagesManager getAuctionMessagesManager() {
-        return auctionMessagesManager;
-    }
+
     public WarpManager getWarpManager() {
         return warpManager;
     }
@@ -1030,8 +1146,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         return org.bukkit.ChatColor.translateAlternateColorCodes('&', message);
     }
     public ServerEssentials() { instance = this; }
-    public AuctionManager getAuctionManager() { return auctionManager; }
-    public GUIManager getGuiManager() { return guiManager; }
+    public AuctionGUIListener getGuiManager() { return guiManager; }
     public void onDisable() {
         if (warpStorage != null) {
             warpStorage.saveAll();
@@ -1049,8 +1164,10 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         if (magnetListener != null) {
             magnetListener.stop();
         }
+        if (economyProvider != null) {
+            getServer().getServicesManager().unregisterAll(this);
+        }
 
-        NickManager.reload();
         getLogger().info("Shutting down ServerEssentials! Bye :(");
     }
     private void saveDefaultFile(File file, String resourcePath) {
@@ -1267,19 +1384,16 @@ public class ServerEssentials extends JavaPlugin implements Listener {
 
 
     private void initializeDatabases() {
-        // RTP DB
         if (getConfig().contains("databases.rtp")) {
             DatabaseConfig rtpDbConfig = loadDatabaseConfig("rtp");
             databaseManager.initializePool("rtp", rtpDbConfig);
         }
 
-        // Player Data DB
         if (getConfig().contains("databases.playerdata")) {
             DatabaseConfig playerDbConfig = loadDatabaseConfig("playerdata");
             databaseManager.initializePool("playerdata", playerDbConfig);
         }
 
-        // Kits DB (MISSING BEFORE — FIXED)
         if (getConfig().contains("databases.kits")) {
             DatabaseConfig kitsDbConfig = loadDatabaseConfig("kits");
             databaseManager.initializePool("kits", kitsDbConfig);
@@ -1289,6 +1403,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
                     new DatabaseConfig(DatabaseType.SQLITE, "kits.db", null, 0, null, null, null, 5)
             );
         }
+        databaseManager.initializePool("auction", new DatabaseConfig(DatabaseType.SQLITE, "auction.db", null, 0, null, null, null, 5));
         databaseManager.initializePool("scoreboard", new DatabaseConfig(DatabaseType.SQLITE, "scoreboard.db", null, 0, null, null, null, 10));
         databaseManager.initializePool("rules", new DatabaseConfig(DatabaseType.SQLITE, "rules.db", null, 0, null, null, null, 5));
         databaseManager.initializePool("mail", new DatabaseConfig(DatabaseType.SQLITE, "mail.db", null,0,null,null,null,15));
@@ -1302,6 +1417,23 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         databaseManager.initializePool("tpa", new DatabaseConfig(DatabaseType.SQLITE, "tpa.db", null, 0, null, null, null, 5));
     }
 
+    private void initializeAuctionSystem() {
+        auctionConfig = new AuctionConfig(this);
+        auctionStorage = new AuctionStorage(databaseManager);
+
+        // Directly use the economyProvider field
+        if (economyProvider == null) {
+            getLogger().severe("Auction system disabled - no economy provider found!");
+            return;
+        }
+
+        auctionGUIListener = new AuctionGUIListener(this, playerLanguageManager, auctionConfig, auctionStorage, economyProvider);
+        auctionCommand = new AuctionCommand(this, playerLanguageManager, auctionConfig, auctionStorage, auctionGUIListener);
+
+        ServerEssentials.economy = economyProvider;
+
+        getLogger().info("Auction system initialized successfully");
+    }
     private void initializeScoreboardSystem() {
         this.scoreboardConfig = new ScoreboardConfig(this);
         this.scoreboardStorage = new ScoreboardStorage(this, databaseManager);
@@ -1314,13 +1446,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
 
         getLogger().info("Scoreboard system initialized with " + scoreboardConfig.layouts.size() + " layouts");
     }
-    private void initializeShopSystem() {
-        shopConfig = new ShopConfig(this);
-        shopStorage = new ShopStorage(databaseManager);
-        shopGuiManager = new ShopGUIManager(this, playerLanguageManager, shopStorage, shopConfig, vaultEconomy);
-        shopCommand = new ShopCommand(this, playerLanguageManager, databaseManager, shopConfig, vaultEconomy);
-        shopGuiListener = new ShopGUIListener(shopGuiManager);
-    }
+
     private void initializeRulesSystem() {
         this.rulesConfig = new RulesConfig(this);
         this.rulesStorage = new RulesStorage(this, databaseManager);
@@ -1351,22 +1477,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
 
 
 
-    private void initializeSellSystem() {
-        if (vaultEconomy == null) {
-            getLogger().warning("Economy not available - Sell GUI disabled!");
-            return;
-        }
 
-        sellConfig = new SellConfig(this);
-        sellStorage = new SellStorage(this, databaseManager);
-        sellGuiManager = new SellGUIManager(this, playerLanguageManager, sellStorage, sellConfig, vaultEconomy);
-        sellCommand = new SellCommand(playerLanguageManager, sellGuiManager);
-        sellGuiListener = new SellGUIListener(sellGuiManager);
-
-        getCommand("sellgui").setExecutor(sellCommand);
-        getServer().getPluginManager().registerEvents(sellGuiListener, this);
-
-    }
 
 
 
@@ -1484,6 +1595,19 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         }
     }
 
+    private void initializeSellGuiSystem() {
+        sellConfig = new SellConfig(this);
+        sellStorage = new SellStorage(this, databaseManager);
+        sellGuiManager = new SellGUIManager(this, playerLanguageManager, sellStorage, sellConfig, economyProvider);
+        sellCommand = new SellCommand(playerLanguageManager, sellConfig, sellGuiManager);
+        sellGuiListener = new SellGUIListener(playerLanguageManager, sellGuiManager);
+
+        getCommand("sell").setExecutor(sellCommand);
+        getServer().getPluginManager().registerEvents(sellGuiListener, this);
+
+        getLogger().info("SellGUI system initialized with " + sellConfig.getSellableMaterialsCount() + " items");
+    }
+
     private void initializeSessionSystem() {
         this.sessionManager = new SessionManager(databaseManager, commandDataStorage);
 
@@ -1546,6 +1670,32 @@ public class ServerEssentials extends JavaPlugin implements Listener {
 
         getLogger().info("Back system initialized with dedicated table");
     }
+
+    private void saveResourceFolder(String folderPath) {
+        try {
+            var jar = getClass().getProtectionDomain().getCodeSource().getLocation();
+            try (var zip = new java.util.zip.ZipFile(jar.getPath())) {
+                for (var entry : java.util.Collections.list(zip.entries())) {
+                    String name = entry.getName();
+
+                    if (name.startsWith(folderPath + "/") && !entry.isDirectory()) {
+
+                        File outFile = new File(getDataFolder(), name);
+                        outFile.getParentFile().mkdirs();
+
+                        try (var in = zip.getInputStream(entry);
+                             var out = new java.io.FileOutputStream(outFile)) {
+
+                            in.transferTo(out);
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
 }

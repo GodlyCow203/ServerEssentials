@@ -1,4 +1,9 @@
 package net.lunark.io.commands.config;
 
-public class PayConfirmToggleConfig {
+import org.bukkit.plugin.Plugin;
+
+public final class PayConfirmToggleConfig {
+
+    public PayConfirmToggleConfig(Plugin plugin) {
+    }
 }

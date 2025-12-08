@@ -1,6 +1,7 @@
 package net.lunark.io.sellgui;
 
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.lunark.io.language.PlayerLanguageManager;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -11,14 +12,13 @@ import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class SellGUIListener implements Listener {
     private final SellGUIManager guiManager;
+    private final PlayerLanguageManager langManager;
     private final MiniMessage mini = MiniMessage.miniMessage();
 
-    public SellGUIListener(SellGUIManager guiManager) {
+    public SellGUIListener(PlayerLanguageManager langManager, SellGUIManager guiManager) {
+        this.langManager = langManager;
         this.guiManager = guiManager;
     }
 
@@ -26,28 +26,25 @@ public class SellGUIListener implements Listener {
     public void onInventoryClick(InventoryClickEvent event) {
         if (!(event.getWhoClicked() instanceof Player player)) return;
 
-        // Check if this is our sell GUI
         Inventory topInv = event.getView().getTopInventory();
         if (topInv == null || !event.getView().title().toString().contains("Sell Items")) {
             return;
         }
 
-        // BLOCK putting non-sellable items into GUI
         if (event.getView().getBottomInventory() == event.getClickedInventory() &&
                 event.getCursor() != null && event.getCursor().getType() != org.bukkit.Material.AIR) {
 
             ItemStack cursor = event.getCursor();
             if (!guiManager.isSellable(cursor.getType())) {
-                player.sendMessage(mini.deserialize("<red>❌ This item cannot be sold!"));
+                player.sendMessage(langManager.getMessageFor(player, "economy.sellgui.not-sellable",
+                        "<red>❌ This item cannot be sold!"));
                 player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 0.5f, 1f);
                 event.setCancelled(true);
                 return;
             }
         }
 
-        // Allow moving sellable items into GUI
         if (event.getClickedInventory() == topInv) {
-            // Allow any item movement in GUI - we'll process on close
             return;
         }
     }
@@ -61,11 +58,11 @@ public class SellGUIListener implements Listener {
             return;
         }
 
-        // Check if dragging non-sellable items into GUI
         if (event.getRawSlots().stream().anyMatch(slot -> slot < topInv.getSize())) {
             ItemStack item = event.getOldCursor();
             if (item != null && !guiManager.isSellable(item.getType())) {
-                player.sendMessage(mini.deserialize("<red>❌ This item cannot be sold!"));
+                player.sendMessage(langManager.getMessageFor(player, "economy.sellgui.not-sellable",
+                        "<red>❌ This item cannot be sold!"));
                 player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 0.5f, 1f);
                 event.setCancelled(true);
             }
@@ -81,7 +78,6 @@ public class SellGUIListener implements Listener {
             return;
         }
 
-        // Process items on GUI close
         guiManager.processSellAndReturnItems(player, inv);
     }
 }

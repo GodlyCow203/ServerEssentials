@@ -1,4 +1,10 @@
 package net.lunark.io.commands.config;
 
-public class SpeedConfig {
+import org.bukkit.plugin.Plugin;
+
+public final class SpeedConfig {
+
+    public SpeedConfig(Plugin plugin) {
+
+    }
 }

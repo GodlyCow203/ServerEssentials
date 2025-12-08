@@ -45,7 +45,6 @@ import java.util.*;
 
 public final class FirstJoinManager implements Listener, CommandExecutor, TabExecutor {
 
-    /* ---------- INSTANCE ---------- */
     private final JavaPlugin plugin;
     private final NamespacedKey KEY_PROCESSED;
     private final NamespacedKey KEY_ITEM_CMD;
@@ -53,11 +52,9 @@ public final class FirstJoinManager implements Listener, CommandExecutor, TabExe
     private final BukkitAudiences adventure;
     private final boolean adventurePresent;
 
-    /* ---------- CONFIG ---------- */
     private File configFile;
     private FileConfiguration cfg;
 
-    /* ---------- GUI ---------- */
     private final Map<String, GUI> guiCache = new HashMap<>();
     private final NamespacedKey KEY_ITEM_GUI;   // declare, don't instantiate
 
@@ -85,7 +82,6 @@ public final class FirstJoinManager implements Listener, CommandExecutor, TabExe
         Objects.requireNonNull(plugin.getCommand("firstjoin")).setExecutor(this);
     }
 
-    /* ---------- LOAD / RELOAD ---------- */
     private void loadConfig() {
         configFile = new File(plugin.getDataFolder(), "FJ.yml");
         if (!configFile.exists()) plugin.saveResource("FJ.yml", false);
@@ -99,7 +95,6 @@ public final class FirstJoinManager implements Listener, CommandExecutor, TabExe
         }
     }
 
-    /* ---------- LISTENER ---------- */
     @EventHandler(priority = EventPriority.NORMAL)
     public void onJoin(PlayerJoinEvent e) {
         Player p = e.getPlayer();
@@ -110,7 +105,6 @@ public final class FirstJoinManager implements Listener, CommandExecutor, TabExe
         Bukkit.getScheduler().runTaskLater(plugin, () -> runFirstJoin(p), 1L);
     }
 
-    /* ---------- COMMAND ---------- */
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
         if (args.length == 0) return false;
@@ -155,9 +149,7 @@ public final class FirstJoinManager implements Listener, CommandExecutor, TabExe
         return Collections.emptyList();
     }
 
-    /* ---------- CORE FIRST JOIN ---------- */
     private void runFirstJoin(Player p) {
-        /* Titles */
         if (cfg.isConfigurationSection("titles")) {
             ConfigurationSection t = cfg.getConfigurationSection("titles");
             sendTitle(p,

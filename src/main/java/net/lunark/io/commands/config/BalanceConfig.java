@@ -1,4 +1,9 @@
 package net.lunark.io.commands.config;
 
-public class BalanceConfig {
+import org.bukkit.plugin.Plugin;
+
+public final class BalanceConfig {
+
+    public BalanceConfig(Plugin plugin) {
+    }
 }

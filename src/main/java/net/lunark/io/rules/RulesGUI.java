@@ -1,7 +1,6 @@
 package net.lunark.io.rules;
 
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import net.lunark.io.commands.config.RulesConfig;
 import net.lunark.io.language.PlayerLanguageManager;
@@ -15,7 +14,6 @@ import org.bukkit.plugin.Plugin;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 import static net.lunark.io.language.LanguageManager.ComponentPlaceholder;
 
@@ -36,6 +34,10 @@ public class RulesGUI {
     }
 
     public void showRules(Player player) {
+        if (isViewingRules(player)) {
+            return;
+        }
+
         storage.getAllRules().thenAccept(rules -> {
             if (rules.isEmpty()) {
                 player.sendMessage(langManager.getMessageFor(player, "rules.gui.no-rules",
@@ -47,10 +49,6 @@ public class RulesGUI {
             String legacyTitle = LegacyComponentSerializer.legacySection().serialize(titleComponent);
             Inventory inv = Bukkit.createInventory(player, GUI_SIZE, legacyTitle);
 
-            // Clear inventory first
-            inv.clear();
-
-            // Fill entire GUI with filler material first
             if (fillerMaterial != null) {
                 ItemStack filler = createFiller();
                 for (int i = 0; i < GUI_SIZE; i++) {
@@ -58,7 +56,6 @@ public class RulesGUI {
                 }
             }
 
-            // Place each rule at its configured slot
             for (RulesStorage.Rule rule : rules) {
                 int slot = rule.slot();
                 if (slot >= 0 && slot < GUI_SIZE) {
@@ -67,15 +64,22 @@ public class RulesGUI {
                 }
             }
 
-            // Create and place buttons at configured slots
-            ItemStack acceptItem = createAcceptButton(player);
-            inv.setItem(config.acceptButtonSlot(), acceptItem);
+            inv.setItem(config.acceptButtonSlot(), createAcceptButton(player));
+            inv.setItem(config.declineButtonSlot(), createDeclineButton(player));
 
-            ItemStack declineItem = createDeclineButton(player);
-            inv.setItem(config.declineButtonSlot(), declineItem);
-
-            Bukkit.getScheduler().runTask(plugin, () -> player.openInventory(inv));
+            Bukkit.getScheduler().runTask(plugin, () -> {
+                if (player.isOnline()) {
+                    player.openInventory(inv);
+                }
+            });
         });
+    }
+
+    private boolean isViewingRules(Player player) {
+        String currentTitle = player.getOpenInventory().getTitle();
+        Component expectedTitle = langManager.getMessageFor(player, "rules.gui.title", config.title());
+        String expectedLegacy = LegacyComponentSerializer.legacySection().serialize(expectedTitle);
+        return currentTitle.equals(expectedLegacy);
     }
 
     private ItemStack createFiller() {
@@ -90,25 +94,23 @@ public class RulesGUI {
         ItemStack item = new ItemStack(Material.PAPER);
         ItemMeta meta = item.getItemMeta();
 
-        // Rule number as name with MiniMessage formatting
         Component nameComponent = langManager.getMessageFor(player, "rules.gui.rule-name",
                 "<white><bold>Rule #{number}",
                 ComponentPlaceholder.of("{number}", rule.orderIndex() + 1));
         meta.setDisplayName(LegacyComponentSerializer.legacySection().serialize(nameComponent));
 
-        // Process rule text with MiniMessage and wrap lines
-        String ruleText = rule.text();
-        List<Component> loreComponents = new ArrayList<>();
-        loreComponents.add(Component.empty());
+        Component ruleComponent = langManager.getMessageFor(player, "rules.gui.rule-line", rule.text());
+        String parsedText = LegacyComponentSerializer.legacySection().serialize(ruleComponent);
 
-        // Split long text and apply MiniMessage to each line
-        String[] words = ruleText.split(" ");
+        List<String> lore = new ArrayList<>();
+        lore.add("");
+
+        String[] words = parsedText.split(" ");
         StringBuilder currentLine = new StringBuilder();
-        List<String> lines = new ArrayList<>();
 
         for (String word : words) {
             if (currentLine.length() + word.length() > 35) {
-                lines.add(currentLine.toString());
+                lore.add(currentLine.toString());
                 currentLine = new StringBuilder(word);
             } else {
                 if (currentLine.length() > 0) currentLine.append(" ");
@@ -116,26 +118,15 @@ public class RulesGUI {
             }
         }
         if (currentLine.length() > 0) {
-            lines.add(currentLine.toString());
+            lore.add(currentLine.toString());
         }
 
-        // Apply MiniMessage to each line
-        for (String line : lines) {
-            Component processedLine = langManager.getMessageFor(player, "rules.gui.rule-line", line);
-            loreComponents.add(processedLine);
-        }
+        lore.add("");
+        Component hintComponent = langManager.getMessageFor(player, "rules.gui.rule-hint",
+                "<gray><italic>Click accept below to continue");
+        lore.add(LegacyComponentSerializer.legacySection().serialize(hintComponent));
 
-        loreComponents.add(Component.empty());
-        loreComponents.add(langManager.getMessageFor(player, "rules.gui.rule-hint",
-                "<gray><italic>Click accept below to continue"));
-
-        // Convert Components to legacy strings
-        List<String> loreLegacy = new ArrayList<>();
-        for (Component loreLine : loreComponents) {
-            loreLegacy.add(LegacyComponentSerializer.legacySection().serialize(loreLine));
-        }
-        meta.setLore(loreLegacy);
-
+        meta.setLore(lore);
         item.setItemMeta(meta);
         return item;
     }
@@ -143,10 +134,8 @@ public class RulesGUI {
     private ItemStack createAcceptButton(Player player) {
         ItemStack item = new ItemStack(Material.GREEN_WOOL);
         ItemMeta meta = item.getItemMeta();
-
         Component nameComponent = langManager.getMessageFor(player, "rules.gui.accept-title", config.acceptButtonText());
         meta.setDisplayName(LegacyComponentSerializer.legacySection().serialize(nameComponent));
-
         item.setItemMeta(meta);
         return item;
     }
@@ -154,25 +143,28 @@ public class RulesGUI {
     private ItemStack createDeclineButton(Player player) {
         ItemStack item = new ItemStack(Material.RED_WOOL);
         ItemMeta meta = item.getItemMeta();
-
         Component nameComponent = langManager.getMessageFor(player, "rules.gui.decline-title", config.declineButtonText());
         meta.setDisplayName(LegacyComponentSerializer.legacySection().serialize(nameComponent));
-
         item.setItemMeta(meta);
         return item;
     }
 
     public void handleAccept(Player player) {
-        player.closeInventory(); // Close immediately
+        RulesListener.removePending(player.getUniqueId());
+        player.closeInventory();
         storage.getLatestVersion().thenCompose(version ->
                 storage.acceptRules(player.getUniqueId(), version)
         ).thenAccept(v -> {
             player.sendMessage(langManager.getMessageFor(player, "rules.accept.success",
                     "<green><bold>✓ You accepted the server rules!"));
+        }).exceptionally(ex -> {
+            plugin.getLogger().warning("Failed to accept rules for " + player.getName() + ": " + ex.getMessage());
+            return null;
         });
     }
 
     public void handleDecline(Player player) {
+        RulesListener.removePending(player.getUniqueId());
         player.closeInventory();
         player.kick(langManager.getMessageFor(player, "rules.decline.kick-message", config.kickMessage()));
     }

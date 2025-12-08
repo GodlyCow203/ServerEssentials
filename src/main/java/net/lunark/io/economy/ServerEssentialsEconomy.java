@@ -9,11 +9,9 @@ import org.bukkit.plugin.Plugin;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
-/**
- * ServerEssentials Economy Provider - Fixed async operations
- */
 public class ServerEssentialsEconomy implements Economy {
     private final Plugin plugin;
     private final DatabaseManager databaseManager;
@@ -26,15 +24,51 @@ public class ServerEssentialsEconomy implements Economy {
     }
 
     private void initializeDatabase() {
-        String sql = "CREATE TABLE IF NOT EXISTS economy_balances (" +
+        String balancesSql = "CREATE TABLE IF NOT EXISTS economy_balances (" +
                 "player_uuid TEXT PRIMARY KEY, " +
                 "player_name TEXT NOT NULL, " +
                 "balance REAL NOT NULL DEFAULT 0.0)";
 
-        databaseManager.executeUpdate(poolKey, sql).exceptionally(ex -> {
-            plugin.getLogger().log(Level.SEVERE, "[Economy] Failed to initialize table", ex);
-            return null;
-        });
+        String settingsSql = "CREATE TABLE IF NOT EXISTS economy_settings (" +
+                "player_uuid TEXT PRIMARY KEY, " +
+                "player_name TEXT NOT NULL, " +
+                "payments_disabled BOOLEAN NOT NULL DEFAULT FALSE, " +
+                "pay_confirm_disabled BOOLEAN NOT NULL DEFAULT FALSE)";
+
+
+        CompletableFuture.allOf(
+                databaseManager.executeUpdate(poolKey, balancesSql),
+                databaseManager.executeUpdate(poolKey, settingsSql)
+        ).join();
+
+        plugin.getLogger().info("[Economy] Tables initialized");
+    }
+
+    public CompletableFuture<Boolean> hasPayConfirmDisabled(UUID playerUuid) {
+        String sql = "SELECT pay_confirm_disabled FROM economy_settings WHERE player_uuid = ?";
+        return databaseManager.executeQuery(poolKey, sql,
+                rs -> rs.next() ? rs.getBoolean("pay_confirm_disabled") : false,
+                playerUuid.toString()).thenApply(opt -> opt.orElse(false));
+    }
+
+    public CompletableFuture<Void> setPayConfirmDisabled(UUID playerUuid, String playerName, boolean disabled) {
+        String sql = "INSERT OR REPLACE INTO economy_settings (player_uuid, player_name, payments_disabled, pay_confirm_disabled) " +
+                "VALUES (?, ?, " +
+                "COALESCE((SELECT payments_disabled FROM economy_settings WHERE player_uuid = ?), FALSE), " +
+                "?)";
+        return databaseManager.executeUpdate(poolKey, sql, playerUuid.toString(), playerName, playerUuid.toString(), disabled);
+    }
+
+    public CompletableFuture<Boolean> hasPaymentsDisabled(UUID playerUuid) {
+        String sql = "SELECT payments_disabled FROM economy_settings WHERE player_uuid = ?";
+        return databaseManager.executeQuery(poolKey, sql,
+                rs -> rs.next() ? rs.getBoolean("payments_disabled") : false,
+                playerUuid.toString()).thenApply(opt -> opt.orElse(false));
+    }
+
+    public CompletableFuture<Void> setPaymentsDisabled(UUID playerUuid, String playerName, boolean disabled) {
+        String sql = "INSERT OR REPLACE INTO economy_settings (player_uuid, player_name, payments_disabled) VALUES (?, ?, ?)";
+        return databaseManager.executeUpdate(poolKey, sql, playerUuid.toString(), playerName, disabled);
     }
 
     private CompletableFuture<Double> getBalanceAsync(UUID playerUuid) {
@@ -42,12 +76,16 @@ public class ServerEssentialsEconomy implements Economy {
         return databaseManager.executeQuery(poolKey, sql,
                         rs -> rs.next() ? rs.getDouble("balance") : 0.0,
                         playerUuid.toString())
-                .thenApply(opt -> opt.orElse(0.0));
+                .thenApply(opt -> opt.orElse(0.0))
+                .exceptionally(ex -> {
+                    plugin.getLogger().log(Level.SEVERE, "[Economy] Failed to get balance for " + playerUuid, ex);
+                    return 0.0;
+                });
     }
 
     private CompletableFuture<Void> setBalanceAsync(UUID playerUuid, String playerName, double amount) {
         String sql = "INSERT OR REPLACE INTO economy_balances (player_uuid, player_name, balance) VALUES (?, ?, ?)";
-        return databaseManager.executeUpdate(poolKey, sql, playerUuid.toString(), playerName, amount);
+        return databaseManager.executeUpdate(poolKey, sql, playerUuid.toString(), playerName, Math.max(0, amount));
     }
 
     @Override public boolean isEnabled() { return true; }
@@ -67,7 +105,12 @@ public class ServerEssentialsEconomy implements Economy {
 
     @Override
     public double getBalance(OfflinePlayer player) {
-        return getBalanceAsync(player.getUniqueId()).join();
+        try {
+            return getBalanceAsync(player.getUniqueId()).get(5, TimeUnit.SECONDS);
+        } catch (Exception e) {
+            plugin.getLogger().warning("[Economy] Timeout getting balance for " + player.getName());
+            return 0.0;
+        }
     }
 
     @Override public double getBalance(String s, String s1) { return 0; }
@@ -77,7 +120,12 @@ public class ServerEssentialsEconomy implements Economy {
 
     @Override
     public boolean has(OfflinePlayer player, double amount) {
-        return getBalanceAsync(player.getUniqueId()).thenApply(balance -> balance >= amount).join();
+        try {
+            return getBalanceAsync(player.getUniqueId()).get(5, TimeUnit.SECONDS) >= amount;
+        } catch (Exception e) {
+            plugin.getLogger().warning("[Economy] Timeout checking balance for " + player.getName());
+            return false;
+        }
     }
 
     @Override public boolean has(String s, String s1, double v) { return false; }
@@ -91,16 +139,22 @@ public class ServerEssentialsEconomy implements Economy {
             return new EconomyResponse(0, getBalance(player), EconomyResponse.ResponseType.FAILURE, "Cannot withdraw negative funds");
         }
 
-        UUID uuid = player.getUniqueId();
-        double currentBalance = getBalanceAsync(uuid).join(); // FIX: Use async method
+        try {
+            UUID uuid = player.getUniqueId();
+            double currentBalance = getBalanceAsync(uuid).get(5, TimeUnit.SECONDS);
 
-        if (currentBalance < amount) {
-            return new EconomyResponse(0, currentBalance, EconomyResponse.ResponseType.FAILURE, "Insufficient funds");
+            if (currentBalance < amount) {
+                return new EconomyResponse(0, currentBalance, EconomyResponse.ResponseType.FAILURE, "Insufficient funds");
+            }
+
+            double newBalance = currentBalance - amount;
+            setBalanceAsync(uuid, player.getName(), newBalance).get(5, TimeUnit.SECONDS);
+
+            return new EconomyResponse(amount, newBalance, EconomyResponse.ResponseType.SUCCESS, null);
+        } catch (Exception e) {
+            plugin.getLogger().severe("[Economy] Withdraw failed for " + player.getName() + ": " + e.getMessage());
+            return new EconomyResponse(0, getBalance(player), EconomyResponse.ResponseType.FAILURE, "Database error");
         }
-
-        double newBalance = currentBalance - amount;
-        setBalanceAsync(uuid, player.getName(), newBalance).join();
-        return new EconomyResponse(amount, newBalance, EconomyResponse.ResponseType.SUCCESS, null);
     }
 
     @Override public EconomyResponse withdrawPlayer(String s, String s1, double v) { return null; }
@@ -114,11 +168,16 @@ public class ServerEssentialsEconomy implements Economy {
             return new EconomyResponse(0, getBalance(player), EconomyResponse.ResponseType.FAILURE, "Cannot deposit negative funds");
         }
 
-        UUID uuid = player.getUniqueId();
-        double currentBalance = getBalanceAsync(uuid).join(); // FIX: Use async method
-        double newBalance = currentBalance + amount;
-        setBalanceAsync(uuid, player.getName(), newBalance).join();
-        return new EconomyResponse(amount, newBalance, EconomyResponse.ResponseType.SUCCESS, null);
+        try {
+            UUID uuid = player.getUniqueId();
+            double currentBalance = getBalanceAsync(uuid).get(5, TimeUnit.SECONDS);
+            double newBalance = currentBalance + amount;
+            setBalanceAsync(uuid, player.getName(), newBalance).get(5, TimeUnit.SECONDS);
+            return new EconomyResponse(amount, newBalance, EconomyResponse.ResponseType.SUCCESS, null);
+        } catch (Exception e) {
+            plugin.getLogger().severe("[Economy] Deposit failed for " + player.getName() + ": " + e.getMessage());
+            return new EconomyResponse(0, getBalance(player), EconomyResponse.ResponseType.FAILURE, "Database error");
+        }
     }
 
     @Override public EconomyResponse depositPlayer(String s, String s1, double v) { return null; }

@@ -1,18 +1,18 @@
 rules:
-  - text: "<red>No griefing or stealing from other players!"
+  - text: "<#FF3B3B><bold>No Griefing or Theft</bold></#FF3B3B><gray> — Respect all players’ builds, items, and personal space. Any form of destruction or stealing is strictly forbidden.</gray>"
     slot: 10
 
-  - text: "<yellow>Be respectful and kind in chat."
+  - text: "<#FFD93B><bold>Respectful Communication</bold></#FFD93B><gray> — Keep chat friendly and mature. Avoid harassment, arguments, spam, or inappropriate language.</gray>"
     slot: 12
 
-  - text: "<green>No cheating, hacking, or exploits."
+  - text: "<#4DFF4D><bold>No Cheats, Hacks, or Exploits</bold></#4DFF4D><gray> — All players are expected to play fairly. Unauthorized modifications or abuse of glitches are not allowed.</gray>"
     slot: 14
 
-  - text: "<blue>Build responsibly - no lag machines."
+  - text: "<#4DA3FF><bold>Build Responsibly</bold></#4DA3FF><gray> — Build freely, but do not create lag machines, crash devices, or excessive redstone that harms server stability.</gray>"
     slot: 16
 
-  - text: "<purple>Report bugs and issues to staff."
+  - text: "<#C04DFF><bold>Report Bugs & Issues</bold></#C04DFF><gray> — If you discover server problems, glitches, or exploits, please report them to staff as soon as possible.</gray>"
     slot: 28
 
-  - text: "<gold>Have fun and enjoy the server!"
+  - text: "<#FFB84D><bold>Enjoy the Server</bold></#FFB84D><gray> — Contribute positively to the community, help others when possible, and have a great time on the server.</gray>"
     slot: 34

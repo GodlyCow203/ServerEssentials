@@ -59,7 +59,7 @@ public class RulesStorage {
 
                 if (rulesList == null || rulesList.isEmpty()) {
                     plugin.getLogger().warning("No rules found in rules.yml!");
-                    return 0; // Fixed: Return integer value directly
+                    return 0;
                 }
 
                 String insertSql = "INSERT INTO rules (rule_text, version, order_index, slot) VALUES (?, ?, ?, ?)";
@@ -73,10 +73,15 @@ public class RulesStorage {
                     if (ruleObj instanceof String) {
                         ruleText = (String) ruleObj;
                         slot = 10 + (i * 2);
-                    } else if (ruleObj instanceof FileConfiguration) {
-                        FileConfiguration ruleConfig = (FileConfiguration) ruleObj;
+                    } else if (ruleObj instanceof org.bukkit.configuration.ConfigurationSection) {
+                        org.bukkit.configuration.ConfigurationSection ruleConfig = (org.bukkit.configuration.ConfigurationSection) ruleObj;
                         ruleText = ruleConfig.getString("text");
                         slot = ruleConfig.getInt("slot", 10 + (i * 2));
+                    } else if (ruleObj instanceof java.util.Map) {
+                        java.util.Map<?, ?> ruleMap = (java.util.Map<?, ?>) ruleObj;
+                        ruleText = String.valueOf(ruleMap.get("text"));
+                        Object slotObj = ruleMap.get("slot");
+                        slot = slotObj != null ? Integer.parseInt(String.valueOf(slotObj)) : 10 + (i * 2);
                     }
 
                     if (ruleText != null && !ruleText.trim().isEmpty()) {
@@ -87,7 +92,7 @@ public class RulesStorage {
                 CompletableFuture.allOf(inserts.toArray(new CompletableFuture[0])).join();
                 plugin.getLogger().info("Loaded " + inserts.size() + " rules from rules.yml");
             }
-            return 0; // Fixed: Return integer value directly
+            return 0;
         });
     }
 
@@ -112,7 +117,7 @@ public class RulesStorage {
         String sql = "SELECT MAX(version) as max_version FROM rules";
         return dbManager.executeQuery(poolKey, sql, rs ->
                 rs.next() ? rs.getInt("max_version") : 0
-        ).thenApply(opt -> opt.orElse(0)); // Correct usage
+        ).thenApply(opt -> opt.orElse(0));
     }
 
     public CompletableFuture<Boolean> hasAcceptedRules(UUID playerId) {
@@ -164,10 +169,15 @@ public class RulesStorage {
                             if (ruleObj instanceof String) {
                                 ruleText = (String) ruleObj;
                                 slot = 10 + (i * 2);
-                            } else if (ruleObj instanceof FileConfiguration) {
-                                FileConfiguration ruleConfig = (FileConfiguration) ruleObj;
+                            } else if (ruleObj instanceof org.bukkit.configuration.ConfigurationSection) {
+                                org.bukkit.configuration.ConfigurationSection ruleConfig = (org.bukkit.configuration.ConfigurationSection) ruleObj;
                                 ruleText = ruleConfig.getString("text");
                                 slot = ruleConfig.getInt("slot", 10 + (i * 2));
+                            } else if (ruleObj instanceof java.util.Map) {
+                                java.util.Map<?, ?> ruleMap = (java.util.Map<?, ?>) ruleObj;
+                                ruleText = String.valueOf(ruleMap.get("text"));
+                                Object slotObj = ruleMap.get("slot");
+                                slot = slotObj != null ? Integer.parseInt(String.valueOf(slotObj)) : 10 + (i * 2);
                             }
 
                             if (ruleText != null && !ruleText.trim().isEmpty()) {
@@ -183,6 +193,5 @@ public class RulesStorage {
                     });
         });
     }
-
     public record Rule(int id, String text, int version, int orderIndex, int slot) {}
 }

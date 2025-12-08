@@ -41,12 +41,22 @@ public final class ScoreboardUpdater {
 
     private void startTask() {
         Bukkit.getScheduler().runTaskTimerAsynchronously(plugin,
-                () -> Bukkit.getOnlinePlayers().forEach(this::updateAsync),
+                () -> {
+                    if (!config.enabled) {
+                        return;
+                    }
+                    Bukkit.getOnlinePlayers().forEach(this::updateAsync);
+                },
                 20L, config.updateInterval
         );
     }
 
     private void updateAsync(Player player) {
+        if (!config.enabled) {
+            Bukkit.getScheduler().runTask(plugin, () -> clear(player));
+            return;
+        }
+
         if (!storage.isEnabled(player.getUniqueId())) {
             Bukkit.getScheduler().runTask(plugin, () -> clear(player));
             return;
@@ -57,6 +67,8 @@ public final class ScoreboardUpdater {
     }
 
     public void refreshAll() {
+        if (!config.enabled) return;
+
         Bukkit.getOnlinePlayers().forEach(this::updateAsync);
     }
 
@@ -71,6 +83,11 @@ public final class ScoreboardUpdater {
     }
 
     public void update(Player player) {
+        if (!config.enabled) {
+            clear(player);
+            return;
+        }
+
         if (!storage.isEnabled(player.getUniqueId())) {
             clear(player);
             return;
@@ -82,6 +99,11 @@ public final class ScoreboardUpdater {
     public void update(Player player, String layout) {
         if (!Bukkit.isPrimaryThread()) {
             Bukkit.getScheduler().runTask(plugin, () -> update(player, layout));
+            return;
+        }
+
+        if (!config.enabled) {
+            clear(player);
             return;
         }
 
@@ -123,7 +145,6 @@ public final class ScoreboardUpdater {
 
         List<String> lines = layoutData.lines();
         int visibleLines = Math.min(lines.size(), layoutData.maxLines());
-
 
         for (int i = 0; i < visibleLines; i++) {
             String line = lines.get(i);

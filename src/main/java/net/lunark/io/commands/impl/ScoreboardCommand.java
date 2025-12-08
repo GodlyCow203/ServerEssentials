@@ -1,9 +1,10 @@
 package net.lunark.io.commands.impl;
 
-import net.lunark.io.language.PlayerLanguageManager;
 import net.lunark.io.commands.config.ScoreboardConfig;
 import net.lunark.io.scoreboard.ScoreboardStorage;
 import net.lunark.io.scoreboard.ScoreboardUpdater;
+import net.lunark.io.language.PlayerLanguageManager;
+import net.lunark.io.language.LanguageManager.ComponentPlaceholder;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -17,8 +18,6 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import static net.lunark.io.language.LanguageManager.ComponentPlaceholder;
-
 public final class ScoreboardCommand implements CommandExecutor, TabCompleter {
     private static final String PERMISSION_BASE = "serveressentials.command.scoreboard";
     private static final String PERMISSION_RELOAD = "serveressentials.command.scoreboard.reload";
@@ -30,7 +29,6 @@ public final class ScoreboardCommand implements CommandExecutor, TabCompleter {
     private final ScoreboardStorage storage;
     private final ScoreboardUpdater updater;
     private final Plugin plugin;
-
 
     public ScoreboardCommand(Plugin plugin, PlayerLanguageManager langManager, ScoreboardConfig config,
                              ScoreboardStorage storage, ScoreboardUpdater updater) {
@@ -46,6 +44,12 @@ public final class ScoreboardCommand implements CommandExecutor, TabCompleter {
         if (!(sender instanceof Player player)) {
             sender.sendMessage(langManager.getMessageFor(null, "commands.scoreboard.only-player",
                     "<red>Only players can use this command.").toString());
+            return true;
+        }
+
+        if (!config.enabled) {
+            player.sendMessage(langManager.getMessageFor(player, "commands.scoreboard.disabled",
+                    "<red>Scoreboard system is disabled!"));
             return true;
         }
 
@@ -143,7 +147,7 @@ public final class ScoreboardCommand implements CommandExecutor, TabCompleter {
         String layout = args[1].toLowerCase();
         if (!config.layoutExists(layout)) {
             player.sendMessage(langManager.getMessageFor(player, "commands.scoreboard.color.not-found",
-                    "<red>Layout '<yellow>{layout}</yellow>' not found!",
+                    "<red>Layout '<yellow>{layout}' not found!",
                     ComponentPlaceholder.of("{layout}", layout)));
             return;
         }
@@ -164,6 +168,8 @@ public final class ScoreboardCommand implements CommandExecutor, TabCompleter {
         if (!(sender instanceof Player player)) return List.of();
 
         if (!player.hasPermission(PERMISSION_BASE)) return List.of();
+
+        if (!config.enabled) return List.of();
 
         if (args.length == 1) {
             return Arrays.asList("reload", "toggle", "color").stream()

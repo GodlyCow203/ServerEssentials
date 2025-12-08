@@ -9,6 +9,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -24,7 +25,8 @@ public class RulesListener implements Listener {
     private final RulesConfig config;
     private final RulesGUI gui;
     private final Plugin plugin;
-    private final ConcurrentHashMap<UUID, Boolean> pendingAcceptance = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<UUID, Boolean> pendingAcceptance = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<UUID, Long> lastReopenTime = new ConcurrentHashMap<>();
 
     public RulesListener(PlayerLanguageManager langManager, RulesStorage storage, RulesConfig config, Plugin plugin) {
         this.langManager = langManager;
@@ -46,7 +48,7 @@ public class RulesListener implements Listener {
                     if (player.isOnline()) {
                         gui.showRules(player);
                     }
-                }, 20L);
+                }, 40L);
             }
         });
     }
@@ -55,53 +57,57 @@ public class RulesListener implements Listener {
     public void onInventoryClose(InventoryCloseEvent event) {
         if (!(event.getPlayer() instanceof Player player)) return;
 
-        // Check if this is our rules GUI
-        String title = org.bukkit.ChatColor.stripColor(event.getView().getTitle());
-        Component expectedTitleComponent = langManager.getMessageFor(player, "rules.gui.title", config.title());
-        String expectedTitle = org.bukkit.ChatColor.stripColor(
-                LegacyComponentSerializer.legacySection().serialize(expectedTitleComponent)
-        );
+        String title = event.getView().getTitle();
+        Component expectedTitle = langManager.getMessageFor(player, "rules.gui.title", config.title());
+        String expectedLegacy = LegacyComponentSerializer.legacySection().serialize(expectedTitle);
 
-        if (!title.equals(expectedTitle)) return;
+        if (!title.equals(expectedLegacy)) return;
 
-        // If player hasn't accepted yet and force acceptance is enabled, reopen
+        Long lastOpen = lastReopenTime.get(player.getUniqueId());
+        if (lastOpen != null && System.currentTimeMillis() - lastOpen < 1000) {
+            return;
+        }
+
         if (config.forceAcceptance() && pendingAcceptance.containsKey(player.getUniqueId())) {
-            Bukkit.getScheduler().runTaskLater(plugin, () -> {
-                if (player.isOnline() && !storage.hasAcceptedRules(player.getUniqueId()).join()) {
+            storage.hasAcceptedRules(player.getUniqueId()).thenAccept(accepted -> {
+                if (!accepted && player.isOnline()) {
                     player.sendMessage(langManager.getMessageFor(player, "rules.close.cannot-close",
                             "<red>You must accept the rules before playing!"));
-                    gui.showRules(player);
+
+                    lastReopenTime.put(player.getUniqueId(), System.currentTimeMillis());
+                    Bukkit.getScheduler().runTaskLater(plugin, () -> {
+                        if (player.isOnline() && pendingAcceptance.containsKey(player.getUniqueId())) {
+                            gui.showRules(player);
+                        }
+                    }, 10L);
                 }
-            }, 5L);
+            });
         }
     }
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
         pendingAcceptance.remove(event.getPlayer().getUniqueId());
+        lastReopenTime.remove(event.getPlayer().getUniqueId());
     }
 
     @EventHandler
-    public void onInventoryClick(org.bukkit.event.inventory.InventoryClickEvent event) {
+    public void onInventoryClick(InventoryClickEvent event) {
         if (!(event.getWhoClicked() instanceof Player player)) return;
 
-        // Check if this is our rules GUI
-        String title = org.bukkit.ChatColor.stripColor(event.getView().getTitle());
-        Component expectedTitleComponent = langManager.getMessageFor(player, "rules.gui.title", config.title());
-        String expectedTitle = org.bukkit.ChatColor.stripColor(
-                LegacyComponentSerializer.legacySection().serialize(expectedTitleComponent)
-        );
+        String title = event.getView().getTitle();
+        Component expectedTitle = langManager.getMessageFor(player, "rules.gui.title", config.title());
+        String expectedLegacy = LegacyComponentSerializer.legacySection().serialize(expectedTitle);
 
-        if (!title.equals(expectedTitle)) return;
+        if (!title.equals(expectedLegacy)) return;
 
         event.setCancelled(true);
 
         ItemStack item = event.getCurrentItem();
-        if (item == null) return;
+        if (item == null || item.getType() == Material.AIR) return;
 
         switch (item.getType()) {
             case GREEN_WOOL:
-                pendingAcceptance.remove(player.getUniqueId());
                 gui.handleAccept(player);
                 break;
             case RED_WOOL:
@@ -110,5 +116,9 @@ public class RulesListener implements Listener {
             default:
                 break;
         }
+    }
+
+    public static void removePending(UUID playerId) {
+        pendingAcceptance.remove(playerId);
     }
 }

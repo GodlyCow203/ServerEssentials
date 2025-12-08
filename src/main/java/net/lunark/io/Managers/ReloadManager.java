@@ -5,8 +5,6 @@ import net.lunark.io.util.*;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import net.lunark.io.ServerEssentials;
-import net.lunark.io.auction.AuctionMessagesManager;
-import net.lunark.io.economy.EconomyMessagesManager;
 import net.lunark.io.kit.KitManager;
 import net.lunark.io.lobby.LobbyManager;
 import net.lunark.io.lobby.LobbyMessages;
@@ -54,7 +52,6 @@ public class ReloadManager {
         LobbyManager.reload();
         NickManager.reload();
 
-        EconomyMessagesManager.reload();
 
         FunMessages.reloadAll();
         HomeMessages.reloadAll();
@@ -66,7 +63,6 @@ public class ReloadManager {
         ServerMessages.fullReload();
         MessagesManager.fullReload();
 
-        AuctionMessagesManager.fullReload();
         LobbyManager.reload();
 
         AFKManager.reload();
