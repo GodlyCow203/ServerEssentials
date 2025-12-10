@@ -1,4 +1,4 @@
 package net.lunark.io.homes;
 
-public class HomeManager {
+public class HomeGUIListener {
 }
