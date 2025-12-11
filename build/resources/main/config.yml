@@ -417,6 +417,63 @@ scoreboard:
       max-lines: 15
 
 
+# /powertool command configuration
+powertool:
+  # Maximum number of uses allowed (1-1000, -1 for infinite)
+  max-uses: 100
+
+messages:
+  join: "&aWelcome &f%player% &ato the server!"
+  leave: "&c%player% &fhas left the server."
+
+lobby:
+  cooldown: 5
+  per-world: false
+  teleport-on-join: false
+  animation:
+    enabled: true
+    type: BOTH  # Options: FADE, PARTICLE, BOTH
+    duration: 40
+    particle: PORTAL
+    particle-count: 50
+    sound: ENTITY_ENDERMAN_TELEPORT
+
+  # List of allowed materials for PowerTools
+  # Use Material names: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html
+  allowed-materials:
+    - "STICK"
+    - "BLAZE_ROD"
+    - "BONE"
+    - "ENDER_PEARL"
+    - "EXPERIENCE_BOTTLE"
+    - "CLOCK"
+    - "COMPASS"
+    - "DIAMOND_SWORD"
+    - "IRON_SWORD"
+    - "GOLDEN_SWORD"
+
+celebrate:
+  effect:
+    flicker: true
+    trail: true
+    type: STAR
+    color: 5589162
+    fade: 11193708
+
+kittycannon:
+  velocity: 2.0
+canon:
+  velocity: 2.0
+beezooka:
+  velocity: 2.5
+
+homes:
+  max-homes: 8
+  allow-rename: true
+  gui:
+    titles:
+      main: "<green>Home Manager"
+      confirm: "<red>Confirm Action"
 
 # /back command configuration
 back:

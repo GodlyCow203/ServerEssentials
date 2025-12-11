@@ -1,0 +1,7 @@
+package net.lunark.io.commands.config;
+
+import org.bukkit.plugin.Plugin;
+
+public final class GrindstoneConfig {
+    public GrindstoneConfig(Plugin plugin) {}
+}

@@ -1,4 +1,9 @@
 package net.lunark.io.commands.config;
 
-public class GravityConfig {
+import org.bukkit.plugin.Plugin;
+
+public final class GravityConfig {
+
+    public GravityConfig(Plugin plugin) {
+    }
 }

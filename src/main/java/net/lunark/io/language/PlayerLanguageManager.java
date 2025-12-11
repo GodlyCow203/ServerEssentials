@@ -36,7 +36,6 @@ public class PlayerLanguageManager extends LanguageManager {
         return languageManager.getComponent(langId, key, def, placeholders);
     }
 
-    // NEW METHOD: Get message list for a player
     public List<Component> getMessageList(Player player, String key) {
         String langId = player != null ? getPlayerLanguage(player.getUniqueId()) : languageManager.getDefaultLanguage();
         return languageManager.getComponentList(langId, key);

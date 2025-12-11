@@ -47,7 +47,6 @@ public class RtpListener implements Listener {
         Inventory gui = event.getClickedInventory();
         if (gui == null) return;
 
-        // Check if this is our RTP GUI
         Component expectedTitle = langManager.getMessageFor(player, "rtp.gui.title", "RTP Menu");
 
         InventoryView view = player.getOpenInventory();
@@ -59,18 +58,15 @@ public class RtpListener implements Listener {
         ItemStack clicked = event.getCurrentItem();
         if (clicked == null || clicked.getType() == Material.AIR) return;
 
-        // Determine world
         World world = getTargetWorld(clicked.getType());
         if (world == null) return;
 
-        // Check if RTP is enabled for this world
         if (!config.isWorldEnabled(world.getName())) {
             player.sendMessage(langManager.getMessageFor(player, "rtp.world_disabled",
                     "RTP is disabled in this world!"));
             return;
         }
 
-        // Check cooldown
         UUID playerId = player.getUniqueId();
         if (cooldownManager.isOnCooldown(playerId)) {
             long remaining = cooldownManager.getRemaining(playerId);
@@ -80,13 +76,10 @@ public class RtpListener implements Listener {
             return;
         }
 
-        // Set cooldown
         cooldownManager.setCooldown(playerId, config.getCooldown(world.getName()));
 
-        // Generate location
         Location rtpLocation = generateRtpLocation(world);
 
-        // Save back location and teleport
         backManager.setLastLocation(playerId, player.getLocation());
         player.closeInventory();
 
@@ -97,7 +90,6 @@ public class RtpListener implements Listener {
                     LanguageManager.ComponentPlaceholder.of("{world}", world.getName())));
         }, 20L);
 
-        // Save to database
         locationStorage.saveRtpLocation(playerId, player.getName(), rtpLocation);
     }
 

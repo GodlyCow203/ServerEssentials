@@ -1,4 +1,8 @@
 package net.lunark.io.commands.config;
 
-public class ThunderConfig {
+import org.bukkit.plugin.Plugin;
+
+public final class ThunderConfig {
+    public ThunderConfig(Plugin plugin) {
+    }
 }

@@ -1,4 +1,8 @@
 package net.lunark.io.commands.config;
 
-public class SwapConfig {
+import org.bukkit.plugin.Plugin;
+
+public final class SwapConfig {
+    public SwapConfig(Plugin plugin) {
+    }
 }

@@ -8,10 +8,6 @@ import net.lunark.io.ServerEssentials;
 
 public class VersionCommand implements CommandExecutor {
 
-    private String getPrefix() {
-        String rawPrefix = ServerEssentials.getInstance().getPrefixConfig().getString("prefix", "&9&l[&bSE&9&l] &r");
-        return ChatColor.translateAlternateColorCodes('&', rawPrefix);
-    }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {

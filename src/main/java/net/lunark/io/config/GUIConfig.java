@@ -13,7 +13,7 @@ import java.util.List;
 
 public class GUIConfig {
 
-    private FileConfiguration config;  // Removed final
+    private FileConfiguration config;
 
     public GUIConfig(FileConfiguration config) {
         this.config = config;

@@ -38,7 +38,6 @@ public class LanguageManager {
             langDir.mkdirs();
         }
 
-        // Save default if missing
         File defaultFile = new File(langDir, "en.json");
         if (!defaultFile.exists()) {
             plugin.saveResource("lang/en.json", false);

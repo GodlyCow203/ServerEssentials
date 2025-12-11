@@ -55,10 +55,10 @@ public class ReportCommand implements CommandExecutor, TabCompleter {
             return true;
         }
 
-        if (!player.hasPermission("serveressentials.report")) {
+        if (!player.hasPermission("serveressentials.command.report")) {
             Component msg = langManager.getMessageFor(player, "commands.no-permission",
                     "<red>You need permission <yellow>{permission}</yellow>!",
-                    LanguageManager.ComponentPlaceholder.of("{permission}", "serveressentials.report"));
+                    LanguageManager.ComponentPlaceholder.of("{permission}", "serveressentials.command.report"));
             player.sendMessage(msg);
             return true;
         }
@@ -142,7 +142,7 @@ public class ReportCommand implements CommandExecutor, TabCompleter {
 
         boolean notified = false;
         for (Player admin : Bukkit.getOnlinePlayers()) {
-            if (admin.hasPermission("serveressentials.report.admin")) {
+            if (admin.hasPermission("serveressentials.command.report.*")) {
                 admin.sendMessage(notifyMsg);
                 notified = true;
             }
@@ -154,12 +154,12 @@ public class ReportCommand implements CommandExecutor, TabCompleter {
     }
 
     private boolean handleClear(CommandSender sender, String[] args) {
-        if (!sender.hasPermission("serveressentials.report.admin")) {
+        if (!sender.hasPermission("serveressentials.command.report.*")) {
             Player player = getPlayerOrNull(sender);
             Component msg = langManager.getMessageFor(player,
                     "commands.no-permission",
                     "<red>You need permission <yellow>{permission}</yellow>!",
-                    LanguageManager.ComponentPlaceholder.of("{permission}", "serveressentials.report.admin"));
+                    LanguageManager.ComponentPlaceholder.of("{permission}", "serveressentials.command.report.*"));
 
             if (player != null) {
                 player.sendMessage(msg);
@@ -243,7 +243,6 @@ public class ReportCommand implements CommandExecutor, TabCompleter {
         }
 
         if (cmd.equals("reportclear") && args.length == 1) {
-            // Returning empty for simplicity - fetching IDs would require sync query
             return List.of();
         }
 
@@ -251,7 +250,7 @@ public class ReportCommand implements CommandExecutor, TabCompleter {
     }
 
     public void handleJoin(Player player) {
-        if (!player.hasPermission("serveressentials.report.admin")) return;
+        if (!player.hasPermission("serveressentials.command.report.*")) return;
 
         storage.getPendingReports().thenAccept(reports -> {
             if (reports.isEmpty()) return;
@@ -273,7 +272,6 @@ public class ReportCommand implements CommandExecutor, TabCompleter {
                 player.sendMessage(entry);
             }
 
-            // Mark all as non-pending after showing
             reports.forEach(report -> storage.markAsCleared(report.id()));
         });
     }

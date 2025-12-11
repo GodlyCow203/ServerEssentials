@@ -27,7 +27,6 @@ public class ModuleManager {
 
     public void setEnabled(String moduleKey, boolean enabled) {
         modules.put(moduleKey.toLowerCase(), enabled);
-        // Persisting would be caller's responsibility via GlobalConfigManager.set(...)
     }
 
     public Map<String, Boolean> snapshot() {

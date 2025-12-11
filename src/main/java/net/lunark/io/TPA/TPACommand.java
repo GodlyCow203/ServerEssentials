@@ -37,7 +37,6 @@ public class TPACommand implements CommandExecutor {
     }
 
     private void loadInitialData() {
-        // Load toggles from database on startup (async)
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
             Bukkit.getOnlinePlayers().forEach(player ->
                     storage.getToggle(player.getUniqueId()).thenAccept(toggle -> {
@@ -57,8 +56,7 @@ public class TPACommand implements CommandExecutor {
 
         String name = cmd.getName().toLowerCase();
 
-        // Check cooldown (async) - FIXED: Proper return handling
-        if (!player.hasPermission("tpa.bypass.cooldown")) {
+        if (!player.hasPermission("serveressentials.command.tpa.bypass.cooldown")) {
             storage.getCooldown(player.getUniqueId()).thenAccept(cooldownTime -> {
                 long now = System.currentTimeMillis();
                 int cd = config.cooldown;
@@ -69,20 +67,27 @@ public class TPACommand implements CommandExecutor {
                             LanguageManager.ComponentPlaceholder.of("{time}", String.valueOf(remaining))
                     );
                     player.sendMessage(msg);
-                    return; // Exit lambda
+                    return;
                 }
-                // If no cooldown, process command
                 processCommand(player, name, args);
             });
-            return true; // Command handled
+            return true;
         }
 
-        // No cooldown check needed, process immediately
         return processCommand(player, name, args);
     }
 
     private boolean processCommand(Player player, String name, String[] args) {
+
+        // Build the permission dynamically
+        String permission = "serveressentials.command." + name.toLowerCase();
+
+        if (!player.hasPermission(permission)) {
+            return true;
+        }
+
         switch (name) {
+
             case "tpa":
                 if (args.length == 0) {
                     player.sendMessage(langManager.getMessageFor(player, "commands.usage.tpa",
@@ -131,6 +136,7 @@ public class TPACommand implements CommandExecutor {
         return true;
     }
 
+
     private void handleTpa(Player sender, String targetName, boolean here) {
         Player target = Bukkit.getPlayer(targetName);
         if (target == null || !target.isOnline()) {
@@ -151,32 +157,26 @@ public class TPACommand implements CommandExecutor {
 
         if (!validateRequest(sender, target)) return;
 
-        // Check economy
         double cost = here ? config.costTpahere : config.costTpa;
         if (cost > 0 && !chargePlayer(sender, cost)) return;
 
-        // Create and save request
         TPARequest request = TPARequest.create(sender.getUniqueId(), target.getUniqueId(), here, cost);
 
         storage.saveRequest(request).thenRun(() -> {
-            // Notify sender
             Component senderMsg = langManager.getMessageFor(sender, here ? "tpa.request-sent-here" : "tpa.request-sent",
                     "<green>TPA request sent to {player}.",
                     LanguageManager.ComponentPlaceholder.of("{player}", target.getName())
             );
             sender.sendMessage(senderMsg);
 
-            // Notify target
             Component targetMsg = langManager.getMessageFor(target, here ? "tpa.request-received-here" : "tpa.request-received",
                     "<green>{player} wants to teleport to you. Use <yellow>/tpaccept {player}</yellow> or <red>/tpdeny {player}</red>",
                     LanguageManager.ComponentPlaceholder.of("{player}", sender.getName())
             );
             target.sendMessage(targetMsg);
 
-            // Start timeout
             startTimeout(request);
 
-            // Set cooldown
             storage.saveCooldown(sender.getUniqueId(), System.currentTimeMillis());
         });
     }
@@ -209,7 +209,6 @@ public class TPACommand implements CommandExecutor {
                 return;
             }
 
-            // Remove request from database
             storage.removeRequest(request.senderId, request.targetId).thenRun(() -> {
                 if (accept) {
                     acceptRequest(request);
@@ -222,7 +221,6 @@ public class TPACommand implements CommandExecutor {
 
     private void handleCancel(Player sender, String targetName) {
         if (targetName == null) {
-            // Cancel all requests FROM this sender
             storage.getActiveRequestsForSender(sender.getUniqueId()).thenAccept(requests -> {
                 if (requests.isEmpty()) {
                     Component msg = langManager.getMessageFor(sender, "tpa.no-requests-sent",
@@ -248,7 +246,6 @@ public class TPACommand implements CommandExecutor {
                 sender.sendMessage(msg);
             });
         } else {
-            // Cancel specific request
             Player target = Bukkit.getPlayer(targetName);
             if (target == null) {
                 Component msg = langManager.getMessageFor(sender, "tpa.no-player",
@@ -325,7 +322,6 @@ public class TPACommand implements CommandExecutor {
                 storage.getActiveRequests(player.getUniqueId()),
                 storage.getActiveRequestsForSender(player.getUniqueId())
         ).thenAccept((result) -> {
-            // This is a bit hacky but works - in real code you'd create a dedicated method
             storage.getActiveRequests(player.getUniqueId()).thenAccept(incoming -> {
                 storage.getActiveRequestsForSender(player.getUniqueId()).thenAccept(outgoing -> {
                     if (incoming.isEmpty() && outgoing.isEmpty()) {
@@ -333,7 +329,6 @@ public class TPACommand implements CommandExecutor {
                                 "<red>You have no pending TPA requests.");
                         player.sendMessage(msg);
                     } else {
-                        // Show incoming requests
                         if (!incoming.isEmpty()) {
                             player.sendMessage(langManager.getMessageFor(player, "tpa.info-incoming-header",
                                     "<gold>Incoming requests:").toString());
@@ -347,7 +342,6 @@ public class TPACommand implements CommandExecutor {
                             });
                         }
 
-                        // Show outgoing requests
                         if (!outgoing.isEmpty()) {
                             player.sendMessage(langManager.getMessageFor(player, "tpa.info-outgoing-header",
                                     "<gold>Outgoing requests:").toString());
@@ -367,7 +361,6 @@ public class TPACommand implements CommandExecutor {
     }
 
     private boolean validateRequest(Player sender, Player target) {
-        // Check toggle
         if (activeToggles.contains(target.getUniqueId())) {
             Component msg = langManager.getMessageFor(sender, "tpa.target-toggled",
                     "<red>{player} has TPA disabled.",
@@ -377,7 +370,6 @@ public class TPACommand implements CommandExecutor {
             return false;
         }
 
-        // Check cross world
         if (!config.crossWorld && !sender.getWorld().equals(target.getWorld())) {
             Component msg = langManager.getMessageFor(sender, "tpa.crossworld-disabled",
                     "<red>Cross-world teleportation is disabled.");
@@ -385,7 +377,6 @@ public class TPACommand implements CommandExecutor {
             return false;
         }
 
-        // Check blocked world
         if (config.blockedWorlds.contains(target.getWorld().getName())) {
             Component msg = langManager.getMessageFor(sender, "tpa.blocked-world",
                     "<red>You cannot teleport to this world.");
@@ -398,9 +389,6 @@ public class TPACommand implements CommandExecutor {
 
     private boolean chargePlayer(Player player, double cost) {
         if (!config.economyEnabled || cost <= 0) return true;
-
-        // Economy check would go here - for now just return true
-        // You need to integrate with your Economy module
         return true;
     }
 
@@ -445,11 +433,9 @@ public class TPACommand implements CommandExecutor {
         Player target = Bukkit.getPlayer(request.targetId);
 
         if (sender == null || target == null) {
-            // Player offline, can't teleport
             return;
         }
 
-        // Notify acceptance
         Component senderMsg = langManager.getMessageFor(sender, "tpa.request-accepted",
                 "<green>{player} accepted your TPA request. Teleporting in {delay}s...",
                 LanguageManager.ComponentPlaceholder.of("{player}", target.getName()),
@@ -463,7 +449,6 @@ public class TPACommand implements CommandExecutor {
         );
         target.sendMessage(targetMsg);
 
-        // Schedule teleport with warmup
         int warmupTicks = config.warmup * 20;
         int delayTicks = config.teleportDelay * 20;
         int totalDelay = warmupTicks + delayTicks;
@@ -481,21 +466,17 @@ public class TPACommand implements CommandExecutor {
                 Player toTeleport = request.here ? target : sender;
                 toTeleport.teleport(loc);
 
-                // Particles
                 if (config.particlesEnabled) {
                     try {
                         org.bukkit.Particle particle = org.bukkit.Particle.valueOf(config.particleType);
                         loc.getWorld().spawnParticle(particle, loc, 50, 1, 1, 1);
                     } catch (Exception ex) {
-                        // Invalid particle type
                     }
                 }
 
-                // Sounds
                 playSound(sender, config.soundTeleport);
                 playSound(target, config.soundTeleport);
 
-                // Clear warmup
                 listener.unregisterWarmupTask(sender.getUniqueId());
 
             } catch (Exception ex) {
@@ -526,9 +507,7 @@ public class TPACommand implements CommandExecutor {
             playSound(target, config.soundDeny);
         }
 
-        // Refund if economy enabled
         if (config.economyEnabled && request.cost > 0) {
-            // Refund logic here
         }
     }
 
@@ -537,7 +516,6 @@ public class TPACommand implements CommandExecutor {
             org.bukkit.Sound sound = org.bukkit.Sound.valueOf(soundName);
             player.playSound(player.getLocation(), sound, 1f, 1f);
         } catch (Exception ex) {
-            // Invalid sound
         }
     }
 }

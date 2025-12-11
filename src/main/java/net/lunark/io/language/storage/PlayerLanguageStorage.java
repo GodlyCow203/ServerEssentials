@@ -32,7 +32,6 @@ public interface PlayerLanguageStorage {
 
             try {
                 Map<String, String> data = new HashMap<>();
-                // Load YAML using Bukkit's YAMLConfiguration for consistency
                 org.bukkit.configuration.file.YamlConfiguration yaml =
                         org.bukkit.configuration.file.YamlConfiguration.loadConfiguration(file);
 

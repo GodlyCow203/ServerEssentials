@@ -32,7 +32,7 @@ public class ServerEssentialsPlaceholder extends PlaceholderExpansion {
 
     @Override
     public @NotNull String getVersion() {
-        return "1.11";
+        return "2.0.7";
     }
 
     @Override

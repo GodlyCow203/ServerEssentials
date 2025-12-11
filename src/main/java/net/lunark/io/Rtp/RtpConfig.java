@@ -22,7 +22,6 @@ public class RtpConfig {
 
     public void reload() {
         plugin.reloadConfig();
-        // Re-load any values here if needed
     }
 
     public void load() {

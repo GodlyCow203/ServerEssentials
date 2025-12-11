@@ -14,8 +14,7 @@ public class ReportConfig {
     public ReportConfig(Plugin plugin) {
         this.plugin = plugin;
 
-        // Add defaults to config.yml
-        plugin.getConfig().addDefault("reports.cooldown", 60);
+         plugin.getConfig().addDefault("reports.cooldown", 60);
         plugin.getConfig().addDefault("reports.max-reason-length", 200);
         plugin.getConfig().addDefault("reports.auto-clear-after-days", 7);
         plugin.getConfig().addDefault("reports.notify-online-only", false);

@@ -1,4 +1,8 @@
 package net.lunark.io.commands.config;
 
-public class FireballConfig {
+import org.bukkit.plugin.Plugin;
+
+public final class FireballConfig {
+    public FireballConfig(Plugin plugin) {
+    }
 }

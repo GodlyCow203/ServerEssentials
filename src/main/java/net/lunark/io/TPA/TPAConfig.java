@@ -5,7 +5,6 @@ import org.bukkit.plugin.Plugin;
 public class TPAConfig {
     private final Plugin plugin;
 
-    // Settings
     public final int cooldown;
     public final int timeout;
     public final int warmup;
@@ -13,7 +12,6 @@ public class TPAConfig {
     public final boolean cancelOnMove;
     public final boolean blockMoveThresholdBlocks;
 
-    // Notifications
     public final boolean chatEnabled;
     public final boolean actionbarEnabled;
     public final boolean bossbarEnabled;
@@ -22,11 +20,9 @@ public class TPAConfig {
     public final int bossbarDuration;
     public final boolean titleEnabled;
 
-    // Restrictions
     public final boolean crossWorld;
     public final java.util.List<String> blockedWorlds;
 
-    // Economy
     public final boolean economyEnabled;
     public final double costTpa;
     public final double costTpahere;
@@ -34,7 +30,6 @@ public class TPAConfig {
     public final boolean refundOnDeny;
     public final boolean refundOnExpire;
 
-    // Particles & Sounds
     public final boolean particlesEnabled;
     public final String particleType;
     public final String soundRequest;
@@ -46,7 +41,6 @@ public class TPAConfig {
         this.plugin = plugin;
 
 
-        // Load all values with defaults
         cooldown = getInt("settings.cooldown", 5);
         timeout = getInt("settings.timeout", 60);
         warmup = getInt("settings.warmup", 0);

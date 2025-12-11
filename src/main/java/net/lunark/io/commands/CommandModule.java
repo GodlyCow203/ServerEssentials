@@ -7,15 +7,11 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
-/**
- * Base class for commands that need persistent state
- * Extend this for commands like /fly, /god, /vanish, etc.
- */
+
 public abstract class CommandModule {
-    protected final CommandDataStorage storage; // ✅ Field type
+    protected final CommandDataStorage storage;
     protected final PlayerLanguageManager langManager;
 
-    // ✅ Constructor parameter MUST match field type
     public CommandModule(CommandDataStorage storage, PlayerLanguageManager langManager) {
         this.storage = storage;
         this.langManager = langManager;

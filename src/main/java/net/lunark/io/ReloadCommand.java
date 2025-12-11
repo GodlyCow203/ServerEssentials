@@ -17,7 +17,7 @@ public class ReloadCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!sender.hasPermission("serveressentials.sereload") && !sender.isOp()) {
+        if (!sender.hasPermission("serveressentials.command.sereload") && !sender.isOp()) {
             sender.sendMessage("§cYou don't have permission to use this command.");
             return true;
         }

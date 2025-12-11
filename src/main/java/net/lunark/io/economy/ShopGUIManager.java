@@ -31,6 +31,9 @@ public class ShopGUIManager {
     private final Map<UUID, Integer> currentPage = new ConcurrentHashMap<>();
     private final Map<UUID, Long> clickCooldowns = new ConcurrentHashMap<>();
 
+    // NEW: Track players viewing the main shop GUI
+    private final Set<UUID> mainGUIOpen = ConcurrentHashMap.newKeySet();
+
     public ShopGUIManager(Plugin plugin, PlayerLanguageManager langManager,
                           ShopStorage storage, ShopConfig config, ServerEssentialsEconomy economy) {
         this.plugin = plugin;
@@ -68,11 +71,10 @@ public class ShopGUIManager {
         inv.setItem(config.closeButtonSlot, close);
 
         player.openInventory(inv);
-        openSection.remove(player.getUniqueId());
-    }
 
-    public void openSectionGUI(Player player, String fileName) {
-        openSectionGUI(player, fileName, 1);
+        // Track main GUI, clear section tracking
+        openSection.remove(player.getUniqueId());
+        mainGUIOpen.add(player.getUniqueId());
     }
 
     public void openSectionGUI(Player player, String fileName, int page) {
@@ -127,8 +129,11 @@ public class ShopGUIManager {
         }
 
         player.openInventory(inv);
+
+        // Track section GUI, clear main GUI tracking
         openSection.put(player.getUniqueId(), fileName);
         currentPage.put(player.getUniqueId(), page);
+        mainGUIOpen.remove(player.getUniqueId());
 
         storage.setPlayerSection(player.getUniqueId(), fileName);
         storage.setPlayerPage(player.getUniqueId(), page);
@@ -271,6 +276,17 @@ public class ShopGUIManager {
                 }
             }
         });
+    }
+
+    public boolean isShopGUIOpen(UUID playerUuid) {
+        return mainGUIOpen.contains(playerUuid) || openSection.containsKey(playerUuid);
+    }
+
+    public void cleanupPlayer(UUID playerUuid) {
+        openSection.remove(playerUuid);
+        currentPage.remove(playerUuid);
+        mainGUIOpen.remove(playerUuid);
+        clickCooldowns.remove(playerUuid);
     }
 
     private void removeItems(Player player, Material material, int amount) {

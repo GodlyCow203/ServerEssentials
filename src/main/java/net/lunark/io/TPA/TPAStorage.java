@@ -21,9 +21,9 @@ public class TPAStorage {
 
     private void initTables() {
         String sql = "CREATE TABLE IF NOT EXISTS tpa_data (" +
-                "type TEXT, " + // 'cooldown', 'toggle'
+                "type TEXT, " +
                 "player_uuid TEXT, " +
-                "target_uuid TEXT, " + // for requests
+                "target_uuid TEXT, " +
                 "data TEXT, " +
                 "timestamp BIGINT, " +
                 "PRIMARY KEY (type, player_uuid, target_uuid))";
@@ -34,7 +34,6 @@ public class TPAStorage {
         });
     }
 
-    // Cooldown operations
     public CompletableFuture<Void> saveCooldown(UUID playerId, long timestamp) {
         String sql = "INSERT OR REPLACE INTO tpa_data (type, player_uuid, data, timestamp) VALUES (?, ?, ?, ?)";
         return dbManager.executeUpdate(poolKey, sql, "cooldown", playerId.toString(), null, timestamp);
@@ -47,7 +46,6 @@ public class TPAStorage {
                 .thenApply(opt -> opt.orElse(0L));
     }
 
-    // Toggle operations
     public CompletableFuture<Void> setToggle(UUID playerId, boolean enabled) {
         String sql = "INSERT OR REPLACE INTO tpa_data (type, player_uuid, data) VALUES (?, ?, ?)";
         return dbManager.executeUpdate(poolKey, sql, "toggle", playerId.toString(), String.valueOf(enabled));
@@ -60,7 +58,6 @@ public class TPAStorage {
                 .thenApply(opt -> opt.orElse(false));
     }
 
-    // Active request storage
     public CompletableFuture<Void> saveRequest(TPARequest request) {
         String sql = "INSERT OR REPLACE INTO tpa_data (type, player_uuid, target_uuid, data, timestamp) VALUES (?, ?, ?, ?, ?)";
         String data = request.here + ":" + request.cost;

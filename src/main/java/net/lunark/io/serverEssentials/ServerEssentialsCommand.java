@@ -70,9 +70,6 @@ public class ServerEssentialsCommand implements CommandExecutor, TabCompleter {
     }
 
 
-    /* ----------------------------------------------
-     *                COMMAND HANDLERS
-     * ---------------------------------------------- */
 
     private void sendHelp(CommandSender sender) {
         sendTitle(sender, "Command Overview");
@@ -131,9 +128,6 @@ public class ServerEssentialsCommand implements CommandExecutor, TabCompleter {
     }
 
 
-    /* ----------------------------------------------
-     *              SIMPLE RELOAD (CLEAN)
-     * ---------------------------------------------- */
 
     private void reloadPlugin(CommandSender sender) {
         if (!(plugin instanceof ServerEssentials)) {
@@ -153,9 +147,6 @@ public class ServerEssentialsCommand implements CommandExecutor, TabCompleter {
     }
 
 
-    /* ----------------------------------------------
-     *               UTIL FUNCTIONS
-     * ---------------------------------------------- */
 
     private void sendTitle(CommandSender sender, String title) {
         sender.sendMessage("");

@@ -37,7 +37,7 @@ public class DailyCommand implements CommandExecutor {
             return true;
         }
 
-        if (!player.hasPermission("serveressentials.daily")) {
+        if (!player.hasPermission("serveressentials.command.daily")) {
             Component message = langManager.getMessageFor(player, "daily.command.no-permission",
                     "<red>You need permission <yellow>{permission}</yellow>!",
                     LanguageManager.ComponentPlaceholder.of("{permission}", "serveressentials.daily"));

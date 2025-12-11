@@ -18,7 +18,6 @@ public class TPARequest {
         this.timestamp = timestamp;
     }
 
-    // For new requests
     public static TPARequest create(UUID senderId, UUID targetId, boolean here, double cost) {
         return new TPARequest(senderId, targetId, here, cost, System.currentTimeMillis());
     }

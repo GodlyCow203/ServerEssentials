@@ -1,18 +1,18 @@
 rules:
-  - text: "<#FF3B3B><bold>No Griefing or Theft</bold></#FF3B3B><gray> — Respect all players’ builds, items, and personal space. Any form of destruction or stealing is strictly forbidden.</gray>"
+  - text: "<#FF3B3B><bold>No Griefing</bold></#FF3B3B><gray> — <white>Respect all players’ builds, items, and personal space. Any form of destruction or stealing is strictly forbidden.</gray>"
     slot: 10
 
-  - text: "<#FFD93B><bold>Respectful Communication</bold></#FFD93B><gray> — Keep chat friendly and mature. Avoid harassment, arguments, spam, or inappropriate language.</gray>"
+  - text: "<#FFD93B><bold>Respectful Communication</bold></#FFD93B><gray> — <white>Keep chat friendly and mature. Avoid harassment, arguments, spam, or inappropriate language.</gray>"
     slot: 12
 
-  - text: "<#4DFF4D><bold>No Cheats, Hacks, or Exploits</bold></#4DFF4D><gray> — All players are expected to play fairly. Unauthorized modifications or abuse of glitches are not allowed.</gray>"
+  - text: "<#4DFF4D><bold>No Cheats or Hacks</bold></#4DFF4D><gray> — <white>All players are expected to play fairly. Unauthorized modifications or abuse of glitches are not allowed.</gray>"
     slot: 14
 
-  - text: "<#4DA3FF><bold>Build Responsibly</bold></#4DA3FF><gray> — Build freely, but do not create lag machines, crash devices, or excessive redstone that harms server stability.</gray>"
+  - text: "<#4DA3FF><bold>Build Responsibly</bold></#4DA3FF><gray> — <white>Build freely, but do not create lag machines, crash devices, or excessive redstone that harms server stability.</gray>"
     slot: 16
 
-  - text: "<#C04DFF><bold>Report Bugs & Issues</bold></#C04DFF><gray> — If you discover server problems, glitches, or exploits, please report them to staff as soon as possible.</gray>"
+  - text: "<#C04DFF><bold>Report Bugs</bold></#C04DFF><gray> — <white>If you discover server problems, glitches, or exploits, please report them to staff as soon as possible.</gray>"
     slot: 28
 
-  - text: "<#FFB84D><bold>Enjoy the Server</bold></#FFB84D><gray> — Contribute positively to the community, help others when possible, and have a great time on the server.</gray>"
+  - text: "<#FFB84D><bold>Enjoy the Server</bold></#FFB84D><gray> — <white>Contribute positively to the community, help others when possible, and have a great time on the server.</gray>"
     slot: 34

@@ -35,17 +35,15 @@ public class RtpCommand implements CommandExecutor {
             return true;
         }
 
-        // Permission check
-        if (!player.hasPermission("rtp.use")) {
+        if (!player.hasPermission("serveressentials.command.rtp")) {
             player.sendMessage(langManager.getMessageFor(player, "commands.no_permission",
                     "You don't have permission!",
                     LanguageManager.ComponentPlaceholder.of("{permission}", "rtp.use")));
             return true;
         }
 
-        // Reload command
         if (args.length == 1 && args[0].equalsIgnoreCase("reload")) {
-            if (!player.hasPermission("rtp.reload")) {
+            if (!player.hasPermission("serveressentials.command.rtp.reload")) {
                 player.sendMessage(langManager.getMessageFor(player, "commands.no_permission",
                         "You don't have permission!",
                         LanguageManager.ComponentPlaceholder.of("{permission}", "rtp.reload")));
@@ -66,17 +64,15 @@ public class RtpCommand implements CommandExecutor {
         Component title = langManager.getMessageFor(player, "rtp.gui.title", "<green>RTP Menu");
         Inventory gui = Bukkit.createInventory(null, 9, title);
 
-        // Overworld
         gui.setItem(2, createGuiItem(Material.GRASS_BLOCK,
                 langManager.getMessageFor(player, "rtp.gui.overworld.name", "Overworld"),
                 langManager.getMessageList(player, "rtp.gui.overworld.lore")));
 
-        // Nether
+
         gui.setItem(4, createGuiItem(Material.NETHERRACK,
                 langManager.getMessageFor(player, "rtp.gui.nether.name", "Nether"),
                 langManager.getMessageList(player, "rtp.gui.nether.lore")));
 
-        // End
         gui.setItem(6, createGuiItem(Material.END_STONE,
                 langManager.getMessageFor(player, "rtp.gui.end.name", "The End"),
                 langManager.getMessageList(player, "rtp.gui.end.lore")));

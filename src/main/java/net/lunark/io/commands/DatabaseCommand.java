@@ -22,7 +22,6 @@ public class DatabaseCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         Map<String, DatabaseManager.DatabaseStatus> statusMap = databaseManager.getAllStatus();
 
-        // Header
         Component header = languageManager.getComponent("database.header",
                 "<dark_aqua>╔════════════════════════════════════╗");
         Component title = languageManager.getComponent("database.title",
@@ -39,7 +38,6 @@ public class DatabaseCommand implements CommandExecutor {
                     "<red>No databases configured!");
             sender.sendMessage(none);
         } else {
-            // Show each pool with status
             statusMap.forEach((key, status) -> {
                 String statusColor = status.connected() ? "<#32E800>" : "<#FF0000>";
                 String enabledText = status.connected() ? "CONNECTED" : "ERROR";
@@ -55,13 +53,11 @@ public class DatabaseCommand implements CommandExecutor {
                 sender.sendMessage(entry);
             });
 
-            // Optional: Show kit-specific stats if requested
             if (args.length > 0 && args[0].equalsIgnoreCase("kits")) {
                 showKitStats(sender);
             }
         }
 
-        // Footer
         Component footer = languageManager.getComponent("database.footer",
                 "<dark_aqua>╚════════════════════════════════════╝");
         sender.sendMessage(footer);
@@ -73,9 +69,5 @@ public class DatabaseCommand implements CommandExecutor {
         Component kitTitle = languageManager.getComponent("database.kit-stats",
                 "<gold>Kit Database Stats:</gold> <gray>Table: kit_claims</gray>");
         sender.sendMessage(kitTitle);
-
-        // You could query the kit_claims table here if needed
-        // Example: get total claims count
-
     }
 }

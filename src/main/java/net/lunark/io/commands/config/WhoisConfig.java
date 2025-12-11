@@ -1,4 +1,8 @@
 package net.lunark.io.commands.config;
 
-public class WhoisCommand {
+import org.bukkit.plugin.Plugin;
+
+public final class WhoisConfig {
+    public WhoisConfig(Plugin plugin) {
+    }
 }

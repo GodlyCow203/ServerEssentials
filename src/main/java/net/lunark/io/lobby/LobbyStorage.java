@@ -1,87 +1,107 @@
 package net.lunark.io.lobby;
 
+import net.lunark.io.database.DatabaseManager;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
-import net.lunark.io.ServerEssentials;
-
-import java.io.File;
+import org.bukkit.World;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.util.io.BukkitObjectInputStream;
+import org.bukkit.util.io.BukkitObjectOutputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Base64;
+import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 public class LobbyStorage {
+    private final DatabaseManager dbManager;
+    private final String poolKey = "lobby";
+    private final Plugin plugin;
 
-    private static File file;
-    private static FileConfiguration config;
-    private static Map<String, Location> worldLobbies = new HashMap<>();
-    private static Location globalLobby;
-
-    public static void setup() {
-        File storageFolder = new File(ServerEssentials.getInstance().getDataFolder(), "storage");
-        if (!storageFolder.exists()) storageFolder.mkdirs();
-
-        file = new File(storageFolder, "lobby.yml");
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        config = YamlConfiguration.loadConfiguration(file);
-
-        globalLobby = config.getLocation("global");
-
-        if (config.isConfigurationSection("worlds")) {
-            for (String world : config.getConfigurationSection("worlds").getKeys(false)) {
-                Location loc = config.getLocation("worlds." + world);
-                if (loc != null) worldLobbies.put(world, loc);
-            }
-        }
+    public LobbyStorage(Plugin plugin, DatabaseManager dbManager) {
+        this.plugin = plugin;
+        this.dbManager = dbManager;
+        initTable();
     }
 
-    public static void setLobby(Location location) {
-        globalLobby = location;
-        config.set("global", location);
-        save();
+    private void initTable() {
+        String sql = "CREATE TABLE IF NOT EXISTS lobby_locations (" +
+                "world TEXT PRIMARY KEY, " +
+                "location_data TEXT NOT NULL)";
+        dbManager.executeUpdate(poolKey, sql);
     }
 
-    public static void setWorldLobby(String world, Location location) {
-        worldLobbies.put(world, location);
-        config.set("worlds." + world, location);
-        save();
+    public CompletableFuture<Void> setLobby(Location location) {
+        return setWorldLobby("global", location);
     }
 
-    public static Location getLobby(String world) {
-        if (LobbyConfig.isPerWorld()) {
-            return worldLobbies.getOrDefault(world, globalLobby);
-        } else {
-            return globalLobby;
-        }
+    public CompletableFuture<Void> setWorldLobby(String world, Location location) {
+        String sql = "INSERT OR REPLACE INTO lobby_locations VALUES (?, ?)";
+        String serialized = serializeLocation(location);
+        return dbManager.executeUpdate(poolKey, sql, world, serialized);
     }
 
-    public static void removeLobby(String world) {
+    public CompletableFuture<Optional<Location>> getLobby(String world) {
         if (world == null) {
-            globalLobby = null;
-            config.set("global", null);
-        } else {
-            worldLobbies.remove(world);
-            config.set("worlds." + world, null);
+            return getGlobalLobby();
         }
-        save();
+
+        return getWorldLobby(world).thenCompose(opt -> {
+            if (opt.isPresent()) {
+                return CompletableFuture.completedFuture(opt);
+            }
+            return getGlobalLobby();
+        });
     }
 
-    public static boolean hasLobby(String world) {
-        return getLobby(world) != null;
+    private CompletableFuture<Optional<Location>> getGlobalLobby() {
+        return getWorldLobby("global");
     }
 
-    private static void save() {
-        try {
-            config.save(file);
+    private CompletableFuture<Optional<Location>> getWorldLobby(String world) {
+        String sql = "SELECT location_data FROM lobby_locations WHERE world = ?";
+        return dbManager.executeQuery(poolKey, sql,
+                rs -> rs.next() ? deserializeLocation(rs.getString("location_data")) : null,
+                world);
+    }
+
+    public CompletableFuture<Void> removeLobby(String world) {
+        if (world == null) {
+            return removeGlobalLobby();
+        }
+        String sql = "DELETE FROM lobby_locations WHERE world = ?";
+        return dbManager.executeUpdate(poolKey, sql, world);
+    }
+
+    private CompletableFuture<Void> removeGlobalLobby() {
+        String sql = "DELETE FROM lobby_locations WHERE world = ?";
+        return dbManager.executeUpdate(poolKey, sql, "global");
+    }
+
+    public CompletableFuture<Boolean> hasLobby(String world) {
+        return getLobby(world).thenApply(Optional::isPresent);
+    }
+
+    private String serializeLocation(Location loc) {
+        try (ByteArrayOutputStream baos = new ByteArrayOutputStream();
+             BukkitObjectOutputStream boos = new BukkitObjectOutputStream(baos)) {
+            boos.writeObject(loc);
+            return Base64.getEncoder().encodeToString(baos.toByteArray());
         } catch (IOException e) {
-            e.printStackTrace();
+            plugin.getLogger().severe("Failed to serialize location: " + e.getMessage());
+            return "";
+        }
+    }
+
+    private Location deserializeLocation(String data) {
+        if (data == null || data.isEmpty()) return null;
+        try (ByteArrayInputStream bais = new ByteArrayInputStream(Base64.getDecoder().decode(data));
+             BukkitObjectInputStream bois = new BukkitObjectInputStream(bais)) {
+            return (Location) bois.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            plugin.getLogger().severe("Failed to deserialize location: " + e.getMessage());
+            return null;
         }
     }
 }

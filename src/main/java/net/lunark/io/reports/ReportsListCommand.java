@@ -23,7 +23,7 @@ public class ReportsListCommand implements CommandExecutor {
         this.plugin = plugin;
         this.langManager = langManager;
         this.storage = storage;
-        this.audiences = BukkitAudiences.create(plugin); // REQUIRED FOR MINIMESSAGE SUPPORT
+        this.audiences = BukkitAudiences.create(plugin);
     }
 
     private Audience audience(CommandSender sender) {
@@ -40,22 +40,19 @@ public class ReportsListCommand implements CommandExecutor {
         Audience audience = audience(sender);
         Player player = getPlayerOrNull(sender);
 
-        // NO PERMISSION
-        if (!sender.hasPermission("serveressentials.report.admin")) {
+        if (!sender.hasPermission("serveressentials.commandreport.*")) {
             Component msg = langManager.getMessageFor(
                     player,
                     "commands.no-permission",
                     "<red>You need permission <yellow>{permission}</yellow>!",
-                    LanguageManager.ComponentPlaceholder.of("{permission}", "serveressentials.report.admin")
+                    LanguageManager.ComponentPlaceholder.of("{permission}", "serveressentials.command.report.*")
             );
             audience.sendMessage(msg);
             return true;
         }
 
-        // FETCH REPORTS ASYNC
         storage.getAllReports().thenAccept(reports -> {
 
-            // NONE FOUND
             if (reports.isEmpty()) {
                 Component msg = langManager.getMessageFor(
                         player,
@@ -66,7 +63,6 @@ public class ReportsListCommand implements CommandExecutor {
                 return;
             }
 
-            // HEADER
             Component header = langManager.getMessageFor(
                     player,
                     "reports.list.header",
@@ -74,7 +70,6 @@ public class ReportsListCommand implements CommandExecutor {
             );
             audience.sendMessage(header);
 
-            // EACH REPORT
             for (Report report : reports) {
 
                 String reporterName = Bukkit.getOfflinePlayer(report.reporterId()).getName();
@@ -93,7 +88,6 @@ public class ReportsListCommand implements CommandExecutor {
                 audience.sendMessage(entry);
             }
 
-            // FOOTER
             Component footer = langManager.getMessageFor(
                     player,
                     "reports.list.footer",

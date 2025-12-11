@@ -5,7 +5,6 @@ package net.lunark.io;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 
-import net.lunark.io.Fun.*;
 import net.lunark.io.Managers.*;
 import net.lunark.io.PlaceholderAPI.ServerEssentialsPlaceholder;
 import net.lunark.io.PlaceholderAPI.TopPlaytimePlaceholder;
@@ -23,6 +22,8 @@ import net.lunark.io.auction.*;
 import net.lunark.io.back.BackDataStorage;
 import net.lunark.io.back.BackListener;
 import net.lunark.io.back.BackManager;
+import net.lunark.io.ban.BanListener;
+import net.lunark.io.ban.BanStorage;
 import net.lunark.io.commands.CommandDataStorage;
 import net.lunark.io.commands.DatabaseCommand;
 import net.lunark.io.commands.LanguageCommand;
@@ -31,10 +32,10 @@ import net.lunark.io.database.DatabaseConfig;
 import net.lunark.io.database.DatabaseManager;
 import net.lunark.io.database.DatabaseType;
 import net.lunark.io.economy.*;
-import net.lunark.io.homes.HomeListener;
+
+import net.lunark.io.homes.HomeGUIListener;
 import net.lunark.io.homes.HomeManager;
-import net.lunark.io.homes.HomesGUI;
-import net.lunark.io.interaction_blocks.*;
+import net.lunark.io.homes.HomeStorage;
 import net.lunark.io.kit.*;
 import net.lunark.io.kit.storage.KitStorage;
 import net.lunark.io.commands.impl.*;
@@ -43,14 +44,15 @@ import net.lunark.io.language.LanguageManager;
 import net.lunark.io.language.PlayerLanguageManager;
 import net.lunark.io.language.storage.PlayerLanguageStorage;
 import net.lunark.io.listeners.*;
-import net.lunark.io.lobby.*;
+import net.lunark.io.lobby.LobbyListener;
+import net.lunark.io.lobby.LobbyStorage;
 import net.lunark.io.mail.MailCommand;
 import net.lunark.io.mail.MailConfig;
 import net.lunark.io.mail.MailListener;
 import net.lunark.io.mail.MailStorage;
+import net.lunark.io.mute.MuteStorage;
 import net.lunark.io.nick.NickManager;
 import net.lunark.io.notes.NotesStorage;
-import net.lunark.io.pw.WarpStorage;
 import net.lunark.io.reports.*;
 import net.lunark.io.rules.RulesGUI;
 import net.lunark.io.rules.RulesListener;
@@ -59,14 +61,11 @@ import net.lunark.io.rules.RulesStorage;
 import net.lunark.io.scoreboard.ScoreboardListener;
 import net.lunark.io.scoreboard.ScoreboardStorage;
 import net.lunark.io.scoreboard.ScoreboardUpdater;
-import net.lunark.io.server.*;
 import net.lunark.io.serverEssentials.ServerEssentialsCommand;
 import net.lunark.io.serverEssentials.VersionChecker;
 import net.lunark.io.daily.*;
-import net.lunark.io.staff.*;
 import net.lunark.io.util.*;
 import net.lunark.io.utility.EditSignCommand;
-import net.lunark.io.utility.FuckCommand;
 import net.lunark.io.utility.ToggleFlyCommand;
 import net.lunark.io.warp.WarpCommand;
 import net.lunark.io.warp.WarpManager;
@@ -79,7 +78,6 @@ import org.bukkit.Location;
 import org.bukkit.command.*;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
@@ -100,10 +98,8 @@ import java.util.regex.Pattern;
 public class ServerEssentials extends JavaPlugin implements Listener {
 
     private static ServerEssentials instance;
-    BanManager banManager = new BanManager(this);
     private long startTime;
-    private LockdownCommand lockdownCommand;
-    private String originalMotd;
+    private long serverStartTime;
     private final HashMap<UUID, UUID> lastMessageMap = new HashMap<>();
     private final HashMap<UUID, BukkitRunnable> jailReleaseTasks = new HashMap<>();
     private Location releaseLocation;
@@ -113,7 +109,6 @@ public class ServerEssentials extends JavaPlugin implements Listener {
     private FileConfiguration starterMoneyConfig;
     private PlaytimeManager PlaytimeManager;
     private GUIConfig guiConfig;
-    private WarpStorage warpStorage;
     private File pwFile;
     private FileConfiguration pwConfig;
     private BukkitAudiences adventure;
@@ -123,17 +118,10 @@ public class ServerEssentials extends JavaPlugin implements Listener {
     private AuctionGUIListener guiManager;
     private Economy vaultEconomy;
     private MessagesManager messagesManager;
-    private PlayerMessages playerMessages;
     private static final int BSTATS_PLUGIN_ID = 27221;
-    private ServerMessages serverMessages;
-    private KillTracker killTracker;
     private List<String> reloadedItems = new ArrayList<>();
     private VaultMessages vaultMessages;
     private VaultManager vaultManager;
-    private HomeManager homeManager;
-    private HomeMessages messages;
-    private HomesGUI homesGUI;
-    private HomeListener homeListener;
     private WarpManager warpManager;
     private WarpMessages warpMessages;
     private FileConfiguration placeholdersConfig;
@@ -222,8 +210,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
     private TrackConfig trackConfig;
     private SuicideConfig suicideConfig;
     private SuicideCommand suicideCommand;
-    private KillConfig killConfig;
-    private KillCommand killCommand;
+
     private BottomConfig bottomConfig;
     private BottomCommand bottomCommand;
     private CondenseConfig condenseConfig;
@@ -313,11 +300,125 @@ public class ServerEssentials extends JavaPlugin implements Listener {
     private CoinFlipConfig coinFlipConfig;
     private CoinFlipCommand coinFlipCommand;
     private ShopConfig shopConfig;
+    private PowerToolConfig powerToolConfig;
+    private PowerToolCommand powerToolCommand;
+    private GravityConfig gravityConfig;
+    private GravityCommand gravityCommand;
+    private ThunderConfig thunderConfig;
+    private ThunderCommand thunderCommand;
+    private CelebrateConfig celebrateConfig;
+    private CelebrateCommand celebrateCommand;
+    private FireballConfig fireballConfig;
+    private FireballCommand fireballCommand;
+    private FakeopConfig fakeopConfig;
+    private FakeopCommand fakeopCommand;
+    private WhoisConfig whoisConfig;
+    private WhoisCommand whoisCommand;
+    private KittyCannonConfig kittycannonConfig;
+    private KittyCannonCommand kittycannonCommand;
+    private ExplosionConfig explosionConfig;
+    private ExplosionCommand explosionCommand;
+    private CanonConfig canonConfig;
+    private CanonCommand canonCommand;
+    private LightningConfig lightningConfig;
+    private LightningCommand lightningCommand;
+    private SwapConfig swapConfig;
+    private SwapCommand swapCommand;
+    private BeezookaConfig beezookaConfig;
+    private BeezookaCommand beezookaCommand;
+    private GlowConfig glowConfig;
+    private GlowCommand glowCommand;
+    private HomesConfig homesConfig;
+    private HomeStorage homeStorage;
+    private HomeManager homeManager;
+    private HomeGUIListener homeGUIListener;
+    private HomeCommand homeCommand;
+    private LoomConfig loomConfig;
+    private LoomCommand loomCommand;
+    private StonecutterConfig stonecutterConfig;
+    private StonecutterCommand stonecutterCommand;
+    private GrindstoneConfig grindstoneConfig;
+    private GrindstoneCommand grindstoneCommand;
+    private CartographyTableConfig cartographyTableConfig;
+    private CartographyTableCommand cartographyTableCommand;
+    private AnvilConfig anvilConfig;
+    private AnvilCommand anvilCommand;
+    private CraftingTableConfig craftingTableConfig;
+    private CraftingTableCommand craftingTableCommand;
+    private SmithingTableConfig smithingTableConfig;
+    private SmithingTableCommand smithingTableCommand;
+    private LobbyConfig lobbyConfig;
+    private LobbyStorage lobbyStorage;
+    private LobbyCommand lobbyCommand;
+    private LobbyListener lobbyListener;
+    private BroadcastConfig broadcastConfig;
+    private BroadcastCommand broadcastCommand;
+    private RebootConfig rebootConfig;
+    private RebootCommand rebootCommand;
+    private BroadcastWorldConfig broadcastWorldConfig;
+    private BroadcastWorldCommand broadcastWorldCommand;
+    private SpawnerConfig spawnerConfig;
+    private SpawnerCommand spawnerCommand;
+    private ServerInfoConfig serverInfoConfig;
+    private ServerInfoCommand serverInfoCommand;
+    private UnloadWorldConfig unloadWorldConfig;
+    private UnloadWorldCommand unloadWorldCommand;
+    private UptimeConfig uptimeConfig;
+    private UptimeCommand uptimeCommand;
+    private LoadWorldConfig loadWorldConfig;
+    private LoadWorldCommand loadWorldCommand;
+    private WorldListConfig worldListConfig;
+    private WorldListCommand worldListCommand;
+    private PlayerInfoConfig playerInfoConfig;
+    private PlayerInfoCommand playerInfoCommand;
 
+    private BanConfig banConfig;
+    private BanStorage banStorage;
+    private BanCommand banCommand;
+    private BanListCommand banListCommand;
+    private BanListener banListener;
+    private UnbanCommand unbanCommand;
+    private HealConfig healConfig;
+    private HealCommand healCommand;
+    private EnderSeeConfig enderSeeConfig;
+    private EnderSeeCommand enderSeeCommand;
+    private FreezeConfig freezeConfig;
+    private FreezeCommand freezeCommand;
+    private UnfreezeConfig unfreezeConfig;
+    private UnfreezeCommand unfreezeCommand;
+    private AdminChatConfig adminChatConfig;
+    private AdminChatCommand adminChatCommand;
+    private ClearChatConfig clearChatConfig;
+    private ClearChatCommand clearChatCommand;
+    private VanishConfig vanishConfig;
+    private VanishCommand vanishCommand;
+    private GodConfig godConfig;
+    private GodCommand godCommand;
+    private InvseeConfig invseeConfig;
+    private InvseeCommand invseeCommand;
+    private InvClearConfig invClearConfig;
+    private InvClearCommand invClearCommand;
+    private TpConfig tpConfig;
+    private TpCommand tpCommand;
+    private KickAllConfig kickAllConfig;
+    private KickAllCommand kickAllCommand;
+    private PingAllConfig pingAllConfig;
+    private PingAllCommand pingAllCommand;
+    private MuteConfig muteConfig;
+    private MuteStorage muteStorage;
+    private MuteCommand muteCommand;
+    private UnmuteCommand unmuteCommand;
+    private MuteListener muteListener;
+    private AltsConfig altsConfig;
+    private AltsCommand altsCommand;
+    private StaffListConfig staffListConfig;
+    private StaffListCommand staffListCommand;
 
     @Override
     public void onEnable() {
         long start = System.currentTimeMillis();
+        serverStartTime = System.currentTimeMillis();
+
         saveDefaultConfig();
         saveResourceFolder("shop");
         instance = this;
@@ -371,6 +472,13 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         initializeSessionSystem();
         initializeAuctionSystem();
         initializeSellGuiSystem();
+        initializeHomesSystem();
+        initializeLobbySystem();
+        initializeBanSystem();
+        initializeMuteSystem();
+
+
+
 
 
 
@@ -416,8 +524,6 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         this.suicideConfig = new SuicideConfig(this);
         this.suicideCommand = new SuicideCommand(playerLanguageManager, suicideConfig, commandDataStorage);
 
-        this.killConfig = new KillConfig(this);
-        this.killCommand = new KillCommand(playerLanguageManager, killConfig, killTracker, commandDataStorage);
 
         this.bottomConfig = new BottomConfig(this);
         this.bottomCommand = new BottomCommand(playerLanguageManager, bottomConfig, commandDataStorage);
@@ -530,8 +636,119 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         shopConfig = new ShopConfig(this);
         shopCommand = new ShopCommand(this, playerLanguageManager, databaseManager, shopConfig, (ServerEssentialsEconomy) economy);
 
+        this.powerToolConfig = new PowerToolConfig(this);
+        this.powerToolCommand = new PowerToolCommand(playerLanguageManager, powerToolConfig, commandDataStorage, this);
+        this.gravityConfig = new GravityConfig(this);
 
+        this.gravityCommand = new GravityCommand(playerLanguageManager, gravityConfig, commandDataStorage);
 
+        this.thunderConfig = new ThunderConfig(this);
+        this.thunderCommand = new ThunderCommand(playerLanguageManager, thunderConfig, commandDataStorage);
+        this.celebrateConfig = new CelebrateConfig(this);
+        this.celebrateCommand = new CelebrateCommand(playerLanguageManager, celebrateConfig, commandDataStorage, this);
+        this.fireballConfig = new FireballConfig(this);
+        this.fireballCommand = new FireballCommand(playerLanguageManager, fireballConfig, commandDataStorage);
+        this.fakeopConfig = new FakeopConfig(this);
+        this.fakeopCommand = new FakeopCommand(playerLanguageManager, fakeopConfig, commandDataStorage);
+
+        this.whoisConfig = new WhoisConfig(this);
+        this.whoisCommand = new WhoisCommand(playerLanguageManager, whoisConfig,commandDataStorage, this);
+        this.kittycannonConfig = new KittyCannonConfig(this);
+        this.kittycannonCommand = new KittyCannonCommand(playerLanguageManager, kittycannonConfig, commandDataStorage);
+        this.explosionConfig = new ExplosionConfig(this);
+        this.explosionCommand = new ExplosionCommand(playerLanguageManager, explosionConfig, commandDataStorage);
+        this.canonConfig = new CanonConfig(this);
+        this.canonCommand = new CanonCommand(playerLanguageManager, canonConfig, commandDataStorage);
+        this.lightningConfig = new LightningConfig(this);
+        this.lightningCommand = new LightningCommand(playerLanguageManager, lightningConfig, commandDataStorage, this);
+        this.swapConfig = new SwapConfig(this);
+        this.swapCommand = new SwapCommand(playerLanguageManager, swapConfig, commandDataStorage);
+        this.beezookaConfig = new BeezookaConfig(this);
+        this.beezookaCommand = new BeezookaCommand(playerLanguageManager, beezookaConfig, commandDataStorage, this);
+        this.glowConfig = new GlowConfig(this);
+        this.glowCommand = new GlowCommand(playerLanguageManager, glowConfig, commandDataStorage);
+        this.loomConfig = new LoomConfig(this);
+        this.loomCommand = new LoomCommand(playerLanguageManager, loomConfig, commandDataStorage, this);
+
+        this.stonecutterConfig = new StonecutterConfig(this);
+        this.stonecutterCommand = new StonecutterCommand(playerLanguageManager, stonecutterConfig, commandDataStorage, this);
+
+        this.grindstoneConfig = new GrindstoneConfig(this);
+        this.grindstoneCommand = new GrindstoneCommand(playerLanguageManager, grindstoneConfig, commandDataStorage, this);
+
+        this.cartographyTableConfig = new CartographyTableConfig(this);
+        this.cartographyTableCommand = new CartographyTableCommand(playerLanguageManager, cartographyTableConfig, commandDataStorage, this);
+        this.anvilConfig = new AnvilConfig(this);
+        this.anvilCommand = new AnvilCommand(playerLanguageManager, anvilConfig, commandDataStorage, this);
+        this.craftingTableConfig = new CraftingTableConfig(this);
+        this.craftingTableCommand = new CraftingTableCommand(playerLanguageManager, craftingTableConfig, commandDataStorage, this);
+        smithingTableConfig = new SmithingTableConfig(this);
+        smithingTableCommand = new SmithingTableCommand(playerLanguageManager, smithingTableConfig);
+        broadcastConfig = new BroadcastConfig(this);
+        broadcastCommand = new BroadcastCommand(playerLanguageManager, broadcastConfig);
+
+        rebootConfig = new RebootConfig(this);
+        rebootCommand = new RebootCommand(this, playerLanguageManager, rebootConfig);
+
+        broadcastWorldConfig = new BroadcastWorldConfig(this);
+        broadcastWorldCommand = new BroadcastWorldCommand(playerLanguageManager, broadcastWorldConfig);
+
+        spawnerConfig = new SpawnerConfig(this);
+        spawnerCommand = new SpawnerCommand(playerLanguageManager, spawnerConfig);
+
+        serverInfoConfig = new ServerInfoConfig(this);
+        serverInfoCommand = new ServerInfoCommand(this, playerLanguageManager, serverInfoConfig);
+
+        unloadWorldConfig = new UnloadWorldConfig(this);
+        unloadWorldCommand = new UnloadWorldCommand(playerLanguageManager, unloadWorldConfig);
+
+        uptimeConfig = new UptimeConfig(this);
+        uptimeCommand = new UptimeCommand(this, serverStartTime, playerLanguageManager, uptimeConfig);
+
+        loadWorldConfig = new LoadWorldConfig(this);
+        loadWorldCommand = new LoadWorldCommand(playerLanguageManager, loadWorldConfig);
+
+        worldListConfig = new WorldListConfig(this);
+        worldListCommand = new WorldListCommand(playerLanguageManager, worldListConfig);
+        playerInfoConfig = new PlayerInfoConfig(this);
+        playerInfoCommand = new PlayerInfoCommand(playerLanguageManager, playerInfoConfig);
+        unbanCommand = new UnbanCommand(playerLanguageManager, commandDataStorage, banStorage);
+        healConfig = new HealConfig(this);
+        healCommand = new HealCommand(playerLanguageManager, healConfig);
+        enderSeeConfig = new EnderSeeConfig(this);
+        enderSeeCommand = new EnderSeeCommand(playerLanguageManager, enderSeeConfig);
+        freezeConfig = new FreezeConfig(this);
+        freezeCommand = new FreezeCommand(playerLanguageManager, freezeConfig, this);
+        unfreezeConfig = new UnfreezeConfig(this);
+        unfreezeCommand = new UnfreezeCommand(playerLanguageManager, unfreezeConfig);
+        adminChatConfig = new AdminChatConfig(this);
+        adminChatCommand = new AdminChatCommand(playerLanguageManager, adminChatConfig, commandDataStorage);
+        clearChatConfig = new ClearChatConfig(this);
+        clearChatCommand = new ClearChatCommand(playerLanguageManager, clearChatConfig);
+        vanishConfig = new VanishConfig(this);
+        vanishCommand = new VanishCommand(playerLanguageManager, vanishConfig, commandDataStorage);
+        godConfig = new GodConfig(this);
+        godCommand = new GodCommand(playerLanguageManager, godConfig, commandDataStorage);
+        invseeConfig = new InvseeConfig(this);
+        invseeCommand = new InvseeCommand(playerLanguageManager, invseeConfig);
+        invClearConfig = new InvClearConfig(this);
+        invClearCommand = new InvClearCommand(playerLanguageManager, invClearConfig);
+        tpConfig = new TpConfig(this);
+        tpCommand = new TpCommand(playerLanguageManager, tpConfig);
+
+        RtpConfig rtpConfig = new RtpConfig(this);
+        rtpLocationStorage = new RtpLocationStorage(this, databaseManager, "rtp");
+        CooldownManager cooldownManager = new CooldownManager();
+        kickAllConfig = new KickAllConfig(this);
+        kickAllCommand = new KickAllCommand(playerLanguageManager, kickAllConfig);
+
+        pingAllConfig = new PingAllConfig(this);
+        pingAllCommand = new PingAllCommand(playerLanguageManager, pingAllConfig);
+
+        altsConfig = new AltsConfig(this);
+        altsCommand = new AltsCommand(playerLanguageManager, altsConfig);
+        staffListConfig = new StaffListConfig(this);
+        staffListCommand = new StaffListCommand(playerLanguageManager, staffListConfig);
 
         // Commands
         getCommand("fly").setExecutor(flyCommand);
@@ -563,7 +780,6 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         getCommand("setloreline").setExecutor(setLoreLineCommand);
         getCommand("track").setExecutor(trackCommand);
         getCommand("suicide").setExecutor(suicideCommand);
-        getCommand("kills").setExecutor(killCommand);
         getCommand("bottom").setExecutor(bottomCommand);
         getCommand("condense").setExecutor(condenseCommand);
         getCommand("nuke").setExecutor(nukeCommand);
@@ -600,6 +816,63 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         getCommand("coinflip").setExecutor(coinFlipCommand);
         getCommand("shop").setExecutor(shopCommand);
         getCommand("sell").setExecutor(sellCommand);
+        getCommand("powertool").setExecutor(powerToolCommand);
+        getCommand("gravity").setExecutor(gravityCommand);
+        getCommand("thunder").setExecutor(thunderCommand);
+        getCommand("celebrate").setExecutor(celebrateCommand);
+        getCommand("fireball").setExecutor(fireballCommand);
+        getCommand("fakeop").setExecutor(fakeopCommand);
+        getCommand("whois").setExecutor(whoisCommand);
+        getCommand("kittycannon").setExecutor(kittycannonCommand);
+        getCommand("explosion").setExecutor(explosionCommand);
+        getCommand("canon").setExecutor(canonCommand);
+        getCommand("lightning").setExecutor(lightningCommand);
+        getCommand("swap").setExecutor(swapCommand);
+        getCommand("beezooka").setExecutor(beezookaCommand);
+        getCommand("glow").setExecutor(glowCommand);
+        getCommand("home").setExecutor(homeCommand);
+        getCommand("loom").setExecutor(loomCommand);
+        getCommand("stonecutter").setExecutor(stonecutterCommand);
+        getCommand("grindstone").setExecutor(grindstoneCommand);
+        getCommand("cartographytable").setExecutor(cartographyTableCommand);
+        getCommand("anvil").setExecutor(anvilCommand);
+        getCommand("craftingtable").setExecutor(craftingTableCommand);
+        getCommand("smithingtable").setExecutor(smithingTableCommand);
+        getCommand("lobby").setExecutor(lobbyCommand);
+        getCommand("broadcast").setExecutor(broadcastCommand);
+        getCommand("reboot").setExecutor(rebootCommand);
+        getCommand("broadcastworld").setExecutor(broadcastWorldCommand);
+        getCommand("spawner").setExecutor(spawnerCommand);
+        getCommand("serverinfo").setExecutor(serverInfoCommand);
+        getCommand("unloadworld").setExecutor(unloadWorldCommand);
+        getCommand("uptime").setExecutor(uptimeCommand);
+        getCommand("loadworld").setExecutor(loadWorldCommand);
+        getCommand("worldlist").setExecutor(worldListCommand);
+        getCommand("playerinfo").setExecutor(playerInfoCommand);
+        getCommand("ban").setExecutor(banCommand);
+        getCommand("banlist").setExecutor(banListCommand);
+        getCommand("unban").setExecutor(unbanCommand);
+        getCommand("heal").setExecutor(healCommand);
+        getCommand("endersee").setExecutor(enderSeeCommand);
+        getCommand("freeze").setExecutor(freezeCommand);
+        getCommand("unfreeze").setExecutor(unfreezeCommand);
+        getCommand("clearchat").setExecutor(clearChatCommand);
+        getCommand("vanish").setExecutor(vanishCommand);
+        getCommand("god").setExecutor(godCommand);
+        getCommand("invsee").setExecutor(invseeCommand);
+        getCommand("invclear").setExecutor(invClearCommand);
+        getCommand("tp").setExecutor(tpCommand);
+        getCommand("kickall").setExecutor(kickAllCommand);
+        getCommand("pingall").setExecutor(pingAllCommand);
+        getCommand("mute").setExecutor(muteCommand);
+        getCommand("unmute").setExecutor(unmuteCommand);
+        getCommand("language").setExecutor(new LanguageCommand(languageManager, playerLanguageManager));
+        getCommand("database").setExecutor(new DatabaseCommand(databaseManager, languageManager));
+        getCommand("rtp").setExecutor(new RtpCommand(this, playerLanguageManager, rtpConfig));
+        getCommand("kit").setExecutor(kitCommand);
+        getCommand("alts").setExecutor(altsCommand);
+        getCommand("stafflist").setExecutor(staffListCommand);
+
 
 
 
@@ -613,6 +886,23 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         getCommand("auction").setTabCompleter(auctionCommand);
         getCommand("eco").setTabCompleter(ecoCommand);
         getCommand("coinflip").setTabCompleter(coinFlipCommand);
+        getCommand("gravity").setTabCompleter(gravityCommand);
+        getCommand("thunder").setTabCompleter(thunderCommand);
+        getCommand("celebrate").setTabCompleter(celebrateCommand);
+        getCommand("kittycannon").setTabCompleter(kittycannonCommand);
+        getCommand("explosion").setTabCompleter(explosionCommand);
+        getCommand("beezooka").setTabCompleter(beezookaCommand);
+        getCommand("spawner").setTabCompleter(spawnerCommand);
+        getCommand("unloadworld").setTabCompleter(unloadWorldCommand);
+        getCommand("ban").setTabCompleter(banCommand);
+        getCommand("endersee").setTabCompleter(enderSeeCommand);
+        getCommand("freeze").setTabCompleter(freezeCommand);
+        getCommand("adminchat").setExecutor(adminChatCommand);
+        getCommand("invsee").setTabCompleter(invseeCommand);
+        getCommand("tp").setTabCompleter(tpCommand);
+        getCommand("invclear").setTabCompleter(invClearCommand);
+        getServer().getPluginManager().registerEvents(muteListener, this);
+
 
 
 
@@ -628,6 +918,19 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(new SessionListener(sessionManager), this);
         getServer().getPluginManager().registerEvents(disposalListener, this);
         getServer().getPluginManager().registerEvents(auctionGUIListener, this);
+        getServer().getPluginManager().registerEvents(homeGUIListener, this);
+        getServer().getPluginManager().registerEvents(lobbyListener, this);
+        getServer().getPluginManager().registerEvents(banListener, this);
+        getServer().getPluginManager().registerEvents(new FreezeListener(playerLanguageManager), this);
+        getServer().getPluginManager().registerEvents(new AdminChatListener(playerLanguageManager), this);
+        getServer().getPluginManager().registerEvents(new AdminUtilitiesListener(this), this);
+        getServer().getPluginManager().registerEvents(muteListener, this);
+
+
+
+
+
+
         if (shopCommand != null) {
             getServer().getPluginManager().registerEvents(
                     new ShopGUIListener(shopCommand.getGuiManager()),
@@ -639,17 +942,10 @@ public class ServerEssentials extends JavaPlugin implements Listener {
 
 
 
-        RtpConfig rtpConfig = new RtpConfig(this);
-        rtpLocationStorage = new RtpLocationStorage(this, databaseManager, "rtp");
-        CooldownManager cooldownManager = new CooldownManager();
-
-        getCommand("language").setExecutor(new LanguageCommand(languageManager, playerLanguageManager));
-        getCommand("database").setExecutor(new DatabaseCommand(databaseManager, languageManager));
-        getCommand("rtp").setExecutor(new RtpCommand(this, playerLanguageManager, rtpConfig));
-        getCommand("kit").setExecutor(kitCommand);
 
 
-        homeManager = new HomeManager(this);
+
+
         warpManager = new WarpManager(this);
 
 
@@ -686,21 +982,16 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         File messagesDir = new File(getDataFolder(), "messages");
         if (!messagesDir.exists()) messagesDir.mkdirs();
 
-        this.playerMessages = new PlayerMessages(this);
         this.messagesManager = new MessagesManager(this);
-        serverMessages = new ServerMessages(this, "messages/server.yml");
         messagesManager.load("fun.yml");
 
-        FunMessages funMessages = new FunMessages(this, "messages/fun.yml");
 
         createPrefixFile();
         String prefix = ChatColor.translateAlternateColorCodes('&',
                 prefixConfig.getString("prefix", "&9&l[&bSE&9&l]&r ")
         );
 
-        LobbyManager.setup();
         loadOfflineConfig();
-        LobbyManager.setup();
 
         messagesManager = new MessagesManager(this);
         MessagesManager messagesManager = new MessagesManager(this);
@@ -718,41 +1009,20 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         saveDefaultConfig();
         saveResource("config.yml", false);
 
-        JoinLeaveManager.load();
         saveResource("messages/lobby.yml", false);
-        LobbyMessages.setup();
-        LobbyStorage.setup();
-        LobbyConfig.setup();
+
 
         messagesManager.load("player.yml");
 
         this.startTime = System.currentTimeMillis();
-        originalMotd = Bukkit.getMotd();
 
-        String originalMotd = Bukkit.getMotd();
-
-        LockdownCommand lockdownCommand = new LockdownCommand(this, messagesManager, originalMotd);
-        PluginCommand cmd = getCommand("lockdown");
 
         new TopPlaytimePlaceholder(this).register();
         this.PlaytimeManager = new PlaytimeManager(this);
 
-        this.serverMessages = new ServerMessages(this, "messages/server.yml");
-
-
-
         this.guiConfig = new GUIConfig(getConfig());
-        this.warpStorage = new WarpStorage(this, guiConfig);
-        warpStorage.loadAll();
-
-
-
-        playerMessages = new PlayerMessages(this);
-        KillTracker killTracker = new KillTracker(this);
-        ConsoleCommandManager commandManager = new ConsoleCommandManager(this);
 
         releaseLocation = new Location(Bukkit.getWorld("world"), 0, 65, 0);
-        getServer().getPluginManager().registerEvents(new JoinCommandListener(commandManager), this);
 
 
 
@@ -772,21 +1042,12 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         if (!isCommandDisabled("nicks")) getCommand("nicks").setExecutor(nickManager);
 
 
-        getServer().getPluginManager().registerEvents(new AdminChatListener(), this);
-        getServer().getPluginManager().registerEvents(new FreezeListener(), this);
-        getLogger().info("ServerEssentials enabled (dashboard command registered).");
 
-        getServer().getPluginManager().registerEvents(new JoinListener(this), this);
         getServer().getPluginManager().registerEvents(new SpawnerPlaceListener(this), this);
-        getServer().getPluginManager().registerEvents(this, this); // onJoin listener
-        getServer().getPluginManager().registerEvents(new BanListener(banManager), this);
-        Bukkit.getPluginManager().registerEvents(new JoinLeaveListener(), this);
-        Bukkit.getPluginManager().registerEvents(new JoinListener(this), this);
-        Bukkit.getPluginManager().registerEvents(new ChatListener(), this);
+        getServer().getPluginManager().registerEvents(this, this);
+        getServer().getPluginManager().registerEvents(new JoinLeaveListener(getConfig()), this);
 
         ServerEssentials plugin = ServerEssentials.getInstance();
-        AdminUtilitiesCommand adminUtils = new AdminUtilitiesCommand();
-        getServer().getPluginManager().registerEvents(new AdminUtilitiesListener(adminUtils), this);
 
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             new ServerEssentialsPlaceholder(this).register();
@@ -800,198 +1061,41 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         }, this);
 
 
+        getServer().getPluginManager().registerEvents(new org.bukkit.event.Listener() {
+            @EventHandler
+            public void onPlayerJoin(org.bukkit.event.player.PlayerJoinEvent event) {
+                adminChatCommand.loadPlayerState(event.getPlayer().getUniqueId());
+            }
+
+            @EventHandler
+            public void onPlayerQuit(org.bukkit.event.player.PlayerQuitEvent event) {
+                adminChatCommand.unloadPlayerState(event.getPlayer().getUniqueId());
+            }
+        }, this);
 
 
 
 
 
-        if (!isCommandDisabled("glow")) getCommand("glow").setExecutor(new GlowCommand(funMessages));
-        if (!isCommandDisabled("ban")) getCommand("ban").setExecutor(new BanCommand(getBanManager(), this));
-        if (!isCommandDisabled("unban")) getCommand("unban").setExecutor(new UnbanCommand(this, banManager));
-        if (!isCommandDisabled("powertool")) getCommand("powertool").setExecutor(new PowerToolCommand(this, funMessages));
         if (!isCommandDisabled("editsign")) this.getCommand("editsign").setExecutor(new EditSignCommand(this));
-
         File shopFolder = new File(getDataFolder(), "shop");
-
-
-        if (!isCommandDisabled("spawner")) getCommand("spawner").setExecutor(new SpawnerCommand(serverMessages));
-
-
-
-        if (!isCommandDisabled("whois")) getCommand("whois").setExecutor(new WhoIsCommand());
-
-        KittyCannonCommand kittyCannonCommand = new KittyCannonCommand(funMessages);
-        if (!isCommandDisabled("kittycannon")) {
-            getCommand("kittycannon").setExecutor(kittyCannonCommand);
-            getCommand("kittycannon").setTabCompleter(kittyCannonCommand);
-        }
-
-        BeezookaCommand beezookaCommand = new BeezookaCommand(funMessages);
-        if (!isCommandDisabled("beezooka")) {
-            getCommand("beezooka").setExecutor(beezookaCommand);
-            getCommand("beezooka").setTabCompleter(beezookaCommand);
-        }
-
-
-
         if (!isCommandDisabled("togglefly")) getCommand("togglefly").setExecutor(new ToggleFlyCommand());
-
-
-
-
         new FirstJoinManager(this);
-
-        FireballCommand fireballCommand = new FireballCommand(funMessages);
-        if (!isCommandDisabled("fireball")) getCommand("fireball").setExecutor(fireballCommand);
-
-        if (!isCommandDisabled("lightning")) getCommand("lightning").setExecutor(new LightningCommand(funMessages));
-
-        ThunderCommand thunderCommand = new ThunderCommand(funMessages);
-        if (!isCommandDisabled("thunder")) {
-            getCommand("thunder").setExecutor(thunderCommand);
-            getCommand("thunder").setTabCompleter(thunderCommand);
-        }
-
-        if (!isCommandDisabled("broadcastworld")) getCommand("broadcastworld").setExecutor(new BroadcastWorldCommand(serverMessages));
-
-
-
-        if (!isCommandDisabled("stonecutter")) getCommand("stonecutter").setExecutor(new StonecutterCommand(this));
-        if (!isCommandDisabled("loom")) getCommand("loom").setExecutor(new LoomCommand(this));
-        if (!isCommandDisabled("cartographytable")) getCommand("cartographytable").setExecutor(new CartographyTableCommand(this));
-        if (!isCommandDisabled("smithingtable")) getCommand("smithingtable").setExecutor(new SmithingTableCommand(this));
-        if (!isCommandDisabled("brewingstand")) getCommand("brewingstand").setExecutor(new BrewingStandCommand(this));
-        if (!isCommandDisabled("craftingtable")) getCommand("craftingtable").setExecutor(new CraftingTableCommand(this));
-        if (!isCommandDisabled("anvil")) getCommand("anvil").setExecutor(new AnvilCommand(this));
-        if (!isCommandDisabled("furnace")) getCommand("furnace").setExecutor(new FurnaceCommand(this));
-        if (!isCommandDisabled("blastfurnace")) getCommand("blastfurnace").setExecutor(new BlastFurnaceCommand(this));
-        if (!isCommandDisabled("smoker")) getCommand("smoker").setExecutor(new SmokerCommand(this));
-        if (!isCommandDisabled("grindstone")) getCommand("grindstone").setExecutor(new GrindstoneCommand(this));
-
-        if (!isCommandDisabled("fuck")) this.getCommand("fuck").setExecutor(new FuckCommand());
-
-        saveResource("messages/homes.yml", false);
-        this.messages = new HomeMessages(this, "messages/homes.yml");
-        this.homesGUI = new HomesGUI(this, homeManager, messages);
-        this.homeListener = new HomeListener(this, homeManager, homesGUI, messages);
-        Bukkit.getPluginManager().registerEvents(homeListener, this);
-
-        if (!isCommandDisabled("unloadworld")) getCommand("unloadworld").setExecutor(new UnloadWorldCommand(serverMessages));
-        if (!isCommandDisabled("loadworld")) getCommand("loadworld").setExecutor(new LoadWorldCommand(serverMessages));
-        if (!isCommandDisabled("worldlist")) getCommand("worldlist").setExecutor(new WorldListCommand(serverMessages));
-
         vaultMessages = new VaultMessages(this);
         vaultManager = new VaultManager(this, vaultMessages);
         if (!isCommandDisabled("pv")) this.getCommand("pv").setExecutor(new VaultCommand(vaultManager, vaultMessages));
-
-        getServer().getPluginManager().registerEvents(lockdownCommand, this);
-
-        long serverStartTime = System.currentTimeMillis();
-        if (!isCommandDisabled("uptime")) getCommand("uptime").setExecutor(new UptimeCommand(serverStartTime, serverMessages));
-
-
-
-
-        CanonCommand canonCommand = new CanonCommand(funMessages);
-        if (!isCommandDisabled("canon") && getCommand("canon") != null) getCommand("canon").setExecutor(canonCommand);
-
-        ExplosionCommand explosionCommand = new ExplosionCommand(funMessages);
-        if (!isCommandDisabled("explosion")) {
-            getCommand("explosion").setExecutor(explosionCommand);
-            getCommand("explosion").setTabCompleter(explosionCommand);
-        }
-
         if (getServer().getPluginManager().getPlugin("Vault") == null) {
             getLogger().severe("Vault not found! Disabling plugin...");
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
-
-
-
-        killTracker = new KillTracker(this);
-
-
-        if (!isCommandDisabled("vanish")) getCommand("vanish").setExecutor(adminUtils);
-        if (!isCommandDisabled("god")) getCommand("god").setExecutor(adminUtils);
-        if (!isCommandDisabled("invsee")) getCommand("invsee").setExecutor(adminUtils);
-
-
-
         if (!isCommandDisabled("sereload")) getCommand("sereload").setExecutor(new ReloadCommand(this));
+        if (!isCommandDisabled("warps")) getCommand("warps").setExecutor(new WarpsCommand(this));
 
-
-
-        if (!isCommandDisabled("invclear")) getCommand("invclear").setExecutor(adminUtils);
-        if (!isCommandDisabled("tp")) getCommand("tp").setExecutor(adminUtils);
-
-
-
-        if (!isCommandDisabled("adminchat")) getCommand("adminchat").setExecutor(new AdminChatCommand());
-        if (!isCommandDisabled("broadcast")) getCommand("broadcast").setExecutor(new BroadcastCommand(serverMessages));
-
-        Bukkit.getPluginManager().registerEvents(new LobbyListener(), this);
-        if (!isCommandDisabled("lobby")) getCommand("lobby").setExecutor(new LobbyCommand());
-
-
-
-        if (!isCommandDisabled("motd")) getCommand("motd").setExecutor(new MotdCommand(this));
-        if (!isCommandDisabled("heal")) getCommand("heal").setExecutor(new HealCommand(this));
-
-
-        if (!isCommandDisabled("playerinfo")) getCommand("playerinfo").setExecutor(new PlayerInfoCommand(this));
-        if (!isCommandDisabled("gravity")) getCommand("gravity").setExecutor(new GravityCommand(funMessages));
-        if (!isCommandDisabled("workbench")) getCommand("workbench").setExecutor(new WorkbenchCommand());
-
-
-
-        EnderSeeCommand enderSeeCommand = new EnderSeeCommand(this, messagesManager);
-        if (!isCommandDisabled("endersee")) {
-            getCommand("endersee").setExecutor(enderSeeCommand);
-            getCommand("endersee").setTabCompleter(enderSeeCommand);
-        }
-
-        if (!isCommandDisabled("mute")) getCommand("mute").setExecutor(new MuteCommand(this));
-        if (!isCommandDisabled("unmute")) getCommand("unmute").setExecutor(new UnmuteCommand(this));
-
-
-
-
-
-
-        if (!isCommandDisabled("kickall")) getCommand("kickall").setExecutor(new KickAllCommand());
-        if (!isCommandDisabled("alts")) getCommand("alts").setExecutor(new AltsCommand(this));
-        if (!isCommandDisabled("reboot")) getCommand("reboot").setExecutor(new RebootCommand(this, serverMessages));
-        if (!isCommandDisabled("clearchat")) getCommand("clearchat").setExecutor(new ClearChatCommand(this));
-        if (!isCommandDisabled("tpoffline")) getCommand("tpoffline").setExecutor(new TPOfflineCommand(this));
-        if (!isCommandDisabled("swap")) getCommand("swap").setExecutor(new SwapCommand(this, funMessages));
-
-        playerMessages = new PlayerMessages(this);
 
         Bukkit.getPluginManager().registerEvents(this, this);
 
-
-        if (!isCommandDisabled("fakeop")) getCommand("fakeop").setExecutor(new FaekOPCommand());
-        if (!isCommandDisabled("freeze")) getCommand("freeze").setExecutor(new FreezeCommand(getMessagesManager(), this));
-        if (!isCommandDisabled("unfreeze")) getCommand("unfreeze").setExecutor(new UnfreezeCommand(new MessagesManager(this)));
-
-        getServer().getPluginManager().registerEvents(new ToolMoveFixListener(this), this);
-
-        if (!isCommandDisabled("pingall")) getCommand("pingall").setExecutor(new PingAllCommand(this));
-        if (!isCommandDisabled("warps")) getCommand("warps").setExecutor(new WarpsCommand(this));
-        if (!isCommandDisabled("stafflist")) getCommand("stafflist").setExecutor(new StaffListCommand(this));
-        if (!isCommandDisabled("celebrate")) getCommand("celebrate").setExecutor(new CelebrateCommand(funMessages));
-        if (!isCommandDisabled("serverinfo")) getCommand("serverinfo").setExecutor(new ServerInfoCommand(serverMessages));
-        if (!isCommandDisabled("banlist")) getCommand("banlist").setExecutor(new BanListCommand(this, banManager));
-
         disableCommands();
-
-
-        Bukkit.getPluginManager().registerEvents(new MotdListener(this), this);
-
-
-
-
         getServer().getPluginManager().registerEvents(new org.bukkit.event.Listener() {
             @org.bukkit.event.EventHandler
             public void onJoin(org.bukkit.event.player.PlayerJoinEvent event) {
@@ -1009,18 +1113,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         return reloadedItems;
     }
 
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!(sender instanceof Player p)) {
-            sender.sendMessage("Only players can use this command.");
-            return true;
-        }
-        if (command.getName().equalsIgnoreCase("homes")) {
-            homesGUI.openMain(p);
-            return true;
-        }
-        return false;
-    }
+
     private void loadOfflineConfig() {
         offlineFile = new File(getDataFolder(), "storage/offline_players.yml");
         if (!offlineFile.getParentFile().exists()) offlineFile.getParentFile().mkdirs();
@@ -1035,14 +1128,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
 
         offlineConfig = YamlConfiguration.loadConfiguration(offlineFile);
     }
-    @EventHandler
-    public void onChat(AsyncPlayerChatEvent event) {
-        UUID uuid = event.getPlayer().getUniqueId();
-        if (MuteCommand.isMuted(uuid)) {
-            event.setCancelled(true);
-            return;
-        }
-    }
+
     private void saveSectionResource(String path) {
         File outFile = new File(getDataFolder(), path);
         if (!outFile.exists()) {
@@ -1060,17 +1146,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         return instance;
     }
 
-    public BanManager getBanManager() {
-        return banManager;
-    }
-    public void onServerListPing(ServerListPingEvent event) {
 
-        if (lockdownCommand.isLockdownActive()) {
-            event.setMotd("§4§lLOCKDOWN MODE");
-        } else {
-            event.setMotd(originalMotd);
-        }
-    }
     private void createPrefixFile() {
         File storageFolder = new File(getDataFolder(), "storage");
         if (!storageFolder.exists()) {
@@ -1111,9 +1187,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
             e.printStackTrace();
         }
     }
-    public ServerMessages getMessages() {
-        return serverMessages;
-    }
+
     public void setLastLocation(UUID uuid, Location loc) {
         if (loc == null) return;
         offlineConfig.set(uuid.toString() + ".world", loc.getWorld().getName());
@@ -1148,16 +1222,11 @@ public class ServerEssentials extends JavaPlugin implements Listener {
     public ServerEssentials() { instance = this; }
     public AuctionGUIListener getGuiManager() { return guiManager; }
     public void onDisable() {
-        if (warpStorage != null) {
-            warpStorage.saveAll();
-        }
         if (this.adventure != null) {
             this.adventure.close();
         }
 
-        if (homeManager != null) {
-            homeManager.saveAll();
-        }
+
         if (databaseManager != null) {
             databaseManager.closeAll();
         }
@@ -1185,15 +1254,8 @@ public class ServerEssentials extends JavaPlugin implements Listener {
             }
         }
     }
-    public HomeMessages getHomeMessages() {
-        return messages;
-    }
-    public HomeManager getHomeManager() {
-        return homeManager;
-    }
-    public HomesGUI getHomesGUI() {
-        return homesGUI;
-    }
+
+
     public BukkitAudiences adventure() {
         return this.adventure;
     }
@@ -1206,9 +1268,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
             guiConfig.reload(bukkitConfig);
         }
     }
-    public WarpStorage getWarpStorage() {
-        return warpStorage;
-    }
+
     public static class VersionNotifyJoinListener implements Listener {
 
         @EventHandler
@@ -1232,56 +1292,9 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         }
         pwConfig = YamlConfiguration.loadConfiguration(pwFile);
     }
-    public static class PWTabCompleter implements TabCompleter {
 
-        private final WarpStorage storage;
 
-        public PWTabCompleter(WarpStorage storage) {
-            this.storage = storage;
-        }
 
-        @Override
-        public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-            if (!(sender instanceof Player player)) {
-                return List.of();
-            }
-            List<String> completions = new ArrayList<>();
-            if (args.length == 1) {
-                List<String> subcommands = List.of("create", "edit", "reload");
-                for (String sub : subcommands) {
-                    if (sub.startsWith(args[0].toLowerCase())) {
-                        completions.add(sub);
-                    }
-                }
-            } else if (args.length == 2) {
-                if (args[0].equalsIgnoreCase("edit")) {
-                    List<String> warps = storage.getWarps(player.getUniqueId()).stream()
-                            .map(warp -> warp.getName())
-                            .toList();
-                    for (String warpName : warps) {
-                        if (warpName.toLowerCase().startsWith(args[1].toLowerCase())) {
-                            completions.add(warpName);
-                        }
-                    }
-                }
-            }
-
-            return completions;
-        }
-    }
-
-    public ServerMessages getServerMessages() {
-        return serverMessages;
-    }
-    private boolean setupEconomy() {
-        if (getServer().getPluginManager().getPlugin("Vault") == null) {
-            return false;
-        }
-        RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
-        if (rsp == null) return false;
-        economy = rsp.getProvider();
-        return economy != null;
-    }
     private void saveDefaultPlaceholders() {
         if (!getDataFolder().exists()) getDataFolder().mkdirs();
         placeholdersFile = new File(getDataFolder(), "placeholders.yml");
@@ -1305,12 +1318,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         }
     }
 
-    public KillTracker getKillTracker() {
-        return killTracker;
-    }
-    public Economy getVaultEconomy() {
-        return vaultEconomy;
-    }
+
     public MessagesManager getMessagesManager() {
         return messagesManager;
     }
@@ -1319,9 +1327,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
     }
 
 
-    public PlayerMessages getPlayerMessages() {
-        return playerMessages;
-    }
+
 
     private boolean isCommandDisabled(String commandName) {
         List<String> disabled = getConfig().getStringList("disabled-commands");
@@ -1348,13 +1354,10 @@ public class ServerEssentials extends JavaPlugin implements Listener {
                     Command cmd = knownCommands.get(cmdName);
 
                     if (cmd != null) {
-                        // Remove the main command
                         knownCommands.remove(cmdName);
 
-                        // Remove the namespaced version
                         knownCommands.remove(getNameSpaced(cmdName));
 
-                        // Remove all aliases
                         for (String alias : cmd.getAliases()) {
                             knownCommands.remove(alias);
                             knownCommands.remove(getNameSpaced(alias));
@@ -1403,6 +1406,10 @@ public class ServerEssentials extends JavaPlugin implements Listener {
                     new DatabaseConfig(DatabaseType.SQLITE, "kits.db", null, 0, null, null, null, 5)
             );
         }
+        databaseManager.initializePool("bans", new DatabaseConfig(DatabaseType.SQLITE, "mutes.db", null, 0, null, null, null, 5));
+        databaseManager.initializePool("mutes", new DatabaseConfig(DatabaseType.SQLITE, "mutes.db", null, 0, null, null, null, 5));
+        databaseManager.initializePool("lobby", new DatabaseConfig(DatabaseType.SQLITE, "lobby.db", null, 0, null, null, null, 5));
+        databaseManager.initializePool("homes", new DatabaseConfig(DatabaseType.SQLITE, "homes.db", null, 0, null, null, null, 5));
         databaseManager.initializePool("auction", new DatabaseConfig(DatabaseType.SQLITE, "auction.db", null, 0, null, null, null, 5));
         databaseManager.initializePool("scoreboard", new DatabaseConfig(DatabaseType.SQLITE, "scoreboard.db", null, 0, null, null, null, 10));
         databaseManager.initializePool("rules", new DatabaseConfig(DatabaseType.SQLITE, "rules.db", null, 0, null, null, null, 5));
@@ -1417,11 +1424,25 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         databaseManager.initializePool("tpa", new DatabaseConfig(DatabaseType.SQLITE, "tpa.db", null, 0, null, null, null, 5));
     }
 
+    private void initializeMuteSystem() {
+        muteConfig = new MuteConfig(this);
+        muteStorage = new MuteStorage(this, databaseManager);
+        muteCommand = new MuteCommand(this, playerLanguageManager, commandDataStorage, muteStorage, muteConfig);
+        unmuteCommand = new UnmuteCommand(playerLanguageManager, commandDataStorage, muteCommand);
+        muteListener = new MuteListener(muteCommand, playerLanguageManager);
+    }
+
+    private void initializeHomesSystem() {
+        homesConfig = new HomesConfig(this);
+        homeStorage = new HomeStorage(databaseManager);
+        homeManager = new HomeManager(homeStorage, homesConfig.maxHomes);
+        homeGUIListener = new HomeGUIListener(this, playerLanguageManager, homesConfig, homeManager);
+        homeCommand = new HomeCommand(this, playerLanguageManager, homeGUIListener);
+    }
     private void initializeAuctionSystem() {
         auctionConfig = new AuctionConfig(this);
         auctionStorage = new AuctionStorage(databaseManager);
 
-        // Directly use the economyProvider field
         if (economyProvider == null) {
             getLogger().severe("Auction system disabled - no economy provider found!");
             return;
@@ -1466,6 +1487,13 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         this.notesCommand = new NotesCommand(playerLanguageManager, notesConfig, notesStorage);
 
         getCommand("notes").setExecutor(notesCommand);
+    }
+
+    private void initializeLobbySystem() {
+        lobbyConfig = new LobbyConfig(this);
+        lobbyStorage = new LobbyStorage(this, databaseManager);
+        lobbyListener = new LobbyListener(playerLanguageManager, lobbyStorage, lobbyConfig);
+        lobbyCommand = new LobbyCommand(this, playerLanguageManager, commandDataStorage, lobbyStorage, lobbyConfig);
     }
 
     private void initializeDailySystem() {
@@ -1647,6 +1675,13 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         }
     }
 
+    private void initializeBanSystem() {
+        banConfig = new BanConfig(this);
+        banStorage = new BanStorage(this, databaseManager);
+        banListener = new BanListener(banStorage, playerLanguageManager);
+        banCommand = new BanCommand(this, playerLanguageManager, commandDataStorage, banStorage, banConfig);
+        banListCommand = new BanListCommand(playerLanguageManager, commandDataStorage, banStorage);
+    }
 
 
 
@@ -1670,6 +1705,8 @@ public class ServerEssentials extends JavaPlugin implements Listener {
 
         getLogger().info("Back system initialized with dedicated table");
     }
+
+
 
     private void saveResourceFolder(String folderPath) {
         try {
@@ -1695,7 +1732,4 @@ public class ServerEssentials extends JavaPlugin implements Listener {
             e.printStackTrace();
         }
     }
-
-
-
 }

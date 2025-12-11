@@ -18,6 +18,10 @@ public class ShopGUIListener implements Listener {
         if (!(event.getWhoClicked() instanceof Player player)) return;
         if (event.getClickedInventory() == null || event.getCurrentItem() == null) return;
 
+        if (!guiManager.isShopGUIOpen(player.getUniqueId())) {
+            return;
+        }
+
         if (event.getClickedInventory() == event.getView().getTopInventory()) {
             event.setCancelled(true);
             guiManager.handleClick(player, event.getSlot(), event.getClick().name(), event.getInventory());
@@ -26,6 +30,8 @@ public class ShopGUIListener implements Listener {
 
     @EventHandler
     public void onInventoryClose(InventoryCloseEvent event) {
-        // Cleanup can be handled by ShopStorage if needed
+        if (!(event.getPlayer() instanceof Player player)) return;
+
+        guiManager.cleanupPlayer(player.getUniqueId());
     }
 }
