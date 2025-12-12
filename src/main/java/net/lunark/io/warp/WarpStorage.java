@@ -1,4 +1,4 @@
 package net.lunark.io.warp;
 
-public class WarpManager {
+public class WarpStorage {
 }
