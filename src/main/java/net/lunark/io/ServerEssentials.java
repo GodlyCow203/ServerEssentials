@@ -2,6 +2,7 @@
 
 package net.lunark.io;
 
+import com.serveressentials.api.ServerEssentialsAPI;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 
@@ -9,6 +10,7 @@ import net.lunark.io.Managers.*;
 import net.lunark.io.PlaceholderAPI.*;
 import net.lunark.io.Rtp.*;
 import net.lunark.io.TPA.*;
+import net.lunark.io.api.APIImpl;
 import net.lunark.io.auction.*;
 import net.lunark.io.back.*;
 import net.lunark.io.ban.*;
@@ -56,6 +58,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -462,6 +465,15 @@ public class ServerEssentials extends JavaPlugin implements Listener {
 
 
 
+
+        APIImpl.initialize(this, vaultManager, vaultStorage);
+
+        getServer().getServicesManager().register(
+                ServerEssentialsAPI.class,
+                APIImpl.getInstance(),
+                this,
+                ServicePriority.Normal
+        );
 
 
 

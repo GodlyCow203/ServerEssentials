@@ -59,12 +59,10 @@ public class VaultCommand implements CommandExecutor {
                 "<yellow>Select a Vault");
         Inventory gui = Bukkit.createInventory(null, 45, title);
 
-        int[] slots = {10, 12, 14, 16, 28, 30, 32, 34};
-        for (int i = 0; i < 8; i++) {
+        int[] slots = {10, 12, 14, 16, 19, 21, 23, 25, 28, 30};
+        for (int i = 0; i < 10; i++) {
             gui.setItem(slots[i], createVaultItem(player, i + 1));
         }
-        gui.setItem(33, createVaultItem(player, 9));
-        gui.setItem(31, createVaultItem(player, 10));
 
         ItemStack close = new ItemStack(Material.BARRIER);
         ItemMeta closeMeta = close.getItemMeta();
@@ -99,4 +97,5 @@ public class VaultCommand implements CommandExecutor {
         item.setItemMeta(meta);
         return item;
     }
+
 }

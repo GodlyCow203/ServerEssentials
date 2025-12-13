@@ -38,7 +38,7 @@ public class VaultManager implements Listener {
             return;
         }
 
-        String perm = "serveressentials.command.vault." + number;
+        String perm = "serveressentials.command.pv." + number;
         if (!player.hasPermission(perm)) {
             player.sendMessage(langManager.getMessageFor(player, "commands.no-permission",
                     "<red>You need permission <yellow>{permission}</yellow>!",

@@ -17,7 +17,7 @@ public class VaultSelectorListener implements Listener {
     private final VaultManager vaultManager;
     private final PlayerLanguageManager langManager;
     private static final String GUI_TITLE_KEY = "vault.selector.title";
-    private static final Pattern VAULT_NUMBER_PATTERN = Pattern.compile("Vault\\s*#?(\\d+)");
+    private static final Pattern VAULT_NUMBER_PATTERN = Pattern.compile("(\\d+)");
 
     public VaultSelectorListener(VaultManager vaultManager, PlayerLanguageManager langManager) {
         this.vaultManager = vaultManager;
@@ -53,7 +53,8 @@ public class VaultSelectorListener implements Listener {
 
         int vaultNumber = Integer.parseInt(matcher.group(1));
 
-        if (clicked.getType() == Material.BARREL) {
+        String perm = "serveressentials.command.pv." + vaultNumber;
+        if (clicked.getType() == Material.BARREL && player.hasPermission(perm)) {
             player.closeInventory();
             vaultManager.openVault(player, vaultNumber);
         }
