@@ -351,7 +351,7 @@ public class HomeGUIListener implements Listener {
     private void fillBackground(Inventory inv) {
         ItemStack filler = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
         ItemMeta meta = filler.getItemMeta();
-        meta.setDisplayName(Component.empty().toString());
+        meta.setDisplayName("");
         filler.setItemMeta(meta);
 
         for (int i = 0; i < inv.getSize(); i++) {
@@ -364,7 +364,7 @@ public class HomeGUIListener implements Listener {
     private void fillConfirmBackground(Inventory inv) {
         ItemStack filler = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
         ItemMeta meta = filler.getItemMeta();
-        meta.setDisplayName(Component.empty().toString());
+        meta.setDisplayName("");
         filler.setItemMeta(meta);
 
         for (int i = 0; i < 27; i++) {

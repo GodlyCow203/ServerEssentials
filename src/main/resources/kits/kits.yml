@@ -1,6 +1,6 @@
 kits:
   starter:
-    permission: "kit.starter"
+    permission: "" # no longer needed, now createas automatically a permission onKitCreate
     cooldown: 3600 # 1 hour
     display:
       name: "<green>Starter Kit"

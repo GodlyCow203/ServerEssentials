@@ -44,9 +44,7 @@ public class ReloadManager {
 
 
 
-        VaultMessages.fullReload();
         WarpMessages.fullReload();
-        MessagesManager.fullReload();
         AFKManager.reload();
         ReloadUtils.reloadAllInDirectory(new File(dataFolder, "config"));
         ReloadUtils.reloadAllInDirectory(new File(dataFolder, "messages"));

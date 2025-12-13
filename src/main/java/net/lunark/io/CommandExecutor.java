@@ -1,48 +1,35 @@
 package net.lunark.io;
 
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-/**
- * Runs one-time in-game commands the very first time the plugin is installed.
- * Add the commands you want to the 'first-install-commands' list in config.yml
- * or edit them directly below.
- */
-public class FirstInstallCommands {
+public class CommandExecutor {
 
     private final Plugin plugin;
     private final File flagFile;
     private final List<String> commands;
 
-    public FirstInstallCommands(Plugin plugin) {
+    public CommandExecutor(Plugin plugin) {
         this.plugin = plugin;
         this.flagFile = new File(plugin.getDataFolder(), ".installed");
 
-        // You can hard-code commands here OR read them from config.yml
-        // Option 1: hard-coded (remove/comment if you use config)
+
         this.commands = List.of(
-                "papi ecloud download Server",
-                "papi ecloud download Player",
-                "papi ecloud download Vault",
-                "papi ecloud download Statistic"
+                "papi ecloud download Vault"
 
 
 
 
                 );
-
-
     }
 
     public void runIfFirstInstall() {
         if (!flagFile.exists()) {
-            plugin.getLogger().info("First install detected – running welcome commands...");
+            plugin.getLogger().info("First install detected – running commands...");
             Bukkit.getScheduler().runTaskLater(plugin, () -> {
                 for (String cmd : commands) {
                     if (cmd != null && !cmd.isBlank()) {

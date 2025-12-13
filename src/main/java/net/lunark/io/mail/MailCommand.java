@@ -45,7 +45,18 @@ public class MailCommand implements CommandExecutor, TabCompleter {
             return true;
         }
 
-        switch (args[0].toLowerCase()) {
+        String sub = args[0].toLowerCase();
+        String perm = "serveressentials.command.mail." + sub;
+
+        if (!player.hasPermission(perm)) {
+            Component msg = langManager.getMessageFor(player, "commands.no-permission",
+                    "<red>You need permission <yellow><permission></yellow>!",
+                    LanguageManager.ComponentPlaceholder.of("<permission>", perm));
+            player.sendMessage(msg);
+            return true;
+        }
+
+        switch (sub) {
             case "read":
                 readMail(player);
                 break;

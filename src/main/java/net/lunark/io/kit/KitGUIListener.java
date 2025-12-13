@@ -40,7 +40,6 @@ public class KitGUIListener implements Listener {
     }
 
     public void openKitGUI(Player player) {
-        // Load player's kit data into cache
         kitStorage.loadIntoCache(player.getUniqueId());
 
         Component title = langManager.getMessageFor(player, GUI_TITLE_KEY, kitConfig.getGuiTitle());
@@ -58,17 +57,14 @@ public class KitGUIListener implements Listener {
             Kit kit = KitManager.getKit(kitId);
             if (kit == null) continue;
 
-            // Check permission
             boolean hasPermission = kit.getPermission() == null ||
                     kit.getPermission().isEmpty() ||
                     player.hasPermission(kit.getPermission());
 
-            // Determine slot
             int slot = kit.getSlot() > 0 ? kit.getSlot() : slotIndex;
             if (slot >= gui.getSize()) slot = slotIndex;
             slotIndex = Math.max(slot + 1, slotIndex + 1);
 
-            // Create icon
             ItemStack icon = createKitIcon(kit, player, hasPermission);
             gui.setItem(slot, icon);
         }
@@ -81,25 +77,22 @@ public class KitGUIListener implements Listener {
         ItemMeta meta = icon.getItemMeta();
         if (meta == null) return icon;
 
-        // Display name
-        Component name = hasPermission ?
-                miniMessage.deserialize(kit.getDisplayName()) :
-                langManager.getMessageFor(player, "kits.locked-name",
-                        "<red>Locked: <gray>{kit}",
-                        LanguageManager.ComponentPlaceholder.of("{kit}", kit.getName()));
+        Component name = hasPermission
+                ? miniMessage.deserialize(kit.getDisplayName())
+                : langManager.getMessageFor(player, "kits.locked-name",
+                "<red>Locked: <gray>{kit}",
+                LanguageManager.ComponentPlaceholder.of("{kit}", kit.getName()));
         meta.displayName(name);
-
-        // Lore
         List<Component> lore = new ArrayList<>();
         for (String line : kit.getDisplayLore()) {
             lore.add(miniMessage.deserialize(line));
         }
 
-        // Add cooldown info if applicable
-        if (!hasPermission && kit.getPermission() != null) {
+        if (!hasPermission) {
             lore.add(langManager.getMessageFor(player, "kits.requires-permission",
                     "<gray>Requires: <white>{permission}",
-                    LanguageManager.ComponentPlaceholder.of("{permission}", kit.getPermission())));
+                    LanguageManager.ComponentPlaceholder.of("{permission}",
+                            KitPermission.node(kit.getName()))));
         }
 
         long remaining = kitStorage.getRemainingCooldown(player.getUniqueId(), kit.getName(),
@@ -112,7 +105,6 @@ public class KitGUIListener implements Listener {
 
         meta.lore(lore);
 
-        // Add kit ID to PersistentDataContainer
         NamespacedKey key = new NamespacedKey(plugin, "kit_id");
         meta.getPersistentDataContainer().set(key, PersistentDataType.STRING, kit.getName());
 
@@ -193,15 +185,20 @@ public class KitGUIListener implements Listener {
     public void onInventoryClick(InventoryClickEvent event) {
         if (!(event.getWhoClicked() instanceof Player player)) return;
 
-        String title = event.getView().title().toString();
-        if (!title.contains("Available Kits") && !title.contains("Preview Kit:")) return;
+        String mainTitle = langManager.getMessageFor(player, GUI_TITLE_KEY, kitConfig.getGuiTitle()).toString();
+        String previewTitle = langManager.getMessageFor(player, PREVIEW_TITLE_KEY, kitConfig.getPreviewTitle()).toString();
+
+        String clickedTitle = event.getView().title().toString();
+        boolean isMainGui = clickedTitle.equals(mainTitle);
+        boolean isPreviewGui = clickedTitle.contains("Preview Kit:") || clickedTitle.equals(previewTitle);
+
+        if (!isMainGui && !isPreviewGui) return;
 
         event.setCancelled(true);
 
         ItemStack clicked = event.getCurrentItem();
         if (clicked == null || !clicked.hasItemMeta()) return;
 
-        // Check for action in PersistentDataContainer
         NamespacedKey actionKey = new NamespacedKey(plugin, "kit_action");
         String action = clicked.getItemMeta().getPersistentDataContainer().get(actionKey, PersistentDataType.STRING);
 
@@ -216,7 +213,6 @@ public class KitGUIListener implements Listener {
             return;
         }
 
-        // Fallback: Check for kit ID (main menu)
         NamespacedKey kitKey = new NamespacedKey(plugin, "kit_id");
         String kitId = clicked.getItemMeta().getPersistentDataContainer().get(kitKey, PersistentDataType.STRING);
 
@@ -234,17 +230,14 @@ public class KitGUIListener implements Listener {
             return;
         }
 
-        // Permission check
-        if (kit.getPermission() != null && !kit.getPermission().isEmpty() &&
-                !player.hasPermission(kit.getPermission())) {
+        if (!player.hasPermission(KitPermission.node(kitId))) {
             player.sendMessage(langManager.getMessageFor(player, "kits.no-permission",
                     kitConfig.getNoPermissionMessage(),
                     LanguageManager.ComponentPlaceholder.of("{kit}", kitId),
-                    LanguageManager.ComponentPlaceholder.of("{permission}", kit.getPermission())));
+                    LanguageManager.ComponentPlaceholder.of("{permission}", KitPermission.node(kitId))));
             return;
         }
 
-        // Cooldown check
         int cooldown = KitConfigManager.getConfig().getInt("kits." + kitId + ".cooldown", 0);
         if (kitStorage.isOnCooldown(player.getUniqueId(), kitId, cooldown)) {
             long remaining = kitStorage.getRemainingCooldown(player.getUniqueId(), kitId, cooldown);
@@ -255,17 +248,14 @@ public class KitGUIListener implements Listener {
             return;
         }
 
-        // Give items
         for (ItemStack item : kit.getItems()) {
             if (item != null) {
                 player.getInventory().addItem(item);
             }
         }
 
-        // Save claim
         kitStorage.saveKitClaim(player.getUniqueId(), kitId);
 
-        // Success message
         player.sendMessage(langManager.getMessageFor(player, "kits.claim-success",
                 kitConfig.getClaimSuccessMessage(),
                 LanguageManager.ComponentPlaceholder.of("{kit}", kitId)));

@@ -5,7 +5,6 @@ import net.lunark.io.commands.config.MuteConfig;
 import net.lunark.io.language.PlayerLanguageManager;
 import net.lunark.io.commands.CommandDataStorage;
 import net.lunark.io.language.LanguageManager;
-import net.kyori.adventure.text.Component;
 import net.lunark.io.mute.MuteStorage;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -32,7 +31,6 @@ public class MuteCommand extends CommandModule implements CommandExecutor {
         this.storage = storage;
         this.config = config;
 
-        // Start expiration checker
         Bukkit.getScheduler().runTaskTimer(plugin, this::checkExpiredMutes,
                 20L, config.checkInterval.toSeconds() * 20L);
     }
@@ -55,7 +53,7 @@ public class MuteCommand extends CommandModule implements CommandExecutor {
         if (args.length < 2) {
             sender.sendMessage(langManager.getMessageFor(sender instanceof Player ? (Player)sender : null,
                     "mute.usage",
-                    "<red>Usage: <yellow>/mute <player> <reason> [duration]"));
+                    "<red>Usage: <yellow>/mute <player> <duration> <reason> | /mute <player> <reason> [perm]"));
             return true;
         }
 
@@ -69,11 +67,18 @@ public class MuteCommand extends CommandModule implements CommandExecutor {
             return true;
         }
 
-        String reason = args[1];
-        String durationStr = args.length > 2 ? args[2] : "perm";
-        long expiresAt = parseDuration(durationStr);
+        String durationStr;
+        String reason;
 
-        // Check if already muted
+        if (args.length >= 3 && args[1].matches("\\d+[smhdSMHD].*")) {
+            durationStr = args[1];
+            reason = String.join(" ", Arrays.copyOfRange(args, 2, args.length));
+        } else {
+            durationStr = "perm";
+            reason = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
+        }
+
+        long expiresAt = parseDuration(durationStr);
         storage.isMuted(target.getUniqueId()).thenCompose(isMuted -> {
             if (isMuted) {
                 return storage.getMuteData(target.getUniqueId()).thenApply(opt -> opt.map(MuteStorage.MuteData::reason).orElse("No reason"));
@@ -89,24 +94,23 @@ public class MuteCommand extends CommandModule implements CommandExecutor {
                 return;
             }
 
-            // Apply mute
             storage.mutePlayer(target.getUniqueId(), reason, expiresAt).thenRun(() -> {
-                // Notify staff
+                String durationDisplay = formatDurationDisplay(expiresAt);
+
                 sender.sendMessage(langManager.getMessageFor(sender instanceof Player ? (Player)sender : null,
                         "mute.success",
                         "<yellow>You muted <green>{player}</green> <gray>for <white>{reason}</white> <yellow>({duration})</yellow>.",
                         LanguageManager.ComponentPlaceholder.of("{player}", target.getName()),
                         LanguageManager.ComponentPlaceholder.of("{reason}", reason),
-                        LanguageManager.ComponentPlaceholder.of("{duration}", durationStr)));
+                        LanguageManager.ComponentPlaceholder.of("{duration}", durationDisplay)));
 
-                // Notify player if online
                 if (target.isOnline()) {
                     Player player = (Player) target.getPlayer();
                     player.sendMessage(langManager.getMessageFor(player,
                             "mute.notify",
                             "<red>You have been muted! <gray>Reason: <white>{reason}</white> <yellow>({duration})</yellow>",
                             LanguageManager.ComponentPlaceholder.of("{reason}", reason),
-                            LanguageManager.ComponentPlaceholder.of("{duration}", durationStr)));
+                            LanguageManager.ComponentPlaceholder.of("{duration}", durationDisplay)));
                 }
             });
         });
@@ -115,20 +119,80 @@ public class MuteCommand extends CommandModule implements CommandExecutor {
     }
 
     private long parseDuration(String input) {
-        if (input.equalsIgnoreCase("perm")) return -1;
-        try {
-            long time = Long.parseLong(input.substring(0, input.length() - 1));
-            char unit = input.charAt(input.length() - 1);
-            return switch (unit) {
-                case 's' -> System.currentTimeMillis() + time * 1000L;
-                case 'm' -> System.currentTimeMillis() + time * 60 * 1000L;
-                case 'h' -> System.currentTimeMillis() + time * 60 * 60 * 1000L;
-                case 'd' -> System.currentTimeMillis() + time * 24 * 60 * 60 * 1000L;
-                default -> -1;
-            };
-        } catch (Exception e) {
+        if (input.equalsIgnoreCase("perm") || input.equalsIgnoreCase("permanent")) {
             return -1;
         }
+
+        long totalMs = 0;
+        StringBuilder currentNumber = new StringBuilder();
+
+        for (char c : input.toCharArray()) {
+            if (Character.isDigit(c)) {
+                currentNumber.append(c);
+            } else if (Character.isLetter(c)) {
+                if (currentNumber.length() == 0) {
+                    return System.currentTimeMillis();
+                }
+
+                long value = Long.parseLong(currentNumber.toString());
+                currentNumber.setLength(0);
+
+                long multiplier = switch (Character.toLowerCase(c)) {
+                    case 's' -> 1000L;
+                    case 'm' -> 60 * 1000L;
+                    case 'h' -> 60 * 60 * 1000L;
+                    case 'd' -> 24 * 60 * 60 * 1000L;
+                    default -> 0;
+                };
+
+                if (multiplier == 0) {
+                    return System.currentTimeMillis();
+                }
+
+                totalMs += value * multiplier;
+            }
+        }
+
+        if (currentNumber.length() > 0) {
+            totalMs += Long.parseLong(currentNumber.toString()) * 1000L;
+        }
+
+        if (totalMs == 0) {
+            return System.currentTimeMillis();
+        }
+
+        return System.currentTimeMillis() + totalMs;
+    }
+    private String formatDurationDisplay(long expiresAt) {
+        if (expiresAt == -1) {
+            return "Permanent";
+        }
+
+        long remainingMs = expiresAt - System.currentTimeMillis();
+        if (remainingMs <= 0) {
+            return "Expired";
+        }
+
+        long seconds = remainingMs / 1000;
+        long minutes = seconds / 60;
+        long hours = minutes / 60;
+        long days = hours / 24;
+
+        StringBuilder display = new StringBuilder();
+        if (days > 0) {
+            display.append(days).append("d ");
+        }
+        if (hours % 24 > 0) {
+            display.append(hours % 24).append("h ");
+        }
+        if (minutes % 60 > 0 && days == 0) {
+            display.append(minutes % 60).append("m ");
+        }
+        if (seconds % 60 > 0 && hours == 0 && days == 0) {
+            display.append(seconds % 60).append("s");
+        }
+
+        return display.toString().trim();
     }
 
     private void checkExpiredMutes() {

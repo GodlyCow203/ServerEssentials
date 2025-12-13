@@ -1,4 +1,8 @@
 package net.lunark.io.commands.config;
 
-public class EditSignConfig {
+import org.bukkit.plugin.Plugin;
+
+public final class EditSignConfig {
+    public EditSignConfig(Plugin plugin) {
+    }
 }

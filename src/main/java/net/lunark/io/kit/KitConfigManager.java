@@ -16,7 +16,7 @@ public class KitConfigManager {
 
     private static FileConfiguration config;
     private static File file;
-    private static final String FILE_PATH = "kits/kits.yml"; // Moved to subfolder
+    private static final String FILE_PATH = "kits/kits.yml";
 
     public static void setup(JavaPlugin plugin) {
         File folder = new File(plugin.getDataFolder(), "kits");
@@ -32,7 +32,6 @@ public class KitConfigManager {
 
         config = YamlConfiguration.loadConfiguration(file);
 
-        // Apply defaults if needed
         try (InputStream defStream = plugin.getResource(FILE_PATH)) {
             if (defStream != null) {
                 YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(

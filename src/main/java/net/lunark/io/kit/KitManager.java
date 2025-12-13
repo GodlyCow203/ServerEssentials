@@ -17,6 +17,9 @@ public class KitManager {
 
     public static void loadKits(FileConfiguration config) {
         kits.clear();
+
+        kits.keySet().forEach(KitPermission::unregister);
+
         ConfigurationSection section = config.getConfigurationSection("kits");
         if (section == null) return;
 
@@ -26,14 +29,13 @@ public class KitManager {
             if (kitSection == null) continue;
 
             try {
-                String permission = kitSection.getString("permission", "");
-                String displayName = kitSection.getString("display.name", rawKitName);
-                String materialName = kitSection.getString("display.material", "SHULKER_BOX");
-                Material material = Material.matchMaterial(materialName.toUpperCase());
+                String displayName   = kitSection.getString("display.name", rawKitName);
+                String materialName  = kitSection.getString("display.material", "SHULKER_BOX");
+                Material material    = Material.matchMaterial(materialName.toUpperCase());
                 if (material == null) material = Material.SHULKER_BOX;
 
                 List<String> lore = kitSection.getStringList("display.lore");
-                int slot = kitSection.getInt("display.slot", -1);
+                int slot     = kitSection.getInt("display.slot", -1);
                 int cooldown = kitSection.getInt("cooldown", 0);
 
                 List<ItemStack> items = new ArrayList<>();
@@ -45,8 +47,11 @@ public class KitManager {
                     }
                 }
 
-                Kit kit = new Kit(kitName, permission, displayName, material, lore, slot, items, cooldown);
+                Kit kit = new Kit(kitName, /*permission=*/"", displayName, material,
+                        lore, slot, items, cooldown);
                 kits.put(kitName, kit);
+
+                KitPermission.register(kitName);
 
             } catch (Exception e) {
                 Bukkit.getLogger().log(Level.WARNING, "Failed to load kit '" + rawKitName + "'", e);

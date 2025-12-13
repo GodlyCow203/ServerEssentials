@@ -10,6 +10,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -18,7 +22,7 @@ import org.bukkit.plugin.Plugin;
 import java.text.DecimalFormat;
 import java.util.*;
 
-public class SellGUIManager {
+public class SellGUIManager implements Listener {
     private static final MiniMessage mini = MiniMessage.miniMessage();
     private final Plugin plugin;
     private final PlayerLanguageManager langManager;
@@ -27,6 +31,7 @@ public class SellGUIManager {
     private final ServerEssentialsEconomy economy;
     private final Map<UUID, Double> pendingValues = new HashMap<>();
     private final DecimalFormat formatter = new DecimalFormat("#,##0.00");
+    private final Set<Inventory> sellInventories = new HashSet<>();
 
     public SellGUIManager(Plugin plugin, PlayerLanguageManager langManager, SellStorage storage,
                           SellConfig config, ServerEssentialsEconomy economy) {
@@ -35,6 +40,8 @@ public class SellGUIManager {
         this.storage = storage;
         this.config = config;
         this.economy = economy;
+
+        plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
     public void openSellGUI(Player player) {
@@ -52,6 +59,7 @@ public class SellGUIManager {
 
         player.openInventory(inv);
         pendingValues.put(player.getUniqueId(), 0.0);
+        sellInventories.add(inv);
         player.playSound(player.getLocation(), Sound.BLOCK_CHEST_OPEN, 0.5f, 1f);
     }
 
@@ -62,6 +70,10 @@ public class SellGUIManager {
                 ItemMeta meta = pane.getItemMeta();
                 if (meta != null) {
                     meta.displayName(mini.deserialize(" "));
+                    meta.getPersistentDataContainer().set(
+                            new org.bukkit.NamespacedKey(plugin, "sellgui_display"),
+                            org.bukkit.persistence.PersistentDataType.BYTE, (byte) 1
+                    );
                     pane.setItemMeta(meta);
                 }
                 inv.setItem(i, pane);
@@ -86,9 +98,59 @@ public class SellGUIManager {
                     "<gold>Total Value: <yellow>$0.00"));
 
             meta.lore(lore);
+            meta.getPersistentDataContainer().set(
+                    new org.bukkit.NamespacedKey(plugin, "sellgui_display"),
+                    org.bukkit.persistence.PersistentDataType.BYTE, (byte) 1
+            );
             emerald.setItemMeta(meta);
         }
         inv.setItem(inv.getSize() - 5, emerald);
+    }
+
+    @EventHandler
+    public void onInventoryClick(InventoryClickEvent event) {
+        if (!sellInventories.contains(event.getInventory())) {
+            return;
+        }
+
+        if (event.getCurrentItem() != null && isDisplayItem(event.getCurrentItem())) {
+            event.setCancelled(true);
+            return;
+        }
+
+        if (event.getClick().isShiftClick() && event.getClickedInventory() == event.getInventory()) {
+            int slot = event.getSlot();
+            if (slot < 9 || slot >= event.getInventory().getSize() - 9 || slot % 9 == 0 || slot % 9 == 8) {
+                event.setCancelled(true);
+                return;
+            }
+        }
+    }
+
+    @EventHandler
+    public void onInventoryDrag(InventoryDragEvent event) {
+        if (!sellInventories.contains(event.getInventory())) {
+            return;
+        }
+
+        for (int slot : event.getRawSlots()) {
+            if (slot < 9 || slot >= event.getInventory().getSize() - 9 || slot % 9 == 0 || slot % 9 == 8) {
+                event.setCancelled(true);
+                return;
+            }
+        }
+    }
+
+    private boolean isDisplayItem(ItemStack item) {
+        if (item == null || !item.hasItemMeta()) {
+            return false;
+        }
+
+        ItemMeta meta = item.getItemMeta();
+        return meta.getPersistentDataContainer().has(
+                new org.bukkit.NamespacedKey(plugin, "sellgui_display"),
+                org.bukkit.persistence.PersistentDataType.BYTE
+        );
     }
 
     public boolean isSellable(Material material) {
@@ -174,6 +236,7 @@ public class SellGUIManager {
         }
 
         pendingValues.remove(uuid);
+        sellInventories.remove(inv);
 
         if (totalValue == 0 && itemsToReturn.isEmpty()) {
             player.sendMessage(langManager.getMessageFor(player, "economy.sellgui.no-items",

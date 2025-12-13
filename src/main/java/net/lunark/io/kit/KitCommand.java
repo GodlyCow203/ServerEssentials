@@ -22,14 +22,13 @@ public class KitCommand implements CommandExecutor {
         this.langManager = langManager;
         this.kitStorage = kitStorage;
         this.kitConfig = kitConfig;
-        this.guiListener = guiListener; // <-- Store the pre-created listener
+        this.guiListener = guiListener;
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        // Handle /kit reload
         if (args.length == 1 && args[0].equalsIgnoreCase("reload")) {
-            if (!sender.hasPermission("kits.command.reload")) {
+            if (!sender.hasPermission("serveressentials.command.kits.reload")) {
                 sender.sendMessage(langManager.getMessageFor(
                         sender instanceof Player p ? p : null,
                         "kits.no-permission",
@@ -48,22 +47,19 @@ public class KitCommand implements CommandExecutor {
             return true;
         }
 
-        // Must be player for GUI
         if (!(sender instanceof Player player)) {
             sender.sendMessage(langManager.getMessageFor(null, "commands.only-player",
                     "<red>Only players can use this command!").toString());
             return true;
         }
 
-        // Permission check
-        if (!player.hasPermission("kits.command.use")) {
+        if (!player.hasPermission("serveressentials.command.kits")) {
             player.sendMessage(langManager.getMessageFor(player, "kits.no-permission",
                     "<red>You don't have permission to use kits!",
                     LanguageManager.ComponentPlaceholder.of("{permission}", "kits.command.use")));
             return true;
         }
 
-        // Use the pre-registered listener
         guiListener.openKitGUI(player);
         return true;
     }

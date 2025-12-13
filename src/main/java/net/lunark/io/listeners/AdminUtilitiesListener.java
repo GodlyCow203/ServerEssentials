@@ -11,20 +11,26 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.Plugin;
 
 public class AdminUtilitiesListener implements Listener {
-    private final Plugin plugin;
 
-    public AdminUtilitiesListener(Plugin plugin) {
+    private final Plugin plugin;
+    private final GodCommand godCommand;
+    private final VanishCommand vanishCommand;
+
+    public AdminUtilitiesListener(Plugin plugin, GodCommand godCommand, VanishCommand vanishCommand) {
         this.plugin = plugin;
+        this.godCommand = godCommand;
+        this.vanishCommand = vanishCommand;
     }
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        VanishCommand.loadPlayerState(player.getUniqueId());
-        GodCommand.loadPlayerState(player.getUniqueId());
+
+        godCommand.loadPlayerState(player.getUniqueId());
+        vanishCommand.loadPlayerState(player.getUniqueId());
 
         plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
-            if (VanishCommand.isVanished(player.getUniqueId())) {
+            if (vanishCommand.isVanished(player.getUniqueId())) {
                 plugin.getServer().getOnlinePlayers().forEach(p -> p.hidePlayer(plugin, player));
             }
         }, 10L);
@@ -32,14 +38,14 @@ public class AdminUtilitiesListener implements Listener {
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
-        VanishCommand.unloadPlayerState(event.getPlayer().getUniqueId());
-        GodCommand.unloadPlayerState(event.getPlayer().getUniqueId());
+        godCommand.unloadPlayerState(event.getPlayer().getUniqueId());
+        vanishCommand.unloadPlayerState(event.getPlayer().getUniqueId());
     }
 
     @EventHandler
     public void onEntityDamage(EntityDamageEvent event) {
         if (event.getEntity() instanceof Player player) {
-            if (GodCommand.isGodMode(player.getUniqueId())) {
+            if (godCommand.isGodMode(player.getUniqueId())) {
                 event.setCancelled(true);
             }
         }

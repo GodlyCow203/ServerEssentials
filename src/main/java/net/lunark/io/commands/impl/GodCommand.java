@@ -7,6 +7,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
@@ -14,9 +15,11 @@ import java.util.concurrent.ConcurrentHashMap;
 import static net.lunark.io.language.LanguageManager.ComponentPlaceholder;
 
 public final class GodCommand implements CommandExecutor {
+
     private static final String PERMISSION = "serveressentials.command.god";
     private static final String COMMAND_NAME = "god";
-    private static final Set<UUID> godModeCache = ConcurrentHashMap.newKeySet();
+
+    private final Set<UUID> godModeCache = ConcurrentHashMap.newKeySet();
 
     private final PlayerLanguageManager langManager;
     private final GodConfig config;
@@ -36,7 +39,9 @@ public final class GodCommand implements CommandExecutor {
         }
 
         if (!player.hasPermission(PERMISSION)) {
-            player.sendMessage(langManager.getMessageFor(player, "commands.god.no-permission", "<red>You need permission <yellow>{permission}</yellow>!", ComponentPlaceholder.of("{permission}", PERMISSION)));
+            player.sendMessage(langManager.getMessageFor(player, "commands.god.no-permission",
+                    "<red>You need permission <yellow>{permission}</yellow>!",
+                    ComponentPlaceholder.of("{permission}", PERMISSION)));
             return true;
         }
 
@@ -55,11 +60,11 @@ public final class GodCommand implements CommandExecutor {
         return true;
     }
 
-    public static boolean isGodMode(UUID playerId) {
+    public boolean isGodMode(UUID playerId) {
         return godModeCache.contains(playerId);
     }
 
-    public static void loadPlayerState(UUID playerId) {
+    public void loadPlayerState(UUID playerId) {
         dataStorage.getState(playerId, COMMAND_NAME, "enabled").thenAccept(opt -> {
             if (opt.isPresent() && "true".equals(opt.get())) {
                 godModeCache.add(playerId);
@@ -67,7 +72,7 @@ public final class GodCommand implements CommandExecutor {
         });
     }
 
-    public static void unloadPlayerState(UUID playerId) {
+    public void unloadPlayerState(UUID playerId) {
         godModeCache.remove(playerId);
     }
 }

@@ -1,861 +1,1186 @@
 {
+  "commands": {
+    "homes": {
+      "only-player": ">> <#E74C3C>Only players can use this command!",
+      "gui": {
+        "home-title": "<white>Home {slot}",
+        "manage-title": "<white>Manage Home {slot}",
+        "no-permission": ">> <#E74C3C>No Permission!",
+        "click-set": ">> <#F39C12>Click to set",
+        "click-teleport": ">> <#27AE60>Left-click to teleport",
+        "click-manage": ">> <#F39C12>Right-click to manage",
+        "click-remove": ">> <#E74C3C>Click to remove",
+        "empty": ">> <#95A5A6>Empty slot",
+        "name": ">> <#95A5A6>Name: <white>{name}",
+        "coords": ">> <#95A5A6>XYZ: <white>{x}, {y}, {z}",
+        "confirm": ">> <#27AE60>Confirm",
+        "cancel": ">> <#E74C3C>Cancel",
+        "info": ">> <white>Home {slot} - {mode}"
+      },
+      "set": {
+        "success": ">> <#27AE60>Home <#F39C12>{slot}</#F39C12> set!"
+      },
+      "remove": {
+        "success": ">> <#27AE60>Home <#F39C12>{slot}</#F39C12> removed!"
+      },
+      "rename": {
+        "prompt": ">> <#F39C12>Enter a new name for this home in chat:",
+        "success": ">> <#27AE60>Home renamed to <#F39C12>{name}</#F39C12>!"
+      },
+      "empty-slot": ">> <#95A5A6>No home set in slot {slot}!",
+      "world-missing": ">> <#E74C3C>Home world is no longer available!"
+    },
+    "loom": {
+      "only-player": ">> <#E74C3C>Only players can use this command.",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "gui-title": "<#E74C3C><bold>Loom Interface",
+      "error-item-name": "<#E74C3C><bold>ERROR",
+      "error-item-lore": ">> <#95A5A6>Feature not yet implemented",
+      "opened": ">> <#27AE60>Loom interface opened!",
+      "clicked-error": ">> <#E74C3C>You clicked the error item! Feature not implemented yet."
+    },
+    "stonecutter": {
+      "only-player": ">> <#E74C3C>Only players can use this command.",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "opened": ">> <#27AE60>Stonecutter opened!"
+    },
+    "grindstone": {
+      "only-player": ">> <#E74C3C>Only players can use this command.",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "opened": ">> <#27AE60>Grindstone opened!"
+    },
+    "cartographytable": {
+      "only-player": ">> <#E74C3C>Only players can use this command.",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "opened": ">> <#27AE60>Cartography table opened!"
+    },
+    "anvil": {
+      "only-player": ">> <#E74C3C>Only players can use this command.",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "opened": ">> <#27AE60>Anvil opened!"
+    },
+    "craftingtable": {
+      "only-player": ">> <#E74C3C>Only players can use this command.",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "opened": ">> <#27AE60>Crafting table opened!"
+    },
+    "smithingtable": {
+      "only-player": ">> <#E74C3C>Only players can use this command.",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "success": ">> <#27AE60>Opened smithing table."
+    },
+    "broadcast": {
+      "no-permission": ">> <#E74C3C>You do not have permission to use this command!",
+      "usage": ">> <#E74C3C>Usage: /broadcast <message>",
+      "format": ">> <#3498DB>[Server] <white>{message}"
+    },
+    "reboot": {
+      "no-permission": ">> <#E74C3C>You do not have permission to use this command!",
+      "usage": ">> <#E74C3C>Usage: /reboot <minutes>",
+      "announce-scheduled": ">> <#E74C3C>⚠ Server will reboot in {time} minute(s).",
+      "announce-minutes": ">> <#F39C12>⏳ Reboot in {time} minute(s).",
+      "announce-seconds": ">> <#F39C12>⏳ Reboot in {time} second(s).",
+      "announce-now": ">> <#E74C3C><bold>⚠ Rebooting now!",
+      "titles": {
+        "minute-warning": ">> <#F39C12>⏳ Reboot in {time} minute(s).",
+        "second-warning": ">> <#F39C12><bold>{time}",
+        "now": ">> <#E74C3C><bold>⚠ Rebooting now!"
+      }
+    },
+    "broadcastworld": {
+      "no-permission": ">> <#E74C3C>You do not have permission to use this command!",
+      "usage": ">> <#E74C3C>Usage: /broadcastworld <world> <message>",
+      "world-not-found": ">> <#E74C3C>World <#F39C12>{world}</#F39C12> not found!",
+      "message-sent": ">> <#27AE60>Message broadcasted to world <#F39C12>{world}</#F39C12>!",
+      "broadcast": ">> {message}"
+    },
+    "spawner": {
+      "only-player": ">> <#E74C3C>Only players can use this command!",
+      "no-permission": ">> <#E74C3C>You don't have permission to use this command!",
+      "no-permission-mob": ">> <#E74C3C>You don't have permission to set a spawner to {mob}!",
+      "look-at-spawner": ">> <#E74C3C>Look at a spawner to change it!",
+      "usage": ">> <#F39C12>Usage: /spawner <mob>",
+      "invalid-mob": ">> <#E74C3C>Invalid mob type: {mob}",
+      "changed": ">> <#27AE60>Spawner type changed to {mob}"
+    },
+    "serverinfo": {
+      "only-player": ">> <#E74C3C>Only players can use this command!",
+      "no-permission": ">> <#E74C3C>You do not have permission to use this command!",
+      "header": ">> <#F39C12>========== Server Information ==========",
+      "ram": ">> <#27AE60>RAM: <white>{used}MB / {max}MB",
+      "disk": ">> <#27AE60>Disk: <white>{free}MB free / {total}MB total",
+      "tps": ">> <#27AE60>TPS: <white>{tps}",
+      "cpu": ">> <#27AE60>CPU: <white>{cores} cores, {load} load",
+      "os": ">> <#27AE60>OS: <white>{name} {version} ({arch})",
+      "uptime": ">> <#27AE60>Uptime: <white>{hours}h {minutes}m {seconds}s",
+      "java": ">> <#27AE60>Java: <white>{version}",
+      "host": ">> <#27AE60>Host: <white>{hostname} ({address})",
+      "net": ">> <#27AE60>Network: <white>{interfaces}",
+      "plugins": ">> <#27AE60>Plugins: <white>{count}",
+      "minecraft": ">> <#27AE60>Minecraft: <white>{version}",
+      "paper": ">> <#27AE60>Server: <white>{version}",
+      "players": ">> <#27AE60>Players: <white>{online}/{max}",
+      "gpu": ">> <#27AE60>GPU: <white>{gpu}",
+      "jvm": ">> <#27AE60>JVM Args: <white>{args}"
+    },
+    "unloadworld": {
+      "no-permission": ">> <#E74C3C>You do not have permission to use this command!",
+      "usage": ">> <#E74C3C>Usage: /unloadworld <world>",
+      "not-found": ">> <#E74C3C>World <#F39C12>{world}</#F39C12> not found!",
+      "failed": ">> <#E74C3C>Failed to unload world <#F39C12>{world}</#F39C12>!",
+      "success": ">> <#27AE60>Successfully unloaded world <#F39C12>{world}</#F39C12>."
+    },
+    "uptime": {
+      "no-permission": ">> <#E74C3C>You do not have permission to use this command!",
+      "info": ">> <#27AE60>Server uptime: <white>{uptime}"
+    },
+    "loadworld": {
+      "no-permission": ">> <#E74C3C>You do not have permission to use this command!",
+      "usage": ">> <#E74C3C>Usage: /loadworld <world>",
+      "already-loaded": ">> <#E74C3C>World <#F39C12>{world}</#F39C12> is already loaded!",
+      "success": ">> <#27AE60>Successfully loaded world <#F39C12>{world}</#F39C12>.",
+      "failed": ">> <#E74C3C>Failed to load world <#F39C12>{world}</#F39C12>!"
+    },
+    "worldlist": {
+      "no-permission": ">> <#E74C3C>You do not have permission to use this command!",
+      "header": ">> <#F39C12>========== Worlds ==========",
+      "status-loaded": ">> <#27AE60>Loaded",
+      "entry": ">> <#F39C12>{world} <#95A5A6>({status}) <white>- Chunks: {chunks}, Entities: {entities}, Players: {players}"
+    },
+    "playerinfo": {
+      "no-permission": ">> <#E74C3C>You do not have permission to use this command!",
+      "usage": ">> <#E74C3C>Usage: /playerinfo <player>",
+      "not-found": ">> <#E74C3C>Player not found.",
+      "header": ">> <#F39C12>----- Player Info -----",
+      "name": ">> <#F39C12>Name: <white>{player}",
+      "uuid": ">> <#F39C12>UUID: <white>{uuid}",
+      "health": ">> <#F39C12>Health: <white>{health}/{maxhealth}",
+      "food": ">> <#F39C12>Food: <white>{food}",
+      "location": ">> <#F39C12>Location: <white>{location}"
+    },
+    "heal": {
+      "no-permission": ">> <#E74C3C>You don't have permission to use this command!",
+      "no-permission-others": ">> <#E74C3C>You don't have permission to heal other players!",
+      "only-player": ">> <#E74C3C>Only players can use this command!",
+      "player-not-found": ">> <#E74C3C>Player not found: {player}",
+      "usage": ">> <#E74C3C>Usage: /heal [player]",
+      "success-self": ">> <#27AE60>You have been healed!",
+      "success-other": ">> <#27AE60>You healed {player}!",
+      "success-healed": ">> <#27AE60>You have been healed by {healer}!"
+    },
+    "endersee": {
+      "no-permission": ">> <#E74C3C>You don't have permission to view your ender chest!",
+      "no-permission-others": ">> <#E74C3C>You don't have permission to view other players' ender chests!",
+      "only-player": ">> <#E74C3C>Only players can use this command!",
+      "usage": ">> <#E74C3C>Usage: /endersee [player]",
+      "player-not-found": ">> <#E74C3C>Player not found: <#F39C12>{player}</#F39C12>",
+      "opened-self": ">> <#27AE60>Opened your ender chest.",
+      "opened-other": ">> <#27AE60>Opened ender chest of <white>{player}</white>."
+    },
+    "freeze": {
+      "only-player": ">> <#E74C3C>Only players can use this command!",
+      "usage": ">> <#E74C3C>Usage: /freeze <player>",
+      "player-not-found": ">> <#E74C3C>Player not found: <#F39C12>{player}</#F39C12>",
+      "froze": ">> <#27AE60>Froze <white>{player}</white>.",
+      "unfroze": ">> <#27AE60>Unfroze <white>{player}</white>.",
+      "target-frozen": ">> <#E74C3C>You have been frozen!",
+      "target-unfrozen": ">> <#27AE60>You have been unfrozen."
+    },
+    "unfreeze": {
+      "no-permission": ">> <#E74C3C>You do not have permission to use this command!",
+      "usage": ">> <#E74C3C>Usage: /unfreeze <player>",
+      "player-not-found": ">> <#E74C3C>Player not found: <#F39C12>{player}</#F39C12>",
+      "not-frozen": ">> <#E74C3C>Player <#F39C12>{player}</#F39C12> is not frozen!",
+      "success": ">> <#27AE60>Unfroze <white>{player}</white>.",
+      "target-unfrozen": ">> <#27AE60>You have been unfrozen."
+    },
+    "clearchat": {
+      "no-permission": ">> <#E74C3C>You do not have permission to use this command.",
+      "cleared": ">> <#95A5A6>Chat has been cleared by <#E74C3C>{player}</#E74C3C>"
+    },
+    "vanish": {
+      "only-player": ">> <#E74C3C>Only players can use this command!",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "vanished": ">> <#27AE60>You are now vanished.",
+      "visible": ">> <#27AE60>You are now visible to all players."
+    },
+    "god": {
+      "only-player": ">> <#E74C3C>Only players can use this command!",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "enabled": ">> <#27AE60>God mode enabled.",
+      "disabled": ">> <#E74C3C>God mode disabled."
+    },
+    "invsee": {
+      "only-player": ">> <#E74C3C>Only players can use this command!",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "usage": ">> <#E74C3C>Usage: /invsee <player>",
+      "player-not-found": ">> <#E74C3C>Player not found: <#F39C12>{player}</#F39C12>",
+      "success": ">> <#27AE60>Viewing <white>{player}</white>'s inventory."
+    },
+    "invclear": {
+      "only-player": ">> <#E74C3C>Only players can use this command!",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "player-not-found": ">> <#E74C3C>Player not found: <#F39C12>{player}</#F39C12>",
+      "cleared": ">> <#27AE60>Your inventory has been cleared.",
+      "cleared-other": ">> <#27AE60>Cleared <white>{player}</white>'s inventory."
+    },
+    "tp": {
+      "only-player": ">> <#E74C3C>Only players can use this command!",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "usage": ">> <#E74C3C>Usage: /tp <player>",
+      "player-not-found": ">> <#E74C3C>Player not found: <#F39C12>{player}</#F39C12>",
+      "success": ">> <#27AE60>Teleported to <white>{player}</white>."
+    },
+    "kickall": {
+      "usage": ">> <#E74C3C>Usage: /kickall <reason>",
+      "kick-message": ">> <#E74C3C>You have been kicked by <#F39C12>{admin}</#F39C12>!\n>> <#95A5A6>Reason: <white>{reason}",
+      "sender-message": ">> <#27AE60>Successfully kicked <#F39C12>{count}</#F39C12> players.\n>> <#95A5A6>Reason: <white>{reason}",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!"
+    },
+    "pingall": {
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "header": ">> <#27AE60>Online Player Pings:",
+      "player-line": ">> <#F39C12>{player}: <#3498DB>{ping}"
+    },
+    "alts": {
+      "usage": ">> <#E74C3C>Usage: /alts <player>",
+      "player-offline": ">> <#E74C3C>Player must be online to check their IP.",
+      "header": ">> <#F39C12>Players with the same IP as {target}:",
+      "none": ">> <#95A5A6>- None found online.",
+      "found": ">> <#95A5A6>- {player}",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!"
+    },
+    "stafflist": {
+      "header": ">> <#3498DB>--- Online Staff ---",
+      "none": ">> <#95A5A6>No staff members online.",
+      "format": ">> <#27AE60>• <#F39C12>{player}",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!"
+    },
+    "editsign": {
+      "only-player": ">> <#E74C3C>Only players can use this command.",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "not-looking-at-sign": ">> <#E74C3C>You are not looking at a sign.",
+      "usage": ">> <#F39C12>Usage: /editsign <line1>|<line2>|<line3>|<line4>",
+      "success": ">> <#27AE60>Sign updated successfully!"
+    },
+    "iteminfo": {
+      "only-player": ">> <#E74C3C>Only players can use this command.",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "no-item": ">> <#E74C3C>You must hold an item in your main hand.",
+      "header": ">> <#3498DB>≡ <bold>Item Information</bold> <#3498DB>≡",
+      "type": ">> <#95A5A6>Type: <white>{type}",
+      "amount": ">> <#95A5A6>Amount: <white>{amount}",
+      "name": ">> <#95A5A6>Name: <white>{name}",
+      "lore-header": ">> <#95A5A6>≡ <bold>Lore</bold> <#95A5A6>≡",
+      "lore-content": ">> <white>>> {lore}",
+      "no-meta": ">> <#95A5A6>No additional metadata.",
+      "enchants-header": ">> <#95A5A6>≡ <bold>Enchantments</bold> <#95A5A6>≡",
+      "enchant-line": ">> <#F39C12>✦ <white>{enchant} <#95A5A6>Level {level}",
+      "flags-header": ">> <#95A5A6>≡ <bold>Item Flags</bold> <#95A5A6>≡",
+      "flag-line": ">> <#F39C12>- <#95A5A6>{flag}"
+    },
+    "death": {
+      "only-player": ">> <#E74C3C>Only players can use this command.",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "count": ">> <#E74C3C>You have died <#F39C12>{deaths} <#E74C3C>times."
+    },
+    "realname": {
+      "only-player": ">> <#E74C3C>Only players can use this command.",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "usage": ">> <#E74C3C>Usage: <white>/realname <nickname>",
+      "found": ">> <#27AE60>Nickname <#F39C12>{nickname} <#27AE60>belongs to <white>{realname}",
+      "not-found": ">> <#E74C3C>No player found with nickname <#F39C12>{nickname}"
+    },
+    "speed": {
+      "only-player": ">> <#E74C3C>Only players can use this command.",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "usage": ">> <#E74C3C>Usage: <white>/speed <1-10>",
+      "invalid-number": ">> <#E74C3C>Invalid number! Speed must be between <#F39C12>1-10",
+      "fly-set": ">> <#27AE60>Fly speed set to <#F39C12>{speed}",
+      "walk-set": ">> <#27AE60>Walk speed set to <#F39C12>{speed}"
+    },
+    "launch": {
+      "only-player": ">> <#E74C3C>Only players can use this command.",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "launched": ">> <#27AE60><bold>Woosh!</bold> <white>You've been launched!"
+    },
+    "repair": {
+      "only-player": ">> <#E74C3C>Only players can use this command.",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "no-item": ">> <#E74C3C>You must hold an item in your main hand to repair it.",
+      "cannot-repair": ">> <#E74C3C>This item cannot be repaired.",
+      "already-full": ">> <#F39C12>This item is already at full durability.",
+      "success": ">> <#27AE60>✓ Item has been fully repaired!"
+    },
+    "sleep": {
+      "only-player": ">> <#E74C3C>Only players can use this command.",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "broadcast": ">> <#F39C12>{player} <#27AE60>skipped the night! <#95A5A6>(Sleep command)",
+      "success": ">> <#27AE60>The night has been skipped and the weather cleared!"
+    },
+    "ping": {
+      "only-player": ">> <#E74C3C>Only players can use this command.",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "show": ">> <#95A5A6>Your ping: {ping}ms"
+    },
+    "disposal": {
+      "only-player": ">> <#E74C3C>Only players can use this command.",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "inventory-title": "<#E74C3C><bold>Disposal",
+      "opened": ">> <#27AE60>Disposal opened. Place items here to delete them."
+    },
+    "compass": {
+      "only-player": ">> <#E74C3C>Only players can use this command.",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "facing": ">> <#27AE60>You are facing <#F39C12><bold>{direction}"
+    },
+    "top": {
+      "only-player": ">> <#E74C3C>Only players can use this command.",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "teleported": ">> <#27AE60>Teleported to the highest block above you!",
+      "no-block": ">> <#E74C3C>No solid block found above you!"
+    },
+    "burn": {
+      "only-player": ">> <#E74C3C>Only players can use this command.",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "no-permission-sub": ">> <#E74C3C>You need permission <#F39C12>{subpermission}</#F39C12>!",
+      "usage": ">> <#E74C3C>Usage: <white>/burn <player> [seconds]",
+      "player-not-found": ">> <#E74C3C>Player <#F39C12>{target}</#F39C12> not found!",
+      "immune-gamemode": ">> <#E74C3C>{target} is in <#F39C12>{gamemode}</#F39C12> mode and is immune!",
+      "invalid-number": ">> <#E74C3C>Invalid! Use <#F39C12>1-{max}</#F39C12> seconds.",
+      "target-burned": ">> <#E74C3C>You've been set on fire by <#F39C12>{attacker}</#F39C12>!",
+      "sender-burned": ">> <#F39C12>{target}</#F39C12><#E74C3C> is now burning for <#F39C12>{seconds}</#F39C12> seconds!",
+      "self-burned": ">> <#F39C12>You set yourself on fire for <#F39C12>{seconds}</#F39C12> seconds!"
+    },
+    "feed": {
+      "only-player": ">> <#E74C3C>Only players can use this command.",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "no-permission-others": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "usage": ">> <#E74C3C>Usage: <white>/feed [player]",
+      "player-not-found": ">> <#E74C3C>Player <#F39C12>{target}</#F39C12> not found!",
+      "fed-self": ">> <#27AE60>✓ You have been fed to full!",
+      "fed-other": ">> <#27AE60>✓ You fed <#F39C12>{target}</#F39C12> to full!",
+      "fed-by-other": ">> <#27AE60>✓ You were fed to full by <#F39C12>{sender}</#F39C12>!"
+    },
+    "hat": {
+      "only-player": ">> <#E74C3C>Only players can use this command.",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "no-item": ">> <#E74C3C>You must hold an item in your main hand to wear it as a hat!",
+      "item-not-allowed": ">> <#E74C3C>This item cannot be worn as a hat! See allowed items in config.",
+      "success": ">> <#27AE60>✓ Your hat has been updated!"
+    },
+    "ptime": {
+      "only-player": ">> <#E74C3C>Only players can use this command.",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "no-permission-sub": ">> <#E74C3C>You need permission <#F39C12>{subpermission}</#F39C12>!",
+      "usage": ">> <#E74C3C>Usage: <white>/ptime <day|night|reset>",
+      "invalid-option": ">> <#E74C3C>Invalid option! Use: <white>day, night, or reset",
+      "success": ">> <#27AE60>Personal time set to <#F39C12>{option}"
+    },
+    "night": {
+      "only-player": ">> <#E74C3C>Only players can use this command.",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "success": ">> <#27AE60>Time set to night in your world!"
+    },
+    "auction": {
+      "only-player": ">> <#E74C3C>This command can only be used by players!",
+      "usage": ">> <#F39C12>Usage:</#F39C12> /auction [sell <price>|my]",
+      "sell": {
+        "no-item": ">> <#E74C3C>You must hold an item in your hand to sell!",
+        "usage": ">> <#E74C3C>Usage: /auction sell <price>",
+        "invalid-price": ">> <#E74C3C>Invalid price! Must be a positive number.",
+        "max-limit": ">> <#E74C3C>You can only sell up to <#F39C12>{max}</#F39C12> items at once!",
+        "success": ">> <#27AE60>Item listed for <#F39C12>${price}</#F39C12>!"
+      }
+    },
+    "paytoggle": {
+      "only-player": ">> <#E74C3C>Only players can use this command.",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "enabled": ">> <#27AE60>Payments have been <#F39C12>enabled</#F39C12>.",
+      "disabled": ">> <#F39C12>Payments have been <#F39C12>disabled</#F39C12>.",
+      "error": ">> <#E74C3C>Error toggling payment state. Please try again."
+    },
+    "pay": {
+      "only-player": ">> <#E74C3C>Only players can use this command.",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "usage": ">> <#F39C12>Usage: <white>{usage}",
+      "player-not-found": ">> <#E74C3C>Player not found: <white>{player}",
+      "self-payment": ">> <#E74C3C>You cannot pay yourself!",
+      "invalid-amount": ">> <#E74C3C>Invalid amount: <white>{amount}",
+      "positive-amount": ">> <#E74C3C>Amount must be positive!",
+      "not-enough": ">> <#E74C3C>You don't have enough money!",
+      "target-disabled": ">> <#E74C3C>{player} has disabled payments!",
+      "confirmation-expired": ">> <#E74C3C>Previous payment confirmation expired. Please try again.",
+      "pending-other": ">> <#F39C12>You already have a pending payment to <white>{player} <#F39C12>for <#27AE60>{amount}",
+      "confirm-message": ">> <#27AE60>Click to confirm: Pay <white>{amount} <#27AE60>to <white>{player}",
+      "confirm-instruction": ">> <#95A5A6>Type <white>{command} <#95A5A6>again to confirm.",
+      "success-sender": ">> <#27AE60>You paid <white>{amount} <#27AE60>to <white>{player}",
+      "success-target": ">> <#27AE60>You received <white>{amount} <#27AE60>from <white>{player}",
+      "error": ">> <#E74C3C>Error checking payment status. Please try again."
+    },
+    "eco": {
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "usage": ">> <#F39C12>Usage: <white>{usage}",
+      "player-not-found": ">> <#E74C3C>Player not found: <white>{player}",
+      "give-usage": ">> <#F39C12>Usage: <white>{usage}",
+      "take-usage": ">> <#F39C12>Usage: <white>{usage}",
+      "invalid-amount": ">> <#E74C3C>Invalid amount: <white>{amount}",
+      "give-success": ">> <#27AE60>Gave <white>{amount} <#27AE60>to <white>{player}",
+      "take-success": ">> <#27AE60>Took <white>{amount} <#27AE60>from <white>{player}",
+      "reset-success": ">> <#27AE60>Reset balance for <white>{player}",
+      "unknown-subcommand": ">> <#E74C3C>Unknown subcommand: <white>{sub}"
+    },
+    "payconfirmtoggle": {
+      "only-player": ">> <#E74C3C>Only players can use this command.",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "disabled": ">> <#27AE60>Payment confirmations have been <#F39C12>disabled</#F39C12>.",
+      "enabled": ">> <#27AE60>Payment confirmations have been <#F39C12>enabled</#F39C12>.",
+      "error": ">> <#E74C3C>Error toggling confirmation state. Please try again."
+    },
+    "balance": {
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "no-permission-others": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "usage": ">> <#F39C12>Usage: <white>{usage}",
+      "only-player": ">> <#E74C3C>Only players can check their own balance.",
+      "player-not-found": ">> <#E74C3C>Player not found: <white>{player}",
+      "self": ">> <#27AE60>Your balance is: <#F39C12>{balance}",
+      "other": ">> <#27AE60>{player}'s balance is: <#F39C12>{balance}"
+    },
+    "balancetop": {
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "header": ">> <#F39C12>=== Top {limit} Richest Players ===",
+      "entry": ">> <#F39C12>#{rank} <white>{player} <#95A5A6>- <#27AE60>{balance}",
+      "footer": ">> <#F39C12>========================="
+    },
+    "coinflip": {
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "usage": ">> <#F39C12>Usage: <white>{usage}",
+      "only-player": ">> <#E74C3C>Only players can use this command.",
+      "invalid-amount": ">> <#E74C3C>Invalid amount: <white>{amount}",
+      "positive-amount": ">> <#E74C3C>Amount must be positive!",
+      "not-enough": ">> <#E74C3C>You don't have enough money! You need <#F39C12>{needed}</#F39C12>, you have <#27AE60>{balance}",
+      "win": ">> <#27AE60>You won! You received <#F39C12>{amount}",
+      "lose": ">> <#E74C3C>You lost! You lost <#F39C12>{amount}"
+    },
+    "powertool": {
+      "only-player": ">> <#E74C3C>Only players can use this command.",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "no-permission-create": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12> to create PowerTools!",
+      "usage": ">> <#E74C3C>Usage: <white>/powertool <command> | <uses> | <name> | <tool> | enchanted <yes/no>",
+      "invalid-uses": ">> <#E74C3C>Uses must be -1 (infinite) or 1-{max}.",
+      "invalid-tool": ">> <#E74C3C>Invalid tool material: <white>{tool}",
+      "received-tool": ">> <#27AE60>✓ You received PowerTool: <white>{name}",
+      "out-of-uses": ">> <#E74C3C>⚠ Your PowerTool has run out of uses!"
+    },
+    "gravity": {
+      "only-player": ">> <#E74C3C>Only players can use this command.",
+      "target-not-found": ">> <#E74C3C>Player not found.",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "no-permission-sub": ">> <#E74C3C>You need permission <#F39C12>{subpermission}</#F39C12>!",
+      "usage": ">> <#E74C3C>Usage: <white>/gravity [player] [-s]",
+      "toggled-self": ">> <#27AE60>Gravity <white>{state}<#27AE60>.",
+      "toggled-other": ">> <#27AE60>Gravity <white>{state}<#27AE60> for <white>{target}<#27AE60>."
+    },
+    "thunder": {
+      "only-player": ">> <#E74C3C>Only players can use this command!",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "no-permission-others": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "struck": ">> <#27AE60>Thunder effect summoned at {target}!",
+      "self-name": ">> yourself"
+    },
+    "celebrate": {
+      "only-player": ">> <#E74C3C>Only players can use this command!",
+      "target-not-found": ">> <#E74C3C>Player not found.",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "no-permission-others": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "usage": ">> <#E74C3C>Usage: /celebrate [player] [-s]",
+      "message": ">> <#27AE60>🎉 Boom! Celebration!",
+      "message-other": ">> <#27AE60>🎉 Celebration for {target}!",
+      "self-name": ">> yourself"
+    },
+    "fireball": {
+      "only-player": ">> <#E74C3C>Only players can use this command!",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "launched": ">> <#27AE60>Fireball launched!"
+    },
+    "fakeop": {
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "usage": ">> <#E74C3C>Usage: <white>/fakeop <player>",
+      "target-not-found": ">> <#E74C3C>Player not found.",
+      "fake-message": ">> <#95A5A6><italic>[Server: Made {target} a server operator]",
+      "success": ">> <#27AE60>Fake OP sent to <#F39C12>{target}"
+    },
+    "whois": {
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "usage": ">> <#E74C3C>Usage: <white>/whois <player>",
+      "target-not-found": ">> <#E74C3C>Player not found.",
+      "info-header": ">> <#27AE60>Player info:",
+      "info-name": ">> <#95A5A6>Name: <white>{name}",
+      "info-health": ">> <#95A5A6>Health: <white>{health}",
+      "info-location": ">> <#95A5A6>Location: <white>{location}"
+    },
+    "kittycannon": {
+      "only-player": ">> <#E74C3C>Only players can use this command!",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "usage": ">> <#E74C3C>Usage: <white>/kittycannon [velocity]",
+      "fired": ">> <#27AE60>Kitty cannon fired with velocity {velocity}!",
+      "name": ">> <#F39C12>Kitty Cannon!"
+    },
+    "explosion": {
+      "only-player": ">> <#E74C3C>Only players can use this command!",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "no-radius": ">> <#F39C12>Please specify a radius!",
+      "invalid-radius": ">> <#E74C3C>Invalid radius: {input}",
+      "created": ">> <#27AE60>Explosion created with radius {radius}!",
+      "usage": ">> <#E74C3C>Usage: <white>/explosion <radius>"
+    },
+    "canon": {
+      "only-player": ">> <#E74C3C>Only players can use this command.",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "usage": ">> <#E74C3C>Usage: <white>/canon",
+      "success": ">> <#27AE60>Woosh! You were launched into the air!"
+    },
+    "lightning": {
+      "only-player": ">> <#E74C3C>Only players can use this command!",
+      "target-not-found": ">> <#E74C3C>Player <white>{target}</white> not found.",
+      "no-permission": ">> <#E74C3C>You need the <white>{permission}</white> permission.",
+      "struck-self": ">> <#27AE60>Lightning struck!",
+      "struck-other": ">> <#27AE60>Lightning struck <white>{target}</white>!",
+      "usage": ">> <#E74C3C>Usage: <white>/lightning [player] [-s]"
+    },
+    "swap": {
+      "only-player": ">> <#E74C3C>Only players can use this command!",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "usage": ">> <#E74C3C>Usage: <white>/swap <player>",
+      "target-not-found": ">> <#E74C3C>Player <white>{target}</white> not found or cannot swap with yourself.",
+      "success": ">> <#27AE60>You swapped locations with <white>{target}</white>!",
+      "target-notified": ">> <#27AE60><white>{player}</white> swapped locations with you!"
+    },
+    "beezooka": {
+      "only-player": ">> <#E74C3C>Only players can use this command!",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "usage": ">> <#E74C3C>Usage: <white>/beezooka [velocity]",
+      "fired": ">> <#27AE60>Beezooka fired with velocity {velocity}!",
+      "name": ">> <#F39C12>Beezooka Bee!"
+    },
+    "glow": {
+      "only-player": ">> <#E74C3C>Only players can use this command!",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "usage": ">> <#E74C3C>Usage: <white>/glow",
+      "disabled": ">> <#95A5A6>Glow disabled.",
+      "enabled": ">> <#27AE60>Glow enabled."
+    },
+    "near": {
+      "only-player": ">> <#E74C3C>Only players can use this command.",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "header": ">> <#27AE60>Players near you:",
+      "entry": ">> <#F39C12>- {name} <#95A5A6>({distance} blocks)",
+      "none": ">> <#E74C3C>No players are nearby."
+    },
+    "rename": {
+      "only-player": ">> <#E74C3C>Only players can use this command.",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "usage": ">> <#E74C3C>Usage: /rename <name>",
+      "no-item": ">> <#E74C3C>You're not holding an item.",
+      "no-meta": ">> <#E74C3C>Could not get item meta.",
+      "renamed": ">> <#27AE60>Item renamed to: <white>{item}"
+    },
+    "world": {
+      "only-player": ">> <#E74C3C>Only players can use this command.",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "usage": ">> <#E74C3C>Usage: /world",
+      "current": ">> <#27AE60>You are in world: <#F39C12>{world}"
+    },
+    "ext": {
+      "only-player": ">> <#E74C3C>Only players can use this command!",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "no-permission-others": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12> to extinguish other players!",
+      "player-not-found": ">> <#E74C3C>Player not found!",
+      "self": ">> <#27AE60>You have been extinguished!",
+      "target": ">> <#27AE60>You extinguished <#F39C12>{target}!"
+    },
+    "tpp": {
+      "only-player": ">> <#E74C3C>Only players can use this command.",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "no-permission-world": ">> <#E74C3C>You don't have permission to access world <#F39C12>{world}</#F39C12>!",
+      "no-permission-others": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12> to teleport other players!",
+      "usage": ">> <#E74C3C>Usage: /tpp <player> <world> [x y z]",
+      "player-not-found": ">> <#E74C3C>Player <#F39C12>{player}</#F39C12> not found!",
+      "world-not-loaded": ">> <#E74C3C>World <#F39C12>{world}</#F39C12> is not loaded!",
+      "invalid-coords": ">> <#E74C3C>Invalid coordinates! Must be numbers.",
+      "teleported-target": ">> <#27AE60>Teleported <#F39C12>{target}</#F39C12> to world <#F39C12>{world}</#F39C12>!",
+      "teleported-self": ">> <#27AE60>You were teleported to world <#F39C12>{world}</#F39C12> at <#95A5A6>({x}, {y}, {z})"
+    },
+    "magnet": {
+      "only-player": ">> <#E74C3C>Only players can use this command.",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "toggle-on": ">> <#27AE60>Magnet mode enabled. Items within <#F39C12>{radius}</#F39C12> blocks will be pulled to you.",
+      "toggle-off": ">> <#E74C3C>Magnet mode disabled.",
+      "error": ">> <#E74C3C>Failed to toggle magnet: <#F39C12>{error}"
+    },
+    "day": {
+      "only-player": ">> <#E74C3C>Only players can use this command.",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "success": ">> <#27AE60>Time set to day in world <#F39C12>{world}</#F39C12>."
+    },
+    "inventorysort": {
+      "only-player": ">> <#E74C3C>Only players can use this command.",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "success": ">> <#27AE60>Your inventory has been stacked and sorted!"
+    },
+    "book": {
+      "only-player": ">> <#E74C3C>Only players can use this command!",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "no-permission-others": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12> to give books to others!",
+      "player-not-found": ">> <#E74C3C>Player <#F39C12>{player}</#F39C12> not found!",
+      "inventory-full-self": ">> <#E74C3C>Your inventory is full!",
+      "inventory-full-other": ">> <#E74C3C>{target}'s inventory is full!",
+      "self-success": ">> <#27AE60>You received the information book!",
+      "target-success": ">> <#27AE60>You gave a book to <#F39C12>{target}</#F39C12>!",
+      "received": ">> <#27AE60>You received a book from <#F39C12>{sender}</#F39C12>!"
+    },
+    "break": {
+      "only-player": ">> <#E74C3C>Only players can use this command.",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "no-block": ">> <#E74C3C>You are not looking at a breakable block within <#F39C12>{distance}</#F39C12> blocks.",
+      "success": ">> <#27AE60>Broke the block at <#F39C12>{x}, {y}, {z}</#F39C12>."
+    },
+    "setloreline": {
+      "only-player": ">> <#E74C3C>Only players can use this command.",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "usage": ">> <#E74C3C>Usage: <white>/setloreline <text>",
+      "no-item": ">> <#E74C3C>You're not holding an item.",
+      "lore-set": ">> <#27AE60>Lore set to: <white>{lore}"
+    },
+    "track": {
+      "only-player": ">> <#E74C3C>Only players can use this command.",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "usage": ">> <#E74C3C>Usage: <white>/track <player>",
+      "not-found": ">> <#E74C3C>Player <#F39C12>{target}</#F39C12> not found.",
+      "success": ">> <#27AE60>Now tracking <#F39C12>{target}</#F39C12>. Compass updated."
+    },
+    "suicide": {
+      "only-player": ">> <#E74C3C>Only players can use this command.",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "success": ">> <#E74C3C>You have taken your own life.",
+      "error": ">> <#E74C3C>Failed to record suicide attempt."
+    },
+    "kill": {
+      "only-player": ">> <#E74C3C>Only players can use this command.",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "kill-count": ">> <#27AE60>You have <#F39C12>{kills} <#27AE60>player kills."
+    },
+    "bottom": {
+      "only-player": ">> <#E74C3C>Only players can use this command.",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "success": ">> <#27AE60>Teleported to bottom! <#95A5A6>(Y: {y})",
+      "no-safe-ground": ">> <#E74C3C>No safe ground below!"
+    },
+    "condense": {
+      "only-player": ">> <#E74C3C>Only players can use this command!",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "success": ">> <#27AE60>Condensed items into <#F39C12>{blocks} <#27AE60>blocks!",
+      "not-enough": ">> <#F39C12>You don't have enough items to condense."
+    },
+    "nuke": {
+      "only-player": ">> <#E74C3C>Only players can use this command!",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "deployed": ">> <#27AE60>Nuke deployed! <#95A5A6>(Power: {power})"
+    },
+    "weather": {
+      "only-player": ">> <#E74C3C>Only players can use this command.",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "no-permission-sub": ">> <#E74C3C>You need permission <#F39C12>{subpermission}</#F39C12>!",
+      "usage": ">> <#E74C3C>Usage: <white>/weather <clear|rain|thunderstorm>",
+      "clear": ">> <#27AE60>Weather set to clear for <white>{duration} <#27AE60>seconds.",
+      "rain": ">> <#27AE60>Weather set to rain for <white>{duration} <#27AE60>seconds.",
+      "thunderstorm": ">> <#27AE60>Weather set to thunderstorm for <white>{duration} <#27AE60>seconds.",
+      "invalid-type": ">> <#E74C3C>Invalid weather type. Use: clear, rain, or thunderstorm."
+    },
+    "playtime": {
+      "only-player": ">> <#E74C3C>Only players can use this command.",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "usage": ">> <#E74C3C>Usage: <white>/playtime",
+      "playtime": ">> <#27AE60>Your playtime: <#F39C12>{hours}h {minutes}m"
+    },
+    "recipe": {
+      "only-player": ">> <#E74C3C>Only players can use this command.",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "usage": ">> <#E74C3C>Usage: <white>/recipe <recipe>",
+      "not-found": ">> <#E74C3C>Recipe not found!",
+      "result": ">> <#27AE60>Recipe for: <#F39C12>{item}",
+      "shaped-header": ">> <#27AE60>Shaped Recipe Ingredients:",
+      "shapeless-header": ">> <#27AE60>Shapeless Recipe Ingredients:",
+      "ingredient-line": ">> <#F39C12>- {char}: <white>{item} <#F39C12>x{amount}",
+      "ingredient-line-shapeless": ">> <#F39C12>- <white>{item} <#F39C12>x{amount}",
+      "unknown-type": ">> <#E74C3C>Unknown recipe type!"
+    },
+    "enderchest": {
+      "only-player": ">> <#E74C3C>Only players can use this command.",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "no-permission-others": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "usage": ">> <#E74C3C>Usage: <white>/enderchest [player]",
+      "opening": ">> <#27AE60>Opening your ender chest...",
+      "opening-other": ">> <#27AE60>Opening <#F39C12>{player}'s <#27AE60>ender chest...",
+      "player-not-found": ">> <#E74C3C>Player <#F39C12>{player}</#F39C12> not found.",
+      "offline-not-supported": ">> <#E74C3C>Cannot open ender chest of offline player <#F39C12>{player}</#F39C12>."
+    },
+    "seen": {
+      "only-player": ">> <#E74C3C>Only players can use this command.",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "usage": ">> <#F39C12>Usage: <white>/seen <player>",
+      "player-not-found": ">> <#E74C3C>Player <#F39C12>{player}</#F39C12> not found.",
+      "result": ">> <#27AE60>{player} was last seen on <white>{lastSeen}",
+      "result-online": ">> <#27AE60>{player} <#27AE60>is currently <bold>online</bold>!",
+      "never-joined": ">> <#F39C12>{player} has never joined the server."
+    },
+    "back": {
+      "only-player": ">> <#E74C3C>Only players can use this command.",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "no-permission-sub": ">> <#E74C3C>You need permission <#F39C12>{subpermission}</#F39C12>!",
+      "usage": ">> <#F39C12>Usage: <white>/back [lobby|death|back]",
+      "no-back": ">> <#E74C3C>No previous location saved.",
+      "invalid-back": ">> <#E74C3C>Your last location is invalid.",
+      "teleported-back": ">> <#27AE60>Teleported back to your previous location.",
+      "lobby-not-set": ">> <#E74C3C>Lobby location not set or world is unloaded.",
+      "teleported-lobby": ">> <#27AE60>Teleported to the lobby.",
+      "no-death-location": ">> <#E74C3C>No death location found.",
+      "teleported-death": ">> <#27AE60>Teleported to your last death location.",
+      "unknown-usage": ">> <#E74C3C>Unknown subcommand. Use: <white>/back, /back lobby, /back death"
+    },
+    "tree": {
+      "only-player": ">> <#E74C3C>Only players can use this command.",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "specify-type": ">> <#E74C3C>Please specify a tree type.",
+      "invalid-type": ">> <#E74C3C>Invalid tree type! Valid types: <#F39C12>{types}",
+      "tree-planted": ">> <#27AE60>Tree planted: <#F39C12>{type}",
+      "cannot-grow": ">> <#E74C3C>Tree cannot grow here! Make sure there's enough space and suitable ground."
+    },
+    "notes": {
+      "only-player": ">> <#E74C3C>Only players can use notes.",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12> to use notes!",
+      "usage": ">> <#F39C12>Usage:</#F39C12> <white>/notes <name> [content]",
+      "list-empty": ">> <#95A5A6>You have no saved notes.",
+      "list-header": ">> <#F39C12>Your notes:</#F39C12> ",
+      "not-found": ">> <#E74C3C>Note '<#F39C12>{name}</#F39C12>' not found.",
+      "view": ">> <#F39C12>Note '<#27AE60>{name}</#27AE60>':</#F39C12> <white>{content}",
+      "saved": ">> <#27AE60>Saved note '<#F39C12>{name}</#F39C12>':</#27AE60> <white>{content}"
+    },
+    "scoreboard": {
+      "only-player": ">> <#E74C3C>Only players can use scoreboard commands.",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12> to use this!",
+      "no-permission-reload": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12> to reload!",
+      "no-permission-toggle": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12> to toggle!",
+      "no-permission-color": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12> to change layouts!",
+      "usage": ">> <#F39C12>Usage:</#F39C12> <white>/scoreboard <reload|toggle|color> [layout]",
+      "toggle": {
+        "enabled": ">> <#27AE60>Scoreboard enabled!",
+        "disabled": ">> <#95A5A6>Scoreboard disabled!"
+      },
+      "reload": {
+        "success": ">> <#27AE60>All scoreboards reloaded successfully!"
+      },
+      "color": {
+        "usage": ">> <#E74C3C>Usage: /scoreboard color <layout>",
+        "not-found": ">> <#E74C3C>Layout '<#F39C12>{layout}</#F39C12>' not found!",
+        "changed": ">> <#27AE60>Layout changed to <#F39C12>{layout}</#F39C12>!"
+      }
+    }
+  },
+  "lobby": {
+    "no-lobby": ">> <#E74C3C>No lobby has been set for this world.",
+    "teleported": ">> <#27AE60>Teleported to lobby!",
+    "set": ">> <#27AE60>Lobby location set!",
+    "set-world": ">> <#27AE60>Lobby for world <#F39C12>{world}</#F39C12> set!",
+    "removed": ">> <#F39C12>Lobby location removed.",
+    "cooldown-active": ">> <#E74C3C>Please wait <#F39C12>{time}</#F39C12> seconds before teleporting again.",
+    "usage-world": ">> <#E74C3C>Usage: <yellow>/lobby world <world-name>",
+    "world-not-found": ">> <#E74C3C>World <#F39C12>{world}</#F39C12> not found."
+  },
+  "ban": {
+    "usage": ">> <#E74C3C>Usage: <yellow>/ban <player> <time> <reason>",
+    "never-joined": ">> <#E74C3C>That player has never joined the server.",
+    "invalid-time": ">> <#E74C3C>Invalid time format. Use <yellow>s/m/h/d</yellow> or <yellow>perm</yellow>",
+    "success": ">> <#27AE60><yellow>{player}</yellow> has been banned.",
+    "kick-message": ">> <#E74C3C>You have been banned from <#DC2626>{server}</#DC2626>\n>> <#95A5A6>Reason: <#F39C12>{reason}</#F39C12>\n>> <#95A5A6>Banned by: <#F39C12>{banner}</#F39C12>\n>> <#95A5A6>Until: <#F39C12>{until}</#F39C12>\n\n>> <#95A5A6>Appeal at: <#06B6D4>{discord}</#06B6D4>"
+  },
+  "banlist": {
+    "empty": ">> <#F39C12>There are no banned players.",
+    "header": ">> <#F39C12>------[ Banned Players ]------",
+    "format": ">> <#E74C3C>{player} <#95A5A6>- <white>{reason} <#95A5A6>(<#06B6D4>{time}</#06B6D4>)",
+    "footer": ">> <#F39C12>-----------------------------"
+  },
+  "unban": {
+    "usage": ">> <#E74C3C>Usage: <yellow>/unban <player>",
+    "player-not-found": ">> <#E74C3C>Could not find banned player with name '<#F39C12>{player}</#F39C12>'.",
+    "not-banned": ">> <#F39C12>{player}</#F39C12> is not currently banned.",
+    "success": ">> <#27AE60>{player}</#27AE60> has been unbanned."
+  },
+  "mute": {
+    "usage": ">> <#E74C3C>Usage: <yellow>/mute <player> <reason> [duration]",
+    "not-found": ">> <#E74C3C>Player not found.",
+    "already-muted": ">> <#E74C3C><yellow>{player}</yellow> is already muted for <white>{reason}</white>.",
+    "success": ">> <#F39C12>You muted <#27AE60>{player}</#27AE60> <#95A5A6>for <white>{reason}</white> <#F39C12>({duration})</#F39C12>.",
+    "notify": ">> <#E74C3C>You have been muted! <#95A5A6>Reason: <white>{reason}</white> <#F39C12>({duration})</#F39C12>",
+    "chat-blocked": ">> <#E74C3C>You are muted! Reason: <white>{reason}</white>"
+  },
+  "unmute": {
+    "usage": ">> <#E74C3C>Usage: <yellow>/unmute <player>",
+    "player-not-found": ">> <#E74C3C>Player <#F39C12>{player}</#F39C12> not found.",
+    "not-muted": ">> <#E74C3C><yellow>{player}</yellow> is not currently muted.",
+    "unmuted": ">> <#27AE60>Successfully unmuted <#F39C12>{player}</#F39C12>",
+    "notify": ">> <#27AE60>You have been unmuted!"
+  },
+  "adminchat": {
+    "format": ">> <#4B5563>[<#E74C3C>AdminChat<#4B5563>] <#F39C12>{player} <#95A5A6>» <white>{message}",
+    "toggle": ">> <#27AE60>Admin chat mode: {state}",
+    "only-players": ">> <#E74C3C>Only players can use this command.",
+    "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!"
+  },
   "daily": {
     "command": {
-      "only-player": "<#F87171>>> Only players can use this command!",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!"
+      "only-player": ">> <#E74C3C>Only players can use this command!",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!"
     },
     "gui": {
-      "title": "<bold><gradient:#34D399:#60A5FA>>> Daily Rewards</gradient> - Page {page}",
-      "previous": "<#9CA3AF>>> ◀ Previous Page",
-      "next": "<#9CA3AF>>> Next Page ▶",
-      "close": "<#F87171>>> ✕ Close",
-      "cooldown-display": "<#9CA3AF>>> Cooldown: <#FBBF24>{time}",
-      "next-reset": "<#9CA3AF>>> Next reset in: <#FBBF24>{time}"
+      "title": "<bold><gradient:#27AE60:#3498DB>Daily Rewards</gradient> - Page {page}",
+      "previous": ">> <#95A5A6>◀ Previous Page",
+      "next": ">> <#95A5A6>Next Page ▶",
+      "close": ">> <#E74C3C>✕ Close",
+      "cooldown-display": ">> <#95A5A6>Cooldown: <#F39C12>{time}",
+      "next-reset": ">> <#95A5A6>Next reset in: <#F39C12>{time}"
     },
     "rewards": {
       "claimed": {
-        "name": "<#34D399><bold>>> ✓ Claimed</bold>",
-        "lore": ["<#9CA3AF>>> This reward has been claimed."]
+        "name": ">> <#27AE60><bold>✓ Claimed</bold>",
+        "lore": [">> <#95A5A6>This reward has been claimed."]
       },
       "available": {
-        "name": "<#34D399>>> Day {day}",
-        "lore": ["<#9CA3AF>>> Click to claim!"]
+        "name": ">> <#27AE60>Day {day}",
+        "lore": [">> <#95A5A6>Click to claim!"]
       },
       "locked": {
-        "name": "<#F87171><bold>>> 🔒 Locked</bold>",
-        "lore": ["<#9CA3AF>>> You must complete previous days."]
+        "name": ">> <#E74C3C><bold>🔒 Locked</bold>",
+        "lore": [">> <#95A5A6>You must complete previous days."]
       },
       "cooldown": {
-        "name": "<#FBBF24><bold>>> ⏱ On Cooldown</bold>",
-        "lore": ["<#9CA3AF>>> Wait: <#FBBF24>{time}"]
+        "name": ">> <#F39C12><bold>⏱ On Cooldown</bold>",
+        "lore": [">> <#95A5A6>Wait: <#F39C12>{time}"]
       }
     },
     "messages": {
-      "claim-success": "<#34D399>>> You claimed Day <#FBBF24>{day}</#FBBF24>!",
-      "claim-already": "<#F87171>>> You already claimed this reward.",
-      "claim-cooldown": "<#F87171>>> Wait <#FBBF24>{time}</#FBBF24> before claiming again.",
-      "claim-locked": "<#F87171>>> Complete previous days first!",
-      "claim-error": "<#F87171>>> Error claiming reward. Try again."
+      "claim-success": ">> <#27AE60>You claimed Day <#F39C12>{day}</#F39C12>!",
+      "claim-already": ">> <#E74C3C>You already claimed this reward.",
+      "claim-cooldown": ">> <#E74C3C>Wait <#F39C12>{time}</#F39C12> before claiming again.",
+      "claim-locked": ">> <#E74C3C>Complete previous days first!",
+      "claim-error": ">> <#E74C3C>Error claiming reward. Try again."
     }
   },
   "economy": {
     "shop": {
-      "main-title": "<gradient:#4FD1C5:#60A5FA>>> Server Shop</gradient>",
-      "section-title": "<#34D399>>> {section} Shop</#34D399>",
-      "balance-display": "<#34D399>>> Your Balance: <#FBBF24>{balance}</#FBBF24></#34D399>",
-      "buy-success": "<#34D399>>> ✓ Bought <white>{amount}x {item}</white> for <#FBBF24>{symbol}{price}</#FBBF24>",
-      "sell-success": "<#34D399>>> ✓ Sold <white>{amount}x {item}</white> for <#FBBF24>{symbol}{price}</#FBBF24>",
-      "cannot-afford": "<#F87171>>> ❌ Cannot afford {item} (cost: <#FBBF24>{symbol}{price}</#FBBF24>)",
-      "no-items": "<#F87171>>> ❌ Not enough {item} to sell",
-      "no-section": "<#F87171>>> Shop section '<#FBBF24>{section}</#FBBF24>' not found!",
-      "reload-success": "<#34D399>>> ✓ Shop configuration reloaded.",
-      "reload-error": "<#F87171>>> ✗ Error reloading shop configuration. Check console.",
+      "main-title": "<gradient:#27AE60:#3498DB>Server Shop</gradient>",
+      "section-title": ">> <#27AE60>{section} Shop</#27AE60>",
+      "balance-display": ">> <#27AE60>Your Balance: <#F39C12>{balance}</#F39C12></#27AE60>",
+      "buy-success": ">> <#27AE60>✓ Bought <white>{amount}x {item}</white> for <#F39C12>{symbol}{price}</#F39C12>",
+      "sell-success": ">> <#27AE60>✓ Sold <white>{amount}x {item}</white> for <#F39C12>{symbol}{price}</#F39C12>",
+      "cannot-afford": ">> <#E74C3C>❌ Cannot afford {item} (cost: <#F39C12>{symbol}{price}</#F39C12>)",
+      "no-items": ">> <#E74C3C>❌ Not enough {item} to sell",
+      "no-section": ">> <#E74C3C>Shop section '<#F39C12>{section}</#F39C12>' not found!",
+      "reload-success": ">> <#27AE60>✓ Shop configuration reloaded.",
+      "reload-error": ">> <#E74C3C>✗ Error reloading shop configuration. Check console.",
       "gui": {
-        "close-button": "<#F87171>>> ✕ Close",
-        "back-button": "<#FBBF24>>> ← Back",
-        "previous-page": "<#9CA3AF>>> ← Previous",
-        "next-page": "<#9CA3AF>>> Next →",
-        "loading": "<#9CA3AF>>> Loading..."
+        "close-button": ">> <#E74C3C>✕ Close",
+        "back-button": ">> <#F39C12>← Back",
+        "previous-page": ">> <#95A5A6>← Previous",
+        "next-page": ">> <#95A5A6>Next →",
+        "loading": ">> <#95A5A6>Loading..."
       }
     },
     "sellgui": {
-      "disabled": "<#F87171>>> The sell GUI is currently disabled.",
-      "sold-success": "<#34D399><bold>>> ✓ SOLD <white>{amount}</white> items for <#FBBF24>{symbol}{price}</#FBBF24></bold>",
-      "returned-items": "<#9CA3AF>>> ↩ Returned <white>{amount}</white> unsellable items to your inventory",
-      "no-items": "<#9CA3AF>>> No items to sell",
-      "inventory-full": "<#FBBF24>>> ⚠ Some items were dropped on the ground (inventory full)",
-      "not-sellable": "<#F87171>>> ❌ This item cannot be sold!",
+      "disabled": ">> <#E74C3C>The sell GUI is currently disabled.",
+      "sold-success": ">> <#27AE60><bold>✓ SOLD <white>{amount}</white> items for <#F39C12>{symbol}{price}</#F39C12></bold>",
+      "returned-items": ">> <#95A5A6>↩ Returned <white>{amount}</white> unsellable items to your inventory",
+      "no-items": ">> <#95A5A6>No items to sell",
+      "inventory-full": ">> <#F39C12>⚠ Some items were dropped on the ground (inventory full)",
+      "not-sellable": ">> <#E74C3C>❌ This item cannot be sold!",
       "info": {
-        "title": "<#FBBF24>>> 💰 SELL ZONE</#FBBF24>",
-        "subtitle": "<#9CA3AF>>> Place items here to sell",
-        "instruction": "<#FBBF24>>> Close inventory to process",
-        "value-prefix": "<#FBBF24>>> Total: <#FBBF24>"
-      }
-    }
-  },
-  "commands": {
-    "only-player": "<#F87171>>> This command can only be used by players!",
-    "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-    "shop": {
-      "usage": "<#9CA3AF>>> Usage: <white>/shop [reload]",
-      "description": "Open the server shop"
-    },
-    "sellgui": {
-      "usage": "<#9CA3AF>>> Usage: <white>/sellgui",
-      "description": "Open the quick sell GUI"
-    },
-    "only_player": "<#F87171>>> This command can only be used by players!",
-    "no_permission": "<#F87171>>> You don't have permission to use this!",
-    "usage": {
-      "tpa": "<#F87171>>> Usage: /tpa <player>",
-      "tpahere": "<#F87171>>> Usage: /tpahere <player>"
-    },
-    "session": {
-      "only-player": "<#F87171>>> Only players can use this command.",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "not-tracked": "<#FBBF24>>> Your session is not being tracked.",
-      "info": [
-        "<#34D399>>> Session Info:",
-        "<#9CA3AF>>> Current: <white>{current}",
-        "<#9CA3AF>>> Longest: <white>{longest}"
-      ]
-    },
-    "iteminfo": {
-      "only-player": "<#F87171>>> Only players can use this command.",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "no-item": "<#F87171>>> You must hold an item in your main hand.",
-      "header": "<#60A5FA>>> ≡ <bold>Item Information</bold> <#60A5FA>≡",
-      "type": "<#9CA3AF>>> Type: <white>{type}",
-      "amount": "<#9CA3AF>>> Amount: <white>{amount}",
-      "name": "<#9CA3AF>>> Name: <white>{name}",
-      "lore-header": "<#9CA3AF>>> ≡ <bold>Lore</bold> <#9CA3AF>≡",
-      "lore-content": "<white>>> {lore}",
-      "no-meta": "<#9CA3AF>>> No additional metadata.",
-      "enchants-header": "<#9CA3AF>>> ≡ <bold>Enchantments</bold> <#9CA3AF>≡",
-      "enchant-line": "<#FBBF24>>> ✦ <white>{enchant} <#9CA3AF>Level {level}",
-      "flags-header": "<#9CA3AF>>> ≡ <bold>Item Flags</bold> <#9CA3AF>≡",
-      "flag-line": "<#FBBF24>>> - <#9CA3AF>{flag}"
-    },
-    "death": {
-      "only-player": "<#F87171>>> Only players can use this command.",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "count": "<#F87171>>> You have died <#FBBF24>{deaths} <#F87171>times."
-    },
-    "realname": {
-      "only-player": "<#F87171>>> Only players can use this command.",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "usage": "<#F87171>>> Usage: <white>/realname <nickname>",
-      "found": "<#34D399>>> Nickname <#FBBF24>{nickname} <#34D399>belongs to <white>{realname}",
-      "not-found": "<#F87171>>> No player found with nickname <#FBBF24>{nickname}"
-    },
-    "speed": {
-      "only-player": "<#F87171>>> Only players can use this command.",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "usage": "<#F87171>>> Usage: <white>/speed <1-10>",
-      "invalid-number": "<#F87171>>> Invalid number! Speed must be between <#FBBF24>1-10",
-      "fly-set": "<#34D399>>> Fly speed set to <#FBBF24>{speed}",
-      "walk-set": "<#34D399>>> Walk speed set to <#FBBF24>{speed}"
-    },
-    "launch": {
-      "only-player": "<#F87171>>> Only players can use this command.",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "launched": "<#34D399><bold>>> WOOSH!</bold> <white>You've been launched!"
-    },
-    "repair": {
-      "only-player": "<#F87171>>> Only players can use this command.",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "no-item": "<#F87171>>> You must hold an item in your main hand to repair it.",
-      "cannot-repair": "<#F87171>>> This item cannot be repaired.",
-      "already-full": "<#FBBF24>>> This item is already at full durability.",
-      "success": "<#34D399>>> ✓ Item has been fully repaired!"
-    },
-    "sleep": {
-      "only-player": "<#F87171>>> Only players can use this command.",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "broadcast": "<#FBBF24>{player} <#34D399>skipped the night! <#9CA3AF>(Sleep command)",
-      "success": "<#34D399>>> The night has been skipped and the weather cleared!"
-    },
-    "ping": {
-      "only-player": "<#F87171>>> Only players can use this command.",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "show": "<#9CA3AF>>> Your ping: {ping}ms"
-    },
-    "disposal": {
-      "only-player": "<#F87171>>> Only players can use this command.",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "inventory-title": "<#F87171><bold>>> Disposal",
-      "opened": "<#34D399>>> Disposal opened. Place items here to delete them."
-    },
-    "compass": {
-      "only-player": "<#F87171>>> Only players can use this command.",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "facing": "<#34D399>>> You are facing <#FBBF24><bold>{direction}"
-    },
-    "top": {
-      "only-player": "<#F87171>>> Only players can use this command.",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "teleported": "<#34D399>>> Teleported to the highest block above you!",
-      "no-block": "<#F87171>>> No solid block found above you!"
-    },
-    "burn": {
-      "only-player": "<#F87171>>> Only players can use this command.",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "no-permission-sub": "<#F87171>>> You need permission <#FBBF24>{subpermission}</#FBBF24>!",
-      "usage": "<#F87171>>> Usage: <white>/burn <player> [seconds]",
-      "player-not-found": "<#F87171>>> Player <#FBBF24>{target}</#FBBF24> not found!",
-      "immune-gamemode": "<#F87171>>> {target} is in <#FBBF24>{gamemode}</#FBBF24> mode and is immune!",
-      "invalid-number": "<#F87171>>> Invalid! Use <#FBBF24>1-{max}</#FBBF24> seconds.",
-      "target-burned": "<#F87171>>> You've been set on fire by <#FBBF24>{attacker}</#FBBF24>!",
-      "sender-burned": "<#FBBF24>{target}</#FBBF24><#F87171> is now burning for <#FBBF24>{seconds}</#FBBF24> seconds!",
-      "self-burned": "<#FBBF24>>> You set yourself on fire for <#FBBF24>{seconds}</#FBBF24> seconds!"
-    },
-    "feed": {
-      "only-player": "<#F87171>>> Only players can use this command.",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "no-permission-others": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "usage": "<#F87171>>> Usage: <white>/feed [player]",
-      "player-not-found": "<#F87171>>> Player <#FBBF24>{target}</#FBBF24> not found!",
-      "fed-self": "<#34D399>>> ✓ You have been fed to full!",
-      "fed-other": "<#34D399>>> ✓ You fed <#FBBF24>{target}</#FBBF24> to full!",
-      "fed-by-other": "<#34D399>>> ✓ You were fed to full by <#FBBF24>{sender}</#FBBF24>!"
-    },
-    "hat": {
-      "only-player": "<#F87171>>> Only players can use this command.",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "no-item": "<#F87171>>> You must hold an item in your main hand to wear it as a hat!",
-      "item-not-allowed": "<#F87171>>> This item cannot be worn as a hat! See allowed items in config.",
-      "success": "<#34D399>>> ✓ Your hat has been updated!"
-    },
-    "ptime": {
-      "only-player": "<#F87171>>> Only players can use this command.",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "no-permission-sub": "<#F87171>>> You need permission <#FBBF24>{subpermission}</#FBBF24>!",
-      "usage": "<#F87171>>> Usage: <white>/ptime <day|night|reset>",
-      "invalid-option": "<#F87171>>> Invalid option! Use: <white>day, night, or reset",
-      "success": "<#34D399>>> Personal time set to <#FBBF24>{option}"
-    },
-    "night": {
-      "only-player": "<#F87171>>> Only players can use this command.",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "success": "<#34D399>>> Time set to night in your world!"
-    },
-    "auction": {
-      "only-player": "<#F87171>>> This command can only be used by players!",
-      "usage": "<#FBBF24>>> Usage:</#FBBF24> /auction [sell <price>|my]",
-      "sell": {
-        "no-item": "<#F87171>>> You must hold an item in your hand to sell!",
-        "usage": "<#F87171>>> Usage: /auction sell <price>",
-        "invalid-price": "<#F87171>>> Invalid price! Must be a positive number.",
-        "max-limit": "<#F87171>>> You can only sell up to <#FBBF24>{max}</#FBBF24> items at once!",
-        "success": "<#34D399>>> Item listed for <#FBBF24>${price}</#FBBF24>!"
-      }
-    },
-    "paytoggle": {
-      "only-player": "<#F87171>>> Only players can use this command.",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "enabled": "<#34D399>>> Payments have been <#FBBF24>enabled</#FBBF24>.",
-      "disabled": "<#FBBF24>>> Payments have been <#FBBF24>disabled</#FBBF24>.",
-      "error": "<#F87171>>> Error toggling payment state. Please try again."
-    },
-    "pay": {
-      "only-player": "<#F87171>>> Only players can use this command.",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "usage": "<#FBBF24>>> Usage: <white>{usage}",
-      "player-not-found": "<#F87171>>> Player not found: <white>{player}",
-      "self-payment": "<#F87171>>> You cannot pay yourself!",
-      "invalid-amount": "<#F87171>>> Invalid amount: <white>{amount}",
-      "positive-amount": "<#F87171>>> Amount must be positive!",
-      "not-enough": "<#F87171>>> You don't have enough money!",
-      "target-disabled": "<#F87171>>> {player} has disabled payments!",
-      "confirmation-expired": "<#F87171>>> Previous payment confirmation expired. Please try again.",
-      "pending-other": "<#FBBF24>>> You already have a pending payment to <white>{player} <#FBBF24>for <#34D399>{amount}",
-      "confirm-message": "<#34D399>>> Click to confirm: Pay <white>{amount} <#34D399>to <white>{player}",
-      "confirm-instruction": "<#9CA3AF>>> Type <white>{command} <#9CA3AF>again to confirm.",
-      "success-sender": "<#34D399>>> You paid <white>{amount} <#34D399>to <white>{player}",
-      "success-target": "<#34D399>>> You received <white>{amount} <#34D399>from <white>{player}",
-      "error": "<#F87171>>> Error checking payment status. Please try again."
-    },
-    "eco": {
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "usage": "<#FBBF24>>> Usage: <white>{usage}",
-      "player-not-found": "<#F87171>>> Player not found: <white>{player}",
-      "give-usage": "<#FBBF24>>> Usage: <white>{usage}",
-      "take-usage": "<#FBBF24>>> Usage: <white>{usage}",
-      "invalid-amount": "<#F87171>>> Invalid amount: <white>{amount}",
-      "give-success": "<#34D399>>> Gave <white>{amount} <#34D399>to <white>{player}",
-      "take-success": "<#34D399>>> Took <white>{amount} <#34D399>from <white>{player}",
-      "reset-success": "<#34D399>>> Reset balance for <white>{player}",
-      "unknown-subcommand": "<#F87171>>> Unknown subcommand: <white>{sub}"
-    },
-    "payconfirmtoggle": {
-      "only-player": "<#F87171>>> Only players can use this command.",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "disabled": "<#34D399>>> Payment confirmations have been <#FBBF24>disabled</#FBBF24>.",
-      "enabled": "<#34D399>>> Payment confirmations have been <#FBBF24>enabled</#FBBF24>.",
-      "error": "<#F87171>>> Error toggling confirmation state. Please try again."
-    },
-    "balance": {
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "no-permission-others": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "usage": "<#FBBF24>>> Usage: <white>{usage}",
-      "only-player": "<#F87171>>> Only players can check their own balance.",
-      "player-not-found": "<#F87171>>> Player not found: <white>{player}",
-      "self": "<#34D399>>> Your balance is: <#FBBF24>{balance}",
-      "other": "<#34D399>>> {player}'s balance is: <#FBBF24>{balance}"
-    },
-    "balancetop": {
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "header": "<#FBBF24>>> === Top {limit} Richest Players ===",
-      "entry": "<#FBBF24>>> #{rank} <white>{player} <#9CA3AF>- <#34D399>{balance}",
-      "footer": "<#FBBF24>>> ========================="
-    },
-    "coinflip": {
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "usage": "<#FBBF24>>> Usage: <white>{usage}",
-      "only-player": "<#F87171>>> Only players can use this command.",
-      "invalid-amount": "<#F87171>>> Invalid amount: <white>{amount}",
-      "positive-amount": "<#F87171>>> Amount must be positive!",
-      "not-enough": "<#F87171>>> You don't have enough money! You need <#FBBF24>{needed}</#FBBF24>, you have <#34D399>{balance}",
-      "win": "<#34D399>>> You won! You received <#FBBF24>{amount}",
-      "lose": "<#F87171>>> You lost! You lost <#FBBF24>{amount}"
-    },
-    "powertool": {
-      "only-player": "<#F87171>>> Only players can use this command.",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "no-permission-create": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24> to create PowerTools!",
-      "usage": "<#F87171>>> Usage: <white>/powertool <command> | <uses> | <name> | <tool> | enchanted <yes/no>",
-      "invalid-uses": "<#F87171>>> Uses must be -1 (infinite) or 1-{max}.",
-      "invalid-tool": "<#F87171>>> Invalid tool material: <white>{tool}",
-      "received-tool": "<#34D399>>> ✓ You received PowerTool: <white>{name}",
-      "out-of-uses": "<#F87171>>> ⚠ Your PowerTool has run out of uses!"
-    },
-    "gravity": {
-      "only-player": "<#F87171>>> Only players can use this command.",
-      "target-not-found": "<#F87171>>> Player not found.",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "no-permission-sub": "<#F87171>>> You need permission <#FBBF24>{subpermission}</#FBBF24>!",
-      "usage": "<#F87171>>> Usage: <white>/gravity [player] [-s]",
-      "toggled-self": "<#34D399>>> Gravity <white>{state}<#34D399>.",
-      "toggled-other": "<#34D399>>> Gravity <white>{state}<#34D399> for <white>{target}<#34D399>."
-    },
-    "thunder": {
-      "only-player": "<#F87171>>> Only players can use this command!",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "no-permission-others": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "struck": "<#34D399>>> Thunder effect summoned at {target}!",
-      "self-name": "yourself"
-    },
-    "celebrate": {
-      "only-player": "<#F87171>>> Only players can use this command!",
-      "target-not-found": "<#F87171>>> Player not found.",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "no-permission-others": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "usage": "<#F87171>>> Usage: /celebrate [player] [-s]",
-      "message": "<#34D399>>> 🎉 Boom! Celebration!",
-      "message-other": "<#34D399>>> 🎉 Celebration for {target}!",
-      "self-name": "yourself"
-    },
-    "fireball": {
-      "only-player": "<#F87171>>> Only players can use this command!",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "launched": "<#34D399>>> Fireball launched!"
-    },
-    "fakeop": {
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "usage": "<#F87171>>> Usage: <white>/fakeop <player>",
-      "target-not-found": "<#F87171>>> Player not found.",
-      "fake-message": "<#9CA3AF>>> <italic>[Server: Made {target} a server operator]",
-      "success": "<#34D399>>> Fake OP sent to <#FBBF24>{target}"
-    },
-    "whois": {
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "usage": "<#F87171>>> Usage: <white>/whois <player>",
-      "target-not-found": "<#F87171>>> Player not found.",
-      "info-header": "<#34D399>>> Player info:",
-      "info-name": "<#9CA3AF>>> Name: <white>{name}",
-      "info-health": "<#9CA3AF>>> Health: <white>{health}",
-      "info-location": "<#9CA3AF>>> Location: <white>{location}"
-    },
-    "kittycannon": {
-      "only-player": "<#F87171>>> Only players can use this command!",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "usage": "<#F87171>>> Usage: <white>/kittycannon [velocity]",
-      "fired": "<#34D399>>> Kitty cannon fired with velocity {velocity}!",
-      "name": "<#FBBF24>>> Kitty Cannon!"
-    },
-    "explosion": {
-      "only-player": "<#F87171>>> Only players can use this command!",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "no-radius": "<#FBBF24>>> Please specify a radius!",
-      "invalid-radius": "<#F87171>>> Invalid radius: {input}",
-      "created": "<#34D399>>> Explosion created with radius {radius}!",
-      "usage": "<#F87171>>> Usage: <white>/explosion <radius>"
-    },
-    "canon": {
-      "only-player": "<#F87171>>> Only players can use this command.",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "usage": "<#F87171>>> Usage: <white>/canon",
-      "success": "<#34D399>>> Woosh! You were launched into the air!"
-    },
-    "lightning": {
-      "only-player": "<#F87171>>> Only players can use this command!</#F87171>",
-      "target-not-found": "<#F87171>>> Player <white>{target}</white> not found.</#F87171>",
-      "no-permission": "<#F87171>>> You need the <white>{permission}</white> permission.</#F87171>",
-      "struck-self": "<#34D399>>> Lightning struck!</#34D399>",
-      "struck-other": "<#34D399>>> Lightning struck <white>{target}</white>!</#34D399>",
-      "usage": "<#F87171>>> Usage: <white>/lightning [player] [-s]"
-    },
-    "swap": {
-      "only-player": "<#F87171>>> Only players can use this command!</#F87171>",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!</#F87171>",
-      "usage": "<#F87171>>> Usage: <white>/swap <player></white></#F87171>",
-      "target-not-found": "<#F87171>>> Player <white>{target}</white> not found or cannot swap with yourself.</#F87171>",
-      "success": "<#34D399>>> You swapped locations with <white>{target}</white>!</#34D399>",
-      "target-notified": "<#34D399>>> <white>{player}</white> swapped locations with you!</#34D399>"
-    },
-    "beezooka": {
-      "only-player": "<#F87171>>> Only players can use this command!</#F87171>",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!</#F87171>",
-      "usage": "<#F87171>>> Usage: <white>/beezooka [velocity]</white></#F87171>",
-      "fired": "<#34D399>>> Beezooka fired with velocity {velocity}!</#34D399>",
-      "name": "<#FBBF24>>> Beezooka Bee!</#FBBF24>"
-    },
-    "glow": {
-      "only-player": "<#F87171>>> Only players can use this command!</#F87171>",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!</#F87171>",
-      "usage": "<#F87171>>> Usage: <white>/glow</white></#F87171>",
-      "disabled": "<#9CA3AF>>> Glow disabled.</#9CA3AF>",
-      "enabled": "<#34D399>>> Glow enabled.</#34D399>"
-    },
-    "near": {
-      "only-player": "<#F87171>>> Only players can use this command.",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "header": "<#34D399>>> Players near you:",
-      "entry": "<#FBBF24>>> - {name} <#9CA3AF>({distance} blocks)",
-      "none": "<#F87171>>> No players are nearby."
-    },
-    "rename": {
-      "only-player": "<#F87171>>> Only players can use this command.",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "usage": "<#F87171>>> Usage: /rename <name>",
-      "no-item": "<#F87171>>> You're not holding an item.",
-      "no-meta": "<#F87171>>> Could not get item meta.",
-      "renamed": "<#34D399>>> Item renamed to: <white>{item}"
-    },
-    "world": {
-      "only-player": "<#F87171>>> Only players can use this command.",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "usage": "<#F87171>>> Usage: /world",
-      "current": "<#34D399>>> You are in world: <#FBBF24>{world}"
-    },
-    "ext": {
-      "only-player": "<#F87171>>> Only players can use this command!",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "no-permission-others": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24> to extinguish other players!",
-      "player-not-found": "<#F87171>>> Player not found!",
-      "self": "<#34D399>>> You have been extinguished!",
-      "target": "<#34D399>>> You extinguished <#FBBF24>{target}!"
-    },
-    "tpp": {
-      "only-player": "<#F87171>>> Only players can use this command.",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "no-permission-world": "<#F87171>>> You don't have permission to access world <#FBBF24>{world}</#FBBF24>!",
-      "no-permission-others": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24> to teleport other players!",
-      "usage": "<#F87171>>> Usage: /tpp <player> <world> [x y z]",
-      "player-not-found": "<#F87171>>> Player <#FBBF24>{player}</#FBBF24> not found!",
-      "world-not-loaded": "<#F87171>>> World <#FBBF24>{world}</#FBBF24> is not loaded!",
-      "invalid-coords": "<#F87171>>> Invalid coordinates! Must be numbers.",
-      "teleported-target": "<#34D399>>> Teleported <#FBBF24>{target}</#FBBF24> to world <#FBBF24>{world}</#FBBF24>!",
-      "teleported-self": "<#34D399>>> You were teleported to world <#FBBF24>{world}</#FBBF24> at <#9CA3AF>({x}, {y}, {z})"
-    },
-    "magnet": {
-      "only-player": "<#F87171>>> Only players can use this command.",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "toggle-on": "<#34D399>>> Magnet mode enabled. Items within <#FBBF24>{radius}</#FBBF24> blocks will be pulled to you.",
-      "toggle-off": "<#F87171>>> Magnet mode disabled.",
-      "error": "<#F87171>>> Failed to toggle magnet: <#FBBF24>{error}"
-    },
-    "day": {
-      "only-player": "<#F87171>>> Only players can use this command.",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "success": "<#34D399>>> Time set to day in world <#FBBF24>{world}</#FBBF24>."
-    },
-    "inventorysort": {
-      "only-player": "<#F87171>>> Only players can use this command.",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "success": "<#34D399>>> Your inventory has been stacked and sorted!"
-    },
-    "book": {
-      "only-player": "<#F87171>>> Only players can use this command!",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "no-permission-others": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24> to give books to others!",
-      "player-not-found": "<#F87171>>> Player <#FBBF24>{player}</#FBBF24> not found!",
-      "inventory-full-self": "<#F87171>>> Your inventory is full!",
-      "inventory-full-other": "<#F87171>>> {target}'s inventory is full!",
-      "self-success": "<#34D399>>> You received the information book!",
-      "target-success": "<#34D399>>> You gave a book to <#FBBF24>{target}</#FBBF24>!",
-      "received": "<#34D399>>> You received a book from <#FBBF24>{sender}</#FBBF24>!"
-    },
-    "break": {
-      "only-player": "<#F87171>>> Only players can use this command.",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "no-block": "<#F87171>>> You are not looking at a breakable block within <#FBBF24>{distance}</#FBBF24> blocks.",
-      "success": "<#34D399>>> Broke the block at <#FBBF24>{x}, {y}, {z}</#FBBF24>."
-    },
-    "setloreline": {
-      "only-player": "<#F87171>>> Only players can use this command.",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "usage": "<#F87171>>> Usage: <white>/setloreline <text>",
-      "no-item": "<#F87171>>> You're not holding an item.",
-      "lore-set": "<#34D399>>> Lore set to: <white>{lore}"
-    },
-    "track": {
-      "only-player": "<#F87171>>> Only players can use this command.",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "usage": "<#F87171>>> Usage: <white>/track <player>",
-      "not-found": "<#F87171>>> Player <#FBBF24>{target}</#FBBF24> not found.",
-      "success": "<#34D399>>> Now tracking <#FBBF24>{target}</#FBBF24>. Compass updated."
-    },
-    "suicide": {
-      "only-player": "<#F87171>>> Only players can use this command.",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "success": "<#F87171>>> You have taken your own life.",
-      "error": "<#F87171>>> Failed to record suicide attempt."
-    },
-    "kill": {
-      "only-player": "<#F87171>>> Only players can use this command.",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "kill-count": "<#34D399>>> You have <#FBBF24>{kills} <#34D399>player kills."
-    },
-    "bottom": {
-      "only-player": "<#F87171>>> Only players can use this command.",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "success": "<#34D399>>> Teleported to bottom! <#9CA3AF>(Y: {y})",
-      "no-safe-ground": "<#F87171>>> No safe ground below!"
-    },
-    "condense": {
-      "only-player": "<#F87171>>> Only players can use this command!",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "success": "<#34D399>>> Condensed items into <#FBBF24>{blocks} <#34D399>blocks!",
-      "not-enough": "<#FBBF24>>> You don't have enough items to condense."
-    },
-    "nuke": {
-      "only-player": "<#F87171>>> Only players can use this command!",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "deployed": "<#34D399>>> Nuke deployed! <#9CA3AF>(Power: {power})"
-    },
-    "weather": {
-      "only-player": "<#F87171>>> Only players can use this command.",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "no-permission-sub": "<#F87171>>> You need permission <#FBBF24>{subpermission}</#FBBF24>!",
-      "usage": "<#F87171>>> Usage: <white>/weather <clear|rain|thunderstorm>",
-      "clear": "<#34D399>>> Weather set to clear for <white>{duration} <#34D399>seconds.",
-      "rain": "<#34D399>>> Weather set to rain for <white>{duration} <#34D399>seconds.",
-      "thunderstorm": "<#34D399>>> Weather set to thunderstorm for <white>{duration} <#34D399>seconds.",
-      "invalid-type": "<#F87171>>> Invalid weather type. Use: clear, rain, or thunderstorm."
-    },
-    "playtime": {
-      "only-player": "<#F87171>>> Only players can use this command.",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "usage": "<#F87171>>> Usage: <white>/playtime",
-      "playtime": "<#34D399>>> Your playtime: <#FBBF24>{hours}h {minutes}m"
-    },
-    "recipe": {
-      "only-player": "<#F87171>>> Only players can use this command.",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "usage": "<#F87171>>> Usage: <white>/recipe <recipe>",
-      "not-found": "<#F87171>>> Recipe not found!",
-      "result": "<#34D399>>> Recipe for: <#FBBF24>{item}",
-      "shaped-header": "<#34D399>>> Shaped Recipe Ingredients:",
-      "shapeless-header": "<#34D399>>> Shapeless Recipe Ingredients:",
-      "ingredient-line": "<#FBBF24>>> - {char}: <white>{item} <#FBBF24>x{amount}",
-      "ingredient-line-shapeless": "<#FBBF24>>> - <white>{item} <#FBBF24>x{amount}",
-      "unknown-type": "<#F87171>>> Unknown recipe type!"
-    },
-    "enderchest": {
-      "only-player": "<#F87171>>> Only players can use this command.",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "no-permission-others": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "usage": "<#F87171>>> Usage: <white>/enderchest [player]",
-      "opening": "<#34D399>>> Opening your ender chest...",
-      "opening-other": "<#34D399>>> Opening <#FBBF24>{player}'s <#34D399>ender chest...",
-      "player-not-found": "<#F87171>>> Player <#FBBF24>{player}</#FBBF24> not found.",
-      "offline-not-supported": "<#F87171>>> Cannot open ender chest of offline player <#FBBF24>{player}</#FBBF24>."
-    },
-    "seen": {
-      "only-player": "<#F87171>>> Only players can use this command.",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "usage": "<#FBBF24>>> Usage: <white>/seen <player>",
-      "player-not-found": "<#F87171>>> Player <#FBBF24>{player}</#FBBF24> not found.",
-      "result": "<#34D399>>> {player} was last seen on <white>{lastSeen}",
-      "result-online": "<#34D399>>> {player} <#34D399>is currently <bold>online</bold>!",
-      "never-joined": "<#FBBF24>>> {player} has never joined the server."
-    },
-    "back": {
-      "only-player": "<#F87171>>> Only players can use this command.",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "no-permission-sub": "<#F87171>>> You need permission <#FBBF24>{subpermission}</#FBBF24>!",
-      "usage": "<#FBBF24>>> Usage: <white>/back [lobby|death|back]",
-      "no-back": "<#F87171>>> No previous location saved.",
-      "invalid-back": "<#F87171>>> Your last location is invalid.",
-      "teleported-back": "<#34D399>>> Teleported back to your previous location.",
-      "lobby-not-set": "<#F87171>>> Lobby location not set or world is unloaded.",
-      "teleported-lobby": "<#34D399>>> Teleported to the lobby.",
-      "no-death-location": "<#F87171>>> No death location found.",
-      "teleported-death": "<#34D399>>> Teleported to your last death location.",
-      "unknown-usage": "<#F87171>>> Unknown subcommand. Use: <white>/back, /back lobby, /back death"
-    },
-    "tree": {
-      "only-player": "<#F87171>>> Only players can use this command.",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "specify-type": "<#F87171>>> Please specify a tree type.",
-      "invalid-type": "<#F87171>>> Invalid tree type! Valid types: <#FBBF24>{types}",
-      "tree-planted": "<#34D399>>> Tree planted: <#FBBF24>{type}",
-      "cannot-grow": "<#F87171>>> Tree cannot grow here! Make sure there's enough space and suitable ground."
-    },
-    "notes": {
-      "only-player": "<#F87171>>> Only players can use notes.",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24> to use notes!",
-      "usage": "<#FBBF24>>> Usage:</#FBBF24> <white>/notes <name> [content]",
-      "list-empty": "<#9CA3AF>>> You have no saved notes.",
-      "list-header": "<#FBBF24>>> Your notes:</#FBBF24> ",
-      "not-found": "<#F87171>>> Note '<#FBBF24>{name}</#FBBF24>' not found.",
-      "view": "<#FBBF24>>> Note '<#34D399>{name}</#34D399>':</#FBBF24> <white>{content}",
-      "saved": "<#34D399>>> Saved note '<#FBBF24>{name}</#FBBF24>':</#34D399> <white>{content}"
-    },
-    "scoreboard": {
-      "only-player": "<#F87171>>> Only players can use scoreboard commands.",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24> to use this!",
-      "no-permission-reload": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24> to reload!",
-      "no-permission-toggle": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24> to toggle!",
-      "no-permission-color": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24> to change layouts!",
-      "usage": "<#FBBF24>>> Usage:</#FBBF24> <white>/scoreboard <reload|toggle|color> [layout]",
-      "toggle": {
-        "enabled": "<#34D399>>> Scoreboard enabled!</#34D399>",
-        "disabled": "<#9CA3AF>>> Scoreboard disabled!</#9CA3AF>"
-      },
-      "reload": {
-        "success": "<#34D399>>> All scoreboards reloaded successfully!"
-      },
-      "color": {
-        "usage": "<#F87171>>> Usage: /scoreboard color <layout>",
-        "not-found": "<#F87171>>> Layout '<#FBBF24>{layout}</#FBBF24>' not found!",
-        "changed": "<#34D399>>> Layout changed to <#FBBF24>{layout}</#FBBF24>!"
+        "title": ">> <#F39C12>💰 SELL ZONE</#F39C12>",
+        "subtitle": ">> <#95A5A6>Place items here to sell",
+        "instruction": ">> <#F39C12>Close inventory to process",
+        "value-prefix": ">> <#F39C12>Total: <#F39C12>"
       }
     }
   },
   "auction": {
     "gui": {
       "titles": {
-        "auction": "<#34D399>>> Auction House - Page {page}",
-        "my-items": "<#34D399>>> Your Items - Page {page}",
-        "remove-confirm": "<#F87171>>> Confirm Removal"
+        "auction": ">> <#27AE60>Auction House - Page {page}",
+        "my-items": ">> <#27AE60>Your Items - Page {page}",
+        "remove-confirm": ">> <#E74C3C>Confirm Removal"
       },
       "navigation": {
-        "prev": "<white>>> ← Previous Page",
-        "next": "<white>>> Next Page →",
-        "refresh": "<white>>> ↻ Refresh",
-        "my-items": "<white>>> 📦 My Items",
-        "close": "<white>>> ✕ Close"
+        "prev": ">> <white>← Previous Page",
+        "next": ">> <white>Next Page →",
+        "refresh": ">> <white>↻ Refresh",
+        "my-items": ">> <white>📦 My Items",
+        "close": ">> <white>✕ Close"
       },
       "item": {
-        "name": "<#34D399>>> Price: <#FBBF24>${price}",
+        "name": ">> <#27AE60>Price: <#F39C12>${price}",
         "lore": {
-          "seller": "<#9CA3AF>>> Seller: <#FBBF24>{seller}",
-          "seller-price": "<#9CA3AF>>> Your price: <#FBBF24>${price}",
-          "expires": "<#9CA3AF>>> Expires: <#FBBF24>{date}",
-          "buyer-click": "<#FBBF24>>> Click to purchase",
-          "seller-click": "<#FBBF24>>> Click to remove"
+          "seller": ">> <#95A5A6>Seller: <#F39C12>{seller}",
+          "seller-price": ">> <#95A5A6>Your price: <#F39C12>${price}",
+          "expires": ">> <#95A5A6>Expires: <#F39C12>{date}",
+          "buyer-click": ">> <#F39C12>Click to purchase",
+          "seller-click": ">> <#F39C12>Click to remove"
         }
       },
-      "balance": "<#34D399>>> Balance: <#FBBF24>${balance}",
-      "refresh": "<#34D399>>> Auction refreshed!",
+      "balance": ">> <#27AE60>Balance: <#F39C12>${balance}",
+      "refresh": ">> <#27AE60>Auction refreshed!",
       "remove": {
-        "confirm": "<#34D399>>> Confirm Removal",
-        "cancel": "<#F87171>>> Cancel",
-        "success": "<#34D399>>> Item removed from auction and returned to your inventory.",
-        "cancel-message": "<#9CA3AF>>> Removal cancelled."
+        "confirm": ">> <#27AE60>Confirm Removal",
+        "cancel": ">> <#E74C3C>Cancel",
+        "success": ">> <#27AE60>Item removed from auction and returned to your inventory.",
+        "cancel-message": ">> <#95A5A6>Removal cancelled."
       }
     },
     "purchase": {
-      "success": "<#34D399>>> Purchased for <#FBBF24>${price}</#FBBF24>!",
-      "not-enough-money": "<#F87171>>> You don't have enough money!",
-      "not-found": "<#F87171>>> Item no longer available!",
-      "seller-message": "<#34D399>>>{buyer} purchased your item for ${price}!"
+      "success": ">> <#27AE60>Purchased for <#F39C12>${price}</#F39C12>!",
+      "not-enough-money": ">> <#E74C3C>You don't have enough money!",
+      "not-found": ">> <#E74C3C>Item no longer available!",
+      "seller-message": ">> <#27AE60>{buyer} purchased your item for ${price}!"
     }
   },
   "rtp": {
     "gui": {
-      "title": "<bold><gradient:#34D399:#60A5FA>>> RTP Menu</gradient>",
+      "title": "<bold><gradient:#27AE60:#3498DB>RTP Menu</gradient>",
       "overworld": {
-        "name": "<#34D399>>> Overworld",
+        "name": ">> <#27AE60>Overworld",
         "lore": [
-          "<#9CA3AF>>> Click to teleport to random",
-          "<#9CA3AF>>> location in the overworld"
+          ">> <#95A5A6>Click to teleport to random",
+          ">> <#95A5A6>location in the overworld"
         ]
       },
       "nether": {
-        "name": "<#F87171>>> Nether",
+        "name": ">> <#E74C3C>Nether",
         "lore": [
-          "<#9CA3AF>>> Click to teleport to random",
-          "<#9CA3AF>>> location in the nether"
+          ">> <#95A5A6>Click to teleport to random",
+          ">> <#95A5A6>location in the nether"
         ]
       },
       "end": {
-        "name": "<#60A5FA>>> The End",
+        "name": ">> <#3498DB>The End",
         "lore": [
-          "<#9CA3AF>>> Click to teleport to random",
-          "<#9CA3AF>>> location in the end"
+          ">> <#95A5A6>Click to teleport to random",
+          ">> <#95A5A6>location in the end"
         ]
       }
     },
-    "world_disabled": "<#F87171>>> RTP is disabled in this world!",
-    "cooldown": "<#F87171>>> Please wait <#FBBF24>{seconds} seconds</#FBBF24> before using RTP again!",
-    "teleport_success": "<#34D399>>> Successfully teleported to <white>{world}</white>!",
-    "reloaded": "<#34D399>>> RTP configuration reloaded!"
+    "world_disabled": ">> <#E74C3C>RTP is disabled in this world!",
+    "cooldown": ">> <#E74C3C>Please wait <#F39C12>{seconds} seconds</#F39C12> before using RTP again!",
+    "teleport_success": ">> <#27AE60>Successfully teleported to <white>{world}</white>!",
+    "reloaded": ">> <#27AE60>RTP configuration reloaded!"
   },
   "language": {
-    "usage": "<#FBBF24>>> Usage: /language <language>",
-    "invalid": "<#F87171>>> Invalid language: <white>{lang}</white>",
-    "changed": "<#34D399>>> Language changed to: <white>{lang}</white>"
+    "usage": ">> <#F39C12>Usage: /language <language>",
+    "invalid": ">> <#E74C3C>Invalid language: <white>{lang}</white>",
+    "changed": ">> <#27AE60>Language changed to: <white>{lang}</white>"
   },
   "database": {
-    "header": "<#60A5FA>>> ╔════════════════════════════════════╗",
-    "title": "<#60A5FA>>> ║  <bold>Database Status</bold>                     ║",
-    "separator": "<#60A5FA>>> ╠════════════════════════════════════╣",
-    "footer": "<#60A5FA>>> ╚════════════════════════════════════╝",
-    "none": "<#F87171>>> No databases configured!",
-    "entry": "<#60A5FA>>> ║  <#FBBF24>{name}</#FBBF24> - {status}{msg} <#9CA3AF>({enabled})</#9CA3AF>  ║"
+    "header": ">> <#3498DB>╔════════════════════════════════════╗",
+    "title": ">> <#3498DB>║  <bold>Database Status</bold>                     ║",
+    "separator": ">> <#3498DB>╠════════════════════════════════════╣",
+    "footer": ">> <#3498DB>╚════════════════════════════════════╝",
+    "none": ">> <#E74C3C>No databases configured!",
+    "entry": ">> <#3498DB>║  <#F39C12>{name}</#F39C12> - {status}{msg} <#95A5A6>({enabled})</#95A5A6>  ║"
   },
   "kits": {
     "gui": {
-      "title": "<bold><gradient:#4FD1C5:#60A5FA>>> Available Kits</gradient>",
-      "preview-title": "<white>>> Preview Kit: <#FBBF24>{kit}</#FBBF24>"
+      "title": "<bold><gradient:#27AE60:#3498DB>Available Kits</gradient>",
+      "preview-title": "<white>Preview Kit: <#F39C12>{kit}</#F39C12>"
     },
     "messages": {
-      "cooldown": "<#F87171>>> Please wait <#FBBF24>{time}s</#FBBF24> before claiming <white>{kit}</white> again!",
-      "no-permission": "<#F87171>>> You don't have permission to claim <white>{kit}</white>!",
-      "claim-success": "<#34D399>>> ✓ Successfully claimed kit <white>{kit}</white>!",
-      "kit-not-found": "<#F87171>>> Kit <white>{kit}</white> not found!",
-      "locked-name": "<#F87171>>> Locked: <#9CA3AF>{kit}</#9CA3AF>",
-      "requires-permission": "<#9CA3AF>>> Requires: <white>{permission}</white>",
-      "cooldown-info": "<#9CA3AF>>> Cooldown: <#F87171>{time}s remaining</#F87171>",
-      "claim-button": "<#34D399>>> ✓ Claim Kit",
-      "cooldown-button": "<#F87171>>> ⏱ On Cooldown",
-      "back-button": "<#F87171>>> ← Back",
-      "no-kits-defined": "<#F87171>>> No kits are currently defined!",
-      "reload-success": "<#34D399>>> ✓ Kits reloaded successfully!",
-      "reload-no-permission": "<#F87171>>> You don't have permission to reload kits!"
+      "cooldown": ">> <#E74C3C>Please wait <#F39C12>{time}s</#F39C12> before claiming <white>{kit}</white> again!",
+      "no-permission": ">> <#E74C3C>You don't have permission to claim <white>{kit}</white>!",
+      "claim-success": ">> <#27AE60>✓ Successfully claimed kit <white>{kit}</white>!",
+      "kit-not-found": ">> <#E74C3C>Kit <white>{kit}</white> not found!",
+      "locked-name": ">> <#E74C3C>Locked: <#95A5A6>{kit}</#95A5A6>",
+      "requires-permission": ">> <#95A5A6>Requires: <white>{permission}</white>",
+      "cooldown-info": ">> <#95A5A6>Cooldown: <#E74C3C>{time}s remaining</#E74C3C>",
+      "claim-button": ">> <#27AE60>✓ Claim Kit",
+      "cooldown-button": ">> <#E74C3C>⏱ On Cooldown",
+      "back-button": ">> <#E74C3C>← Back",
+      "no-kits-defined": ">> <#E74C3C>No kits are currently defined!",
+      "reload-success": ">> <#27AE60>✓ Kits reloaded successfully!",
+      "reload-no-permission": ">> <#E74C3C>You don't have permission to reload kits!"
     }
   },
   "mail": {
-    "on-join": "<#FBBF24>>> You have <#FBBF24>{count}</#FBBF24> unread mails! Use <white>/mail read</white>",
-    "send-usage": "<#F87171>>> Usage: /mail send <player> <message>",
-    "no-mail": "<#FBBF24>>> You have no mail.",
+    "on-join": ">> <#F39C12>You have <#F39C12>{count}</#F39C12> unread mails! Use <white>/mail read</white>",
+    "send-usage": ">> <#E74C3C>Usage: /mail send <player> <message>",
+    "no-mail": ">> <#F39C12>You have no mail.",
     "usage": {
-      "header": "<#FBBF24>>> ----- <white>Mail System <#FBBF24>-----",
-      "read": "<#FBBF24>>>/mail read <#9CA3AF>- <white>Read your inbox",
-      "send": "<#FBBF24>>>/mail send <player> <message> <#9CA3AF>- <white>Send a mail",
-      "clear": "<#FBBF24>>>/mail clear <#9CA3AF>- <white>Clear all mail",
-      "footer": "<#FBBF24>>> ---------------------------"
+      "header": ">> <#F39C12>----- <white>Mail System <#F39C12>-----",
+      "read": ">> <#F39C12>/mail read <#95A5A6>- <white>Read your inbox",
+      "send": ">> <#F39C12>/mail send <player> <message> <#95A5A6>- <white>Send a mail",
+      "clear": ">> <#F39C12>/mail clear <#95A5A6>- <white>Clear all mail",
+      "footer": ">> <#F39C12>---------------------------"
     },
-    "header": "<#FBBF24><bold>>> Your Mailbox:</bold>",
+    "header": ">> <#F39C12><bold>Your Mailbox:</bold>",
     "message": {
-      "index": "<#9CA3AF>>> [{index}]",
-      "sender": "<#FBBF24>>>{sender}: "
+      "index": ">> <#95A5A6>[{index}]",
+      "sender": ">> <#F39C12>{sender}: "
     },
-    "footer": "<#FBBF24>>> -------------------- <#9CA3AF>({count} messages)",
-    "cooldown": "<#F87171>>> Please wait {time} seconds before sending mail again.",
-    "player-not-found": "<#F87171>>> Player <#FBBF24>{player}</#FBBF24> not found.",
-    "message-too-long": "<#F87171>>> Message too long! Max <#FBBF24>{max}</#FBBF24> characters.",
-    "sent": "<#34D399>>> Mail sent to <#FBBF24>{player}</#FBBF24>.",
-    "received": "<#34D399>>> You have new mail from <#FBBF24>{sender}</#FBBF24>! Use <white>/mail read</white>",
-    "error": "<#F87171>>> Error processing mail. Please try again.",
-    "cleared": "<#34D399>>> All mail cleared!"
+    "footer": ">> <#F39C12>-------------------- <#95A5A6>({count} messages)",
+    "cooldown": ">> <#E74C3C>Please wait {time} seconds before sending mail again.",
+    "player-not-found": ">> <#E74C3C>Player <#F39C12>{player}</#F39C12> not found.",
+    "message-too-long": ">> <#E74C3C>Message too long! Max <#F39C12>{max}</#F39C12> characters.",
+    "sent": ">> <#27AE60>Mail sent to <#F39C12>{player}</#F39C12>.",
+    "received": ">> <#27AE60>You have new mail from <#F39C12>{sender}</#F39C12>! Use <white>/mail read</white>",
+    "error": ">> <#E74C3C>Error processing mail. Please try again.",
+    "cleared": ">> <#27AE60>All mail cleared!"
   },
   "tpa": {
-    "no-player": "<#F87171>>> Player <#FBBF24>{player}</#FBBF24> not found.",
-    "cannot-tpa-self": "<#F87171>>> You cannot send a TPA request to yourself.",
-    "target-toggled": "<#F87171>>> {player} has disabled TPA requests.",
-    "crossworld-disabled": "<#F87171>>> Cross-world teleportation is disabled.",
-    "blocked-world": "<#F87171>>> You cannot teleport to this world.",
-    "cooldown": "<#F87171>>> Please wait <#FBBF24>{time}</#FBBF24> seconds before using TPA again.",
-    "not-enough-money": "<#F87171>>> You need <#FBBF24>${cost}</#FBBF24> for this TPA request.",
-    "request-sent": "<#34D399>>> TPA request sent to <#FBBF24>{player}</#FBBF24>.",
-    "request-sent-here": "<#34D399>>> TPAhere request sent to <#FBBF24>{player}</#FBBF24>.",
-    "request-received": "<#34D399><bold>>>{player}</bold> wants to teleport to you! <white>[<#34D399>/tpaccept {player}</#34D399> | <#F87171>/tpdeny {player}</#F87171>]",
-    "request-received-here": "<#34D399><bold>>>{player}</bold> wants you to teleport to them! <white>[<#34D399>/tpaccept {player}</#34D399> | <#F87171>/tpdeny {player}</#F87171>]",
-    "request-received-all": "<#34D399><bold>>>{player}</bold> wants everyone to teleport! <white>[<#34D399>/tpaccept {player}</#34D399>]",
-    "request-accepted": "<#34D399>>>{player} accepted your request! Teleporting in <#FBBF24>{delay}s</#FBBF24>...",
-    "request-accepted-target": "<#34D399>>> You accepted <#FBBF24>{player}</#FBBF24>'s request.",
-    "request-denied": "<#F87171>>>{player} denied your TPA request.",
-    "request-denied-target": "<#34D399>>> You denied <#FBBF24>{player}</#FBBF24>'s request.",
-    "no-request": "<#F87171>>> You have no pending TPA requests.",
-    "no-request-from-player": "<#F87171>>> No pending request from <#FBBF24>{player}</#FBBF24>.",
-    "no-requests-sent": "<#F87171>>> You have no pending TPA requests to cancel.",
-    "teleport-cancelled-move": "<#F87171>>> Teleport cancelled due to movement!",
-    "warmup-start": "<#FBBF24>>> Warmup started... <#F87171>Don't move!",
-    "toggle-on": "<#34D399>>> TPA requests are now <bold>DISABLED</bold>.",
-    "toggle-off": "<#34D399>>> TPA requests are now <bold>ENABLED</bold>.",
-    "request-cancelled": "<#34D399>>> Cancelled TPA request to <#FBBF24>{player}</#FBBF24>.",
-    "request-cancelled-target": "<#FBBF24>>>{player}</#FBBF24> cancelled their TPA request.",
-    "request-cancelled-all": "<#34D399>>> Cancelled all your TPA requests.",
-    "request-expired": "<#F87171>>> Your TPA request to <#FBBF24>{player}</#FBBF24> expired.",
-    "request-expired-target": "<#F87171>>> TPA request from <#FBBF24>{player}</#FBBF24> expired.",
-    "request-sent-all": "<#34D399>>> Sent TPA request to <#FBBF24>{count}</#FBBF24> players.",
-    "info-incoming-header": "<#FBBF24><bold>>> Incoming Requests:</bold>",
-    "info-outgoing-header": "<#FBBF24><bold>>> Outgoing Requests:</bold>",
-    "info-request": "<#FBBF24>>> - {player} <#9CA3AF>({type})</#9CA3AF>"
+    "no-player": ">> <#E74C3C>Player <#F39C12>{player}</#F39C12> not found.",
+    "cannot-tpa-self": ">> <#E74C3C>You cannot send a TPA request to yourself.",
+    "target-toggled": ">> <#E74C3C>{player} has disabled TPA requests.",
+    "crossworld-disabled": ">> <#E74C3C>Cross-world teleportation is disabled.",
+    "blocked-world": ">> <#E74C3C>You cannot teleport to this world.",
+    "cooldown": ">> <#E74C3C>Please wait <#F39C12>{time}</#F39C12> seconds before using TPA again.",
+    "not-enough-money": ">> <#E74C3C>You need <#F39C12>${cost}</#F39C12> for this TPA request.",
+    "request-sent": ">> <#27AE60>TPA request sent to <#F39C12>{player}</#F39C12>.",
+    "request-sent-here": ">> <#27AE60>TPAhere request sent to <#F39C12>{player}</#F39C12>.",
+    "request-received": ">> <#27AE60><bold>{player}</bold> wants to teleport to you! <white>[<#27AE60>/tpaccept {player}</#27AE60> | <#E74C3C>/tpdeny {player}</#E74C3C>]",
+    "request-received-here": ">> <#27AE60><bold>{player}</bold> wants you to teleport to them! <white>[<#27AE60>/tpaccept {player}</#27AE60> | <#E74C3C>/tpdeny {player}</#E74C3C>]",
+    "request-received-all": ">> <#27AE60><bold>{player}</bold> wants everyone to teleport! <white>[<#27AE60>/tpaccept {player}</#27AE60>]",
+    "request-accepted": ">> <#27AE60>{player} accepted your request! Teleporting in <#F39C12>{delay}s</#F39C12>...",
+    "request-accepted-target": ">> <#27AE60>You accepted <#F39C12>{player}</#F39C12>'s request.",
+    "request-denied": ">> <#E74C3C>{player} denied your TPA request.",
+    "request-denied-target": ">> <#27AE60>You denied <#F39C12>{player}</#F39C12>'s request.",
+    "no-request": ">> <#E74C3C>You have no pending TPA requests.",
+    "no-request-from-player": ">> <#E74C3C>No pending request from <#F39C12>{player}</#F39C12>.",
+    "no-requests-sent": ">> <#E74C3C>You have no pending TPA requests to cancel.",
+    "teleport-cancelled-move": ">> <#E74C3C>Teleport cancelled due to movement!",
+    "warmup-start": ">> <#F39C12>Warmup started... <#E74C3C>Don't move!",
+    "toggle-on": ">> <#27AE60>TPA requests are now <bold>DISABLED</bold>.",
+    "toggle-off": ">> <#27AE60>TPA requests are now <bold>ENABLED</bold>.",
+    "request-cancelled": ">> <#27AE60>Cancelled TPA request to <#F39C12>{player}</#F39C12>.",
+    "request-cancelled-target": ">> <#F39C12>{player}</#F39C12> cancelled their TPA request.",
+    "request-cancelled-all": ">> <#27AE60>Cancelled all your TPA requests.",
+    "request-expired": ">> <#E74C3C>Your TPA request to <#F39C12>{player}</#F39C12> expired.",
+    "request-expired-target": ">> <#E74C3C>TPA request from <#F39C12>{player}</#F39C12> expired.",
+    "request-sent-all": ">> <#27AE60>Sent TPA request to <#F39C12>{count}</#F39C12> players.",
+    "info-incoming-header": ">> <#F39C12><bold>Incoming Requests:</bold>",
+    "info-outgoing-header": ">> <#F39C12><bold>Outgoing Requests:</bold>",
+    "info-request": ">> <#F39C12>- {player} <#95A5A6>({type})</#95A5A6>"
   },
   "fly": {
-    "enabled": "<#34D399>>> ✈ Flight enabled! Press <white>SPACE</white> twice to fly.",
-    "disabled": "<#F87171>>> ✈ Flight disabled.",
-    "error": "<#F87171>>> Error: Could not save flight state. Please try again.",
-    "cooldown": "<#F87171>>> Please wait <#FBBF24>{time}s</#FBBF24> before toggling flight again.",
-    "no-permission": "<#F87171>>> You need permission <#FBBF24>fly.use</#FBBF24> to use this command."
+    "enabled": ">> <#27AE60>✈ Flight enabled! Press <white>SPACE</white> twice to fly.",
+    "disabled": ">> <#E74C3C>✈ Flight disabled.",
+    "error": ">> <#E74C3C>Error: Could not save flight state. Please try again.",
+    "cooldown": ">> <#E74C3C>Please wait <#F39C12>{time}s</#F39C12> before toggling flight again.",
+    "no-permission": ">> <#E74C3C>You need permission <#F39C12>fly.use</#F39C12> to use this command."
   },
   "reports": {
-    "cooldown": "<#F87171>>> Please wait <#FBBF24>{time}</#FBBF24> seconds before reporting again.",
-    "reason-too-long": "<#F87171>>> Reason too long! Max <#FBBF24>{max}</#FBBF24> characters.",
-    "error": "<#F87171>>> Error processing report. Please try again.",
+    "cooldown": ">> <#E74C3C>Please wait <#F39C12>{time}</#F39C12> seconds before reporting again.",
+    "reason-too-long": ">> <#E74C3C>Reason too long! Max <#F39C12>{max}</#F39C12> characters.",
+    "error": ">> <#E74C3C>Error processing report. Please try again.",
     "command": {
-      "usage": "<#F87171>>> Usage: /report <player> <reason>",
-      "invalid-player": "<#F87171>>> Player <#FBBF24>{player}</#FBBF24> not found.",
-      "submitted": "<#34D399>>> Report submitted against <#FBBF24>{player}</#FBBF24>.",
-      "notify": "<#F87171>>> [REPORT]</#F87171> <#FBBF24>{reporter}</#FBBF24> reported <#FBBF24>{target}</#FBBF24> for <#9CA3AF>{reason}</#9CA3AF> <#9CA3AF>(ID: {id})</#9CA3AF>"
+      "usage": ">> <#E74C3C>Usage: /report <player> <reason>",
+      "invalid-player": ">> <#E74C3C>Player <#F39C12>{player}</#F39C12> not found.",
+      "submitted": ">> <#27AE60>Report submitted against <#F39C12>{player}</#F39C12>.",
+      "notify": ">> <#E74C3C>[REPORT]</#E74C3C> <#F39C12>{reporter}</#F39C12> reported <#F39C12>{target}</#F39C12> for <#95A5A6>{reason}</#95A5A6> <#95A5A6>(ID: {id})</#95A5A6>"
     },
     "commandclear": {
-      "usage": "<#F87171>>> Usage: /reportclear <id>",
-      "invalid": "<#F87171>>> Invalid report ID: <#FBBF24>{id}</#FBBF24>",
-      "cleared": "<#34D399>>> Cleared report ID: <#FBBF24>{id}</#FBBF24>"
+      "usage": ">> <#E74C3C>Usage: /reportclear <id>",
+      "invalid": ">> <#E74C3C>Invalid report ID: <#F39C12>{id}</#F39C12>",
+      "cleared": ">> <#27AE60>Cleared report ID: <#F39C12>{id}</#F39C12>"
     },
     "list": {
-      "header": "<#FBBF24>>> ----- <#FBBF24>All Reports</#FBBF24> -----",
-      "none": "<#FBBF24>>> No reports found.",
-      "entry": "<#9CA3AF>>> [{id}] <#FBBF24>{reporter}</#FBBF24> → <#FBBF24>{target}</#FBBF24>: <white>{reason}</white>",
-      "footer": "<#FBBF24>>> Total: <#FBBF24>{count}</#FBBF24> reports"
+      "header": ">> <#F39C12>----- <#F39C12>All Reports</#F39C12> -----",
+      "none": ">> <#F39C12>No reports found.",
+      "entry": ">> <#95A5A6>[{id}] <#F39C12>{reporter}</#F39C12> → <#F39C12>{target}</#F39C12>: <white>{reason}</white>",
+      "footer": ">> <#F39C12>Total: <#F39C12>{count}</#F39C12> reports"
     },
     "reportslist": {
-      "header": "<#FBBF24>>> You have pending reports to review:",
-      "entry": "<#F87171>>> [PENDING]</#F87171> <#FBBF24>{reporter}</#FBBF24> → <#FBBF24>{target}</#FBBF24>: <#9CA3AF>{reason}</#9CA3AF> <#9CA3AF>(ID: {id})</#9CA3AF>"
+      "header": ">> <#F39C12>You have pending reports to review:",
+      "entry": ">> <#E74C3C>[PENDING]</#E74C3C> <#F39C12>{reporter}</#F39C12> → <#F39C12>{target}</#F39C12>: <#95A5A6>{reason}</#95A5A6> <#95A5A6>(ID: {id})</#95A5A6>"
     }
   },
   "rules": {
     "command": {
-      "only-player": "<#F87171>>> Only players can use this command.",
-      "no-permission": "<#F87171>>> You need permission <#FBBF24>{permission}</#FBBF24>!",
-      "no-rules": "<#F87171>>> No rules are currently configured.",
-      "already-accepted": "<#FBBF24>>> You have already accepted the latest rules.",
-      "accept-success": "<#34D399>>> You have successfully accepted the rules!",
-      "accept-failure": "<#F87171>>> Failed to accept rules: <#FBBF24>{error}",
-      "reload-success": "<#34D399>>> Rules reloaded successfully. New version: <#FBBF24>{version}",
-      "reload-failure": "<#F87171>>> Failed to reload rules: <#FBBF24>{error>",
-      "usage": "<#FBBF24>>> Usage: <white>/rules [accept|reload]"
+      "only-player": ">> <#E74C3C>Only players can use this command.",
+      "no-permission": ">> <#E74C3C>You need permission <#F39C12>{permission}</#F39C12>!",
+      "no-rules": ">> <#E74C3C>No rules are currently configured.",
+      "already-accepted": ">> <#F39C12>You have already accepted the latest rules.",
+      "accept-success": ">> <#27AE60>You have successfully accepted the rules!",
+      "accept-failure": ">> <#E74C3C>Failed to accept rules: <#F39C12>{error}",
+      "reload-success": ">> <#27AE60>Rules reloaded successfully. New version: <#F39C12>{version}",
+      "reload-failure": ">> <#E74C3C>Failed to reload rules: <#F39C12>{error>",
+      "usage": ">> <#F39C12>Usage: <white>/rules [accept|reload]"
     },
     "gui": {
-      "title": "<#34D399>>> Server Rules",
-      "no-rules": "<#F87171>>> No rules are currently configured.",
-      "rule-lore": "<#9CA3AF>>> Rule #{number}",
-      "accept-title": "<#34D399>>> Click to Accept Rules",
-      "decline-title": "<#F87171>>> Click to Decline Rules",
-      "close-title": "<#9CA3AF>>> [Close]",
-      "rule-name": "<white>>> Rule <bold>#{number}",
-      "rule-hint": "<#9CA3AF><italic>>> Click button below to accept"
+      "title": ">> <#27AE60>Server Rules",
+      "no-rules": ">> <#E74C3C>No rules are currently configured.",
+      "rule-lore": ">> <#95A5A6>Rule #{number}",
+      "accept-title": ">> <#27AE60>Click to Accept Rules",
+      "decline-title": ">> <#E74C3C>Click to Decline Rules",
+      "close-title": ">> <#95A5A6>[Close]",
+      "rule-name": "<white>Rule <bold>#{number}",
+      "rule-hint": ">> <#95A5A6><italic>Click button below to accept"
     },
     "accept": {
-      "success": "<#34D399>>> You have accepted the server rules!"
+      "success": ">> <#27AE60>You have accepted the server rules!"
     },
     "decline": {
-      "message": "<#F87171>>> You have declined the rules. You must accept them to play.",
-      "kick-message": "<#F87171>>> You must accept the rules to join this server!"
+      "message": ">> <#E74C3C>You have declined the rules. You must accept them to play.",
+      "kick-message": ">> <#E74C3C>You must accept the rules to join this server!"
     },
     "close": {
-      "message": "<#FBBF24>>> You closed the rules GUI. You must accept them to play."
+      "message": ">> <#F39C12>You closed the rules GUI. You must accept them to play."
     }
   },
   "general": {
-    "error": "<#F87171>>> ✗ An error occurred: {error}",
-    "success": "<#34D399>>> ✓ Success!",
-    "loading": "<#9CA3AF>>> Loading..."
+    "error": ">> <#E74C3C>✗ An error occurred: {error}",
+    "success": ">> <#27AE60>✓ Success!",
+    "loading": ">> <#95A5A6>Loading..."
+  },
+  "vault": {
+    "only-players": ">> <#E74C3C>Only players can use vault commands!",
+    "usage": ">> <#E74C3C>Usage: <yellow>/pv [number]",
+    "invalid-number": ">> <#E74C3C>Vault number must be between 1-10!",
+    "saved": ">> <#27AE60>Vault <#F39C12>{vault}</#F39C12> saved!",
+    "admin-saved": ">> <#27AE60>Saved vault <#F39C12>{vault}</#F39C12> for <#F39C12>{player}</#F39C12>!",
+    "selector": {
+      "title": ">> <#F39C12>Select a Vault",
+      "unlocked": ">> <#27AE60>Vault <white>#{number}",
+      "locked": ">> <#E74C3C>Vault <white>#{number} <#E74C3C>🔒",
+      "click-to-open": ">> <#95A5A6>Click to open",
+      "no-permission": ">> <#95A5A6>No permission"
+    }
+  },
+  "warp": {
+    "usage": ">> <#E74C3C>Usage: <yellow>/warp <name>",
+    "not-found": ">> <#E74C3C>Warp <#F39C12>{warp}</#F39C12> not found.",
+    "success": ">> <#27AE60>Teleported to warp <#F39C12>{warp}</#F39C12>!",
+    "cooldown-active": ">> <#E74C3C>Please wait <#F39C12>{time}</#F39C12> seconds before warping again."
+  },
+  "setwarp": {
+    "usage": ">> <#E74C3C>Usage: <yellow>/setwarp <name>",
+    "limit-reached": ">> <#E74C3C>You have reached your warp limit of <#F39C12>{limit}</#F39C12>!",
+    "already-exists": ">> <#E74C3C>Warp <#F39C12>{warp}</#F39C12> already exists.",
+    "success": ">> <#27AE60>Created warp <#F39C12>{warp}</#F39C12>!"
+  },
+  "delwarp": {
+    "usage": ">> <#E74C3C>Usage: <yellow>/delwarp <name>",
+    "not-found": ">> <#E74C3C>Warp <#F39C12>{warp}</#F39C12> not found.",
+    "no-permission": ">> <#E74C3C>You don't have permission to delete this warp!",
+    "success": ">> <#27AE60>Deleted warp <#F39C12>{warp}</#F39C12>!"
+  },
+  "warps": {
+    "empty": ">> <#F39C12>No warps have been set!",
+    "header": ">> <#F39C12>------[ Warps ]------",
+    "entry": ">> <#27AE60>{warp}",
+    "footer": ">> <#F39C12>-------------------"
   }
 }

@@ -23,6 +23,7 @@ public class BanCommand extends CommandModule implements CommandExecutor, TabCom
     private final BanStorage storage;
     private final BanConfig config;
 
+
     public BanCommand(JavaPlugin plugin, PlayerLanguageManager langManager,
                       CommandDataStorage commandStorage, BanStorage storage, BanConfig config) {
         super(commandStorage, langManager);
@@ -40,7 +41,7 @@ public class BanCommand extends CommandModule implements CommandExecutor, TabCom
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!sender.hasPermission("serveressentials.command.ban")) {
-            sender.sendMessage(langManager.getMessageFor(sender instanceof Player ? (Player)sender : null,
+            sender.sendMessage(langManager.getMessageFor(sender instanceof Player ? (Player) sender : null,
                     "commands.no-permission",
                     "<red>You need permission <yellow>{permission}</yellow>!",
                     LanguageManager.ComponentPlaceholder.of("{permission}", "serveressentials.command.ban")));
@@ -48,7 +49,7 @@ public class BanCommand extends CommandModule implements CommandExecutor, TabCom
         }
 
         if (args.length < 3) {
-            sender.sendMessage(langManager.getMessageFor(sender instanceof Player ? (Player)sender : null,
+            sender.sendMessage(langManager.getMessageFor(sender instanceof Player ? (Player) sender : null,
                     "ban.usage",
                     "<red>Usage: <yellow>/ban <player> <time> <reason>"));
             return true;
@@ -58,7 +59,7 @@ public class BanCommand extends CommandModule implements CommandExecutor, TabCom
         OfflinePlayer target = Bukkit.getOfflinePlayer(targetName);
 
         if (target.getName() == null) {
-            sender.sendMessage(langManager.getMessageFor(sender instanceof Player ? (Player)sender : null,
+            sender.sendMessage(langManager.getMessageFor(sender instanceof Player ? (Player) sender : null,
                     "ban.never-joined",
                     "<red>That player has never joined the server."));
             return true;
@@ -66,7 +67,7 @@ public class BanCommand extends CommandModule implements CommandExecutor, TabCom
 
         long duration = parseTime(args[1]);
         if (duration == -2) {
-            sender.sendMessage(langManager.getMessageFor(sender instanceof Player ? (Player)sender : null,
+            sender.sendMessage(langManager.getMessageFor(sender instanceof Player ? (Player) sender : null,
                     "ban.invalid-time",
                     "<red>Invalid time format. Use <yellow>s/m/h/d</yellow> or <yellow>perm</yellow>"));
             return true;
@@ -78,21 +79,24 @@ public class BanCommand extends CommandModule implements CommandExecutor, TabCom
 
         storage.banPlayer(target.getUniqueId(), target.getName(), reason, bannedBy, until,
                 config.serverName, config.discordLink).thenRun(() -> {
-            if (target.isOnline()) {
-                Component kickMsg = langManager.getMessageFor((Player)target.getPlayer(),
-                        "ban.kick-message",
-                        "<red>You have been banned!\n<gray>Reason: <yellow>{reason}</yellow>\n<gray>Banned by: <yellow>{banner}</yellow>\n<gray>Until: <yellow>{until}</yellow>\n<gray>Appeal at: <aqua>{discord}</aqua>",
-                        LanguageManager.ComponentPlaceholder.of("{reason}", reason),
-                        LanguageManager.ComponentPlaceholder.of("{banner}", bannedBy),
-                        LanguageManager.ComponentPlaceholder.of("{until}", until == -1 ? "Permanent" : new Date(until).toString()),
-                        LanguageManager.ComponentPlaceholder.of("{discord}", config.discordLink));
-                ((Player) target.getPlayer()).kick(kickMsg);
-            }
 
-            sender.sendMessage(langManager.getMessageFor(sender instanceof Player ? (Player)sender : null,
-                    "ban.success",
-                    "<green><yellow>{player}</yellow> has been banned.",
-                    LanguageManager.ComponentPlaceholder.of("{player}", target.getName())));
+            Bukkit.getScheduler().runTask(plugin, () -> {
+                if (target.isOnline()) {
+                    Component kickMsg = langManager.getMessageFor(target.getPlayer(),
+                            "ban.kick-message",
+                            "<red>You have been banned!\n<gray>Reason: <yellow>{reason}</yellow>\n<gray>Banned by: <yellow>{banner}</yellow>\n<gray>Until: <yellow>{until}</yellow>\n<gray>Appeal at: <aqua>{discord}</aqua>",
+                            LanguageManager.ComponentPlaceholder.of("{reason}", reason),
+                            LanguageManager.ComponentPlaceholder.of("{banner}", bannedBy),
+                            LanguageManager.ComponentPlaceholder.of("{until}", until == -1 ? "Permanent" : new Date(until).toString()),
+                            LanguageManager.ComponentPlaceholder.of("{discord}", config.discordLink));
+                    target.getPlayer().kick(kickMsg);
+                }
+
+                sender.sendMessage(langManager.getMessageFor(sender instanceof Player ? (Player) sender : null,
+                        "ban.success",
+                        "<green><yellow>{player}</yellow> has been banned.",
+                        LanguageManager.ComponentPlaceholder.of("{player}", target.getName())));
+            });
         });
 
         return true;

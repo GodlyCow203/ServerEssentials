@@ -63,7 +63,7 @@ public final class VanishCommand implements CommandExecutor {
         return vanishedCache.contains(playerId);
     }
 
-    public static void loadPlayerState(UUID playerId) {
+    public void loadPlayerState(UUID playerId) {
         dataStorage.getState(playerId, COMMAND_NAME, "enabled").thenAccept(opt -> {
             if (opt.isPresent() && "true".equals(opt.get())) {
                 vanishedCache.add(playerId);
@@ -71,7 +71,6 @@ public final class VanishCommand implements CommandExecutor {
         });
     }
 
-    public static void unloadPlayerState(UUID playerId) {
+    public void unloadPlayerState(UUID playerId) {
         vanishedCache.remove(playerId);
-    }
-}
+    }}

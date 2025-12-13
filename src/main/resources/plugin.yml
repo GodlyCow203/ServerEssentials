@@ -1,6 +1,6 @@
 name: ServerEssentials
 main: net.lunark.io.ServerEssentials
-version: 2.0.5
+version: 2.0.7.1
 api-version: 1.20
 depend: [PlaceholderAPI, LuckPerms, Vault]
 
@@ -9,7 +9,7 @@ commands:
   eco:
     description: Check or modify a player's balance.
     usage: /eco
-    permission: serveressentials.eco
+    permission: serveressentials.command.eco
     permission-message: You do not have permission to use /eco.
 
 
@@ -101,10 +101,7 @@ commands:
     aliases: [shopgui, store, market]
 
 
-  canon:
-    description: e
-    usage: /canon
-    permission: serveressentials.canon
+
   tree:
     descirption: e
     usage: /tree <type>
@@ -240,7 +237,7 @@ commands:
   playerinfo:
     description: View info about a player
     usage: /playerinfo <player>
-    permission: serveressentials.playerinfo
+    permission: serveressentials.command.playerinfo
   launch:
     description: Launch yourself forward
     usage: /launch
@@ -297,7 +294,7 @@ commands:
     description: Manage player mail
     usage: /mail <read|send|clear>
     aliases: [email, message]
-    permission: serveressentials.mail
+    permission: serveressentials.command.mail
 
   kickall:
     description: Kick all players
@@ -318,13 +315,9 @@ commands:
   cartographytable:
     description: Opens a virtual Cartography Table
     usage: /cartographytable
-    permission: serveressentials.cartographytable
+    permission: serveressentials.command.cartographytable
 
-  togglefly:
-    description: Toggles fly mode
-    usage: /togglefly
-    permission: serveressentials.togglefly
-    permission-message: You don't have permission to use this command.
+
 
   inventorysort:
     description: Sorts your inventory
@@ -384,18 +377,6 @@ commands:
     permission: serveressentials.command.fletchingtable
     permission-message: You don't have permission to use this command.
 
-  furnace:
-    description: Opens a virtual Furnace
-    usage: /furnace
-    permission: serveressentials.command.furnace
-    permission-message: You don't have permission to use this command.
-
-  blastfurnace:
-    description: Opens a virtual Blast Furnace
-    usage: /blastfurnace
-    permission: serveressentials.command.blastfurnace
-    permission-message: You don't have permission to use this command.
-
 
 
   anvil:
@@ -422,11 +403,6 @@ commands:
     permission: serveressentials.command.loom
     permission-message: You don't have permission to use this command.
 
-  cartographytables:
-    description: Opens a virtual Cartography Table
-    usage: /cartographytables
-    permission: serveressentials.command.cartographytables
-    permission-message: You don't have permission to use this command.
 
   smithingtable:
     description: Opens a virtual Smithing Table
@@ -443,42 +419,29 @@ commands:
 
 
   warp:
-    description: Teleport to a warp.
+    description: Teleport to a warp
     usage: /warp <name>
-    permission: serveressentials.warp
-    permission-message: You do not have permission to use this command.
+    permission: serveressentials.command.warp
+
   setwarp:
-    description: Set a new warp at your current location.
+    description: Set a warp location
     usage: /setwarp <name>
-    permission: serveressentials.setwarp
-    permission-message: You do not have permission to use this command.
+    permission: serveressentials.command.setwarp
+
   delwarp:
-    description: Delete an existing warp.
-    usage: /delwarp <name>
-    permission: serveressentials.delwarp
-    permission-message: You do not have permission to use this command.
-
-  renamewarp:
-    description: Rename a warp
-    usage: /renamewarp <old> <new>
-    permission: serveressentials.renamewarp
-  stickyrules:
-    description: Custom rules system
-    usage: /stickyrules <command>
-    permission: serveressentials.stickyrules
-
-  closewarp:
     description: Delete a warp
-    usage: /closewarp <name>
-    permission: serveressentials.closewarp
-  reopenwarp:
-    description: Reopen a closed warp
-    usage: /reopenwarp <name>
-    permission: serveressentials.reopenwarp
+    usage: /delwarp <name>
+    permission: serveressentials.command.delwarp
+
+  warps:
+    description: List all warps
+    usage: /warps
+    permission: serveressentials.command.warps
+
   deletewarp:
     description: Delete a warp
     usage: /deletewarp <name>
-    permission: serveressentials.deletewarp
+    permission: serveressentials.command.deletewarp
   disposal:
     description: Open a disposal inventory.
     usage: /disposal
@@ -486,8 +449,8 @@ commands:
 
   editsign:
     description: Edit a sign
-    usage: /<command>
-    permission: serveressentials.editsign
+    usage: /editsign
+    permission: serveressentials.command.editsign
 
 
   spawner:
@@ -570,11 +533,7 @@ commands:
     description: Teleport to the top block.
     usage: /top
     permission: serveressentials.command.top
-  warps:
-    description: List all available warps
-    usage: /warps
-    permission: serveressentials.warps
-    permission-message: You do not have permission to use this command.
+
 
   bottom:
     description: Teleport to the lowest non-air block.
@@ -684,7 +643,7 @@ commands:
   kit:
     description: Opens the kit menu or reloads kits
     usage: /kit [reload]
-    permission: serveressentials.kit
+    permission: serveressentials.command.kits
 
 
 
@@ -692,7 +651,7 @@ commands:
   pv:
     description: Opens your player vault
     usage: /pv <1-10>
-    permission: serveressentials.pv
+    permission: serveressentials.command.pv
 
   death:
     description: Shows how many times you've died.
@@ -772,10 +731,16 @@ commands:
     usage: /daily
     permission: serveressentials.command.daily
 
+
+  canon:
+    description: Use a canon
+    usage: /canon
+    permission: serveressentials.command.canon
+
   notes:
     description: Add a staff note to a player
     usage: /notes <player> <note>
-    permission: serveressentials.notes
+    permission: serveressentials.command.notes
 
 
 permissions:
@@ -1013,36 +978,7 @@ permissions:
   serveressentials.ttp.others:
     default: op
 
-
-  serveressentials.pw.gui:
-    description: Allows opening the Personal Warps GUI.
-    default: op
-  serveressentials.pw.create:
-    description: Allows creating personal warps.
-    default: op
-  serveressentials.pw.edit:
-    description: Allows editing personal warps.
-    default: op
-  serveressentials.pw.reload:
-    description: Allows reloading the warp configuration.
-    default: op
-
-
-  serveressentials.warp:
-    description: Allows the player to use /warp.
-    default: op
-  serveressentials.setwarp:
-    description: Allows the player to set new warps.
-    default: op
-  serveressentials.delwarp:
-    description: Allows the player to delete warps.
-    default: op
-
-  serveressentials.warps:
-    description: Allows the player to list all warps
-    permission: serveressentials.warps
-    default: op
-  serveressentials.delwarp.all:
+  serveressentials.command.delwarp.all:
     description: Allows deleting any warp
     default: op
   serveressentials.command.enderchest.others:
@@ -1159,5 +1095,85 @@ permissions:
     default: op
   serveressentials.command.ext.others:
     default: op
+
+  serveressentials.command.pv.1:
+    description: Access to vault 1
+    default: op
+
+  serveressentials.command.pv.2:
+    description: Access to vault 2
+    default: op
+  serveressentials.command.pv.3:
+    description: Access to vault 1
+    default: op
+
+  serveressentials.command.pv.4:
+    description: Access to vault 2
+    default: op
+  serveressentials.command.pv.5:
+    description: Access to vault 1
+    default: op
+
+  serveressentials.command.pv.6:
+    description: Access to vault 2
+    default: op
+  serveressentials.command.pv.7:
+    description: Access to vault 1
+    default: op
+
+  serveressentials.command.pv.8:
+    description: Access to vault 2
+    default: op
+  serveressentials.command.pv.9:
+    description: Access to vault 1
+    default: op
+
+  serveressentials.command.pv.10:
+    description: Access to vault 2
+    default: op
+  serveressentials.command.warp:
+    description: Allows teleporting to warps
+    default: op
+
+  serveressentials.command.warp.bypass-cooldown:
+    description: Bypasses warp cooldown
+    default: op
+
+  serveressentials.command.setwarp:
+    description: Allows setting warps
+    default: op
+
+  serveressentials.command.setwarp.unlimited:
+    description: Unlimited warps
+    default: op
+
+  serveressentials.command.setwarp.others:
+    description: Can overwrite other players' warps
+    default: op
+
+  serveressentials.command.delwarp:
+    description: Allows deleting warps
+    default: op
+
+  serveressentials.command.delwarp.others:
+    description: Can delete other players' warps
+    default: op
+
+  serveressentials.command.warps:
+    description: Lists warps
+    default: op
+  serveressentials.command.mail.read:
+    description: e
+    default: op
+  serveressentials.command.mail.clear:
+    description: e
+    default: e
+  serveressentials.command.mail.send:
+    description: e
+    default: op
+  serveressentials.command.kits.reload:
+    description:  reload kits
+    default: op
+
 
 

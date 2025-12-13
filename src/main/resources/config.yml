@@ -1,3 +1,4 @@
+
 databases:
   # Use SQLite for everything - simple, reliable, no server needed!
   rtp:
@@ -38,7 +39,9 @@ bans:
   server-name: "MyCoolServer"
   discord-link: "https://discord.gg/example"
 
-
+warp:
+  cooldown: 0
+  max-per-player: 10
   particles:
     enabled: true # Show particles on teleport
     type: PORTAL # Particle type (PORTAL, END_ROD, etc.)

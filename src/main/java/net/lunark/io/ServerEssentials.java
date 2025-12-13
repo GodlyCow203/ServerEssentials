@@ -6,57 +6,31 @@ import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 
 import net.lunark.io.Managers.*;
-import net.lunark.io.PlaceholderAPI.ServerEssentialsPlaceholder;
-import net.lunark.io.PlaceholderAPI.TopPlaytimePlaceholder;
-import net.lunark.io.Rtp.RtpCommand;
-import net.lunark.io.Rtp.RtpConfig;
-import net.lunark.io.Rtp.RtpListener;
-import net.lunark.io.Rtp.RtpLocationStorage;
-import net.lunark.io.TPA.TPACommand;
-import net.lunark.io.TPA.TPAConfig;
-import net.lunark.io.TPA.TPAListener;
-import net.lunark.io.TPA.TPAStorage;
-import net.lunark.io.Vault.VaultCommand;
-import net.lunark.io.Vault.VaultManager;
+import net.lunark.io.PlaceholderAPI.*;
+import net.lunark.io.Rtp.*;
+import net.lunark.io.TPA.*;
 import net.lunark.io.auction.*;
-import net.lunark.io.back.BackDataStorage;
-import net.lunark.io.back.BackListener;
-import net.lunark.io.back.BackManager;
-import net.lunark.io.ban.BanListener;
-import net.lunark.io.ban.BanStorage;
-import net.lunark.io.commands.CommandDataStorage;
-import net.lunark.io.commands.DatabaseCommand;
-import net.lunark.io.commands.LanguageCommand;
-import net.lunark.io.config.GUIConfig;
-import net.lunark.io.database.DatabaseConfig;
-import net.lunark.io.database.DatabaseManager;
-import net.lunark.io.database.DatabaseType;
+import net.lunark.io.back.*;
+import net.lunark.io.ban.*;
+import net.lunark.io.commands.*;
+import net.lunark.io.database.*;
 import net.lunark.io.economy.*;
 
-import net.lunark.io.homes.HomeGUIListener;
-import net.lunark.io.homes.HomeManager;
-import net.lunark.io.homes.HomeStorage;
+import net.lunark.io.homes.*;
 import net.lunark.io.kit.*;
-import net.lunark.io.kit.storage.KitStorage;
+import net.lunark.io.kit.storage.*;
 import net.lunark.io.commands.impl.*;
 import net.lunark.io.commands.config.*;
-import net.lunark.io.language.LanguageManager;
-import net.lunark.io.language.PlayerLanguageManager;
+import net.lunark.io.language.*;
 import net.lunark.io.language.storage.PlayerLanguageStorage;
 import net.lunark.io.listeners.*;
-import net.lunark.io.lobby.LobbyListener;
-import net.lunark.io.lobby.LobbyStorage;
-import net.lunark.io.mail.MailCommand;
-import net.lunark.io.mail.MailConfig;
-import net.lunark.io.mail.MailListener;
-import net.lunark.io.mail.MailStorage;
-import net.lunark.io.mute.MuteStorage;
-import net.lunark.io.nick.NickManager;
-import net.lunark.io.notes.NotesStorage;
+import net.lunark.io.lobby.*;
+import net.lunark.io.mail.*;
+import net.lunark.io.mute.*;
+import net.lunark.io.nick.*;
+import net.lunark.io.notes.*;
 import net.lunark.io.reports.*;
-import net.lunark.io.rules.RulesGUI;
-import net.lunark.io.rules.RulesListener;
-import net.lunark.io.rules.RulesStorage;
+import net.lunark.io.rules.*;
 
 import net.lunark.io.scoreboard.ScoreboardListener;
 import net.lunark.io.scoreboard.ScoreboardStorage;
@@ -65,11 +39,11 @@ import net.lunark.io.serverEssentials.ServerEssentialsCommand;
 import net.lunark.io.serverEssentials.VersionChecker;
 import net.lunark.io.daily.*;
 import net.lunark.io.util.*;
-import net.lunark.io.utility.EditSignCommand;
-import net.lunark.io.utility.ToggleFlyCommand;
-import net.lunark.io.warp.WarpCommand;
+import net.lunark.io.vault.VaultManager;
+import net.lunark.io.vault.VaultSelectorListener;
+import net.lunark.io.vault.VaultStorage;
 import net.lunark.io.warp.WarpManager;
-import net.lunark.io.warp.WarpsCommand;
+import net.lunark.io.warp.WarpStorage;
 import net.milkbowl.vault.economy.Economy;
 import net.lunark.io.sellgui.*;
 import org.bukkit.Bukkit;
@@ -80,11 +54,8 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.event.server.ServerListPingEvent;
-import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -108,7 +79,6 @@ public class ServerEssentials extends JavaPlugin implements Listener {
     private FileConfiguration prefixConfig;
     private FileConfiguration starterMoneyConfig;
     private PlaytimeManager PlaytimeManager;
-    private GUIConfig guiConfig;
     private File pwFile;
     private FileConfiguration pwConfig;
     private BukkitAudiences adventure;
@@ -117,12 +87,9 @@ public class ServerEssentials extends JavaPlugin implements Listener {
     private File offlineFile;
     private AuctionGUIListener guiManager;
     private Economy vaultEconomy;
-    private MessagesManager messagesManager;
     private static final int BSTATS_PLUGIN_ID = 27221;
     private List<String> reloadedItems = new ArrayList<>();
-    private VaultMessages vaultMessages;
-    private VaultManager vaultManager;
-    private WarpManager warpManager;
+
     private WarpMessages warpMessages;
     private FileConfiguration placeholdersConfig;
     private File placeholdersFile;
@@ -413,6 +380,20 @@ public class ServerEssentials extends JavaPlugin implements Listener {
     private AltsCommand altsCommand;
     private StaffListConfig staffListConfig;
     private StaffListCommand staffListCommand;
+    private EditSignConfig editSignConfig;
+    private EditSignCommand editSignCommand;
+    private VaultStorage vaultStorage;
+    private VaultManager vaultManager;
+    private VaultCommand vaultCommand;
+    private VaultSelectorListener vaultSelectorListener;
+    private WarpStorage warpStorage;
+    private WarpConfig warpConfig;
+    private WarpManager warpManager;
+    private WarpTeleportCommand warpCommand;
+    private WarpSetCommand setwarpCommand;
+    private WarpDeleteCommand delwarpCommand;
+    private WarpsCommand warpsCommand;
+
 
     @Override
     public void onEnable() {
@@ -476,6 +457,10 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         initializeLobbySystem();
         initializeBanSystem();
         initializeMuteSystem();
+        initializeVaultSystem();
+        initializeWarpSystem();
+
+
 
 
 
@@ -735,20 +720,19 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         invClearCommand = new InvClearCommand(playerLanguageManager, invClearConfig);
         tpConfig = new TpConfig(this);
         tpCommand = new TpCommand(playerLanguageManager, tpConfig);
-
         RtpConfig rtpConfig = new RtpConfig(this);
         rtpLocationStorage = new RtpLocationStorage(this, databaseManager, "rtp");
         CooldownManager cooldownManager = new CooldownManager();
         kickAllConfig = new KickAllConfig(this);
         kickAllCommand = new KickAllCommand(playerLanguageManager, kickAllConfig);
-
         pingAllConfig = new PingAllConfig(this);
         pingAllCommand = new PingAllCommand(playerLanguageManager, pingAllConfig);
-
         altsConfig = new AltsConfig(this);
         altsCommand = new AltsCommand(playerLanguageManager, altsConfig);
         staffListConfig = new StaffListConfig(this);
         staffListCommand = new StaffListCommand(playerLanguageManager, staffListConfig);
+        editSignConfig = new EditSignConfig(this);
+        editSignCommand = new EditSignCommand(playerLanguageManager, editSignConfig);
 
         // Commands
         getCommand("fly").setExecutor(flyCommand);
@@ -872,6 +856,14 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         getCommand("kit").setExecutor(kitCommand);
         getCommand("alts").setExecutor(altsCommand);
         getCommand("stafflist").setExecutor(staffListCommand);
+        getCommand("editsign").setExecutor(editSignCommand);
+        getCommand("pv").setExecutor(vaultCommand);
+        getCommand("warp").setExecutor(warpCommand);
+        getCommand("setwarp").setExecutor(setwarpCommand);
+        getCommand("delwarp").setExecutor(delwarpCommand);
+        getCommand("warps").setExecutor(warpsCommand);
+
+
 
 
 
@@ -923,9 +915,10 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(banListener, this);
         getServer().getPluginManager().registerEvents(new FreezeListener(playerLanguageManager), this);
         getServer().getPluginManager().registerEvents(new AdminChatListener(playerLanguageManager), this);
-        getServer().getPluginManager().registerEvents(new AdminUtilitiesListener(this), this);
+        getServer().getPluginManager().registerEvents(new AdminUtilitiesListener(this, godCommand, vanishCommand), this);
         getServer().getPluginManager().registerEvents(muteListener, this);
-
+        getServer().getPluginManager().registerEvents(vaultSelectorListener, this);
+        getServer().getPluginManager().registerEvents(vaultManager, this);
 
 
 
@@ -939,16 +932,6 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         }
 
 
-
-
-
-
-
-
-
-        warpManager = new WarpManager(this);
-
-
         long elapsed = System.currentTimeMillis() - start;
         BannerUtil.printBanner(elapsed);
 
@@ -956,10 +939,8 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         afkManager = new AFKManager(this);
 
         nickConfigFile = new File(getDataFolder(), "config/nick/nick.yml");
-        messagesFile = new File(getDataFolder(), "messages/player.yml");
         nicksFile = new File(getDataFolder(), "storage/nicks.yml");
         saveDefaultFile(nickConfigFile, "/config/nick/nick.yml");
-        saveDefaultFile(messagesFile, "/messages/player.yml");
         saveDefaultFile(nicksFile, null);
 
         loadPlaceholders();
@@ -967,9 +948,6 @@ public class ServerEssentials extends JavaPlugin implements Listener {
 
         HashMap<UUID, UUID> lastMessageMap = new HashMap<>();
 
-        if (!isCommandDisabled("warp")) getCommand("warp").setExecutor(new WarpCommand(this));
-        if (!isCommandDisabled("setwarp")) getCommand("setwarp").setExecutor(new WarpCommand(this));
-        if (!isCommandDisabled("delwarp")) getCommand("delwarp").setExecutor(new WarpCommand(this));
 
         try {
             Metrics metrics = new Metrics(this, BSTATS_PLUGIN_ID);
@@ -982,8 +960,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         File messagesDir = new File(getDataFolder(), "messages");
         if (!messagesDir.exists()) messagesDir.mkdirs();
 
-        this.messagesManager = new MessagesManager(this);
-        messagesManager.load("fun.yml");
+
 
 
         createPrefixFile();
@@ -993,35 +970,27 @@ public class ServerEssentials extends JavaPlugin implements Listener {
 
         loadOfflineConfig();
 
-        messagesManager = new MessagesManager(this);
-        MessagesManager messagesManager = new MessagesManager(this);
-        messagesManager.load("fun.yml");
+        new CommandExecutor(this).runIfFirstInstall();
 
 
 
-        File messagesFile = new File(getDataFolder(), "messages/scoreboard_system.yml");
-        if (!messagesFile.exists()) saveResource("messages/scoreboard_system.yml", false);
 
-        reloadPluginConfig();
+        saveLangFile("de.json");
+        saveLangFile("fr.json");
+
+
 
 
 
         saveDefaultConfig();
         saveResource("config.yml", false);
 
-        saveResource("messages/lobby.yml", false);
-
-
-        messagesManager.load("player.yml");
 
         this.startTime = System.currentTimeMillis();
 
 
         new TopPlaytimePlaceholder(this).register();
         this.PlaytimeManager = new PlaytimeManager(this);
-
-        this.guiConfig = new GUIConfig(getConfig());
-
         releaseLocation = new Location(Bukkit.getWorld("world"), 0, 65, 0);
 
 
@@ -1077,20 +1046,9 @@ public class ServerEssentials extends JavaPlugin implements Listener {
 
 
 
-        if (!isCommandDisabled("editsign")) this.getCommand("editsign").setExecutor(new EditSignCommand(this));
         File shopFolder = new File(getDataFolder(), "shop");
-        if (!isCommandDisabled("togglefly")) getCommand("togglefly").setExecutor(new ToggleFlyCommand());
         new FirstJoinManager(this);
-        vaultMessages = new VaultMessages(this);
-        vaultManager = new VaultManager(this, vaultMessages);
-        if (!isCommandDisabled("pv")) this.getCommand("pv").setExecutor(new VaultCommand(vaultManager, vaultMessages));
-        if (getServer().getPluginManager().getPlugin("Vault") == null) {
-            getLogger().severe("Vault not found! Disabling plugin...");
-            getServer().getPluginManager().disablePlugin(this);
-            return;
-        }
         if (!isCommandDisabled("sereload")) getCommand("sereload").setExecutor(new ReloadCommand(this));
-        if (!isCommandDisabled("warps")) getCommand("warps").setExecutor(new WarpsCommand(this));
 
 
         Bukkit.getPluginManager().registerEvents(this, this);
@@ -1106,14 +1064,6 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         }, this);
 
     }
-    public void setReloadedItems(List<String> items) {
-        this.reloadedItems = items;
-    }
-    public List<String> getReloadedItems() {
-        return reloadedItems;
-    }
-
-
     private void loadOfflineConfig() {
         offlineFile = new File(getDataFolder(), "storage/offline_players.yml");
         if (!offlineFile.getParentFile().exists()) offlineFile.getParentFile().mkdirs();
@@ -1129,16 +1079,6 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         offlineConfig = YamlConfiguration.loadConfiguration(offlineFile);
     }
 
-    private void saveSectionResource(String path) {
-        File outFile = new File(getDataFolder(), path);
-        if (!outFile.exists()) {
-            saveResource(path, false);
-        }
-    }
-
-    public WarpManager getWarpManager() {
-        return warpManager;
-    }
     public WarpMessages getWarpMessages() {
         return warpMessages;
     }
@@ -1159,23 +1099,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         }
         prefixConfig = YamlConfiguration.loadConfiguration(prefixFile);
     }
-    public VaultMessages getVaultMessages() {
-        return vaultMessages;
-    }
-    private void loadPrefixConfig() {
-        File storageFolder = new File(getDataFolder(), "storage");
-        if (!storageFolder.exists()) {
-            storageFolder.mkdirs();
-        }
 
-        prefixFile = new File(storageFolder, "storage/prefix.yml");
-
-        if (!prefixFile.exists()) {
-            saveResource("storage/prefix.yml", false);
-        }
-
-        prefixConfig = YamlConfiguration.loadConfiguration(prefixFile);
-    }
     public static String getPrefix() {
         String rawPrefix = getInstance().getPrefixConfig().getString("prefix", "&9&l[&bSE&9&l] &r");
         return formatColors(rawPrefix);
@@ -1198,19 +1122,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         offlineConfig.set(uuid.toString() + ".pitch", loc.getPitch());
         saveOfflineConfig();
     }
-    public Location getLastLocation(UUID uuid) {
-        if (!offlineConfig.contains(uuid.toString())) return null;
 
-        String world = offlineConfig.getString(uuid + ".world");
-        double x = offlineConfig.getDouble(uuid + ".x");
-        double y = offlineConfig.getDouble(uuid + ".y");
-        double z = offlineConfig.getDouble(uuid + ".z");
-        float yaw = (float) offlineConfig.getDouble(uuid + ".yaw");
-        float pitch = (float) offlineConfig.getDouble(uuid + ".pitch");
-
-        if (Bukkit.getWorld(world) == null) return null;
-        return new Location(Bukkit.getWorld(world), x, y, z, yaw, pitch);
-    }
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
         setLastLocation(event.getPlayer().getUniqueId(), event.getPlayer().getLocation());
@@ -1259,15 +1171,6 @@ public class ServerEssentials extends JavaPlugin implements Listener {
     public BukkitAudiences adventure() {
         return this.adventure;
     }
-    public void reloadPluginConfig() {
-        reloadConfig();
-        FileConfiguration bukkitConfig = getConfig();
-        if (guiConfig == null) {
-            guiConfig = new GUIConfig(bukkitConfig);
-        } else {
-            guiConfig.reload(bukkitConfig);
-        }
-    }
 
     public static class VersionNotifyJoinListener implements Listener {
 
@@ -1285,13 +1188,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
     public PlaytimeManager getPlaytimeManager() {
         return PlaytimeManager;
     }
-    public void loadPWConfig() {
-        pwFile = new File(getDataFolder(), "pw.yml");
-        if (!pwFile.exists()) {
-            saveResource("pw.yml", false);
-        }
-        pwConfig = YamlConfiguration.loadConfiguration(pwFile);
-    }
+
 
 
 
@@ -1307,21 +1204,10 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         placeholdersFile = new File(getDataFolder(), "placeholders.yml");
         placeholdersConfig = YamlConfiguration.loadConfiguration(placeholdersFile);
     }
-    public FileConfiguration getPlaceholdersConfig() {
-        return placeholdersConfig;
-    }
-    public void savePlaceholdersConfig() {
-        try {
-            placeholdersConfig.save(placeholdersFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
 
-    public MessagesManager getMessagesManager() {
-        return messagesManager;
-    }
+
+
     public static Economy getEconomy() {
         return economy;
     }
@@ -1347,7 +1233,6 @@ public class ServerEssentials extends JavaPlugin implements Listener {
                 Field knownCommandsField = SimpleCommandMap.class.getDeclaredField("knownCommands");
                 knownCommandsField.setAccessible(true);
 
-                @SuppressWarnings("unchecked")
                 java.util.Map<String, Command> knownCommands = (java.util.Map<String, Command>) knownCommandsField.get(simpleCommandMap);
 
                 for (String cmdName : disabled) {
@@ -1406,7 +1291,9 @@ public class ServerEssentials extends JavaPlugin implements Listener {
                     new DatabaseConfig(DatabaseType.SQLITE, "kits.db", null, 0, null, null, null, 5)
             );
         }
-        databaseManager.initializePool("bans", new DatabaseConfig(DatabaseType.SQLITE, "mutes.db", null, 0, null, null, null, 5));
+        databaseManager.initializePool("warps", new DatabaseConfig(DatabaseType.SQLITE, "warps.db", null, 0, null, null, null, 5));
+        databaseManager.initializePool("vaults", new DatabaseConfig(DatabaseType.SQLITE,"vaults.db", null, 0, null, null, null, 5));
+        databaseManager.initializePool("bans", new DatabaseConfig(DatabaseType.SQLITE, "bans.db", null, 0, null, null, null, 5));
         databaseManager.initializePool("mutes", new DatabaseConfig(DatabaseType.SQLITE, "mutes.db", null, 0, null, null, null, 5));
         databaseManager.initializePool("lobby", new DatabaseConfig(DatabaseType.SQLITE, "lobby.db", null, 0, null, null, null, 5));
         databaseManager.initializePool("homes", new DatabaseConfig(DatabaseType.SQLITE, "homes.db", null, 0, null, null, null, 5));
@@ -1420,7 +1307,8 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         databaseManager.initializePool("notes", new DatabaseConfig(DatabaseType.SQLITE, "notes.db", null, 0, null, null, null, 5));
         databaseManager.initializePool("daily", new DatabaseConfig(DatabaseType.SQLITE, "daily.db", null, 0, null, null, null, 5));
         databaseManager.initializePool("reports", new DatabaseConfig(DatabaseType.SQLITE, "reports.db", null,0,null,null,null,15));
-        databaseManager.initializePool("shop", new DatabaseConfig(DatabaseType.SQLITE, "shop.db", null, 0, null, null, null, 5));        databaseManager.initializePool("command_data", new DatabaseConfig(DatabaseType.SQLITE, "command_data.db", null, 0, null, null, null, 10));
+        databaseManager.initializePool("shop", new DatabaseConfig(DatabaseType.SQLITE, "shop.db", null, 0, null, null, null, 5));
+        databaseManager.initializePool("command_data", new DatabaseConfig(DatabaseType.SQLITE, "command_data.db", null, 0, null, null, null, 10));
         databaseManager.initializePool("tpa", new DatabaseConfig(DatabaseType.SQLITE, "tpa.db", null, 0, null, null, null, 5));
     }
 
@@ -1429,7 +1317,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         muteStorage = new MuteStorage(this, databaseManager);
         muteCommand = new MuteCommand(this, playerLanguageManager, commandDataStorage, muteStorage, muteConfig);
         unmuteCommand = new UnmuteCommand(playerLanguageManager, commandDataStorage, muteCommand);
-        muteListener = new MuteListener(muteCommand, playerLanguageManager);
+        muteListener = new MuteListener(muteStorage, playerLanguageManager, this);
     }
 
     private void initializeHomesSystem() {
@@ -1582,8 +1470,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
     }
 
 
-    public KitConfig getKitConfig() { return kitConfig; }
-    public KitStorage getKitStorage() { return kitStorage; }
+
 
     private void initializeCommandModules() {
         commandDataStorage = new CommandDataStorage(this, databaseManager);
@@ -1607,7 +1494,25 @@ public class ServerEssentials extends JavaPlugin implements Listener {
 
     private final String[] defaultShopFiles = {
             "food.yml",
-            "main.yml"
+            "main.yml",
+            "blocks.yml",
+            "coloredblocks.yml",
+            "tools.yml",
+            "ores.yml",
+            "redstone.yml",
+            "decoration.yml",
+            "mobs.yml",
+            "farming.yml",
+            "misc.yml",
+            "customsection5",
+            "customsection4",
+            "customsection3",
+            "customsection2",
+            "customsection1",
+
+
+
+
     };
 
     public void saveDefaultShopFiles() {
@@ -1678,14 +1583,10 @@ public class ServerEssentials extends JavaPlugin implements Listener {
     private void initializeBanSystem() {
         banConfig = new BanConfig(this);
         banStorage = new BanStorage(this, databaseManager);
-        banListener = new BanListener(banStorage, playerLanguageManager);
+        banListener = new BanListener(banStorage, playerLanguageManager, this);
         banCommand = new BanCommand(this, playerLanguageManager, commandDataStorage, banStorage, banConfig);
         banListCommand = new BanListCommand(playerLanguageManager, commandDataStorage, banStorage);
     }
-
-
-
-
     private void initializeBackSystem() {
         this.backConfig = new BackConfig(this);
         this.backDataStorage = new BackDataStorage(this, databaseManager);
@@ -1704,6 +1605,39 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(backListener, this);
 
         getLogger().info("Back system initialized with dedicated table");
+    }
+
+    private void initializeVaultSystem() {
+        vaultStorage = new VaultStorage(this, databaseManager);
+        vaultManager = new VaultManager(this, playerLanguageManager, vaultStorage);
+        vaultSelectorListener = new VaultSelectorListener(vaultManager, playerLanguageManager);
+        vaultCommand = new VaultCommand(vaultManager, playerLanguageManager);
+    }
+
+    private void initializeWarpSystem() {
+        warpConfig = new WarpConfig(this);
+        warpStorage = new WarpStorage(this, databaseManager);
+        warpManager = new WarpManager(warpStorage, warpConfig, playerLanguageManager);
+        warpCommand = new WarpTeleportCommand(this,warpManager, playerLanguageManager, commandDataStorage);
+        setwarpCommand = new WarpSetCommand(warpManager, playerLanguageManager, commandDataStorage);
+        delwarpCommand = new WarpDeleteCommand(warpManager, playerLanguageManager, commandDataStorage);
+        warpsCommand = new WarpsCommand(warpManager, playerLanguageManager, commandDataStorage);
+    }
+
+    private void saveLangFile(String fileName) {
+        File langFolder = new File(getDataFolder(), "lang");
+        if (!langFolder.exists()) {
+            langFolder.mkdirs();
+        }
+
+        File outFile = new File(langFolder, fileName);
+
+        if (!outFile.exists()) {
+            saveResource("lang/" + fileName, false);
+            getLogger().info("Saved default language file: " + fileName);
+        } else {
+            getLogger().info("Language file already exists: " + fileName);
+        }
     }
 
 

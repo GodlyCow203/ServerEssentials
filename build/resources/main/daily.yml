@@ -1,4 +1,4 @@
-cooldown: 0
+cooldown: 24
 gui:
   title: "<gradient:#00ff00:#ffff00>Daily Rewards"
   rows: 6

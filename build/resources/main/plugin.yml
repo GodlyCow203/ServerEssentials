@@ -1,6 +1,6 @@
 name: ServerEssentials
 main: net.lunark.io.ServerEssentials
-version: 2.0.5
+version: 2.0.7.1
 api-version: 1.20
 depend: [PlaceholderAPI, LuckPerms, Vault]
 
@@ -9,7 +9,7 @@ commands:
   eco:
     description: Check or modify a player's balance.
     usage: /eco
-    permission: serveressentials.eco
+    permission: serveressentials.command.eco
     permission-message: You do not have permission to use /eco.
 
 
@@ -36,18 +36,13 @@ commands:
   unloadworld:
     description: Unloads a specific world
     usage: /unloadworld <world_name>
-    permission: serveressentials.unloadworld
+    permission: serveressentials.command.unloadworld
     permission-message: You do not have permission to unload worlds.
   session:
     description: Shows how long you've been online this session.
     usage: /session
     permission: serveressentials.command.session
     permission-message: You do not have permission to use /session.
-  lockitem:
-    description: Locks the item in your hand to its hotbar slot.
-    usage: /lockitem
-    permission: serveressentials.lockitem
-    permission-message: You do not have permission to use /lockitem.
 
   iteminfo:
     description: Shows information about the item in your hand.
@@ -62,31 +57,27 @@ commands:
   pingall:
     description: Shows the ping of every online player.
     usage: /pingall
-    permission: serveressentials.pingall
+    permission: serveressentials.command.pingall
     permission-message: You do not have permission to use /pingall.
-  lockdown:
-    description: Activate or disable server lockdown.
-    usage: /lockdown [confirm|disable]
-    permission: serveressentials.lockdown
-    permission-message: You do not have permission to use /lockdown.
+
 
 
   loadworld:
     description: Load a world by name
     usage: /loadworld <worldname>
-    permission: serveressentials.loadworld
+    permission: serveressentials.command.loadworld
     permission-message: You do not have permission to load worlds.
   uptime:
     description: Shows how long the server has been running.
     usage: /uptime
-    permission: serveressentials.uptime
+    permission: serveressentials.command.uptime
     permission-message: You do not have permission to use /uptime.
 
 
   worldlist:
     description: Lists all worlds and their loaded/unloaded status.
     usage: /worldlist
-    permission: serveressentials.worldlist
+    permission: serveressentials.command.worldlist
     permission-message: You do not have permission to use /worldlist.
 
 
@@ -110,10 +101,7 @@ commands:
     aliases: [shopgui, store, market]
 
 
-  canon:
-    description: e
-    usage: /canon
-    permission: serveressentials.canon
+
   tree:
     descirption: e
     usage: /tree <type>
@@ -122,41 +110,41 @@ commands:
   rtp:
     description: Random teleport.
     usage: /rtp
-    permission: serveressentials.rtp
+    permission: serveressentials.command.rtp
     permission-message: You do not have permission to use /rtp.
 
   vanish:
     description: Vanish from other players.
     usage: /vanish
-    permission: serveressentials.vanish
+    permission: serveressentials.command.vanish
     permission-message: You do not have permission to use /vanish.
 
   god:
     description: Toggle god mode.
     usage: /god
-    permission: serveressentials.god
+    permission: serveressentials.command.god
     permission-message: You do not have permission to use /god.
 
   invsee:
     description: View another player's inventory.
     usage: /invsee <player>
-    permission: serveressentials.invsee
+    permission: serveressentials.command.invsee
     permission-message: You do not have permission to use /invsee.
 
   invclear:
     description: Clear a player's inventory.
     usage: /invclear <player>
-    permission: serveressentials.invclear
+    permission: serveressentials.command.invclear
     permission-message: You do not have permission to use /invclear.
 
   tp:
     description: Teleport to a player.
     usage: /tp <player>
-    permission: serveressentials.tp
+    permission: serveressentials.command.tp
     permission-message: You do not have permission to use /tp.
 
   se:
-    description: Admin command.
+    description: e
     usage: /se <Info/Version/Reload>
     permission: serveressentials.se
     permission-message: You do not have permission to use /se.
@@ -175,12 +163,12 @@ commands:
     description: Open the auction GUI or manage auction items
     usage: /auction [my|sell <price>]
     aliases: [ah]
-    permission: serveressentials.ah.use
+    permission: serveressentials.command.auction.use
 
   adminchat:
     description: Admin-only chat.
     usage: /adminchat
-    permission: serveressentials.adminchat
+    permission: serveressentials.command.adminchat
     permission-message: You do not have permission to use /adminchat.
 
 
@@ -188,20 +176,9 @@ commands:
   home:
     description: List all your homes.
     usage: /home
-    permission: serveressentials.command.home
+    permission: serveressentials.command.homes
     permission-message: You do not have permission to use /homes.
 
-  renamehome:
-    description: Rename a home.
-    usage: /renamehome <oldname> <newname>
-    permission: serveressentials.renamehome
-    permission-message: You do not have permission to use /renamehome.
-
-  deletehome:
-    description: Delete a home.
-    usage: /deletehome <name>
-    permission: serveressentials.deletehome
-    permission-message: You do not have permission to use /deletehome.
   nick:
     description: Set your nickname
     usage: /nick <newNick/reset>
@@ -244,7 +221,7 @@ commands:
   heal:
     description: Heal yourself
     usage: /heal
-    permission: serveressentials.heal
+    permission: serveressentials.command.heal
   feed:
     description: Feed yourself
     usage: /feed
@@ -260,7 +237,7 @@ commands:
   playerinfo:
     description: View info about a player
     usage: /playerinfo <player>
-    permission: serveressentials.playerinfo
+    permission: serveressentials.command.playerinfo
   launch:
     description: Launch yourself forward
     usage: /launch
@@ -281,20 +258,23 @@ commands:
   endersee:
     description: View another player's ender chest.
     usage: /endersee <player>
-    permission: serveressentials.endersee
+    permission: serveressentials.command.endersee
   mute:
-    description: Mute a player.
-    usage: /mute <player> <reason> <time>
-    permission: serveressentials.mute
+    description: Mute a player from chatting
+    usage: /mute <player> <reason> [duration]
+    aliases: [m]
+    permission: serveressentials.command.mute
+
+  unmute:
+    description: Unmute a player
+    usage: /unmute <player>
+    permission: serveressentials.command.unmute
   sereload:
     description: Reload all ServerEssentials files
     usage: /<command>
     permission: server.sereload
     permission-message: You don't have permission to use this command.
-  unmute:
-    description: Unmute a player.
-    usage: /unmute <player>
-    permission: serveressentials.unmute
+
   night:
     description: Set time to night
     usage: /night
@@ -314,12 +294,12 @@ commands:
     description: Manage player mail
     usage: /mail <read|send|clear>
     aliases: [email, message]
-    permission: serveressentials.mail
+    permission: serveressentials.command.mail
 
   kickall:
     description: Kick all players
     usage: /kickall
-    permission: serveressentials.kickall
+    permission: serveressentials.commmand.kickall
 
   suicide:
     description: Kill yourself
@@ -335,13 +315,9 @@ commands:
   cartographytable:
     description: Opens a virtual Cartography Table
     usage: /cartographytable
-    permission: serveressentials.cartographytable
+    permission: serveressentials.command.cartographytable
 
-  togglefly:
-    description: Toggles fly mode
-    usage: /togglefly
-    permission: serveressentials.togglefly
-    permission-message: You don't have permission to use this command.
+
 
   inventorysort:
     description: Sorts your inventory
@@ -350,29 +326,44 @@ commands:
     permission-message: You don't have permission to use this command.
 
   tpa:
-    description: Send a teleport request
+    description: Send a teleport request to a player.
     usage: /tpa <player>
+    permission: serveressentials.command.tpa
+
   tpahere:
-    description: Ask a player to teleport to you
+    description: Request a player to teleport to you.
     usage: /tpahere <player>
+    permission: serveressentials.command.tpahere
+
   tpaccept:
-    description: Accept a teleport request
-    usage: /tpaccept
+    description: Accept a teleport request.
+    usage: /tpaccept [player]
+    permission: serveressentials.command.tpaccept
+
   tpdeny:
-    description: Deny a teleport request
-    usage: /tpdeny
+    description: Deny a teleport request.
+    usage: /tpdeny [player]
+    permission: serveressentials.command.tpdeny
+
   tpacancel:
-    description: Cancel your outgoing teleport request
-    usage: /tpacancel
+    description: Cancel your outgoing TPA request.
+    usage: /tpacancel [player]
+    permission: serveressentials.command.tpacancel
+
   tpall:
-    description: Send a teleport request to everyone
+    description: Teleport all players to you.
     usage: /tpall
+    permission: serveressentials.command.tpall
+
   tpatoggle:
-    description: Toggle receiving teleport requests
+    description: Toggle receiving TPA requests.
     usage: /tpatoggle
+    permission: serveressentials.command.tpatoggle
+
   tpainfo:
-    description: Show information about your pending request
+    description: Get information about your active TPA requests.
     usage: /tpainfo
+    permission: serveressentials.command.tpainfo
 
   craftingtable:
     description: Opens a virtual Crafting Table
@@ -384,18 +375,6 @@ commands:
     description: Opens a virtual Fletching Table
     usage: /fletchingtable
     permission: serveressentials.command.fletchingtable
-    permission-message: You don't have permission to use this command.
-
-  furnace:
-    description: Opens a virtual Furnace
-    usage: /furnace
-    permission: serveressentials.command.furnace
-    permission-message: You don't have permission to use this command.
-
-  blastfurnace:
-    description: Opens a virtual Blast Furnace
-    usage: /blastfurnace
-    permission: serveressentials.command.blastfurnace
     permission-message: You don't have permission to use this command.
 
 
@@ -424,11 +403,6 @@ commands:
     permission: serveressentials.command.loom
     permission-message: You don't have permission to use this command.
 
-  cartographytables:
-    description: Opens a virtual Cartography Table
-    usage: /cartographytables
-    permission: serveressentials.command.cartographytables
-    permission-message: You don't have permission to use this command.
 
   smithingtable:
     description: Opens a virtual Smithing Table
@@ -445,42 +419,29 @@ commands:
 
 
   warp:
-    description: Teleport to a warp.
+    description: Teleport to a warp
     usage: /warp <name>
-    permission: serveressentials.warp
-    permission-message: You do not have permission to use this command.
+    permission: serveressentials.command.warp
+
   setwarp:
-    description: Set a new warp at your current location.
+    description: Set a warp location
     usage: /setwarp <name>
-    permission: serveressentials.setwarp
-    permission-message: You do not have permission to use this command.
+    permission: serveressentials.command.setwarp
+
   delwarp:
-    description: Delete an existing warp.
-    usage: /delwarp <name>
-    permission: serveressentials.delwarp
-    permission-message: You do not have permission to use this command.
-
-  renamewarp:
-    description: Rename a warp
-    usage: /renamewarp <old> <new>
-    permission: serveressentials.renamewarp
-  stickyrules:
-    description: Custom rules system
-    usage: /stickyrules <command>
-    permission: serveressentials.stickyrules
-
-  closewarp:
     description: Delete a warp
-    usage: /closewarp <name>
-    permission: serveressentials.closewarp
-  reopenwarp:
-    description: Reopen a closed warp
-    usage: /reopenwarp <name>
-    permission: serveressentials.reopenwarp
+    usage: /delwarp <name>
+    permission: serveressentials.command.delwarp
+
+  warps:
+    description: List all warps
+    usage: /warps
+    permission: serveressentials.command.warps
+
   deletewarp:
     description: Delete a warp
     usage: /deletewarp <name>
-    permission: serveressentials.deletewarp
+    permission: serveressentials.command.deletewarp
   disposal:
     description: Open a disposal inventory.
     usage: /disposal
@@ -488,14 +449,14 @@ commands:
 
   editsign:
     description: Edit a sign
-    usage: /<command>
-    permission: serveressentials.editsign
+    usage: /editsign
+    permission: serveressentials.command.editsign
 
 
   spawner:
     description: Change a spawner's mob type
     usage: /spawner <mob>
-    permission: serveressentials.spawner
+    permission: serveressentials.command.spawner
     permission-message: You don’t have permission!
   condense:
     description: Condense items
@@ -553,11 +514,11 @@ commands:
     permission: serveressentials.command.thunder
   broadcastworld:
     description: Broadcast to a world
-    usage: /<command>
-    permission: serveressentials.broadcastworld
+    usage: /broadcastworld
+    permission: serveressentials.command.broadcastworld
   book:
     description: Give a book
-    usage: /<command>
+    usage: /book
     permission: serveressentials.command.book
   recipe:
     description: Show a recipe
@@ -572,21 +533,14 @@ commands:
     description: Teleport to the top block.
     usage: /top
     permission: serveressentials.command.top
-  warps:
-    description: List all available warps
-    usage: /warps
-    permission: serveressentials.warps
-    permission-message: You do not have permission to use this command.
+
 
   bottom:
     description: Teleport to the lowest non-air block.
     usage: /bottom
     permission: serveressentials.command.bottom
 
-  tpoffline:
-    description: Teleport to the last location of an offline player.
-    usage: /tpoffline <player>
-    permission: serveressentials.tpoffline
+
 
   hat:
     description: Wear the item in your hand as a hat.
@@ -604,11 +558,11 @@ commands:
   Freeze:
     description: Freeze a Player
     usage: freeze <player>
-    permission: serveressentials.freeze
+    permission: serveressentials.command.freeze
   Unfreeze:
     description: Unfreeze a Player
     usage: /freeze <player>
-    permission: serveressentials.unfreeze
+    permission: serveressentials.command.unfreeze
   World:
     description: See what wolrd you are in
     usage: /world
@@ -624,12 +578,12 @@ commands:
   alts:
     description: View alternate accounts by IP
     usage: /alts <player>
-    permission: serveressentials.alts
+    permission: serveressentials.command.alts
 
   reboot:
     description: Reboots the server with a countdown
     usage: /reboot <minutes>
-    permission: serveressentials.reboot
+    permission: serveressentials.command.reboot
     aliases: [reboot, rsrt]
 
 
@@ -656,7 +610,7 @@ commands:
   stafflist:
     description: List online staff members
     usage: /stafflist
-    permission: serveressentials.stafflist
+    permission: serveressentials.command.stafflist
     permission-message: You do not have permission to use /stafflist
   coinflip:
     description: Flip a coin and gamble your money
@@ -666,30 +620,30 @@ commands:
   report:
     description: Report a player
     usage: /<command> <player> <reason>
-    permission: serveressentials.report
+    permission: serveressentials.command.report
   reportclear:
     description: Clear a report by ID
     usage: /<command> <id>
-    permission: serveressentials.report.admin
+    permission: serveressentials.command.report.*
   reportslist:
     description: List all reports
     usage: /<command>
-    permission: serveressentials.report.admin
+    permission: serveressentials.command.report.*
 
   database:
     description: Show database status
     usage: /database
-    permission: se.database
+    permission: serveressentials.command.database
   language:
     description: Change the language
     usage: /language <lang>
-    permission: se.language
+    permission: serveressentials.command.language
 
 
   kit:
     description: Opens the kit menu or reloads kits
     usage: /kit [reload]
-    permission: serveressentials.kit
+    permission: serveressentials.command.kits
 
 
 
@@ -697,7 +651,7 @@ commands:
   pv:
     description: Opens your player vault
     usage: /pv <1-10>
-    permission: serveressentials.pv
+    permission: serveressentials.command.pv
 
   death:
     description: Shows how many times you've died.
@@ -707,25 +661,24 @@ commands:
       - deaths
       - HowManyTimesDidIDie
   ban:
+    description: Ban a player from the server
     usage: /ban <player> <time> <reason>
-    description: Bans a player with reason and time.
-    permission: serveressentials.ban.use
-  unban:
-    description: Unban a banned player
-    usage: /unban <player>
-    permission: serveressentials.unban
+    aliases: [b]
+    permission: serveressentials.command.ban
+
   banlist:
-    description: See all Bans
+    description: List all banned players
     usage: /banlist
-    permission: serveressentials.banlist
-  motd:
-    description: Set the MOTD of the server
-    usage: /motd <message>
-    permission: serveressentials.motd
+    permission: serveressentials.command.banlist
+  unban:
+    description: Unban a player
+    usage: /unban <player>
+    permission: serveressentials.command.unban
+
   broadcast:
     description: Broadcast a message to all players
     usage: /broadcast <message>
-    permission: serveressentials.broadcast
+    permission: serveressentials.command.broadcast
   scoreboard:
     description: Reload scoreboard config
     usage: /scoreboard reload | enable | disable
@@ -733,10 +686,10 @@ commands:
   serverinfo:
     description: Displays detailed server statistics
     usage: /serverinfo
-    permission: serveressentials.serverinfo
+    permission: serveressentials.command.serverinfo
   clearchat:
     description: Clears the chat for everyone
-    permission: serveressentials.clearchat
+    permission: serveressentials.command.clearchat
 
 
   rules:
@@ -747,7 +700,7 @@ commands:
   fly:
     description: Toggles fly mode
     usage: /fly
-    permission: serveressentials.fly
+    permission: serveressentials.command.fly
   speed:
     description: Set walk/fly speed
     usage: /speed [1-10]
@@ -778,10 +731,16 @@ commands:
     usage: /daily
     permission: serveressentials.command.daily
 
+
+  canon:
+    description: Use a canon
+    usage: /canon
+    permission: serveressentials.command.canon
+
   notes:
     description: Add a staff note to a player
     usage: /notes <player> <note>
-    permission: serveressentials.notes
+    permission: serveressentials.command.notes
 
 
 permissions:
@@ -1019,36 +978,7 @@ permissions:
   serveressentials.ttp.others:
     default: op
 
-
-  serveressentials.pw.gui:
-    description: Allows opening the Personal Warps GUI.
-    default: op
-  serveressentials.pw.create:
-    description: Allows creating personal warps.
-    default: op
-  serveressentials.pw.edit:
-    description: Allows editing personal warps.
-    default: op
-  serveressentials.pw.reload:
-    description: Allows reloading the warp configuration.
-    default: op
-
-
-  serveressentials.warp:
-    description: Allows the player to use /warp.
-    default: op
-  serveressentials.setwarp:
-    description: Allows the player to set new warps.
-    default: op
-  serveressentials.delwarp:
-    description: Allows the player to delete warps.
-    default: op
-
-  serveressentials.warps:
-    description: Allows the player to list all warps
-    permission: serveressentials.warps
-    default: op
-  serveressentials.delwarp.all:
+  serveressentials.command.delwarp.all:
     description: Allows deleting any warp
     default: op
   serveressentials.command.enderchest.others:
@@ -1113,17 +1043,12 @@ permissions:
     description: Celebrate other players
     default: op
 
-  serveressentials.ah.use:
-    description: Allows access to the auction system
-    default: op
-  serveressentials.ah.view:
-    description: Allows viewing the auction GUI
-    default: op
-  serveressentials.ah.my:
-    description: Allows viewing your own auctioned items
-    default: op
-  serveressentials.ah.sell:
+
+  serveressentials.command.auction.sell:
     description: Allows selling items on the auction
+    default: op
+  serveressentials.command.auction:
+    description: e
     default: op
   serveressentials.lobby:
     description: Allows teleporting to lobby
@@ -1144,6 +1069,23 @@ permissions:
   serveressentials.command.lobby.world:
     description: Allows setting per-world lobby locations
     default: op
+  serveressentials.command.rtp.reload:
+    description: Reload the RTP System
+    default: op
+  serveressentials.command.tpa.bypass.cooldown:
+    description: bypass cooldown
+    default: op
+  serveressentials.heal.others:
+    description: heaal other p layers
+    default: op
+  serveressentials.endersee.others:
+    description: e
+    default: op
+
+  serveressentials.freeze.others:
+    description: e
+    default: op
+
 
   serveressentials.firstjoin.reload:
     default: op
@@ -1153,5 +1095,85 @@ permissions:
     default: op
   serveressentials.command.ext.others:
     default: op
+
+  serveressentials.command.pv.1:
+    description: Access to vault 1
+    default: op
+
+  serveressentials.command.pv.2:
+    description: Access to vault 2
+    default: op
+  serveressentials.command.pv.3:
+    description: Access to vault 1
+    default: op
+
+  serveressentials.command.pv.4:
+    description: Access to vault 2
+    default: op
+  serveressentials.command.pv.5:
+    description: Access to vault 1
+    default: op
+
+  serveressentials.command.pv.6:
+    description: Access to vault 2
+    default: op
+  serveressentials.command.pv.7:
+    description: Access to vault 1
+    default: op
+
+  serveressentials.command.pv.8:
+    description: Access to vault 2
+    default: op
+  serveressentials.command.pv.9:
+    description: Access to vault 1
+    default: op
+
+  serveressentials.command.pv.10:
+    description: Access to vault 2
+    default: op
+  serveressentials.command.warp:
+    description: Allows teleporting to warps
+    default: op
+
+  serveressentials.command.warp.bypass-cooldown:
+    description: Bypasses warp cooldown
+    default: op
+
+  serveressentials.command.setwarp:
+    description: Allows setting warps
+    default: op
+
+  serveressentials.command.setwarp.unlimited:
+    description: Unlimited warps
+    default: op
+
+  serveressentials.command.setwarp.others:
+    description: Can overwrite other players' warps
+    default: op
+
+  serveressentials.command.delwarp:
+    description: Allows deleting warps
+    default: op
+
+  serveressentials.command.delwarp.others:
+    description: Can delete other players' warps
+    default: op
+
+  serveressentials.command.warps:
+    description: Lists warps
+    default: op
+  serveressentials.command.mail.read:
+    description: e
+    default: op
+  serveressentials.command.mail.clear:
+    description: e
+    default: e
+  serveressentials.command.mail.send:
+    description: e
+    default: op
+  serveressentials.command.kits.reload:
+    description:  reload kits
+    default: op
+
 
 

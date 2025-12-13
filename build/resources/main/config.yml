@@ -1,3 +1,4 @@
+
 databases:
   # Use SQLite for everything - simple, reliable, no server needed!
   rtp:
@@ -32,15 +33,15 @@ tpa:
       - world_nether
       - world_the_end
 
-  economy:
-    enabled: false # Require money for TPA
-    cost:
-      tpa: 100.0 # Cost for /tpa
-      tpahere: 100.0 # Cost for /tpahere
-      tpall: 500.0 # Cost for /tpall
-    refund-on-deny: true # Refund money if request denied
-    refund-on-expire: true # Refund money if request expires
+mute:
+  check-interval-minutes: 1
+bans:
+  server-name: "MyCoolServer"
+  discord-link: "https://discord.gg/example"
 
+warp:
+  cooldown: 0
+  max-per-player: 10
   particles:
     enabled: true # Show particles on teleport
     type: PORTAL # Particle type (PORTAL, END_ROD, etc.)
