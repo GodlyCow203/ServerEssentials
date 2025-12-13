@@ -17,71 +17,90 @@ import java.util.concurrent.CompletableFuture;
 
 public class VaultStorage {
     private final DatabaseManager dbManager;
-    private final String poolKey = "vaults";
     private final Plugin plugin;
+    private static final String POOL_KEY = "vaults";
+    private static final String TABLE = "vaults";
 
     public VaultStorage(Plugin plugin, DatabaseManager dbManager) {
         this.plugin = plugin;
         this.dbManager = dbManager;
-        initTable();
+        createTable();
     }
 
-    private void initTable() {
-        String sql = "CREATE TABLE IF NOT EXISTS vaults (" +
-                "uuid TEXT NOT NULL, " +
+    private void createTable() {
+        String sql = "CREATE TABLE IF NOT EXISTS " + TABLE + " (" +
+                "uuid VARCHAR(36) NOT NULL, " +
                 "vault_number INTEGER NOT NULL, " +
                 "inventory_data TEXT NOT NULL, " +
                 "PRIMARY KEY (uuid, vault_number))";
-        dbManager.executeUpdate(poolKey, sql);
+
+        dbManager.executeUpdate(POOL_KEY, sql).join();
     }
 
-    public CompletableFuture<Void> saveVault(UUID uuid, int number, Inventory inventory) {
-        String serialized = serializeInventory(inventory);
-        String sql = "INSERT OR REPLACE INTO vaults VALUES (?, ?, ?)";
-        return dbManager.executeUpdate(poolKey, sql, uuid.toString(), number, serialized);
+    public CompletableFuture<Void> save(UUID playerId, int vaultNumber, Inventory inventory) {
+        return CompletableFuture.supplyAsync(() -> serializeInventory(inventory))
+                .thenCompose(data -> {
+                    String sql = "INSERT OR REPLACE INTO " + TABLE + " VALUES (?, ?, ?)";
+                    return dbManager.executeUpdate(POOL_KEY, sql,
+                            playerId.toString(),
+                            String.valueOf(vaultNumber),
+                            data);
+                });
     }
 
-    public CompletableFuture<Void> clearVault(UUID uuid, int number) {
-        String sql = "DELETE FROM vaults WHERE uuid = ? AND vault_number = ?";
-        return dbManager.executeUpdate(poolKey, sql, uuid.toString(), number);
-    }
+    public CompletableFuture<Optional<String>> load(UUID playerId, int vaultNumber) {
+        String sql = "SELECT inventory_data FROM " + TABLE + " WHERE uuid = ? AND vault_number = ?";
 
-    public CompletableFuture<Optional<String>> loadVaultData(UUID uuid, int number) {
-        String sql = "SELECT inventory_data FROM vaults WHERE uuid = ? AND vault_number = ?";
-        return dbManager.executeQuery(poolKey, sql,
+        return dbManager.executeQuery(
+                POOL_KEY,
+                sql,
                 rs -> rs.next() ? rs.getString("inventory_data") : null,
-                uuid.toString(), number);
+                playerId.toString(),
+                String.valueOf(vaultNumber)
+        ).thenApply(s -> Optional.ofNullable(String.valueOf(s)));
     }
 
-    public CompletableFuture<Boolean> hasVault(UUID uuid, int number) {
-        String sql = "SELECT 1 FROM vaults WHERE uuid = ? AND vault_number = ?";
-        return dbManager.executeQuery(poolKey, sql,
+
+    public CompletableFuture<Void> delete(UUID playerId, int vaultNumber) {
+        String sql = "DELETE FROM " + TABLE + " WHERE uuid = ? AND vault_number = ?";
+        return dbManager.executeUpdate(POOL_KEY, sql,
+                playerId.toString(),
+                String.valueOf(vaultNumber));
+    }
+
+    public CompletableFuture<Boolean> exists(UUID playerId, int vaultNumber) {
+        String sql = "SELECT 1 FROM " + TABLE + " WHERE uuid = ? AND vault_number = ?";
+        return dbManager.executeQuery(POOL_KEY, sql,
                         rs -> rs.next(),
-                        uuid.toString(), number)
+                        playerId.toString(), String.valueOf(vaultNumber))
                 .thenApply(opt -> opt.orElse(false));
     }
 
     private String serializeInventory(Inventory inv) {
         try (ByteArrayOutputStream baos = new ByteArrayOutputStream();
              BukkitObjectOutputStream boos = new BukkitObjectOutputStream(baos)) {
+
             boos.writeInt(inv.getSize());
             for (int i = 0; i < inv.getSize(); i++) {
                 ItemStack item = inv.getItem(i);
-                boos.writeObject(item);
+                boos.writeObject(item != null ? item : new ItemStack(org.bukkit.Material.AIR));
             }
+
             return Base64.getEncoder().encodeToString(baos.toByteArray());
         } catch (Exception e) {
-            plugin.getLogger().severe("Failed to serialize vault: " + e.getMessage());
+            plugin.getLogger().severe("Failed to serialize vault " + e.getMessage());
             return "";
         }
     }
 
-    public void deserializeInventory(Inventory inv, String data) {
+    public void deserializeInto(String data, Inventory inv) {
         if (data == null || data.isEmpty()) return;
+
         try (ByteArrayInputStream bais = new ByteArrayInputStream(Base64.getDecoder().decode(data));
              BukkitObjectInputStream bois = new BukkitObjectInputStream(bais)) {
+
             int size = bois.readInt();
-            for (int i = 0; i < size && i < inv.getSize(); i++) {
+            for (int i = 0; i < Math.min(size, inv.getSize()); i++) {
                 ItemStack item = (ItemStack) bois.readObject();
                 inv.setItem(i, item);
             }

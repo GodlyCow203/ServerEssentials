@@ -1159,6 +1159,9 @@ permissions:
     description: Can delete other players' warps
     default: op
 
+  serveressentials.command.spawner.*:
+    description: aaacceess to all spawwneers
+    default: op
   serveressentials.command.warps:
     description: Lists warps
     default: op

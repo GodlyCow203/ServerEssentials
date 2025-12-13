@@ -1,6 +1,5 @@
 package net.lunark.io.vault;
 
-import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import net.lunark.io.language.PlayerLanguageManager;
 import org.bukkit.Material;
@@ -9,15 +8,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class VaultSelectorListener implements Listener {
     private final VaultManager vaultManager;
     private final PlayerLanguageManager langManager;
-    private static final String GUI_TITLE_KEY = "vault.selector.title";
-    private static final Pattern VAULT_NUMBER_PATTERN = Pattern.compile("(\\d+)");
+    private static final Pattern NUMBER_PATTERN = Pattern.compile("\\d+");
 
     public VaultSelectorListener(VaultManager vaultManager, PlayerLanguageManager langManager) {
         this.vaultManager = vaultManager;
@@ -25,36 +21,41 @@ public class VaultSelectorListener implements Listener {
     }
 
     @EventHandler
-    public void onInventoryClick(InventoryClickEvent event) {
+    public void onClick(InventoryClickEvent event) {
         if (!(event.getWhoClicked() instanceof Player player)) return;
 
-        Component expectedTitle = langManager.getMessageFor(player, GUI_TITLE_KEY, "<yellow>Select a Vault");
-        Component actualTitle = event.getView().title();
+        if (event.getView().getTopInventory().getSize() != 45) return;
 
-        String expectedTitleText = PlainTextComponentSerializer.plainText().serialize(expectedTitle);
-        String actualTitleText = PlainTextComponentSerializer.plainText().serialize(actualTitle);
-        if (!expectedTitleText.equals(actualTitleText)) return;
+        String expectedTitle = PlainTextComponentSerializer.plainText()
+                .serialize(langManager.getMessageFor(player, "vault.selector.title",
+                        "Select a Vault"));
+        String actualTitle = PlainTextComponentSerializer.plainText()
+                .serialize(event.getView().title());
+
+        if (!expectedTitle.equalsIgnoreCase(actualTitle)) return;
 
         event.setCancelled(true);
 
         ItemStack clicked = event.getCurrentItem();
         if (clicked == null || clicked.getType() == Material.AIR) return;
 
-        ItemMeta meta = clicked.getItemMeta();
-        if (meta == null) return;
+        if (clicked.getType() == Material.BARRIER) {
+            player.closeInventory();
+            return;
+        }
 
-        Component displayNameComponent = meta.displayName();
-        if (displayNameComponent == null) return;
+        if (clicked.getType() != Material.BARREL) return;
 
-        String plainText = PlainTextComponentSerializer.plainText().serialize(displayNameComponent);
+        String plainName = PlainTextComponentSerializer.plainText()
+                .serialize(clicked.getItemMeta().displayName());
 
-        Matcher matcher = VAULT_NUMBER_PATTERN.matcher(plainText);
+        java.util.regex.Matcher matcher = NUMBER_PATTERN.matcher(plainName);
         if (!matcher.find()) return;
 
-        int vaultNumber = Integer.parseInt(matcher.group(1));
-
+        int vaultNumber = Integer.parseInt(matcher.group());
         String perm = "serveressentials.command.pv." + vaultNumber;
-        if (clicked.getType() == Material.BARREL && player.hasPermission(perm)) {
+
+        if (player.hasPermission(perm)) {
             player.closeInventory();
             vaultManager.openVault(player, vaultNumber);
         }

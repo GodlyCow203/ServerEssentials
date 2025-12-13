@@ -151,7 +151,7 @@ public class HomeGUIListener implements Listener {
     private void handleDyeClick(Player player, int slot) {
         UUID uuid = player.getUniqueId();
 
-        if (!player.hasPermission("serveressentials.removehome")) {
+        if (!player.hasPermission("serveressentials.command.removehome")) {
             player.sendMessage(langManager.getMessageFor(player, "commands.homes.no-permission-remove",
                     "<red>You don't have permission to remove homes!"));
             return;
@@ -233,9 +233,9 @@ public class HomeGUIListener implements Listener {
             ItemStack info = new ItemStack(Material.PAPER);
             ItemMeta infoMeta = info.getItemMeta();
             Component infoName = langManager.getMessageFor(player, "commands.homes.gui.info",
-                    "<white>Home <slot> - <mode>",
-                    ComponentPlaceholder.of("<slot>", slot),
-                    ComponentPlaceholder.of("<mode>", mode));
+                    "<white>Home {slot} - {mode}",
+                    ComponentPlaceholder.of("{slot}", slot),
+                    ComponentPlaceholder.of("{mode}", mode));
             infoMeta.setDisplayName(legacySerializer.serialize(infoName));
             inv.setItem(13, info);
 
@@ -280,8 +280,8 @@ public class HomeGUIListener implements Listener {
         ItemMeta meta = item.getItemMeta();
 
         Component nameComponent = langManager.getMessageFor(player, "commands.homes.gui.home-title",
-                "<white>Home <slot>",
-                ComponentPlaceholder.of("<slot>", slot));
+                "<white>Home {slot}",
+                ComponentPlaceholder.of("{slot}", slot));
         meta.setDisplayName(legacySerializer.serialize(nameComponent));
 
         List<String> lore = new ArrayList<>();
@@ -298,10 +298,10 @@ public class HomeGUIListener implements Listener {
             lore.add(legacySerializer.serialize(nameLore));
 
             Component coords = langManager.getMessageFor(player, "commands.homes.gui.coords",
-                    "<gray>XYZ: <white><x>, <y>, <z>",
-                    ComponentPlaceholder.of("<x>", Math.round(home.getX())),
-                    ComponentPlaceholder.of("<y>", Math.round(home.getY())),
-                    ComponentPlaceholder.of("<z>", Math.round(home.getZ())));
+                    "<gray>XYZ: <white>{x}, {y}, {z}",
+                    ComponentPlaceholder.of("{x}", Math.round(home.getX())),
+                    ComponentPlaceholder.of("{y}", Math.round(home.getY())),
+                    ComponentPlaceholder.of("{z}", Math.round(home.getZ())));
             lore.add(legacySerializer.serialize(coords));
 
             Component teleport = langManager.getMessageFor(player, "commands.homes.gui.click-teleport", "<green>Left-click to teleport");
@@ -317,7 +317,7 @@ public class HomeGUIListener implements Listener {
     }
 
     private ItemStack createDyeItem(Player player, int slot, boolean hasHome) {
-        if (!player.hasPermission("serveressentials.removehome")) {
+        if (!player.hasPermission("serveressentials.command.removehome")) {
             ItemStack filler = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
             ItemMeta meta = filler.getItemMeta();
             meta.setDisplayName("");
@@ -330,8 +330,8 @@ public class HomeGUIListener implements Listener {
         ItemMeta meta = item.getItemMeta();
 
         Component nameComponent = langManager.getMessageFor(player, "commands.homes.gui.manage-title",
-                "<white>Manage Home <slot>",
-                ComponentPlaceholder.of("<slot>", slot));
+                "<white>Manage Home {slot}",
+                ComponentPlaceholder.of("{slot}", slot));
         meta.setDisplayName(legacySerializer.serialize(nameComponent));
 
         List<String> lore = new ArrayList<>();
@@ -375,8 +375,8 @@ public class HomeGUIListener implements Listener {
     }
 
     private boolean canSetHome(Player player, int slot) {
-        if (!player.hasPermission("serveressentials.sethome")) return false;
-        if (player.hasPermission("serveressentials.sethome.*")) return true;
-        return player.hasPermission("serveressentials.sethome." + slot);
+        if (!player.hasPermission("serveressentials.command.sethome")) return false;
+        if (player.hasPermission("serveressentials.command.sethome.*")) return true;
+        return player.hasPermission("serveressentials.command.sethome." + slot);
     }
 }

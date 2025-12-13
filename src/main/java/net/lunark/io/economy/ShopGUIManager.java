@@ -15,6 +15,7 @@ import org.bukkit.plugin.Plugin;
 
 import java.io.File;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ShopGUIManager {
@@ -26,67 +27,220 @@ public class ShopGUIManager {
     private final ShopStorage storage;
     private final ShopConfig config;
     private final ServerEssentialsEconomy economy;
+    private final ShopDataManager dataManager;
+
+    private final Map<String, ShopSectionConfig> sectionCache = new ConcurrentHashMap<>();
+    private MainShopConfig mainConfigCache;
+    private boolean configsLoaded = false;
 
     private final Map<UUID, String> openSection = new ConcurrentHashMap<>();
     private final Map<UUID, Integer> currentPage = new ConcurrentHashMap<>();
     private final Map<UUID, Long> clickCooldowns = new ConcurrentHashMap<>();
-
-    // NEW: Track players viewing the main shop GUI
     private final Set<UUID> mainGUIOpen = ConcurrentHashMap.newKeySet();
 
     public ShopGUIManager(Plugin plugin, PlayerLanguageManager langManager,
-                          ShopStorage storage, ShopConfig config, ServerEssentialsEconomy economy) {
+                          ShopStorage storage, ShopConfig config,
+                          ServerEssentialsEconomy economy, ShopDataManager dataManager) {
         this.plugin = plugin;
         this.langManager = langManager;
         this.storage = storage;
         this.config = config;
         this.economy = economy;
+        this.dataManager = dataManager;
+
+        loadAllConfigs(false);
+    }
+
+    private void loadAllConfigs() {
+        loadAllConfigs(false);
+    }
+
+    private void loadAllConfigs(boolean forceFromFiles) {
+        File mainFile = new File(config.getShopFolder(), "main.yml");
+
+        MainShopConfig dbMain = forceFromFiles ? null : dataManager.loadMainConfig().join();
+        if (dbMain != null) {
+            mainConfigCache = dbMain;
+            plugin.getLogger().info("Loaded main shop config from database");
+        } else if (mainFile.exists()) {
+            mainConfigCache = loadMainConfigFromFile(mainFile);
+            dataManager.saveMainConfig(mainConfigCache); // Update database
+            plugin.getLogger().info("Loaded main shop config from file and saved to database");
+        } else {
+            mainConfigCache = new MainShopConfig();
+            plugin.getLogger().warning("No main shop config found, using defaults");
+        }
+
+        File shopFolder = config.getShopFolder();
+        if (shopFolder.exists() && shopFolder.isDirectory()) {
+            File[] files = shopFolder.listFiles((d, name) -> name.endsWith(".yml") && !name.equals("main.yml"));
+            if (files != null) {
+                for (File file : files) {
+                    String name = file.getName().replace(".yml", "");
+                    loadSectionConfig(name, forceFromFiles);
+                }
+            }
+        }
+
+        configsLoaded = true;
+        plugin.getLogger().info("Shop configurations loaded successfully");
+    }
+
+    private MainShopConfig loadMainConfigFromFile(File file) {
+        org.bukkit.configuration.file.YamlConfiguration config =
+                org.bukkit.configuration.file.YamlConfiguration.loadConfiguration(file);
+        MainShopConfig main = new MainShopConfig();
+
+        main.title = config.getString("title", "Shop");
+        main.size = config.getInt("size", 54);
+
+        if (config.isConfigurationSection("layout")) {
+            for (String key : config.getConfigurationSection("layout").getKeys(false)) {
+                int slot = Integer.parseInt(key);
+                MainShopConfig.LayoutItem item = new MainShopConfig.LayoutItem();
+                item.material = Material.valueOf(config.getString("layout." + key + ".material", "STONE"));
+                item.name = config.getString("layout." + key + ".name", "");
+                item.clickable = config.getBoolean("layout." + key + ".clickable", false);
+                main.layout.put(slot, item);
+            }
+        }
+
+        if (config.isConfigurationSection("sections")) {
+            for (String key : config.getConfigurationSection("sections").getKeys(false)) {
+                int slot = Integer.parseInt(key);
+                MainShopConfig.SectionButton button = new MainShopConfig.SectionButton();
+                button.material = Material.valueOf(config.getString("sections." + key + ".material", "STONE"));
+                button.name = config.getString("sections." + key + ".name", "");
+                button.lore = config.getStringList("sections." + key + ".lore");
+                button.file = config.getString("sections." + key + ".file");
+                main.sectionButtons.put(slot, button);
+            }
+        }
+
+        return main;
+    }
+
+    private void loadSectionConfig(String sectionName, boolean forceFromFiles) {
+        ShopSectionConfig dbSection = forceFromFiles ? null : dataManager.loadSectionConfig(sectionName).join();
+        if (dbSection != null) {
+            sectionCache.put(sectionName, dbSection);
+            plugin.getLogger().info("Loaded section '" + sectionName + "' from database");
+            return;
+        }
+
+        File sectionFile = new File(config.getShopFolder(), sectionName + ".yml");
+        if (sectionFile.exists()) {
+            ShopSectionConfig section = loadSectionConfigFromFile(sectionFile);
+            sectionCache.put(sectionName, section);
+            dataManager.saveSectionConfig(sectionName, section); // Update database
+            plugin.getLogger().info("Loaded section '" + sectionName + "' from file and saved to database");
+        }
+    }
+
+    private ShopSectionConfig loadSectionConfigFromFile(File file) {
+        org.bukkit.configuration.file.YamlConfiguration config =
+                org.bukkit.configuration.file.YamlConfiguration.loadConfiguration(file);
+        ShopSectionConfig section = new ShopSectionConfig();
+
+        section.title = config.getString("title", "Shop Section");
+        section.size = config.getInt("size", 54);
+        section.pages = config.getInt("pages", 1);
+        section.playerHeadSlot = config.getInt("player-head-slot", -1);
+        section.closeButtonSlot = config.getInt("close-button-slot", -1);
+
+        if (config.isConfigurationSection("layout")) {
+            config.getConfigurationSection("layout").getKeys(false).forEach(key -> {
+                int slot = Integer.parseInt(key);
+                ShopSectionConfig.LayoutItem item = new ShopSectionConfig.LayoutItem();
+                item.material = Material.valueOf(config.getString("layout." + key + ".material", "STONE"));
+                item.name = config.getString("layout." + key + ".name", "");
+                item.lore = config.getStringList("layout." + key + ".lore");
+                item.clickable = config.getBoolean("layout." + key + ".clickable", false);
+                section.layout.put(slot, item);
+            });
+        }
+
+        if (config.isConfigurationSection("items")) {
+            org.bukkit.configuration.ConfigurationSection itemsSection = config.getConfigurationSection("items");
+            for (String key : itemsSection.getKeys(false)) {
+                org.bukkit.configuration.ConfigurationSection itemSec = itemsSection.getConfigurationSection(key);
+                if (itemSec == null) continue;
+
+                ShopSectionConfig.ShopItem item = new ShopSectionConfig.ShopItem();
+                item.material = Material.matchMaterial(itemSec.getString("material", "STONE"));
+                item.amount = itemSec.getInt("amount", 1);
+                item.name = itemSec.getString("name", "");
+                item.lore = itemSec.getStringList("lore");
+                item.slot = itemSec.getInt("slot", -1);
+                item.page = itemSec.getInt("page", 1);
+                item.buyPrice = itemSec.getDouble("buy-price", -1);
+                item.sellPrice = itemSec.getDouble("sell-price", -1);
+                item.customItemId = itemSec.getString("custom-item-id", null);
+                item.clickable = itemSec.getBoolean("clickable", true);
+
+                section.items.put(key, item);
+            }
+        }
+
+        return section;
     }
 
     public void openMainGUI(Player player) {
-        File mainFile = new File(config.getShopFolder(), "main.yml");
-        if (!mainFile.exists()) {
+        if (!configsLoaded) {
+            player.sendMessage(langManager.getMessageFor(player, "economy.shop.loading",
+                    "<yellow>Loading shop...</yellow>"));
+            return;
+        }
+
+        if (mainConfigCache == null) {
             player.sendMessage(langManager.getMessageFor(player, "economy.shop.no-main-config",
                     "<red>Shop configuration not found. Please contact an administrator."));
             return;
         }
 
-        MainShopConfig main = ShopConfigLoader.loadMainConfig(mainFile);
         Component title = langManager.getMessageFor(player, "economy.shop.main-title",
-                "<green>Main Shop");
+                mainConfigCache.title != null ? mainConfigCache.title : "<green>Main Shop");
 
         Inventory inv = Bukkit.createInventory(null, config.mainSize, title);
 
-        main.layout.forEach((slot, item) -> {
+        for (Map.Entry<Integer, MainShopConfig.LayoutItem> entry : mainConfigCache.layout.entrySet()) {
+            int slot = entry.getKey();
+            MainShopConfig.LayoutItem item = entry.getValue();
             ItemStack stack = createItem(item.material, item.name, null, 1);
             inv.setItem(slot, stack);
-        });
+        }
 
-        main.sectionButtons.forEach((slot, button) -> {
+        for (Map.Entry<Integer, MainShopConfig.SectionButton> entry : mainConfigCache.sectionButtons.entrySet()) {
+            int slot = entry.getKey();
+            MainShopConfig.SectionButton button = entry.getValue();
             ItemStack stack = createItem(button.material, button.name, button.lore, 1);
             inv.setItem(slot, stack);
-        });
+        }
 
         ItemStack close = createItem(Material.BARRIER, "<red>Close", null, 1);
         inv.setItem(config.closeButtonSlot, close);
 
         player.openInventory(inv);
 
-        // Track main GUI, clear section tracking
         openSection.remove(player.getUniqueId());
         mainGUIOpen.add(player.getUniqueId());
     }
 
     public void openSectionGUI(Player player, String fileName, int page) {
-        File sectionFile = new File(config.getShopFolder(), fileName);
-        if (!sectionFile.exists()) {
+        if (!configsLoaded) {
+            player.sendMessage(langManager.getMessageFor(player, "economy.shop.loading",
+                    "<yellow>Loading shop...</yellow>"));
+            return;
+        }
+
+        ShopSectionConfig section = sectionCache.get(fileName);
+        if (section == null) {
             player.sendMessage(langManager.getMessageFor(player, "economy.shop.no-section",
                     "<red>Shop section not found: <white>{section}",
                     net.lunark.io.language.LanguageManager.ComponentPlaceholder.of("{section}", fileName)));
             return;
         }
 
-        ShopSectionConfig section = ShopConfigLoader.loadSectionConfig(sectionFile);
         String displayTitle = section.title != null ? section.title :
                 fileName.replace(".yml", "").replace("-", " ");
         Component title = langManager.getMessageFor(player, "economy.shop.section-title",
@@ -95,10 +249,12 @@ public class ShopGUIManager {
 
         Inventory inv = Bukkit.createInventory(null, section.size, title);
 
-        section.layout.forEach((slot, item) -> {
+        for (Map.Entry<Integer, ShopSectionConfig.LayoutItem> entry : section.layout.entrySet()) {
+            int slot = entry.getKey();
+            ShopSectionConfig.LayoutItem item = entry.getValue();
             ItemStack stack = createItem(item.material, item.name, item.lore, 1);
             inv.setItem(slot, stack);
-        });
+        }
 
         section.items.values().stream()
                 .filter(item -> item.page == page)
@@ -130,7 +286,6 @@ public class ShopGUIManager {
 
         player.openInventory(inv);
 
-        // Track section GUI, clear main GUI tracking
         openSection.put(player.getUniqueId(), fileName);
         currentPage.put(player.getUniqueId(), page);
         mainGUIOpen.remove(player.getUniqueId());
@@ -159,27 +314,23 @@ public class ShopGUIManager {
     }
 
     private void handleMainMenuClick(Player player, int slot) {
-        File mainFile = new File(config.getShopFolder(), "main.yml");
-        if (!mainFile.exists()) return;
-
-        MainShopConfig main = ShopConfigLoader.loadMainConfig(mainFile);
+        if (mainConfigCache == null) return;
 
         if (slot == config.closeButtonSlot) {
             player.closeInventory();
             return;
         }
 
-        MainShopConfig.SectionButton button = main.sectionButtons.get(slot);
+        MainShopConfig.SectionButton button = mainConfigCache.sectionButtons.get(slot);
         if (button != null) {
-            Bukkit.getScheduler().runTask(plugin, () -> openSectionGUI(player, button.file, 1));
+            String sectionFileName = button.file.replace(".yml", "");
+            Bukkit.getScheduler().runTask(plugin, () -> openSectionGUI(player, sectionFileName, 1));
         }
     }
 
     private void handleSectionClick(Player player, int slot, int page, String sectionFile, String clickType) {
-        File sectionFileObject = new File(config.getShopFolder(), sectionFile);
-        if (!sectionFileObject.exists()) return;
-
-        ShopSectionConfig section = ShopConfigLoader.loadSectionConfig(sectionFileObject);
+        ShopSectionConfig section = sectionCache.get(sectionFile);
+        if (section == null) return;
 
         if (slot == 45 && page > 1) {
             Bukkit.getScheduler().runTask(plugin, () -> openSectionGUI(player, sectionFile, page - 1));
@@ -325,6 +476,14 @@ public class ShopGUIManager {
             item.setItemMeta(meta);
         }
         return item;
+    }
+
+    public void reloadConfigs(boolean forceFromFiles) {
+        sectionCache.clear();
+        mainConfigCache = null;
+        configsLoaded = false;
+        loadAllConfigs(forceFromFiles);
+        plugin.getLogger().info("Shop configurations reloaded from " + (forceFromFiles ? "YML files" : "database"));
     }
 
     private ItemStack createPlayerHead(Player player) {

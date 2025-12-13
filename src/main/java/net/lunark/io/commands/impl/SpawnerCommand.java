@@ -55,9 +55,9 @@ public final class SpawnerCommand implements CommandExecutor, TabCompleter {
         try {
             EntityType type = EntityType.valueOf(mobName);
             String mobNameLower = mobName.toLowerCase(Locale.ROOT);
-            String mobPermission = "serveressentials.spawner." + mobNameLower;
+            String mobPermission = "serveressentials.command.spawner." + mobNameLower;
 
-            if (!player.hasPermission("serveressentials.spawner.*") && !player.hasPermission(mobPermission)) {
+            if (!player.hasPermission("serveressentials.command.spawner.*") && !player.hasPermission(mobPermission)) {
                 player.sendMessage(langManager.getMessageFor(player, "commands.spawner.no-permission-mob",
                         "<red>You don't have permission to set a spawner to {mob}!",
                         ComponentPlaceholder.of("{mob}", mobNameLower)));

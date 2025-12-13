@@ -1,50 +1,45 @@
 package com.serveressentials.api;
 
+import org.jetbrains.annotations.NotNull;
+
+/**
+ * Public API entry point for ServerEssentials.
+ * Thread-safe singleton. Always check {@link #isAvailable()} before use.
+ */
 public interface ServerEssentialsAPI {
 
-    /**
-     * Internal holder for the API instance
-     */
-    final class Holder {
-        static ServerEssentialsAPI INSTANCE = null;
-    }
+    /** API version for compatibility checks */
+    String API_VERSION = "2.0.7.1";
 
     /**
-     * Called by ServerEssentials on enable to provide the implementation
-     * @param impl The API implementation
+     * Gets the singleton API instance.
+     * @return API instance (never null when plugin is loaded)
+     * @throws IllegalStateException if plugin is not loaded
      */
-    static void provide(ServerEssentialsAPI impl) {
-        Holder.INSTANCE = impl;
-    }
-
-    /**
-     * Get the singleton instance of the API.
-     * @return API instance
-     * @throws IllegalStateException if the plugin is not loaded
-     */
+    @NotNull
     static ServerEssentialsAPI getInstance() {
-        if (Holder.INSTANCE == null) {
-            // Try to get from Bukkit's service manager as fallback
-            org.bukkit.plugin.ServicesManager sm = org.bukkit.Bukkit.getServicesManager();
-            ServerEssentialsAPI api = sm.load(ServerEssentialsAPI.class);
-            if (api != null) {
-                Holder.INSTANCE = api;
-                return api;
-            }
-            throw new IllegalStateException("API not initialized. Is ServerEssentials installed?");
-        }
-        return Holder.INSTANCE;
+        return net.lunark.io.api.APIImpl.getInstance();
     }
 
     /**
-     * Get the vault manager for accessing player vaults.
-     * @return Vault manager instance
+     * Checks if the API is ready for use.
+     * @return true if plugin is enabled and API is initialized
      */
+    boolean isAvailable();
+
+    /**
+     * Gets the Vault API for vault operations.
+     * @return VaultAPI instance (never null when isAvailable() is true)
+     */
+    @NotNull
     VaultAPI getVaults();
 
     /**
-     * Check if the plugin is enabled and ready.
-     * @return true if API is available
+     * Gets the API version string.
+     * @return semantic version string
      */
-    boolean isAvailable();
+    @NotNull
+    default String getAPIVersion() {
+        return API_VERSION;
+    }
 }

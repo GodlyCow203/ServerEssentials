@@ -9,6 +9,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin; // Add this import
+
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
@@ -23,8 +25,10 @@ public final class VanishCommand implements CommandExecutor {
     private final PlayerLanguageManager langManager;
     private final VanishConfig config;
     private final CommandDataStorage dataStorage;
+    private final JavaPlugin plugin;
 
-    public VanishCommand(PlayerLanguageManager langManager, VanishConfig config, CommandDataStorage dataStorage) {
+    public VanishCommand(JavaPlugin plugin, PlayerLanguageManager langManager, VanishConfig config, CommandDataStorage dataStorage) {
+        this.plugin = plugin; // Store plugin instance
         this.langManager = langManager;
         this.config = config;
         this.dataStorage = dataStorage;
@@ -47,12 +51,12 @@ public final class VanishCommand implements CommandExecutor {
         if (vanishedCache.contains(playerId)) {
             vanishedCache.remove(playerId);
             dataStorage.deleteState(playerId, COMMAND_NAME, "enabled");
-            Bukkit.getOnlinePlayers().forEach(p -> p.showPlayer(Bukkit.getPluginManager().getPlugin("lunark-io"), player));
+            Bukkit.getOnlinePlayers().forEach(p -> p.showPlayer(plugin, player)); // Use plugin instance
             player.sendMessage(langManager.getMessageFor(player, "commands.vanish.visible", "<green>You are now visible to all players."));
         } else {
             vanishedCache.add(playerId);
             dataStorage.setState(playerId, COMMAND_NAME, "enabled", "true");
-            Bukkit.getOnlinePlayers().forEach(p -> p.hidePlayer(Bukkit.getPluginManager().getPlugin("lunark-io"), player));
+            Bukkit.getOnlinePlayers().forEach(p -> p.hidePlayer(plugin, player)); // Use plugin instance
             player.sendMessage(langManager.getMessageFor(player, "commands.vanish.vanished", "<green>You are now vanished."));
         }
 
@@ -73,4 +77,5 @@ public final class VanishCommand implements CommandExecutor {
 
     public void unloadPlayerState(UUID playerId) {
         vanishedCache.remove(playerId);
-    }}
+    }
+}

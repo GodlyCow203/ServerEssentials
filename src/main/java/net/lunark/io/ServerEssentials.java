@@ -2,6 +2,7 @@
 
 package net.lunark.io;
 
+import net.lunark.io.api.APIImpl;
 import com.serveressentials.api.ServerEssentialsAPI;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -10,7 +11,6 @@ import net.lunark.io.Managers.*;
 import net.lunark.io.PlaceholderAPI.*;
 import net.lunark.io.Rtp.*;
 import net.lunark.io.TPA.*;
-import net.lunark.io.api.APIImpl;
 import net.lunark.io.auction.*;
 import net.lunark.io.back.*;
 import net.lunark.io.ban.*;
@@ -41,9 +41,7 @@ import net.lunark.io.serverEssentials.ServerEssentialsCommand;
 import net.lunark.io.serverEssentials.VersionChecker;
 import net.lunark.io.daily.*;
 import net.lunark.io.util.*;
-import net.lunark.io.vault.VaultManager;
-import net.lunark.io.vault.VaultSelectorListener;
-import net.lunark.io.vault.VaultStorage;
+import net.lunark.io.vault.*;
 import net.lunark.io.warp.WarpManager;
 import net.lunark.io.warp.WarpStorage;
 import net.milkbowl.vault.economy.Economy;
@@ -66,6 +64,7 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.*;
+import java.util.logging.Level;
 import java.util.regex.Pattern;
 
 
@@ -385,10 +384,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
     private StaffListCommand staffListCommand;
     private EditSignConfig editSignConfig;
     private EditSignCommand editSignCommand;
-    private VaultStorage vaultStorage;
-    private VaultManager vaultManager;
     private VaultCommand vaultCommand;
-    private VaultSelectorListener vaultSelectorListener;
     private WarpStorage warpStorage;
     private WarpConfig warpConfig;
     private WarpManager warpManager;
@@ -396,6 +392,14 @@ public class ServerEssentials extends JavaPlugin implements Listener {
     private WarpSetCommand setwarpCommand;
     private WarpDeleteCommand delwarpCommand;
     private WarpsCommand warpsCommand;
+    private VaultManager vaultManager;
+    private VaultListener vaultListener;
+    private VaultStorage vaultStorage;
+    private Vault vault;
+    private VaultSelectorListener vaultSelectorListener;
+    private static final String LOG_PREFIX = "[ServerEssentials] ";
+
+
 
 
     @Override
@@ -460,20 +464,9 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         initializeLobbySystem();
         initializeBanSystem();
         initializeMuteSystem();
-        initializeVaultSystem();
         initializeWarpSystem();
+        initializeVaultSystem();
 
-
-
-
-        APIImpl.initialize(this, vaultManager, vaultStorage);
-
-        getServer().getServicesManager().register(
-                ServerEssentialsAPI.class,
-                APIImpl.getInstance(),
-                this,
-                ServicePriority.Normal
-        );
 
 
 
@@ -723,7 +716,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         clearChatConfig = new ClearChatConfig(this);
         clearChatCommand = new ClearChatCommand(playerLanguageManager, clearChatConfig);
         vanishConfig = new VanishConfig(this);
-        vanishCommand = new VanishCommand(playerLanguageManager, vanishConfig, commandDataStorage);
+        vanishCommand = new VanishCommand(this,playerLanguageManager, vanishConfig, commandDataStorage);
         godConfig = new GodConfig(this);
         godCommand = new GodCommand(playerLanguageManager, godConfig, commandDataStorage);
         invseeConfig = new InvseeConfig(this);
@@ -929,12 +922,21 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(new AdminChatListener(playerLanguageManager), this);
         getServer().getPluginManager().registerEvents(new AdminUtilitiesListener(this, godCommand, vanishCommand), this);
         getServer().getPluginManager().registerEvents(muteListener, this);
-        getServer().getPluginManager().registerEvents(vaultSelectorListener, this);
-        getServer().getPluginManager().registerEvents(vaultManager, this);
 
 
 
 
+        APIImpl.initialize(this, vaultManager, vaultStorage);
+
+
+
+
+        getServer().getServicesManager().register(
+                com.serveressentials.api.ServerEssentialsAPI.class,
+                APIImpl.getInstance(),
+                this,
+                org.bukkit.plugin.ServicePriority.Normal
+        );
 
         if (shopCommand != null) {
             getServer().getPluginManager().registerEvents(
@@ -1149,6 +1151,8 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         if (this.adventure != null) {
             this.adventure.close();
         }
+
+
 
 
         if (databaseManager != null) {
@@ -1619,12 +1623,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         getLogger().info("Back system initialized with dedicated table");
     }
 
-    private void initializeVaultSystem() {
-        vaultStorage = new VaultStorage(this, databaseManager);
-        vaultManager = new VaultManager(this, playerLanguageManager, vaultStorage);
-        vaultSelectorListener = new VaultSelectorListener(vaultManager, playerLanguageManager);
-        vaultCommand = new VaultCommand(vaultManager, playerLanguageManager);
-    }
+
 
     private void initializeWarpSystem() {
         warpConfig = new WarpConfig(this);
@@ -1650,6 +1649,21 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         } else {
             getLogger().info("Language file already exists: " + fileName);
         }
+    }
+
+    private void initializeVaultSystem() {
+        vaultStorage = new VaultStorage(this, databaseManager);
+        vaultManager = new VaultManager(this, playerLanguageManager, vaultStorage);
+        vaultSelectorListener = new VaultSelectorListener(vaultManager, playerLanguageManager);
+        vaultCommand = new VaultCommand(vaultManager, playerLanguageManager);
+        vaultListener = new VaultListener(vaultManager);
+
+        getCommand("pv").setExecutor(vaultCommand);
+
+        getServer().getPluginManager().registerEvents(vaultSelectorListener, this);
+        getServer().getPluginManager().registerEvents(vaultListener, this);
+
+        getLogger().info("Vault system initialized with 10 vaults per player");
     }
 
 
@@ -1678,4 +1692,6 @@ public class ServerEssentials extends JavaPlugin implements Listener {
             e.printStackTrace();
         }
     }
+
+
 }

@@ -8,25 +8,62 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.locks.ReentrantLock;
+import java.util.logging.Level;
 
-public class APIImpl implements ServerEssentialsAPI, VaultAPI {
-    private static ServerEssentialsAPI instance;
+/**
+ * Stable, thread-safe implementation of ServerEssentials API.
+ * INTERNAL USE ONLY - NOT part of public API.
+ */
+public final class APIImpl implements ServerEssentialsAPI, VaultAPI {
+    private static volatile APIImpl instance;
+    private static final Object LOCK = new Object();
+
+    private final JavaPlugin plugin;
     private final VaultManager vaultManager;
     private final VaultStorage vaultStorage;
-    private final JavaPlugin plugin;
+    private final ConcurrentHashMap<String, ReentrantLock> vaultLocks = new ConcurrentHashMap<>();
 
-    public APIImpl(JavaPlugin plugin, VaultManager vaultManager, VaultStorage vaultStorage) {
+    /**
+     * PRIVATE constructor - use initialize() instead
+     */
+    private APIImpl(@NotNull JavaPlugin plugin,
+                    @NotNull VaultManager vaultManager,
+                    @NotNull VaultStorage vaultStorage) {
         this.plugin = plugin;
         this.vaultManager = vaultManager;
         this.vaultStorage = vaultStorage;
-        instance = this;
     }
 
-    @Override
-    public VaultAPI getVaults() {
-        return this;
+    /**
+     * ✅ STATIC PUBLIC INITIALIZER - Call this from your main plugin
+     */
+    public static void initialize(@NotNull JavaPlugin plugin,
+                                  @NotNull VaultManager vaultManager,
+                                  @NotNull VaultStorage vaultStorage) {
+        synchronized (LOCK) {
+            if (instance != null) {
+                throw new IllegalStateException("APIImpl already initialized!");
+            }
+            instance = new APIImpl(plugin, vaultManager, vaultStorage);
+            plugin.getLogger().info("ServerEssentialsAPI v" + ServerEssentialsAPI.API_VERSION + " initialized");
+        }
+    }
+
+    /**
+     * Gets the singleton instance
+     */
+    @NotNull
+    public static APIImpl getInstance() {
+        APIImpl api = instance;
+        if (api == null) {
+            throw new IllegalStateException("ServerEssentials API is not loaded!");
+        }
+        return api;
     }
 
     @Override
@@ -35,8 +72,15 @@ public class APIImpl implements ServerEssentialsAPI, VaultAPI {
     }
 
     @Override
-    public boolean openVault(Player player, int vaultNumber) {
-        if (!isValidVaultNumber(vaultNumber)) {
+    @NotNull
+    public VaultAPI getVaults() {
+        return this;
+    }
+
+
+    @Override
+    public boolean openVault(@NotNull Player player, int vaultNumber) {
+        if (!VaultAPI.isValidVaultNumber(vaultNumber)) {
             throw new IllegalArgumentException("Vault number must be 1-10");
         }
 
@@ -49,64 +93,68 @@ public class APIImpl implements ServerEssentialsAPI, VaultAPI {
     }
 
     @Override
-    public CompletableFuture<Inventory> getVaultInventory(UUID playerUUID, int vaultNumber) {
-        if (!isValidVaultNumber(vaultNumber)) {
-            return CompletableFuture.failedFuture(
-                    new IllegalArgumentException("Vault number must be 1-10")
-            );
+    @NotNull
+    public CompletableFuture<Inventory> getVaultInventory(@NotNull UUID playerUUID, int vaultNumber) {
+        if (!VaultAPI.isValidVaultNumber(vaultNumber)) {
+            return CompletableFuture.failedFuture(new IllegalArgumentException("Invalid vault number: " + vaultNumber));
         }
 
-        return vaultStorage.loadVaultData(playerUUID, vaultNumber)
+        return vaultStorage.load(playerUUID, vaultNumber)
                 .thenApply(optData -> {
                     Inventory inv = Bukkit.createInventory(null, 54, "Vault #" + vaultNumber);
                     if (optData.isPresent()) {
-                        vaultStorage.deserializeInventory(inv, optData.get());
+                        vaultStorage.deserializeInto(optData.get(), inv);
                     }
                     return inv;
                 });
     }
 
     @Override
-    public CompletableFuture<Void> saveVault(UUID playerUUID, int vaultNumber, Inventory inventory) {
-        if (!isValidVaultNumber(vaultNumber)) {
-            return CompletableFuture.failedFuture(
-                    new IllegalArgumentException("Vault number must be 1-10")
-            );
+    @NotNull
+    public CompletableFuture<Void> saveVault(@NotNull UUID playerUUID, int vaultNumber, @NotNull Inventory inventory) {
+        if (!VaultAPI.isValidVaultNumber(vaultNumber)) {
+            return CompletableFuture.failedFuture(new IllegalArgumentException("Invalid vault number: " + vaultNumber));
         }
-        return vaultStorage.saveVault(playerUUID, vaultNumber, inventory);
+
+        return vaultStorage.save(playerUUID, vaultNumber, inventory);
     }
 
     @Override
-    public CompletableFuture<Boolean> hasVault(UUID playerUUID, int vaultNumber) {
-        if (!isValidVaultNumber(vaultNumber)) {
+    @NotNull
+    public CompletableFuture<Boolean> hasVault(@NotNull UUID playerUUID, int vaultNumber) {
+        if (!VaultAPI.isValidVaultNumber(vaultNumber)) {
             return CompletableFuture.completedFuture(false);
         }
-        return vaultStorage.hasVault(playerUUID, vaultNumber);
+        return vaultStorage.exists(playerUUID, vaultNumber);
     }
 
     @Override
-    public CompletableFuture<Void> clearVault(UUID playerUUID, int vaultNumber) {
-        if (!isValidVaultNumber(vaultNumber)) {
-            return CompletableFuture.failedFuture(
-                    new IllegalArgumentException("Vault number must be 1-10")
-            );
+    @NotNull
+    public CompletableFuture<Void> clearVault(@NotNull UUID playerUUID, int vaultNumber) {
+        if (!VaultAPI.isValidVaultNumber(vaultNumber)) {
+            return CompletableFuture.failedFuture(new IllegalArgumentException("Invalid vault number: " + vaultNumber));
         }
-        return vaultStorage.clearVault(playerUUID, vaultNumber);
+        return vaultStorage.delete(playerUUID, vaultNumber);
     }
 
-    private boolean isValidVaultNumber(int number) {
-        return number >= 1 && number <= MAX_VAULTS;
-    }
-
-    // Called from your main plugin class onEnable()
-    public static void initialize(JavaPlugin plugin, VaultManager manager, VaultStorage storage) {
-        new APIImpl(plugin, manager, storage);
-    }
-
-    public static ServerEssentialsAPI getInstance() {
-        if (instance == null) {
-            throw new IllegalStateException("ServerEssentials is not loaded!");
+    @Override
+    @NotNull
+    public CompletableFuture<Integer> getVaultCount(@NotNull UUID playerUUID) {
+        CompletableFuture<Boolean>[] futures = new CompletableFuture[MAX_VAULTS];
+        for (int i = 0; i < MAX_VAULTS; i++) {
+            futures[i] = hasVault(playerUUID, i + 1);
         }
-        return instance;
+
+        return CompletableFuture.allOf(futures).thenApply(v -> {
+            int count = 0;
+            for (CompletableFuture<Boolean> future : futures) {
+                try {
+                    if (future.get()) count++;
+                } catch (Exception e) {
+                    plugin.getLogger().log(Level.WARNING, "[API] Error counting vaults for " + playerUUID, e);
+                }
+            }
+            return count;
+        });
     }
 }

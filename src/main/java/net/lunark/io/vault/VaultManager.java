@@ -1,144 +1,134 @@
 package net.lunark.io.vault;
 
 import net.kyori.adventure.text.Component;
-import net.lunark.io.language.LanguageManager;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.lunark.io.ServerEssentials;
 import net.lunark.io.language.PlayerLanguageManager;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.metadata.FixedMetadataValue;
-import org.bukkit.plugin.java.JavaPlugin;
-import java.util.HashMap;
-import java.util.Map;
+
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
-public class VaultManager implements Listener {
-    private final JavaPlugin plugin;
+public class VaultManager {
+    private final ServerEssentials plugin;
     private final PlayerLanguageManager langManager;
     private final VaultStorage storage;
-    private final Map<UUID, VaultSession> editingVaults = new HashMap<>();
+    private static final int MAX_VAULTS = 10;
 
-    public VaultManager(JavaPlugin plugin, PlayerLanguageManager langManager, VaultStorage storage) {
+    public VaultManager(ServerEssentials plugin, PlayerLanguageManager langManager, VaultStorage storage) {
         this.plugin = plugin;
         this.langManager = langManager;
         this.storage = storage;
-        Bukkit.getPluginManager().registerEvents(this, plugin);
     }
 
     public void openVault(Player player, int number) {
         if (!isValidVaultNumber(number)) {
-            player.sendMessage(langManager.getMessageFor(player, "vault.invalid-number",
-                    "<red>Invalid vault number! Must be 1-10."));
+            player.sendMessage(getMessage(player, "vault.invalid",
+                    Component.text("Invalid vault number! Must be 1-10", NamedTextColor.RED)));
             return;
         }
 
-        String perm = "serveressentials.command.pv." + number;
-        if (!player.hasPermission(perm)) {
-            player.sendMessage(langManager.getMessageFor(player, "commands.no-permission",
-                    "<red>You need permission <yellow>{permission}</yellow>!",
-                    LanguageManager.ComponentPlaceholder.of("{permission}", perm)));
+        if (!hasVaultPermission(player, number)) {
+            Component msg = getMessage(player, "vault.no-permission",
+                    Component.text("You need permission: serveressentials.command.pv.", NamedTextColor.RED)
+                            .append(Component.text(number, NamedTextColor.YELLOW)));
+            player.sendMessage(msg);
             return;
         }
 
-        Component title = langManager.getMessageFor(player, "vault.title",
-                "<green>Vault <white>#{number}",
-                LanguageManager.ComponentPlaceholder.of("{number}", String.valueOf(number)));
+        Component title = getMessage(player, "vault.title",
+                Component.text("Vault #", NamedTextColor.GREEN)
+                        .append(Component.text(number, NamedTextColor.WHITE)));
+
         Inventory inv = Bukkit.createInventory(null, 54, title);
 
-        storage.loadVaultData(player.getUniqueId(), number).thenAccept(optData -> {
+        storage.load(player.getUniqueId(), number).thenAccept(optData -> {
             if (optData.isPresent()) {
-                storage.deserializeInventory(inv, optData.get());
+                storage.deserializeInto(optData.get(), inv);
             }
-        }).thenRun(() -> {
+
             Bukkit.getScheduler().runTask(plugin, () -> {
                 player.openInventory(inv);
-                player.setMetadata("vault_id", new FixedMetadataValue(plugin, number));
+                player.setMetadata("vault_id", new org.bukkit.metadata.FixedMetadataValue(plugin, number));
             });
         });
     }
 
-    public void openVaultAsAdmin(Player admin, UUID targetUUID, String targetName, int number, boolean previewOnly) {
-        if (!isValidVaultNumber(number)) {
-            admin.sendMessage(langManager.getMessageFor(admin, "vault.invalid-number",
-                    "<red>Invalid vault number! Must be 1-10."));
-            return;
+    public void openSelector(Player player) {
+        Component title = getMessage(player, "vault.selector.title",
+                Component.text("Select a Vault", NamedTextColor.YELLOW));
+
+        Inventory gui = Bukkit.createInventory(null, 45, title);
+
+        int[] slots = {10, 12, 14, 16, 19, 21, 23, 25, 28, 30};
+
+        for (int i = 0; i < MAX_VAULTS; i++) {
+            gui.setItem(slots[i], createVaultIcon(player, i + 1));
         }
 
-        Component title = langManager.getMessageFor(admin, previewOnly ? "vault.admin-preview" : "vault.admin-edit",
-                previewOnly ? "<yellow>Viewing <white>{player}'s <yellow>Vault #{number}" : "<red>Editing <white>{player}'s <red>Vault #{number}",
-                LanguageManager.ComponentPlaceholder.of("{player}", targetName),
-                LanguageManager.ComponentPlaceholder.of("{number}", String.valueOf(number)));
-        Inventory inv = Bukkit.createInventory(null, 54, title);
+        ItemStack close = new org.bukkit.inventory.ItemStack(org.bukkit.Material.BARRIER);
+        org.bukkit.inventory.meta.ItemMeta meta = close.getItemMeta();
+        meta.displayName(getMessage(player, "vault.selector.close",
+                Component.text("Close", NamedTextColor.RED)));
+        close.setItemMeta(meta);
+        gui.setItem(40, close);
 
-        storage.loadVaultData(targetUUID, number).thenAccept(optData -> {
-            if (optData.isPresent()) {
-                storage.deserializeInventory(inv, optData.get());
-            }
-        }).thenRun(() -> {
-            Bukkit.getScheduler().runTask(plugin, () -> {
-                admin.openInventory(inv);
-                if (!previewOnly) {
-                    editingVaults.put(admin.getUniqueId(), new VaultSession(targetUUID, number));
-                    admin.setMetadata("editing_vault", new FixedMetadataValue(plugin, true));
-                }
-            });
-        });
+        player.openInventory(gui);
     }
 
-    @EventHandler
-    public void onVaultClose(InventoryCloseEvent event) {
-        if (!(event.getPlayer() instanceof Player player)) return;
-        Inventory inv = event.getInventory();
+    private org.bukkit.inventory.ItemStack createVaultIcon(Player player, int number) {
+        boolean hasPerm = hasVaultPermission(player, number);
+        org.bukkit.Material mat = hasPerm ? org.bukkit.Material.BARREL : org.bukkit.Material.BARRIER;
 
+        org.bukkit.inventory.ItemStack item = new org.bukkit.inventory.ItemStack(mat);
+        org.bukkit.inventory.meta.ItemMeta meta = item.getItemMeta();
+
+        Component name = hasPerm
+                ? getMessage(player, "vault.selector.unlocked",
+                Component.text("Vault #", NamedTextColor.GREEN)
+                        .append(Component.text(number, NamedTextColor.WHITE)))
+                : getMessage(player, "vault.selector.locked",
+                Component.text("Vault #", NamedTextColor.RED)
+                        .append(Component.text(number, NamedTextColor.WHITE))
+                        .append(Component.text(" 🔒", NamedTextColor.RED)));
+
+        meta.displayName(name);
+
+        java.util.List<Component> lore = new java.util.ArrayList<>();
+        lore.add(getMessage(player, hasPerm ? "vault.selector.open" : "vault.selector.no-perm",
+                Component.text(hasPerm ? "Click to open" : "No permission", NamedTextColor.GRAY)));
+        meta.lore(lore);
+
+        item.setItemMeta(meta);
+        return item;
+    }
+
+    public void onVaultClose(Player player, Inventory inv) {
         if (player.hasMetadata("vault_id")) {
             int vaultId = player.getMetadata("vault_id").get(0).asInt();
             player.removeMetadata("vault_id", plugin);
 
-            storage.saveVault(player.getUniqueId(), vaultId, inv).thenRun(() -> {
-                player.sendMessage(langManager.getMessageFor(player, "vault.saved",
-                        "<green>Vault <yellow>{vault}</yellow> saved!",
-                        LanguageManager.ComponentPlaceholder.of("{vault}", String.valueOf(vaultId))));
+            storage.save(player.getUniqueId(), vaultId, inv).thenAccept(v -> {
+                player.sendMessage(getMessage(player, "vault.saved",
+                        Component.text("Vault ", NamedTextColor.GREEN)
+                                .append(Component.text(vaultId, NamedTextColor.YELLOW))
+                                .append(Component.text(" saved!", NamedTextColor.GREEN))));
             });
-        } else if (player.hasMetadata("editing_vault")) {
-            VaultSession session = editingVaults.remove(player.getUniqueId());
-            if (session != null) {
-                storage.saveVault(session.targetUUID, session.vaultNumber, inv).thenRun(() -> {
-                    String targetName = Bukkit.getOfflinePlayer(session.targetUUID).getName();
-                    player.sendMessage(langManager.getMessageFor(player, "vault.admin-saved",
-                            "<green>Saved vault <yellow>{vault}</yellow> for <yellow>{player}</yellow>!",
-                            LanguageManager.ComponentPlaceholder.of("{vault}", String.valueOf(session.vaultNumber)),
-                            LanguageManager.ComponentPlaceholder.of("{player}", targetName != null ? targetName : "Unknown")));
-                });
-            }
-            player.removeMetadata("editing_vault", plugin);
         }
-    }
-
-    public CompletableFuture<Void> clearVault(UUID uuid, int number) {
-        return storage.clearVault(uuid, number);
-    }
-
-    public CompletableFuture<Boolean> hasVault(UUID uuid, int number) {
-        return storage.hasVault(uuid, number);
     }
 
     private boolean isValidVaultNumber(int number) {
-        return number >= 1 && number <= 10;
+        return number >= 1 && number <= MAX_VAULTS;
     }
 
-    private static class VaultSession {
-        public final UUID targetUUID;
-        public final int vaultNumber;
+    private boolean hasVaultPermission(Player player, int number) {
+        return player.hasPermission("serveressentials.command.pv." + number);
+    }
 
-        public VaultSession(UUID targetUUID, int vaultNumber) {
-            this.targetUUID = targetUUID;
-            this.vaultNumber = vaultNumber;
-        }
+    private Component getMessage(Player player, String key, Component fallback) {
+        return langManager.getMessageFor(player, key, String.valueOf(fallback));
     }
 }

@@ -58,7 +58,7 @@ layout:
 items:
   redstone:
     material: REDSTONE
-    name: "<white>Redstone Dust"
+    name: "<red>Redstone Dust"
     lore:
       - "<gray>Buy: <green>5"
       - "<gray>Sell: <red>2"

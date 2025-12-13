@@ -2,9 +2,7 @@ package net.lunark.io.commands.impl;
 
 import net.lunark.io.commands.config.ShopConfig;
 import net.lunark.io.database.DatabaseManager;
-import net.lunark.io.economy.ServerEssentialsEconomy;
-import net.lunark.io.economy.ShopGUIManager;
-import net.lunark.io.economy.ShopStorage;
+import net.lunark.io.economy.*;
 import net.lunark.io.language.PlayerLanguageManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -12,6 +10,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
+import java.io.File;
 import java.util.concurrent.CompletableFuture;
 
 public final class ShopCommand implements CommandExecutor {
@@ -24,6 +23,7 @@ public final class ShopCommand implements CommandExecutor {
     private final ShopStorage storage;
     private final ShopConfig config;
     private final ShopGUIManager guiManager;
+    private final ShopDataManager dataManager;
 
     public ShopCommand(Plugin plugin, PlayerLanguageManager langManager,
                        DatabaseManager dbManager, ShopConfig config, ServerEssentialsEconomy economy) {
@@ -31,7 +31,8 @@ public final class ShopCommand implements CommandExecutor {
         this.langManager = langManager;
         this.storage = new ShopStorage(plugin, dbManager);
         this.config = config;
-        this.guiManager = new ShopGUIManager(plugin, langManager, storage, config, economy);
+        this.dataManager = new ShopDataManager(plugin, dbManager);
+        this.guiManager = new ShopGUIManager(plugin, langManager, storage, config, economy, dataManager);
     }
 
     @Override
@@ -51,35 +52,44 @@ public final class ShopCommand implements CommandExecutor {
             return true;
         }
 
-        if (args.length == 1 && args[0].equalsIgnoreCase("reload")) {
-            if (!player.hasPermission(PERMISSION_RELOAD)) {
-                player.sendMessage(langManager.getMessageFor(player,
-                        "commands." + COMMAND_NAME + ".no-permission-reload",
-                        "<red>You need permission <yellow>{permission}</yellow>!",
-                        net.lunark.io.language.LanguageManager.ComponentPlaceholder.of("{permission}", PERMISSION_RELOAD)));
-                return true;
-            }
-
-            reloadShop(player).thenAccept(success -> {
-                if (success) {
-                    player.sendMessage(langManager.getMessageFor(player, "economy.shop.reload-success",
-                            "<green>Shop configuration reloaded."));
-                } else {
-                    player.sendMessage(langManager.getMessageFor(player, "economy.shop.reload-error",
-                            "<red>Error reloading shop configuration."));
-                }
-            });
-        } else {
-            guiManager.openMainGUI(player);
+        if (args.length >= 1 && args[0].equalsIgnoreCase("reload")) {
+            // >>> CHANGED: /shop reload now forces reload from YAML <<<
+            return handleReload(player, true);
         }
 
+        guiManager.openMainGUI(player);
         return true;
     }
 
-    private CompletableFuture<Boolean> reloadShop(Player player) {
+    private boolean handleReload(Player player, boolean forceFromFiles) {
+        if (!player.hasPermission(PERMISSION_RELOAD)) {
+            player.sendMessage(langManager.getMessageFor(player,
+                    "commands." + COMMAND_NAME + ".no-permission-reload",
+                    "<red>You need permission <yellow>{permission}</yellow>!",
+                    net.lunark.io.language.LanguageManager.ComponentPlaceholder.of("{permission}", PERMISSION_RELOAD)));
+            return true;
+        }
+
+        reloadShop(player, forceFromFiles).thenAccept(success -> {
+            if (success) {
+                String message = forceFromFiles ?
+                        "<green>Shop reloaded from YML files and saved to database." :
+                        "<green>Shop reloaded from database.";
+                player.sendMessage(langManager.getMessageFor(player, "economy.shop.reload-success", message));
+            } else {
+                player.sendMessage(langManager.getMessageFor(player, "economy.shop.reload-error",
+                        "<red>Error reloading shop configuration."));
+            }
+        });
+        return true;
+    }
+
+    private CompletableFuture<Boolean> reloadShop(Player player, boolean forceFromFiles) {
         CompletableFuture<Boolean> future = new CompletableFuture<>();
         plugin.getServer().getScheduler().runTask(plugin, () -> {
             try {
+                // >>> CHANGED: Now passes forceFromFiles flag <<<
+                guiManager.reloadConfigs(forceFromFiles);
                 guiManager.refreshOpenInventories();
                 future.complete(true);
             } catch (Exception e) {
