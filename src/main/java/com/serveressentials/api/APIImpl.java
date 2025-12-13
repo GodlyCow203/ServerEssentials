@@ -5,13 +5,12 @@ import net.lunark.io.vault.VaultStorage;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.plugin.ServicesManager;
 import org.bukkit.plugin.java.JavaPlugin;
+
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 public class APIImpl implements ServerEssentialsAPI, VaultAPI {
-    private static ServerEssentialsAPI instance;
     private final VaultManager vaultManager;
     private final VaultStorage vaultStorage;
     private final JavaPlugin plugin;
@@ -20,28 +19,9 @@ public class APIImpl implements ServerEssentialsAPI, VaultAPI {
         this.plugin = plugin;
         this.vaultManager = vaultManager;
         this.vaultStorage = vaultStorage;
-        instance = this;
-    }
 
-    final class Holder {
-        static ServerEssentialsAPI INSTANCE = null;
-    }
-
-    static void provide(ServerEssentialsAPI impl) {
-        Holder.INSTANCE = impl;
-    }
-
-    static ServerEssentialsAPI getInstance() {
-        if (Holder.INSTANCE == null) {
-            ServicesManager sm = org.bukkit.Bukkit.getServicesManager();
-            ServerEssentialsAPI api = sm.load(ServerEssentialsAPI.class);
-            if (api != null) {
-                Holder.INSTANCE = api;
-                return api;
-            }
-            throw new IllegalStateException("ServerEssentials is not loaded!");
-        }
-        return Holder.INSTANCE;
+        // Register this instance
+        ServerEssentialsAPI.provide(this);
     }
 
     @Override
@@ -121,7 +101,4 @@ public class APIImpl implements ServerEssentialsAPI, VaultAPI {
     public static void initialize(JavaPlugin plugin, VaultManager manager, VaultStorage storage) {
         new APIImpl(plugin, manager, storage);
     }
-
-
-
 }
