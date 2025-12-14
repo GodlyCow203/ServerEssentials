@@ -28,6 +28,7 @@ public class ShopGUIManager {
     private final ShopConfig config;
     private final ServerEssentialsEconomy economy;
     private final ShopDataManager dataManager;
+    private final boolean economyEnabled;
 
     private final Map<String, ShopSectionConfig> sectionCache = new ConcurrentHashMap<>();
     private MainShopConfig mainConfigCache;
@@ -47,8 +48,13 @@ public class ShopGUIManager {
         this.config = config;
         this.economy = economy;
         this.dataManager = dataManager;
+        this.economyEnabled = economy != null;
 
         loadAllConfigs(false);
+
+        if (!economyEnabled) {
+            plugin.getLogger().warning("§eShopGUIManager initialized without economy! Buy/sell features disabled.");
+        }
     }
 
     private void loadAllConfigs() {
@@ -260,6 +266,23 @@ public class ShopGUIManager {
                 .filter(item -> item.page == page)
                 .forEach(item -> {
                     ItemStack stack = createItem(item.material, item.name, item.lore, item.amount);
+                    // Add economy indicator lore if economy is enabled
+                    if (economyEnabled) {
+                        List<String> itemLore = new ArrayList<>(item.lore != null ? item.lore : new ArrayList<>());
+                        if (item.buyPrice > 0) {
+                            itemLore.add("<green>L-Click: Buy for " + config.currencySymbol + String.format("%.2f", item.buyPrice));
+                        }
+                        if (item.sellPrice > 0 && config.enableSell) {
+                            itemLore.add("<yellow>R-Click: Sell for " + config.currencySymbol + String.format("%.2f", item.sellPrice));
+                        }
+                        stack = createItem(item.material, item.name, itemLore, item.amount);
+                    } else {
+                        // Show disabled message
+                        List<String> disabledLore = new ArrayList<>();
+                        disabledLore.add("<red>§c✗ Economy not available");
+                        disabledLore.add("<gray>Shop is view-only");
+                        stack = createItem(item.material, item.name, disabledLore, item.amount);
+                    }
                     inv.setItem(item.slot, stack);
                 });
 
@@ -347,6 +370,12 @@ public class ShopGUIManager {
             return;
         }
 
+        if (!economyEnabled) {
+            player.sendMessage(langManager.getMessageFor(player, "economy.shop.no-economy",
+                    "<red>§c✗ Economy system is not available. Shop is view-only."));
+            return;
+        }
+
         for (ShopSectionConfig.ShopItem item : section.items.values()) {
             if (item.page == page && item.slot == slot && item.clickable) {
                 boolean isLeftClick = clickType.equals("LEFT");
@@ -363,13 +392,19 @@ public class ShopGUIManager {
     }
 
     private void handleBuy(Player player, ShopSectionConfig.ShopItem item) {
+        if (economy == null) {
+            player.sendMessage(langManager.getMessageFor(player, "economy.shop.no-economy",
+                    "<red>§c✗ Economy system is not available."));
+            return;
+        }
+
         double balance = economy.getBalance(player);
         if (balance >= item.buyPrice) {
             economy.withdrawPlayer(player, item.buyPrice);
             player.getInventory().addItem(new ItemStack(item.material, item.amount));
 
             player.sendMessage(langManager.getMessageFor(player, "economy.shop.buy-success",
-                    "<green>You bought {amount}x {item} for {symbol}{price}",
+                    "<green>✓ You bought {amount}x {item} for {symbol}{price}",
                     net.lunark.io.language.LanguageManager.ComponentPlaceholder.of("{amount}", item.amount),
                     net.lunark.io.language.LanguageManager.ComponentPlaceholder.of("{item}", item.name),
                     net.lunark.io.language.LanguageManager.ComponentPlaceholder.of("{price}", String.format("%.2f", item.buyPrice)),
@@ -378,7 +413,7 @@ public class ShopGUIManager {
             refreshGUI(player);
         } else {
             player.sendMessage(langManager.getMessageFor(player, "economy.shop.cannot-afford",
-                    "<red>You cannot afford {item} (cost: {symbol}{price})",
+                    "<red>§c✗ You cannot afford {item} (cost: {symbol}{price})",
                     net.lunark.io.language.LanguageManager.ComponentPlaceholder.of("{item}", item.name),
                     net.lunark.io.language.LanguageManager.ComponentPlaceholder.of("{price}", String.format("%.2f", item.buyPrice)),
                     net.lunark.io.language.LanguageManager.ComponentPlaceholder.of("{symbol}", config.currencySymbol)));
@@ -386,9 +421,15 @@ public class ShopGUIManager {
     }
 
     private void handleSell(Player player, ShopSectionConfig.ShopItem item) {
+        if (economy == null) {
+            player.sendMessage(langManager.getMessageFor(player, "economy.shop.no-economy",
+                    "<red>§c✗ Economy system is not available."));
+            return;
+        }
+
         if (!player.getInventory().containsAtLeast(new ItemStack(item.material), item.amount)) {
             player.sendMessage(langManager.getMessageFor(player, "economy.shop.no-items",
-                    "<red>You don't have enough {item} to sell",
+                    "<red>§c✗ You don't have enough {item} to sell",
                     net.lunark.io.language.LanguageManager.ComponentPlaceholder.of("{item}", item.name)));
             return;
         }
@@ -397,7 +438,7 @@ public class ShopGUIManager {
         economy.depositPlayer(player, item.sellPrice);
 
         player.sendMessage(langManager.getMessageFor(player, "economy.shop.sell-success",
-                "<green>You sold {amount}x {item} for {symbol}{price}",
+                "<green>✓ You sold {amount}x {item} for {symbol}{price}",
                 net.lunark.io.language.LanguageManager.ComponentPlaceholder.of("{amount}", item.amount),
                 net.lunark.io.language.LanguageManager.ComponentPlaceholder.of("{item}", item.name),
                 net.lunark.io.language.LanguageManager.ComponentPlaceholder.of("{price}", String.format("%.2f", item.sellPrice)),
@@ -491,10 +532,21 @@ public class ShopGUIManager {
         SkullMeta meta = (SkullMeta) skull.getItemMeta();
         if (meta != null) {
             meta.setOwningPlayer(player);
+
+            String balanceText = economyEnabled ?
+                    String.format("%.2f", economy.getBalance(player)) :
+                    "N/A";
+
             meta.displayName(langManager.getMessageFor(player, "economy.shop.balance-display",
                     "<green>Your Balance: <gold>{balance}",
-                    net.lunark.io.language.LanguageManager.ComponentPlaceholder.of("{balance}",
-                            String.format("%.2f", economy.getBalance(player)))));
+                    net.lunark.io.language.LanguageManager.ComponentPlaceholder.of("{balance}", balanceText)));
+
+            if (!economyEnabled) {
+                List<Component> lore = new ArrayList<>();
+                lore.add(mini.deserialize("<red>§c✗ Economy disabled"));
+                meta.lore(lore);
+            }
+
             skull.setItemMeta(meta);
         }
         return skull;

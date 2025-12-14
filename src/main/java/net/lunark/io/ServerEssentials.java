@@ -19,6 +19,7 @@ import net.lunark.io.database.*;
 import net.lunark.io.economy.*;
 
 import net.lunark.io.homes.*;
+import net.lunark.io.hooks.HooksManager;
 import net.lunark.io.kit.*;
 import net.lunark.io.kit.storage.*;
 import net.lunark.io.commands.impl.*;
@@ -398,6 +399,8 @@ public class ServerEssentials extends JavaPlugin implements Listener {
     private Vault vault;
     private VaultSelectorListener vaultSelectorListener;
     private static final String LOG_PREFIX = "[ServerEssentials] ";
+    private HooksManager hooksManager;
+
 
 
 
@@ -441,6 +444,15 @@ public class ServerEssentials extends JavaPlugin implements Listener {
                 payToggleCommand = new PayToggleCommand(playerLanguageManager, payToggleConfig, economyProvider);
                 getCommand("paytoggle").setExecutor(payToggleCommand);
             }
+        }
+
+        hooksManager = HooksManager.getInstance(this);
+        hooksManager.initializeHooks();
+
+        if (hooksManager.isVaultActive() && hooksManager.getVault().hasEconomy()) {
+        }
+
+        if (hooksManager.isLuckPermsActive()) {
         }
 
         PlayerLanguageStorage langStorage = new PlayerLanguageStorage.YamlStorage(this);
@@ -624,7 +636,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         coinFlipCommand = new CoinFlipCommand(playerLanguageManager, coinFlipConfig, (ServerEssentialsEconomy) economy);
 
         shopConfig = new ShopConfig(this);
-        shopCommand = new ShopCommand(this, playerLanguageManager, databaseManager, shopConfig, (ServerEssentialsEconomy) economy);
+        shopCommand = new ShopCommand(this, playerLanguageManager, databaseManager, shopConfig, (ServerEssentialsEconomy) economy, hooksManager);
 
         this.powerToolConfig = new PowerToolConfig(this);
         this.powerToolCommand = new PowerToolCommand(playerLanguageManager, powerToolConfig, commandDataStorage, this);
@@ -1151,7 +1163,9 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         if (this.adventure != null) {
             this.adventure.close();
         }
-
+        if (hooksManager != null) {
+            hooksManager.cleanupHooks();
+        }
 
 
 
@@ -1221,7 +1235,9 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         placeholdersConfig = YamlConfiguration.loadConfiguration(placeholdersFile);
     }
 
-
+    public HooksManager getHooksManager() {
+        return hooksManager;
+    }
 
 
     public static Economy getEconomy() {

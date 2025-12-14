@@ -3,6 +3,7 @@ package net.lunark.io.commands.impl;
 import net.lunark.io.commands.config.ShopConfig;
 import net.lunark.io.database.DatabaseManager;
 import net.lunark.io.economy.*;
+import net.lunark.io.hooks.HooksManager;
 import net.lunark.io.language.PlayerLanguageManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -24,15 +25,25 @@ public final class ShopCommand implements CommandExecutor {
     private final ShopConfig config;
     private final ShopGUIManager guiManager;
     private final ShopDataManager dataManager;
+    private final ServerEssentialsEconomy economy;
 
     public ShopCommand(Plugin plugin, PlayerLanguageManager langManager,
-                       DatabaseManager dbManager, ShopConfig config, ServerEssentialsEconomy economy) {
+                       DatabaseManager dbManager, ShopConfig config,
+                       ServerEssentialsEconomy economy, HooksManager hooksManager) {
         this.plugin = plugin;
         this.langManager = langManager;
         this.storage = new ShopStorage(plugin, dbManager);
         this.config = config;
         this.dataManager = new ShopDataManager(plugin, dbManager);
-        this.guiManager = new ShopGUIManager(plugin, langManager, storage, config, economy, dataManager);
+
+        if (hooksManager != null && hooksManager.isVaultActive()) {
+            this.economy = economy;
+            this.guiManager = new ShopGUIManager(plugin, langManager, storage, config, economy, dataManager);
+        } else {
+            this.economy = null;
+            plugin.getLogger().warning("§eVault economy not available! Shop will be view-only.");
+            this.guiManager = new ShopGUIManager(plugin, langManager, storage, config, null, dataManager);
+        }
     }
 
     @Override
@@ -52,8 +63,13 @@ public final class ShopCommand implements CommandExecutor {
             return true;
         }
 
+        if (economy == null) {
+            player.sendMessage(langManager.getMessageFor(player, "economy.shop.no-economy",
+                    "<red>§c✗ Economy system is not available. Shop is view-only."));
+            return true;
+        }
+
         if (args.length >= 1 && args[0].equalsIgnoreCase("reload")) {
-            // >>> CHANGED: /shop reload now forces reload from YAML <<<
             return handleReload(player, true);
         }
 
@@ -70,15 +86,21 @@ public final class ShopCommand implements CommandExecutor {
             return true;
         }
 
+        if (economy == null) {
+            player.sendMessage(langManager.getMessageFor(player, "economy.shop.reload-error",
+                    "<red>§c✗ Cannot reload: Economy system is not available!"));
+            return true;
+        }
+
         reloadShop(player, forceFromFiles).thenAccept(success -> {
             if (success) {
                 String message = forceFromFiles ?
-                        "<green>Shop reloaded from YML files and saved to database." :
-                        "<green>Shop reloaded from database.";
+                        "<green>✓ Shop reloaded from YML files and saved to database." :
+                        "<green>✓ Shop reloaded from database.";
                 player.sendMessage(langManager.getMessageFor(player, "economy.shop.reload-success", message));
             } else {
                 player.sendMessage(langManager.getMessageFor(player, "economy.shop.reload-error",
-                        "<red>Error reloading shop configuration."));
+                        "<red>§c✗ Error reloading shop configuration."));
             }
         });
         return true;
@@ -88,7 +110,6 @@ public final class ShopCommand implements CommandExecutor {
         CompletableFuture<Boolean> future = new CompletableFuture<>();
         plugin.getServer().getScheduler().runTask(plugin, () -> {
             try {
-                // >>> CHANGED: Now passes forceFromFiles flag <<<
                 guiManager.reloadConfigs(forceFromFiles);
                 guiManager.refreshOpenInventories();
                 future.complete(true);

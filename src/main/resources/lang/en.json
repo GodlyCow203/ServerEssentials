@@ -95,13 +95,25 @@
       "broadcast": "<white>{message}"
     },
     "spawner": {
-      "only-player": "<#B22222>❌ Only players can use this command!",
+      "only-player": "<#B22222>❌ Only players can use this command.",
       "no-permission": "<#B22222>❌ You don't have permission to use this command!",
-      "no-permission-mob": "<#B22222>❌ You don't have permission to set a spawner to {mob}!",
+      "usage": "<#FFD900>Usage: <white>/spawner <mob>",
       "look-at-spawner": "<#B22222>❌ Look at a spawner to change it!",
-      "usage": "<#FFD900>Usage: /spawner <mob>",
+      "no-permission-mob": "<#B22222>❌ You don't have permission to set a spawner to {mob}!",
+      "changed": "<#50DB00>✔ Spawner type changed to {mob}",
       "invalid-mob": "<#B22222>❌ Invalid mob type: {mob}",
-      "changed": "<#3BB302>✔ Spawner type changed to {mob}"
+      "help": {
+        "header": "<#FFD900><bold>=== Spawner Command Help ===</bold></#FFD900>",
+        "description": "<#FFD900>Description: <white>Change the type of a creature spawner.</white>",
+        "usage": "<#FFD900>Usage:</#FFD900> <white>/spawner <mob></white>",
+        "permission": "<#FFD900>Required Permission:</#FFD900> <white>{permission}</white>",
+        "available": {
+          "header": "<#FFD900>Available Mob Types:</#FFD900>",
+          "mob": "  <white>• {mob}</white>",
+          "more": "  <gray>... and {count} more</gray>"
+        },
+        "footer": "<gray>Use <white>/spawner help</white> to see this message again.</gray>"
+      }
     },
     "serverinfo": {
       "only-player": "<#B22222>❌ Only players can use this command!",
@@ -211,11 +223,19 @@
       "disabled": "<#B22222>❌ God mode disabled."
     },
     "invsee": {
-      "only-player": "<#B22222>❌ Only players can use this command!",
+      "only-player": "<#B22222>❌ Only players can use this command.",
       "no-permission": "<#B22222>❌ You need permission <#FFD900>{permission}</#FFD900>!",
-      "usage": "<#B22222>❌ Usage: /invsee <player>",
-      "player-not-found": "<#B22222>❌ Player not found: <#FFD900>{player}</#FFD900>",
-      "success": "<#3BB302>✔ Viewing <white>{player}</white>'s inventory."
+      "usage": "<#FFD900>Usage: <white>/invsee <player>",
+      "player-not-found": "<#B22222>❌ Player not found: <white>{player}</white>",
+      "success": "<#50DB00>✔ Viewing <white>{player}</white>'s inventory.",
+      "help": {
+        "header": "<#FFD900><bold>=== Invsee Command Help ===</bold></#FFD900>",
+        "description": "<#FFD900>Description: <white>View another player's inventory.</white>",
+        "usage": "<#FFD900>Usage:</#FFD900> <white>/invsee <player></white>",
+        "permission": "<#FFD900>Required Permission:</#FFD900> <white>{permission}</white>",
+
+        "footer": "<gray>Use <white>/invsee help</white> to see this message again.</gray>"
+      }
     },
     "invclear": {
       "only-player": "<#B22222>❌ Only players can use this command!",
@@ -695,7 +715,31 @@
       "clear": "<#3BB302>✔ Weather set to clear for <white>{duration} <#3BB302>✔ seconds.",
       "rain": "<#1E90FF>Weather set to rain for <white>{duration} <#1E90FF>seconds.",
       "thunderstorm": "<#FFD900>Weather set to thunderstorm for <white>{duration} <#FFD900>seconds.",
-      "invalid-type": "<#B22222>❌ Invalid weather type. Use: clear, rain, or thunderstorm."
+      "invalid-type": "<#B22222>❌ Invalid weather type. Use: clear, rain, or thunderstorm.",
+      "help": {
+        "header": "<#FFD900><bold>=== Weather Command Help ===</bold></#FFD900>",
+        "description": "<#FFD900>Description: <white>Change the weather in your current world for a set duration.</white>",
+        "usage": "<#FFD900>Usage:</#FFD900> <white>/weather <type></white>",
+
+        "types": {
+          "header": "<#FFD900>Available Weather Types:</#FFD900>",
+          "clear": "  <white>clear</white> <gray>-</gray> <white>Set weather to sunny</white>",
+          "clear.no-perm": "  <#B22222>clear</#B22222> <gray>-</gray> <white>No permission</white>",
+          "rain": "  <white>rain</white> <gray>-</gray> <white>Set weather to rain</white>",
+          "rain.no-perm": "  <#B22222>rain</#B22222> <gray>-</gray> <white>No permission</white>",
+          "thunderstorm": "  <white>thunderstorm</white> <gray>-</gray> <white>Set weather to thunderstorm</white>",
+          "thunderstorm.no-perm": "  <#B22222>thunderstorm</#B22222> <gray>-</gray> <white>No permission</white>"
+        },
+        "duration": "<#FFD900>Duration:</#FFD900> <white>{duration} seconds</white>",
+        "examples": {
+          "header": "<#FFD900>Examples:</#FFD900>",
+          "clear": "  <white>/weather clear</white> <gray>- Set weather to sunny</gray>",
+          "rain": "  <white>/weather rain</white> <gray>- Set weather to rain</gray>",
+          "thunderstorm": "  <white>/weather thunderstorm</white> <gray>- Set weather to thunderstorm</gray>"
+        },
+
+        "footer": "<gray>Use <white>/weather help</white> to see this message again.</gray>"
+      }
     },
     "playtime": {
       "only-player": "<#B22222>❌ Only players can use this command.",

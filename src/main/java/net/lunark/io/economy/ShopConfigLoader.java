@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class ShopConfigLoader {
 
-s    private static final com.google.gson.Gson gson = new com.google.gson.Gson();
+    private static final com.google.gson.Gson gson = new com.google.gson.Gson();
 
     public static MainShopConfig loadMainConfig(File file, ShopDataManager dataManager) {
         MainShopConfig dbConfig = dataManager.loadMainConfig().join();

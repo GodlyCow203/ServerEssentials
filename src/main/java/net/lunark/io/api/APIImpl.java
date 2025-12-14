@@ -77,6 +77,7 @@ public final class APIImpl implements ServerEssentialsAPI, VaultAPI {
         return this;
     }
 
+    // ==================== VaultAPI Implementation ====================
 
     @Override
     public boolean openVault(@NotNull Player player, int vaultNumber) {

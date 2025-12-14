@@ -14,10 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.logging.Level;
 
-/**
- * Thread-safe, stable implementation of the ServerEssentials API.
- * Uses locks and concurrent collections to prevent race conditions.
- */
+
 public final class APIImpl implements ServerEssentialsAPI, VaultAPI {
     private static final ReentrantLock INSTANCE_LOCK = new ReentrantLock();
     private static volatile APIImpl instance;
@@ -26,7 +23,6 @@ public final class APIImpl implements ServerEssentialsAPI, VaultAPI {
     private final VaultManager vaultManager;
     private final VaultStorage vaultStorage;
 
-    // Active operation tracking for thread safety
     private final ConcurrentHashMap<String, ReentrantLock> playerVaultLocks = new ConcurrentHashMap<>();
 
     public APIImpl(@NotNull JavaPlugin plugin,
@@ -36,7 +32,6 @@ public final class APIImpl implements ServerEssentialsAPI, VaultAPI {
         this.vaultManager = vaultManager;
         this.vaultStorage = vaultStorage;
 
-        // Singleton initialization with double-check locking
         INSTANCE_LOCK.lock();
         try {
             if (instance != null) {
@@ -50,9 +45,7 @@ public final class APIImpl implements ServerEssentialsAPI, VaultAPI {
         plugin.getLogger().info("[API] ServerEssentialsAPI v" + ServerEssentialsAPI.API_VERSION + " initialized");
     }
 
-    /**
-     * Gets the instance with null-check (no exception thrown)
-     */
+
     @Nullable
     public static APIImpl getInstance() {
         return instance;
@@ -70,7 +63,6 @@ public final class APIImpl implements ServerEssentialsAPI, VaultAPI {
         return this;
     }
 
-    // === VaultAPI Implementation ===
 
     @Override
     public boolean openVault(@NotNull Player player, int vaultNumber) {
