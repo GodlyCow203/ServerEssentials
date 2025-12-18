@@ -1,15 +1,15 @@
 package net.lunark.io.commands.impl;
 
 import net.lunark.io.commands.config.PayToggleConfig;
-import net.lunark.io.economy.ServerEssentialsEconomy;
+import net.lunark.io.economy.EconomyManager;
 import net.lunark.io.language.PlayerLanguageManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import net.milkbowl.vault.economy.Economy;
 
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 import static net.lunark.io.language.LanguageManager.ComponentPlaceholder;
 
@@ -19,17 +19,12 @@ public final class PayToggleCommand implements CommandExecutor {
 
     private final PlayerLanguageManager langManager;
     private final PayToggleConfig config;
-    private final ServerEssentialsEconomy economy;
+    private final EconomyManager economyManager;
 
-    public PayToggleCommand(PlayerLanguageManager langManager, PayToggleConfig config, Economy economy) {
+    public PayToggleCommand(PlayerLanguageManager langManager, PayToggleConfig config, EconomyManager economyManager) {
         this.langManager = langManager;
         this.config = config;
-
-        if (economy instanceof ServerEssentialsEconomy) {
-            this.economy = (ServerEssentialsEconomy) economy;
-        } else {
-            throw new IllegalArgumentException("Economy must be ServerEssentialsEconomy implementation");
-        }
+        this.economyManager = economyManager;
     }
 
     @Override
@@ -52,9 +47,9 @@ public final class PayToggleCommand implements CommandExecutor {
         UUID playerId = player.getUniqueId();
         String playerName = player.getName();
 
-        economy.hasPaymentsDisabled(playerId).thenCompose(disabled -> {
+        economyManager.hasPaymentsDisabled(playerId.toString()).thenCompose(disabled -> {
             boolean newState = !disabled;
-            return economy.setPaymentsDisabled(playerId, playerName, newState)
+            return economyManager.setPaymentsDisabled(playerId.toString(), playerName, newState)
                     .thenRun(() -> {
                         String messageKey = newState ? "commands.paytoggle.disabled" : "commands.paytoggle.enabled";
                         player.sendMessage(langManager.getMessageFor(player,

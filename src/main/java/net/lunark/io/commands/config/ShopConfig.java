@@ -15,11 +15,13 @@ public final class ShopConfig {
     public final int maxPages;
     public final String currencySymbol;
     public final boolean enableSell;
+    public final boolean enabled; // NEW: Master toggle for shop system
 
     public ShopConfig(Plugin plugin) {
         this.plugin = plugin;
         FileConfiguration config = plugin.getConfig();
 
+        this.enabled = config.getBoolean("shop.enabled", true); // NEW: Master toggle
         this.mainTitle = config.getString("shop.main.title", "<green>Main Shop");
         this.mainSize = config.getInt("shop.main.size", 54);
         this.closeButtonSlot = config.getInt("shop.main.close-button-slot", 49);

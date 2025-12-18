@@ -1,8 +1,11 @@
 name: ServerEssentials
 main: net.lunark.io.ServerEssentials
-version: 2.0.7.3
+version: 2.0.7.7
 api-version: 1.20
-depend: [PlaceholderAPI, LuckPerms, Vault]
+softdepend:
+  - Vault
+  - Luckperms
+  - PlaceholderAPI
 
 
 commands:
@@ -1096,41 +1099,6 @@ permissions:
   serveressentials.command.ext.others:
     default: op
 
-  serveressentials.command.pv.1:
-    description: Access to vault 1
-    default: op
-
-  serveressentials.command.pv.2:
-    description: Access to vault 2
-    default: op
-  serveressentials.command.pv.3:
-    description: Access to vault 1
-    default: op
-
-  serveressentials.command.pv.4:
-    description: Access to vault 2
-    default: op
-  serveressentials.command.pv.5:
-    description: Access to vault 1
-    default: op
-
-  serveressentials.command.pv.6:
-    description: Access to vault 2
-    default: op
-  serveressentials.command.pv.7:
-    description: Access to vault 1
-    default: op
-
-  serveressentials.command.pv.8:
-    description: Access to vault 2
-    default: op
-  serveressentials.command.pv.9:
-    description: Access to vault 1
-    default: op
-
-  serveressentials.command.pv.10:
-    description: Access to vault 2
-    default: op
   serveressentials.command.warp:
     description: Allows teleporting to warps
     default: op
@@ -1170,13 +1138,20 @@ permissions:
     default: op
   serveressentials.command.mail.clear:
     description: e
-    default: e
+    default: op
   serveressentials.command.mail.send:
     description: e
     default: op
   serveressentials.command.kits.reload:
     description:  reload kits
     default: op
+  serveressentials.command.chatfilter.bypass:
+    description: bypass the chat filter
+    default: op
+  serveressentials.command.chatfilter.see-bad-words:
+    description: e
+    default: op
+
 
 
 

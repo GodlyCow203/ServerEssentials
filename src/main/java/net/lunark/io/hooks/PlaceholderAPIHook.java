@@ -1,3 +1,12 @@
+/*
+ * Decompiled with CFR 0.153-SNAPSHOT (d6f6758-dirty).
+ * 
+ * Could not load the following classes:
+ *  me.clip.placeholderapi.PlaceholderAPI
+ *  org.bukkit.Bukkit
+ *  org.bukkit.entity.Player
+ *  org.bukkit.plugin.Plugin
+ */
 package net.lunark.io.hooks;
 
 import me.clip.placeholderapi.PlaceholderAPI;
@@ -10,7 +19,8 @@ public class PlaceholderAPIHook {
     private boolean available = false;
     private Plugin placeholderAPIPlugin = null;
 
-    private PlaceholderAPIHook() {}
+    private PlaceholderAPIHook() {
+    }
 
     public static PlaceholderAPIHook getInstance() {
         if (instance == null) {
@@ -22,31 +32,32 @@ public class PlaceholderAPIHook {
     public boolean init() {
         Plugin papi = Bukkit.getPluginManager().getPlugin("PlaceholderAPI");
         if (papi == null || !papi.isEnabled()) {
+            this.cleanup();
             return false;
         }
-
-        placeholderAPIPlugin = papi;
-        available = true;
+        this.placeholderAPIPlugin = papi;
+        this.available = true;
         return true;
     }
 
     public boolean isAvailable() {
-        return available;
+        return this.available;
     }
 
     public String setPlaceholders(Player player, String text) {
-        if (!available || text == null) {
+        if (!this.available || text == null) {
             return text;
         }
-        return PlaceholderAPI.setPlaceholders(player, text);
-    }
-
-    public boolean setPlaceholdersAvailable() {
-        return available;
+        try {
+            return PlaceholderAPI.setPlaceholders((Player)player, (String)text);
+        } catch (Exception e) {
+            return text;
+        }
     }
 
     public void cleanup() {
-        placeholderAPIPlugin = null;
-        available = false;
+        this.placeholderAPIPlugin = null;
+        this.available = false;
     }
 }
+

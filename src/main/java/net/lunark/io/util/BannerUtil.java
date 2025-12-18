@@ -9,7 +9,15 @@ public class BannerUtil {
         String cores = String.valueOf(Runtime.getRuntime().availableProcessors());
         String threads = String.valueOf(Thread.activeCount());
 
-        // ASCII lines
+        String[] infoLines = new String[]{
+                AnsiColorUtil.primary("Server Software: ") + AnsiColorUtil.secondary(serverSoftware),
+                AnsiColorUtil.primary("Startup Time:   ") + AnsiColorUtil.secondary(startupTimeMillis + " ms"),
+                AnsiColorUtil.primary("CPU Cores:      ") + AnsiColorUtil.secondary(cores),
+                AnsiColorUtil.primary("Threads:        ") + AnsiColorUtil.secondary(threads),
+                "",
+                AnsiColorUtil.success("✓ ServerEssentials successfully enabled!")
+        };
+
         String[] asciiLogo = new String[]{
                 "             ",
                 "  ┏━━━┳━━━┓  ",
@@ -20,26 +28,20 @@ public class BannerUtil {
                 "  ┗━━━┻━━━┛  "
         };
 
-        // Info lines (aligned to appear on the right side of ASCII logo)
-        String[] infoLines = new String[]{
-                "§7Server Software: §f" + serverSoftware,
-                "§7Startup Time:   §f" + startupTimeMillis + " ms",
-                "§7CPU Cores:      §f" + cores,
-                "§7Threads:        §f" + threads,
-                "§aServerEssentials successfully enabled!"
-        };
+        System.out.println();
 
-        Bukkit.getConsoleSender().sendMessage(" ");
-
-        // Print ASCII with appended info
         for (int i = 0; i < asciiLogo.length; i++) {
-            String line = "§7" + asciiLogo[i];
+            StringBuilder line = new StringBuilder(AnsiColorUtil.colorize(AnsiColorUtil.GRAY, asciiLogo[i]));
+
             if (i > 0 && i - 1 < infoLines.length) {
-                line += " " + infoLines[i - 1]; // append info next to ASCII
+                line.append("   ").append(infoLines[i - 1]);
             }
-            Bukkit.getConsoleSender().sendMessage(line);
+
+            System.out.println(line);
         }
 
-        Bukkit.getConsoleSender().sendMessage(" ");
+        System.out.println();
+
+
     }
 }

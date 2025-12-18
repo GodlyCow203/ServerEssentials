@@ -14,15 +14,41 @@ public class ShopConfigLoader {
     private static final com.google.gson.Gson gson = new com.google.gson.Gson();
 
     public static MainShopConfig loadMainConfig(File file, ShopDataManager dataManager) {
+        // Check DB first - it should be the source of truth
         MainShopConfig dbConfig = dataManager.loadMainConfig().join();
-        if (dbConfig != null) {
+        if (dbConfig != null && isValidMainConfig(dbConfig)) {
             return dbConfig;
         }
 
+        // Only load from file if DB is empty/invalid
         if (!file.exists()) {
+            System.err.println("No main.yml found. Using defaults.");
             return new MainShopConfig();
         }
 
+        System.out.println("Loading main config from file (DB empty)");
+        return loadMainConfigFromFileInternal(file);
+    }
+
+    public static ShopSectionConfig loadSectionConfig(File file, String sectionName, ShopDataManager dataManager) {
+        // Check DB first
+        ShopSectionConfig dbConfig = dataManager.loadSectionConfig(sectionName).join();
+        if (dbConfig != null && isValidSectionConfig(dbConfig)) {
+            return dbConfig;
+        }
+
+        // Load from file if DB empty
+        if (!file.exists()) {
+            System.err.println("Section file not found: " + file.getName());
+            return new ShopSectionConfig();
+        }
+
+        System.out.println("Loading section '" + sectionName + "' from file (DB empty)");
+        return loadSectionConfigFromFileInternal(file);
+    }
+
+    // Internal file loading methods - DO NOT SAVE TO DB
+    private static MainShopConfig loadMainConfigFromFileInternal(File file) {
         YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
         MainShopConfig main = new MainShopConfig();
 
@@ -52,21 +78,10 @@ public class ShopConfigLoader {
             }
         }
 
-        dataManager.saveMainConfig(main);
-
         return main;
     }
 
-    public static ShopSectionConfig loadSectionConfig(File file, String sectionName, ShopDataManager dataManager) {
-        ShopSectionConfig dbConfig = dataManager.loadSectionConfig(sectionName).join();
-        if (dbConfig != null) {
-            return dbConfig;
-        }
-
-        if (!file.exists()) {
-            return new ShopSectionConfig();
-        }
-
+    private static ShopSectionConfig loadSectionConfigFromFileInternal(File file) {
         YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
         ShopSectionConfig section = new ShopSectionConfig();
 
@@ -110,9 +125,16 @@ public class ShopConfigLoader {
             }
         }
 
-        dataManager.saveSectionConfig(sectionName, section);
-
         return section;
+    }
+
+    // Validation helpers
+    private static boolean isValidMainConfig(MainShopConfig config) {
+        return config != null && config.size > 0 && config.layout != null && config.sectionButtons != null;
+    }
+
+    private static boolean isValidSectionConfig(ShopSectionConfig config) {
+        return config != null && config.size > 0 && config.layout != null && config.items != null;
     }
 
     public static void saveMainConfig(File file, MainShopConfig main) {
@@ -139,6 +161,7 @@ public class ShopConfigLoader {
         try {
             config.save(file);
         } catch (Exception e) {
+            System.err.println("Failed to save main config: " + e.getMessage());
         }
     }
 
@@ -176,6 +199,7 @@ public class ShopConfigLoader {
         try {
             config.save(file);
         } catch (Exception e) {
+            System.err.println("Failed to save section config: " + e.getMessage());
         }
     }
 }

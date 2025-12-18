@@ -1,0 +1,1237 @@
+{
+  "commands": {
+    "homes": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando!",
+      "gui": {
+        "home-title": "<#4169E1><bold>Casa {slot}",
+        "manage-title": "<#4169E1><bold>Gerenciar Casa {slot}",
+        "no-permission": "<#B22222>❌ Sem permissão!",
+        "click-set": "<#1E90FF>Clique para definir",
+        "click-teleport": "<#20B2AA>Clique esquerdo para teleportar",
+        "click-manage": "<#1E90FF>Clique direito para gerenciar",
+        "click-remove": "<#FFD900>Clique para remover",
+        "empty": "<#708090>Slot vazio",
+        "name": "<#708090>Nome: <#4169E1>{name}",
+        "coords": "<#708090>XYZ: <#4169E1>{x}, {y}, {z}",
+        "confirm": "<#3BB302>✔ Confirmar",
+        "cancel": "<#B22222>❌ Cancelar",
+        "info": "<#4169E1>Casa {slot} - {mode}"
+      },
+      "set": {
+        "success": "<#3BB302>✔ Casa <#FFD900>{slot}</#FFD900> definida!"
+      },
+      "remove": {
+        "success": "<#3BB302>✔ Casa <#FFD900>{slot}</#FFD900> removida!"
+      },
+      "rename": {
+        "prompt": "<#1E90FF>Digite um novo nome para esta casa no chat:",
+        "success": "<#3BB302>✔ Casa renomeada para <#FFD900>{name}</#FFD900>!"
+      },
+      "empty-slot": "<#708090>Nenhuma casa definida no slot {slot}!",
+      "world-missing": "<#B22222>❌ O mundo da casa não está mais disponível!"
+    },
+    "loom": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "gui-title": "<#D2691E><bold>Interface de Tear",
+      "error-item-name": "<#D2691E><bold>ERRO",
+      "error-item-lore": "<#708090>Funcionalidade ainda não implementada",
+      "opened": "<#3BB302>✔ Interface de tear aberta!",
+      "clicked-error": "<#B22222>❌ Você clicou no item de erro! Funcionalidade não implementada."
+    },
+    "stonecutter": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "opened": "<#3BB302>✔ Cortador de pedra aberto!"
+    },
+    "grindstone": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "opened": "<#3BB302>u Pedra de amolar aberta!"
+    },
+    "cartographytable": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "opened": "<#3BB302>✔ Mesa de cartografia aberta!"
+    },
+    "anvil": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "opened": "<#3BB302>✔ Bigorna aberta!"
+    },
+    "craftingtable": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "opened": "<#3BB302>✔ Mesa de trabalho aberta!"
+    },
+    "smithingtable": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "success": "<#3BB302>✔ Mesa de forja aberta."
+    },
+    "broadcast": {
+      "no-permission": "<#B22222>❌ Você não tem permissão para usar este comando!",
+      "usage": "<#B22222>❌ Uso: /broadcast <mensagem>",
+      "format": "<#FFD900>[Servidor] <white>{message}"
+    },
+    "reboot": {
+      "no-permission": "<#B22222>❌ Você não tem permissão para usar este comando!",
+      "usage": "<#B22222>❌ Uso: /reboot <minutos>",
+      "announce-scheduled": "<#B22222>⚠ O servidor reiniciará em {time} minuto(s).",
+      "announce-minutes": "<#FFD900>⏳ Reinício em {time} minuto(s).",
+      "announce-seconds": "<#FFD900>⏳ Reinício em {time} segundo(s).",
+      "announce-now": "<#B22222><bold>⚠ Reiniciando agora!",
+      "titles": {
+        "minute-warning": "<#FFD900>⏳ Reinício em {time} minuto(s).",
+        "second-warning": "<#FFD900><bold>{time}",
+        "now": "<#B22222><bold>⚠ Reiniciando agora!"
+      }
+    },
+    "broadcastworld": {
+      "no-permission": "<#B22222>❌ Você não tem permissão para usar este comando!",
+      "usage": "<#B22222>❌ Uso: /broadcastworld <mundo> <mensagem>",
+      "world-not-found": "<#B22222>❌ Mundo <#FFD900>{world}</#FFD900> não encontrado!",
+      "message-sent": "<#3BB302>✔ Mensagem enviada ao mundo <#FFD900>{world}</#FFD900>!",
+      "broadcast": "<white>{message}"
+    },
+    "spawner": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando.",
+      "no-permission": "<#B22222>❌ Você não tem permissão para usar este comando!",
+      "usage": "<#FFD900>Uso: <white>/spawner <mob>",
+      "look-at-spawner": "<#B22222>❌ Olhe para um spawner para alterá-lo!",
+      "no-permission-mob": "<#B22222>❌ Você não tem permissão para definir o spawner como {mob}!",
+      "changed": "<#50DB00>✔ Tipo do spawner alterado para {mob}",
+      "invalid-mob": "<#B22222>❌ Tipo de mob inválido: {mob}",
+      "help": {
+        "header": "<#FFD900><bold>=== Ajuda do Comando Spawner ===</bold></#FFD900>",
+        "description": "<#FFD900>Descrição: <white>Altera o tipo de spawner de criaturas.</white>",
+        "usage": "<#FFD900>Uso:</#FFD900> <white>/spawner <mob></white>",
+        "permission": "<#FFD900>Permissão necessária:</#FFD900> <white>{permission}</white>",
+        "available": {
+          "header": "<#FFD900>Tipos de mobs disponíveis:</#FFD900>",
+          "mob": "  <white>• {mob}</white>",
+          "more": "  <gray>... e mais {count}</gray>"
+        },
+        "footer": "<gray>Use <white>/spawner help</white> para ver esta mensagem novamente.</gray>"
+      }
+    },
+    "serverinfo": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando!",
+      "no-permission": "<#B22222>❌ Você não tem permissão para usar este comando!",
+      "header": "<#FFD900>========== Informações do Servidor ==========",
+      "ram": "<#3BB302>✔ RAM: <white>{used}MB / {max}MB",
+      "disk": "<#3BB302>✔ Disco: <white>{free}MB livre / {total}MB total",
+      "tps": "<#3BB302>✔ TPS: <white>{tps}",
+      "cpu": "<#3BB302>✔ CPU: <white>{cores} núcleos, {load} de carga",
+      "os": "<#3BB302>✔ SO: <white>{name} {version} ({arch})",
+      "uptime": "<#3BB302>✔ Tempo online: <white>{hours}h {minutes}m {seconds}s",
+      "java": "<#3BB302>✔ Java: <white>{version}",
+      "host": "<#3BB302>✔ Host: <white>{hostname} ({address})",
+      "net": "<#3BB302>✔ Rede: <white>{interfaces}",
+      "plugins": "<#3BB302>✔ Plugins: <white>{count}",
+      "minecraft": "<#3BB302>✔ Minecraft: <white>{version}",
+      "paper": "<#3BB302>✔ Servidor: <white>{version}",
+      "players": "<#3BB302>✔ Jogadores: <white>{online}/{max}",
+      "gpu": "<#3BB302>✔ GPU: <white>{gpu}",
+      "jvm": "<#3BB302>✔ Args JVM: <white>{args}"
+    },
+    "unloadworld": {
+      "no-permission": "<#B22222>❌ Você não tem permissão para usar este comando!",
+      "usage": "<#B22222>❌ Uso: /unloadworld <mundo>",
+      "not-found": "<#B22222>❌ Mundo <#FFD900>{world}</#FFD900> não encontrado!",
+      "failed": "<#B22222>❌ Falha ao descarregar o mundo <#FFD900>{world}</#FFD900>!",
+      "success": "<#3BB302>✔ Mundo <#FFD900>{world}</#FFD900> descarregado com sucesso."
+    },
+    "uptime": {
+      "no-permission": "<#B22222>❌ Você não tem permissão para usar este comando!",
+      "info": "<#3BB302>✔ Tempo online do servidor: <white>{uptime}"
+    },
+    "loadworld": {
+      "no-permission": "<#B22222>❌ Você não tem permissão para usar este comando!",
+      "usage": "<#B22222>❌ Uso: /loadworld <mundo>",
+      "already-loaded": "<#B22222>❌ Mundo <#FFD900>{world}</#FFD900> já está carregado!",
+      "success": "<#3BB302>✔ Mundo <#FFD900>{world}</#FFD900> carregado com sucesso.",
+      "failed": "<#B22222>❌ Falha ao carregar o mundo <#FFD900>{world}</#FFD900>!"
+    },
+    "worldlist": {
+      "no-permission": "<#B22222>❌ Você não tem permissão para usar este comando!",
+      "header": "<#FFD900>========== Mundos ==========",
+      "status-loaded": "<#3BB302>✔ Carregado",
+      "entry": "<#FFD900>{world} <#708090>({status}) <white>- Chunks: {chunks}, Entidades: {entities}, Jogadores: {players}"
+    },
+    "playerinfo": {
+      "no-permission": "<#B22222>❌ Você não tem permissão para usar este comando!",
+      "usage": "<#B22222>❌ Uso: /playerinfo <jogador>",
+      "not-found": "<#B22222>❌ Jogador não encontrado.",
+      "header": "<#FFD900>----- Informações do Jogador -----",
+      "name": "<#FFD900>Nome: <white>{player}",
+      "uuid": "<#FFD900>UUID: <white>{uuid}",
+      "health": "<#FFD900>Vida: <white>{health}/{maxhealth}",
+      "food": "<#FFD900>Comida: <white>{food}",
+      "location": "<#FFD900>Localização: <white>{location}"
+    },
+    "heal": {
+      "no-permission": "<#B22222>❌ Você não tem permissão para usar este comando!",
+      "no-permission-others": "<#B22222>❌ Você não tem permissão para curar outros jogadores!",
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando!",
+      "player-not-found": "<#B22222>❌ Jogador não encontrado: {player}",
+      "usage": "<#B22222>❌ Uso: /heal [jogador]",
+      "success-self": "<#3BB302>✔ Você foi curado!",
+      "success-other": "<#3BB302>✔ Você curou {player}!",
+      "success-healed": "<#3BB302>✔ Você foi curado por {healer}!"
+    },
+    "endersee": {
+      "no-permission": "<#B22222>❌ Você não tem permissão para ver seu ender chest!",
+      "no-permission-others": "<#B22222>❌ Você não tem permissão para ver o ender chest de outros!",
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando!",
+      "usage": "<#B22222>❌ Uso: /endersee [jogador]",
+      "player-not-found": "<#B22222>❌ Jogador não encontrado: <#FFD900>{player}</#FFD900>",
+      "opened-self": "<#3BB302>✔ Seu ender chest foi aberto.",
+      "opened-other": "<#3BB302>✔ Ender chest de <white>{player}</white> aberto."
+    },
+    "freeze": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando!",
+      "usage": "<#B22222>❌ Uso: /freeze <jogador>",
+      "player-not-found": "<#B22222>❌ Jogador não encontrado: <#FFD900>{player}</#FFD900>",
+      "froze": "<#3BB302>✔ <white>{player}</white> congelado.",
+      "unfroze": "<#3BB302>✔ <white>{player}</white> descongelado.",
+      "target-frozen": "<#B22222>❌ Você foi congelado!",
+      "target-unfrozen": "<#3BB302>✔ Você foi descongelado."
+    },
+    "unfreeze": {
+      "no-permission": "<#B22222>❌ Você não tem permissão para usar este comando!",
+      "usage": "<#B22222>❌ Uso: /unfreeze <jogador>",
+      "player-not-found": "<#B22222>❌ Jogador não encontrado: <#FFD900>{player}</#FFD900>",
+      "not-frozen": "<#B22222>❌ O jogador <#FFD900>{player}</#FFD900> não está congelado!",
+      "success": "<#3BB302>✔ <white>{player}</white> descongelado.",
+      "target-unfrozen": "<#3BB302>✔ Você foi descongelado."
+    },
+    "clearchat": {
+      "no-permission": "<#B22222>❌ Você não tem permissão para usar este comando.",
+      "cleared": "<#708090>Chat limpo por <#B22222>{player}</#B22222>"
+    },
+    "vanish": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando!",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "vanished": "<#3BB302>✔ Você agora está invisível.",
+      "visible": "<#3BB302>✔ Você agora está visível para todos os jogadores."
+    },
+    "god": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando!",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "enabled": "<#3BB302>✔ Modo deus ativado.",
+      "disabled": "<#B22222>❌ Modo deus desativado."
+    },
+    "invsee": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "usage": "<#FFD900>Uso: <white>/invsee <jogador>",
+      "player-not-found": "<#B22222>❌ Jogador não encontrado: <white>{player}</white>",
+      "success": "<#50DB00>✔ Visualizando o inventário de <white>{player}</white>.",
+      "help": {
+        "header": "<#FFD900><bold>=== Ajuda do Comando Invsee ===</bold></#FFD900>",
+        "description": "<#FFD900>Descrição: <white>Visualiza o inventário de outro jogador.</white>",
+        "usage": "<#FFD900>Uso:</#FFD900> <white>/invsee <jogador></white>",
+        "permission": "<#FFD900>Permissão necessária:</#FFD900> <white>{permission}</white>",
+        "footer": "<gray>Use <white>/invsee help</white> para ver esta mensagem novamente.</gray>"
+      }
+    },
+    "invclear": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando!",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "player-not-found": "<#B22222>❌ Jogador não encontrado: <#FFD900>{player}</#FFD900>",
+      "cleared": "<#3BB302>✔ Seu inventário foi limpo.",
+      "cleared-other": "<#3BB302>✔ Inventário de <white>{player}</white> limpo."
+    },
+    "tp": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando!",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "usage": "<#B22222>❌ Uso: /tp <jogador>",
+      "player-not-found": "<#B22222>❌ Jogador não encontrado: <#FFD900>{player}</#FFD900>",
+      "success": "<#3BB302>✔ Teleportado para <white>{player}</white>."
+    },
+    "kickall": {
+      "usage": "<#B22222>❌ Uso: /kickall <motivo>",
+      "kick-message": "<#B22222>❌ Você foi expulso por <#FFD900>{admin}</#FFD900>!\n<#708090>Motivo: <white>{reason}",
+      "sender-message": "<#3BB302>✔ <#FFD900>{count}</#FFD900> jogadores expulsos com sucesso.\n<#708090>Motivo: <white>{reason}",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!"
+    },
+    "pingall": {
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "header": "<#FFD900>Pings dos jogadores online:",
+      "player-line": "<#FFD900>- {player}: <#1E90FF>{ping}"
+    },
+    "alts": {
+      "usage": "<#B22222>❌ Uso: /alts <jogador>",
+      "player-offline": "<#B22222>❌ O jogador precisa estar online para verificar o IP.",
+      "header": "<#FFD900>Jogadores com o mesmo IP que {target}:",
+      "none": "<#708090>- Nenhum encontrado online.",
+      "found": "<#708090>- {player}",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!"
+    },
+    "stafflist": {
+      "header": "<#4169E1>--- Staff Online ---",
+      "none": "<#708090>Nenhum membro da staff online.",
+      "format": "<#3BB302>✔ <#1E90FF>{player}",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!"
+    },
+    "editsign": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "not-looking-at-sign": "<#B22222>❌ Você não está olhando para uma placa.",
+      "usage": "<#FFD900>Uso: /editsign <linha1>|<linha2>|<linha3>|<linha4>",
+      "success": "<#3BB302>✔ Placa atualizada com sucesso!"
+    },
+    "iteminfo": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "no-item": "<#B22222>❌ Você precisa segurar um item na mão principal.",
+      "header": "<#4169E1>≡ <bold>Informações do Item</bold> <#4169E1>≡",
+      "type": "<#708090>Tipo: <white>{type}",
+      "amount": "<#708090>Quantidade: <white>{amount}",
+      "name": "<#708090>Nome: <white>{name}",
+      "lore-header": "<#708090>≡ <bold>Lore</bold> <#708090>≡",
+      "lore-content": "<white>>> {lore}",
+      "no-meta": "<#708090>Sem metadados adicionais.",
+      "enchants-header": "<#708090>≡ <bold>Encantamentos</bold> <#708090>≡",
+      "enchant-line": "<#1E90FF>✦ <white>{enchant} <#708090>Nível {level}",
+      "flags-header": "<#708090>≡ <bold>Flags do Item</bold> <#708090>≡",
+      "flag-line": "<#1E90FF>- <#708090>{flag}"
+    },
+    "death": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "count": "<#B22222>❌ Você morreu <#FFD900>{deaths} <#B22222>vezes."
+    },
+    "realname": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "usage": "<#FFD900>Uso: <white>/realname <apelido>",
+      "found": "<#3BB302>✔ Apelido <#FFD900>{nickname} <#3BB302>pertence a <white>{realname}",
+      "not-found": "<#B22222>❌ Nenhum jogador encontrado com o apelido <#FFD900>{nickname}"
+    },
+    "speed": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "usage": "<#FFD900>Uso: <white>/speed <1-10>",
+      "invalid-number": "<#B22222>❌ Número inválido! A velocidade deve estar entre <#FFD900>1-10",
+      "fly-set": "<#3BB302>✔ Velocidade de voo definida para <#FFD900>{speed}",
+      "walk-set": "<#3BB302>✔ Velocidade de caminhada definida para <#FFD900>{speed}"
+    },
+    "launch": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "launched": "<#3BB302>✔ <bold>Voo!</bold> <white>Você foi lançado!"
+    },
+    "repair": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "no-item": "<#B22222>❌ Você precisa segurar um item na mão principal para repará-lo.",
+      "cannot-repair": "<#B22222>❌ Este item não pode ser reparado.",
+      "already-full": "<#FFD900>Este item já está com durabilidade máxima.",
+      "success": "<#3BB302>✔ Item totalmente reparado!"
+    },
+    "sleep": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "broadcast": "<#FFD900>{player} <#3BB302>✔ pulou a noite! <#708090>(Comando sleep)",
+      "success": "<#3BB302>✔ A noite foi pulada e o clima limpo!"
+    },
+    "ping": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "show": "<#708090>Seu ping: {ping}ms"
+    },
+    "disposal": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "inventory-title": "<#B22222><bold>Lixeira",
+      "opened": "<#3BB302>✔ Lixeira aberta. Coloque itens aqui para deletá-los."
+    },
+    "compass": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "facing": "<#3BB302>✔ Você está virado para <#FFD900><bold>{direction}"
+    },
+    "top": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "teleported": "<#3BB302>✔ Teleportado para o bloco mais alto acima de você!",
+      "no-block": "<#B22222>❌ Nenhum bloco sólido encontrado acima!"
+    },
+    "burn": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "no-permission-sub": "<#B22222>❌ Você precisa da permissão <#FFD900>{subpermission}</#FFD900>!",
+      "usage": "<#FFD900>Uso: <white>/burn <jogador> [segundos]",
+      "player-not-found": "<#B22222>❌ Jogador <#FFD900>{target}</#FFD900> não encontrado!",
+      "immune-gamemode": "<#B22222>❌ {target} está no modo <#FFD900>{gamemode}</#FFD900> e é imune!",
+      "invalid-number": "<#B22222>❌ Inválido! Use <#FFD900>1-{max}</#FFD900> segundos.",
+      "target-burned": "<#B22222>Você foi queimado por <#FFD900>{attacker}</#FFD900>!",
+      "sender-burned": "<#FFD900>{target}</#FFD900><#B22222> está queimando por <#FFD900>{seconds}</#FFD900> segundos!",
+      "self-burned": "<#FFD900>Você se queimou por <#FFD900>{seconds}</#FFD900> segundos!"
+    },
+    "feed": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "no-permission-others": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "usage": "<#FFD900>Uso: <white>/feed [jogador]",
+      "player-not-found": "<#B22222>❌ Jogador <#FFD900>{target}</#FFD900> não encontrado!",
+      "fed-self": "<#3BB302>✔ Você foi alimentado!",
+      "fed-other": "<#3BB302>✔ Você alimentou <#FFD900>{target}</#FFD900>!",
+      "fed-by-other": "<#3BB302>✔ Você foi alimentado por <#FFD900>{sender}</#FFD900>!"
+    },
+    "hat": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "no-item": "<#B22222>❌ Você precisa segurar um item na mão principal para usá-lo como chapéu!",
+      "item-not-allowed": "<#B22222>❌ Este item não pode ser usado como chapéu! Veja os permitidos na config.",
+      "success": "<#3BB302>✔ Seu chapéu foi atualizado!"
+    },
+    "ptime": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "no-permission-sub": "<#B22222>❌ Você precisa da permissão <#FFD900>{subpermission}</#FFD900>!",
+      "usage": "<#FFD900>Uso: <white>/ptime <day|night|reset>",
+      "invalid-option": "<#B22222>❌ Opção inválida! Use: <white>day, night ou reset",
+      "success": "<#3BB302>✔ Tempo pessoal definido para <#FFD900>{option}"
+    },
+    "night": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "success": "<#3BB302>✔ Tempo alterado para noite no seu mundo!"
+    },
+    "auction": {
+      "only-player": "<#FFD900>Apenas jogadores podem usar este comando!",
+      "usage": "<#FFD900>Uso:</#FFD900> /auction [sell <preço>|my]",
+      "sell": {
+        "no-item": "<#B22222>❌ Você precisa segurar um item na mão para vender!",
+        "usage": "<#B22222>❌ Uso: /auction sell <preço>",
+        "invalid-price": "<#B22222>❌ Preço inválido! Deve ser um número positivo.",
+        "max-limit": "<#B22222>❌ Você só pode vender até <#FFD900>{max}</#FFD900> itens de uma vez!",
+        "success": "<#3BB302>✔ Item listado por <#FFD900>${price}</#FFD900>!"
+      }
+    },
+    "paytoggle": {
+      "only-player": "<#FFD900>Apenas jogadores podem usar este comando.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "enabled": "<#3BB302>✔ Pagamentos <#FFD900>ativados</#FFD900>.",
+      "disabled": "<#B22222>❌ Pagamentos <#FFD900>desativados</#FFD900>.",
+      "error": "<#B22222>❌ Erro ao alternar estado de pagamento. Tente novamente."
+    },
+    "pay": {
+      "only-player": "<#FFD900>Apenas jogadores podem usar este comando.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "usage": "<#FFD900>Uso: <white>{usage}",
+      "player-not-found": "<#B22222>❌ Jogador não encontrado: <white>{player}",
+      "self-payment": "<#B22222>❌ Você não pode pagar a si mesmo!",
+      "invalid-amount": "<#B22222>❌ Quantia inválida: <white>{amount}",
+      "positive-amount": "<#B22222>❌ A quantia deve ser positiva!",
+      "not-enough": "<#B22222>❌ Você não tem dinheiro suficiente!",
+      "target-disabled": "<#B22222>❌ {player} desativou pagamentos!",
+      "confirmation-expired": "<#B22222>❌ Confirmação de pagamento expirada. Tente novamente.",
+      "pending-other": "<#FFD900>Você já tem um pagamento pendente para <white>{player} <#FFD900>no valor de <#3BB302>✔ {amount}",
+      "confirm-message": "<#3BB302>✔ Clique para confirmar: Pagar <white>{amount} <#3BB302>✔ para <white>{player}",
+      "confirm-instruction": "<#708090>Digite <white>{command} <#708090>novamente para confirmar.",
+      "success-sender": "<#3BB302>✔ Você pagou <white>{amount} <#3BB302>✔ para <white>{player}",
+      "success-target": "<#3BB302>✔ Você recebeu <white>{amount} <#3BB302>✔ de <white>{player}",
+      "error": "<#B22222>❌ Erro ao verificar status de pagamento. Tente novamente."
+    },
+    "eco": {
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "usage": "<#FFD900>Uso: <white>{usage}",
+      "player-not-found": "<#B22222>❌ Jogador não encontrado: <white>{player}",
+      "give-usage": "<#FFD900>Uso: <white>{usage}",
+      "take-usage": "<#FFD900>Uso: <white>{usage}",
+      "invalid-amount": "<#B22222>❌ Quantia inválida: <white>{amount}",
+      "give-success": "<#3BB302>✔ Deu <white>{amount} <#3BB302>✔ para <white>{player}",
+      "take-success": "<#3BB302>✔ Pegou <white>{amount} <#3BB302>✔ de <white>{player}",
+      "reset-success": "<#3BB302>✔ Saldo resetado para <white>{player}",
+      "unknown-subcommand": "<#B22222>❌ Subcomando desconhecido: <white>{sub}"
+    },
+    "payconfirmtoggle": {
+      "only-player": "<#FFD900>Apenas jogadores podem usar este comando.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "disabled": "<#3BB302>✔ Confirmações de pagamento <#FFD900>desativadas</#FFD900>.",
+      "enabled": "<#3BB302>✔ Confirmações de pagamento <#FFD900>ativadas</#FFD900>.",
+      "error": "<#B22222>❌ Erro ao alternar estado de confirmação. Tente novamente."
+    },
+    "balance": {
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "no-permission-others": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "usage": "<#FFD900>Uso: <white>{usage}",
+      "only-player": "<#B22222>❌ Apenas jogadores podem ver seu próprio saldo.",
+      "player-not-found": "<#B22222>❌ Jogador não encontrado: <white>{player}",
+      "self": "<#3BB302>✔ Seu saldo é: <#FFD900>{balance}",
+      "other": "<#3BB302>✔ Saldo de {player}: <#FFD900>{balance}"
+    },
+    "balancetop": {
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "header": "<#FFD900>=== Top {limit} Jogadores Mais Ricos ===",
+      "entry": "<#FFD900>#{rank} <white>{player} <#708090>- <#3BB302>✔ {balance}",
+      "footer": "<#FFD900>========================="
+    },
+    "coinflip": {
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "usage": "<#FFD900>Uso: <white>{usage}",
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando.",
+      "invalid-amount": "<#B22222>❌ Quantia inválida: <white>{amount}",
+      "positive-amount": "<#B22222>❌ A quantia deve ser positiva!",
+      "not-enough": "<#B22222>❌ Você não tem dinheiro suficiente! Precisa de <#FFD900>{needed}</#FFD900>, você tem <#3BB302>✔ {balance}",
+      "win": "<#3BB302>✔ Você ganhou! Recebeu <#FFD900>{amount}",
+      "lose": "<#B22222>❌ Você perdeu! Perdeu <#FFD900>{amount}"
+    },
+    "powertool": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "no-permission-create": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900> para criar PowerTools!",
+      "usage": "<#FFD900>Uso: <white>/powertool <comando> | <usos> | <nome> | <ferramenta> | encantado <sim/não>",
+      "invalid-uses": "<#B22222>❌ Usos devem ser -1 (infinito) ou 1-{max}.",
+      "invalid-tool": "<#B22222>❌ Material de ferramenta inválido: <white>{tool}",
+      "received-tool": "<#3BB302>✔ Você recebeu o PowerTool: <white>{name}",
+      "out-of-uses": "<#B22222>❌ ⚠ Seu PowerTool ficou sem usos!"
+    },
+    "gravity": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando.",
+      "target-not-found": "<#B22222>❌ Jogador não encontrado.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "no-permission-sub": "<#B22222>❌ Você precisa da permissão <#FFD900>{subpermission}</#FFD900>!",
+      "usage": "<#FFD900>Uso: <white>/gravity [jogador] [-s]",
+      "toggled-self": "<#3BB302>✔ Gravidade <white>{state}<#3BB302>.",
+      "toggled-other": "<#3BB302>✔ Gravidade <white>{state}<#3BB302> para <white>{target}<#3BB302>."
+    },
+    "thunder": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando!",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "no-permission-others": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "struck": "<#3BB302>✔ Efeito de trovão invocado em {target}!",
+      "self-name": "<white>você mesmo"
+    },
+    "celebrate": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando!",
+      "target-not-found": "<#B22222>❌ Jogador não encontrado.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "no-permission-others": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "usage": "<#FFD900>Uso: /celebrate [jogador] [-s]",
+      "message": "<#3BB302>✔ 🎉 Boom! Celebração!",
+      "message-other": "<#3BB302>✔ 🎉 Celebração para {target}!",
+      "self-name": "<white>você mesmo"
+    },
+    "fireball": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando!",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "launched": "<#3BB302>✔ Bola de fogo lançada!"
+    },
+    "fakeop": {
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "usage": "<#FFD900>Uso: <white>/fakeop <jogador>",
+      "target-not-found": "<#B22222>❌ Jogador não encontrado.",
+      "fake-message": "<#708090><italic>[Servidor: Tornou {target} um operador do servidor]",
+      "success": "<#3BB302>✔ Fake OP enviado para <#FFD900>{target}"
+    },
+    "whois": {
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "usage": "<#FFD900>Uso: <white>/whois <jogador>",
+      "target-not-found": "<#B22222>❌ Jogador não encontrado.",
+      "info-header": "<#3BB302>✔ Informações do jogador:",
+      "info-name": "<#708090>Nome: <white>{name}",
+      "info-health": "<#708090>Vida: <white>{health}",
+      "info-location": "<#708090>Localização: <white>{location}"
+    },
+    "kittycannon": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando!",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "usage": "<#FFD900>Uso: <white>/kittycannon [velocidade]",
+      "fired": "<#3BB302>✔ Kitty cannon disparada com velocidade {velocity}!",
+      "name": "<#FFD900>Kitty Cannon!"
+    },
+    "explosion": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando!",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "no-radius": "<#FFD900>Por favor, especifique um raio!",
+      "invalid-radius": "<#B22222>❌ Raio inválido: {input}",
+      "created": "<#3BB302>✔ Explosão criada com raio {radius}!",
+      "usage": "<#FFD900>Uso: <white>/explosion <raio>"
+    },
+    "canon": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "usage": "<#FFD900>Uso: <white>/canon",
+      "success": "<#3BB302>✔ Woosh! Você foi lançado ao ar!"
+    },
+    "lightning": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando!",
+      "target-not-found": "<#B22222>❌ Jogador <white>{target}</white> não encontrado.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <white>{permission}</white>.",
+      "struck-self": "<#3BB302>✔ Raio invocado em você!",
+      "struck-other": "<#3BB302>✔ Raio invocado em <white>{target}</white>!",
+      "usage": "<#FFD900>Uso: <white>/lightning [jogador] [-s]"
+    },
+    "swap": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando!",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "usage": "<#FFD900>Uso: <white>/swap <jogador>",
+      "target-not-found": "<#B22222>❌ Jogador <white>{target}</white> não encontrado ou não pode trocar com você mesmo.",
+      "success": "<#3BB302>✔ Você trocou de lugar com <white>{target}</white>!",
+      "target-notified": "<#3BB302>✔ <white>{player}</white> trocou de lugar com você!"
+    },
+    "beezooka": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando!",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "usage": "<#FFD900>Uso: <white>/beezooka [velocidade]",
+      "fired": "<#3BB302>✔ Beezooka disparada com velocidade {velocity}!",
+      "name": "<#FFD900>Beezooka Bee!"
+    },
+    "glow": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando!",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "usage": "<#FFD900>Uso: <white>/glow",
+      "disabled": "<#708090>Brilho desativado.",
+      "enabled": "<#3BB302>✔ Brilho ativado."
+    },
+    "near": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "header": "<#3BB302>✔ Jogadores próximos:",
+      "entry": "<#FFD900>- {name} <#708090>({distance} blocos)",
+      "none": "<#B22222>❌ Nenhum jogador próximo."
+    },
+    "rename": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "usage": "<#B22222>❌ Uso: /rename <nome>",
+      "no-item": "<#B22222>❌ Você não está segurando um item.",
+      "no-meta": "<#B22222>❌ Não foi possível obter metadados do item.",
+      "renamed": "<#3BB302>✔ Item renomeado para: <white>{item}"
+    },
+    "world": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "usage": "<#B22222>❌ Uso: /world",
+      "current": "<#3BB302>✔ Você está no mundo: <#FFD900>{world}"
+    },
+    "ext": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando!",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "no-permission-others": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900> para apagar outros jogadores!",
+      "player-not-found": "<#B22222>❌ Jogador não encontrado!",
+      "self": "<#3BB302>✔ Você foi apagado!",
+      "target": "<#3BB302>✔ Você apagou <#FFD900>{target}!"
+    },
+    "tpp": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "no-permission-world": "<#B22222>❌ Você não tem permissão para acessar o mundo <#FFD900>{world}</#FFD900>!",
+      "no-permission-others": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900> para teleportar outros jogadores!",
+      "usage": "<#FFD900>Uso: /tpp <jogador> <mundo> [x y z]",
+      "player-not-found": "<#B22222>❌ Jogador <#FFD900>{player}</#FFD900> não encontrado!",
+      "world-not-loaded": "<#B22222>❌ Mundo <#FFD900>{world}</#FFD900> não está carregado!",
+      "invalid-coords": "<#B22222>❌ Coordenadas inválidas! Devem ser números.",
+      "teleported-target": "<#3BB302>✔ <#FFD900>{target}</#FFD900> teleportado para o mundo <#FFD900>{world}</#FFD900>!",
+      "teleported-self": "<#3BB302>✔ Você foi teleportado para o mundo <#FFD900>{world}</#FFD900> em <#708090>({x}, {y}, {z})"
+    },
+    "magnet": {
+      "only-player": "<#FFD900>Apenas jogadores podem usar este comando.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "toggle-on": "<#3BB302>✔ Modo ímã ativado. Itens dentro de <#FFD900>{radius}</#FFD900> blocos serão puxados.",
+      "toggle-off": "<#B22222>❌ Modo ímã desativado.",
+      "error": "<#B22222>❌ Falha ao alternar ímã: <#FFD900>{error}"
+    },
+    "day": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "success": "<#3BB302>✔ Tempo alterado para dia no mundo <#FFD900>{world}</#FFD900>."
+    },
+    "inventorysort": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "success": "<#3BB302>✔ Seu inventário foi empilhado e organizado!"
+    },
+    "book": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando!",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "no-permission-others": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900> para dar livros!",
+      "player-not-found": "<#B22222>❌ Jogador <#FFD900>{player}</#FFD900> não encontrado!",
+      "inventory-full-self": "<#B22222>❌ Seu inventário está cheio!",
+      "inventory-full-other": "<#B22222>❌ Inventário de {target} está cheio!",
+      "self-success": "<#3BB302>✔ Você recebeu o livro de informações!",
+      "target-success": "<#3BB302>✔ Você deu um livro para <#FFD900>{target}</#FFD900>!",
+      "received": "<#3BB302>✔ Você recebeu um livro de <#FFD900>{sender}</#FFD900>!"
+    },
+    "break": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "no-block": "<#B22222>❌ Você não está olhando para um bloco quebrável dentro de <#FFD900>{distance}</#FFD900> blocos.",
+      "success": "<#3BB302>✔ Bloco quebrado em <#FFD900>{x}, {y}, {z}</#FFD900>."
+    },
+    "setloreline": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "usage": "<#FFD900>Uso: <white>/setloreline <texto>",
+      "no-item": "<#B22222>❌ Você não está segurando um item.",
+      "lore-set": "<#3BB302>✔ Lore definida para: <white>{lore}"
+    },
+    "track": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "usage": "<#FFD900>Uso: <white>/track <jogador>",
+      "not-found": "<#B22222>❌ Jogador <#FFD900>{target}</#FFD900> não encontrado.",
+      "success": "<#3BB302>✔ Agora rastreando <#FFD900>{target}</#FFD900>. Bússola atualizada."
+    },
+    "suicide": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "success": "<#B22222>❌ Você tirou sua própria vida.",
+      "error": "<#B22222>❌ Falha ao registrar tentativa de suicídio."
+    },
+    "kill": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "kill-count": "<#3BB302>✔ Você tem <#FFD900>{kills} <#3BB302>✔ mortes em jogadores."
+    },
+    "bottom": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "success": "<#3BB302>✔ Teleportado para o fundo! <#708090>(Y: {y})",
+      "no-safe-ground": "<#B22222>❌ Nenhum chão seguro abaixo!"
+    },
+    "condense": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando!",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "success": "<#3BB302>✔ Itens condensados em <#FFD900>{blocks} <#3BB302>✔ blocos!",
+      "not-enough": "<#FFD900>Você não tem itens suficientes para condensar."
+    },
+    "nuke": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando!",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "deployed": "<#3BB302>✔ Nuke implantada! <#708090>(Poder: {power})"
+    },
+    "weather": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "no-permission-sub": "<#B22222>❌ Você precisa da permissão <#FFD900>{subpermission}</#FFD900>!",
+      "usage": "<#FFD900>Uso: <white>/weather <clear|rain|thunderstorm>",
+      "clear": "<#3BB302>✔ Clima limpo por <white>{duration} <#3BB302>✔ segundos.",
+      "rain": "<#1E90FF>Chuva ativada por <white>{duration} <#1E90FF>segundos.",
+      "thunderstorm": "<#FFD900>Tempestade ativada por <white>{duration} <#FFD900>segundos.",
+      "invalid-type": "<#B22222>❌ Tipo de clima inválido. Use: clear, rain ou thunderstorm.",
+      "help": {
+        "header": "<#FFD900><bold>=== Ajuda do Comando Weather ===</bold></#FFD900>",
+        "description": "<#FFD900>Descrição: <white>Altera o clima do mundo atual por uma duração definida.</white>",
+        "usage": "<#FFD900>Uso:</#FFD900> <white>/weather <tipo></white>",
+        "types": {
+          "header": "<#FFD900>Tipos de clima disponíveis:</#FFD900>",
+          "clear": "  <white>clear</white> <gray>-</gray> <white>Tempo limpo</white>",
+          "clear.no-perm": "  <#B22222>clear</#B22222> <gray>-</gray> <white>Sem permissão</white>",
+          "rain": "  <white>rain</white> <gray>-</gray> <white>Chuva</white>",
+          "rain.no-perm": "  <#B22222>rain</#B22222> <gray>-</gray> <white>Sem permissão</white>",
+          "thunderstorm": "  <white>thunderstorm</white> <gray>-</gray> <white>Tempestade</white>",
+          "thunderstorm.no-perm": "  <#B22222>thunderstorm</#B22222> <gray>-</gray> <white>Sem permissão</white>"
+        },
+        "duration": "<#FFD900>Duração:</#FFD900> <white>{duration} segundos</white>",
+        "examples": {
+          "header": "<#FFD900>Exemplos:</#FFD900>",
+          "clear": "  <white>/weather clear</white> <gray>- Tempo limpo</gray>",
+          "rain": "  <white>/weather rain</white> <gray>- Chuva</gray>",
+          "thunderstorm": "  <white>/weather thunderstorm</white> <gray>- Tempestade</gray>"
+        },
+        "footer": "<gray>Use <white>/weather help</white> para ver esta mensagem novamente.</gray>"
+      }
+    },
+    "playtime": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "usage": "<#FFD900>Uso: <white>/playtime",
+      "playtime": "<#3BB302>✔ Seu tempo de jogo: <#FFD900>{hours}h {minutes}m"
+    },
+    "recipe": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "usage": "<#FFD900>Uso: <white>/recipe <receita>",
+      "not-found": "<#B22222>❌ Receita não encontrada!",
+      "result": "<#3BB302>✔ Receita para: <#FFD900>{item}",
+      "shaped-header": "<#3BB302>✔ Ingredientes da receita formatada:",
+      "shapeless-header": "<#3BB302>✔ Ingredientes da receita sem forma:",
+      "ingredient-line": "<#FFD900>- {char}: <white>{item} <#FFD900>x{amount}",
+      "ingredient-line-shapeless": "<#FFD900>- <white>{item} <#FFD900>x{amount}",
+      "unknown-type": "<#B22222>❌ Tipo de receita desconhecido!"
+    },
+    "enderchest": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "no-permission-others": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "usage": "<#FFD900>Uso: <white>/enderchest [jogador]",
+      "opening": "<#3BB302>✔ Abrindo seu ender chest...",
+      "opening-other": "<#3BB302>✔ Abrindo ender chest de <#FFD900>{player}</#FFD900>...",
+      "player-not-found": "<#B22222>❌ Jogador <#FFD900>{player}</#FFD900> não encontrado.",
+      "offline-not-supported": "<#B22222>❌ Não é possível abrir ender chest de jogadores offline <#FFD900>{player}</#FFD900>."
+    },
+    "seen": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "usage": "<#FFD900>Uso: <white>/seen <jogador>",
+      "player-not-found": "<#B22222>❌ Jogador <#FFD900>{player}</#FFD900> não encontrado.",
+      "result": "<#3BB302>✔ {player} visto pela última vez em <white>{lastSeen}",
+      "result-online": "<#3BB302>✔ {player} <#3BB302>✔ está <bold>online</bold>!",
+      "never-joined": "<#FFD900>{player} nunca entrou no servidor."
+    },
+    "back": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "no-permission-sub": "<#B22222>❌ Você precisa da permissão <#FFD900>{subpermission}</#FFD900>!",
+      "usage": "<#FFD900>Uso: <white>/back [lobby|death|back]",
+      "no-back": "<#B22222>❌ Nenhuma localização anterior salva.",
+      "invalid-back": "<#B22222>❌ Sua última localização é inválida.",
+      "teleported-back": "<#3BB302>✔ Teleportado de volta à localização anterior.",
+      "lobby-not-set": "<#B22222>❌ Localização do lobby não definida ou mundo descarregado.",
+      "teleported-lobby": "<#3BB302>✔ Teleportado para o lobby.",
+      "no-death-location": "<#B22222>❌ Nenhuma localização de morte encontrada.",
+      "teleported-death": "<#3BB302>✔ Teleportado para sua última localização de morte.",
+      "unknown-usage": "<#B22222>❌ Subcomando desconhecido. Use: <white>/back, /back lobby, /back death"
+    },
+    "tree": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "specify-type": "<#FFD900>Por favor, especifique um tipo de árvore.",
+      "invalid-type": "<#B22222>❌ Tipo de árvore inválido! Tipos válidos: <#FFD900>{types}",
+      "tree-planted": "<#3BB302>✔ Árvore plantada: <#FFD900>{type}",
+      "cannot-grow": "<#B22222>❌ Árvore não pode crescer aqui! Certifique-se de espaço e solo adequado."
+    },
+    "notes": {
+      "only-player": "<#708090>Apenas jogadores podem usar notas.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900> para usar notas!",
+      "usage": "<#FFD900>Uso:</#FFD900> <white>/notes <nome> [conteúdo]",
+      "list-empty": "<#708090>Você não tem notas salvas.",
+      "list-header": "<#FFD900>Suas notas:</#FFD900> ",
+      "not-found": "<#B22222>❌ Nota '<#FFD900>{name}</#FFD900>' não encontrada.",
+      "view": "<#FFD900>Nota '<#3BB302>✔ {name}</#3BB302>':</#FFD900> <white>{content}",
+      "saved": "<#3BB302>✔ Nota '<#FFD900>{name}</#FFD900>' salva:</#3BB302> <white>{content}"
+    },
+    "scoreboard": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar comandos de scoreboard.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "no-permission-reload": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900> para recarregar!",
+      "no-permission-toggle": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900> para alternar!",
+      "no-permission-color": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900> para mudar layouts!",
+      "usage": "<#FFD900>Uso:</#FFD900> <white>/scoreboard <reload|toggle|color> [layout]",
+      "toggle": {
+        "enabled": "<#3BB302>✔ Scoreboard ativada!",
+        "disabled": "<#708090>Scoreboard desativada!"
+      },
+      "reload": {
+        "success": "<#3BB302>✔ Todas as scoreboards recarregadas!"
+      },
+      "color": {
+        "usage": "<#FFD900>Uso: /scoreboard color <layout>",
+        "not-found": "<#B22222>❌ Layout '<#FFD900>{layout}</#FFD900>' não encontrado!",
+        "changed": "<#3BB302>✔ Layout alterado para <#FFD900>{layout}</#FFD900>!"
+      }
+    }
+  },
+  "lobby": {
+    "no-lobby": "<#B22222>❌ Nenhum lobby foi definido para este mundo.",
+    "teleported": "<#3BB302>✔ Teleportado para o lobby!",
+    "set": "<#3BB302>✔ Localização do lobby definida!",
+    "set-world": "<#3BB302>✔ Lobby do mundo <#FFD900>{world}</#FFD900> definido!",
+    "removed": "<#FFD900>Localização do lobby removida.",
+    "cooldown-active": "<#B22222>❌ Aguarde <#FFD900>{time}</#FFD900> segundos antes de teleportar novamente.",
+    "usage-world": "<#B22222>❌ Uso: <#FFD900>/lobby world <nome-do-mundo>",
+    "world-not-found": "<#B22222>❌ Mundo <#FFD900>{world}</#FFD900> não encontrado."
+  },
+  "ban": {
+    "usage": "<#B22222>❌ Uso: <#FFD900>/ban <jogador> <tempo> <motivo>",
+    "never-joined": "<#B22222>❌ Este jogador nunca entrou no servidor.",
+    "invalid-time": "<#B22222>❌ Formato de tempo inválido. Use <#FFD900>s/m/h/d</#FFD900> ou <#FFD900>perm</#FFD900>",
+    "success": "<#3BB302>✔ <#FFD900>{player}</#FFD900> foi banido.",
+    "kick-message": "<#B22222>❌ Você foi banido de <#B22222>{server}</#B22222>\n<#708090>Motivo: <#FFD900>{reason}</#FFD900>\n<#708090>Banido por: <#FFD900>{banner}</#FFD900>\n<#708090>Até: <#FFD900>{until}</#FFD900>\n\n<#708090>Apelo em: <#06B6D4>{discord}</#06B6D4>"
+  },
+  "banlist": {
+    "empty": "<#FFD900>Não há jogadores banidos.",
+    "header": "<#FFD900>------[ Jogadores Banidos ]------",
+    "format": "<#B22222>{player} <#708090>- <white>{reason} <#708090>(<#06B6D4>{time}</#06B6D4>)",
+    "footer": "<#FFD900>-----------------------------"
+  },
+  "unban": {
+    "usage": "<#3BB302>✔ Uso: <#FFD900>/unban <jogador>",
+    "player-not-found": "<#3BB302>✔ Não foi possível encontrar jogador banido com o nome '<#FFD900>{player}</#FFD900>'.",
+    "not-banned": "<#FFD900>{player}</#FFD900> não está banido.",
+    "success": "<#3BB302>✔ {player}</#3BB302> foi desbanido."
+  },
+  "mute": {
+    "usage": "<#B22222>❌ Uso: <#FFD900>/mute <jogador> <motivo> [duração]",
+    "not-found": "<#B22222>❌ Jogador não encontrado.",
+    "already-muted": "<#B22222>❌ <#FFD900>{player}</#FFD900> já está mutado por <white>{reason}</white>.",
+    "success": "<#FFD900>Você mutou <#3BB302>✔ {player}</#3BB302> <#708090>por <white>{reason}</white> <#FFD900>({duration})</#FFD900>.",
+    "notify": "<#B22222>❌ Você foi mutado! <#708090>Motivo: <white>{reason}</white> <#FFD900>({duration})</#FFD900>",
+    "chat-blocked": "<#B22222>❌ Você está mutado! Motivo: <white>{reason}</white>"
+  },
+  "unmute": {
+    "usage": "<#3BB302>✔ Uso: <#FFD900>/unmute <jogador>",
+    "player-not-found": "<#3BB302>✔ Jogador <#FFD900>{player}</#FFD900> não encontrado.",
+    "not-muted": "<#B22222>❌ <#FFD900>{player}</#FFD900> não está mutado.",
+    "unmuted": "<#3BB302>✔ Jogador <#FFD900>{player}</#FFD900> desmutado.",
+    "notify": "<#3BB302>✔ Você foi desmutado!"
+  },
+  "adminchat": {
+    "format": "<#4B5563>[<#B22222>AdminChat<#4B5563>] <#FFD900>{player} <#708090>» <white>{message}",
+    "toggle": "<#3BB302>✔ Modo AdminChat: {state}",
+    "only-players": "<#B22222>❌ Apenas jogadores podem usar este comando.",
+    "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!"
+  },
+  "daily": {
+    "command": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando!",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!"
+    },
+    "gui": {
+      "title": "<bold><gradient:#3BB302:#FFD900>Recompensas Diárias</gradient> - Página {page}",
+      "previous": "<#708090>◀ Página Anterior",
+      "next": "<#708090>Próxima Página ▶",
+      "close": "<#B22222>❌ ✕ Fechar",
+      "cooldown-display": "<#708090>Cooldown: <#FFD900>{time}",
+      "next-reset": "<#708090>Próximo reset em: <#FFD900>{time}"
+    },
+    "rewards": {
+      "claimed": {
+        "name": "<#3BB302>✔ <bold>✔ Reivindicado</bold>",
+        "lore": ["<#708090>Esta recompensa já foi reivindicada."]
+      },
+      "available": {
+        "name": "<#3BB302>✔ Dia {day}",
+        "lore": ["<#708090>Clique para reivindicar!"]
+      },
+      "locked": {
+        "name": "<#B22222>❌ <bold>🔒 Bloqueado</bold>",
+        "lore": ["<#708090>Você deve completar os dias anteriores."]
+      },
+      "cooldown": {
+        "name": "<#FFD900><bold>⏱ Em Cooldown</bold>",
+        "lore": ["<#708090>Espere: <#FFD900>{time}"]
+      }
+    },
+    "messages": {
+      "claim-success": "<#3BB302>✔ Você reivindicou o Dia <#FFD900>{day}</#FFD900>!",
+      "claim-already": "<#B22222>❌ Você já reivindicou esta recompensa.",
+      "claim-cooldown": "<#B22222>❌ Espere <#FFD900>{time}</#FFD900> antes de reivindicar novamente.",
+      "claim-locked": "<#B22222>❌ Complete os dias anteriores primeiro!",
+      "claim-error": "<#B22222>❌ Erro ao reivindicar recompensa. Tente novamente."
+    }
+  },
+  "economy": {
+    "shop": {
+      "main-title": "<gradient:#FFD900:#FFD900>Loja do Servidor</gradient>",
+      "section-title": "<#3BB302>✔ Loja de {section}</#3BB302>",
+      "balance-display": "<#3BB302>✔ Seu Saldo: <#FFD900>{balance}</#FFD900></#3BB302>",
+      "buy-success": "<#3BB302>✔ Comprou <white>{amount}x {item}</white> por <#FFD900>{price}</#FFD900>",
+      "sell-success": "<#3BB302>✔ Vendeu <white>{amount}x {item}</white> por <#FFD900>{price}</#FFD900>",
+      "cannot-afford": "<#B22222>❌ Não pode comprar {item} (custa: <#FFD900>{price}</#FFD900>)",
+      "no-items": "<#B22222>❌ Não tem {item} suficiente para vender",
+      "no-section": "<#B22222>❌ Seção da loja '<#FFD900></#FFD900>' não encontrada!",
+      "reload-success": "<#3BB302>✔ Configuração da loja recarregada.",
+      "reload-error": "<#B22222>❌ Erro ao recarregar configuração da loja. Verifique o console.",
+      "no-economy": "<#B22222>❌ Sistema de economia não disponível. Loja apenas para visualização.",
+      "transaction-failed": "<#B22222>❌ Transação falhou: {error}",
+      "no-main-config": "<#B22222>❌ Configuração da loja não encontrada. Contate um administrador.",
+      "gui": {
+        "close-button": "<#B22222>❌ ✕ Fechar",
+        "back-button": "<#FFD900>← Voltar",
+        "previous-page": "<#708090← Anterior",
+        "next-page": "<#708090>Próximo →",
+        "loading": "<#708090>Carregando..."
+      }
+    },
+    "sellgui": {
+      "disabled": "<#B22222>❌ A GUI de venda está desativada.",
+      "sold-success": "<#3BB302>✔ <bold>✔ VENDEU <white>{amount}</white> itens por <#FFD900>{symbol}{price}</#FFD900></bold>",
+      "returned-items": "<#708090>↩ Devolveu <white>{amount}</white> itens não vendíveis ao inventário",
+      "no-items": "<#708090>Nenhum item para vender",
+      "inventory-full": "<#FFD900>⚠ Alguns itens foram dropados no chão (inventário cheio)",
+      "not-sellable": "<#B22222>❌ Este item não pode ser vendido!",
+      "no-economy": "<#B22222>✗ Sistema de economia não disponível. Contate um administrador.",
+      "transaction-failed": "<#B22222>✗ Transação falhou: {error}",
+      "title": "<#FFD900>💰 Vender Itens</#FFD900>",
+      "info": {
+        "title": "<#FFD900>💰 ZONA DE VENDA</#FFD900>",
+        "subtitle": "<#708090>Coloque itens aqui para vender",
+        "instruction": "<#FFD900>Feche o inventário para processar",
+        "value-prefix": "<#FFD900>Total: <#FFD900>"
+      }
+    }
+  },
+  "auction": {
+    "gui": {
+      "titles": {
+        "auction": "<#3BB302>✔ Casa de Leilões - Página {page}",
+        "my-items": "<#3BB302>✔ Seus Itens - Página {page}",
+        "remove-confirm": "<#B22222>❌ Confirmar Remoção"
+      },
+      "navigation": {
+        "prev": "<white>← Página Anterior",
+        "next": "<white>Próxima Página →",
+        "refresh": "<white>↻ Atualizar",
+        "my-items": "<white>📦 Meus Itens",
+        "close": "<white>✕ Fechar"
+      },
+      "item": {
+        "name": "<#3BB302>✔ Preço: <#FFD900>${price}",
+        "lore": {
+          "seller": "<#708090>Vendedor: <#FFD900>{seller}",
+          "seller-price": "<#708090>Seu preço: <#FFD900>${price}",
+          "expires": "<#708090>Expira: <#FFD900>{date}",
+          "buyer-click": "<#FFD900>Clique para comprar",
+          "seller-click": "<#FFD900>Clique para remover"
+        }
+      },
+      "balance": "<#3BB302>✔ Saldo: <#FFD900>${balance}",
+      "refresh": "<#3BB302>✔ Leilão atualizado!",
+      "remove": {
+        "confirm": "<#3BB302>✔ Confirmar Remoção",
+        "cancel": "<#B22222>❌ Cancelar",
+        "success": "<#3BB302>✔ Item removido do leilão e devolvido ao inventário.",
+        "cancel-message": "<#708090>Remoção cancelada."
+      }
+    },
+    "purchase": {
+      "success": "<#3BB302>✔ Comprado por <#FFD900>${price}</#FFD900>!",
+      "not-enough-money": "<#B22222>❌ Você não tem dinheiro suficiente!",
+      "not-found": "<#B22222>❌ Item não está mais disponível!",
+      "seller-message": "<#3BB302>✔ {buyer} comprou seu item por ${price}!"
+    }
+  },
+  "rtp": {
+    "gui": {
+      "title": "<bold><gradient:#3BB302:#FFD900>Menu RTP</gradient>",
+      "overworld": {
+        "name": "<#3BB302>✔ Overworld",
+        "lore": [
+          "<#708090>Clique para teleportar para uma",
+          "<#708090>localização aleatória no overworld"
+        ]
+      },
+      "nether": {
+        "name": "<#B22222>❌ Nether",
+        "lore": [
+          "<#708090>Clique para teleportar para uma",
+          "<#708090>localização aleatória no nether"
+        ]
+      },
+      "end": {
+        "name": "<#4169E1>The End",
+        "lore": [
+          "<#708090>Clique para teleportar para uma",
+          "<#708090>localização aleatória no end"
+        ]
+      }
+    },
+    "world_disabled": "<#B22222>❌ RTP está desativado neste mundo!",
+    "cooldown": "<#B22222>❌ Aguarde <#FFD900>{seconds} segundos</#FFD900> antes de usar RTP novamente!",
+    "teleport_success": "<#3BB302>✔ Teleportado com sucesso para <white>{world}</white>!",
+    "reloaded": "<#3BB302>✔ Configuração RTP recarregada!"
+  },
+  "language": {
+    "usage": "<#FFD900>Uso: /language <idioma>",
+    "invalid": "<#B22222>❌ Idioma inválido: <white>{lang}</white>",
+    "changed": "<#3BB302>✔ Idioma alterado para: <white>{lang}</white>"
+  },
+  "database": {
+    "header": "<#4169E1>╔════════════════════════════════════╗",
+    "title": "<#4169E1>║  <bold>Status do Banco de Dados</bold>                     ║",
+    "separator": "<#4169E1>╠════════════════════════════════════╣",
+    "footer": "<#4169E1>╚════════════════════════════════════╝",
+    "none": "<#B22222>❌ Nenhum banco de dados configurado!",
+    "entry": "<#4169E1>║  <#1E90FF>{name}</#1E90FF> - {status}{msg} <#708090>({enabled})</#708090>  ║"
+  },
+  "kits": {
+    "gui": {
+      "title": "<bold><gradient:#3BB302:#FFD900>Kits Disponíveis</gradient>",
+      "preview-title": "<white>Visualizar Kit: <#1E90FF>{kit}</#1E90FF>"
+    },
+    "messages": {
+      "cooldown": "<#B22222>❌ Aguarde <#FFD900>{time}s</#FFD900> antes de pegar <white>{kit}</white> novamente!",
+      "no-permission": "<#B22222>❌ Você não tem permissão para pegar <white>{kit}</white>!",
+      "claim-success": "<#3BB302>✔ Kit <white>{kit}</white> resgatado com sucesso!",
+      "kit-not-found": "<#B22222>❌ Kit <white>{kit}</white> não encontrado!",
+      "locked-name": "<#B22222>❌ Bloqueado: <#708090>{kit}</#708090>",
+      "requires-permission": "<#708090>Requer: <white>{permission}</white>",
+      "cooldown-info": "<#708090>Cooldown: <#B22222>{time}s restantes</#B2222>",
+      "claim-button": "<#3BB302>✔ Pegar Kit",
+      "cooldown-button": "<#B22222>❌ ⏱ Em Cooldown",
+      "back-button": "<#B22222>❌ ← Voltar",
+      "no-kits-defined": "<#B22222>❌ Nenhum kit definido!",
+      "reload-success": "<#3BB302>✔ Kits recarregados com sucesso!",
+      "reload-no-permission": "<#B22222>❌ Você não tem permissão para recarregar kits!"
+    }
+  },
+  "mail": {
+    "on-join": "<#FFD900>Você tem <#FFD900>{count}</#FFD900> mensagens não lidas! Use <white>/mail read</white>",
+    "send-usage": "<#B22222>❌ Uso: /mail send <jogador> <mensagem>",
+    "no-mail": "<#FFD900>Você não tem mensagens.",
+    "usage": {
+      "header": "<#FFD900>----- <white>Sistema de Email <#FFD900>-----",
+      "read": "<#FFD900>/mail read <#708090>- <white>Ler suas mensagens",
+      "send": "<#FFD900>/mail send <jogador> <mensagem> <#708090>- <white>Enviar mensagem",
+      "clear": "<#FFD900>/mail clear <#708090>- <white>Limpar todas as mensagens",
+      "footer": "<#FFD900>---------------------------"
+    },
+    "header": "<#FFD900><bold>Suas Mensagens:</bold>",
+    "message": {
+      "index": "<#708090>[{index}]",
+      "sender": "<#FFD900>{sender}: "
+    },
+    "footer": "<#FFD900>-------------------- <#708090>({count} mensagens)",
+    "cooldown": "<#B22222>❌ Aguarde {time} segundos antes de enviar mensagem novamente.",
+    "player-not-found": "<#B22222>❌ Jogador <#FFD900>{player}</#FFD900> não encontrado.",
+    "message-too-long": "<#B22222>❌ Mensagem muito longa! Máximo <#FFD900>{max}</#FFD900> caracteres.",
+    "sent": "<#3BB302>✔ Mensagem enviada para <#FFD900>{player}</#FFD900>.",
+    "received": "<#3BB302>✔ Nova mensagem de <#FFD900>{sender}</#FFD900>! Use <white>/mail read</white>",
+    "error": "<#B22222>❌ Erro ao processar mensagem. Tente novamente.",
+    "cleared": "<#3BB302>✔ Todas as mensagens limpas!"
+  },
+  "tpa": {
+    "no-player": "<#B22222>❌ Jogador <#FFD900>{player}</#FFD900> não encontrado.",
+    "cannot-tpa-self": "<#B22222>❌ Você não pode enviar pedido de TPA para si mesmo.",
+    "target-toggled": "<#B22222>❌ {player} desativou pedidos de TPA.",
+    "crossworld-disabled": "<#B22222>❌ Teleporte entre mundos desativado.",
+    "blocked-world": "<#B22222>❌ Você não pode teleportar para este mundo.",
+    "cooldown": "<#B22222>❌ Aguarde <#FFD900>{time}</#FFD900> segundos antes de usar TPA novamente.",
+    "not-enough-money": "<#B22222>❌ Você precisa de <#FFD900>${cost}</#FFD900> para este pedido de TPA.",
+    "request-sent": "<#3BB302>✔ Pedido de TPA enviado para <#FFD900>{player}</#FFD900>.",
+    "request-sent-here": "<#3BB302>✔ Pedido de TPAhere enviado para <#FFD900>{player}</#FFD900>.",
+    "request-received": "<#3BB302>✔ <bold>{player}</bold> quer se teleportar até você! <white>[<#3BB302>✔ /tpaccept {player}</#3BB302>✔ | <#B22222>❌ /tpdeny {player}</#B22222>❌ ]",
+    "request-received-here": "<#3BB302>✔ <bold>{player}</bold> quer que você se teleporte até ele! <white>[<#3BB302>✔ /tpaccept {player}</#3BB302>✔ | <#B22222>❌ /tpdeny {player}</#B22222>❌ ]",
+    "request-received-all": "<#3BB302>✔ <bold>{player}</bold> quer que todos se teleportem! <white>[<#3BB302>✔ /tpaccept {player}</#3BB302>✔ ]",
+    "request-accepted": "<#3BB302>✔ {player} aceitou seu pedido! Teleportando em <#FFD900>{delay}s</#FFD900>...",
+    "request-accepted-target": "<#3BB302>✔ Você aceitou o pedido de <#FFD900>{player}</#FFD900>.",
+    "request-denied": "<#B22222>❌ {player} negou seu pedido de TPA.",
+    "request-denied-target": "<#3BB302>✔ Você negou o pedido de <#FFD900>{player}</#FFD900>.",
+    "no-request": "<#B22222>❌ Você não tem pedidos de TPA pendentes.",
+    "no-request-from-player": "<#B22222>❌ Nenhum pedido pendente de <#FFD900>{player}</#FFD900>.",
+    "no-requests-sent": "<#B22222>❌ Você não tem pedidos de TPA pendentes para cancelar.",
+    "teleport-cancelled-move": "<#B22222>❌ Teleporte cancelado devido ao movimento!",
+    "warmup-start": "<#FFD900>Aquecimento iniciado... <#B22222>❌ Não se mova!",
+    "toggle-on": "<#3BB302>✔ Pedidos de TPA agora <bold>DESATIVADOS</bold>.",
+    "toggle-off": "<#3BB302>✔ Pedidos de TPA agora <bold>ATIVADOS</bold>.",
+    "request-cancelled": "<#3BB302>✔ Pedido de TPA para <#FFD900>{player}</#FFD900> cancelado.",
+    "request-cancelled-target": "<#FFD900>{player}</#FFD900> cancelou o pedido de TPA.",
+    "request-cancelled-all": "<#3BB302>✔ Todos os seus pedidos de TPA cancelados.",
+    "request-expired": "<#B22222>❌ Seu pedido de TPA para <#FFD900>{player}</#FFD900> expirou.",
+    "request-expired-target": "<#B22222>❌ Pedido de TPA de <#FFD900>{player}</#FFD900> expirou.",
+    "request-sent-all": "<#3BB302>✔ Pedido de TPA enviado para <#FFD900>{count}</#FFD900> jogadores.",
+    "info-incoming-header": "<#FFD900><bold>Pedidos Recebidos:</bold>",
+    "info-outgoing-header": "<#FFD900><bold>Pedidos Enviados:</bold>",
+    "info-request": "<#FFD900>- {player} <#708090>({type})</#708090>"
+  },
+  "fly": {
+    "enabled": "<#3BB302>✔ ✈ Voo ativado! Pressione <white>ESPAÇO</white> duas vezes para voar.",
+    "disabled": "<#B22222>❌ ✈ Voo desativado.",
+    "error": "<#B22222>❌ Erro: Não foi possível salvar estado do voo. Tente novamente.",
+    "cooldown": "<#B22222>❌ Aguarde <#FFD900>{time}s</#FFD900> antes de alternar o voo novamente.",
+    "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>fly.use</#FFD900> para usar este comando."
+  },
+  "reports": {
+    "cooldown": "<#B22222>❌ Aguarde <#FFD900>{time}</#FFD900> segundos antes de denunciar novamente.",
+    "reason-too-long": "<#B22222>❌ Motivo muito longo! Máximo <#FFD900>{max}</#FFD900> caracteres.",
+    "error": "<#B22222>❌ Erro ao processar denúncia. Tente novamente.",
+    "command": {
+      "usage": "<#B22222>❌ Uso: /report <jogador> <motivo>",
+      "invalid-player": "<#B22222>❌ Jogador <#FFD900>{player}</#FFD900> não encontrado.",
+      "submitted": "<#3BB302>✔ Denúncia enviada contra <#FFD900>{player}</#FFD900>.",
+      "notify": "<#B22222>❌ [DENÚNCIA]</#B22222> <#FFD900>{reporter}</#FFD900> denunciou <#FFD900>{target}</#FFD900> por <#708090>{reason}</#708090> <#708090>(ID: {id})</#708090>"
+    },
+    "commandclear": {
+      "usage": "<#3BB302>✔ Uso: /reportclear <id>",
+      "invalid": "<#3BB302>✔ ID de denúncia inválido: <#FFD900>{id}</#FFD900>",
+      "cleared": "<#3BB302>✔ Denúncia ID: <#FFD900>{id}</#FFD900> limpa."
+    },
+    "list": {
+      "header": "<#FFD900>----- <#FFD900>Todas as Denúncias</#FFD900> -----",
+      "none": "<#FFD900>Nenhuma denúncia encontrada.",
+      "entry": "<#708090>[{id}] <#FFD900>{reporter}</#FFD900> → <#FFD900>{target}</#FFD900>: <white>{reason}</white>",
+      "footer": "<#FFD900>Total: <#FFD900>{count}</#FFD900> denúncias"
+    },
+    "reportslist": {
+      "header": "<#FFD900>Você tem denúncias pendentes para revisar:",
+      "entry": "<#B22222>❌ [PENDENTE]</#B22222> <#FFD900>{reporter}</#FFD900> → <#FFD900>{target}</#FFD900>: <#708090>{reason}</#708090> <#708090>(ID: {id})</#708090>"
+    }
+  },
+  "rules": {
+    "command": {
+      "only-player": "<#B22222>❌ Apenas jogadores podem usar este comando.",
+      "no-permission": "<#B22222>❌ Você precisa da permissão <#FFD900>{permission}</#FFD900>!",
+      "no-rules": "<#B22222>❌ Nenhuma regra configurada.",
+      "already-accepted": "<#FFD900>Você já aceitou as regras mais recentes.",
+      "accept-success": "<#3BB302>✔ Você aceitou as regras com sucesso!",
+      "accept-failure": "<#B22222>❌ Falha ao aceitar regras: <#FFD900>{error}",
+      "reload-success": "<#3BB302>✔ Regras recarregadas. Nova versão: <#FFD900>{version}",
+      "reload-failure": "<#B22222>❌ Falha ao recarregar regras: <#FFD900>{error>",
+      "usage": "<#FFD900>Uso: <white>/rules [accept|reload]"
+    },
+    "gui": {
+      "title": "<#3BB302>✔ Regras do Servidor",
+      "no-rules": "<#B22222>❌ Nenhuma regra configurada.",
+      "rule-lore": "<#708090>Regra #{number}",
+      "accept-title": "<#3BB302>✔ Clique para Aceitar as Regras",
+      "decline-title": "<#B22222>❌ Clique para Recusar as Regras",
+      "close-title": "<#708090>[Fechar]",
+      "rule-name": "<white>Regra <bold>#{number}",
+      "rule-hint": "<#708090><italic>Clique no botão abaixo para aceitar"
+    },
+    "accept": {
+      "success": "<#3BB302>✔ Você aceitou as regras do servidor!"
+    },
+    "decline": {
+      "message": "<#B22222>❌ Você recusou as regras. Deve aceitá-las para jogar.",
+      "kick-message": "<#B22222>❌ Você deve aceitar as regras para entrar no servidor!"
+    },
+    "close": {
+      "message": "<#FFD900>Você fechou a GUI das regras. Deve aceitá-las para jogar."
+    }
+  },
+  "general": {
+    "error": "<#B22222>❌ ✗ Ocorreu um erro: {error}",
+    "success": "<#3BB302>✔ ✔ Sucesso!",
+    "loading": "<#708090>Carregando..."
+  },
+  "vault": {
+    "only-players": "<#FFD900>Apenas jogadores podem usar comandos de vault!",
+    "usage": "<#FFD900>Uso: <#FFD900>/pv [número]",
+    "invalid-number": "<#B22222>❌ Número do vault deve estar entre 1-10!",
+    "saved": "<#3BB302>✔ Vault <#FFD900>{vault}</#FFD900> salvo!",
+    "admin-saved": "<#3BB302>✔ Vault <#FFD900>{vault}</#FFD900> salvo para <#FFD900>{player}</#FFD900>!",
+    "selector": {
+      "title": "<#FFD900>Selecione um Vault",
+      "unlocked": "<#3BB302>✔ Vault <white>#{number}",
+      "locked": "<#B22222>❌ Vault <white>#{number} <#B22222>❌ 🔒",
+      "click-to-open": "<#708090>Clique para abrir",
+      "no-permission": "<#708090>Sem permissão"
+    }
+  },
+  "warp": {
+    "usage": "<#FFD900>Uso: <#FFD900>/warp <nome>",
+    "not-found": "<#B22222>❌ Warp <#FFD900>{warp}</#FFD900> não encontrado.",
+    "success": "<#3BB302>✔ Teleportado para o warp <#FFD900>{warp}</#FFD900>!",
+    "cooldown-active": "<#B22222>❌ Aguarde <#FFD900>{time}</#FFD900> segundos antes de usar warp novamente."
+  },
+  "setwarp": {
+    "usage": "<#FFD900>Uso: <#FFD900>/setwarp <nome>",
+    "limit-reached": "<#B22222>❌ Você atingiu o limite de <#FFD900>{limit}</#FFD900> warps!",
+    "already-exists": "<#B22222>❌ Warp <#FFD900>{warp}</#FFD900> já existe.",
+    "success": "<#3BB302>✔ Warp <#FFD900>{warp}</#FFD900> criado!"
+  },
+  "delwarp": {
+    "usage": "<#B22222>❌ Uso: <#FFD900>/delwarp <nome>",
+    "not-found": "<#B22222>❌ Warp <#FFD900>{warp}</#FFD900> não encontrado.",
+    "no-permission": "<#B22222>❌ Você não tem permissão para deletar este warp!",
+    "success": "<#3BB302>✔ Warp <#FFD900>{warp}</#FFD900> deletado!"
+  },
+  "warps": {
+    "empty": "<#FFD900>Nenhum warp definido!",
+    "header": "<#FFD900>------[ Warps ]------",
+    "entry": "<#3BB302>✔ {warp}",
+    "footer": "<#FFD900>-------------------"
+  },
+  "chatfilter": {
+    "blocked": "<#B22222>❌ Sua mensagem continha linguagem inadequada.",
+    "staff Notice": "<#F54927>★ <gray>[<#B22222>Filtro<gray>] <white>{player}<#B22222> : <white>{message}"
+  }
+}

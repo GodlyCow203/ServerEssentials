@@ -15,7 +15,6 @@ import org.bukkit.plugin.Plugin;
 
 import java.io.File;
 import java.util.*;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ShopGUIManager {
@@ -26,9 +25,8 @@ public class ShopGUIManager {
     private final PlayerLanguageManager langManager;
     private final ShopStorage storage;
     private final ShopConfig config;
-    private final ServerEssentialsEconomy economy;
+    private final EconomyManager economyManager;
     private final ShopDataManager dataManager;
-    private final boolean economyEnabled;
 
     private final Map<String, ShopSectionConfig> sectionCache = new ConcurrentHashMap<>();
     private MainShopConfig mainConfigCache;
@@ -41,19 +39,18 @@ public class ShopGUIManager {
 
     public ShopGUIManager(Plugin plugin, PlayerLanguageManager langManager,
                           ShopStorage storage, ShopConfig config,
-                          ServerEssentialsEconomy economy, ShopDataManager dataManager) {
+                          EconomyManager economyManager, ShopDataManager dataManager) {
         this.plugin = plugin;
         this.langManager = langManager;
         this.storage = storage;
         this.config = config;
-        this.economy = economy;
+        this.economyManager = economyManager;
         this.dataManager = dataManager;
-        this.economyEnabled = economy != null;
 
         loadAllConfigs(false);
 
-        if (!economyEnabled) {
-            plugin.getLogger().warning("§eShopGUIManager initialized without economy! Buy/sell features disabled.");
+        if (!economyManager.isEnabled()) {
+            plugin.getLogger().warning("§eShopGUIManager: Economy disabled! Shop will be view-only.");
         }
     }
 
@@ -62,37 +59,131 @@ public class ShopGUIManager {
     }
 
     private void loadAllConfigs(boolean forceFromFiles) {
-        File mainFile = new File(config.getShopFolder(), "main.yml");
-
-        MainShopConfig dbMain = forceFromFiles ? null : dataManager.loadMainConfig().join();
-        if (dbMain != null) {
-            mainConfigCache = dbMain;
-            plugin.getLogger().info("Loaded main shop config from database");
-        } else if (mainFile.exists()) {
-            mainConfigCache = loadMainConfigFromFile(mainFile);
-            dataManager.saveMainConfig(mainConfigCache); // Update database
-            plugin.getLogger().info("Loaded main shop config from file and saved to database");
-        } else {
-            mainConfigCache = new MainShopConfig();
-            plugin.getLogger().warning("No main shop config found, using defaults");
-        }
-
+        // Step 1: Check if shop folder exists
         File shopFolder = config.getShopFolder();
-        if (shopFolder.exists() && shopFolder.isDirectory()) {
-            File[] files = shopFolder.listFiles((d, name) -> name.endsWith(".yml") && !name.equals("main.yml"));
-            if (files != null) {
-                for (File file : files) {
-                    String name = file.getName().replace(".yml", "");
-                    loadSectionConfig(name, forceFromFiles);
-                }
-            }
+        if (!shopFolder.exists() || !shopFolder.isDirectory()) {
+            plugin.getLogger().warning("Shop folder not found at: " + shopFolder.getPath());
+            mainConfigCache = new MainShopConfig();
+            configsLoaded = true;
+            return;
         }
+
+        // Step 2: Load main config with smart source selection
+        loadMainConfigSmart(forceFromFiles);
+
+        // Step 3: Load section configs
+        loadSectionConfigsSmart(forceFromFiles);
 
         configsLoaded = true;
-        plugin.getLogger().info("Shop configurations loaded successfully");
+        plugin.getLogger().info("✓ Shop configurations loaded successfully");
     }
 
-    private MainShopConfig loadMainConfigFromFile(File file) {
+    private void loadMainConfigSmart(boolean forceFromFiles) {
+        File mainFile = new File(config.getShopFolder(), "main.yml");
+
+        // Get timestamps for comparison
+        long fileModified = mainFile.exists() ? mainFile.lastModified() : 0;
+        long dbUpdated = dataManager.getMainConfigLastUpdate().join();
+
+        boolean shouldLoadFromFile = forceFromFiles ||
+                (fileModified > dbUpdated && fileModified > 0) ||
+                dbUpdated == 0;
+
+        if (shouldLoadFromFile && mainFile.exists()) {
+            // Load from file and validate
+            mainConfigCache = loadMainConfigFromFileInternal(mainFile);
+            if (isValidMainConfig(mainConfigCache)) {
+                dataManager.saveMainConfig(mainConfigCache);
+                plugin.getLogger().info("✓ Loaded main shop config from file (newer than DB)");
+            } else {
+                plugin.getLogger().severe("§cLoaded main config from file but it's invalid! Using DB fallback.");
+                fallbackToDBMain();
+            }
+        } else if (dbUpdated > 0) {
+            // Load from database
+            fallbackToDBMain();
+        } else {
+            // No valid config found anywhere
+            plugin.getLogger().warning("§eNo main shop config found in files or database. Using defaults.");
+            mainConfigCache = new MainShopConfig();
+        }
+    }
+
+    private void fallbackToDBMain() {
+        MainShopConfig dbConfig = dataManager.loadMainConfig().join();
+        if (isValidMainConfig(dbConfig)) {
+            mainConfigCache = dbConfig;
+            plugin.getLogger().info("✓ Loaded main shop config from database");
+        } else {
+            plugin.getLogger().severe("§cDatabase main config is invalid! Creating new default.");
+            mainConfigCache = new MainShopConfig();
+        }
+    }
+
+    private void loadSectionConfigsSmart(boolean forceFromFiles) {
+        File shopFolder = config.getShopFolder();
+        File[] files = shopFolder.listFiles((d, name) -> name.endsWith(".yml") && !name.equals("main.yml"));
+
+        if (files == null || files.length == 0) {
+            plugin.getLogger().info("No section config files found.");
+            return;
+        }
+
+        Set<String> processedSections = new HashSet<>();
+        for (File file : files) {
+            String name = file.getName().replace(".yml", "");
+            processedSections.add(name);
+            loadSingleSectionSmart(name, forceFromFiles);
+        }
+
+        // Clean up sections that no longer have files
+        sectionCache.keySet().retainAll(processedSections);
+    }
+
+    private void loadSingleSectionSmart(String sectionName, boolean forceFromFiles) {
+        File sectionFile = new File(config.getShopFolder(), sectionName + ".yml");
+
+        // Skip if file doesn't exist
+        if (!sectionFile.exists()) {
+            sectionCache.remove(sectionName);
+            return;
+        }
+
+        long fileModified = sectionFile.lastModified();
+        long dbUpdated = dataManager.getSectionLastUpdate(sectionName).join();
+
+        boolean shouldLoadFromFile = forceFromFiles ||
+                (fileModified > dbUpdated && fileModified > 0) ||
+                dbUpdated == 0;
+
+        if (shouldLoadFromFile) {
+            ShopSectionConfig section = loadSectionConfigFromFileInternal(sectionFile);
+            if (isValidSectionConfig(section)) {
+                sectionCache.put(sectionName, section);
+                dataManager.saveSectionConfig(sectionName, section);
+                plugin.getLogger().info("✓ Loaded section '" + sectionName + "' from file");
+            } else {
+                plugin.getLogger().severe("§cSection '" + sectionName + "' loaded from file is invalid! Using DB fallback.");
+                fallbackToDBSection(sectionName);
+            }
+        } else if (dbUpdated > 0) {
+            fallbackToDBSection(sectionName);
+        }
+    }
+
+    private void fallbackToDBSection(String sectionName) {
+        ShopSectionConfig dbSection = dataManager.loadSectionConfig(sectionName).join();
+        if (isValidSectionConfig(dbSection)) {
+            sectionCache.put(sectionName, dbSection);
+            plugin.getLogger().info("✓ Loaded section '" + sectionName + "' from database");
+        } else {
+            plugin.getLogger().warning("§eSection '" + sectionName + "' not found in database. Skipping.");
+            sectionCache.remove(sectionName);
+        }
+    }
+
+    // Internal file loading methods - DO NOT SAVE TO DB
+    private MainShopConfig loadMainConfigFromFileInternal(File file) {
         org.bukkit.configuration.file.YamlConfiguration config =
                 org.bukkit.configuration.file.YamlConfiguration.loadConfiguration(file);
         MainShopConfig main = new MainShopConfig();
@@ -126,24 +217,7 @@ public class ShopGUIManager {
         return main;
     }
 
-    private void loadSectionConfig(String sectionName, boolean forceFromFiles) {
-        ShopSectionConfig dbSection = forceFromFiles ? null : dataManager.loadSectionConfig(sectionName).join();
-        if (dbSection != null) {
-            sectionCache.put(sectionName, dbSection);
-            plugin.getLogger().info("Loaded section '" + sectionName + "' from database");
-            return;
-        }
-
-        File sectionFile = new File(config.getShopFolder(), sectionName + ".yml");
-        if (sectionFile.exists()) {
-            ShopSectionConfig section = loadSectionConfigFromFile(sectionFile);
-            sectionCache.put(sectionName, section);
-            dataManager.saveSectionConfig(sectionName, section); // Update database
-            plugin.getLogger().info("Loaded section '" + sectionName + "' from file and saved to database");
-        }
-    }
-
-    private ShopSectionConfig loadSectionConfigFromFile(File file) {
+    private ShopSectionConfig loadSectionConfigFromFileInternal(File file) {
         org.bukkit.configuration.file.YamlConfiguration config =
                 org.bukkit.configuration.file.YamlConfiguration.loadConfiguration(file);
         ShopSectionConfig section = new ShopSectionConfig();
@@ -189,6 +263,23 @@ public class ShopGUIManager {
         }
 
         return section;
+    }
+
+    // Validation methods
+    private boolean isValidMainConfig(MainShopConfig config) {
+        return config != null &&
+                config.size > 0 &&
+                config.layout != null &&
+                config.sectionButtons != null &&
+                config.title != null;
+    }
+
+    private boolean isValidSectionConfig(ShopSectionConfig config) {
+        return config != null &&
+                config.size > 0 &&
+                config.layout != null &&
+                config.items != null &&
+                config.title != null;
     }
 
     public void openMainGUI(Player player) {
@@ -266,23 +357,25 @@ public class ShopGUIManager {
                 .filter(item -> item.page == page)
                 .forEach(item -> {
                     ItemStack stack = createItem(item.material, item.name, item.lore, item.amount);
-                    // Add economy indicator lore if economy is enabled
-                    if (economyEnabled) {
+
+                    if (economyManager.isEnabled()) {
                         List<String> itemLore = new ArrayList<>(item.lore != null ? item.lore : new ArrayList<>());
+
                         if (item.buyPrice > 0) {
-                            itemLore.add("<green>L-Click: Buy for " + config.currencySymbol + String.format("%.2f", item.buyPrice));
+                            itemLore.add("<green>L-Click: Buy for " + economyManager.format(item.buyPrice));
                         }
                         if (item.sellPrice > 0 && config.enableSell) {
-                            itemLore.add("<yellow>R-Click: Sell for " + config.currencySymbol + String.format("%.2f", item.sellPrice));
+                            itemLore.add("<yellow>R-Click: Sell for " + economyManager.format(item.sellPrice));
                         }
+
                         stack = createItem(item.material, item.name, itemLore, item.amount);
                     } else {
-                        // Show disabled message
                         List<String> disabledLore = new ArrayList<>();
                         disabledLore.add("<red>§c✗ Economy not available");
                         disabledLore.add("<gray>Shop is view-only");
                         stack = createItem(item.material, item.name, disabledLore, item.amount);
                     }
+
                     inv.setItem(item.slot, stack);
                 });
 
@@ -370,7 +463,7 @@ public class ShopGUIManager {
             return;
         }
 
-        if (!economyEnabled) {
+        if (!economyManager.isEnabled()) {
             player.sendMessage(langManager.getMessageFor(player, "economy.shop.no-economy",
                     "<red>§c✗ Economy system is not available. Shop is view-only."));
             return;
@@ -392,36 +485,44 @@ public class ShopGUIManager {
     }
 
     private void handleBuy(Player player, ShopSectionConfig.ShopItem item) {
-        if (economy == null) {
+        if (!economyManager.isEnabled()) {
             player.sendMessage(langManager.getMessageFor(player, "economy.shop.no-economy",
                     "<red>§c✗ Economy system is not available."));
             return;
         }
 
-        double balance = economy.getBalance(player);
-        if (balance >= item.buyPrice) {
-            economy.withdrawPlayer(player, item.buyPrice);
-            player.getInventory().addItem(new ItemStack(item.material, item.amount));
+        // Calculate total buy price for the amount being bought
+        double totalBuyPrice = item.buyPrice * item.amount;
 
-            player.sendMessage(langManager.getMessageFor(player, "economy.shop.buy-success",
-                    "<green>✓ You bought {amount}x {item} for {symbol}{price}",
-                    net.lunark.io.language.LanguageManager.ComponentPlaceholder.of("{amount}", item.amount),
-                    net.lunark.io.language.LanguageManager.ComponentPlaceholder.of("{item}", item.name),
-                    net.lunark.io.language.LanguageManager.ComponentPlaceholder.of("{price}", String.format("%.2f", item.buyPrice)),
-                    net.lunark.io.language.LanguageManager.ComponentPlaceholder.of("{symbol}", config.currencySymbol)));
+        double balance = economyManager.getBalance(player);
+        if (balance >= totalBuyPrice) {
+            EconomyResponse response = economyManager.withdraw(player, totalBuyPrice);
 
-            refreshGUI(player);
+            if (response.success()) {
+                player.getInventory().addItem(new ItemStack(item.material, item.amount));
+
+                player.sendMessage(langManager.getMessageFor(player, "economy.shop.buy-success",
+                        "<green>✓ You bought {amount}x {item} for {price}",
+                        net.lunark.io.language.LanguageManager.ComponentPlaceholder.of("{amount}", item.amount),
+                        net.lunark.io.language.LanguageManager.ComponentPlaceholder.of("{item}", item.name),
+                        net.lunark.io.language.LanguageManager.ComponentPlaceholder.of("{price}", economyManager.format(totalBuyPrice))));
+
+                refreshGUI(player);
+            } else {
+                player.sendMessage(langManager.getMessageFor(player, "economy.shop.transaction-failed",
+                        "<red>§c✗ Transaction failed: {error}",
+                        net.lunark.io.language.LanguageManager.ComponentPlaceholder.of("{error}", response.errorMessage)));
+            }
         } else {
             player.sendMessage(langManager.getMessageFor(player, "economy.shop.cannot-afford",
-                    "<red>§c✗ You cannot afford {item} (cost: {symbol}{price})",
+                    "<red>§c✗ You cannot afford {item} (cost: {price})",
                     net.lunark.io.language.LanguageManager.ComponentPlaceholder.of("{item}", item.name),
-                    net.lunark.io.language.LanguageManager.ComponentPlaceholder.of("{price}", String.format("%.2f", item.buyPrice)),
-                    net.lunark.io.language.LanguageManager.ComponentPlaceholder.of("{symbol}", config.currencySymbol)));
+                    net.lunark.io.language.LanguageManager.ComponentPlaceholder.of("{price}", economyManager.format(totalBuyPrice))));
         }
     }
 
     private void handleSell(Player player, ShopSectionConfig.ShopItem item) {
-        if (economy == null) {
+        if (!economyManager.isEnabled()) {
             player.sendMessage(langManager.getMessageFor(player, "economy.shop.no-economy",
                     "<red>§c✗ Economy system is not available."));
             return;
@@ -434,17 +535,27 @@ public class ShopGUIManager {
             return;
         }
 
+        // Calculate total sell price for the amount being sold
+        double totalSellPrice = item.sellPrice * item.amount;
+
         removeItems(player, item.material, item.amount);
-        economy.depositPlayer(player, item.sellPrice);
+        EconomyResponse response = economyManager.deposit(player, totalSellPrice);
 
-        player.sendMessage(langManager.getMessageFor(player, "economy.shop.sell-success",
-                "<green>✓ You sold {amount}x {item} for {symbol}{price}",
-                net.lunark.io.language.LanguageManager.ComponentPlaceholder.of("{amount}", item.amount),
-                net.lunark.io.language.LanguageManager.ComponentPlaceholder.of("{item}", item.name),
-                net.lunark.io.language.LanguageManager.ComponentPlaceholder.of("{price}", String.format("%.2f", item.sellPrice)),
-                net.lunark.io.language.LanguageManager.ComponentPlaceholder.of("{symbol}", config.currencySymbol)));
+        if (response.success()) {
+            player.sendMessage(langManager.getMessageFor(player, "economy.shop.sell-success",
+                    "<green>✓ You sold {amount}x {item} for {price}",
+                    net.lunark.io.language.LanguageManager.ComponentPlaceholder.of("{amount}", item.amount),
+                    net.lunark.io.language.LanguageManager.ComponentPlaceholder.of("{item}", item.name),
+                    net.lunark.io.language.LanguageManager.ComponentPlaceholder.of("{price}", economyManager.format(totalSellPrice))));
 
-        refreshGUI(player);
+            refreshGUI(player);
+        } else {
+            // Return items if transaction failed
+            player.getInventory().addItem(new ItemStack(item.material, item.amount));
+            player.sendMessage(langManager.getMessageFor(player, "economy.shop.transaction-failed",
+                    "<red>§c✗ Transaction failed: {error}",
+                    net.lunark.io.language.LanguageManager.ComponentPlaceholder.of("{error}", response.errorMessage)));
+        }
     }
 
     private void refreshGUI(Player player) {
@@ -520,11 +631,23 @@ public class ShopGUIManager {
     }
 
     public void reloadConfigs(boolean forceFromFiles) {
+        plugin.getLogger().info("Reloading shop configurations...");
+
+        // Clear cache first
         sectionCache.clear();
         mainConfigCache = null;
         configsLoaded = false;
+
+        // Load fresh
         loadAllConfigs(forceFromFiles);
-        plugin.getLogger().info("Shop configurations reloaded from " + (forceFromFiles ? "YML files" : "database"));
+
+        // Refresh any open GUIs
+        if (forceFromFiles) {
+            refreshOpenInventories();
+        }
+
+        plugin.getLogger().info("✓ Reload complete (source: " +
+                (forceFromFiles ? "forced from files)" : "smart load)"));
     }
 
     private ItemStack createPlayerHead(Player player) {
@@ -533,15 +656,15 @@ public class ShopGUIManager {
         if (meta != null) {
             meta.setOwningPlayer(player);
 
-            String balanceText = economyEnabled ?
-                    String.format("%.2f", economy.getBalance(player)) :
+            String balanceText = economyManager.isEnabled() ?
+                    economyManager.format(economyManager.getBalance(player)) :
                     "N/A";
 
             meta.displayName(langManager.getMessageFor(player, "economy.shop.balance-display",
                     "<green>Your Balance: <gold>{balance}",
                     net.lunark.io.language.LanguageManager.ComponentPlaceholder.of("{balance}", balanceText)));
 
-            if (!economyEnabled) {
+            if (!economyManager.isEnabled()) {
                 List<Component> lore = new ArrayList<>();
                 lore.add(mini.deserialize("<red>§c✗ Economy disabled"));
                 meta.lore(lore);
@@ -550,5 +673,18 @@ public class ShopGUIManager {
             skull.setItemMeta(meta);
         }
         return skull;
+    }
+
+    // Public getter methods
+    public MainShopConfig getMainConfig() {
+        return mainConfigCache;
+    }
+
+    public ShopSectionConfig getSectionConfig(String name) {
+        return sectionCache.get(name);
+    }
+
+    public Map<String, ShopSectionConfig> getSectionCache() {
+        return new HashMap<>(sectionCache);
     }
 }

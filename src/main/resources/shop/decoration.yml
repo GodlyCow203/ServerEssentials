@@ -148,7 +148,7 @@ items:
     clickable: true
 
   chain:
-    material: CHAIN
+    material: IRON_CHAIN
     name: "<white>Chain"
     lore:
       - "<gray>Buy: <green>4"

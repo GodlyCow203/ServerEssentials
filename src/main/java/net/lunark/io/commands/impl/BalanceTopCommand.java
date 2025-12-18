@@ -2,7 +2,7 @@ package net.lunark.io.commands.impl;
 
 import net.kyori.adventure.text.Component;
 import net.lunark.io.commands.config.BalanceTopConfig;
-import net.lunark.io.economy.ServerEssentialsEconomy;
+import net.lunark.io.economy.EconomyManager;
 import net.lunark.io.language.PlayerLanguageManager;
 import net.lunark.io.language.LanguageManager.ComponentPlaceholder;
 import org.bukkit.Bukkit;
@@ -22,12 +22,12 @@ public final class BalanceTopCommand implements CommandExecutor {
 
     private final PlayerLanguageManager langManager;
     private final BalanceTopConfig config;
-    private final ServerEssentialsEconomy economy;
+    private final EconomyManager economyManager;
 
-    public BalanceTopCommand(PlayerLanguageManager langManager, BalanceTopConfig config, ServerEssentialsEconomy economy) {
+    public BalanceTopCommand(PlayerLanguageManager langManager, BalanceTopConfig config, EconomyManager economyManager) {
         this.langManager = langManager;
         this.config = config;
-        this.economy = economy;
+        this.economyManager = economyManager;
     }
 
     @Override
@@ -41,11 +41,22 @@ public final class BalanceTopCommand implements CommandExecutor {
             return true;
         }
 
+        if (!economyManager.isEnabled()) {
+            sender.sendMessage(langManager.getComponent(String.valueOf(sender instanceof Player p ? p : null),
+                    "commands." + COMMAND_NAME + ".no-economy",
+                    "<red>§c✗ Economy system is not available."));
+            return true;
+        }
+
         int limit = config.getLimit();
 
         CompletableFuture.runAsync(() -> {
             List<PlayerBalance> balances = Arrays.stream(Bukkit.getOfflinePlayers())
-                    .map(p -> new PlayerBalance(p.getUniqueId(), p.getName(), economy.getBalance(p)))
+                    .filter(p -> p.hasPlayedBefore() || p.isOnline())
+                    .map(p -> {
+                        double balance = economyManager.getEconomy().getBalance(p);
+                        return new PlayerBalance(p.getUniqueId(), p.getName(), balance);
+                    })
                     .sorted(Comparator.comparingDouble(PlayerBalance::balance).reversed())
                     .limit(limit)
                     .collect(Collectors.toList());
@@ -73,7 +84,7 @@ public final class BalanceTopCommand implements CommandExecutor {
                     "<yellow>#{rank} <white>{player} <gray>- <green>{balance}",
                     ComponentPlaceholder.of("{rank}", String.valueOf(i + 1)),
                     ComponentPlaceholder.of("{player}", playerName),
-                    ComponentPlaceholder.of("{balance}", String.format("%.2f", pb.balance()))));
+                    ComponentPlaceholder.of("{balance}", economyManager.format(pb.balance()))));
         }
 
         sender.sendMessage(langManager.getComponent(String.valueOf(sender instanceof Player p ? p : null),

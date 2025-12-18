@@ -6,6 +6,7 @@ import org.bukkit.plugin.Plugin;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import net.lunark.io.ServerEssentials;
+import net.lunark.io.util.AnsiColorUtil;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -19,9 +20,7 @@ public class VersionChecker {
 
     private static final String MODRINTH_PROJECT_ID = "K7HZMVgx";
     private static String latestVersion = "unknown";
-
     private static final MiniMessage MINI = MiniMessage.miniMessage();
-
 
     public static void checkLatestVersion(Plugin plugin) {
         HttpClient client = HttpClient.newHttpClient();
@@ -42,44 +41,54 @@ public class VersionChecker {
 
                             String currentVersion = plugin.getDescription().getVersion();
 
+                            String graySep = AnsiColorUtil.colorize(AnsiColorUtil.GRAY, "================================");
+                            String grayDash = AnsiColorUtil.colorize(AnsiColorUtil.GRAY, "--------------------------------");
+
                             Bukkit.getLogger().info("");
-                            Bukkit.getLogger().info("§8================================");
+                            Bukkit.getLogger().info(graySep);
 
                             if (!currentVersion.equalsIgnoreCase(latestVersion)) {
+                                Bukkit.getLogger().info(
+                                        AnsiColorUtil.warning("ServerEssentials") +
+                                                AnsiColorUtil.colorize(AnsiColorUtil.GRAY, " - ") +
+                                                AnsiColorUtil.warning("Update Available")
+                                );
+                                Bukkit.getLogger().info(grayDash);
 
-                                Bukkit.getLogger().info("§eServerEssentials §7- §6Update Available");
-                                Bukkit.getLogger().info("§8--------------------------------");
-
-                                Bukkit.getLogger().info("§7Current: §c" + currentVersion);
-                                Bukkit.getLogger().info("§7Latest: §a" + latestVersion);
-                                Bukkit.getLogger().info("§7Download: §bhttps://modrinth.com/plugin/serveressentials");
+                                Bukkit.getLogger().info(AnsiColorUtil.secondary("Current: ") + AnsiColorUtil.danger(currentVersion));
+                                Bukkit.getLogger().info(AnsiColorUtil.secondary("Latest: ") + AnsiColorUtil.success(latestVersion));
+                                Bukkit.getLogger().info(AnsiColorUtil.secondary("Download: ") + AnsiColorUtil.info("https://modrinth.com/plugin/serveressentials"));
 
                             } else {
+                                Bukkit.getLogger().info(
+                                        AnsiColorUtil.warning("ServerEssentials") +
+                                                AnsiColorUtil.colorize(AnsiColorUtil.GRAY, " - ") +
+                                                AnsiColorUtil.success("Up To Date")
+                                );
+                                Bukkit.getLogger().info(grayDash);
 
-                                Bukkit.getLogger().info("§eServerEssentials §7- §aUp To Date");
-                                Bukkit.getLogger().info("§8--------------------------------");
-
-                                Bukkit.getLogger().info("§7Running latest version: §a" + currentVersion);
+                                Bukkit.getLogger().info(AnsiColorUtil.secondary("Running latest version: ") + AnsiColorUtil.success(currentVersion));
                             }
 
-                            Bukkit.getLogger().info("§8================================");
+                            Bukkit.getLogger().info(graySep);
                             Bukkit.getLogger().info("");
 
                         }
                     } catch (Exception e) {
-                        Bukkit.getLogger().warning("§8================================");
-                        Bukkit.getLogger().warning("§cFailed to parse version data from Modrinth.");
-                        Bukkit.getLogger().warning("§8================================");
+                        String graySep = AnsiColorUtil.colorize(AnsiColorUtil.GRAY, "================================");
+                        Bukkit.getLogger().warning(graySep);
+                        Bukkit.getLogger().warning(AnsiColorUtil.danger("Failed to parse version data from Modrinth."));
+                        Bukkit.getLogger().warning(graySep);
                     }
                 })
                 .exceptionally(e -> {
-                    Bukkit.getLogger().warning("§8================================");
-                    Bukkit.getLogger().warning("§cCould not fetch latest version from Modrinth.");
-                    Bukkit.getLogger().warning("§8================================");
+                    String graySep = AnsiColorUtil.colorize(AnsiColorUtil.GRAY, "================================");
+                    Bukkit.getLogger().warning(graySep);
+                    Bukkit.getLogger().warning(AnsiColorUtil.danger("Could not fetch latest version from Modrinth."));
+                    Bukkit.getLogger().warning(graySep);
                     return null;
                 });
     }
-
 
     public static void notifyIfOutdated(Player player) {
         String currentVersion = ServerEssentials.getInstance().getDescription().getVersion();
@@ -89,9 +98,10 @@ public class VersionChecker {
             if (player.hasPermission("serveressentials.version.notify") || player.isOp()) {
 
                 player.sendMessage(MINI.deserialize("<gray> </gray>"));
-                player.sendMessage(MINI.deserialize("<gray>8================================</gray>"));
+                player.sendMessage(MINI.deserialize("<gray>================================</gray>"));
 
                 player.sendMessage(MINI.deserialize("<gradient:#FFCC33:#FFF2AA>ServerEssentials - Update Available</gradient>"));
+
                 player.sendMessage(MINI.deserialize("<gray>--------------------------------</gray>"));
 
                 player.sendMessage(MINI.deserialize("<gray>Current: </gray><red>" + currentVersion + "</red>"));

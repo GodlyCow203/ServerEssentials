@@ -15,7 +15,7 @@ import java.util.concurrent.CompletableFuture;
 public class ShopDataManager {
     private final Plugin plugin;
     private final DatabaseManager dbManager;
-    private static final String POOL_KEY = "shop";  // Changed from "main" to "shop"
+    private static final String POOL_KEY = "shop";
     private static final String TABLE_SECTIONS = "shop_sections";
     private static final String TABLE_MAIN = "shop_main";
 
@@ -56,6 +56,32 @@ public class ShopDataManager {
             plugin.getLogger().severe("Failed to create shop_main table: " + ex.getMessage());
             return null;
         }).join();
+    }
+
+    public CompletableFuture<Long> getMainConfigLastUpdate() {
+        return dbManager.executeQuery(POOL_KEY,
+                "SELECT updated_at FROM " + TABLE_MAIN + " WHERE config_key = ?",
+                (ResultSet rs) -> {
+                    if (rs.next()) {
+                        return rs.getTimestamp("updated_at").getTime();
+                    }
+                    return 0L;
+                },
+                "main"
+        ).thenApply(opt -> opt.orElse(0L));
+    }
+
+    public CompletableFuture<Long> getSectionLastUpdate(String sectionName) {
+        return dbManager.executeQuery(POOL_KEY,
+                "SELECT updated_at FROM " + TABLE_SECTIONS + " WHERE section_name = ?",
+                (ResultSet rs) -> {
+                    if (rs.next()) {
+                        return rs.getTimestamp("updated_at").getTime();
+                    }
+                    return 0L;
+                },
+                sectionName
+        ).thenApply(opt -> opt.orElse(0L));
     }
 
     public CompletableFuture<Boolean> saveSectionConfig(String sectionName, ShopSectionConfig section) {
@@ -126,7 +152,6 @@ public class ShopDataManager {
         ).thenApply(opt -> opt.orElse(null));
     }
 
-
     public CompletableFuture<MainShopConfig> loadMainConfig() {
         return dbManager.executeQuery(POOL_KEY,
                 "SELECT title, size, layout_json, sections_json FROM " + TABLE_MAIN + " WHERE config_key = ?",
@@ -145,22 +170,6 @@ public class ShopDataManager {
                 },
                 "main"
         ).thenApply(opt -> opt.orElse(null));
-    }
-
-    public CompletableFuture<Boolean> sectionExists(String sectionName) {
-        return dbManager.executeQuery(POOL_KEY,
-                "SELECT 1 FROM " + TABLE_SECTIONS + " WHERE section_name = ? LIMIT 1",
-                rs -> rs.next() ? 1 : null,
-                sectionName
-        ).thenApply(opt -> opt.isPresent());
-    }
-
-    public CompletableFuture<Boolean> mainConfigExists() {
-        return dbManager.executeQuery(POOL_KEY,
-                "SELECT 1 FROM " + TABLE_MAIN + " WHERE config_key = ? LIMIT 1",
-                rs -> rs.next() ? 1 : null,
-                "main"
-        ).thenApply(opt -> opt.isPresent());
     }
 
     public static class JsonHelper {

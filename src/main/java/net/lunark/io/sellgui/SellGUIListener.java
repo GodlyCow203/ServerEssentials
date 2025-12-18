@@ -12,6 +12,10 @@ import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+/**
+ * Listens for Sell GUI events
+ * Works with both Vault economy and internal fallback economy
+ */
 public class SellGUIListener implements Listener {
     private final SellGUIManager guiManager;
     private final PlayerLanguageManager langManager;
@@ -27,12 +31,12 @@ public class SellGUIListener implements Listener {
         if (!(event.getWhoClicked() instanceof Player player)) return;
 
         Inventory topInv = event.getView().getTopInventory();
-        if (topInv == null || !event.getView().title().toString().contains("Sell Items")) {
+        if (topInv == null || !isSellGUI(event.getView().title().toString())) {
             return;
         }
 
         if (event.getView().getBottomInventory() == event.getClickedInventory() &&
-                event.getCursor() != null && event.getCursor().getType() != org.bukkit.Material.AIR) {
+                event.getCursor() != null && !event.getCursor().getType().isAir()) {
 
             ItemStack cursor = event.getCursor();
             if (!guiManager.isSellable(cursor.getType())) {
@@ -43,10 +47,6 @@ public class SellGUIListener implements Listener {
                 return;
             }
         }
-
-        if (event.getClickedInventory() == topInv) {
-            return;
-        }
     }
 
     @EventHandler
@@ -54,7 +54,7 @@ public class SellGUIListener implements Listener {
         if (!(event.getWhoClicked() instanceof Player player)) return;
 
         Inventory topInv = event.getView().getTopInventory();
-        if (topInv == null || !event.getView().title().toString().contains("Sell Items")) {
+        if (topInv == null || !isSellGUI(event.getView().title().toString())) {
             return;
         }
 
@@ -74,10 +74,15 @@ public class SellGUIListener implements Listener {
         if (!(event.getPlayer() instanceof Player player)) return;
 
         Inventory inv = event.getInventory();
-        if (inv == null || !event.getView().title().toString().contains("Sell Items")) {
+        if (inv == null || !isSellGUI(event.getView().title().toString())) {
             return;
         }
 
         guiManager.processSellAndReturnItems(player, inv);
+    }
+
+
+    private boolean isSellGUI(String title) {
+        return title.contains("Sell Items");
     }
 }

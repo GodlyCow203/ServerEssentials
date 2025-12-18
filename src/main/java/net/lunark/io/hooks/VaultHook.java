@@ -1,3 +1,13 @@
+/*
+ * Decompiled with CFR 0.153-SNAPSHOT (d6f6758-dirty).
+ * 
+ * Could not load the following classes:
+ *  net.milkbowl.vault.chat.Chat
+ *  net.milkbowl.vault.economy.Economy
+ *  net.milkbowl.vault.permission.Permission
+ *  org.bukkit.Bukkit
+ *  org.bukkit.plugin.RegisteredServiceProvider
+ */
 package net.lunark.io.hooks;
 
 import net.milkbowl.vault.chat.Chat;
@@ -13,7 +23,8 @@ public class VaultHook {
     private Chat chat = null;
     private boolean available = false;
 
-    private VaultHook() {}
+    private VaultHook() {
+    }
 
     public static VaultHook getInstance() {
         if (instance == null) {
@@ -23,61 +34,58 @@ public class VaultHook {
     }
 
     public boolean init() {
+        RegisteredServiceProvider chatProvider;
+        RegisteredServiceProvider permissionProvider;
         if (Bukkit.getPluginManager().getPlugin("Vault") == null) {
             return false;
         }
-
-        RegisteredServiceProvider<Economy> economyProvider = Bukkit.getServicesManager().getRegistration(Economy.class);
+        RegisteredServiceProvider economyProvider = Bukkit.getServicesManager().getRegistration(Economy.class);
         if (economyProvider != null) {
-            economy = economyProvider.getProvider();
+            this.economy = (Economy)economyProvider.getProvider();
         }
-
-        RegisteredServiceProvider<Permission> permissionProvider = Bukkit.getServicesManager().getRegistration(Permission.class);
-        if (permissionProvider != null) {
-            permission = permissionProvider.getProvider();
+        if ((permissionProvider = Bukkit.getServicesManager().getRegistration(Permission.class)) != null) {
+            this.permission = (Permission)permissionProvider.getProvider();
         }
-
-        RegisteredServiceProvider<Chat> chatProvider = Bukkit.getServicesManager().getRegistration(Chat.class);
-        if (chatProvider != null) {
-            chat = chatProvider.getProvider();
+        if ((chatProvider = Bukkit.getServicesManager().getRegistration(Chat.class)) != null) {
+            this.chat = (Chat)chatProvider.getProvider();
         }
-
-        available = (economy != null || permission != null || chat != null);
-        return available;
+        this.available = this.economy != null || this.permission != null || this.chat != null;
+        return this.available;
     }
 
     public boolean isAvailable() {
-        return available;
+        return this.available;
     }
 
     public Economy getEconomy() {
-        return economy;
+        return this.economy;
     }
 
     public Permission getPermission() {
-        return permission;
+        return this.permission;
     }
 
     public Chat getChat() {
-        return chat;
+        return this.chat;
     }
 
     public boolean hasEconomy() {
-        return economy != null;
+        return this.economy != null;
     }
 
     public boolean hasPermission() {
-        return permission != null;
+        return this.permission != null;
     }
 
     public boolean hasChat() {
-        return chat != null;
+        return this.chat != null;
     }
 
     public void cleanup() {
-        economy = null;
-        permission = null;
-        chat = null;
-        available = false;
+        this.economy = null;
+        this.permission = null;
+        this.chat = null;
+        this.available = false;
     }
 }
+

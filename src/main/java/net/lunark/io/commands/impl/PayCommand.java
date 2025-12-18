@@ -1,7 +1,8 @@
 package net.lunark.io.commands.impl;
 
 import net.lunark.io.commands.config.PayConfig;
-import net.lunark.io.economy.ServerEssentialsEconomy;
+import net.lunark.io.economy.EconomyManager;
+import net.lunark.io.economy.EconomyResponse; // FIXED: Import the correct class
 import net.lunark.io.language.PlayerLanguageManager;
 import net.lunark.io.language.LanguageManager.ComponentPlaceholder;
 import org.bukkit.Bukkit;
@@ -15,23 +16,23 @@ import org.bukkit.plugin.Plugin;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 public final class PayCommand implements CommandExecutor {
-    // HARDCODED PERMISSION - NOT CONFIGURABLE
     private static final String PERMISSION = "serveressentials.command.pay";
     private static final String COMMAND_NAME = "pay";
-    private static final long CONFIRMATION_TIMEOUT = 15_000; // 15 seconds
+    private static final long CONFIRMATION_TIMEOUT = 15_000;
     private static final Map<UUID, PendingPayment> pendingPayments = new HashMap<>();
 
     private final PlayerLanguageManager langManager;
     private final PayConfig config;
-    private final ServerEssentialsEconomy economy;
+    private final EconomyManager economyManager;
     private final Plugin plugin;
 
-    public PayCommand(Plugin plugin, PlayerLanguageManager langManager, PayConfig config, ServerEssentialsEconomy economy) {
+    public PayCommand(Plugin plugin, PlayerLanguageManager langManager, PayConfig config, EconomyManager economyManager) {
         this.langManager = langManager;
         this.config = config;
-        this.economy = economy;
+        this.economyManager = economyManager;
         this.plugin = plugin;
     }
 
@@ -52,6 +53,13 @@ public final class PayCommand implements CommandExecutor {
             return true;
         }
 
+        if (!economyManager.isEnabled()) {
+            senderPlayer.sendMessage(langManager.getMessageFor(senderPlayer,
+                    "commands." + COMMAND_NAME + ".no-economy",
+                    "<red>§c✗ Economy system is not available."));
+            return true;
+        }
+
         if (args.length != 2) {
             senderPlayer.sendMessage(langManager.getMessageFor(senderPlayer,
                     "commands." + COMMAND_NAME + ".usage",
@@ -61,7 +69,7 @@ public final class PayCommand implements CommandExecutor {
         }
 
         OfflinePlayer target = Bukkit.getOfflinePlayer(args[0]);
-        if (target == null || (!target.hasPlayedBefore() && !target.isOnline())) {
+        if (!target.hasPlayedBefore() && !target.isOnline()) {
             senderPlayer.sendMessage(langManager.getMessageFor(senderPlayer,
                     "commands." + COMMAND_NAME + ".player-not-found",
                     "<red>Player not found: <white>{player}",
@@ -94,15 +102,14 @@ public final class PayCommand implements CommandExecutor {
             return true;
         }
 
-        if (economy.getBalance(senderPlayer) < amount) {
+        if (economyManager.getBalance(senderPlayer) < amount) {
             senderPlayer.sendMessage(langManager.getMessageFor(senderPlayer,
                     "commands." + COMMAND_NAME + ".not-enough",
                     "<red>You don't have enough money!"));
             return true;
         }
 
-        // Check if target has payments disabled
-        economy.hasPaymentsDisabled(target.getUniqueId()).thenAccept(disabled -> {
+        economyManager.hasPaymentsDisabled(target.getUniqueId().toString()).thenAccept(disabled -> {
             if (disabled) {
                 senderPlayer.sendMessage(langManager.getMessageFor(senderPlayer,
                         "commands." + COMMAND_NAME + ".target-disabled",
@@ -111,13 +118,12 @@ public final class PayCommand implements CommandExecutor {
                 return;
             }
 
-            // Check if sender has pay-confirm disabled
-            economy.hasPayConfirmDisabled(senderPlayer.getUniqueId()).thenAccept(confirmDisabled -> {
+            economyManager.hasPayConfirmDisabled(senderPlayer.getUniqueId().toString()).thenAccept(confirmDisabled -> {
                 Bukkit.getScheduler().runTask(plugin, () -> {
                     if (confirmDisabled) {
-                        processPayment(senderPlayer, target, amount); // Direct payment
+                        processPayment(senderPlayer, target, amount);
                     } else {
-                        processPaymentWithConfirmation(senderPlayer, target, amount); // Show confirmation
+                        processPaymentWithConfirmation(senderPlayer, target, amount);
                     }
                 });
             }).exceptionally(ex -> {
@@ -160,7 +166,7 @@ public final class PayCommand implements CommandExecutor {
                     "commands." + COMMAND_NAME + ".pending-other",
                     "<yellow>You already have a pending payment to <white>{player} <yellow>for <green>{amount}",
                     ComponentPlaceholder.of("{player}", Bukkit.getOfflinePlayer(pending.target).getName()),
-                    ComponentPlaceholder.of("{amount}", economy.format(pending.amount))));
+                    ComponentPlaceholder.of("{amount}", economyManager.format(pending.amount))));
             return;
         }
 
@@ -168,7 +174,7 @@ public final class PayCommand implements CommandExecutor {
         senderPlayer.sendMessage(langManager.getMessageFor(senderPlayer,
                 "commands." + COMMAND_NAME + ".confirm-message",
                 "<green>Click to confirm: Pay <white>{amount} <green>to <white>{player}",
-                ComponentPlaceholder.of("{amount}", economy.format(amount)),
+                ComponentPlaceholder.of("{amount}", economyManager.format(amount)),
                 ComponentPlaceholder.of("{player}", target.getName())));
         senderPlayer.sendMessage(langManager.getMessageFor(senderPlayer,
                 "commands." + COMMAND_NAME + ".confirm-instruction",
@@ -177,21 +183,44 @@ public final class PayCommand implements CommandExecutor {
     }
 
     private void processPayment(Player senderPlayer, OfflinePlayer target, double amount) {
-        economy.withdrawPlayer(senderPlayer, amount);
-        economy.depositPlayer(target, amount);
+        EconomyResponse withdrawResponse = economyManager.withdraw(senderPlayer, amount);
 
-        senderPlayer.sendMessage(langManager.getMessageFor(senderPlayer,
-                "commands." + COMMAND_NAME + ".success-sender",
-                "<green>You paid <white>{amount} <green>to <white>{player}",
-                ComponentPlaceholder.of("{amount}", economy.format(amount)),
-                ComponentPlaceholder.of("{player}", target.getName())));
+        if (!withdrawResponse.success()) {
+            senderPlayer.sendMessage(langManager.getMessageFor(senderPlayer,
+                    "commands." + COMMAND_NAME + ".transaction-failed",
+                    "<red>Transaction failed: {error}",
+                    ComponentPlaceholder.of("{error}", withdrawResponse.errorMessage)));
+            return;
+        }
 
-        if (target.isOnline()) {
-            ((Player) target).sendMessage(langManager.getMessageFor((Player) target,
+        if (target instanceof Player targetPlayer) {
+            EconomyResponse depositResponse = economyManager.deposit(targetPlayer, amount);
+
+            if (!depositResponse.success()) {
+                economyManager.deposit(senderPlayer, amount);
+                senderPlayer.sendMessage(langManager.getMessageFor(senderPlayer,
+                        "commands." + COMMAND_NAME + ".transaction-failed",
+                        "<red>Transaction failed: {error}",
+                        ComponentPlaceholder.of("{error}", depositResponse.errorMessage)));
+                return;
+            }
+
+            senderPlayer.sendMessage(langManager.getMessageFor(senderPlayer,
+                    "commands." + COMMAND_NAME + ".success-sender",
+                    "<green>You paid <white>{amount} <green>to <white>{player}",
+                    ComponentPlaceholder.of("{amount}", economyManager.format(amount)),
+                    ComponentPlaceholder.of("{player}", target.getName())));
+
+            targetPlayer.sendMessage(langManager.getMessageFor(targetPlayer,
                     "commands." + COMMAND_NAME + ".success-target",
                     "<green>You received <white>{amount} <green>from <white>{player}",
-                    ComponentPlaceholder.of("{amount}", economy.format(amount)),
+                    ComponentPlaceholder.of("{amount}", economyManager.format(amount)),
                     ComponentPlaceholder.of("{player}", senderPlayer.getName())));
+        } else {
+            senderPlayer.sendMessage(langManager.getMessageFor(senderPlayer,
+                    "commands." + COMMAND_NAME + ".offline-target",
+                    "<red>Cannot pay offline players."));
+            economyManager.deposit(senderPlayer, amount);
         }
     }
 

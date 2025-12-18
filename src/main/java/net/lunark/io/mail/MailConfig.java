@@ -11,7 +11,6 @@ public class MailConfig {
 
     public MailConfig(Plugin plugin) {
         this.plugin = plugin;
-        // Provide defaults in config.yml if missing
         plugin.getConfig().addDefault("mail.cooldown", 5);
         plugin.getConfig().addDefault("mail.max-length", 500);
         plugin.getConfig().addDefault("mail.join-notify-delay", 40);

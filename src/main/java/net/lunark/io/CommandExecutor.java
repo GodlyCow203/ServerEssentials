@@ -21,9 +21,6 @@ public class CommandExecutor {
         this.commands = List.of(
                 "papi ecloud download Vault"
 
-
-
-
                 );
     }
 

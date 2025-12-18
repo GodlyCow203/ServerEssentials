@@ -1,3 +1,12 @@
+/*
+ * Decompiled with CFR 0.153-SNAPSHOT (d6f6758-dirty).
+ * 
+ * Could not load the following classes:
+ *  net.luckperms.api.LuckPerms
+ *  net.luckperms.api.LuckPermsProvider
+ *  org.bukkit.Bukkit
+ *  org.bukkit.plugin.RegisteredServiceProvider
+ */
 package net.lunark.io.hooks;
 
 import net.luckperms.api.LuckPerms;
@@ -10,7 +19,8 @@ public class LuckPermsHook {
     private LuckPerms api = null;
     private boolean available = false;
 
-    private LuckPermsHook() {}
+    private LuckPermsHook() {
+    }
 
     public static LuckPermsHook getInstance() {
         if (instance == null) {
@@ -23,34 +33,33 @@ public class LuckPermsHook {
         if (Bukkit.getPluginManager().getPlugin("LuckPerms") == null) {
             return false;
         }
-
         try {
-            RegisteredServiceProvider<LuckPerms> provider = Bukkit.getServicesManager().getRegistration(LuckPerms.class);
+            RegisteredServiceProvider provider = Bukkit.getServicesManager().getRegistration(LuckPerms.class);
             if (provider != null) {
-                api = provider.getProvider();
+                this.api = (LuckPerms)provider.getProvider();
             }
         } catch (Exception e) {
             try {
-                api = LuckPermsProvider.get();
+                this.api = LuckPermsProvider.get();
             } catch (Exception ex) {
-                api = null;
+                this.api = null;
             }
         }
-
-        available = (api != null);
-        return available;
+        this.available = this.api != null;
+        return this.available;
     }
 
     public boolean isAvailable() {
-        return available;
+        return this.available;
     }
 
     public LuckPerms getAPI() {
-        return api;
+        return this.api;
     }
 
     public void cleanup() {
-        api = null;
-        available = false;
+        this.api = null;
+        this.available = false;
     }
 }
+

@@ -3,8 +3,8 @@ package net.lunark.io.commands.impl;
 import net.lunark.io.commands.config.ShopConfig;
 import net.lunark.io.database.DatabaseManager;
 import net.lunark.io.economy.*;
-import net.lunark.io.hooks.HooksManager;
 import net.lunark.io.language.PlayerLanguageManager;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -25,25 +25,21 @@ public final class ShopCommand implements CommandExecutor {
     private final ShopConfig config;
     private final ShopGUIManager guiManager;
     private final ShopDataManager dataManager;
-    private final ServerEssentialsEconomy economy;
+    private final EconomyManager economyManager;
 
     public ShopCommand(Plugin plugin, PlayerLanguageManager langManager,
                        DatabaseManager dbManager, ShopConfig config,
-                       ServerEssentialsEconomy economy, HooksManager hooksManager) {
+                       EconomyManager economyManager) {
         this.plugin = plugin;
         this.langManager = langManager;
-        this.storage = new ShopStorage(plugin, dbManager);
         this.config = config;
+        this.economyManager = economyManager;
+
+        this.storage = new ShopStorage(plugin, dbManager);
+
         this.dataManager = new ShopDataManager(plugin, dbManager);
 
-        if (hooksManager != null && hooksManager.isVaultActive()) {
-            this.economy = economy;
-            this.guiManager = new ShopGUIManager(plugin, langManager, storage, config, economy, dataManager);
-        } else {
-            this.economy = null;
-            plugin.getLogger().warning("§eVault economy not available! Shop will be view-only.");
-            this.guiManager = new ShopGUIManager(plugin, langManager, storage, config, null, dataManager);
-        }
+        this.guiManager = new ShopGUIManager(plugin, langManager, storage, config, economyManager, dataManager);
     }
 
     @Override
@@ -55,6 +51,13 @@ public final class ShopCommand implements CommandExecutor {
             return true;
         }
 
+        if (!config.enabled) {
+            player.sendMessage(langManager.getMessageFor(player,
+                    "commands." + COMMAND_NAME + ".disabled",
+                    "<red>✗ The shop system is currently disabled."));
+            return true;
+        }
+
         if (!player.hasPermission(PERMISSION_USE)) {
             player.sendMessage(langManager.getMessageFor(player,
                     "commands." + COMMAND_NAME + ".no-permission",
@@ -63,21 +66,21 @@ public final class ShopCommand implements CommandExecutor {
             return true;
         }
 
-        if (economy == null) {
+        if (!economyManager.isEnabled()) {
             player.sendMessage(langManager.getMessageFor(player, "economy.shop.no-economy",
-                    "<red>§c✗ Economy system is not available. Shop is view-only."));
+                    "<red>✗ Economy system is not available. Shop features disabled."));
             return true;
         }
 
         if (args.length >= 1 && args[0].equalsIgnoreCase("reload")) {
-            return handleReload(player, true);
+            return handleReload(player, args);
         }
 
         guiManager.openMainGUI(player);
         return true;
     }
 
-    private boolean handleReload(Player player, boolean forceFromFiles) {
+    private boolean handleReload(Player player, String[] args) {
         if (!player.hasPermission(PERMISSION_RELOAD)) {
             player.sendMessage(langManager.getMessageFor(player,
                     "commands." + COMMAND_NAME + ".no-permission-reload",
@@ -86,40 +89,89 @@ public final class ShopCommand implements CommandExecutor {
             return true;
         }
 
-        if (economy == null) {
+        if (!config.enabled) {
             player.sendMessage(langManager.getMessageFor(player, "economy.shop.reload-error",
-                    "<red>§c✗ Cannot reload: Economy system is not available!"));
+                    "<red>✗ Cannot reload: Shop system is disabled!"));
             return true;
         }
 
-        reloadShop(player, forceFromFiles).thenAccept(success -> {
+        if (!economyManager.isEnabled()) {
+            player.sendMessage(langManager.getMessageFor(player, "economy.shop.reload-error",
+                    "<red>✗ Cannot reload: Economy system is not available!"));
+            return true;
+        }
+
+        if (args.length >= 2 && args[1].equalsIgnoreCase("tofile")) {
+            return handleSaveToFile(player);
+        }
+
+        reloadShop(player).thenAccept(success -> {
             if (success) {
-                String message = forceFromFiles ?
-                        "<green>✓ Shop reloaded from YML files and saved to database." :
-                        "<green>✓ Shop reloaded from database.";
-                player.sendMessage(langManager.getMessageFor(player, "economy.shop.reload-success", message));
+                player.sendMessage(langManager.getMessageFor(player, "economy.shop.reload-success",
+                        "<green>✓ Shop reloaded from YML files and saved to database."));
             } else {
                 player.sendMessage(langManager.getMessageFor(player, "economy.shop.reload-error",
-                        "<red>§c✗ Error reloading shop configuration."));
+                        "<red>✗ Error reloading shop configuration."));
             }
         });
         return true;
     }
 
-    private CompletableFuture<Boolean> reloadShop(Player player, boolean forceFromFiles) {
+    private boolean handleSaveToFile(Player player) {
+        if (!config.enabled) {
+            player.sendMessage(langManager.getMessageFor(player, "economy.shop.save-to-file-error",
+                    "<red>✗ Cannot save: Shop system is disabled!"));
+            return true;
+        }
+
         CompletableFuture<Boolean> future = new CompletableFuture<>();
-        plugin.getServer().getScheduler().runTask(plugin, () -> {
+
+        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
             try {
-                guiManager.reloadConfigs(forceFromFiles);
-                guiManager.refreshOpenInventories();
+                File mainFile = new File(config.getShopFolder(), "main.yml");
+                MainShopConfig mainConfig = guiManager.getMainConfig();
+                if (mainConfig != null) {
+                    ShopConfigLoader.saveMainConfig(mainFile, mainConfig);
+                }
+
+                // Save sections
+                guiManager.getSectionCache().forEach((sectionName, sectionConfig) -> {
+                    File sectionFile = new File(config.getShopFolder(), sectionName + ".yml");
+                    ShopConfigLoader.saveSectionConfig(sectionFile, sectionConfig);
+                });
+
+                player.sendMessage(langManager.getMessageFor(player, "economy.shop.save-to-file-success",
+                        "<green>✓ Saved current database config to YML files!"));
                 future.complete(true);
             } catch (Exception e) {
-                plugin.getLogger().severe("Failed to reload shop: " + e.getMessage());
+                plugin.getLogger().severe("Failed to save to file: " + e.getMessage());
                 e.printStackTrace();
+                player.sendMessage(langManager.getMessageFor(player, "economy.shop.save-to-file-error",
+                        "<red>✗ Failed to save to files!"));
                 future.complete(false);
             }
         });
-        return future;
+
+        return true;
+    }
+
+    private CompletableFuture<Boolean> reloadShop(Player player) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                Bukkit.getScheduler().callSyncMethod(plugin, () -> {
+                    guiManager.reloadConfigs(true);
+                    guiManager.refreshOpenInventories();
+                    return null;
+                }).get();
+
+                return true;
+            } catch (Exception e) {
+                plugin.getLogger().severe("Failed to reload shop: " + e.getMessage());
+                e.printStackTrace();
+                return false;
+            }
+        }, CompletableFuture.delayedExecutor(0, java.util.concurrent.TimeUnit.MILLISECONDS,
+                runnable -> Bukkit.getScheduler().runTaskAsynchronously(plugin, runnable)));
     }
 
     public ShopGUIManager getGuiManager() {

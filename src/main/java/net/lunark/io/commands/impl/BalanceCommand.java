@@ -1,7 +1,7 @@
 package net.lunark.io.commands.impl;
 
 import net.lunark.io.commands.config.BalanceConfig;
-import net.lunark.io.economy.ServerEssentialsEconomy;
+import net.lunark.io.economy.EconomyManager;
 import net.lunark.io.language.PlayerLanguageManager;
 import net.lunark.io.language.LanguageManager.ComponentPlaceholder;
 import org.bukkit.Bukkit;
@@ -18,16 +18,23 @@ public final class BalanceCommand implements CommandExecutor {
 
     private final PlayerLanguageManager langManager;
     private final BalanceConfig config;
-    private final ServerEssentialsEconomy economy;
+    private final EconomyManager economyManager;
 
-    public BalanceCommand(PlayerLanguageManager langManager, BalanceConfig config, ServerEssentialsEconomy economy) {
+    public BalanceCommand(PlayerLanguageManager langManager, BalanceConfig config, EconomyManager economyManager) {
         this.langManager = langManager;
         this.config = config;
-        this.economy = economy;
+        this.economyManager = economyManager;
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (!economyManager.isEnabled()) {
+            sender.sendMessage(langManager.getMessageFor(sender instanceof Player p ? p : null,
+                    "commands." + COMMAND_NAME + ".no-economy",
+                    "<red>§c✗ Economy system is not available."));
+            return true;
+        }
+
         if (args.length == 0) {
             if (!(sender instanceof Player player)) {
                 sender.sendMessage(langManager.getMessageFor(null,
@@ -44,11 +51,11 @@ public final class BalanceCommand implements CommandExecutor {
                 return true;
             }
 
-            double balance = economy.getBalance(player);
+            double balance = economyManager.getBalance(player);
             player.sendMessage(langManager.getMessageFor(player,
                     "commands." + COMMAND_NAME + ".self",
                     "<green>Your balance is: <gold>{balance}",
-                    ComponentPlaceholder.of("{balance}", String.format("%.2f", balance))));
+                    ComponentPlaceholder.of("{balance}", economyManager.format(balance))));
             return true;
         }
 
@@ -61,7 +68,7 @@ public final class BalanceCommand implements CommandExecutor {
         }
 
         OfflinePlayer target = Bukkit.getOfflinePlayer(args[0]);
-        if (target == null || (!target.hasPlayedBefore() && !target.isOnline())) {
+        if (!target.hasPlayedBefore() && !target.isOnline()) {
             sender.sendMessage(langManager.getMessageFor(sender instanceof Player p ? p : null,
                     "commands." + COMMAND_NAME + ".player-not-found",
                     "<red>Player not found: <white>{player}",
@@ -69,12 +76,13 @@ public final class BalanceCommand implements CommandExecutor {
             return true;
         }
 
-        double balance = economy.getBalance(target);
+        double balance = economyManager.getEconomy().getBalance(target);
+
         sender.sendMessage(langManager.getMessageFor(sender instanceof Player p ? p : null,
                 "commands." + COMMAND_NAME + ".other",
                 "<green>{player}'s balance is: <gold>{balance}",
                 ComponentPlaceholder.of("{player}", target.getName()),
-                ComponentPlaceholder.of("{balance}", String.format("%.2f", balance))));
+                ComponentPlaceholder.of("{balance}", economyManager.format(balance))));
         return true;
     }
 }

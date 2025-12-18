@@ -12,9 +12,7 @@ public class ChatUtil {
 
     private static final Pattern HEX_PATTERN = Pattern.compile("&#([A-Fa-f0-9]{6})");
 
-    /**
-     * Converts a string with hex (&#RRGGBB) and legacy color codes to a Bukkit/Spigot readable string.
-     */
+
     public static String color(String message) {
         if (message == null || message.isEmpty()) return "";
 
@@ -31,13 +29,10 @@ public class ChatUtil {
         return net.md_5.bungee.api.ChatColor.translateAlternateColorCodes('&', buffer.toString());
     }
 
-    /**
-     * Converts a string with hex and legacy color codes to a Component (used in GUI titles).
-     */
+
     public static Component component(String message) {
         if (message == null || message.isEmpty()) return Component.empty();
 
-        // Replace hex with Adventure-compatible syntax
         String parsed = message.replaceAll("&#([A-Fa-f0-9]{6})", "§x§$1".replaceAll("([A-Fa-f0-9])", "§$1"));
         parsed = net.md_5.bungee.api.ChatColor.translateAlternateColorCodes('&', parsed);
         return LegacyComponentSerializer.legacySection().deserialize(parsed);

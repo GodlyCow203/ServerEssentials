@@ -15,7 +15,7 @@ public class KitCommand implements CommandExecutor {
     private final PlayerLanguageManager langManager;
     private final KitStorage kitStorage;
     private final KitConfig kitConfig;
-    private final KitGUIListener guiListener; // <-- This field is required
+    private final KitGUIListener guiListener;
 
     public KitCommand(Plugin plugin, PlayerLanguageManager langManager, KitStorage kitStorage, KitConfig kitConfig, KitGUIListener guiListener) {
         this.plugin = plugin;

@@ -1,5 +1,6 @@
 package net.lunark.io.hooks;
 
+import net.lunark.io.util.AnsiColorUtil;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class HooksManager {
@@ -26,36 +27,36 @@ public class HooksManager {
         try {
             vaultActive = VaultHook.getInstance().init();
             if (vaultActive) {
-                plugin.getLogger().info("§aVault hooked successfully!");
+                plugin.getLogger().info(AnsiColorUtil.success("Vault hooked successfully!"));
             } else {
-                plugin.getLogger().warning("§eVault not found, related features disabled.");
+                plugin.getLogger().warning(AnsiColorUtil.warning("Vault not found, related features disabled."));
             }
         } catch (Exception e) {
-            plugin.getLogger().warning("§eFailed to hook Vault: " + e.getMessage());
+            plugin.getLogger().warning(AnsiColorUtil.warning("Failed to hook Vault: " + e.getMessage()));
             vaultActive = false;
         }
 
         try {
             luckPermsActive = LuckPermsHook.getInstance().init();
             if (luckPermsActive) {
-                plugin.getLogger().info("§aLuckPerms hooked successfully!");
+                plugin.getLogger().info(AnsiColorUtil.success("LuckPerms hooked successfully!"));
             } else {
-                plugin.getLogger().warning("§eLuckPerms not found, related features disabled.");
+                plugin.getLogger().warning(AnsiColorUtil.warning("LuckPerms not found, related features disabled."));
             }
         } catch (Exception e) {
-            plugin.getLogger().warning("§eFailed to hook LuckPerms: " + e.getMessage());
+            plugin.getLogger().warning(AnsiColorUtil.warning("Failed to hook LuckPerms: " + e.getMessage()));
             luckPermsActive = false;
         }
 
         try {
             papiActive = PlaceholderAPIHook.getInstance().init();
             if (papiActive) {
-                plugin.getLogger().info("§aPlaceholderAPI hooked successfully!");
+                plugin.getLogger().info(AnsiColorUtil.success("PlaceholderAPI hooked successfully!"));
             } else {
-                plugin.getLogger().warning("§ePlaceholderAPI not found, placeholders won't work.");
+                plugin.getLogger().warning(AnsiColorUtil.warning("PlaceholderAPI not found, placeholders won't work."));
             }
         } catch (Exception e) {
-            plugin.getLogger().warning("§eFailed to hook PlaceholderAPI: " + e.getMessage());
+            plugin.getLogger().warning(AnsiColorUtil.warning("Failed to hook PlaceholderAPI: " + e.getMessage()));
             papiActive = false;
         }
     }

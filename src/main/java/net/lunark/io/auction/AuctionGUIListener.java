@@ -3,9 +3,10 @@ package net.lunark.io.auction;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.lunark.io.commands.config.AuctionConfig;
+import net.lunark.io.economy.EconomyManager;
+import net.lunark.io.economy.EconomyResponse; // FIXED: Direct import
 import net.lunark.io.language.PlayerLanguageManager;
-import net.milkbowl.vault.economy.Economy;
-import net.milkbowl.vault.economy.EconomyResponse;
+import net.lunark.io.language.LanguageManager.ComponentPlaceholder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -16,13 +17,9 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.util.io.BukkitObjectInputStream;
-import org.bukkit.util.io.BukkitObjectOutputStream;
-import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -30,14 +27,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 
-import static net.lunark.io.language.LanguageManager.ComponentPlaceholder;
-
 public class AuctionGUIListener implements Listener {
     private final Plugin plugin;
     private final PlayerLanguageManager langManager;
     private final AuctionConfig config;
     private final AuctionStorage storage;
-    private final Economy economy;
+    private final EconomyManager economyManager;
     private final MiniMessage miniMessage = MiniMessage.miniMessage();
 
     private final Map<Player, Map<Integer, UUID>> auctionViewingMap = new WeakHashMap<>();
@@ -45,12 +40,12 @@ public class AuctionGUIListener implements Listener {
     private final Map<Player, UUID> pendingRemovalMap = new WeakHashMap<>();
 
     public AuctionGUIListener(Plugin plugin, PlayerLanguageManager langManager,
-                              AuctionConfig config, AuctionStorage storage, Economy economy) {
+                              AuctionConfig config, AuctionStorage storage, EconomyManager economyManager) {
         this.plugin = plugin;
         this.langManager = langManager;
         this.config = config;
         this.storage = storage;
-        this.economy = economy;
+        this.economyManager = economyManager;
     }
 
     @EventHandler
@@ -153,10 +148,10 @@ public class AuctionGUIListener implements Listener {
             }
             case PLAYER_HEAD -> {
                 if (title.contains("Auction House")) {
-                    double balance = economy.getBalance(player);
+                    double balance = economyManager.getBalance(player);
                     player.sendMessage(langManager.getMessageFor(player, "auction.gui.balance",
                             "<green>Balance: <yellow>${balance}",
-                            ComponentPlaceholder.of("{balance}", String.format("%.2f", balance))));
+                            ComponentPlaceholder.of("{balance}", economyManager.format(balance))));
                 }
                 yield true;
             }
@@ -199,7 +194,13 @@ public class AuctionGUIListener implements Listener {
     }
 
     private void processPurchase(Player player, AuctionItem item) {
-        double balance = economy.getBalance(player);
+        if (!economyManager.isEnabled()) {
+            player.sendMessage(langManager.getMessageFor(player, "auction.purchase.no-economy",
+                    "<red>§c✗ Economy system is not available."));
+            return;
+        }
+
+        double balance = economyManager.getBalance(player);
         if (balance < item.getPrice()) {
             player.sendMessage(langManager.getMessageFor(player, "auction.purchase.not-enough-money",
                     "<red>You don't have enough money!"));
@@ -207,8 +208,10 @@ public class AuctionGUIListener implements Listener {
         }
 
         CompletableFuture.runAsync(() -> {
-            EconomyResponse withdrawResponse = economy.withdrawPlayer(player, item.getPrice());
-            if (!withdrawResponse.transactionSuccess()) {
+            // FIXED: Use EconomyResponse directly without casting
+            EconomyResponse withdrawResponse = economyManager.withdraw(player, item.getPrice());
+
+            if (!withdrawResponse.success()) {
                 Bukkit.getScheduler().runTask(plugin, () -> {
                     player.sendMessage(langManager.getMessageFor(player, "auction.purchase.failed",
                             "<red>Transaction failed: " + withdrawResponse.errorMessage));
@@ -216,34 +219,38 @@ public class AuctionGUIListener implements Listener {
                 return;
             }
 
-            EconomyResponse depositResponse = economy.depositPlayer(Bukkit.getOfflinePlayer(item.getSeller()), item.getPrice());
-            if (!depositResponse.transactionSuccess()) {
-                economy.depositPlayer(player, item.getPrice());
-                Bukkit.getScheduler().runTask(plugin, () -> {
-                    player.sendMessage(langManager.getMessageFor(player, "auction.purchase.failed",
-                            "<red>Transaction failed: Could not pay seller"));
-                });
-                return;
+            // Pay seller if they're online
+            Player sellerPlayer = Bukkit.getPlayer(item.getSeller());
+            if (sellerPlayer != null && sellerPlayer.isOnline()) {
+                EconomyResponse depositResponse = economyManager.deposit(sellerPlayer, item.getPrice());
+                if (!depositResponse.success()) {
+                    // Refund buyer if seller payment fails
+                    economyManager.deposit(player, item.getPrice());
+                    Bukkit.getScheduler().runTask(plugin, () -> {
+                        player.sendMessage(langManager.getMessageFor(player, "auction.purchase.failed",
+                                "<red>Transaction failed: Could not pay seller"));
+                    });
+                    return;
+                }
+
+                // Notify seller
+                sellerPlayer.sendMessage(langManager.getMessageFor(sellerPlayer, "auction.purchase.seller-message",
+                        "<green>{buyer} purchased your item for ${price}!",
+                        ComponentPlaceholder.of("{buyer}", player.getName()),
+                        ComponentPlaceholder.of("{price}", economyManager.format(item.getPrice()))));
             }
 
+            // Complete purchase
             storage.removeItem(item.getId()).thenAccept(v -> {
                 Bukkit.getScheduler().runTask(plugin, () -> {
                     player.getInventory().addItem(item.getItem().clone());
 
                     player.sendMessage(langManager.getMessageFor(player, "auction.purchase.success",
                             "<green>Purchased for <yellow>${price}</yellow>!",
-                            ComponentPlaceholder.of("{price}", String.format("%.2f", item.getPrice()))));
+                            ComponentPlaceholder.of("{price}", economyManager.format(item.getPrice()))));
 
                     int currentPage = extractPage(player.getOpenInventory().getTitle());
                     openAuctionGUI(player, currentPage);
-
-                    Player seller = Bukkit.getPlayer(item.getSeller());
-                    if (seller != null && seller.isOnline()) {
-                        seller.sendMessage(langManager.getMessageFor(seller, "auction.purchase.seller-message",
-                                "<green>{buyer} purchased your item for ${price}!",
-                                ComponentPlaceholder.of("{buyer}", player.getName()),
-                                ComponentPlaceholder.of("{price}", String.format("%.2f", item.getPrice()))));
-                    }
                 });
             }).exceptionally(ex -> {
                 Bukkit.getScheduler().runTask(plugin, () -> {
@@ -269,6 +276,11 @@ public class AuctionGUIListener implements Listener {
     }
 
     public void openAuctionGUI(Player player, int page) {
+        if (!economyManager.isEnabled()) {
+            player.sendMessage(langManager.getMessageFor(player, "auction.no-economy",
+                    "<red>§c✗ Economy system is not available."));
+            return;
+        }
         storage.getAllActiveItems().thenAccept(items -> {
             Bukkit.getScheduler().runTask(plugin, () -> openAuctionGUISync(player, page, items));
         });
@@ -310,6 +322,11 @@ public class AuctionGUIListener implements Listener {
     }
 
     public void openPlayerItemsGUI(Player player, int page) {
+        if (!economyManager.isEnabled()) {
+            player.sendMessage(langManager.getMessageFor(player, "auction.no-economy",
+                    "<red>§c✗ Economy system is not available."));
+            return;
+        }
         storage.getPlayerItems(player.getUniqueId()).thenAccept(items -> {
             Bukkit.getScheduler().runTask(plugin, () -> openPlayerItemsGUISync(player, page, items));
         });
@@ -364,14 +381,14 @@ public class AuctionGUIListener implements Listener {
 
         meta.displayName(langManager.getMessageFor(null, "auction.gui.item.name",
                 "<green>Price: <yellow>${price}",
-                ComponentPlaceholder.of("{price}", String.format("%.2f", item.getPrice()))));
+                ComponentPlaceholder.of("{price}", economyManager.format(item.getPrice()))));
 
         List<Component> lore = new ArrayList<>();
 
         if (forSeller) {
             lore.add(langManager.getMessageFor(null, "auction.gui.item.lore.seller-price",
                     "<gray>Your price: <yellow>${price}",
-                    ComponentPlaceholder.of("{price}", String.format("%.2f", item.getPrice()))));
+                    ComponentPlaceholder.of("{price}", economyManager.format(item.getPrice()))));
         } else {
             lore.add(langManager.getMessageFor(null, "auction.gui.item.lore.seller",
                     "<gray>Seller: <yellow>{seller}",
@@ -395,20 +412,19 @@ public class AuctionGUIListener implements Listener {
         ItemMeta meta = item.getItemMeta();
 
         Component nameComponent = langManager.getMessageFor(null, messageKey, "<white>Navigation");
-        meta.displayName(nameComponent); // Use meta.displayName() directly
-
+        meta.displayName(nameComponent);
         item.setItemMeta(meta);
         return item;
     }
 
     private ItemStack createPlayerBalanceItem(Player player) {
         ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
-        ItemMeta meta = skull.getItemMeta();
-        double balance = economy.getBalance(player);
+        SkullMeta meta = (SkullMeta) skull.getItemMeta();
+        double balance = economyManager.getBalance(player);
 
         Component nameComponent = langManager.getMessageFor(player, "auction.gui.balance",
                 "<green>Balance: <yellow>${balance}",
-                ComponentPlaceholder.of("{balance}", String.format("%.2f", balance)));
+                ComponentPlaceholder.of("{balance}", economyManager.format(balance)));
         meta.displayName(nameComponent);
 
         skull.setItemMeta(meta);
@@ -446,24 +462,5 @@ public class AuctionGUIListener implements Listener {
     private List<AuctionItem> filterExpired(List<AuctionItem> items) {
         long now = System.currentTimeMillis();
         return items.stream().filter(item -> item.getExpiration() > now).toList();
-    }
-
-    private String itemStackToBase64(ItemStack item) {
-        try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-             BukkitObjectOutputStream dataOutput = new BukkitObjectOutputStream(outputStream)) {
-            dataOutput.writeObject(item);
-            return Base64Coder.encodeLines(outputStream.toByteArray());
-        } catch (Exception e) {
-            throw new RuntimeException("Unable to save item stack", e);
-        }
-    }
-
-    private ItemStack base64ToItemStack(String base64) {
-        try (ByteArrayInputStream inputStream = new ByteArrayInputStream(Base64Coder.decodeLines(base64));
-             BukkitObjectInputStream dataInput = new BukkitObjectInputStream(inputStream)) {
-            return (ItemStack) dataInput.readObject();
-        } catch (Exception e) {
-            throw new RuntimeException("Unable to load item stack", e);
-        }
     }
 }

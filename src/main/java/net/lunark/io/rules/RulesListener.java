@@ -27,6 +27,7 @@ public class RulesListener implements Listener {
     private final Plugin plugin;
     private static final ConcurrentHashMap<UUID, Boolean> pendingAcceptance = new ConcurrentHashMap<>();
     private static final ConcurrentHashMap<UUID, Long> lastReopenTime = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<UUID, Integer> spamCount = new ConcurrentHashMap<>();
 
     public RulesListener(PlayerLanguageManager langManager, RulesStorage storage, RulesConfig config, Plugin plugin) {
         this.langManager = langManager;
@@ -64,8 +65,18 @@ public class RulesListener implements Listener {
         if (!title.equals(expectedLegacy)) return;
 
         Long lastOpen = lastReopenTime.get(player.getUniqueId());
-        if (lastOpen != null && System.currentTimeMillis() - lastOpen < 1000) {
+        int spamAttempts = spamCount.getOrDefault(player.getUniqueId(), 0);
+
+        long baseCooldown = 2000;
+        long maxCooldown = 10000;
+        long cooldown = Math.min(baseCooldown * (long)Math.pow(2, spamAttempts), maxCooldown);
+
+        if (lastOpen != null && System.currentTimeMillis() - lastOpen < cooldown) {
             return;
+        }
+
+        if (lastOpen != null && System.currentTimeMillis() - lastOpen < 1000) {
+            spamCount.put(player.getUniqueId(), spamAttempts + 1);
         }
 
         if (config.forceAcceptance() && pendingAcceptance.containsKey(player.getUniqueId())) {
@@ -74,12 +85,13 @@ public class RulesListener implements Listener {
                     player.sendMessage(langManager.getMessageFor(player, "rules.close.cannot-close",
                             "<red>You must accept the rules before playing!"));
 
+                    long reopenDelay = Math.max(40L, cooldown / 50);
                     lastReopenTime.put(player.getUniqueId(), System.currentTimeMillis());
                     Bukkit.getScheduler().runTaskLater(plugin, () -> {
                         if (player.isOnline() && pendingAcceptance.containsKey(player.getUniqueId())) {
                             gui.showRules(player);
                         }
-                    }, 10L);
+                    }, reopenDelay);
                 }
             });
         }
@@ -89,6 +101,7 @@ public class RulesListener implements Listener {
     public void onPlayerQuit(PlayerQuitEvent event) {
         pendingAcceptance.remove(event.getPlayer().getUniqueId());
         lastReopenTime.remove(event.getPlayer().getUniqueId());
+        spamCount.remove(event.getPlayer().getUniqueId());
     }
 
     @EventHandler
@@ -120,5 +133,6 @@ public class RulesListener implements Listener {
 
     public static void removePending(UUID playerId) {
         pendingAcceptance.remove(playerId);
+        spamCount.remove(playerId);
     }
 }

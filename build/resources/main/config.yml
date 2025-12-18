@@ -1,180 +1,211 @@
+# =========================================================================================
+# ServerEssentials Configuration File
+# =========================================================================================
+# For help: https://net.godlycow.org/serveressentials
+# MiniMessage Formatting Guide: https://docs.advntr.dev/minimessage/
+# PlaceholderAPI: https://github.com/PlaceholderAPI/PlaceholderAPI/wiki/Placeholders
+# =========================================================================================
 
+# Database configurations for each module
+# SQLite is used for simplicity - no external server required
+# File paths are relative to the plugin folder
 databases:
-  # Use SQLite for everything - simple, reliable, no server needed!
   rtp:
     type: sqlite
-    file: rtp.db
-    pool_size: 5
+    file: rtp.db          # Random teleport data storage
+    pool_size: 5          # Database connection pool size
 
   kits:
     type: sqlite
-    file: kits.db
+    file: kits.db         # Kit claim history and cooldowns
     pool_size: 5
 
   playerdata:
     type: sqlite
-    file: playerdata.db
+    file: playerdata.db   # General player data storage
     pool_size: 5
 
-
-# TPA Module Configuration
+# TPA Module - Player-to-player teleport requests
 tpa:
   settings:
-    cooldown: 5 # Seconds between TPA requests
-    timeout: 60 # Seconds before request expires
-    warmup: 1 # Seconds warmup before teleport (0 to disable)
-    teleport-delay: 3 # Seconds delay after warmup
-    cancel-on-move: true # Cancel teleport if player moves
-    block-move-threshold-blocks: true # Check movement at block level (vs vector level)
+    cooldown: 5           # Seconds between TPA requests (prevents spam)
+    timeout: 60           # Seconds before pending request expires
+    warmup: 1             # Pre-teleport countdown time (0 = disabled)
+    teleport-delay: 3     # Seconds to wait after warmup completes
+    cancel-on-move: true  # Cancel if player moves during warmup
+    block-move-threshold-blocks: true  # Use block precision for movement detection
 
   restrictions:
-    cross-world: false # Allow teleport between worlds
-    blocked-worlds: # Worlds players cannot teleport TO
+    cross-world: false    # Allow teleport between different worlds
+    blocked-worlds:       # Worlds players cannot teleport TO
       - world_nether
       - world_the_end
 
+# Economy management command (/eco)
+# Requires Vault for external economy support
+eco:
+  enabled: true
+  max-transaction-amount: 1000000.0  # Safety limit per transaction
+  notify-target: true    # Send message to player whose balance changed
+  log-transactions: true # Log all transactions to console
+
+# CoinFlip gambling minigame (/coinflip)
+coinflip:
+  enabled: true
+  min-bet-amount: 1.0    # Minimum gambling stake
+  max-bet-amount: 10000.0 # Maximum gambling stake
+  log-flips: true        # Log all flips to console
+  win-chance: 0.5        # Probability of winning (0.0 = never, 1.0 = always)
+
+# Mute system configuration
 mute:
-  check-interval-minutes: 1
+  check-interval-minutes: 1  # How often to check for expired mutes
+
+# Ban system integration
 bans:
-  server-name: "MyCoolServer"
-  discord-link: "https://discord.gg/example"
+  server-name: "MyCoolServer"      # Display name in ban messages
+  discord-link: "https://discord.gg/example"  # Appeal link shown to banned players
 
+# Warp system (/warp)
 warp:
-  cooldown: 0
-  max-per-player: 10
-  particles:
-    enabled: true # Show particles on teleport
-    type: PORTAL # Particle type (PORTAL, END_ROD, etc.)
+  cooldown: 0              # Seconds between warp uses (0 = disabled)
+  max-per-player: 10       # Maximum personal warps per player
+  
+  particles:              # Visual effects on teleport
+    enabled: true
+    type: PORTAL          # Particle types: PORTAL, END_ROD, ENCHANT, etc
+    # Full list: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Particle.html
 
-  # Message colors for titles
-  notifications:
+  notifications:          # Title message colors using MiniMessage
     title-color: <gold>
     subtitle-color: <yellow>
 
+  sounds:                 # Sound effects when toggling warps
+    enabled: ENTITY_BAT_TAKEOFF   # Sound when warp is enabled
+    disabled: ENTITY_BAT_DEATH    # Sound when warp is removed
+    # Full sound list: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Sound.html
 
-
-  # Sounds when toggling
-  sounds:
-    enabled: ENTITY_BAT_TAKEOFF
-    disabled: ENTITY_BAT_DEATH
-
-
+# Mail system (/mail)
 mail:
-  cooldown: 5 # Seconds between sending mail
-  max-length: 500 # Max characters per mail message
-  join-notify-delay: 40 # Ticks before join notification (2 seconds)
+  cooldown: 5            # Seconds between sending messages
+  max-length: 500        # Maximum characters per mail
+  join-notify-delay: 40  # Ticks before notifying on join (20 ticks = 1 second)
 
-
+# Player report system (/report)
 reports:
-  cooldown: 60 # Seconds between reports per player
-  max-reason-length: 200 # Max characters in report reason
-  auto-clear-after-days: 7 # Auto-remove old reports (0 to disable)
-  notify-online-only: false # Only notify online staff, don't mark pending
-  join-notify-delay: 40 # Ticks before notifying staff on join
+  cooldown: 60           # Seconds between reports per player
+  max-reason-length: 200 # Maximum characters in report description
+  auto-clear-after-days: 7  # Auto-remove old reports (0 = disable cleanup)
+  notify-online-only: false # Only notify online staff (don't show pending count)
+  join-notify-delay: 40  # Ticks before staff notification on join
 
+# Shop GUI system (/shop)
 shop:
+  enabled: true  # Set to true to enable shop, false to disable it completely
   main:
     title: <green>Main Shop
-    size: 54
-    close-button-slot: 49
+    size: 54                    # Inventory size (must be multiple of 9, max 54)
+    close-button-slot: 49       # Slot for close button (0-53)
 
   section:
     size: 54
-    player-head-slot: 4
-    max-pages: 10
+    player-head-slot: 4         # Slot for player info display
+    max-pages: 10               # Maximum pages per category
 
   economy:
-    currency-symbol: $
-    enable-sell: true
+    currency-symbol: $          # Currency symbol in displays
+    enable-sell: true           # Allow selling items back
 
+# Random teleport (/rtp)
+# Configure per-world settings
 rtp:
   world:
     enabled: true
-    min_radius: 1000
-    max_radius: 5000
-    cooldown_seconds: 300
+    min_radius: 1000    # Minimum distance from spawn
+    max_radius: 5000    # Maximum distance from spawn
+    cooldown_seconds: 300  # 5 minutes between uses
+
   world_nether:
     enabled: true
     min_radius: 500
     max_radius: 2500
-    cooldown_seconds: 600
+    cooldown_seconds: 600  # 10 minutes between uses
 
-
+# Sell GUI (/sellgui)
 sellgui:
   enabled: true
   title: <gold>💰 Sell Items
-  size: 54
-  currency-symbol: $
+  size: 54                    # Inventory slots (9-54, multiples of 9)
+  currency-symbol: $          # Currency display symbol
 
+# Daily rewards (/daily)
 daily:
-  enabled: true
-# -------------------------------------------------------------------------------------------
-rename:
-  allow-color-codes: true
-  max-name-length: 50
-near:
-  max-distance: 20
-nuke:
-  fire: true
-  power: 0.5
-  break-blocks: true
-weather:
-  duration-seconds: 600
-  notify-world: true
+  enabled: true             # Enable daily reward system
 
+# Item renaming (/rename)
+rename:
+  allow-color-codes: true   # Allow MiniMessage formatting in names
+  max-name-length: 50       # Maximum characters in item name
+
+# Nearby players command (/near)
+near:
+  max-distance: 20          # Maximum blocks to search for players
+
+# Nuke command (/nuke)
+nuke:
+  fire: true                # Create fire after explosion
+  power: 0.5                # Explosion power (TNT = 4.0)
+  break-blocks: true        # Whether to destroy blocks
+
+# Weather control (/weather)
+weather:
+  duration-seconds: 600     # How long weather change lasts (0 = default)
+  notify-world: true        # Broadcast weather change to world
+
+# Rule book item (/book)
 book:
   title: ServerEssentials
   author: SE Plugin
-  pages:
-    - <green>Welcome to our server!
+  pages:                    # Use MiniMessage formatting for colors
+    - "<green>Welcome to our server!"
     - '<yellow>Rule 1: Be respectful to all players'
     - '<aqua>Rule 2: No griefing, stealing, or cheating'
     - '<gold>Rule 3: Keep chat clean and friendly'
     - '<light_purple>Rule 4: Have fun!'
+
+# Item magnet ability (/magnet)
 magnet:
-  radius: 5.0
-  speed: 0.5
-  tick-interval: 10
+  radius: 5.0               # Blocks to attract items from
+  speed: 0.5                # Speed multiplier (0.1-2.0)
+  tick-interval: 10         # How often to check for items (lower = more responsive)
 
+# Launch command (/launch)
 launch:
-  # Power multiplier for horizontal launch (default: 2.0)
-  power: 2.0
+  power: 2.0                # Horizontal launch multiplier
+  height: 1.5               # Vertical launch height multiplier
 
-  # Vertical launch height (default: 1.5)
-  height: 1.5
-
-# /disposal command configuration
+# Disposal command (/disposal)
+# Opens GUI for item deletion
 disposal:
-  # Inventory size (must be multiple of 9, max 54)
-  inventory-size: 54
+  inventory-size: 54        # Must be multiple of 9, max 54
+  clear-on-close: true      # Auto-delete items when GUI closes
 
-  # Automatically clear items when inventory is closed
-  clear-on-close: true
-# /burn command configuration
+# Burn command (/burn)
 burn:
-  # Default burn duration in seconds
-  default-duration: 5
+  default-duration: 5       # Default burn time in seconds
+  max-duration: 30          # Maximum allowed (1-60)
 
-  # Maximum burn duration allowed (1-60)
-  max-duration: 30
-# /feed command configuration
+# Feed command (/feed)
 feed:
-  # Food level to set (0-20)
-  food-level: 20
+  food-level: 20            # Food points (0-20, 20 = full)
+  saturation: 20            # Saturation points (0-20)
 
-  # Saturation to set (0-20)
-  saturation: 20
-
-# /hat command configuration
+# Hat command (/hat)
 hat:
-  # Restrict to allowed items only (true/false)
-  require-allowed-list: false
-
-  # List of allowed items (if require-allowed-list is true)
-  # Use Material names: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html
-  allowed-items:
-    - "PUMPKIN"
-    - "JACK_O_LANTERN"
+  require-allowed-list: false  # Restrict to specific items?
+  allowed-items:            # Only used if require-allowed-list: true
+    - "PUMPKIN"            # Material names from:
+    - "JACK_O_LANTERN"     # https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html
     - "PLAYER_HEAD"
     - "CREEPER_HEAD"
     - "ZOMBIE_HEAD"
@@ -182,62 +213,50 @@ hat:
     - "WITHER_SKELETON_SKULL"
     - "DRAGON_HEAD"
 
-# /ptime command configuration
+# Player time command (/ptime)
 ptime:
-  # Time value for day (in ticks, 0-24000)
-  day-time: 1000
+  day-time: 1000        # Morning time in ticks (0-24000, 1000 = sunrise)
+  night-time: 13000     # Night time in ticks (13000 = sunset)
 
-  # Time value for night (in ticks, 0-24000)
-  night-time: 13000
-
-# /night command configuration
+# Night command (/night)
 night:
-  # Time value for night (in ticks, 0-24000)
-  time-ticks: 13000
+  time-ticks: 13000     # Time to set when using /night
 
+# Auction house (/auction)
 commands:
   auction:
     gui:
-      rows: 6
+      rows: 6                 # Inventory rows (1-6)
       titles:
-        auction: "<green>Auction House - Page {page}"
+        auction: "<green>Auction House - Page {page}"  # Supports {page} placeholder
         my-items: "<green>Your Items - Page {page}"
         remove-confirm: "<red>Confirm Removal"
-    items-per-page: 36
-    max-sell-limit: 64
-    expiration-days: 7
-# /sleep command configuration
+    items-per-page: 36        # Items shown per page
+    max-sell-limit: 64        # Max items per auction
+    expiration-days: 7        # Days before auction expires
+
+# Sleep command (/sleep)
+# Allows skipping night when sleeping
 sleep:
-  # Time to set (0 = morning, 6000 = noon, 12000 = evening, 18000 = midnight)
-  time-to-set: 0
+  time-to-set: 0            # 0 = morning, 6000 = noon, 12000 = evening, 18000 = midnight
+  clear-weather: true       # Clear rain/thunder when skipping night
+  weather-duration: 6000    # How long to keep weather clear (ticks)
+  broadcast-message: true   # Announce to all players
 
-  # Clear weather when skipping night
-  clear-weather: true
-
-  # How long to keep weather clear (in ticks, 20 ticks = 1 second)
-  weather-duration: 6000
-
-  # Broadcast message to all players
-  broadcast-message: true
+# Repair command (/repair)
 repair:
-  # Play anvil sound when repairing
-  play-sound: true
+  play-sound: true          # Play anvil sound on repair
+  require-permission-each-use: false  # Check permission every time (useful for timed perms)
 
-  # Require permission check for each use (set to true if you use permission plugins that modify perms dynamically)
-  require-permission-each-use: false
-
-
-
-
+# Kit system (/kit)
 kits:
   gui:
     title: <bold><green>Available Kits
     size: 54
-    preview-title: '<white>Preview Kit: <yellow>{kit}'
+    preview-title: '<white>Preview Kit: <yellow>{kit}'  # Supports {kit} placeholder
 
-  messages:
-    cooldown: <red>Please wait <yellow>{time}s</yellow> before claiming <white>{kit}</white>
-      again!
+  messages:               # All support MiniMessage formatting
+    cooldown: <red>Please wait <yellow>{time}s</yellow> before claiming <white>{kit}</white> again!
     no-permission: <red>You don't have permission to claim <white>{kit}</white>!
     claim-success: <green>✓ Successfully claimed kit <white>{kit}</white>!
     kit-not-found: <red>Kit <white>{kit}</white> not found!
@@ -250,38 +269,41 @@ kits:
     no-kits-defined: <red>No kits are currently defined!
     gui-title: Available Kits
 
-
+# Rules GUI system (/rules)
 rules:
-  # GUI Title (MiniMessage supported)
   title: <green><bold>⚔ Server Rules ⚔
-
-  # Force players to accept rules before playing
-  must-accept: true
-
-  # Prevent closing GUI before acceptance
-  force-acceptance: true
-
-  # Kick message for declining (MiniMessage)
+  must-accept: true         # Force rule acceptance on first join
+  force-acceptance: true    # Prevent GUI close before accepting
   kick-message: <red><bold>You must accept the rules to join this server!
-
-  # GUI Button Configuration
-  accept-button-text: <green><bold>✓ Accept Rules
-  decline-button-text: <red><bold>✗ Decline & Leave
-
-  # Button slots (0-53)
+  
   buttons:
     accept:
-      slot: 45
+      slot: 45              # Bottom-left corner (0-53)
     decline:
-      slot: 53
+      slot: 53              # Bottom-right corner
 
-  # GUI filler material
   gui:
-    filler-material: GRAY_STAINED_GLASS_PANE
+    filler-material: GRAY_STAINED_GLASS_PANE  # Background material
 
-  # Weather duration after change
-  duration-seconds: 600
 
+
+# Scoreboard system
+# [------INFO------]
+# If you see things like %statistic_player_kills% or %server_time%, do the following steps:
+# 1. Execute these commands:
+# - /papi ecloud download Player
+# - /papi ecloud download Statistic
+# - /papi ecloud download Server
+# - /papi ecloud download Vault
+
+# 2. Reload PlaceholderAPI:
+# - /papi reload
+
+# [------DEBUG------}
+# If it says "unknown command" or smth like that, download Vault:
+# >> https://www.spigotmc.org/resources/vault.34315/
+# If you still see the raw placeholders even after installing PlaceholderAPI and executing all commands,
+# join the Support Discord: https://discord.gg/7VT4cDGYg6
 
 scoreboard:
   enabled: true
@@ -417,31 +439,26 @@ scoreboard:
         - 'ᴘʟᴀʏᴇʀ.ѕᴇʀᴠᴇʀ '
       max-lines: 15
 
-
-# /powertool command configuration
-powertool:
-  # Maximum number of uses allowed (1-1000, -1 for infinite)
-  max-uses: 100
-
-messages:
-  join: "&aWelcome &f%player% &ato the server!"
-  leave: "&c%player% &fhas left the server."
-
+# Lobby/warp system
 lobby:
-  cooldown: 5
-  per-world: false
-  teleport-on-join: false
-  animation:
+  cooldown: 5               # Seconds between uses
+  per-world: false          # Separate lobby per world
+  teleport-on-join: false   # Teleport to lobby when joining
+  
+  animation:                # Teleport effects
     enabled: true
-    type: BOTH  # Options: FADE, PARTICLE, BOTH
-    duration: 40
+    type: BOTH              # FADE, PARTICLE, or BOTH
+    duration: 40            # Ticks for fade effect
     particle: PORTAL
     particle-count: 50
     sound: ENTITY_ENDERMAN_TELEPORT
 
-  # List of allowed materials for PowerTools
-  # Use Material names: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html
-  allowed-materials:
+# PowerTool command (/powertool)
+powertool:
+  max-uses: 100             # Maximum uses per tool (-1 = infinite)
+  
+  allowed-materials:        # Items that can be PowerTools
+    # Material list: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html
     - "STICK"
     - "BLAZE_ROD"
     - "BONE"
@@ -453,39 +470,43 @@ lobby:
     - "IRON_SWORD"
     - "GOLDEN_SWORD"
 
+# Fun command effects
 celebrate:
   effect:
     flicker: true
     trail: true
-    type: STAR
-    color: 5589162
-    fade: 11193708
+    type: STAR            # Firework types: STAR, BALL, BURST, etc
+    # Full list: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/FireworkEffect.Type.html
+    color: 5589162        # Decimal color code
+    fade: 11193708        # Fade color code
 
-kittycannon:
+kittycannon:              # Shoot cats!
   velocity: 2.0
-canon:
+
+canon:                    # Shoot TNT!
   velocity: 2.0
-beezooka:
+
+beezooka:                 # Shoot bees!
   velocity: 2.5
 
+# Home system (/home)
 homes:
-  max-homes: 8
-  allow-rename: true
+  max-homes: 8            # Maximum homes per player
+  allow-rename: true      # Allow renaming homes
+  
   gui:
     titles:
       main: "<green>Home Manager"
       confirm: "<red>Confirm Action"
 
-# /back command configuration
+# Back command (/back)
 back:
-  # When to automatically save player locations for /back
-  save-on-teleport: true
-  save-on-death: true
-  save-on-quit: true
-  save-on-respawn: true
-
-  # Lobby location for /back lobby
-  lobby:
+  save-on-teleport: true  # Save location before teleporting
+  save-on-death: true     # Save location on death
+  save-on-quit: true      # Save location on logout
+  save-on-respawn: true   # Save location on respawn
+  
+  lobby:                  # Fixed lobby location for /back lobby
     world: world
     x: 0.0
     y: 100.0
@@ -493,5 +514,24 @@ back:
     yaw: 0.0
     pitch: 0.0
 
-disabled-commands:
-  - example_command
+# Blacklisted words for the Chat Filter
+
+chat-filter:
+  blacklist:
+    - badword1
+    - badword2
+
+# =========================================================================================
+# Placeholder Usage Examples:
+# %player_name% - Player's name
+# %vault_eco_balance% - Economy balance
+# %server_online% - Online player count
+# %server_time% - Server time
+# Full list: https://github.com/PlaceholderAPI/PlaceholderAPI/wiki/Placeholders
+# =========================================================================================
+
+# Color code reference:
+# <white>, <black>, <red>, <green>, <gold>, <blue>, <dark_blue>, etc
+# Hex colors: <#RRGGBB>
+# Full MiniMessage docs: https://docs.advntr.dev/minimessage/format.html
+# =========================================================================================

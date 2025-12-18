@@ -140,7 +140,7 @@ public class DatabaseManager {
                 try (ResultSet rs = ps.executeQuery()) {
                     return Optional.ofNullable(mapper.map(rs));
                 }
-            } catch (SQLException e) {
+            } catch (Exception e) {
                 statusMap.put(poolKey, new DatabaseStatus(false, e.getMessage(), Instant.now()));
                 plugin.getLogger().log(Level.SEVERE, "SQL Query Error in pool '" + poolKey + "': " + sql, e);
                 throw new CompletionException(e);
@@ -201,6 +201,6 @@ public class DatabaseManager {
 
     @FunctionalInterface
     public interface ResultMapper<T> {
-        @Nullable T map(ResultSet rs) throws SQLException;
+        @Nullable T map(ResultSet rs) throws Exception;
     }
 }

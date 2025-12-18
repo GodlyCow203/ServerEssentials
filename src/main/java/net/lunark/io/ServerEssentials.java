@@ -2,8 +2,6 @@
 
 package net.lunark.io;
 
-import net.lunark.io.api.APIImpl;
-import com.serveressentials.api.ServerEssentialsAPI;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 
@@ -20,6 +18,7 @@ import net.lunark.io.economy.*;
 
 import net.lunark.io.homes.*;
 import net.lunark.io.hooks.HooksManager;
+import net.lunark.io.hooks.PlaceholderAPIHook;
 import net.lunark.io.kit.*;
 import net.lunark.io.kit.storage.*;
 import net.lunark.io.commands.impl.*;
@@ -42,10 +41,8 @@ import net.lunark.io.serverEssentials.ServerEssentialsCommand;
 import net.lunark.io.serverEssentials.VersionChecker;
 import net.lunark.io.daily.*;
 import net.lunark.io.util.*;
-import net.lunark.io.vault.*;
 import net.lunark.io.warp.WarpManager;
 import net.lunark.io.warp.WarpStorage;
-import net.milkbowl.vault.economy.Economy;
 import net.lunark.io.sellgui.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -57,7 +54,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -65,7 +61,6 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.*;
-import java.util.logging.Level;
 import java.util.regex.Pattern;
 
 
@@ -85,11 +80,9 @@ public class ServerEssentials extends JavaPlugin implements Listener {
     private File pwFile;
     private FileConfiguration pwConfig;
     private BukkitAudiences adventure;
-    private static Economy economy;
     private FileConfiguration offlineConfig;
     private File offlineFile;
     private AuctionGUIListener guiManager;
-    private Economy vaultEconomy;
     private static final int BSTATS_PLUGIN_ID = 27221;
     private List<String> reloadedItems = new ArrayList<>();
 
@@ -256,7 +249,6 @@ public class ServerEssentials extends JavaPlugin implements Listener {
     private AuctionCommand auctionCommand;
     private PayToggleConfig payToggleConfig;
     private PayToggleCommand payToggleCommand;
-    private ServerEssentialsEconomy economyProvider;
     private PayConfig payConfig;
     private PayCommand payCommand;
     private EcoConfig ecoConfig;
@@ -385,7 +377,6 @@ public class ServerEssentials extends JavaPlugin implements Listener {
     private StaffListCommand staffListCommand;
     private EditSignConfig editSignConfig;
     private EditSignCommand editSignCommand;
-    private VaultCommand vaultCommand;
     private WarpStorage warpStorage;
     private WarpConfig warpConfig;
     private WarpManager warpManager;
@@ -393,13 +384,12 @@ public class ServerEssentials extends JavaPlugin implements Listener {
     private WarpSetCommand setwarpCommand;
     private WarpDeleteCommand delwarpCommand;
     private WarpsCommand warpsCommand;
-    private VaultManager vaultManager;
-    private VaultListener vaultListener;
-    private VaultStorage vaultStorage;
-    private Vault vault;
-    private VaultSelectorListener vaultSelectorListener;
     private static final String LOG_PREFIX = "[ServerEssentials] ";
     private HooksManager hooksManager;
+    private EconomyManager economyManager;
+    private ChatFilterConfig chatFilterConfig;
+    private ChatFilterCommand chatFilterListener;
+
 
 
 
@@ -419,38 +409,33 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         databaseManager = new DatabaseManager(this);
         initializeDatabases();
 
-        if (getServer().getPluginManager().getPlugin("Vault") == null) {
-            getLogger().severe("=== VAULT NOT FOUND ===");
-            getLogger().severe("ServerEssentials requires Vault for economy features!");
-            getLogger().severe("Plugin will continue without economy support.");
-            economyProvider = null;
-        } else {
-            getLogger().info("Vault detected. Setting up ServerEssentials economy provider...");
 
-            economyProvider = new ServerEssentialsEconomy(this, databaseManager);
-            getServer().getServicesManager().register(
-                    net.milkbowl.vault.economy.Economy.class,
-                    economyProvider,
-                    this,
-                    org.bukkit.plugin.ServicePriority.Highest
-            );
 
-            if (economyProvider == null) {
-                getLogger().warning("Failed to initialize ServerEssentials economy! Economy features disabled.");
-            } else {
-                getLogger().info("ServerEssentials economy provider loaded: " + economyProvider.getName());
-
-                payToggleConfig = new PayToggleConfig(this);
-                payToggleCommand = new PayToggleCommand(playerLanguageManager, payToggleConfig, economyProvider);
-                getCommand("paytoggle").setExecutor(payToggleCommand);
-            }
-        }
 
         hooksManager = HooksManager.getInstance(this);
         hooksManager.initializeHooks();
 
-        if (hooksManager.isVaultActive() && hooksManager.getVault().hasEconomy()) {
+
+        boolean papiAvailable = PlaceholderAPIHook.getInstance().init();
+
+        if (papiAvailable) {
+            new ServerEssentialsPlaceholderExpansion(this).register();
+            getLogger().info("PlaceholderAPI integration enabled!");
+        } else {
+            getLogger().warning("PlaceholderAPI not found. Placeholders will be unavailable.");
         }
+
+
+        this.economyManager = EconomyManager.getInstance(this, databaseManager, hooksManager);
+        economyManager.initialize();
+
+        if (economyManager.isEnabled()) {
+            getLogger().info("§aEconomy system initialized: " + economyManager.getEconomyName());
+        } else {
+            getLogger().warning("§cEconomy system failed to initialize!");
+        }
+
+
 
         if (hooksManager.isLuckPermsActive()) {
         }
@@ -477,7 +462,6 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         initializeBanSystem();
         initializeMuteSystem();
         initializeWarpSystem();
-        initializeVaultSystem();
 
 
 
@@ -615,29 +599,27 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         this.nightConfig = new NightConfig(this);
         this.nightCommand = new NightCommand(playerLanguageManager, nightConfig, commandDataStorage);
         payToggleConfig = new PayToggleConfig(this);
-        payToggleCommand = new PayToggleCommand(playerLanguageManager, payToggleConfig, economy);
-
+        payToggleCommand = new PayToggleCommand(playerLanguageManager, payToggleConfig, economyManager);
         payConfig = new PayConfig(this);
-        payCommand = new PayCommand(this,playerLanguageManager, payConfig, (ServerEssentialsEconomy) economy);
+        payCommand = new PayCommand(this, playerLanguageManager, payConfig, economyManager);
 
         ecoConfig = new EcoConfig(this);
-        ecoCommand = new EcoCommand(playerLanguageManager, ecoConfig, (ServerEssentialsEconomy) economy);
+        ecoCommand = new EcoCommand(this,playerLanguageManager, ecoConfig, economyManager);
 
         payConfirmToggleConfig = new PayConfirmToggleConfig(this);
-        payConfirmToggleCommand = new PayConfirmToggleCommand(playerLanguageManager, payConfirmToggleConfig, (ServerEssentialsEconomy) economy);
+        payConfirmToggleCommand = new PayConfirmToggleCommand(playerLanguageManager, payConfirmToggleConfig, economyManager);
 
         balanceConfig = new BalanceConfig(this);
-        balanceCommand = new BalanceCommand(playerLanguageManager, balanceConfig, (ServerEssentialsEconomy) economy);
+        balanceCommand = new BalanceCommand(playerLanguageManager, balanceConfig, economyManager);
 
         balanceTopConfig = new BalanceTopConfig(this);
-        balanceTopCommand = new BalanceTopCommand(playerLanguageManager, balanceTopConfig, (ServerEssentialsEconomy) economy);
+        balanceTopCommand = new BalanceTopCommand(playerLanguageManager, balanceTopConfig, economyManager);
 
         coinFlipConfig = new CoinFlipConfig(this);
-        coinFlipCommand = new CoinFlipCommand(playerLanguageManager, coinFlipConfig, (ServerEssentialsEconomy) economy);
+        coinFlipCommand = new CoinFlipCommand(this,playerLanguageManager, coinFlipConfig, economyManager);
 
         shopConfig = new ShopConfig(this);
-        shopCommand = new ShopCommand(this, playerLanguageManager, databaseManager, shopConfig, (ServerEssentialsEconomy) economy, hooksManager);
-
+        shopCommand = new ShopCommand(this, playerLanguageManager, databaseManager, shopConfig, economyManager);
         this.powerToolConfig = new PowerToolConfig(this);
         this.powerToolCommand = new PowerToolCommand(playerLanguageManager, powerToolConfig, commandDataStorage, this);
         this.gravityConfig = new GravityConfig(this);
@@ -750,6 +732,11 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         staffListCommand = new StaffListCommand(playerLanguageManager, staffListConfig);
         editSignConfig = new EditSignConfig(this);
         editSignCommand = new EditSignCommand(playerLanguageManager, editSignConfig);
+
+        chatFilterConfig   = new ChatFilterConfig(this);
+        chatFilterListener = new ChatFilterCommand(this, chatFilterConfig,playerLanguageManager);
+
+
 
         // Commands
         getCommand("fly").setExecutor(flyCommand);
@@ -874,11 +861,11 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         getCommand("alts").setExecutor(altsCommand);
         getCommand("stafflist").setExecutor(staffListCommand);
         getCommand("editsign").setExecutor(editSignCommand);
-        getCommand("pv").setExecutor(vaultCommand);
         getCommand("warp").setExecutor(warpCommand);
         getCommand("setwarp").setExecutor(setwarpCommand);
         getCommand("delwarp").setExecutor(delwarpCommand);
         getCommand("warps").setExecutor(warpsCommand);
+
 
 
 
@@ -918,6 +905,8 @@ public class ServerEssentials extends JavaPlugin implements Listener {
 
 
 
+
+
         // 7. Register Listeners
         getServer().getPluginManager().registerEvents(reportListener, this);
         getServer().getPluginManager().registerEvents(tpaListener, this);
@@ -938,17 +927,10 @@ public class ServerEssentials extends JavaPlugin implements Listener {
 
 
 
-        APIImpl.initialize(this, vaultManager, vaultStorage);
 
 
 
 
-        getServer().getServicesManager().register(
-                com.serveressentials.api.ServerEssentialsAPI.class,
-                APIImpl.getInstance(),
-                this,
-                org.bukkit.plugin.ServicePriority.Normal
-        );
 
         if (shopCommand != null) {
             getServer().getPluginManager().registerEvents(
@@ -1003,6 +985,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
 
         saveLangFile("de.json");
         saveLangFile("fr.json");
+        saveLangFile("br.json");
 
 
 
@@ -1015,7 +998,6 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         this.startTime = System.currentTimeMillis();
 
 
-        new TopPlaytimePlaceholder(this).register();
         this.PlaytimeManager = new PlaytimeManager(this);
         releaseLocation = new Location(Bukkit.getWorld("world"), 0, 65, 0);
 
@@ -1045,7 +1027,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         ServerEssentials plugin = ServerEssentials.getInstance();
 
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
-            new ServerEssentialsPlaceholder(this).register();
+            new ServerEssentialsPlaceholderExpansion(this).register();
         } else {
             getLogger().warning("PlaceholderAPI not found! Placeholders won't work.");
         }
@@ -1167,17 +1149,13 @@ public class ServerEssentials extends JavaPlugin implements Listener {
             hooksManager.cleanupHooks();
         }
 
-
-
         if (databaseManager != null) {
             databaseManager.closeAll();
         }
         if (magnetListener != null) {
             magnetListener.stop();
         }
-        if (economyProvider != null) {
-            getServer().getServicesManager().unregisterAll(this);
-        }
+
 
         getLogger().info("Shutting down ServerEssentials! Bye :(");
     }
@@ -1240,8 +1218,8 @@ public class ServerEssentials extends JavaPlugin implements Listener {
     }
 
 
-    public static Economy getEconomy() {
-        return economy;
+    public EconomyManager getEconomyManager() {
+        return economyManager;
     }
 
 
@@ -1363,15 +1341,10 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         auctionConfig = new AuctionConfig(this);
         auctionStorage = new AuctionStorage(databaseManager);
 
-        if (economyProvider == null) {
-            getLogger().severe("Auction system disabled - no economy provider found!");
-            return;
-        }
 
-        auctionGUIListener = new AuctionGUIListener(this, playerLanguageManager, auctionConfig, auctionStorage, economyProvider);
-        auctionCommand = new AuctionCommand(this, playerLanguageManager, auctionConfig, auctionStorage, auctionGUIListener);
 
-        ServerEssentials.economy = economyProvider;
+        auctionGUIListener = new AuctionGUIListener(this, playerLanguageManager, auctionConfig, auctionStorage, economyManager);
+        auctionCommand = new AuctionCommand(this, playerLanguageManager, auctionConfig, auctionStorage, auctionGUIListener, economyManager);
 
         getLogger().info("Auction system initialized successfully");
     }
@@ -1563,8 +1536,8 @@ public class ServerEssentials extends JavaPlugin implements Listener {
     private void initializeSellGuiSystem() {
         sellConfig = new SellConfig(this);
         sellStorage = new SellStorage(this, databaseManager);
-        sellGuiManager = new SellGUIManager(this, playerLanguageManager, sellStorage, sellConfig, economyProvider);
-        sellCommand = new SellCommand(playerLanguageManager, sellConfig, sellGuiManager);
+        sellGuiManager = new SellGUIManager(this, playerLanguageManager, sellStorage, sellConfig, economyManager);
+        sellCommand = new SellCommand(this, playerLanguageManager, sellConfig, sellGuiManager, economyManager);
         sellGuiListener = new SellGUIListener(playerLanguageManager, sellGuiManager);
 
         getCommand("sell").setExecutor(sellCommand);
@@ -1667,20 +1640,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         }
     }
 
-    private void initializeVaultSystem() {
-        vaultStorage = new VaultStorage(this, databaseManager);
-        vaultManager = new VaultManager(this, playerLanguageManager, vaultStorage);
-        vaultSelectorListener = new VaultSelectorListener(vaultManager, playerLanguageManager);
-        vaultCommand = new VaultCommand(vaultManager, playerLanguageManager);
-        vaultListener = new VaultListener(vaultManager);
 
-        getCommand("pv").setExecutor(vaultCommand);
-
-        getServer().getPluginManager().registerEvents(vaultSelectorListener, this);
-        getServer().getPluginManager().registerEvents(vaultListener, this);
-
-        getLogger().info("Vault system initialized with 10 vaults per player");
-    }
 
 
 
@@ -1694,6 +1654,9 @@ public class ServerEssentials extends JavaPlugin implements Listener {
                     if (name.startsWith(folderPath + "/") && !entry.isDirectory()) {
 
                         File outFile = new File(getDataFolder(), name);
+
+                        if (outFile.exists()) continue;
+
                         outFile.getParentFile().mkdirs();
 
                         try (var in = zip.getInputStream(entry);
@@ -1708,6 +1671,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
             e.printStackTrace();
         }
     }
+
 
 
 }

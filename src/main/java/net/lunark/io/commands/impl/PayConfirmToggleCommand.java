@@ -1,7 +1,7 @@
 package net.lunark.io.commands.impl;
 
 import net.lunark.io.commands.config.PayConfirmToggleConfig;
-import net.lunark.io.economy.ServerEssentialsEconomy;
+import net.lunark.io.economy.EconomyManager;
 import net.lunark.io.language.PlayerLanguageManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -9,6 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 import static net.lunark.io.language.LanguageManager.ComponentPlaceholder;
 
@@ -18,12 +19,12 @@ public final class PayConfirmToggleCommand implements CommandExecutor {
 
     private final PlayerLanguageManager langManager;
     private final PayConfirmToggleConfig config;
-    private final ServerEssentialsEconomy economy;
+    private final EconomyManager economyManager;
 
-    public PayConfirmToggleCommand(PlayerLanguageManager langManager, PayConfirmToggleConfig config, ServerEssentialsEconomy economy) {
+    public PayConfirmToggleCommand(PlayerLanguageManager langManager, PayConfirmToggleConfig config, EconomyManager economyManager) {
         this.langManager = langManager;
         this.config = config;
-        this.economy = economy;
+        this.economyManager = economyManager;
     }
 
     @Override
@@ -46,9 +47,9 @@ public final class PayConfirmToggleCommand implements CommandExecutor {
         UUID playerId = player.getUniqueId();
         String playerName = player.getName();
 
-        economy.hasPayConfirmDisabled(playerId).thenCompose(confirmDisabled -> {
+        economyManager.hasPayConfirmDisabled(playerId.toString()).thenCompose(confirmDisabled -> {
             boolean newState = !confirmDisabled;
-            return economy.setPayConfirmDisabled(playerId, playerName, newState)
+            return economyManager.setPayConfirmDisabled(playerId.toString(), playerName, newState)
                     .thenRun(() -> {
                         String messageKey = newState ? "commands.payconfirmtoggle.disabled" : "commands.payconfirmtoggle.enabled";
                         player.sendMessage(langManager.getMessageFor(player,

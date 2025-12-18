@@ -924,14 +924,18 @@
     "shop": {
       "main-title": "<gradient:#FFD900:#FFD900>Server Shop</gradient>",
       "section-title": "<#3BB302>✔ {section} Shop</#3BB302>",
+      "disabled": " <#B22222>❌ Shop is disabled",
       "balance-display": "<#3BB302>✔ Your Balance: <#FFD900>{balance}</#FFD900></#3BB302>",
-      "buy-success": "<#3BB302>✔ Bought <white>{amount}x {item}</white> for <#FFD900>{symbol}{price}</#FFD900>",
-      "sell-success": "<#3BB302>✔ Sold <white>{amount}x {item}</white> for <#FFD900>{symbol}{price}</#FFD900>",
-      "cannot-afford": "<#B22222>❌ Cannot afford {item} (cost: <#FFD900>{symbol}{price}</#FFD900>)",
+      "buy-success": "<#3BB302>✔ Bought <white>{amount}x {item}</white> for <#FFD900>{price}</#FFD900>",
+      "sell-success": "<#3BB302>✔ Sold <white>{amount}x {item}</white> for <#FFD900>{price}</#FFD900>",
+      "cannot-afford": "<#B22222>❌ Cannot afford {item} (cost: <#FFD900>{price}</#FFD900>)",
       "no-items": "<#B22222>❌ Not enough {item} to sell",
-      "no-section": "<#B22222>❌ Shop section '<#FFD900>{section}</#FFD900>' not found!",
+      "no-section": "<#B22222>❌ Shop section '<#FFD900></#FFD900>' not found!",
       "reload-success": "<#3BB302>✔ Shop configuration reloaded.",
       "reload-error": "<#B22222>❌ Error reloading shop configuration. Check console.",
+      "no-economy": "<#B22222>❌ Economy system is not available. Shop is view-only.",
+      "transaction-failed": "<#B22222>❌ Transaction failed: {error}",
+      "no-main-config": "<#B22222>❌ Shop configuration not found. Please contact an administrator.",
       "gui": {
         "close-button": "<#B22222>❌ ✕ Close",
         "back-button": "<#FFD900>← Back",
@@ -947,6 +951,9 @@
       "no-items": "<#708090>No items to sell",
       "inventory-full": "<#FFD900>⚠ Some items were dropped on the ground (inventory full)",
       "not-sellable": "<#B22222>❌ This item cannot be sold!",
+      "no-economy": "<#B22222>✗ Economy system is not available. Please contact an administrator.",
+      "transaction-failed": "<#B22222>✗ Transaction failed: {error}",
+      "title": "<#FFD900>💰 Sell Items</#FFD900>",
       "info": {
         "title": "<#FFD900>💰 SELL ZONE</#FFD900>",
         "subtitle": "<#708090>Place items here to sell",
@@ -1226,5 +1233,9 @@
     "header": "<#FFD900>------[ Warps ]------",
     "entry": "<#3BB302>✔ {warp}",
     "footer": "<#FFD900>-------------------"
+  },
+  "chatfilter": {
+    "blocked": "<#B22222>❌ Your message contained inappropriate language.",
+    "staff Notice": "<#F54927>★ <gray>[<#B22222>Filter<gray>] <white>{player}<#B22222> : <white>{message}"
   }
 }

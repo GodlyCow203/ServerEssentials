@@ -6,6 +6,8 @@ import org.bukkit.plugin.Plugin;
 
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
+import java.util.logging.Level;
+
 
 public class SellStorage {
     private final DatabaseManager dbManager;
@@ -30,14 +32,17 @@ public class SellStorage {
                 "timestamp BIGINT NOT NULL)";
 
         dbManager.executeUpdate(poolKey, sql).exceptionally(ex -> {
-            plugin.getLogger().warning("[SellGUI] Failed to create sell_transactions table: " + ex.getMessage());
+            plugin.getLogger().log(Level.SEVERE,
+                    "[SellGUI] Failed to create sell_transactions table: " + ex.getMessage(), ex);
             return null;
         });
     }
 
-    public CompletableFuture<Void> logSale(UUID playerId, String playerName, Material material, int quantity, double pricePerItem, double totalPrice) {
-        String sql = "INSERT INTO sell_transactions (player_uuid, player_name, material, quantity, price_per_item, total_price, timestamp) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+    public CompletableFuture<Void> logSale(UUID playerId, String playerName, Material material,
+                                           int quantity, double pricePerItem, double totalPrice) {
+        String sql = "INSERT INTO sell_transactions (player_uuid, player_name, material, quantity, " +
+                "price_per_item, total_price, timestamp) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         return dbManager.executeUpdate(poolKey, sql,
                 playerId.toString(),
@@ -47,6 +52,10 @@ public class SellStorage {
                 pricePerItem,
                 totalPrice,
                 System.currentTimeMillis()
-        );
+        ).thenRun(() -> {
+            plugin.getLogger().fine(String.format(
+                    "Logged sale: %s sold %dx %s for %.2f",
+                    playerName, quantity, material.name(), totalPrice));
+        });
     }
 }

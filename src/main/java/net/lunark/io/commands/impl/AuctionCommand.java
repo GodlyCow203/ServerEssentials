@@ -4,6 +4,7 @@ import net.lunark.io.auction.AuctionGUIListener;
 import net.lunark.io.auction.AuctionItem;
 import net.lunark.io.auction.AuctionStorage;
 import net.lunark.io.commands.config.AuctionConfig;
+import net.lunark.io.economy.EconomyManager;
 import net.lunark.io.language.PlayerLanguageManager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -15,7 +16,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
 import java.util.List;
-import java.util.UUID;
 
 import static net.lunark.io.language.LanguageManager.ComponentPlaceholder;
 
@@ -29,14 +29,16 @@ public final class AuctionCommand implements CommandExecutor, TabCompleter {
     private final AuctionConfig config;
     private final AuctionStorage storage;
     private final AuctionGUIListener guiListener;
+    private final EconomyManager economyManager;
 
     public AuctionCommand(Plugin plugin, PlayerLanguageManager langManager, AuctionConfig config,
-                          AuctionStorage storage, AuctionGUIListener guiListener) {
+                          AuctionStorage storage, AuctionGUIListener guiListener, EconomyManager economyManager) {
         this.plugin = plugin;
         this.langManager = langManager;
         this.config = config;
         this.storage = storage;
         this.guiListener = guiListener;
+        this.economyManager = economyManager;
     }
 
     @Override
@@ -51,6 +53,12 @@ public final class AuctionCommand implements CommandExecutor, TabCompleter {
             player.sendMessage(langManager.getMessageFor(player, "commands.no-permission",
                     "<red>You need permission <yellow>{permission}</yellow>!",
                     ComponentPlaceholder.of("{permission}", PERMISSION_BASE)));
+            return true;
+        }
+
+        if (!economyManager.isEnabled()) {
+            player.sendMessage(langManager.getMessageFor(player, "commands.auction.no-economy",
+                    "<red>§c✗ Economy system is not available."));
             return true;
         }
 
@@ -95,6 +103,12 @@ public final class AuctionCommand implements CommandExecutor, TabCompleter {
             return;
         }
 
+        if (!economyManager.isEnabled()) {
+            player.sendMessage(langManager.getMessageFor(player, "commands.auction.no-economy",
+                    "<red>§c✗ Economy system is not available."));
+            return;
+        }
+
         ItemStack handItem = player.getInventory().getItemInMainHand();
         if (handItem == null || handItem.getType().isAir()) {
             player.sendMessage(langManager.getMessageFor(player, "commands.auction.sell.no-item",
@@ -134,7 +148,7 @@ public final class AuctionCommand implements CommandExecutor, TabCompleter {
         storage.addItem(auctionItem).thenAccept(v -> {
             player.sendMessage(langManager.getMessageFor(player, "commands.auction.sell.success",
                     "<green>Item listed for <yellow>${price}</yellow>!",
-                    ComponentPlaceholder.of("{price}", price)));
+                    ComponentPlaceholder.of("{price}", economyManager.format(price))));
         });
     }
 
