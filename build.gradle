@@ -41,7 +41,6 @@ dependencies {
     }
 }
 
-// ✅ Updated source sets to use Bukkit/src
 sourceSets {
     main {
         java {
@@ -52,6 +51,26 @@ sourceSets {
         }
     }
 }
+
+def isWindows = System.getProperty("os.name").toLowerCase().contains("windows")
+
+def firebaseCmd = isWindows ? "${System.getenv('APPDATA')}\\npm\\firebase.cmd" : "firebase"
+
+tasks.register('deployWeb', Exec) {
+    description = 'Deploy the Web/ folder to Firebase Hosting'
+    group       = 'deployment'
+    workingDir  = file('Web')
+    commandLine firebaseCmd, 'deploy', '--only', 'hosting'
+}
+
+tasks.register('serveWeb', Exec) {
+    description = 'Start local Firebase emulator for the site'
+    group       = 'deployment'
+    workingDir  = file('Web')
+    commandLine firebaseCmd, 'emulators:start', '--only', 'hosting'
+}
+
+
 
 task apiJar(type: Jar) {
     archiveBaseName = 'serveressentials-api'
