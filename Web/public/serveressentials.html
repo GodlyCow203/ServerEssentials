@@ -1,0 +1,984 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="utf-8" />
+    <title>ServerEssentials - Setup Guide & Documentation - GodlyCow</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+        :root {
+          --bg: #0a0e1a;
+          --surface: #111827;
+          --border: #1f2937;
+          --text: #f1f5f9;
+          --text2: #94a3b8;
+          --accent: #3b82f6;
+          --accent2: #6366f1;
+          --grad: linear-gradient(135deg, var(--accent), var(--accent2));
+          --font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+          --glow: 0 0 20px rgba(59,130,246,.55);
+          --se-gold: #f59e0b;
+          --se-gold-dark: #d97706;
+          --success: #10b981;
+          --warning: #f59e0b;
+          --error: #ef4444;
+        }
+        [data-theme="light"] {
+          --bg: #f8fafc;
+          --surface: #ffffff;
+          --border: #e2e8f0;
+          --text: #0f172a;
+          --text2: #475569;
+          --glow: 0 0 18px rgba(59,130,246,.35);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+          background: var(--bg);
+          color: var(--text);
+          font-family: var(--font);
+          line-height: 1.6;
+          -webkit-font-smoothing: antialiased;
+          overflow-x: hidden;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.03); } }
+        @keyframes float { 0% { transform: translateY(0); } 50% { transform: translateY(-8px); } 100% { transform: translateY(0); } }
+
+        .top-nav { position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1.25rem; background: rgba(17, 24, 39, 0.85); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); animation: fadeIn 0.6s ease both; }
+        .logo { font-weight: 800; font-size: 1.25rem; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: pulse 3s infinite ease-in-out; }
+        .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+        .nav-links a { font-weight: 500; font-size: 0.95rem; transition: color 0.2s; position: relative; color: var(--text); text-decoration: none; }
+        .nav-links a::after { content: ''; position: absolute; left: 0; bottom: -4px; width: 0; height: 2px; background: var(--accent); transition: width 0.3s; }
+        .nav-links a:hover { color: var(--accent); }
+        .nav-links a:hover::after { width: 100%; }
+        .nav-right { display: flex; align-items: center; gap: 0.75rem; }
+        .theme-btn { background: transparent; border: 1px solid var(--border); color: var(--text2); padding: 0.4rem 0.7rem; border-radius: 0.5rem; cursor: pointer; font-size: 1.1rem; transition: background 0.2s, color 0.2s; }
+        .theme-btn:hover { background: var(--surface); color: var(--text); }
+        .mobile-burger { display: none; background: none; border: none; color: var(--text); font-size: 1.3rem; cursor: pointer; }
+
+        .container { max-width: 70rem; margin: 0 auto; padding: 0 1.25rem; }
+        .section { padding: 4rem 0; }
+        .section-title { font-size: 2.5rem; font-weight: 800; margin-bottom: 2rem; animation: fadeIn 1s both; }
+        .btn { padding: 0.65rem 1.6rem; border-radius: 0.5rem; font-weight: 600; font-size: 0.95rem; transition: transform 0.2s, box-shadow 0.2s; text-decoration: none; display: inline-block; }
+        .btn.primary { background: var(--grad); color: #fff; box-shadow: var(--glow); }
+        .btn.primary:hover { transform: translateY(-3px); }
+        .btn.gold { background: linear-gradient(135deg, var(--se-gold), var(--se-gold-dark)); color: #fff; }
+        .btn.gold:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(245, 158, 11, 0.3); }
+        .btn.success { background: var(--success); color: #fff; }
+        .btn.warning { background: var(--warning); color: #fff; }
+        .btn.error { background: var(--error); color: #fff; }
+
+        /* Hero Section */
+        .se-hero { background: linear-gradient(135deg, var(--se-gold-dark), var(--se-gold)); color: #fff; padding: 6rem 0; text-align: center; position: relative; overflow: hidden; }
+        .se-hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="80" r="1.5" fill="rgba(255,255,255,0.1)"/></svg>'); animation: float 6s infinite ease-in-out; }
+        .se-hero-content { position: relative; z-index: 1; max-width: 50rem; margin: 0 auto; }
+        .se-hero h1 { font-size: clamp(3rem, 8vw, 5rem); font-weight: 900; margin-bottom: 1rem; letter-spacing: -0.02em; }
+        .se-hero-sub { font-size: 1.3rem; margin-bottom: 2.5rem; opacity: 0.95; }
+        .se-hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+        /* Installation Steps */
+        .install-steps { counter-reset: step-counter; }
+        .install-step {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            counter-increment: step-counter;
+        }
+        .install-step::before {
+            content: counter(step-counter);
+            position: absolute;
+            top: -1rem;
+            left: 2rem;
+            background: var(--se-gold);
+            color: #fff;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+        .step-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: var(--se-gold); }
+        .step-content { color: var(--text2); line-height: 1.7; }
+        .step-warning {
+            background: rgba(239, 68, 68, 0.1);
+            border-left: 4px solid var(--error);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0.5rem;
+        }
+        .step-success {
+            background: rgba(16, 185, 129, 0.1);
+            border-left: 4px solid var(--success);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0.5rem;
+        }
+
+        /* Simple Command Examples */
+        .command-example {
+            background: #1a1a1a;
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: #e5e7eb;
+        }
+        .command-example .cmd { color: #60a5fa; }
+        .command-example .comment { color: #6b7280; font-size: 0.8rem; }
+
+        /* Permission Examples - Simplified */
+        .permission-group {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        .permission-group h4 {
+            color: var(--se-gold);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        .permission-item {
+            display: flex;
+            align-items: center;
+            margin: 0.5rem 0;
+            padding: 0.5rem;
+            background: rgba(245, 158, 11, 0.05);
+            border-radius: 0.25rem;
+        }
+        .permission-icon {
+            margin-right: 0.75rem;
+            font-size: 1.2rem;
+        }
+        .permission-cmd {
+            font-family: 'Courier New', monospace;
+            color: #60a5fa;
+            font-size: 0.9rem;
+        }
+
+        /* Troubleshooting */
+        .troubleshoot-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin: 2rem 0; }
+        .troubleshoot-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+        .troubleshoot-card:hover { transform: translateY(-3px); border-color: var(--se-gold); }
+        .troubleshoot-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 1rem; }
+        .troubleshoot-error { color: var(--error); }
+        .troubleshoot-fix { color: var(--success); margin-top: 1rem; }
+
+        /* FAQ */
+        .faq-item {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+        .faq-question {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s ease;
+        }
+        .faq-question:hover { background: rgba(245, 158, 11, 0.05); }
+        .faq-question h3 { font-size: 1.1rem; color: var(--se-gold); }
+        .faq-icon { font-size: 1.2rem; transition: transform 0.3s ease; }
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            color: var(--text2);
+            line-height: 1.7;
+        }
+        .faq-answer.active {
+            padding: 1.5rem;
+            max-height: 500px;
+        }
+        .faq-icon.active { transform: rotate(180deg); }
+
+        /* Navigation */
+        .page-nav {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 3rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .nav-link {
+            padding: 0.5rem 1rem;
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--se-gold);
+            text-decoration: none;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        .nav-link:hover { background: var(--se-gold); color: #fff; }
+
+        /* Info Cards */
+        .info-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
+        .info-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .info-card:hover { transform: translateY(-3px); border-color: var(--se-gold); }
+        .info-card-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+        .info-card-title { font-weight: 700; margin-bottom: 0.5rem; color: var(--se-gold); }
+        .info-card-desc { font-size: 0.9rem; color: var(--text2); }
+
+        @media (max-width: 768px) {
+          .nav-links { position: fixed; inset: 0 0 0 0; background: var(--bg); flex-direction: column; align-items: center; justify-content: center; gap: 2rem; font-size: 1.25rem; transform: translateY(-100%); transition: transform 0.4s cubic-bezier(.4,0,.2,1); }
+          .nav-links.open { transform: translateY(0); }
+          .mobile-burger { display: block; }
+          .se-hero-buttons { flex-direction: column; align-items: center; }
+          .troubleshoot-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="top-nav">
+    <a class="logo" href="../index.html">GodlyCow</a>
+    <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../plugins.html">Plugins</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+        <button id="themeBtn" class="theme-btn" aria-label="toggle theme">🌙</button>
+        <button id="mobileBtn" class="mobile-burger">☰</button>
+    </div>
+</nav>
+
+<section class="se-hero">
+    <div class="se-hero-content">
+        <h1>ServerEssentials Setup Guide</h1>
+        <p class="se-hero-sub">Complete installation and configuration guide for ServerEssentials. Get your server up and running in minutes!</p>
+        <div class="se-hero-buttons">
+            <a href="#installation" class="btn gold">Start Installation</a>
+            <a href="#troubleshooting" class="btn primary">Troubleshooting</a>
+            <a href="https://modrinth.com/plugin/serveressentials" class="btn ghost" target="_blank">Download Plugin</a>
+        </div>
+    </div>
+</section>
+
+<div class="container">
+    <!-- Navigation -->
+    <div class="page-nav">
+        <a href="#installation" class="nav-link">Installation</a>
+        <a href="#dependencies" class="nav-link">Dependencies</a>
+        <a href="#configuration" class="nav-link">Configuration</a>
+        <a href="#first-start" class="nav-link">First Start</a>
+        <a href="#troubleshooting" class="nav-link">Troubleshooting</a>
+        <a href="#faq" class="nav-link">FAQ</a>
+    </div>
+
+    <!-- QUICK OVERVIEW -->
+    <section class="section">
+        <h2 class="section-title">📋 Quick Overview</h2>
+        <div class="info-cards">
+            <div class="info-card">
+                <div class="info-card-icon">⚡</div>
+                <div class="info-card-title">Lightweight</div>
+                <div class="info-card-desc">Designed for performance with async code and minimal server impact</div>
+            </div>
+            <div class="info-card">
+                <div class="info-card-icon">🎯</div>
+                <div class="info-card-title">All-in-One</div>
+                <div class="info-card-desc">Homes, warps, economy, shops, and admin tools in one plugin</div>
+            </div>
+            <div class="info-card">
+                <div class="info-card-icon">🔧</div>
+                <div class="info-card-title">Customizable</div>
+                <div class="info-card-desc">Every feature can be enabled/disabled in the config</div>
+            </div>
+            <div class="info-card">
+                <div class="info-card-icon">🌍</div>
+                <div class="info-card-title">Multi-Language</div>
+                <div class="info-card-desc">Support for multiple languages with per-player settings</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INSTALLATION SECTION -->
+    <section class="section" id="installation">
+        <h2 class="section-title">🚀 Installation Guide</h2>
+
+        <div class="install-steps">
+            <div class="install-step">
+                <div class="step-title">Step 1: Download the Plugin</div>
+                <div class="step-content">
+                    <p>Download ServerEssentials from the official Modrinth page:</p>
+                    <div style="text-align: center; margin: 1rem 0;">
+                        <a href="https://modrinth.com/plugin/serveressentials" class="btn gold" target="_blank">Download ServerEssentials</a>
+                    </div>
+                    <p>Make sure you download the correct version for your Minecraft server version (1.17-1.21.11 supported).</p>
+                </div>
+            </div>
+
+            <div class="install-step">
+                <div class="step-title">Step 2: Install Dependencies FIRST</div>
+                <div class="step-content">
+                    <p><strong>⚠️ CRITICAL:</strong> ServerEssentials will NOT work without these 3 dependencies. Install them BEFORE starting your server:</p>
+
+                    <div class="step-warning">
+                        <strong>🔴 IMPORTANT:</strong> Install these plugins in this exact order:
+                    </div>
+
+                    <div class="permission-group">
+                        <h4>1. Vault (Required for Economy)</h4>
+                        <div class="permission-item">
+                            <span class="permission-icon">💰</span>
+                            <a href="https://www.spigotmc.org/resources/vault.34315/" target="_blank" style="color: var(--se-gold);">Download Vault →</a>
+                        </div>
+
+                        <h4>2. LuckPerms (Required for Permissions)</h4>
+                        <div class="permission-item">
+                            <span class="permission-icon">🔐</span>
+                            <a href="https://luckperms.net/download" target="_blank" style="color: var(--se-gold);">Download LuckPerms →</a>
+                        </div>
+
+                        <h4>3. PlaceholderAPI (Required for Placeholders)</h4>
+                        <div class="permission-item">
+                            <span class="permission-icon">🏷️</span>
+                            <a href="https://www.spigotmc.org/resources/placeholderapi.6245/" target="_blank" style="color: var(--se-gold);">Download PlaceholderAPI →</a>
+                        </div>
+                    </div>
+
+                    <div class="step-success">
+                        <strong>✅ Simple Installation:</strong> Just put these 3 JAR files in your plugins folder, then add ServerEssentials!
+                    </div>
+                </div>
+            </div>
+
+            <div class="install-step">
+                <div class="step-title">Step 3: Install ServerEssentials</div>
+                <div class="step-content">
+                    <p>Now you can add ServerEssentials to your plugins folder:</p>
+                    <div class="step-success">
+                        <strong>📁 Your plugins folder should look like this:</strong>
+                        <ul style="margin-left: 2rem; margin-top: 0.5rem;">
+                            <li>Vault.jar ✅</li>
+                            <li>LuckPerms.jar ✅</li>
+                            <li>PlaceholderAPI.jar ✅</li>
+                            <li><strong>ServerEssentials-2.0.7.jar</strong> ← Add this one</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="install-step">
+                <div class="step-title">Step 4: Start Your Server</div>
+                <div class="step-content">
+                    <p>Start your server and watch the console. You should see ServerEssentials loading messages:</p>
+                    <div class="command-example">
+                        <div class="cmd">[ServerEssentials] Enabling ServerEssentials v2.0.7</div>
+                        <div class="cmd">[ServerEssentials] Loading configuration files...</div>
+                        <div class="cmd">[ServerEssentials] Successfully loaded!</div>
+                        <div class="comment">// Look for these messages in your server console</div>
+                    </div>
+                    <div class="step-success">
+                        <strong>✅ Success!</strong> If you see these messages, ServerEssentials is working correctly.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DEPENDENCIES SECTION -->
+    <section class="section" id="dependencies">
+        <h2 class="section-title">🔗 Required Dependencies</h2>
+        <p>These 3 plugins MUST be installed for ServerEssentials to function properly:</p>
+
+        <div class="troubleshoot-grid">
+            <div class="troubleshoot-card">
+                <div class="troubleshoot-title" style="color: var(--se-gold);">💰 Vault</div>
+                <p><strong>What it does:</strong> Connects ServerEssentials to your economy plugin and permission system.</p>
+                <p><strong>Why you need it:</strong> Without Vault, economy features (/balance, /pay, shops) won't work.</p>
+                <div class="step-success">✅ Install first - Required for money features</div>
+            </div>
+
+            <div class="troubleshoot-card">
+                <div class="troubleshoot-title" style="color: var(--se-gold);">🔐 LuckPerms</div>
+                <p><strong>What it does:</strong> Manages who can use which commands.</p>
+                <p><strong>Why you need it:</strong> Without LuckPerms, players will get "No permission" errors.</p>
+                <div class="step-success">✅ Install second - Required for permissions</div>
+            </div>
+
+            <div class="troubleshoot-card">
+                <div class="troubleshoot-title" style="color: var(--se-gold);">🏷️ PlaceholderAPI</div>
+                <p><strong>What it does:</strong> Provides dynamic text for messages and scoreboards.</p>
+                <p><strong>Why you need it:</strong> Without PAPI, custom messages and scoreboards won't work properly.</p>
+                <div class="step-success">✅ Install third - Required for custom text</div>
+            </div>
+        </div>
+
+        <div class="step-warning">
+            <strong>🚨 What happens if I skip dependencies?</strong>
+            <ul style="margin-left: 2rem; margin-top: 0.5rem;">
+                <li>❌ ServerEssentials won't start at all</li>
+                <li>❌ You'll see red error messages in console</li>
+                <li>❌ Commands won't work properly</li>
+                <li>❌ Economy and permissions will be broken</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- CONFIGURATION SECTION -->
+    <section class="section" id="configuration">
+        <h2 class="section-title">⚙️ Basic Configuration</h2>
+
+        <div class="install-steps">
+            <div class="install-step">
+                <div class="step-title">Step 1: Understanding the Config Files</div>
+                <div class="step-content">
+                    <p>After first startup, ServerEssentials creates several files in <code>plugins/ServerEssentials/</code>:</p>
+
+                    <div class="permission-group">
+                        <h4>Main Configuration Files:</h4>
+                        <div class="permission-item">
+                            <span class="permission-icon">📄</span>
+                            <code>config.yml</code> - Main settings (enable/disable features)
+                        </div>
+                        <div class="permission-item">
+                            <span class="permission-icon">🗣️</span>
+                            <code>lang/en.json</code> - Language files (change messages)
+                        </div>
+                        <div class="permission-item">
+                            <span class="permission-icon">🎁</span>
+                            <code>kits.yml</code> - Starter kits for new players
+                        </div>
+                        <div class="permission-item">
+                            <span class="permission-icon">🛒</span>
+                            <code>shops/</code> - Shop configuration folder
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="install-step">
+                <div class="step-title">Step 3: Set Up Basic Permissions</div>
+                <div class="step-content">
+                    <p>Use these simple commands to give players access to basic features:</p>
+
+                    <div class="permission-group">
+                        <h4>🔹 For Regular Players (Default Group)</h4>
+                        <div class="permission-item">
+                            <span class="permission-icon">💰</span>
+                            <span class="permission-cmd">/lp group default permission set serveressentials.command.balance</span>
+                            <div class="comment"> // Let players check their money</div>
+                        </div>
+                        <div class="permission-item">
+                            <span class="permission-icon">🏠</span>
+                            <span class="permission-cmd">/lp group default permission set serveressentials.command.home</span>
+                            <div class="comment"> // Let players teleport home</div>
+                        </div>
+                        <div class="permission-item">
+                            <span class="permission-icon">📍</span>
+                            <span class="permission-cmd">/lp group default permission set serveressentials.command.warp</span>
+                            <div class="comment"> // Let players use warps</div>
+                        </div>
+                        <div class="permission-item">
+                            <span class="permission-icon">🚀</span>
+                            <span class="permission-cmd">/lp group default permission set serveressentials.command.rtp</span>
+                            <div class="comment"> // Let players random teleport</div>
+                        </div>
+                    </div>
+
+                    <div class="permission-group">
+                        <h4>🔹 For Staff/Moderators</h4>
+                        <div class="permission-item">
+                            <span class="permission-icon">🛡️</span>
+                            <span class="permission-cmd">/lp group moderator permission set serveressentials.command.god</span>
+                            <div class="comment"> // God mode for moderators</div>
+                        </div>
+                        <div class="permission-item">
+                            <span class="permission-icon">👻</span>
+                            <span class="permission-cmd">/lp group moderator permission set serveressentials.command.vanish</span>
+                            <div class="comment"> // Vanish for moderators</div>
+                        </div>
+                        <div class="permission-item">
+                            <span class="permission-icon">🛫</span>
+                            <span class="permission-cmd">/lp group moderator permission set serveressentials.command.fly</span>
+                            <div class="comment"> // Fly mode for moderators</div>
+                        </div>
+                    </div>
+
+                    <div class="step-success">
+                        <strong>🎯 Easy Way:</strong> Type <code>/lp editor</code> in-game for a web-based permission editor - much easier than commands!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FIRST START SECTION -->
+    <section class="section" id="first-start">
+        <h2 class="section-title">🎯 First Start Checklist</h2>
+
+        <div class="install-steps">
+            <div class="install-step">
+                <div class="step-title">Step 1: Test Basic Commands</div>
+                <div class="step-content">
+                    <p>Join your server and try these commands to verify everything works:</p>
+
+                    <div class="permission-group">
+                        <h4>✅ Test These Commands:</h4>
+                        <div class="permission-item">
+                            <span class="permission-icon">📊</span>
+                            <span class="permission-cmd">/ping</span>
+                            <div class="comment"> // Should show your connection speed</div>
+                        </div>
+                        <div class="permission-item">
+                            <span class="permission-icon">💰</span>
+                            <span class="permission-cmd">/balance</span>
+                            <div class="comment"> // Should show your money (starting with $0)</div>
+                        </div>
+                        <div class="permission-item">
+                            <span class="permission-icon">🏠</span>
+                            <span class="permission-cmd">/sethome base</span>
+                            <div class="comment"> // Should create a home named "base"</div>
+                        </div>
+                        <div class="permission-item">
+                            <span class="permission-icon">🚀</span>
+                            <span class="permission-cmd">/rtp</span>
+                            <div class="comment"> // Should teleport you randomly</div>
+                        </div>
+                    </div>
+
+                    <div class="step-success">
+                        <strong>✅ If all these work:</strong> ServerEssentials is installed correctly!
+                    </div>
+                    <div class="step-warning">
+                        <strong>❌ If any fail:</strong> Check the troubleshooting section below
+                    </div>
+                </div>
+            </div>
+
+            <div class="install-step">
+                <div class="step-title">Step 2: Set Up Your Spawn</div>
+                <div class="step-content">
+                    <p>Create your main spawn/welcome area:</p>
+
+                    <div class="permission-group">
+                        <h4>🏗️ Build Your Spawn:</h4>
+                        <ol style="margin-left: 1.5rem;">
+                            <li>Go to your desired spawn location</li>
+                            <li><strong>/lobby set</strong> - Sets the main spawn point</li>
+                            <li><strong>/setwarp spawn</strong> - Creates a warp called "spawn"</li>
+                            <li><strong>/setwarp tutorial</strong> - Creates a tutorial area</li>
+                        </ol>
+                    </div>
+
+                    <div class="step-success">
+                        <strong>💡 New players will automatically teleport to /lobby when they join!</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="install-step">
+                <div class="step-title">Step 3: Create Starter Kits</div>
+                <div class="step-content">
+                    <p>Give new players a welcome kit:</p>
+
+                    <div class="permission-group">
+                        <h4>🎁 Basic Starter Kit Setup:</h4>
+                        <ol style="margin-left: 1.5rem;">
+                            <li>Go to /plugins/serveressentials/kits.yml</li>
+                            <li><strong>Configure different types of Kits</strong> - Caution: a wrong YAML structure can break the Kit</li>
+                            <li><strong>/kit reload</strong> - Reload the Kit System</li>
+                        </ol>
+                    </div>
+
+                    <div class="step-success">
+                        <strong>You can now claim your configured Kits with /kit </strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TROUBLESHOOTING SECTION -->
+    <section class="section" id="troubleshooting">
+        <h2 class="section-title">🛠️ Common Problems & Solutions</h2>
+
+        <div class="troubleshoot-grid">
+            <div class="troubleshoot-card">
+                <div class="troubleshoot-title troubleshoot-error">❌ "Plugin won't load"</div>
+                <p><strong>What you see:</strong> Red error messages in console, plugin not in /plugins list</p>
+                <p><strong>Most likely cause:</strong> Missing dependencies</p>
+                <div class="troubleshoot-fix">
+                    <strong>✅ Fix:</strong> Install Vault, LuckPerms, and PlaceholderAPI first, then restart server
+                </div>
+            </div>
+
+            <div class="troubleshoot-card">
+                <div class="troubleshoot-title troubleshoot-error">💰 "Balance command not working"</div>
+                <p><strong>What you see:</strong> "No economy plugin found" or balance shows $0</p>
+                <p><strong>Most likely cause:</strong> Missing economy plugin</p>
+                <div class="troubleshoot-fix">
+                    <strong>✅ Fix:</strong> Install an economy plugin like EssentialsX Economy or CMI alongside Vault
+                </div>
+            </div>
+
+            <div class="troubleshoot-card">
+                <div class="troubleshoot-title troubleshoot-error">🔐 "No permission" errors</div>
+                <p><strong>What you see:</strong> "You don't have permission to use this command"</p>
+                <p><strong>Most likely cause:</strong> LuckPerms not set up</p>
+                <div class="troubleshoot-fix">
+                    <strong>✅ Fix:</strong> Type <code>/lp editor</code> and add permissions for your player groups
+                </div>
+            </div>
+
+            <div class="troubleshoot-card">
+                <div class="troubleshoot-title troubleshoot-error">🌐 "No such pool found: "%pool%" error</div>
+                <p><strong>What you see:</strong> Database errors when enabling a Database</p>
+                <p><strong>Most likely cause:</strong> Config mismatch</p>
+                <div class="troubleshoot-fix">
+                    <strong>✅ Fix:</strong> Join the Support Discord, ask the Dev for help
+                </div>
+            </div>
+        </div>
+
+        <div class="install-step" style="margin-top: 3rem;">
+            <div class="step-title">Console Error Decoder</div>
+            <div class="step-content">
+                <p>See an error message? Here's what it means:</p>
+
+                <div class="permission-group">
+                    <div class="permission-item">
+                        <span class="permission-icon" style="color: var(--error);">❌</span>
+                        <div>
+                            <strong>"Could not load 'ServerEssentials.jar'"</strong>
+                            <div class="comment">→ Install Vault, LuckPerms, and PlaceholderAPI first!</div>
+                        </div>
+                    </div>
+                    <div class="permission-item">
+                        <span class="permission-icon" style="color: var(--error);">❌</span>
+                        <div>
+                            <strong>"No economy plugin found via Vault!"</strong>
+                            <div class="comment">→ Install an economy plugin (EssentialsX Economy, CMI, etc.)</div>
+                        </div>
+                    </div>
+                    <div class="permission-item">
+                        <span class="permission-icon" style="color: var(--error);">❌</span>
+                        <div>
+                            <strong>"Permission check failed"</strong>
+                            <div class="comment">→ Use /lp editor to set up permissions</div>
+                        </div>
+                    </div>
+                    <div class="permission-item">
+                        <span class="permission-icon" style="color: var(--error);">❌</span>
+                        <div>
+                            <strong>"Database is locked"</strong>
+                            <div class="comment">→ Restart your server properly (don't force-close)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHAT NOT TO DO SECTION -->
+    <section class="section">
+        <h2 class="section-title">🚫 Common Mistakes to Avoid</h2>
+
+        <div class="step-warning">
+            <h4 style="margin-bottom: 1rem;">❌ DON'T DO THESE:</h4>
+            <ol style="margin-left: 2rem;">
+                <li><strong>Install ServerEssentials before dependencies</strong> - Always install Vault, LuckPerms, PAPI first</li>
+                <li><strong>Use /reload instead of restart</strong> - Always do a full server restart when adding plugins</li>
+                <li><strong>Edit config files while server is running</strong> - Stop server, edit files, then restart</li>
+                <li><strong>Give players * permissions</strong> - Use specific permissions instead of wildcards</li>
+                <li><strong>Ignore console errors</strong> - Fix problems immediately before they get worse</li>
+                <li><strong>Use cracked/illegal plugin versions</strong> - Only download from official Modrinth page</li>
+                <li><strong>Skip permission setup</strong> - Players can't use commands without permissions!</li>
+            </ol>
+        </div>
+
+        <div class="step-success">
+            <h4 style="margin-bottom: 1rem;">✅ DO THESE INSTEAD:</h4>
+            <ol style="margin-left: 2rem;">
+                <li>Install dependencies first, then ServerEssentials</li>
+                <li>Always do full server restarts</li>
+                <li>Edit configs with server stopped</li>
+                <li>Use specific permissions for each group</li>
+                <li>Fix errors as soon as you see them</li>
+                <li>Download only from official sources</li>
+                <li>Set up basic permissions for each player group</li>
+            </ol>
+        </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section class="section" id="faq">
+        <h2 class="section-title">❓ Frequently Asked Questions</h2>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">
+                <h3>Do I really need all 3 dependencies?</h3>
+                <span class="faq-icon">▼</span>
+            </div>
+            <div class="faq-answer">
+                <p><strong>Yes, 100% required!</strong> Here's why:</p>
+                <ul style="margin-left: 1.5rem;">
+                    <li><strong>Vault</strong> = Money system (shops, /pay, /balance)</li>
+                    <li><strong>LuckPerms</strong> = Who can use which commands</li>
+                    <li><strong>PlaceholderAPI</strong> = Custom text in messages/scoreboards</li>
+                </ul>
+                <p>Without any of these, ServerEssentials will either not start or have broken features.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">
+                <h3>Can I use ServerEssentials with EssentialsX?</h3>
+                <span class="faq-icon">▼</span>
+            </div>
+            <div class="faq-answer">
+                <p><strong>Not recommended.</strong> Both plugins have the same commands (/home, /warp, etc.) which causes:</p>
+                <ul style="margin-left: 1.5rem;">
+                    <li>Command conflicts and confusion</li>
+                    <li>Permission problems</li>
+                    <li>Unexpected behavior</li>
+                    <li>Potential server issues</li>
+                </ul>
+                <p><strong>Choose one:</strong> ServerEssentials has MORE features than EssentialsX and is actively maintained!</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">
+                <h3>How do I set up permissions easily?</h3>
+                <span class="faq-icon">▼</span>
+            </div>
+            <div class="faq-answer">
+                <p><strong>Easiest way:</strong> Use the web editor!</p>
+                <ol style="margin-left: 1.5rem;">
+                    <li>Type <code>/lp editor</code> in your server console</li>
+                    <li>Click the link it gives you</li>
+                    <li>Use the web interface to drag-and-drop permissions</li>
+                    <li>Click save and apply changes</li>
+                </ol>
+                <p>Much easier than typing long commands!</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">
+                <h3>What economy plugin should I use?</h3>
+                <span class="faq-icon">▼</span>
+            </div>
+            <div class="faq-answer">
+                <p><strong>The only working Eco Plugin:</strong></p>
+                <ul style="margin-left: 1.5rem;">
+                    <li><strong>Vault</strong> - Simple, reliable, most popular</li>
+                </ul>
+                <p><strong>Install process:</strong> Download Vault → Put in plugins folder → Restart server → Done!</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">
+                <h3>Can I disable features I don't want?</h3>
+                <span class="faq-icon">▼</span>
+            </div>
+            <div class="faq-answer">
+                <p><strong>No, you cant:</strong></p>
+                <ol style="margin-left: 1.5rem;">
+                    <li>Disabling certain commands is not supported yet <code> Fix: Dont give the players permission for a command </code></li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">
+                <h3>How many homes can players have?</h3>
+                <span class="faq-icon">▼</span>
+            </div>
+            <div class="faq-answer">
+                <p><strong>You control this with permissions:</strong></p>
+                <ul style="margin-left: 1.5rem;">
+                    <li><code>serveressentials.sethome.1</code> = 1 home</li>
+                    <li><code>serveressentials.sethome.5</code> = 5 homes</li>
+                    <li><code>serveressentials.sethome.*</code> = Unlimited homes</li>
+                </ul>
+                <p><strong>Example:</strong> Give VIP players 10 homes, regular players 3 homes</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">
+                <h3>Is ServerEssentials laggy?</h3>
+                <span class="faq-icon">▼</span>
+            </div>
+            <div class="faq-answer">
+                <p><strong>No! It's designed to be lightweight:</strong></p>
+                <ul style="margin-left: 1.5rem;">
+                    <li>Uses async code for database operations</li>
+                    <li>Minimal memory footprint</li>
+                    <li>Efficient caching system</li>
+                    <li>Tested on servers with 100+ players</li>
+                </ul>
+                <p>Actually performs BETTER than EssentialsX in most cases!</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFAQ(this)">
+                <h3>What if I need more help?</h3>
+                <span class="faq-icon">▼</span>
+            </div>
+            <div class="faq-answer">
+                <p><strong>Support options:</strong></p>
+                <ul style="margin-left: 1.5rem;">
+                    <li><strong>Check this guide again</strong> - Most problems are covered here</li>
+                    <li><strong>GitHub Issues</strong> - Report bugs on the GitHub page</li>
+                    <li><strong>Discord</strong> - Join the community Discord for help</li>
+                    <li><strong>Test server</strong> - Set up a test server to experiment safely</li>
+                </ul>
+                <p>Always include your server version, plugin version, and console errors when asking for help!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ADVANCED SECTION -->
+    <section class="section">
+        <h2 class="section-title">🚀 Advanced Tips</h2>
+
+        <div class="install-steps">
+            <div class="install-step">
+                <div class="step-title">Performance Optimization</div>
+                <div class="step-content">
+                    <div class="permission-group">
+                        <h4>⚡ Make ServerEssentials even faster:</h4>
+                        <div class="permission-item">
+                            <span class="permission-icon">🗄️</span>
+                            <div>
+                                <strong>Disable unused features in config.yml</strong>
+                                <div class="comment">// Less features = better performance</div>
+                            </div>
+                        </div>
+                        <div class="permission-item">
+                            <span class="permission-icon">📊</span>
+                            <div>
+                                <strong>Reduce scoreboard update frequency</strong>
+                                <div class="comment">// Update scoreboards less often</div>
+                            </div>
+                        </div>
+                        <div class="permission-item">
+                            <span class="permission-icon">🎯</span>
+                            <div>
+                                <strong>Limit RTP range for faster location finding</strong>
+                                <div class="comment">// Smaller search area = faster RTP</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="install-step">
+                <div class="step-title">Custom Languages</div>
+                <div class="step-content">
+                    <div class="permission-group">
+                        <h4>🌍 Add your own language:</h4>
+                        <ol style="margin-left: 1.5rem;">
+                            <li>Copy <code>lang/en.json</code> to <code>lang/yourlang.json</code></li>
+                            <li>Translate all the messages</li>
+                            <li>Restart server</li>
+                            <li>Players can use <code>/language yourlang</code></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<footer>
+    <p>&copy; <span id="yr"></span> _GodlyCow – building for the Minecraft community</p>
+    <div class="social">
+        <a href="https://github.com/godlycow203" target="_blank" title="GitHub">📦</a>
+        <a href="https://modrinth.com/user/_GodlyCow" target="_blank" title="Modrinth">🎮</a>
+        <a href="mailto:godlycowcow@gmail.com" title="Email">✉️</a>
+    </div>
+</footer>
+
+<script>
+    /* theme toggle */
+    const body = document.body;
+    const themeBtn = document.getElementById('themeBtn');
+    const navLinks = document.getElementById('navLinks');
+    const mobileBtn = document.getElementById('mobileBtn');
+
+    (function(){
+      const s = localStorage.getItem('theme') || 'dark';
+      body.parentElement.setAttribute('data-theme', s);
+      themeBtn.textContent = s==='light' ? '☀️' : '🌙';
+    })();
+
+    themeBtn.addEventListener('click', () => {
+      const curr = body.parentElement.getAttribute('data-theme');
+      const next = curr === 'light' ? 'dark' : 'light';
+      body.parentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+      themeBtn.textContent = next==='light' ? '☀️' : '🌙';
+    });
+
+    /* mobile drawer */
+    mobileBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+      mobileBtn.textContent = navLinks.classList.contains('open') ? '✕' : '☰';
+    });
+    navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+      navLinks.classList.remove('open'); mobileBtn.textContent='☰';
+    }));
+
+    /* FAQ toggle */
+    function toggleFAQ(element) {
+        const answer = element.nextElementSibling;
+        const icon = element.querySelector('.faq-icon');
+
+        answer.classList.toggle('active');
+        icon.classList.toggle('active');
+    }
+
+    /* smooth scroll for navigation links */
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+
+    /* year */
+    document.getElementById('yr').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

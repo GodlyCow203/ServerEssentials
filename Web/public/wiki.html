@@ -1,0 +1,786 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="utf-8" />
+    <title>ServerEssentials Wiki - GodlyCow</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+        :root {
+          --bg: #0a0e1a;
+          --surface: #111827;
+          --border: #1f2937;
+          --text: #f1f5f9;
+          --text2: #94a3b8;
+          --accent: #3b82f6;
+          --accent2: #6366f1;
+          --grad: linear-gradient(135deg, var(--accent), var(--accent2));
+          --font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+          --glow: 0 0 20px rgba(59,130,246,.55);
+          --se-gold: #f59e0b;
+          --se-gold-dark: #d97706;
+        }
+        [data-theme="light"] {
+          --bg: #f8fafc;
+          --surface: #ffffff;
+          --border: #e2e8f0;
+          --text: #0f172a;
+          --text2: #475569;
+          --glow: 0 0 18px rgba(59,130,246,.35);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+          background: var(--bg);
+          color: var(--text);
+          font-family: var(--font);
+          line-height: 1.6;
+          -webkit-font-smoothing: antialiased;
+          overflow-x: hidden;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .top-nav { position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1.25rem; background: rgba(17, 24, 39, 0.85); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); animation: fadeIn 0.6s ease both; }
+        .logo { font-weight: 800; font-size: 1.25rem; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+        .nav-links a { font-weight: 500; font-size: 0.95rem; transition: color 0.2s; position: relative; color: var(--text); text-decoration: none; }
+        .nav-links a::after { content: ''; position: absolute; left: 0; bottom: -4px; width: 0; height: 2px; background: var(--accent); transition: width 0.3s; }
+        .nav-links a:hover { color: var(--accent); }
+        .nav-links a:hover::after { width: 100%; }
+        .nav-right { display: flex; align-items: center; gap: 0.75rem; }
+        .theme-btn { background: transparent; border: 1px solid var(--border); color: var(--text2); padding: 0.4rem 0.7rem; border-radius: 0.5rem; cursor: pointer; font-size: 1.1rem; transition: background 0.2s, color 0.2s; }
+        .theme-btn:hover { background: var(--surface); color: var(--text); }
+        .mobile-burger { display: none; background: none; border: none; color: var(--text); font-size: 1.3rem; cursor: pointer; }
+        
+        .container { max-width: 70rem; margin: 0 auto; padding: 0 1.25rem; }
+        .section { padding: 3rem 0; }
+        .section-title { font-size: 2.5rem; font-weight: 800; margin-bottom: 2rem; animation: fadeIn 1s both; color: var(--se-gold); }
+        .btn { padding: 0.65rem 1.6rem; border-radius: 0.5rem; font-weight: 600; font-size: 0.95rem; transition: transform 0.2s, box-shadow 0.2s; text-decoration: none; display: inline-block; }
+        .btn.primary { background: var(--grad); color: #fff; box-shadow: var(--glow); }
+        .btn.primary:hover { transform: translateY(-3px); }
+        .btn.gold { background: linear-gradient(135deg, var(--se-gold), var(--se-gold-dark)); color: #fff; }
+        .btn.gold:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(245, 158, 11, 0.3); }
+        
+        .wiki-nav { background: var(--surface); border: 1px solid var(--border); border-radius: 1rem; padding: 2rem; margin-bottom: 3rem; }
+        .wiki-nav h3 { color: var(--se-gold); margin-bottom: 1.5rem; font-size: 1.5rem; }
+        .wiki-categories { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+        .wiki-category { background: rgba(245, 158, 11, 0.1); padding: 1rem; border-radius: 0.5rem; text-align: center; transition: all 0.3s ease; cursor: pointer; }
+        .wiki-category:hover { background: rgba(245, 158, 11, 0.2); transform: translateY(-2px); }
+        .wiki-category-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+        .wiki-category-name { font-weight: 600; color: var(--se-gold); }
+        
+        .command-category { margin-bottom: 4rem; }
+        .category-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 2px solid var(--se-gold); }
+        .category-icon { font-size: 2rem; color: var(--se-gold); }
+        .category-title { font-size: 2rem; font-weight: 800; color: var(--se-gold); }
+        
+        .commands-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 1.5rem; }
+        .command-card { background: var(--surface); border: 1px solid var(--border); border-radius: 0.75rem; padding: 1.5rem; transition: all 0.3s ease; }
+        .command-card:hover { border-color: var(--se-gold); transform: translateY(-3px); }
+        .command-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; }
+        .command-name { font-family: 'Courier New', monospace; font-weight: 700; color: var(--se-gold); font-size: 1.1rem; }
+        .command-perm { font-size: 0.8rem; color: var(--text2); background: rgba(245, 158, 11, 0.1); padding: 0.2rem 0.5rem; border-radius: 0.25rem; }
+        .command-desc { color: var(--text2); margin-bottom: 0.5rem; }
+        .command-usage { font-family: 'Courier New', monospace; font-size: 0.9rem; color: var(--text); background: rgba(0, 0, 0, 0.2); padding: 0.5rem; border-radius: 0.25rem; margin-bottom: 0.5rem; }
+        .command-aliases { font-size: 0.8rem; color: var(--text2); }
+        
+        .quick-links { background: var(--surface); border: 1px solid var(--border); border-radius: 1rem; padding: 2rem; margin: 3rem 0; text-align: center; }
+        .quick-links h3 { color: var(--se-gold); margin-bottom: 1.5rem; font-size: 1.5rem; }
+        .quick-links-grid { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        
+        .dependencies { background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(217, 119, 6, 0.05)); border-radius: 1rem; padding: 3rem; margin: 3rem 0; text-align: center; }
+        .dependencies h3 { color: var(--se-gold); margin-bottom: 1rem; font-size: 2rem; }
+        .dependencies p { color: var(--text2); margin-bottom: 2rem; }
+        .deps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; max-width: 800px; margin: 0 auto; }
+        .dep-card { background: var(--surface); border: 1px solid var(--border); border-radius: 0.75rem; padding: 1.5rem; text-align: center; transition: all 0.3s ease; }
+        .dep-card:hover { border-color: var(--se-gold); transform: translateY(-3px); }
+        .dep-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+        .dep-name { font-weight: 700; margin-bottom: 0.5rem; }
+        .dep-desc { font-size: 0.9rem; color: var(--text2); }
+        
+        @media (max-width: 768px) {
+          .nav-links { position: fixed; inset: 0 0 0 0; background: var(--bg); flex-direction: column; align-items: center; justify-content: center; gap: 2rem; font-size: 1.25rem; transform: translateY(-100%); transition: transform 0.4s cubic-bezier(.4,0,.2,1); }
+          .nav-links.open { transform: translateY(0); }
+          .mobile-burger { display: block; }
+          .commands-grid { grid-template-columns: 1fr; }
+          .quick-links-grid { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="top-nav">
+    <a class="logo" href="../index.html">GodlyCow</a>
+    <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../plugins.html">Plugins</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+        <li><a href="../serveressentials.html">ServerEssentials</a></li>
+    </ul>
+    <div class="nav-right">
+        <button id="themeBtn" class="theme-btn" aria-label="toggle theme">🌙</button>
+        <button id="mobileBtn" class="mobile-burger">☰</button>
+    </div>
+</nav>
+
+<div class="container">
+    <section class="section">
+        <h1 class="section-title">ServerEssentials Wiki</h1>
+        
+        <div class="wiki-nav">
+            <h3>📚 Command Categories</h3>
+            <div class="wiki-categories">
+                <div class="wiki-category" onclick="scrollToCategory('teleport')">
+                    <div class="wiki-category-icon">🚀</div>
+                    <div class="wiki-category-name">Teleportation</div>
+                </div>
+                <div class="wiki-category" onclick="scrollToCategory('economy')">
+                    <div class="wiki-category-icon">💰</div>
+                    <div class="wiki-category-name">Economy</div>
+                </div>
+                <div class="wiki-category" onclick="scrollToCategory('homes')">
+                    <div class="wiki-category-icon">🏠</div>
+                    <div class="wiki-category-name">Homes & Warps</div>
+                </div>
+                <div class="wiki-category" onclick="scrollToCategory('admin')">
+                    <div class="wiki-category-icon">⚙️</div>
+                    <div class="wiki-category-name">Admin Tools</div>
+                </div>
+                <div class="wiki-category" onclick="scrollToCategory('utility')">
+                    <div class="wiki-category-icon">🔧</div>
+                    <div class="wiki-category-name">Utilities</div>
+                </div>
+                <div class="wiki-category" onclick="scrollToCategory('fun')">
+                    <div class="wiki-category-icon">🎮</div>
+                    <div class="wiki-category-name">Fun Commands</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="dependencies">
+            <h3>⚠️ Required Dependencies</h3>
+            <p>Make sure these are installed on your server for full functionality:</p>
+            <div class="deps-grid">
+                <div class="dep-card">
+                    <div class="dep-icon">💰</div>
+                    <div class="dep-name">Vault</div>
+                    <div class="dep-desc">Economy and permission integration</div>
+                </div>
+                <div class="dep-card">
+                    <div class="dep-icon">🔐</div>
+                    <div class="dep-name">LuckPerms</div>
+                    <div class="dep-desc">Advanced permission management</div>
+                </div>
+                <div class="dep-card">
+                    <div class="dep-icon">🏷️</div>
+                    <div class="dep-name">PlaceholderAPI</div>
+                    <div class="dep-desc">Dynamic placeholders for chat and scoreboards</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TELEPORTATION COMMANDS -->
+        <div class="command-category" id="teleport">
+            <div class="category-header">
+                <div class="category-icon">🚀</div>
+                <div class="category-title">Teleportation Commands</div>
+            </div>
+            <div class="commands-grid">
+                <div class="command-card">
+                    <div class="command-header">
+                        <div class="command-name">/tpa &lt;player&gt;</div>
+                        <div class="command-perm">serveressentials.command.tpa</div>
+                    </div>
+                    <div class="command-desc">Send a teleport request to a player</div>
+                    <div class="command-usage">/tpa Steve</div>
+                </div>
+                
+                <div class="command-card">
+                    <div class="command-header">
+                        <div class="command-name">/tpahere &lt;player&gt;</div>
+                        <div class="command-perm">serveressentials.command.tpahere</div>
+                    </div>
+                    <div class="command-desc">Request a player to teleport to you</div>
+                    <div class="command-usage">/tpahere Alex</div>
+                </div>
+                
+                <div class="command-card">
+                    <div class="command-header">
+                        <div class="command-name">/tpaccept [player]</div>
+                        <div class="command-perm">serveressentials.command.tpaccept</div>
+                    </div>
+                    <div class="command-desc">Accept a teleport request</div>
+                    <div class="command-usage">/tpaccept</div>
+                </div>
+                
+                <div class="command-card">
+                    <div class="command-header">
+                        <div class="command-name">/tpdeny [player]</div>
+                        <div class="command-perm">serveressentials.command.tpdeny</div>
+                    </div>
+                    <div class="command-desc">Deny a teleport request</div>
+                    <div class="command-usage">/tpdeny</div>
+                </div>
+                
+                <div class="command-card">
+                    <div class="command-header">
+                        <div class="command-name">/rtp</div>
+                        <div class="command-perm">serveressentials.command.rtp</div>
+                    </div>
+                    <div class="command-desc">Random teleport to a safe location</div>
+                    <div class="command-usage">/rtp</div>
+                </div>
+                
+                <div class="command-card">
+                    <div class="command-header">
+                        <div class="command-name">/back [back|lobby|death]</div>
+                        <div class="command-perm">serveressentials.command.back</div>
+                    </div>
+                    <div class="command-desc">Teleport to your last location, lobby, or death location</div>
+                    <div class="command-usage">/back death</div>
+                </div>
+                
+                <div class="command-card">
+                    <div class="command-header">
+                        <div class="command-name">/top</div>
+                        <div class="command-perm">serveressentials.command.top</div>
+                    </div>
+                    <div class="command-desc">Teleport to the top block</div>
+                    <div class="command-usage">/top</div>
+                </div>
+                
+                <div class="command-card">
+                    <div class="command-header">
+                        <div class="command-name">/bottom</div>
+                        <div class="command-perm">serveressentials.command.bottom</div>
+                    </div>
+                    <div class="command-desc">Teleport to the lowest non-air block</div>
+                    <div class="command-usage">/bottom</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ECONOMY COMMANDS -->
+        <div class="command-category" id="economy">
+            <div class="category-header">
+                <div class="category-icon">💰</div>
+                <div class="category-title">Economy Commands</div>
+            </div>
+            <div class="commands-grid">
+                <div class="command-card">
+                    <div class="command-header">
+                        <div class="command-name">/balance [player]</div>
+                        <div class="command-perm">serveressentials.command.balance</div>
+                    </div>
+                    <div class="command-desc">Check your or another player's balance</div>
+                    <div class="command-usage">/balance Steve</div>
+                </div>
+                
+                <div class="command-card">
+                    <div class="command-header">
+                        <div class="command-name">/balancetop</div>
+                        <div class="command-perm">serveressentials.command.balancetop</div>
+                    </div>
+                    <div class="command-desc">Show top richest players</div>
+                    <div class="command-usage">/balancetop</div>
+                    <div class="command-aliases">Aliases: baltop</div>
+                </div>
+                
+                <div class="command-card">
+                    <div class="command-header">
+                        <div class="command-name">/pay &lt;player&gt; &lt;amount&gt;</div>
+                        <div class="command-perm">serveressentials.command.pay</div>
+                    </div>
+                    <div class="command-desc">Pay money to another player</div>
+                    <div class="command-usage">/pay Steve 100</div>
+                </div>
+                
+                <div class="command-card">
+                    <div class="command-header">
+                        <div class="command-name">/eco</div>
+                        <div class="command-perm">serveressentials.command.eco</div>
+                    </div>
+                    <div class="command-desc">Check or modify a player's balance (admin)</div>
+                    <div class="command-usage">/eco give Steve 1000</div>
+                </div>
+                
+                <div class="command-card">
+                    <div class="command-header">
+                        <div class="command-name">/sellgui</div>
+                        <div class="command-perm">serveressentials.command.sell</div>
+                    </div>
+                    <div class="command-desc">Open the Sell GUI to sell items</div>
+                    <div class="command-usage">/sellgui</div>
+                    <div class="command-aliases">Aliases: sellg, sell</div>
+                </div>
+                
+                <div class="command-card">
+                    <div class="command-header">
+                        <div class="command-name">/auction [my|sell &lt;price&gt;]</div>
+                        <div class="command-perm">serveressentials.command.auction.use</div>
+                    </div>
+                    <div class="command-desc">Open the auction GUI or manage auction items</div>
+                    <div class="command-usage">/auction sell 500</div>
+                    <div class="command-aliases">Aliases: ah</div>
+                </div>
+                
+                <div class="command-card">
+                    <div class="command-header">
+                        <div class="command-name">/coinflip &lt;amount&gt;</div>
+                        <div class="command-perm">serveressentials.command.coinflip</div>
+                    </div>
+                    <div class="command-desc">Flip a coin and gamble your money</div>
+                    <div class="command-usage">/coinflip 100</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- HOMES & WARPS -->
+        <div class="command-category" id="homes">
+            <div class="category-header">
+                <div class="category-icon">🏠</div>
+                <div class="category-title">Homes & Warps</div>
+            </div>
+            <div class="commands-grid">
+                <div class="command-card">
+                    <div class="command-header">
+                        <div class="command-name">/home [name]</div>
+                        <div class="command-perm">serveressentials.command.homes</div>
+                    </div>
+                    <div class="command-desc">List all your homes or teleport to a specific home</div>
+                    <div class="command-usage">/home base</div>
+                </div>
+                
+                <div class="command-card">
+                    <div class="command-header">
+                        <div class="command-name">/sethome &lt;name&gt;</div>
+                        <div class="command-perm">serveressentials.command.sethome</div>
+                    </div>
+                    <div class="command-desc">Set a home at your current location</div>
+                    <div class="command-usage">/sethome base</div>
+                </div>
+                
+                <div class="command-card">
+                    <div class="command-header">
+                        <div class="command-name">/warp &lt;name&gt;</div>
+                        <div class="command-perm">serveressentials.command.warp</div>
+                    </div>
+                    <div class="command-desc">Teleport to a warp location</div>
+                    <div class="command-usage">/warp spawn</div>
+                </div>
+                
+                <div class="command-card">
+                    <div class="command-header">
+                        <div class="command-name">/setwarp &lt;name&gt;</div>
+                        <div class="command-perm">serveressentials.command.setwarp</div>
+                    </div>
+                    <div class="command-desc">Set a warp at your current location</div>
+                    <div class="command-usage">/setwarp spawn</div>
+                </div>
+                
+                <div class="command-card">
+                    <div class="command-header">
+                        <div class="command-name">/delwarp &lt;name&gt;</div>
+                        <div class="command-perm">serveressentials.command.delwarp</div>
+                    </div>
+                    <div class="command-desc">Delete a warp location</div>
+                    <div class="command-usage">/delwarp oldspawn</div>
+                </div>
+                
+                <div class="command-card">
+                    <div class="command-header">
+                        <div class="command-name">/warps</div>
+                        <div class="command-perm">serveressentials.command.warps</div>
+                    </div>
+                    <div class="command-desc">List all available warps</div>
+                    <div class="command-usage">/warps</div>
+                </div>
+                
+                <div class="command-card">
+                    <div class="command-header">
+                        <div class="command-name">/lobby</div>
+                        <div class="command-perm">serveressentials.lobby</div>
+                    </div>
+                    <div class="command-desc">Teleport to the lobby/spawn</div>
+                    <div class="command-usage">/lobby</div>
+                    <div class="command-aliases">Aliases: hub, spawn</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ADMIN TOOLS -->
+        <div class="command-category" id="admin">
+            <div class="category-header">
+                <div class="category-icon">⚙️</div>
+                <div class="category-title">Admin Tools</div>
+            </div>
+            <div class="commands-grid">
+                <div class="command-card">
+                    <div class="command-header">
+                        <div class="command-name">/god</div>
+                        <div class="command-perm">serveressentials.command.god</div>
+                    </div>
+                    <div class="command-desc">Toggle god mode</div>
+                    <div class="command-usage">/god</div>
+                </div>
+                
+                <div class="command-card">
+                    <div class="command-header">
+                        <div class="command-name">/vanish</div>
+                        <div class="command-perm">serveressentials.command.vanish</div>
+                    </div>
+                    <div class="command-desc">Vanish from other players</div>
+                    <div class="command-usage">/vanish</div>
+                </div>
+                
+                <div class="command-card">
+                    <div class="command-header">
+                        <div class="command-name">/fly</div>
+                        <div class="command-perm">serveressentials.command.fly</div>
+                    </div>
+                    <div class="command-desc">Toggle fly mode</div>
+                    <div class="command-usage">/fly</div>
+                </div>
+                
+                <div class="command-card">
+                    <div class="command-header">
+                        <div class="command-name">/invsee &lt;player&gt;</div>
+                        <div class="command-perm">serveressentials.command.invsee</div>
+                    </div>
+                    <div class="command-desc">View another player's inventory</div>
+                    <div class="command-usage">/invsee Steve</div>
+                </div>
+                
+                <div class="command-card">
+                    <div class="command-header">
+                        <div class="command-name">/endersee &lt;player&gt;</div>
+                        <div class="command-perm">serveressentials.command.endersee</div>
+                    </div>
+                    <div class="command-desc">View another player's ender chest</div>
+                    <div class="command-usage">/endersee Steve</div>
+                </div>
+                
+                <div class="command-card">
+                    <div class="command-header">
+                        <div class="command-name">/mute &lt;player&gt; &lt;reason&gt; [duration]</div>
+                        <div class="command-perm">serveressentials.command.mute</div>
+                    </div>
+                    <div class="command-desc">Mute a player from chatting</div>
+                    <div class="command-usage">/mute Steve spam 1h</div>
+                    <div class="command-aliases">Aliases: m</div>
+                </div>
+                
+                <div class="command-card">
+                    <div class="command-header">
+                        <div class="command-name">/freeze &lt;player&gt;</div>
+                        <div class="command-perm">serveressentials.command.freeze</div>
+                    </div>
+                    <div class="command-desc">Freeze a player</div>
+                    <div class="command-usage">/freeze Steve</div>
+                </div>
+                
+                <div class="command-card">
+                    <div class="command-header">
+                        <div class="command-name">/kickall</div>
+                        <div class="command-perm">serveressentials.command.kickall</div>
+                    </div>
+                    <div class="command-desc">Kick all players</div>
+                    <div class="command-usage">/kickall</div>
+                </div>
+                
+                <div class="command-card">
+                    <div class="command-header">
+                        <div class="command-name">/broadcast &lt;message&gt;</div>
+                        <div class="command-perm">serveressentials.command.broadcast</div>
+                    </div>
+                    <div class="command-desc">Broadcast a message to all players</div>
+                    <div class="command-usage">/broadcast Server restart in 5 minutes!</div>
+                </div>
+                
+                <div class="command-card">
+                    <div class="command-header">
+                        <div class="command-name">/sereload</div>
+                        <div class="command-perm">server.sereload</div>
+                    </div>
+                    <div class="command-desc">Reload all ServerEssentials files</div>
+                    <div class="command-usage">/sereload</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- UTILITY COMMANDS -->
+        <div class="command-category" id="utility">
+            <div class="category-header">
+                <div class="category-icon">🔧</div>
+                <div class="category-title">Utility Commands</div>
+            </div>
+            <div class="commands-grid">
+                <div class="command-card">
+                    <div class="command-header">
+                        <div class="command-name">/ping [player]</div>
+                        <div class="command-perm">serveressentials.command.ping</div>
+                    </div>
+                    <div class="command-desc">Check your current ping to the server</div>
+                    <div class="command-usage">/ping</div>
+                    <div class="command-aliases">Aliases: latency, ms</div>
+                </div>
+                
+                <div class="command-card">
+                    <div class="command-header">
+                        <div class="command-name">/pingall</div>
+                        <div class="command-perm">serveressentials.command.pingall</div>
+                    </div>
+                    <div class="command-desc">Shows the ping of every online player</div>
+                    <div class="command-usage">/pingall</div>
+                </div>
+                
+                <div class="command-card">
+                    <div class="command-header">
+                        <div class="command-name">/iteminfo</div>
+                        <div class="command-perm">serveressentials.command.iteminfo</div>
+                    </div>
+                    <div class="command-desc">Shows information about the item in your hand</div>
+                    <div class="command-usage">/iteminfo</div>
+                </div>
+                
+                <div class="command-card">
+                    <div class="command-header">
+                        <div class="command-name">/repair</div>
+                        <div class="command-perm">serveressentials.command.repair</div>
+                    </div>
+                    <div class="command-desc">Repair the item in your hand</div>
+                    <div class="command-usage">/repair</div>
+                </div>
+                
+                <div class="command-card">
+                    <div class="command-header">
+                        <div class="command-name">/hat</div>
+                        <div class="command-perm">serveressentials.command.hat</div>
+                    </div>
+                    <div class="command-desc">Wear the item in your hand as a hat</div>
+                    <div class="command-usage">/hat</div>
+                </div>
+                
+                <div class="command-card">
+                    <div class="command-header">
+                        <div class="command-name">/rename &lt;name&gt;</div>
+                        <div class="command-perm">serveressentials.command.rename</div>
+                    </div>
+                    <div class="command-desc">Rename the item in your hand</div>
+                    <div class="command-usage">/rename &Epic Sword</div>
+                </div>
+                
+                <div class="command-card">
+                    <div class="command-header">
+                        <div class="command-name">/heal</div>
+                        <div class="command-perm">serveressentials.command.heal</div>
+                    </div>
+                    <div class="command-desc">Heal yourself</div>
+                    <div class="command-usage">/heal</div>
+                </div>
+                
+                <div class="command-card">
+                    <div class="command-header">
+                        <div class="command-name">/feed</div>
+                        <div class="command-perm">serveressentials.command.feed</div>
+                    </div>
+                    <div class="command-desc">Feed yourself</div>
+                    <div class="command-usage">/feed</div>
+                </div>
+                
+                <div class="command-card">
+                    <div class="command-header">
+                        <div class="command-name">/enderchest</div>
+                        <div class="command-perm">serveressentials.command.enderchest</div>
+                    </div>
+                    <div class="command-desc">Open your ender chest</div>
+                    <div class="command-usage">/enderchest</div>
+                </div>
+                
+                <div class="command-card">
+                    <div class="command-header">
+                        <div class="command-name">/craftingtable</div>
+                        <div class="command-perm">serveressentials.command.craftingtable</div>
+                    </div>
+                    <div class="command-desc">Opens a virtual Crafting Table</div>
+                    <div class="command-usage">/craftingtable</div>
+                </div>
+                
+                <div class="command-card">
+                    <div class="command-header">
+                        <div class="command-name">/anvil</div>
+                        <div class="command-perm">serveressentials.command.anvil</div>
+                    </div>
+                    <div class="command-desc">Opens a virtual Anvil</div>
+                    <div class="command-usage">/anvil</div>
+                </div>
+                
+                <div class="command-card">
+                    <div class="command-header">
+                        <div class="command-name">/ptime &lt;day|night|reset&gt;</div>
+                        <div class="command-perm">serveressentials.command.ptime</div>
+                    </div>
+                    <div class="command-desc">Set your personal time</div>
+                    <div class="command-usage">/ptime day</div>
+                </div>
+                
+                <div class="command-card">
+                    <div class="command-header">
+                        <div class="command-name">/weather &lt;clear|rain|thunderstorm&gt;</div>
+                        <div class="command-perm">serveressentials.command.weather</div>
+                    </div>
+                    <div class="command-desc">Change the weather</div>
+                    <div class="command-usage">/weather clear</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FUN COMMANDS -->
+        <div class="command-category" id="fun">
+            <div class="category-header">
+                <div class="category-icon">🎮</div>
+                <div class="category-title">Fun Commands</div>
+            </div>
+            <div class="commands-grid">
+                <div class="command-card">
+                    <div class="command-header">
+                        <div class="command-name">/kittycannon [velocity]</div>
+                        <div class="command-perm">serveressentials.command.kittycannon</div>
+                    </div>
+                    <div class="command-desc">Launch a flying cat!</div>
+                    <div class="command-usage">/kittycannon 5</div>
+                </div>
+                
+                <div class="command-card">
+                    <div class="command-header">
+                        <div class="command-name">/beezooka [velocity]</div>
+                        <div class="command-perm">serveressentials.command.beezooka</div>
+                    </div>
+                    <div class="command-desc">Launch a flying bee!</div>
+                    <div class="command-usage">/beezooka 3</div>
+                </div>
+                
+                <div class="command-card">
+                    <div class="command-header">
+                        <div class="command-name">/fireball</div>
+                        <div class="command-perm">serveressentials.command.fireball</div>
+                    </div>
+                    <div class="command-desc">Shoot a fireball</div>
+                    <div class="command-usage">/fireball</div>
+                </div>
+                
+                <div class="command-card">
+                    <div class="command-header">
+                        <div class="command-name">/lightning</div>
+                        <div class="command-perm">serveressentials.command.lightning</div>
+                    </div>
+                    <div class="command-desc">Strike lightning</div>
+                    <div class="command-usage">/lightning</div>
+                </div>
+                
+                <div class="command-card">
+                    <div class="command-header">
+                        <div class="command-name">/thunder [player]</div>
+                        <div class="command-perm">serveressentials.command.thunder</div>
+                    </div>
+                    <div class="command-desc">Summon a fun lightning effect</div>
+                    <div class="command-usage">/thunder Steve</div>
+                </div>
+                
+                <div class="command-card">
+                    <div class="command-header">
+                        <div class="command-name">/explosion &lt;radius&gt;</div>
+                        <div class="command-perm">serveressentials.command.explosion</div>
+                    </div>
+                    <div class="command-desc">Create an explosion at your location</div>
+                    <div class="command-usage">/explosion 5</div>
+                </div>
+                
+                <div class="command-card">
+                    <div class="command-header">
+                        <div class="command-name">/nuke</div>
+                        <div class="command-perm">serveressentials.command.nuke</div>
+                    </div>
+                    <div class="command-desc">Nuke a location</div>
+                    <div class="command-usage">/nuke</div>
+                </div>
+                
+                <div class="command-card">
+                    <div class="command-header">
+                        <div class="command-name">/celebrate</div>
+                        <div class="command-perm">serveressentials.command.celebrate</div>
+                    </div>
+                    <div class="command-desc">Launch a firework at your location</div>
+                    <div class="command-usage">/celebrate</div>
+                </div>
+                
+                <div class="command-card">
+                    <div class="command-header">
+                        <div class="command-name">/fuck</div>
+                        <div class="command-perm">serveressentials.fuck</div>
+                    </div>
+                    <div class="command-desc">Sends a funny custom message</div>
+                    <div class="command-usage">/fuck</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="quick-links">
+            <h3>Quick Links</h3>
+            <div class="quick-links-grid">
+                <a href="../serveressentials.html" class="btn gold">← Back to ServerEssentials</a>
+                <a href="https://modrinth.com/plugin/serveressentials" class="btn primary" target="_blank">Download Plugin</a>
+                <a href="https://github.com/GodlyCow203/ServerEssentials" class="btn ghost" target="_blank">GitHub Repository</a>
+            </div>
+        </div>
+    </section>
+</div>
+
+<footer>
+    <p>&copy; <span id="yr"></span> _GodlyCow – building for the Minecraft community</p>
+    <div class="social">
+        <a href="https://github.com/godlycow203" target="_blank" title="GitHub">📦</a>
+        <a href="https://modrinth.com/user/_GodlyCow" target="_blank" title="Modrinth">🎮</a>
+        <a href="mailto:godlycowcow@gmail.com" title="Email">✉️</a>
+    </div>
+</footer>
+
+<script>
+    const body = document.body;
+    const themeBtn = document.getElementById('themeBtn');
+    const navLinks = document.getElementById('navLinks');
+    const mobileBtn = document.getElementById('mobileBtn');
+
+    (function(){
+      const s = localStorage.getItem('theme') || 'dark';
+      body.parentElement.setAttribute('data-theme', s);
+      themeBtn.textContent = s==='light' ? '☀️' : '🌙';
+    })();
+
+    themeBtn.addEventListener('click', () => {
+      const curr = body.parentElement.getAttribute('data-theme');
+      const next = curr === 'light' ? 'dark' : 'light';
+      body.parentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+      themeBtn.textContent = next==='light' ? '☀️' : '🌙';
+    });
+
+    mobileBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+      mobileBtn.textContent = navLinks.classList.contains('open') ? '✕' : '☰';
+    });
+    navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+      navLinks.classList.remove('open'); mobileBtn.textContent='☰';
+    }));
+
+    function scrollToCategory(categoryId) {
+        const element = document.getElementById(categoryId);
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }
+
+    document.getElementById('yr').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
