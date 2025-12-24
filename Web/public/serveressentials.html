@@ -68,7 +68,6 @@
         .btn.warning { background: var(--warning); color: #fff; }
         .btn.error { background: var(--error); color: #fff; }
 
-        /* Hero Section */
         .se-hero { background: linear-gradient(135deg, var(--se-gold-dark), var(--se-gold)); color: #fff; padding: 6rem 0; text-align: center; position: relative; overflow: hidden; }
         .se-hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="80" r="1.5" fill="rgba(255,255,255,0.1)"/></svg>'); animation: float 6s infinite ease-in-out; }
         .se-hero-content { position: relative; z-index: 1; max-width: 50rem; margin: 0 auto; }
@@ -76,7 +75,6 @@
         .se-hero-sub { font-size: 1.3rem; margin-bottom: 2.5rem; opacity: 0.95; }
         .se-hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
 
-        /* Installation Steps */
         .install-steps { counter-reset: step-counter; }
         .install-step {
             background: var(--surface);
@@ -120,7 +118,6 @@
             border-radius: 0.5rem;
         }
 
-        /* Simple Command Examples */
         .command-example {
             background: #1a1a1a;
             border: 1px solid var(--border);
@@ -134,7 +131,6 @@
         .command-example .cmd { color: #60a5fa; }
         .command-example .comment { color: #6b7280; font-size: 0.8rem; }
 
-        /* Permission Examples - Simplified */
         .permission-group {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -165,7 +161,6 @@
             font-size: 0.9rem;
         }
 
-        /* Troubleshooting */
         .troubleshoot-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin: 2rem 0; }
         .troubleshoot-card {
             background: var(--surface);
@@ -179,7 +174,6 @@
         .troubleshoot-error { color: var(--error); }
         .troubleshoot-fix { color: var(--success); margin-top: 1rem; }
 
-        /* FAQ */
         .faq-item {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -212,7 +206,6 @@
         }
         .faq-icon.active { transform: rotate(180deg); }
 
-        /* Navigation */
         .page-nav {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -234,7 +227,6 @@
         }
         .nav-link:hover { background: var(--se-gold); color: #fff; }
 
-        /* Info Cards */
         .info-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
         .info-card {
             background: var(--surface);
@@ -287,7 +279,6 @@
 </section>
 
 <div class="container">
-    <!-- Navigation -->
     <div class="page-nav">
         <a href="#installation" class="nav-link">Installation</a>
         <a href="#dependencies" class="nav-link">Dependencies</a>
@@ -297,7 +288,6 @@
         <a href="#faq" class="nav-link">FAQ</a>
     </div>
 
-    <!-- QUICK OVERVIEW -->
     <section class="section">
         <h2 class="section-title">📋 Quick Overview</h2>
         <div class="info-cards">
@@ -324,7 +314,6 @@
         </div>
     </section>
 
-    <!-- INSTALLATION SECTION -->
     <section class="section" id="installation">
         <h2 class="section-title">🚀 Installation Guide</h2>
 
@@ -409,7 +398,6 @@
         </div>
     </section>
 
-    <!-- DEPENDENCIES SECTION -->
     <section class="section" id="dependencies">
         <h2 class="section-title">🔗 Required Dependencies</h2>
         <p>These 3 plugins MUST be installed for ServerEssentials to function properly:</p>
@@ -448,7 +436,6 @@
         </div>
     </section>
 
-    <!-- CONFIGURATION SECTION -->
     <section class="section" id="configuration">
         <h2 class="section-title">⚙️ Basic Configuration</h2>
 
@@ -535,7 +522,6 @@
         </div>
     </section>
 
-    <!-- FIRST START SECTION -->
     <section class="section" id="first-start">
         <h2 class="section-title">🎯 First Start Checklist</h2>
 
@@ -621,7 +607,6 @@
         </div>
     </section>
 
-    <!-- TROUBLESHOOTING SECTION -->
     <section class="section" id="troubleshooting">
         <h2 class="section-title">🛠️ Common Problems & Solutions</h2>
 
@@ -702,7 +687,6 @@
         </div>
     </section>
 
-    <!-- WHAT NOT TO DO SECTION -->
     <section class="section">
         <h2 class="section-title">🚫 Common Mistakes to Avoid</h2>
 
@@ -733,7 +717,6 @@
         </div>
     </section>
 
-    <!-- FAQ SECTION -->
     <section class="section" id="faq">
         <h2 class="section-title">❓ Frequently Asked Questions</h2>
 
@@ -865,7 +848,6 @@
         </div>
     </section>
 
-    <!-- ADVANCED SECTION -->
     <section class="section">
         <h2 class="section-title">🚀 Advanced Tips</h2>
 
@@ -928,7 +910,6 @@
 </footer>
 
 <script>
-    /* theme toggle */
     const body = document.body;
     const themeBtn = document.getElementById('themeBtn');
     const navLinks = document.getElementById('navLinks');
@@ -948,7 +929,6 @@
       themeBtn.textContent = next==='light' ? '☀️' : '🌙';
     });
 
-    /* mobile drawer */
     mobileBtn.addEventListener('click', () => {
       navLinks.classList.toggle('open');
       mobileBtn.textContent = navLinks.classList.contains('open') ? '✕' : '☰';
@@ -957,7 +937,6 @@
       navLinks.classList.remove('open'); mobileBtn.textContent='☰';
     }));
 
-    /* FAQ toggle */
     function toggleFAQ(element) {
         const answer = element.nextElementSibling;
         const icon = element.querySelector('.faq-icon');
@@ -966,7 +945,6 @@
         icon.classList.toggle('active');
     }
 
-    /* smooth scroll for navigation links */
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -977,7 +955,6 @@
         });
     });
 
-    /* year */
     document.getElementById('yr').textContent = new Date().getFullYear();
 </script>
 </body>
