@@ -1,9 +1,0 @@
-nick-settings:
-  min-length: 3
-  max-length: 16
-  allow-formatting: true
-  blocked-words:
-    - admin
-    - owner
-    - mod
-  default-format: "<yellow><bold>%nick%</bold></yellow>"

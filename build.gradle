@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.serveressentials'
-version = '2.0.7.7'
+version = '2.0.7.9'
 description = 'ServerEssentials Plugin'
 
 java {
@@ -41,6 +41,18 @@ dependencies {
     }
 }
 
+// ✅ Updated source sets to use Bukkit/src
+sourceSets {
+    main {
+        java {
+            srcDirs = ['Bukkit/src/main/java']
+        }
+        resources {
+            srcDirs = ['Bukkit/src/main/resources']
+        }
+    }
+}
+
 task apiJar(type: Jar) {
     archiveBaseName = 'serveressentials-api'
     archiveClassifier = ''
@@ -70,7 +82,6 @@ shadowJar {
 
     exclude 'com/serveressentials/api/APIImpl.class'
     exclude 'com/serveressentials/api/*Impl.class'
-
 }
 
 tasks.processResources {
