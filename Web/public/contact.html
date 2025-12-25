@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="utf-8">
+    <title>Contact – _GodlyCow</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --surface: #111111;
+            --surface-2: #191919;
+            --border: #2d2d2d;
+            --text: #e0e0e0;
+            --text-2: #888888;
+            --primary: #4ade80;
+            --primary-2: #22c55e;
+            --success: #4ade80;
+            --warning: #fbbf24;
+            --error: #ef4444;
+            --gold: #fbbf24;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+            --font: 'Courier New', 'Monaco', 'Consolas', monospace;
+        }
+        [data-theme="light"] {
+            --bg: #f0f0f0;
+            --surface: #ffffff;
+            --surface-2: #f7f7f7;
+            --border: #cccccc;
+            --text: #1a1a1a;
+            --text-2: #555555;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font);
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        .topbar {
+            background: var(--surface);
+            border-bottom: 2px solid var(--border);
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+            font-weight: bold;
+        }
+        .topbar a {
+            color: var(--text-2);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .topbar a:hover { color: var(--primary); }
+        .topbar .spacer { flex: 1; }
+        .theme-btn {
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 0.4rem 0.8rem;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        .theme-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .hero {
+            background: linear-gradient(90deg, var(--surface) 0%, var(--surface-2) 100%);
+            border-bottom: 2px solid var(--border);
+            padding: 3rem 1.5rem;
+            text-align: center;
+            position: relative;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .hero p {
+            font-size: 1rem;
+            color: var(--text-2);
+        }
+
+        .wrapper {
+            max-width: 1200px;
+            margin: 3rem auto;
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 2rem;
+            padding: 0 1.5rem;
+        }
+        @media (max-width: 900px) {
+            .wrapper { grid-template-columns: 1fr; }
+        }
+        main { border-right: 2px solid var(--border); }
+
+        .contact-card {
+            background: var(--surface);
+            border: none;
+            border-bottom: 2px solid var(--border);
+            margin-bottom: 2rem;
+        }
+        .contact-header {
+            background: var(--surface-2);
+            padding: 1rem 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            border-bottom: 1px solid var(--border);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .contact-body { padding: 1.5rem; }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        .contact-method {
+            background: var(--bg);
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            text-align: center;
+            transition: all 0.2s;
+        }
+        .contact-method:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+        .method-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        .method-title {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        .method-desc {
+            font-size: 0.85rem;
+            color: var(--text-2);
+            margin-bottom: 1rem;
+        }
+        .method-link {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: bold;
+            border-bottom: 1px dashed var(--border);
+        }
+        .method-link:hover {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .hours-tree {
+            background: var(--bg);
+            padding: 1rem;
+            border: 1px solid var(--border);
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
+        .checklist {
+            background: var(--surface-2);
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+            font-size: 0.85rem;
+        }
+        .checklist-item input[type="checkbox"] {
+            margin-top: 0.1rem;
+            accent-color: var(--primary);
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--success);
+            margin-right: 0.5rem;
+        }
+
+        .footer {
+            background: var(--surface);
+            border-top: 2px solid var(--border);
+            padding: 2rem;
+            margin-top: 3rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .footer-link {
+            color: var(--text-2);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .footer-link:hover { color: var(--primary); }
+    </style>
+</head>
+<body>
+
+<header class="topbar">
+    <a href="index.html">← BACK TO HOME</a>
+    <a href="https://modrinth.com/plugin/serveressentials" target="_blank">MODRINTH</a>
+    <a href="https://github.com/GodlyCow203" target="_blank">GITHUB</a>
+    <a href="https://discord.gg/vmhQ2gZr8g" target="_blank">DISCORD</a>
+    <div class="spacer"></div>
+    <button class="theme-btn" id="themeBtn">🌙 DARK</button>
+</header>
+
+<section class="hero">
+    <h1>GET IN TOUCH</h1>
+    <p>Support • Bug Reports • Feature Requests • Collaboration</p>
+</section>
+
+<div class="wrapper">
+    <main>
+        <div class="contact-card">
+            <div class="contact-header">
+                📬 Contact Methods
+            </div>
+            <div class="contact-body">
+                <div class="contact-grid">
+                    <div class="contact-method">
+                        <div class="method-icon">💬</div>
+                        <div class="method-title">Discord <span class="status-indicator"></span></div>
+                        <div class="method-desc">Fastest response for urgent bugs & questions</div>
+                        <a href="https://discord.gg/vmhQ2gZr8g" class="method-link" target="_blank">Join Support Server</a>
+                    </div>
+                    <div class="contact-method">
+                        <div class="method-icon">🐛</div>
+                        <div class="method-title">GitHub Issues</div>
+                        <div class="method-desc">Bug reports and feature requests</div>
+                        <a href="https://github.com/GodlyCow203/ServerEssentials/issues" class="method-link" target="_blank">Open Issue</a>
+                    </div>
+                    <div class="contact-method">
+                        <div class="method-icon">📧</div>
+                        <div class="method-title">Email</div>
+                        <div class="method-desc">Private matters or detailed logs</div>
+                        <a href="mailto:godlycowcow@gmail.com" class="method-link">godlycowcow@gmail.com</a>
+                    </div>
+                    <div class="contact-method">
+                        <div class="method-icon">🌐</div>
+                        <div class="method-title">Modrinth</div>
+                        <div class="method-desc">Comments and reviews</div>
+                        <a href="https://modrinth.com/plugin/serveressentials" class="method-link" target="_blank">Project Page</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-card">
+            <div class="contact-header">
+                ⏰ When I'm Available
+            </div>
+            <div class="contact-body">
+                <div class="hours-tree">
+                    Timezone: UTC+2 (Central European Time)
+
+                    Active Hours:
+                    ├─ Monday-Friday: 16:00 - 22:00
+                    ├─ Saturday: 12:00 - 23:00
+                    └─ Sunday: 12:00 - 20:00
+
+                    Best times to reach me:
+                    └─ 18:00 - 20:00 (peak activity)
+
+                    Response priority:
+                    1. Discord @mentions (fastest)
+                    2. GitHub issues (tracked)
+                    3. Email (detailed queries)
+                    4. Modrinth comments (slowest)
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <aside>
+        <div class="contact-card">
+            <div class="contact-header">
+                ✅ Before You Contact
+            </div>
+            <div class="contact-body">
+                <p style="margin-bottom: 1rem; font-size: 0.85rem; color: var(--text-2);">Please check these first to get faster help:</p>
+                <div class="checklist">
+                    <label class="checklist-item">
+                        <input type="checkbox" disabled>
+                        <span>Checked console for errors</span>
+                    </label>
+                    <label class="checklist-item">
+                        <input type="checkbox" disabled>
+                        <span>Verified plugin version is latest</span>
+                    </label>
+                    <label class="checklist-item">
+                        <input type="checkbox" disabled>
+                        <span>Read FAQ on main page</span>
+                    </label>
+                    <label class="checklist-item">
+                        <input type="checkbox" disabled>
+                        <span>Tested without other plugins</span>
+                    </label>
+                    <label class="checklist-item">
+                        <input type="checkbox" disabled>
+                        <span>Included server version & logs</span>
+                    </label>
+                </div>
+                <div style="background: var(--surface-2); padding: 1rem; font-size: 0.8rem;">
+                    <strong>What to include:</strong><br>
+                    • Server version (Paper/Spigot + Minecraft version)<br>
+                    • Plugin version (/se version)<br>
+                    • Error logs (if any)<br>
+                    • Steps to reproduce
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-card">
+            <div class="contact-header">
+                📊 Response Times
+            </div>
+            <div class="contact-body">
+                <div style="font-size: 0.85rem;">
+                    <div style="margin-bottom: 0.5rem;">
+                        <strong style="color: var(--success);">Discord:</strong> 1-4 hours
+                    </div>
+                    <div style="margin-bottom: 0.5rem;">
+                        <strong style="color: var(--primary);">GitHub:</strong> 12-24 hours
+                    </div>
+                    <div style="margin-bottom: 0.5rem;">
+                        <strong style="color: var(--warning);">Email:</strong> 24-48 hours
+                    </div>
+                    <div style="margin-bottom: 0.5rem;">
+                        <strong style="color: var(--text-2);">Modrinth:</strong> 2-5 days
+                    </div>
+                    <hr style="border: none; border-top: 1px solid var(--border); margin: 1rem 0;">
+                    <div style="font-size: 0.75rem; color: var(--text-2);">
+                        Urgent bugs → Discord<br>
+                        Feature requests → GitHub
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-card">
+            <div class="contact-header">
+                🔧 Common Issues
+            </div>
+            <div class="contact-body">
+                <ul style="list-style: none; padding: 0; font-size: 0.85rem;">
+                    <li style="margin-bottom: 0.75rem;">
+                        <a href="https://github.com/GodlyCow203/ServerEssentials/wiki/FAQ" style="color: var(--primary);">Plugin won't load: Missing dependencies?</a>
+                    </li>
+                    <li style="margin-bottom: 0.75rem;">
+                        <a href="https://github.com/GodlyCow203/ServerEssentials/wiki/Setup" style="color: var(--primary);">Commands not working: Permission issues?</a>
+                    </li>
+                    <li style="margin-bottom: 0.75rem;">
+                        <a href="https://github.com/GodlyCow203/ServerEssentials/wiki/Troubleshooting" style="color: self;">Lag spikes: Check async settings</a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/GodlyCow203/ServerEssentials/wiki/Configuration" style="color: var(--primary);">Config reset: Migration guide</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </aside>
+</div>
+
+<footer>
+    <div class="footer-links">
+        <a href="https://modrinth.com/user/_GodlyCow" class="footer-link" target="_blank">Modrinth Profile</a>
+        <a href="https://github.com/GodlyCow203" class="footer-link" target="_blank">GitHub</a>
+        <a href="https://discord.gg/vmhQ2gZr8g" class="footer-link" target="_blank">Discord</a>
+        <a href="mailto:godlycowcow@gmail.com" class="footer-link">Email</a>
+    </div>
+    <p>&copy; <span id="yr"></span> _GodlyCow – Building plugins for the Minecraft community</p>
+</footer>
+
+<script>
+    const themeBtn = document.getElementById('themeBtn');
+    const root = document.documentElement;
+    const saved = localStorage.getItem('theme') || 'dark';
+    root.setAttribute('data-theme', saved);
+    themeBtn.textContent = saved === 'dark' ? '☀️ LIGHT' : '🌙 DARK';
+
+    themeBtn.addEventListener('click', () => {
+        const t = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', t);
+        localStorage.setItem('theme', t);
+        themeBtn.textContent = t === 'dark' ? '☀️ LIGHT' : '🌙 DARK';
+    });
+
+    document.getElementById('yr').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

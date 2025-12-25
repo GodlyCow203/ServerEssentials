@@ -1,405 +1,597 @@
 <!doctype html>
 <html lang="en" data-theme="dark">
 <head>
-    <meta charset="utf-8" />
-    <title>GodlyCow – Minecraft Plugins</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8">
+    <title>_GodlyCow // Minecraft Plugin Developer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         :root {
-          --bg: #0a0e1a;
-          --surface: #111827;
-          --border: #1f2937;
-          --text: #f1f5f9;
-          --text2: #94a3b8;
-          --accent: #3b82f6;
-          --accent2: #6366f1;
-          --grad: linear-gradient(135deg, var(--accent), var(--accent2));
-          --font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-          --glow: 0 0 20px rgba(59,130,246,.55);
+            --bg: #0a0a0a;
+            --surface: #111111;
+            --surface-2: #191919;
+            --border: #2d2d2d;
+            --text: #e0e0e0;
+            --text-2: #888888;
+            --primary: #FFFFFF;
+            --primary-2: #b91c1c;
+            --success: #50DB00;
+            --warning: #fbbf24;
+            --error: #ef4444;
+            --gold: #fbbf24;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+            --font: 'Courier New', 'Monaco', 'Consolas', monospace;
         }
         [data-theme="light"] {
-          --bg: #f8fafc;
-          --surface: #ffffff;
-          --border: #e2e8f0;
-          --text: #0f172a;
-          --text2: #475569;
-          --glow: 0 0 18px rgba(59,130,246,.35);
+            --bg: #f0f0f0;
+            --surface: #ffffff;
+            --surface-2: #f7f7f7;
+            --border: #cccccc;
+            --text: #1a1a1a;
+            --text-2: #555555;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            --success: #28a000;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
         body {
-          background: var(--bg);
-          color: var(--text);
-          font-family: var(--font);
-          line-height: 1.6;
-          -webkit-font-smoothing: antialiased;
-          overflow-x: hidden;
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font);
+            line-height: 1.5;
+            font-size: 14px;
         }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.03); } }
-        @keyframes glow { 0%,100% { box-shadow: var(--glow); } 50% { box-shadow: 0 0 28px rgba(59,130,246,.75); } }
-        @keyframes float { 0% { transform: translateY(0); } 50% { transform: translateY(-8px); } 100% { transform: translateY(0); } }
-        @keyframes slideInLeft { from { opacity: 0; transform: translateX(-40px); } to { opacity: 1; transform: translateX(0); } }
-        @keyframes slideInRight { from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: translateX(0); } }
-        @keyframes shimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
-        .top-nav { position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1.25rem; background: rgba(17, 24, 39, 0.85); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); animation: fadeIn 0.6s ease both; }
-        .logo { font-weight: 800; font-size: 1.25rem; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: pulse 3s infinite ease-in-out; }
-        .nav-links { display: flex; gap: 1.5rem; list-style: none; }
-        .nav-links a { font-weight: 500; font-size: 0.95rem; transition: color 0.2s; position: relative; color: var(--text); text-decoration: none; }
-        .nav-links a::after { content: ''; position: absolute; left: 0; bottom: -4px; width: 0; height: 2px; background: var(--accent); transition: width 0.3s; }
-        .nav-links a:hover { color: var(--accent); }
-        .nav-links a:hover::after { width: 100%; }
-        .nav-right { display: flex; align-items: center; gap: 0.75rem; }
-        .theme-btn { background: transparent; border: 1px solid var(--border); color: var(--text2); padding: 0.4rem 0.7rem; border-radius: 0.5rem; cursor: pointer; font-size: 1.1rem; transition: background 0.2s, color 0.2s; }
-        .theme-btn:hover { background: var(--surface); color: var(--text); }
-        .mobile-burger { display: none; background: none; border: none; color: var(--text); font-size: 1.3rem; cursor: pointer; }
 
-        .serveressentials-hero {
-            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-            color: #fff;
-            padding: 4rem 1.25rem;
-            margin: 2rem 0;
-            border-radius: 1rem;
+        .topbar {
+            background: var(--surface);
+            border-bottom: 2px solid var(--border);
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+            font-weight: bold;
+        }
+        .topbar a {
+            color: var(--text-2);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .topbar a:hover { color: var(--primary); }
+        .topbar .spacer { flex: 1; }
+        .theme-btn {
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 0.4rem 0.8rem;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        .theme-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .hero {
+            background: linear-gradient(90deg, var(--surface) 0%, var(--surface-2) 100%);
+            border-bottom: 2px solid var(--border);
+            padding: 4rem 1.5rem;
+            text-align: center;
+            position: relative;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .hero-sub {
+            font-size: 1rem;
+            color: var(--text-2);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .stat {
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            background: var(--bg);
+        }
+        .stat-number {
+            font-size: 2rem;
+            color: var(--primary);
+            font-weight: bold;
+        }
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-2);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .featured-banner {
+            margin: 3rem auto;
+            max-width: 1200px;
+            padding: 0 1.5rem;
+        }
+        .featured-content {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--gold);
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 2rem;
+            align-items: center;
+        }
+        .featured-icon {
+            font-size: 3rem;
+        }
+        .featured-text h2 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .featured-desc {
+            color: var(--text-2);
+            font-size: 0.95rem;
+        }
+        .featured-link {
+            background: var(--gold);
+            color: var(--bg);
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: all 0.2s;
+        }
+        .featured-link:hover {
+            background: var(--warning);
+        }
+
+        .plugins-section {
+            padding: 4rem 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .section-desc {
+            color: var(--text-2);
+            font-size: 1rem;
+        }
+        .plugins-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+        .plugin-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            gap: 1rem;
+            transition: all 0.2s;
             position: relative;
             overflow: hidden;
             cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            animation: fadeIn 1s ease both;
         }
-        .serveressentials-hero:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(245, 158, 11, 0.3);
-        }
-        .serveressentials-hero::before {
+        .plugin-card::before {
             content: '';
             position: absolute;
             top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            animation: shimmer 3s infinite;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--gold);
+            transform: scaleX(0);
+            transition: transform 0.3s;
         }
-        .se-container {
-            max-width: 70rem;
-            margin: 0 auto;
+        .plugin-card:hover::before {
+            transform: scaleX(1);
+        }
+        .plugin-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow);
+        }
+        .plugin-header {
             display: grid;
-            grid-template-columns: 1fr auto;
-            gap: 3rem;
-            align-items: center;
-            position: relative;
-            z-index: 1;
-        }
-        .se-content h2 {
-            font-size: clamp(2rem, 5vw, 3rem);
-            font-weight: 900;
-            margin-bottom: 1rem;
-            letter-spacing: -0.02em;
-        }
-        .se-update-badge {
-            display: inline-block;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            padding: 0.5rem 1rem;
-            border-radius: 2rem;
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            animation: pulse 2s infinite;
-        }
-        .se-description {
-            font-size: 1.1rem;
-            line-height: 1.7;
-            margin-bottom: 2rem;
-            opacity: 0.95;
-        }
-        .se-features {
-            display: flex;
-            flex-wrap: wrap;
+            grid-template-columns: 3rem 1fr;
             gap: 1rem;
-            margin-bottom: 2rem;
-        }
-        .se-feature-tag {
-            background: rgba(255, 255, 255, 0.15);
-            padding: 0.4rem 0.8rem;
-            border-radius: 0.5rem;
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-        .se-cta {
-            display: inline-flex;
             align-items: center;
+        }
+        .plugin-icon {
+            font-size: 2rem;
+            line-height: 1;
+        }
+        .plugin-title-group h3 {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 0.25rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .plugin-desc {
+            color: var(--text-2);
+            line-height: 1.5;
+            margin: 1rem 0;
+        }
+        .plugin-links {
+            display: flex;
             gap: 0.5rem;
-            background: rgba(255, 255, 255, 0.95);
-            color: #d97706;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.75rem;
-            font-weight: 700;
+        }
+        .plugin-link {
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 0.4rem 0.8rem;
             text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            transition: all 0.2s;
         }
-        .se-cta:hover {
-            transform: translateX(5px);
-            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
-        }
-        .se-icon {
-            font-size: 6rem;
-            opacity: 0.9;
-            animation: float 3s infinite ease-in-out;
-        }
-        @media (max-width: 768px) {
-            .se-container {
-                grid-template-columns: 1fr;
-                text-align: center;
-                gap: 2rem;
-            }
-            .se-icon {
-                font-size: 4rem;
-            }
+        .plugin-link:hover {
+            border-color: var(--gold);
+            color: var(--gold);
         }
 
-        .hero { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 7rem 1.25rem 5rem; gap: 2.5rem; position: relative; }
-        .hero-text { animation: fadeIn 1s ease both; }
-        .hero-text h1 { font-size: clamp(2.5rem, 7vw, 4rem); font-weight: 900; letter-spacing: -0.03em; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .hero-sub { font-size: 1.2rem; color: var(--text2); max-width: 40ch; margin: 0.5rem auto 0; }
-        .hero-cta { display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center; margin-top: 1.75rem; }
-        .btn { padding: 0.65rem 1.6rem; border-radius: 0.5rem; font-weight: 600; font-size: 0.95rem; transition: transform 0.2s, box-shadow 0.2s; text-decoration: none; color: var(--text); }
-        .btn.primary { background: var(--grad); color: #fff; box-shadow: var(--glow); animation: glow 3s infinite ease-in-out; }
-        .btn.primary:hover { transform: translateY(-3px); }
-        .btn.ghost { border: 1px solid var(--border); color: var(--text); }
-        .btn.ghost:hover { background: var(--surface); border-color: var(--accent); color: var(--accent); }
-        .hero-code { background: var(--surface); border: 1px solid var(--border); border-radius: 0.75rem; padding: 1.25rem 1.5rem; font-size: 0.9rem; color: var(--text2); max-width: 500px; animation: slideInRight 1s 0.2s ease both; font-family: 'Courier New', monospace; }
-        .hero-code .comment { color: #34d399; }
-        .hero-code .keyword { color: #60a5fa; }
-        .section { padding: 5rem 1.25rem; }
-        .container { max-width: 70rem; margin: 0 auto; }
-        .section-title { font-size: 1.9rem; font-weight: 800; text-align: center; margin-bottom: 3rem; animation: fadeIn 1s both; }
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1.25rem; }
-        .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 0.75rem; padding: 1.5rem 1rem; text-align: center; transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s; animation: fadeIn 1s both; }
-        .stat-card:hover { transform: translateY(-6px); border-color: var(--accent); box-shadow: var(--glow); }
-        .stat-number { font-size: 2.2rem; font-weight: 900; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .stat-label { font-size: 0.85rem; color: var(--text2); margin-top: 0.25rem; }
-        .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
-        .feature { background: var(--surface); border: 1px solid var(--border); border-radius: 0.75rem; padding: 1.5rem; display: flex; gap: 1rem; animation: fadeIn 1s both; transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s; }
-        .feature:hover { transform: translateY(-4px); border-color: var(--accent2); box-shadow: 0 0 18px rgba(99,102,241,.45); }
-        .feature-icon { font-size: 1.75rem; flex-shrink: 0; animation: float 4s infinite ease-in-out; }
-        .feature h4 { margin-bottom: 0.35rem; font-size: 1.05rem; }
-        .feature p { font-size: 0.9rem; color: var(--text2); }
-        .plugins-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
-        .plugin-card { background: var(--surface); border: 1px solid var(--border); border-radius: 0.75rem; overflow: hidden; cursor: pointer; animation: fadeIn 1s both; transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s; }
-        .plugin-card:hover { transform: translateY(-6px); border-color: var(--accent); box-shadow: var(--glow); }
-        .plugin-card-img { height: 140px; display: flex; align-items: center; justify-content: center; font-size: 3.5rem; background: var(--grad); opacity: 0.9; animation: pulse 4s infinite ease-in-out; }
-        .plugin-card-body { padding: 1.25rem; }
-        .plugin-card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
-        .plugin-card p { font-size: 0.85rem; color: var(--text2); }
-        footer { text-align: center; padding: 3rem 1.25rem 2rem; border-top: 1px solid var(--border); font-size: 0.85rem; color: var(--text2); }
-        .social { display: flex; gap: 1rem; justify-content: center; margin-top: 0.75rem; }
-        .social a { font-size: 1.3rem; transition: color 0.2s, transform 0.2s; color: var(--text2); text-decoration: none; }
-        .social a:hover { color: var(--accent); transform: scale(1.15); }
+        .about-section {
+            background: var(--surface);
+            border-top: 2px solid var(--border);
+            padding: 4rem 1.5rem;
+        }
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            align-items: start;
+        }
+        .about-content h2 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .about-content p {
+            color: var(--text-2);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        .about-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        .about-link {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            transition: all 0.2s;
+        }
+        .about-link:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+        .about-visual {
+            font-size: 0.7rem;
+            line-height: 1.3;
+            color: var(--text-2);
+            background: var(--bg);
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            font-family: var(--font);
+        }
+
+        .footer {
+            background: var(--surface);
+            border-top: 2px solid var(--border);
+            padding: 2rem;
+            text-align: center;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+        }
+        .footer-link {
+            color: var(--text-2);
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            transition: color 0.2s;
+        }
+        .footer-link:hover {
+            color: var(--gold);
+        }
+
         @media (max-width: 768px) {
-          .nav-links { position: fixed; inset: 0 0 0 0; background: var(--bg); flex-direction: column; align-items: center; justify-content: center; gap: 2rem; font-size: 1.25rem; transform: translateY(-100%); transition: transform 0.4s cubic-bezier(.4,0,.2,1); list-style: none; margin: 0; padding: 0; }
-          .nav-links.open { transform: translateY(0); }
-          .mobile-burger { display: block; }
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-stats {
+                grid-template-columns: 1fr;
+            }
+            .featured-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
         }
     </style>
 </head>
 <body>
 
-<nav class="top-nav">
-    <a class="logo" href="index.html">GodlyCow</a>
-    <ul class="nav-links" id="navLinks">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="plugins.html">Plugins</a></li>
-        <li><a href="contact.html">Contact</a></li>
-    </ul>
-    <div class="nav-right">
-        <button id="themeBtn" class="theme-btn" aria-label="toggle theme">🌙</button>
-        <button id="mobileBtn" class="mobile-burger">☰</button>
-    </div>
-</nav>
+<header class="topbar">
+    <a href="index.html" class="active">HOME</a>
+    <a href="plugins.html">PLUGINS</a>
+    <a href="https://github.com/GodlyCow203" target="_blank">GITHUB</a>
+    <a href="https://discord.gg/vmhQ2gZr8g" target="_blank">DISCORD</a>
+    <a href="contact.html">CONTACT</a>
+    <div class="spacer"></div>
+    <button class="theme-btn" id="themeBtn">🌙 DARK</button>
+</header>
 
 <section class="hero">
-    <div class="hero-text">
-        <h1>Lightweight Minecraft Plugins</h1>
-        <p class="hero-sub">Clean, efficient Paper/Spigot plugins designed for server owners who want reliability without bloat.</p>
-        <div class="hero-cta">
-            <a href="#serveressentials" class="btn primary">Check Out ServerEssentials</a>
-            <a href="https://modrinth.com/user/_GodlyCow" class="btn ghost" target="_blank">Modrinth Profile</a>
+    <h1>PLUGIN DEVELOPER</h1>
+    <p class="hero-sub">
+        Crafting lightweight, modern Paper/Spigot plugins. No bloat. No compromises. Just code that works.
+    </p>
+    <div class="hero-stats">
+        <div class="stat">
+            <div class="stat-number" id="totalDownloads">-</div>
+            <div class="stat-label">Downloads</div>
         </div>
-    </div>
-    <div class="hero-code">
-    <pre><code><span class="comment">// Developer: _GodlyCow</span>
-<span class="keyword">public class</span> ServerEssentials {
-    <span class="comment">// Essential features, zero lag</span>
-}</code></pre>
+        <div class="stat">
+            <div class="stat-number">100+</div>
+            <div class="stat-label">Servers</div>
+        </div>
+        <div class="stat">
+            <div class="stat-number">10+</div>
+            <div class="stat-label">Plugins</div>
+        </div>
     </div>
 </section>
 
-<section class="serveressentials-hero" id="serveressentials" onclick="window.location.href='serveressentials.html'">
-    <div class="se-container">
-        <div class="se-content">
-            <div class="se-update-badge">🎉 HUGE UPDATE JUST RELEASED!</div>
-            <h2>ServerEssentials</h2>
-            <p class="se-description">
-                The lightweight essentials plugin that doesn't slow down your server.
-                Packed with everything you need and nothing you don't. Recently rebuilt from the ground up
-                with better performance, more features, and cleaner code.
+<div class="featured-banner">
+    <div class="featured-content">
+        <div class="featured-icon">⭐</div>
+        <div class="featured-text">
+            <h2>FEATURED: ServerEssentials</h2>
+            <p class="featured-desc">
+                Complete essentials replacement with modern GUI, async performance, and 100+ commands.
+                The ultimate all-in-one solution.
             </p>
-            <div class="se-features">
-                <span class="se-feature-tag">🏠 Homes & Warps</span>
-                <span class="se-feature-tag">📍 Spawn Management</span>
-                <span class="se-feature-tag">💰 Economy Support</span>
-                <span class="se-feature-tag">🎨 Modern GUI</span>
-                <span class="se-feature-tag">⚡ Async Performance</span>
-                <span class="se-feature-tag">🎯 PlaceholderAPI</span>
+        </div>
+        <a href="serveressentials.html" class="featured-link">EXPLORE →</a>
+    </div>
+</div>
+
+<section class="plugins-section">
+    <div class="section-header">
+        <h2 class="section-title">// PLUGIN CATALOG</h2>
+        <p class="section-desc">Production-ready • Regular updates • Community tested</p>
+    </div>
+    <div class="plugins-grid">
+        <div class="plugin-card" onclick="window.location.href='serveressentials.html'">
+            <div class="plugin-header">
+                <div class="plugin-icon">⚙️</div>
+                <div class="plugin-title-group">
+                    <h3>ServerEssentials</h3>
+                </div>
             </div>
-            <div class="se-cta">
-                Read more about the update →
+            <p class="plugin-desc">
+                Complete essentials replacement with modern GUI, economy, warps, homes, and async-first design.
+                Built for performance on Paper 1.17-1.21.
+            </p>
+            <div class="plugin-links">
+                <a href="serveressentials.html" class="plugin-link">DETAILS</a>
+                <a href="https://modrinth.com/plugin/serveressentials" class="plugin-link">MODRINTH</a>
+                <a href="https://github.com/GodlyCow203/ServerEssentials" class="plugin-link">GITHUB</a>
             </div>
         </div>
-        <div class="se-icon">⚙️</div>
-    </div>
-</section>
 
-<section class="section">
-    <div class="container">
-        <h2 class="section-title">By the numbers</h2>
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-number">3</div>
-                <div class="stat-label">Active plugins</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">50+</div>
-                <div class="stat-label">Servers using them</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">4K+</div>
-                <div class="stat-label">Total downloads</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">100%</div>
-                <div class="stat-label">Free & open source</div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="section">
-    <div class="container">
-        <h2 class="section-title">What you get</h2>
-        <div class="features">
-            <div class="feature">
-                <div class="feature-icon">🔧</div>
-                <div>
-                    <h4>Easy configuration</h4>
-                    <p>Clean configs with comments – no guessing.</p>
-                </div>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">⚡</div>
-                <div>
-                    <h4>Zero lag</h4>
-                    <p>Async code, minimal footprint, real-server tested.</p>
-                </div>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">📚</div>
-                <div>
-                    <h4>Full docs</h4>
-                    <p>Every command, permission and placeholder explained.</p>
-                </div>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">💬</div>
-                <div>
-                    <h4>Fast support</h4>
-                    <p>GitHub issues – bugs fixed within hours, not weeks.</p>
-                </div>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">🔄</div>
-                <div>
-                    <h4>Regular updates</h4>
-                    <p>Stay compatible with latest Paper & Spigot builds.</p>
-                </div>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">⚖️</div>
-                <div>
-                    <h4>Open source</h4>
-                    <p>GPL-3.0 – see exactly what runs on your server.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="section" id="plugins">
-    <div class="container">
-        <h2 class="section-title">More Plugins</h2>
-        <div class="plugins-grid">
-            <div class="plugin-card" onclick="window.open('https://modrinth.com/plugin/vaultleaderboards','_blank')">
-                <div class="plugin-card-img">🏆</div>
-                <div class="plugin-card-body">
+        <div class="plugin-card" onclick="window.location.href='vaultleaderboards.html'">
+            <div class="plugin-header">
+                <div class="plugin-icon">🏆</div>
+                <div class="plugin-title-group">
                     <h3>VaultLeaderboards</h3>
-                    <p>Top balances, holograms, PlaceholderAPI – one config.</p>
                 </div>
             </div>
-            <div class="plugin-card" onclick="window.open('https://modrinth.com/plugin/shopengine','_blank')">
-                <div class="plugin-card-img">🛒</div>
-                <div class="plugin-card-body">
-                    <h3>ShopEngine</h3>
-                    <p>Dynamic prices, stock, MiniMessage – modern GUI shops.</p>
-                </div>
+            <p class="plugin-desc">
+                Real-time economy leaderboards with PlaceholderAPI integration. Display top balances in chat,
+                scoreboards, or holograms.
+            </p>
+            <div class="plugin-links">
+                <a href="vaultleaderboards.html" class="plugin-link">DETAILS</a>
+                <a href="https://modrinth.com/plugin/vaultleaderboards" class="plugin-link">MODRINTH</a>
+                <a href="https://github.com/GodlyCow203/VaultLeaderboards" class="plugin-link">GITHUB</a>
             </div>
         </div>
-        <div style="text-align:center;margin-top:2rem">
-            <a href="https://modrinth.com/user/_GodlyCow" class="btn primary" target="_blank">View All on Modrinth</a>
+
+        <div class="plugin-card" onclick="window.location.href='shopengine.html'">
+            <div class="plugin-header">
+                <div class="plugin-icon">🛒</div>
+                <div class="plugin-title-group">
+                    <h3>ShopEngine</h3>
+                </div>
+            </div>
+            <p class="plugin-desc">
+                Advanced GUI shop with dynamic pricing, stock management, and player shops. Economy-driven
+                marketplace for your server.
+            </p>
+            <div class="plugin-links">
+                <a href="shopengine.html" class="plugin-link">DETAILS</a>
+                <a href="https://modrinth.com/plugin/shopengine" class="plugin-link">MODRINTH</a>
+                <a href="https://github.com/GodlyCow203/ShopEngine" class="plugin-link">GITHUB</a>
+            </div>
+        </div>
+
+        <div class="plugin-card" onclick="window.location.href='treefeller.html'">
+            <div class="plugin-header">
+                <div class="plugin-icon">🌳</div>
+                <div class="plugin-title-group">
+                    <h3>TreeFellerRewritten</h3>
+                </div>
+            </div>
+            <p class="plugin-desc">
+                Efficient tree felling with leaf decay, tool damage, and customization. The ultimate survival
+                quality-of-life improvement.
+            </p>
+            <div class="plugin-links">
+                <a href="treefeller.html" class="plugin-link">DETAILS</a>
+                <a href="https://modrinth.com/plugin/treefellerrewritten" class="plugin-link">MODRINTH</a>
+                <a href="https://github.com/GodlyCow203/TreeFellerRewritten" class="plugin-link">GITHUB</a>
+            </div>
+        </div>
+
+        <div class="plugin-card" onclick="window.location.href='tabulavista.html'">
+            <div class="plugin-header">
+                <div class="plugin-icon">📋</div>
+                <div class="plugin-title-group">
+                    <h3>Tabula Vista</h3>
+                </div>
+            </div>
+            <p class="plugin-desc">
+                Premium tab menu plugin with RGB gradients, animations, and full PlaceholderAPI support.
+                Modern tablist solution.
+            </p>
+            <div class="plugin-links">
+                <a href="tabulavista.html" class="plugin-link">DETAILS</a>
+                <a href="https://modrinth.com/plugin/tabulavista" class="plugin-link">MODRINTH</a>
+                <a href="https://github.com/GodlyCow203/TabulaVista" class="plugin-link">GITHUB</a>
+            </div>
+        </div>
+
+        <div class="plugin-card" onclick="window.location.href='chunka.html'">
+            <div class="plugin-header">
+                <div class="plugin-icon">🌍</div>
+                <div class="plugin-title-group">
+                    <h3>Chunka</h3>
+                </div>
+            </div>
+            <p class="plugin-desc">
+                Advanced chunk pre-generator with circular, rectangular, and custom patterns. Pre-generate worlds
+                without server lag.
+            </p>
+            <div class="plugin-links">
+                <a href="chunka.html" class="plugin-link">DETAILS</a>
+                <a href="https://modrinth.com/plugin/chunka" class="plugin-link">MODRINTH</a>
+                <a href="https://github.com/GodlyCow203/Chunka" class="plugin-link">GITHUB</a>
+            </div>
         </div>
     </div>
 </section>
 
-<footer>
-    <p>&copy; <span id="yr"></span> _GodlyCow – building for the Minecraft community</p>
-    <div class="social">
-        <a href="https://github.com/godlycow203" target="_blank" title="GitHub">📦</a>
-        <a href="https://modrinth.com/user/_GodlyCow" target="_blank" title="Modrinth">🎮</a>
-        <a href="mailto:godlycowcow@gmail.com" title="Email">✉️</a>
+<section class="about-section">
+    <div class="about-grid">
+        <div class="about-content">
+            <h2>// DEVELOPMENT PHILOSOPHY</h2>
+            <p>
+                I'm an independent Minecraft plugin developer focused on creating lightweight, high-performance tools
+                for server owners. Every plugin is built with modern practices: async operations, clean architecture,
+                and zero bloat.
+            </p>
+            <p>
+                All code is open source and available on GitHub. I believe in transparency, community feedback, and
+                continuous improvement based on real server needs.
+            </p>
+            <div class="about-links">
+                <a href="https://github.com/GodlyCow203" class="about-link">GITHUB</a>
+                <a href="https://modrinth.com/user/_GodlyCow" class="about-link">MODRINTH</a>
+                <a href="contact.html" class="about-link">HIRE</a>
+            </div>
+        </div>
+        <div class="about-visual">
+            // Tech Stack & Principles<br>
+            //<br>
+            // Java 17+      <br>
+            // Paper API     <br>
+            // SQLite        <br>
+            // MiniMessage   <br>
+            // Async/Future  <br>
+            //<br>
+            // 1. Performance first<br>
+            // 2. No external dependencies<br>
+            // 3. Async everything<br>
+            // 4. Simple configurations<br>
+            // 5. Backwards compatibility<br>
+            // 6. Open source always<br>
+        </div>
     </div>
+</section>
+
+<footer class="footer">
+    <div class="footer-links">
+        <a href="https://github.com/GodlyCow203" class="footer-link">_GitHub</a>
+        <a href="https://modrinth.com/user/_GodlyCow" class="footer-link">_Modrinth</a>
+        <a href="https://discord.gg/vmhQ2gZr8g" class="footer-link">_Discord</a>
+        <a href="mailto:godlycowcow@gmail.com" class="footer-link">_Email</a>
+    </div>
+    <p>&copy; <span id="yr"></span> _GodlyCow</p>
 </footer>
 
 <script>
-    const body = document.body;
     const themeBtn = document.getElementById('themeBtn');
-    const navLinks = document.getElementById('navLinks');
-    const mobileBtn = document.getElementById('mobileBtn');
-
-    (function(){
-      const s = localStorage.getItem('theme') || 'dark';
-      body.parentElement.setAttribute('data-theme', s);
-      themeBtn.textContent = s==='light' ? '☀️' : '🌙';
-    })();
+    const root = document.documentElement;
+    const saved = localStorage.getItem('theme') || 'dark';
+    root.setAttribute('data-theme', saved);
+    themeBtn.textContent = saved === 'dark' ? '☀️ LIGHT' : '🌙 DARK';
 
     themeBtn.addEventListener('click', () => {
-      const curr = body.parentElement.getAttribute('data-theme');
-      const next = curr === 'light' ? 'dark' : 'light';
-      body.parentElement.setAttribute('data-theme', next);
-      localStorage.setItem('theme', next);
-      themeBtn.textContent = next==='light' ? '☀️' : '🌙';
+        const t = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', t);
+        localStorage.setItem('theme', t);
+        themeBtn.textContent = t === 'dark' ? '☀️ LIGHT' : '🌙 DARK';
     });
 
-    mobileBtn.addEventListener('click', () => {
-      navLinks.classList.toggle('open');
-      mobileBtn.textContent = navLinks.classList.contains('open') ? '✕' : '☰';
-    });
-    navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
-      navLinks.classList.remove('open'); mobileBtn.textContent='☰';
-    }));
+    async function loadStats() {
+        try {
+            const res = await fetch('https://api.modrinth.com/v2/user/_godlycow/projects');
+            const data = await res.json();
+            const totalDownloads = data.reduce((sum, p) => sum + p.downloads, 0);
+            document.getElementById('totalDownloads').textContent = totalDownloads.toLocaleString();
+        } catch (e) {
+            console.error('Stats failed to load:', e);
+            document.getElementById('totalDownloads').textContent = '10K+';
+        }
+    }
 
     document.getElementById('yr').textContent = new Date().getFullYear();
+
+    loadStats();
 </script>
 </body>
 </html>
