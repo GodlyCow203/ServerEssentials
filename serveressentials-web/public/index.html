@@ -1,0 +1,597 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="utf-8">
+    <title>_GodlyCow // Minecraft Plugin Developer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --surface: #111111;
+            --surface-2: #191919;
+            --border: #2d2d2d;
+            --text: #e0e0e0;
+            --text-2: #888888;
+            --primary: #FFFFFF;
+            --primary-2: #b91c1c;
+            --success: #50DB00;
+            --warning: #fbbf24;
+            --error: #ef4444;
+            --gold: #fbbf24;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+            --font: 'Courier New', 'Monaco', 'Consolas', monospace;
+        }
+        [data-theme="light"] {
+            --bg: #f0f0f0;
+            --surface: #ffffff;
+            --surface-2: #f7f7f7;
+            --border: #cccccc;
+            --text: #1a1a1a;
+            --text-2: #555555;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            --success: #28a000;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font);
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        .topbar {
+            background: var(--surface);
+            border-bottom: 2px solid var(--border);
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+            font-weight: bold;
+        }
+        .topbar a {
+            color: var(--text-2);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .topbar a:hover { color: var(--primary); }
+        .topbar .spacer { flex: 1; }
+        .theme-btn {
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 0.4rem 0.8rem;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        .theme-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .hero {
+            background: linear-gradient(90deg, var(--surface) 0%, var(--surface-2) 100%);
+            border-bottom: 2px solid var(--border);
+            padding: 4rem 1.5rem;
+            text-align: center;
+            position: relative;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .hero-sub {
+            font-size: 1rem;
+            color: var(--text-2);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .stat {
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            background: var(--bg);
+        }
+        .stat-number {
+            font-size: 2rem;
+            color: var(--primary);
+            font-weight: bold;
+        }
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-2);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .featured-banner {
+            margin: 3rem auto;
+            max-width: 1200px;
+            padding: 0 1.5rem;
+        }
+        .featured-content {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--gold);
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 2rem;
+            align-items: center;
+        }
+        .featured-icon {
+            font-size: 3rem;
+        }
+        .featured-text h2 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .featured-desc {
+            color: var(--text-2);
+            font-size: 0.95rem;
+        }
+        .featured-link {
+            background: var(--gold);
+            color: var(--bg);
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: all 0.2s;
+        }
+        .featured-link:hover {
+            background: var(--warning);
+        }
+
+        .plugins-section {
+            padding: 4rem 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .section-desc {
+            color: var(--text-2);
+            font-size: 1rem;
+        }
+        .plugins-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+        .plugin-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            gap: 1rem;
+            transition: all 0.2s;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .plugin-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--gold);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+        .plugin-card:hover::before {
+            transform: scaleX(1);
+        }
+        .plugin-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow);
+        }
+        .plugin-header {
+            display: grid;
+            grid-template-columns: 3rem 1fr;
+            gap: 1rem;
+            align-items: center;
+        }
+        .plugin-icon {
+            font-size: 2rem;
+            line-height: 1;
+        }
+        .plugin-title-group h3 {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 0.25rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .plugin-desc {
+            color: var(--text-2);
+            line-height: 1.5;
+            margin: 1rem 0;
+        }
+        .plugin-links {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .plugin-link {
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 0.4rem 0.8rem;
+            text-decoration: none;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            transition: all 0.2s;
+        }
+        .plugin-link:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .about-section {
+            background: var(--surface);
+            border-top: 2px solid var(--border);
+            padding: 4rem 1.5rem;
+        }
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            align-items: start;
+        }
+        .about-content h2 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .about-content p {
+            color: var(--text-2);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        .about-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        .about-link {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            transition: all 0.2s;
+        }
+        .about-link:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+        .about-visual {
+            font-size: 0.7rem;
+            line-height: 1.3;
+            color: var(--text-2);
+            background: var(--bg);
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            font-family: var(--font);
+        }
+
+        .footer {
+            background: var(--surface);
+            border-top: 2px solid var(--border);
+            padding: 2rem;
+            text-align: center;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+        }
+        .footer-link {
+            color: var(--text-2);
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            transition: color 0.2s;
+        }
+        .footer-link:hover {
+            color: var(--gold);
+        }
+
+        @media (max-width: 768px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-stats {
+                grid-template-columns: 1fr;
+            }
+            .featured-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header class="topbar">
+    <a href="index.html" class="active">HOME</a>
+    <a href="plugins.html">PLUGINS</a>
+    <a href="https://github.com/GodlyCow203" target="_blank">GITHUB</a>
+    <a href="https://discord.gg/vmhQ2gZr8g" target="_blank">DISCORD</a>
+    <a href="contact.html">CONTACT</a>
+    <div class="spacer"></div>
+    <button class="theme-btn" id="themeBtn">🌙 DARK</button>
+</header>
+
+<section class="hero">
+    <h1>PLUGIN DEVELOPER</h1>
+    <p class="hero-sub">
+        Crafting lightweight, modern Paper/Spigot plugins. No bloat. No compromises. Just code that works.
+    </p>
+    <div class="hero-stats">
+        <div class="stat">
+            <div class="stat-number" id="totalDownloads">-</div>
+            <div class="stat-label">Downloads</div>
+        </div>
+        <div class="stat">
+            <div class="stat-number">100+</div>
+            <div class="stat-label">Servers</div>
+        </div>
+        <div class="stat">
+            <div class="stat-number">10+</div>
+            <div class="stat-label">Plugins</div>
+        </div>
+    </div>
+</section>
+
+<div class="featured-banner">
+    <div class="featured-content">
+        <div class="featured-icon">⭐</div>
+        <div class="featured-text">
+            <h2>FEATURED: ServerEssentials</h2>
+            <p class="featured-desc">
+                Complete essentials replacement with modern GUI, async performance, and 100+ commands.
+                The ultimate all-in-one solution.
+            </p>
+        </div>
+        <a href="serveressentials.html" class="featured-link">EXPLORE →</a>
+    </div>
+</div>
+
+<section class="plugins-section">
+    <div class="section-header">
+        <h2 class="section-title">// PLUGIN CATALOG</h2>
+        <p class="section-desc">Production-ready • Regular updates • Community tested</p>
+    </div>
+    <div class="plugins-grid">
+        <div class="plugin-card" onclick="window.location.href='serveressentials.html'">
+            <div class="plugin-header">
+                <div class="plugin-icon">⚙️</div>
+                <div class="plugin-title-group">
+                    <h3>ServerEssentials</h3>
+                </div>
+            </div>
+            <p class="plugin-desc">
+                Complete essentials replacement with modern GUI, economy, warps, homes, and async-first design.
+                Built for performance on Paper 1.17-1.21.
+            </p>
+            <div class="plugin-links">
+                <a href="serveressentials.html" class="plugin-link">DETAILS</a>
+                <a href="https://modrinth.com/plugin/serveressentials" class="plugin-link">MODRINTH</a>
+                <a href="https://github.com/GodlyCow203/ServerEssentials" class="plugin-link">GITHUB</a>
+            </div>
+        </div>
+
+        <div class="plugin-card" onclick="window.location.href='vaultleaderboards.html'">
+            <div class="plugin-header">
+                <div class="plugin-icon">🏆</div>
+                <div class="plugin-title-group">
+                    <h3>VaultLeaderboards</h3>
+                </div>
+            </div>
+            <p class="plugin-desc">
+                Real-time economy leaderboards with PlaceholderAPI integration. Display top balances in chat,
+                scoreboards, or holograms.
+            </p>
+            <div class="plugin-links">
+                <a href="vaultleaderboards.html" class="plugin-link">DETAILS</a>
+                <a href="https://modrinth.com/plugin/vaultleaderboards" class="plugin-link">MODRINTH</a>
+                <a href="https://github.com/GodlyCow203/VaultLeaderboards" class="plugin-link">GITHUB</a>
+            </div>
+        </div>
+
+        <div class="plugin-card" onclick="window.location.href='shopengine.html'">
+            <div class="plugin-header">
+                <div class="plugin-icon">🛒</div>
+                <div class="plugin-title-group">
+                    <h3>ShopEngine</h3>
+                </div>
+            </div>
+            <p class="plugin-desc">
+                Advanced GUI shop with dynamic pricing, stock management, and player shops. Economy-driven
+                marketplace for your server.
+            </p>
+            <div class="plugin-links">
+                <a href="shopengine.html" class="plugin-link">DETAILS</a>
+                <a href="https://modrinth.com/plugin/shopengine" class="plugin-link">MODRINTH</a>
+                <a href="https://github.com/GodlyCow203/ShopEngine" class="plugin-link">GITHUB</a>
+            </div>
+        </div>
+
+        <div class="plugin-card" onclick="window.location.href='treefeller.html'">
+            <div class="plugin-header">
+                <div class="plugin-icon">🌳</div>
+                <div class="plugin-title-group">
+                    <h3>TreeFellerRewritten</h3>
+                </div>
+            </div>
+            <p class="plugin-desc">
+                Efficient tree felling with leaf decay, tool damage, and customization. The ultimate survival
+                quality-of-life improvement.
+            </p>
+            <div class="plugin-links">
+                <a href="treefeller.html" class="plugin-link">DETAILS</a>
+                <a href="https://modrinth.com/plugin/treefellerrewritten" class="plugin-link">MODRINTH</a>
+                <a href="https://github.com/GodlyCow203/TreeFellerRewritten" class="plugin-link">GITHUB</a>
+            </div>
+        </div>
+
+        <div class="plugin-card" onclick="window.location.href='tabulavista.html'">
+            <div class="plugin-header">
+                <div class="plugin-icon">📋</div>
+                <div class="plugin-title-group">
+                    <h3>Tabula Vista</h3>
+                </div>
+            </div>
+            <p class="plugin-desc">
+                Premium tab menu plugin with RGB gradients, animations, and full PlaceholderAPI support.
+                Modern tablist solution.
+            </p>
+            <div class="plugin-links">
+                <a href="tabulavista.html" class="plugin-link">DETAILS</a>
+                <a href="https://modrinth.com/plugin/tabulavista" class="plugin-link">MODRINTH</a>
+                <a href="https://github.com/GodlyCow203/TabulaVista" class="plugin-link">GITHUB</a>
+            </div>
+        </div>
+
+        <div class="plugin-card" onclick="window.location.href='chunka.html'">
+            <div class="plugin-header">
+                <div class="plugin-icon">🌍</div>
+                <div class="plugin-title-group">
+                    <h3>Chunka</h3>
+                </div>
+            </div>
+            <p class="plugin-desc">
+                Advanced chunk pre-generator with circular, rectangular, and custom patterns. Pre-generate worlds
+                without server lag.
+            </p>
+            <div class="plugin-links">
+                <a href="chunka.html" class="plugin-link">DETAILS</a>
+                <a href="https://modrinth.com/plugin/chunka" class="plugin-link">MODRINTH</a>
+                <a href="https://github.com/GodlyCow203/Chunka" class="plugin-link">GITHUB</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="about-section">
+    <div class="about-grid">
+        <div class="about-content">
+            <h2>// DEVELOPMENT PHILOSOPHY</h2>
+            <p>
+                I'm an independent Minecraft plugin developer focused on creating lightweight, high-performance tools
+                for server owners. Every plugin is built with modern practices: async operations, clean architecture,
+                and zero bloat.
+            </p>
+            <p>
+                All code is open source and available on GitHub. I believe in transparency, community feedback, and
+                continuous improvement based on real server needs.
+            </p>
+            <div class="about-links">
+                <a href="https://github.com/GodlyCow203" class="about-link">GITHUB</a>
+                <a href="https://modrinth.com/user/_GodlyCow" class="about-link">MODRINTH</a>
+                <a href="contact.html" class="about-link">HIRE</a>
+            </div>
+        </div>
+        <div class="about-visual">
+            // Tech Stack & Principles<br>
+            //<br>
+            // Java 17+      <br>
+            // Paper API     <br>
+            // SQLite        <br>
+            // MiniMessage   <br>
+            // Async/Future  <br>
+            //<br>
+            // 1. Performance first<br>
+            // 2. No external dependencies<br>
+            // 3. Async everything<br>
+            // 4. Simple configurations<br>
+            // 5. Backwards compatibility<br>
+            // 6. Open source always<br>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="footer-links">
+        <a href="https://github.com/GodlyCow203" class="footer-link">_GitHub</a>
+        <a href="https://modrinth.com/user/_GodlyCow" class="footer-link">_Modrinth</a>
+        <a href="https://discord.gg/vmhQ2gZr8g" class="footer-link">_Discord</a>
+        <a href="mailto:godlycowcow@gmail.com" class="footer-link">_Email</a>
+    </div>
+    <p>&copy; <span id="yr"></span> _GodlyCow</p>
+</footer>
+
+<script>
+    const themeBtn = document.getElementById('themeBtn');
+    const root = document.documentElement;
+    const saved = localStorage.getItem('theme') || 'dark';
+    root.setAttribute('data-theme', saved);
+    themeBtn.textContent = saved === 'dark' ? '☀️ LIGHT' : '🌙 DARK';
+
+    themeBtn.addEventListener('click', () => {
+        const t = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', t);
+        localStorage.setItem('theme', t);
+        themeBtn.textContent = t === 'dark' ? '☀️ LIGHT' : '🌙 DARK';
+    });
+
+    async function loadStats() {
+        try {
+            const res = await fetch('https://api.modrinth.com/v2/user/_godlycow/projects');
+            const data = await res.json();
+            const totalDownloads = data.reduce((sum, p) => sum + p.downloads, 0);
+            document.getElementById('totalDownloads').textContent = totalDownloads.toLocaleString();
+        } catch (e) {
+            console.error('Stats failed to load:', e);
+            document.getElementById('totalDownloads').textContent = '10K+';
+        }
+    }
+
+    document.getElementById('yr').textContent = new Date().getFullYear();
+
+    loadStats();
+</script>
+</body>
+</html>

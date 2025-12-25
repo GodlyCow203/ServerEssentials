@@ -1,0 +1,59 @@
+allowed-categories:
+  - default
+  - pvp
+  - town
+  - nether
+  - end
+
+warps:
+  spawn:
+    location: world,0.5,64.0,0.5,0.0,0.0
+    enabled: true
+    category: default
+    material: ENDER_PEARL
+    lore:
+      - "&7The main spawn point."
+      - "&eSafe zone."
+    cooldown: 60
+    description: "Main hub spawn point."
+
+  pvp-arena:
+    location: world,100.5,70.0,200.5,0.0,0.0
+    enabled: true
+    category: pvp
+    material: DIAMOND_SWORD
+    lore:
+      - "&cFight to the death!"
+      - "&7Bring your best gear."
+    cooldown: 120
+    description: "Arena for PVP battles."
+
+  town:
+    location: world,-150.5,65.0,-100.5,0.0,0.0
+    enabled: true
+    category: town
+    material: BRICKS
+    lore:
+      - "&6Visit the player-built town."
+    cooldown: 90
+    description: "Explore the community town."
+
+  nether-base:
+    location: world_nether,0.5,64.0,0.5,0.0,0.0
+    enabled: true
+    category: nether
+    material: NETHERRACK
+    lore:
+      - "&4Careful... it's hot!"
+    cooldown: 180
+    description: "Your base in the Nether."
+
+  end-outpost:
+    location: world_the_end,50.5,70.0,50.5,0.0,0.0
+    enabled: true
+    category: end
+    material: END_STONE
+    lore:
+      - "&5End dimension teleport."
+    cooldown: 180
+    description: "Outpost in The End."

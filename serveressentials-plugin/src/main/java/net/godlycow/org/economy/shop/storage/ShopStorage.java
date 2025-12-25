@@ -1,0 +1,40 @@
+package net.godlycow.org.economy.shop.storage;
+
+import net.godlycow.org.database.DatabaseManager;
+import net.godlycow.org.commands.CommandDataStorage;
+import org.bukkit.plugin.Plugin;
+
+import java.util.UUID;
+import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+
+public class ShopStorage {
+    private final CommandDataStorage storage;
+    private static final String COMMAND_KEY = "shop";
+
+    public ShopStorage(Plugin plugin, DatabaseManager dbManager) {
+        this.storage = new CommandDataStorage(plugin, dbManager);
+    }
+
+    public CompletableFuture<Void> setPlayerSection(UUID playerId, String sectionFile) {
+        return storage.setState(playerId, COMMAND_KEY, "section", sectionFile);
+    }
+
+    public CompletableFuture<Optional<String>> getPlayerSection(UUID playerId) {
+        return storage.getState(playerId, COMMAND_KEY, "section");
+    }
+
+    public CompletableFuture<Void> setPlayerPage(UUID playerId, int page) {
+        return storage.setState(playerId, COMMAND_KEY, "page", String.valueOf(page));
+    }
+
+    public CompletableFuture<Integer> getPlayerPage(UUID playerId) {
+        return storage.getState(playerId, COMMAND_KEY, "page")
+                .thenApply(opt -> opt.map(Integer::parseInt).orElse(1));
+    }
+
+    public CompletableFuture<Void> clearPlayerState(UUID playerId) {
+        return storage.setState(playerId, COMMAND_KEY, "section", "")
+                .thenCompose(v -> storage.setState(playerId, COMMAND_KEY, "page", "1"));
+    }
+}

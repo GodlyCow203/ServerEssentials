@@ -8,12 +8,100 @@ group = 'com.serveressentials'
 version = '2.0.7.9'
 description = 'ServerEssentials Plugin'
 
+
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(21)
     }
     withSourcesJar()
 }
+
+def distDir = layout.projectDirectory.dir("dist/plugins")
+def buildHistoryDir = file("${projectDir}/build-history")
+
+def runDir = file("run/server/paper")
+def runPluginsDir = file("${runDir}/plugins")
+def paperJar = file("${runDir}/paper.jar")
+
+
+tasks.register('downloadPaper') {
+    outputs.file(paperJar)
+
+    doLast {
+        if (!paperJar.exists()) {
+            runDir.mkdirs()
+
+            def version = "1.21.1"
+            def apiUrl = "https://api.papermc.io/v2/projects/paper/versions/${version}"
+
+            def json = new groovy.json.JsonSlurper().parseText(
+                    new URL(apiUrl).text
+            )
+
+            def build = json.builds.last()
+            def jarUrl = "https://api.papermc.io/v2/projects/paper/versions/${version}/builds/${build}/downloads/paper-${version}-${build}.jar"
+
+            println "Downloading Paper ${version} build ${build}"
+            paperJar.bytes = new URL(jarUrl).bytes
+        } else {
+            println "Paper jar already exists, skipping download."
+        }
+    }
+}
+
+
+
+tasks.register('copyPlugin', Copy) {
+    dependsOn tasks.named('shadowJar')
+    from(distDir)
+    include '*.jar'
+    exclude 'serveressentials-api*.jar'
+    exclude '*-sources.jar'
+    into runPluginsDir
+}
+
+
+
+
+tasks.register('prepareRunServer') {
+    dependsOn tasks.named('downloadPaper'), tasks.named('copyPlugin')
+
+    doLast {
+        runDir.mkdirs()
+        runPluginsDir.mkdirs()
+
+        def eula = file("${runDir}/eula.txt")
+        if (!eula.exists()) {
+            eula.text = "eula=true\n"
+        }
+
+        def props = file("${runDir}/server.properties")
+        if (!props.exists()) {
+            props.text = """
+server-port=25565
+online-mode=false
+motd=ServerEssentials Dev Server
+""".stripIndent()
+        }
+    }
+}
+
+
+tasks.register('runPaper', Exec) {
+    dependsOn tasks.named('prepareRunServer')
+
+    workingDir runDir
+    commandLine(
+            "java",
+            "-Xms1G",
+            "-Xmx2G",
+            "-jar",
+            "paper.jar",
+            "--nogui"
+    )
+    standardInput = System.in
+}
+
 
 repositories {
     mavenCentral()
@@ -22,6 +110,7 @@ repositories {
     maven { url = 'https://repo.lucko.me' }
     maven { url = 'https://repo.codemc.org/repository/maven-public/' }
 }
+
 
 dependencies {
     compileOnly 'io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT'
@@ -41,40 +130,44 @@ dependencies {
     }
 }
 
+
 sourceSets {
     main {
         java {
-            srcDirs = ['Bukkit/src/main/java']
+            srcDirs = ['serveressentials-plugin/src/main/java']
         }
         resources {
-            srcDirs = ['Bukkit/src/main/resources']
+            srcDirs = ['serveressentials-plugin/src/main/resources']
         }
     }
 }
 
-def isWindows = System.getProperty("os.name").toLowerCase().contains("windows")
 
-def firebaseCmd = isWindows ? "${System.getenv('APPDATA')}\\npm\\firebase.cmd" : "firebase"
+def isWindows = System.getProperty("os.name").toLowerCase().contains("windows")
+def firebaseCmd = isWindows
+        ? "${System.getenv('APPDATA')}\\npm\\firebase.cmd"
+        : "firebase"
+
 
 tasks.register('deployWeb', Exec) {
     description = 'Deploy the Web/ folder to Firebase Hosting'
-    group       = 'deployment'
-    workingDir  = file('Web')
+    group = 'deployment'
+    workingDir = file('Web')
     commandLine firebaseCmd, 'deploy', '--only', 'hosting'
 }
 
 tasks.register('serveWeb', Exec) {
     description = 'Start local Firebase emulator for the site'
-    group       = 'deployment'
-    workingDir  = file('Web')
+    group = 'deployment'
+    workingDir = file('Web')
     commandLine firebaseCmd, 'emulators:start', '--only', 'hosting'
 }
 
 
-
-task apiJar(type: Jar) {
+tasks.register('apiJar', Jar) {
     archiveBaseName = 'serveressentials-api'
     archiveClassifier = ''
+    destinationDirectory.set(distDir)
 
     from(sourceSets.main.output) {
         include 'com/serveressentials/api/**'
@@ -88,8 +181,10 @@ task apiJar(type: Jar) {
     exclude '**/managers/**'
 }
 
-shadowJar {
+
+tasks.withType(com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar).configureEach {
     archiveClassifier = ''
+    destinationDirectory.set(distDir)
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 
     exclude 'META-INF/DEPENDENCIES'
@@ -103,12 +198,19 @@ shadowJar {
     exclude 'com/serveressentials/api/*Impl.class'
 }
 
+
+tasks.withType(Jar).configureEach {
+    destinationDirectory.set(distDir)
+}
+
+
 tasks.processResources {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     from(sourceSets.main.resources.srcDirs) {
         include '**/*.yml'
     }
 }
+
 
 configurations.all {
     resolutionStrategy {
@@ -120,12 +222,11 @@ tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
 }
 
+
 publishing {
     publications {
         api(MavenPublication) {
-            artifact(apiJar) {
-                classifier = ''
-            }
+            artifact(tasks.apiJar)
             artifact(sourcesJar) {
                 classifier = 'sources'
             }
@@ -133,7 +234,7 @@ publishing {
             pom {
                 name = 'ServerEssentialsAPI'
                 description = 'Public API for ServerEssentials plugin'
-                url = 'https://github.com/YourUsername/ServerEssentials'
+                url = 'https://github.com/godlycow203/ServerEssentials'
 
                 licenses {
                     license {
@@ -160,12 +261,26 @@ publishing {
     }
 }
 
+
 tasks.build {
     dependsOn shadowJar, apiJar
 }
 
-tasks.register('copyPlugin', Copy) {
-    dependsOn shadowJar
-    from tasks.shadowJar.get().archiveFile
-    into file("${projectDir}/plugins")
+
+gradle.buildFinished { result ->
+    buildHistoryDir.mkdirs()
+
+    def timestamp = new Date().format("yyyy-MM-dd_HH-mm-ss")
+    def status = result.failure == null ? "SUCCESS" : "FAILED"
+    def file = new File(buildHistoryDir, "${timestamp}_${status}.txt")
+
+    file.text = """
+Build Status : ${status}
+Project      : ${project.name}
+Version      : ${project.version}
+Time         : ${new Date()}
+Java         : ${System.getProperty("java.version")}
+
+${status == "FAILED" ? "Error:\\n${result.failure}" : ""}
+""".stripIndent()
 }

@@ -1,0 +1,6537 @@
+size: 54
+pages: 100
+player-head-slot: 4
+close-button-slot: 49
+
+layout:
+  "0":
+    material: GRAY_STAINED_GLASS_PANE
+    name: " "
+    clickable: false
+  "1":
+    material: GRAY_STAINED_GLASS_PANE
+    name: " "
+    clickable: false
+  "2":
+    material: WHITE_STAINED_GLASS_PANE
+    name: " "
+    clickable: false
+  "3":
+    material: WHITE_STAINED_GLASS_PANE
+    name: " "
+    clickable: false
+  "5":
+    material: WHITE_STAINED_GLASS_PANE
+    name: " "
+    clickable: false
+  "6":
+    material: WHITE_STAINED_GLASS_PANE
+    name: " "
+    clickable: false
+  "7":
+    material: GRAY_STAINED_GLASS_PANE
+    name: " "
+    clickable: false
+  "8":
+    material: GRAY_STAINED_GLASS_PANE
+    name: " "
+    clickable: false
+  "9":
+    material: GRAY_STAINED_GLASS_PANE
+    name: " "
+    clickable: false
+  "17":
+    material: GRAY_STAINED_GLASS_PANE
+    name: " "
+    clickable: false
+  "45":
+    material: ARROW
+    name: "<yellow>Previous Page"
+    previous-page: true
+    clickable: true
+  "53":
+    material: ARROW
+    name: "<yellow>Next Page"
+    next-page: true
+    clickable: true
+
+items:
+  chiseled_stone_bricks:
+    material: CHISELED_STONE_BRICKS
+    name: "<white>Chiseled Stone Bricks"
+    lore:
+      - "<gray>Buy: <green>5"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 5.0
+    sell-price: 2.0
+    amount: 1
+    slot: 10
+    page: 1
+    clickable: true
+
+  infested_chiseled_stone_bricks:
+    material: INFESTED_CHISELED_STONE_BRICKS
+    name: "<white>Infested Chiseled Stone Bricks"
+    lore:
+      - "<gray>Buy: <green>6"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 6.0
+    sell-price: 2.0
+    amount: 1
+    slot: 12
+    page: 1
+    clickable: true
+
+  infested_mossy_stone_bricks:
+    material: INFESTED_MOSSY_STONE_BRICKS
+    name: "<white>Infested Mossy Stone Bricks"
+    lore:
+      - "<gray>Buy: <green>6"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 6.0
+    sell-price: 2.0
+    amount: 1
+    slot: 14
+    page: 1
+    clickable: true
+
+  infested_stone_bricks:
+    material: INFESTED_STONE_BRICKS
+    name: "<white>Infested Stone Bricks"
+    lore:
+      - "<gray>Buy: <green>6"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 6.0
+    sell-price: 2.0
+    amount: 1
+    slot: 16
+    page: 1
+    clickable: true
+
+  mossy_stone_brick_stairs:
+    material: MOSSY_STONE_BRICK_STAIRS
+    name: "<white>Mossy Stone Brick Stairs"
+    lore:
+      - "<gray>Buy: <green>4"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 19
+    page: 1
+    clickable: true
+
+  mossy_stone_bricks:
+    material: MOSSY_STONE_BRICKS
+    name: "<white>Mossy Stone Bricks"
+    lore:
+      - "<gray>Buy: <green>4"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 21
+    page: 1
+    clickable: true
+
+  smooth_stone_slab:
+    material: SMOOTH_STONE_SLAB
+    name: "<white>Smooth Stone Slab"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 23
+    page: 1
+    clickable: true
+
+  stone_brick_slab:
+    material: STONE_BRICK_SLAB
+    name: "<white>Stone Brick Slab"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 25
+    page: 1
+    clickable: true
+
+  stone_brick_wall:
+    material: STONE_BRICK_WALL
+    name: "<white>Stone Brick Wall"
+    lore:
+      - "<gray>Buy: <green>4"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 28
+    page: 1
+    clickable: true
+
+  stone_button:
+    material: STONE_BUTTON
+    name: "<white>Stone Button"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 30
+    page: 1
+    clickable: true
+
+  stone_slab:
+    material: STONE_SLAB
+    name: "<white>Stone Slab"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 32
+    page: 1
+    clickable: true
+
+  cracked_stone_bricks:
+    material: CRACKED_STONE_BRICKS
+    name: "<white>Cracked Stone Bricks"
+    lore:
+      - "<gray>Buy: <green>4"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 34
+    page: 1
+    clickable: true
+
+  infested_cracked_stone_bricks:
+    material: INFESTED_CRACKED_STONE_BRICKS
+    name: "<white>Infested Cracked Stone Bricks"
+    lore:
+      - "<gray>Buy: <green>6"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 6.0
+    sell-price: 2.0
+    amount: 1
+    slot: 37
+    page: 1
+    clickable: true
+
+  infested_stone:
+    material: INFESTED_STONE
+    name: "<white>Infested Stone"
+    lore:
+      - "<gray>Buy: <green>5"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 5.0
+    sell-price: 2.0
+    amount: 1
+    slot: 39
+    page: 1
+    clickable: true
+
+  mossy_stone_brick_slab:
+    material: MOSSY_STONE_BRICK_SLAB
+    name: "<white>Mossy Stone Brick Slab"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 41
+    page: 1
+    clickable: true
+
+  mossy_stone_brick_wall:
+    material: MOSSY_STONE_BRICK_WALL
+    name: "<white>Mossy Stone Brick Wall"
+    lore:
+      - "<gray>Buy: <green>4"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 43
+    page: 1
+    clickable: true
+
+  smooth_stone:
+    material: SMOOTH_STONE
+    name: "<white>Smooth Stone"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 10
+    page: 2
+    clickable: true
+
+  stone:
+    material: STONE
+    name: "<white>Stone"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 12
+    page: 2
+    clickable: true
+
+  stone_brick_stairs:
+    material: STONE_BRICK_STAIRS
+    name: "<white>Stone Brick Stairs"
+    lore:
+      - "<gray>Buy: <green>4"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 14
+    page: 2
+    clickable: true
+
+  stone_bricks:
+    material: STONE_BRICKS
+    name: "<white>Stone Bricks"
+    lore:
+      - "<gray>Buy: <green>4"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 16
+    page: 2
+    clickable: true
+
+  stone_pressure_plate:
+    material: STONE_PRESSURE_PLATE
+    name: "<white>Stone Pressure Plate"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 19
+    page: 2
+    clickable: true
+
+  stone_stairs:
+    material: STONE_STAIRS
+    name: "<white>Stone Stairs"
+    lore:
+      - "<gray>Buy: <green>4"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 21
+    page: 2
+    clickable: true
+
+  chiseled_tuff:
+    material: CHISELED_TUFF
+    name: "<white>Chiseled Tuff"
+    lore:
+      - "<gray>Buy: <green>5"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 5.0
+    sell-price: 2.0
+    amount: 1
+    slot: 23
+    page: 2
+    clickable: true
+
+  polished_tuff:
+    material: POLISHED_TUFF
+    name: "<white>Polished Tuff"
+    lore:
+      - "<gray>Buy: <green>5"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 5.0
+    sell-price: 2.0
+    amount: 1
+    slot: 25
+    page: 2
+    clickable: true
+
+  polished_tuff_stairs:
+    material: POLISHED_TUFF_STAIRS
+    name: "<white>Polished Tuff Stairs"
+    lore:
+      - "<gray>Buy: <green>5"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 5.0
+    sell-price: 2.0
+    amount: 1
+    slot: 28
+    page: 2
+    clickable: true
+
+  tuff:
+    material: TUFF
+    name: "<white>Tuff"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 30
+    page: 2
+    clickable: true
+
+  tuff_brick_stairs:
+    material: TUFF_BRICK_STAIRS
+    name: "<white>Tuff Brick Stairs"
+    lore:
+      - "<gray>Buy: <green>5"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 5.0
+    sell-price: 2.0
+    amount: 1
+    slot: 32
+    page: 2
+    clickable: true
+
+  tuff_bricks:
+    material: TUFF_BRICKS
+    name: "<white>Tuff Bricks"
+    lore:
+      - "<gray>Buy: <green>5"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 5.0
+    sell-price: 2.0
+    amount: 1
+    slot: 34
+    page: 2
+    clickable: true
+
+  tuff_stairs:
+    material: TUFF_STAIRS
+    name: "<white>Tuff Stairs"
+    lore:
+      - "<gray>Buy: <green>4"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 37
+    page: 2
+    clickable: true
+
+  chiseled_tuff_bricks:
+    material: CHISELED_TUFF_BRICKS
+    name: "<white>Chiseled Tuff Bricks"
+    lore:
+      - "<gray>Buy: <green>5"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 5.0
+    sell-price: 2.0
+    amount: 1
+    slot: 39
+    page: 2
+    clickable: true
+
+  polished_tuff_slab:
+    material: POLISHED_TUFF_SLAB
+    name: "<white>Polished Tuff Slab"
+    lore:
+      - "<gray>Buy: <green>4"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 41
+    page: 2
+    clickable: true
+
+  polished_tuff_wall:
+    material: POLISHED_TUFF_WALL
+    name: "<white>Polished Tuff Wall"
+    lore:
+      - "<gray>Buy: <green>4"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 43
+    page: 2
+    clickable: true
+
+  tuff_brick_slab:
+    material: TUFF_BRICK_SLAB
+    name: "<white>Tuff Brick Slab"
+    lore:
+      - "<gray>Buy: <green>4"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 10
+    page: 3
+    clickable: true
+
+  tuff_brick_wall:
+    material: TUFF_BRICK_WALL
+    name: "<white>Tuff Brick Wall"
+    lore:
+      - "<gray>Buy: <green>4"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 12
+    page: 3
+    clickable: true
+
+  tuff_slab:
+    material: TUFF_SLAB
+    name: "<white>Tuff Slab"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 14
+    page: 3
+    clickable: true
+
+  tuff_wall:
+    material: TUFF_WALL
+    name: "<white>Tuff Wall"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 16
+    page: 3
+    clickable: true
+
+  granite:
+    material: GRANITE
+    name: "<white>Granite"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 19
+    page: 3
+    clickable: true
+
+  granite_stairs:
+    material: GRANITE_STAIRS
+    name: "<white>Granite Stairs"
+    lore:
+      - "<gray>Buy: <green>4"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 21
+    page: 3
+    clickable: true
+
+  polished_granite:
+    material: POLISHED_GRANITE
+    name: "<white>Polished Granite"
+    lore:
+      - "<gray>Buy: <green>4"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 23
+    page: 3
+    clickable: true
+
+  polished_granite_stairs:
+    material: POLISHED_GRANITE_STAIRS
+    name: "<white>Polished Granite Stairs"
+    lore:
+      - "<gray>Buy: <green>4"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 25
+    page: 3
+    clickable: true
+
+  granite_slab:
+    material: GRANITE_SLAB
+    name: "<white>Granite Slab"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 28
+    page: 3
+    clickable: true
+
+  granite_wall:
+    material: GRANITE_WALL
+    name: "<white>Granite Wall"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 30
+    page: 3
+    clickable: true
+
+  polished_granite_slab:
+    material: POLISHED_GRANITE_SLAB
+    name: "<white>Polished Granite Slab"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 32
+    page: 3
+    clickable: true
+
+  diorite:
+    material: DIORITE
+    name: "<white>Diorite"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 34
+    page: 3
+    clickable: true
+
+  diorite_stairs:
+    material: DIORITE_STAIRS
+    name: "<white>Diorite Stairs"
+    lore:
+      - "<gray>Buy: <green>4"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 37
+    page: 3
+    clickable: true
+
+  polished_diorite:
+    material: POLISHED_DIORITE
+    name: "<white>Polished Diorite"
+    lore:
+      - "<gray>Buy: <green>4"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 39
+    page: 3
+    clickable: true
+
+  polished_diorite_stairs:
+    material: POLISHED_DIORITE_STAIRS
+    name: "<white>Polished Diorite Stairs"
+    lore:
+      - "<gray>Buy: <green>4"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 41
+    page: 3
+    clickable: true
+
+  diorite_slab:
+    material: DIORITE_SLAB
+    name: "<white>Diorite Slab"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 43
+    page: 3
+    clickable: true
+
+  diorite_wall:
+    material: DIORITE_WALL
+    name: "<white>Diorite Wall"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 10
+    page: 4
+    clickable: true
+
+  polished_diorite_slab:
+    material: POLISHED_DIORITE_SLAB
+    name: "<white>Polished Diorite Slab"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 12
+    page: 4
+    clickable: true
+
+  chiseled_deepslate:
+    material: CHISELED_DEEPSLATE
+    name: "<white>Chiseled Deepslate"
+    lore:
+      - "<gray>Buy: <green>4"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 14
+    page: 4
+    clickable: true
+
+  cobbled_deepslate_slab:
+    material: COBBLED_DEEPSLATE_SLAB
+    name: "<white>Cobbled Deepslate Slab"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 16
+    page: 4
+    clickable: true
+
+  cobbled_deepslate_wall:
+    material: COBBLED_DEEPSLATE_WALL
+    name: "<white>Cobbled Deepslate Wall"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 19
+    page: 4
+    clickable: true
+
+  cracked_deepslate_tiles:
+    material: CRACKED_DEEPSLATE_TILES
+    name: "<white>Cracked Deepslate Tiles"
+    lore:
+      - "<gray>Buy: <green>4"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 21
+    page: 4
+    clickable: true
+
+  deepslate_brick_slab:
+    material: DEEPSLATE_BRICK_SLAB
+    name: "<white>Deepslate Brick Slab"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 23
+    page: 4
+    clickable: true
+
+  deepslate_brick_wall:
+    material: DEEPSLATE_BRICK_WALL
+    name: "<white>Deepslate Brick Wall"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 25
+    page: 4
+    clickable: true
+
+  deepslate_tile_slab:
+    material: DEEPSLATE_TILE_SLAB
+    name: "<white>Deepslate Tile Slab"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 28
+    page: 4
+    clickable: true
+
+  deepslate_tile_wall:
+    material: DEEPSLATE_TILE_WALL
+    name: "<white>Deepslate Tile Wall"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 30
+    page: 4
+    clickable: true
+
+  polished_deepslate:
+    material: POLISHED_DEEPSLATE
+    name: "<white>Polished Deepslate"
+    lore:
+      - "<gray>Buy: <green>4"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 32
+    page: 4
+    clickable: true
+
+  polished_deepslate_stairs:
+    material: POLISHED_DEEPSLATE_STAIRS
+    name: "<white>Polished Deepslate Stairs"
+    lore:
+      - "<gray>Buy: <green>4"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 34
+    page: 4
+    clickable: true
+
+  cobbled_deepslate:
+    material: COBBLED_DEEPSLATE
+    name: "<white>Cobbled Deepslate"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 37
+    page: 4
+    clickable: true
+
+  cobbled_deepslate_stairs:
+    material: COBBLED_DEEPSLATE_STAIRS
+    name: "<white>Cobbled Deepslate Stairs"
+    lore:
+      - "<gray>Buy: <green>4"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 39
+    page: 4
+    clickable: true
+
+  cracked_deepslate_bricks:
+    material: CRACKED_DEEPSLATE_BRICKS
+    name: "<white>Cracked Deepslate Bricks"
+    lore:
+      - "<gray>Buy: <green>4"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 41
+    page: 4
+    clickable: true
+
+  deepslate:
+    material: DEEPSLATE
+    name: "<white>Deepslate"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 43
+    page: 4
+    clickable: true
+
+  deepslate_brick_stairs:
+    material: DEEPSLATE_BRICK_STAIRS
+    name: "<white>Deepslate Brick Stairs"
+    lore:
+      - "<gray>Buy: <green>4"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 10
+    page: 5
+    clickable: true
+
+  deepslate_bricks:
+    material: DEEPSLATE_BRICKS
+    name: "<white>Deepslate Bricks"
+    lore:
+      - "<gray>Buy: <green>4"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 12
+    page: 5
+    clickable: true
+
+  deepslate_tile_stairs:
+    material: DEEPSLATE_TILE_STAIRS
+    name: "<white>Deepslate Tile Stairs"
+    lore:
+      - "<gray>Buy: <green>4"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 14
+    page: 5
+    clickable: true
+
+  deepslate_tiles:
+    material: DEEPSLATE_TILES
+    name: "<white>Deepslate Tiles"
+    lore:
+      - "<gray>Buy: <green>4"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 16
+    page: 5
+    clickable: true
+
+  polished_deepslate_slab:
+    material: POLISHED_DEEPSLATE_SLAB
+    name: "<white>Polished Deepslate Slab"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 19
+    page: 5
+    clickable: true
+
+  polished_deepslate_wall:
+    material: POLISHED_DEEPSLATE_WALL
+    name: "<white>Polished Deepslate Wall"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 21
+    page: 5
+    clickable: true
+
+  cobblestone:
+    material: COBBLESTONE
+    name: "<white>Cobblestone"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 23
+    page: 5
+    clickable: true
+
+  cobblestone_stairs:
+    material: COBBLESTONE_STAIRS
+    name: "<white>Cobblestone Stairs"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 25
+    page: 5
+    clickable: true
+
+  infested_cobblestone:
+    material: INFESTED_COBBLESTONE
+    name: "<white>Infested Cobblestone"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>0"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 0.0
+    amount: 1
+    slot: 28
+    page: 5
+    clickable: true
+
+  mossy_cobblestone_slab:
+    material: MOSSY_COBBLESTONE_SLAB
+    name: "<white>Mossy Cobblestone Slab"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 30
+    page: 5
+    clickable: true
+
+  mossy_cobblestone_wall:
+    material: MOSSY_COBBLESTONE_WALL
+    name: "<white>Mossy Cobblestone Wall"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 32
+    page: 5
+    clickable: true
+
+  cobblestone_slab:
+    material: COBBLESTONE_SLAB
+    name: "<white>Cobblestone Slab"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 34
+    page: 5
+    clickable: true
+
+  cobblestone_wall:
+    material: COBBLESTONE_WALL
+    name: "<white>Cobblestone Wall"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 37
+    page: 5
+    clickable: true
+
+  mossy_cobblestone:
+    material: MOSSY_COBBLESTONE
+    name: "<white>Mossy Cobblestone"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 39
+    page: 5
+    clickable: true
+
+  mossy_cobblestone_stairs:
+    material: MOSSY_COBBLESTONE_STAIRS
+    name: "<white>Mossy Cobblestone Stairs"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 41
+    page: 5
+    clickable: true
+
+  blackstone:
+    material: BLACKSTONE
+    name: "<white>Blackstone"
+    lore:
+      - "<gray>Buy: <green>4"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 43
+    page: 5
+    clickable: true
+
+  blackstone_stairs:
+    material: BLACKSTONE_STAIRS
+    name: "<white>Blackstone Stairs"
+    lore:
+      - "<gray>Buy: <green>4"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 10
+    page: 6
+    clickable: true
+
+  chiseled_polished_blackstone:
+    material: CHISELED_POLISHED_BLACKSTONE
+    name: "<white>Chiseled Polished Blackstone"
+    lore:
+      - "<gray>Buy: <green>4"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 12
+    page: 6
+    clickable: true
+
+  gilded_blackstone:
+    material: GILDED_BLACKSTONE
+    name: "<white>Gilded Blackstone"
+    lore:
+      - "<gray>Buy: <green>5"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 5.0
+    sell-price: 2.0
+    amount: 1
+    slot: 14
+    page: 6
+    clickable: true
+
+  polished_blackstone_brick_slab:
+    material: POLISHED_BLACKSTONE_BRICK_SLAB
+    name: "<white>Polished Blackstone Brick Slab"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 16
+    page: 6
+    clickable: true
+
+  polished_blackstone_brick_wall:
+    material: POLISHED_BLACKSTONE_BRICK_WALL
+    name: "<white>Polished Blackstone Brick Wall"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 19
+    page: 6
+    clickable: true
+
+  polished_blackstone_button:
+    material: POLISHED_BLACKSTONE_BUTTON
+    name: "<white>Polished Blackstone Button"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 21
+    page: 6
+    clickable: true
+
+  polished_blackstone_slab:
+    material: POLISHED_BLACKSTONE_SLAB
+    name: "<white>Polished Blackstone Slab"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 23
+    page: 6
+    clickable: true
+
+  polished_blackstone_wall:
+    material: POLISHED_BLACKSTONE_WALL
+    name: "<white>Polished Blackstone Wall"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 25
+    page: 6
+    clickable: true
+
+  blackstone_slab:
+    material: BLACKSTONE_SLAB
+    name: "<white>Blackstone Slab"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 28
+    page: 6
+    clickable: true
+
+  blackstone_wall:
+    material: BLACKSTONE_WALL
+    name: "<white>Blackstone Wall"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 30
+    page: 6
+    clickable: true
+
+  cracked_polished_blackstone_bricks:
+    material: CRACKED_POLISHED_BLACKSTONE_BRICKS
+    name: "<white>Cracked Polished Blackstone Bricks"
+    lore:
+      - "<gray>Buy: <green>4"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 32
+    page: 6
+    clickable: true
+
+  polished_blackstone:
+    material: POLISHED_BLACKSTONE
+    name: "<white>Polished Blackstone"
+    lore:
+      - "<gray>Buy: <green>4"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 34
+    page: 6
+    clickable: true
+
+  polished_blackstone_brick_stairs:
+    material: POLISHED_BLACKSTONE_BRICK_STAIRS
+    name: "<white>Polished Blackstone Brick Stairs"
+    lore:
+      - "<gray>Buy: <green>4"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 37
+    page: 6
+    clickable: true
+
+  polished_blackstone_bricks:
+    material: POLISHED_BLACKSTONE_BRICKS
+    name: "<white>Polished Blackstone Bricks"
+    lore:
+      - "<gray>Buy: <green>4"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 39
+    page: 6
+    clickable: true
+
+  polished_blackstone_pressure_plate:
+    material: POLISHED_BLACKSTONE_PRESSURE_PLATE
+    name: "<white>Polished Blackstone Pressure Plate"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 41
+    page: 6
+    clickable: true
+
+  Bricks:
+    material: BRICKS
+    name: "<white>Bricks"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 43
+    page: 6
+    clickable: true
+
+  brick_stairs:
+    material: BRICK_STAIRS
+    name: "<white>Brick Stairs"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 10
+    page: 7
+    clickable: true
+
+  brick_slab:
+    material: BRICK_SLAB
+    name: "<white>Brick Slab"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 12
+    page: 7
+    clickable: true
+
+  brick_wall:
+    material: BRICK_WALL
+    name: "<white>Brick Wall"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 14
+    page: 7
+    clickable: true
+
+  end_stone_brick_slab:
+    material: END_STONE_BRICK_SLAB
+    name: "<white>End Stone Brick Slab"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 16
+    page: 7
+    clickable: true
+
+  end_stone_brick_wall:
+    material: END_STONE_BRICK_WALL
+    name: "<white>End Stone Brick Wall"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 19
+    page: 7
+    clickable: true
+
+  end_stone:
+    material: END_STONE
+    name: "<white>End Stone"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 21
+    page: 7
+    clickable: true
+
+  end_stone_brick_stairs:
+    material: END_STONE_BRICK_STAIRS
+    name: "<white>End Stone Brick Stairs"
+    lore:
+      - "<gray>Buy: <green>4"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 23
+    page: 7
+    clickable: true
+
+  end_stone_bricks:
+    material: END_STONE_BRICKS
+    name: "<white>End Stone Bricks"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 25
+    page: 7
+    clickable: true
+
+  mud_brick_slab:
+    material: MUD_BRICK_SLAB
+    name: "<white>Mud Brick Slab"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 28
+    page: 7
+    clickable: true
+
+  mud_brick_wall:
+    material: MUD_BRICK_WALL
+    name: "<white>Mud Brick Wall"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 30
+    page: 7
+    clickable: true
+
+  mud_brick_stairs:
+    material: MUD_BRICK_STAIRS
+    name: "<white>Mud Brick Stairs"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 32
+    page: 7
+    clickable: true
+
+  mud_bricks:
+    material: MUD_BRICKS
+    name: "<white>Mud Bricks"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 34
+    page: 7
+    clickable: true
+
+  chiseled_nether_bricks:
+    material: CHISELED_NETHER_BRICKS
+    name: "<white>Chiseled Nether Bricks"
+    lore:
+      - "<gray>Buy: <green>4"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 37
+    page: 7
+    clickable: true
+
+  nether_brick_slab:
+    material: NETHER_BRICK_SLAB
+    name: "<white>Nether Brick Slab"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 39
+    page: 7
+    clickable: true
+
+  nether_brick_wall:
+    material: NETHER_BRICK_WALL
+    name: "<white>Nether Brick Wall"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 41
+    page: 7
+    clickable: true
+
+  cracked_nether_bricks:
+    material: CRACKED_NETHER_BRICKS
+    name: "<white>Cracked Nether Bricks"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 43
+    page: 7
+    clickable: true
+
+  nether_brick_fence:
+    material: NETHER_BRICK_FENCE
+    name: "<white>Nether Brick Fence"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 10
+    page: 8
+    clickable: true
+
+  nether_brick_stairs:
+    material: NETHER_BRICK_STAIRS
+    name: "<white>Nether Brick Stairs"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 12
+    page: 8
+    clickable: true
+
+  nether_bricks:
+    material: NETHER_BRICKS
+    name: "<white>Nether Bricks"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 14
+    page: 8
+    clickable: true
+
+  red_nether_brick_slab:
+    material: RED_NETHER_BRICK_SLAB
+    name: "<white>Red Nether Brick Slab"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 16
+    page: 8
+    clickable: true
+
+  red_nether_brick_wall:
+    material: RED_NETHER_BRICK_WALL
+    name: "<white>Red Nether Brick Wall"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 19
+    page: 8
+    clickable: true
+
+  red_nether_brick_stairs:
+    material: RED_NETHER_BRICK_STAIRS
+    name: "<white>Red Nether Brick Stairs"
+    lore:
+      - "<gray>Buy: <green>4"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 21
+    page: 8
+    clickable: true
+
+  red_nether_bricks:
+    material: RED_NETHER_BRICKS
+    name: "<white>Red Nether Bricks"
+    lore:
+      - "<gray>Buy: <green>4"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 23
+    page: 8
+    clickable: true
+
+  prismarine_bricks:
+    material: PRISMARINE_BRICKS
+    name: "<white>Prismarine Bricks"
+    lore:
+      - "<gray>Buy: <green>4"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 25
+    page: 8
+    clickable: true
+
+  prismarine_brick_slab:
+    material: PRISMARINE_BRICK_SLAB
+    name: "<white>Prismarine Brick Slab"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 28
+    page: 8
+    clickable: true
+
+  prismarine_brick_stairs:
+    material: PRISMARINE_BRICK_STAIRS
+    name: "<white>Prismarine Brick Stairs"
+    lore:
+      - "<gray>Buy: <green>4"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 30
+    page: 8
+    clickable: true
+
+  prismarine:
+    material: PRISMARINE
+    name: "<white>Prismarine"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 32
+    page: 8
+    clickable: true
+
+  prismarine_stairs:
+    material: PRISMARINE_STAIRS
+    name: "<white>Prismarine Stairs"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 34
+    page: 8
+    clickable: true
+
+  prismarine_slab:
+    material: PRISMARINE_SLAB
+    name: "<white>Prismarine Slab"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 37
+    page: 8
+    clickable: true
+
+  prismarine_wall:
+    material: PRISMARINE_WALL
+    name: "<white>Prismarine Wall"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 39
+    page: 8
+    clickable: true
+
+  quartz_block:
+    material: QUARTZ_BLOCK
+    name: "<white>Quartz Block"
+    lore:
+      - "<gray>Buy: <green>5"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 5.0
+    sell-price: 2.0
+    amount: 1
+    slot: 41
+    page: 8
+    clickable: true
+
+  quartz_stairs:
+    material: QUARTZ_STAIRS
+    name: "<white>Quartz Stairs"
+    lore:
+      - "<gray>Buy: <green>5"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 5.0
+    sell-price: 2.0
+    amount: 1
+    slot: 43
+    page: 8
+    clickable: true
+
+  quartz_slab:
+    material: QUARTZ_SLAB
+    name: "<white>Quartz Slab"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 10
+    page: 9
+    clickable: true
+
+  quartz:
+    material: QUARTZ
+    name: "<white>Quartz"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 12
+    page: 9
+    clickable: true
+
+  chiseled_quartz_block:
+    material: CHISELED_QUARTZ_BLOCK
+    name: "<white>Chiseled Quartz Block"
+    lore:
+      - "<gray>Buy: <green>5"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 5.0
+    sell-price: 2.0
+    amount: 1
+    slot: 14
+    page: 9
+    clickable: true
+
+  quartz_bricks:
+    material: QUARTZ_BRICKS
+    name: "<white>Quartz Bricks"
+    lore:
+      - "<gray>Buy: <green>5"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 5.0
+    sell-price: 2.0
+    amount: 1
+    slot: 16
+    page: 9
+    clickable: true
+
+  quartz_pillar:
+    material: QUARTZ_PILLAR
+    name: "<white>Quartz Pillar"
+    lore:
+      - "<gray>Buy: <green>5"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 5.0
+    sell-price: 2.0
+    amount: 1
+    slot: 19
+    page: 9
+    clickable: true
+
+  smooth_quartz:
+    material: SMOOTH_QUARTZ
+    name: "<white>Smooth Quartz"
+    lore:
+      - "<gray>Buy: <green>5"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 5.0
+    sell-price: 2.0
+    amount: 1
+    slot: 21
+    page: 9
+    clickable: true
+
+  smooth_quartz_stairs:
+    material: SMOOTH_QUARTZ_STAIRS
+    name: "<white>Smooth Quartz Stairs"
+    lore:
+      - "<gray>Buy: <green>5"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 5.0
+    sell-price: 2.0
+    amount: 1
+    slot: 23
+    page: 9
+    clickable: true
+
+  smooth_quartz_slab:
+    material: SMOOTH_QUARTZ_SLAB
+    name: "<white>Smooth Quartz Slab"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 25
+    page: 9
+    clickable: true
+
+  acacia_log:
+    material: ACACIA_LOG
+    name: "<white>Acacia Log"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 28
+    page: 9
+    clickable: true
+
+  acacia_wood:
+    material: ACACIA_WOOD
+    name: "<white>Acacia Wood"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 30
+    page: 9
+    clickable: true
+
+  stripped_acacia_log:
+    material: STRIPPED_ACACIA_LOG
+    name: "<white>Stripped Acacia Log"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 32
+    page: 9
+    clickable: true
+
+  stripped_acacia_wood:
+    material: STRIPPED_ACACIA_WOOD
+    name: "<white>Stripped Acacia Wood"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 34
+    page: 9
+    clickable: true
+
+  acacia_planks:
+    material: ACACIA_PLANKS
+    name: "<white>Acacia Planks"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 37
+    page: 9
+    clickable: true
+
+  acacia_stairs:
+    material: ACACIA_STAIRS
+    name: "<white>Acacia Stairs"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 39
+    page: 9
+    clickable: true
+
+  acacia_slab:
+    material: ACACIA_SLAB
+    name: "<white>Acacia Slab"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 41
+    page: 9
+    clickable: true
+
+  acacia_fence:
+    material: ACACIA_FENCE
+    name: "<white>Acacia Fence"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 43
+    page: 9
+    clickable: true
+
+  acacia_fence_gate:
+    material: ACACIA_FENCE_GATE
+    name: "<white>Acacia Fence Gate"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 10
+    page: 10
+    clickable: true
+
+  acacia_door:
+    material: ACACIA_DOOR
+    name: "<white>Acacia Door"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 12
+    page: 10
+    clickable: true
+
+  acacia_trapdoor:
+    material: ACACIA_TRAPDOOR
+    name: "<white>Acacia Trapdoor"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 14
+    page: 10
+    clickable: true
+
+  acacia_pressure_plate:
+    material: ACACIA_PRESSURE_PLATE
+    name: "<white>Acacia Pressure Plate"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 16
+    page: 10
+    clickable: true
+
+  acacia_button:
+    material: ACACIA_BUTTON
+    name: "<white>Acacia Button"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 19
+    page: 10
+    clickable: true
+
+  acacia_sign:
+    material: ACACIA_SIGN
+    name: "<white>Acacia Sign"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 21
+    page: 10
+    clickable: true
+
+  acacia_hanging_sign:
+    material: ACACIA_HANGING_SIGN
+    name: "<white>Acacia Hanging Sign"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 23
+    page: 10
+    clickable: true
+
+  oak_log:
+    material: OAK_LOG
+    name: "<white>Oak Log"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 25
+    page: 10
+    clickable: true
+
+  oak_wood:
+    material: OAK_WOOD
+    name: "<white>Oak Wood"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 28
+    page: 10
+    clickable: true
+
+  stripped_oak_log:
+    material: STRIPPED_OAK_LOG
+    name: "<white>Stripped Oak Log"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 30
+    page: 10
+    clickable: true
+
+  stripped_oak_wood:
+    material: STRIPPED_OAK_WOOD
+    name: "<white>Stripped Oak Wood"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 32
+    page: 10
+    clickable: true
+
+  oak_planks:
+    material: OAK_PLANKS
+    name: "<white>Oak Planks"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 34
+    page: 10
+    clickable: true
+
+  oak_stairs:
+    material: OAK_STAIRS
+    name: "<white>Oak Stairs"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 37
+    page: 10
+    clickable: true
+
+  oak_slab:
+    material: OAK_SLAB
+    name: "<white>Oak Slab"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 39
+    page: 10
+    clickable: true
+
+  oak_fence:
+    material: OAK_FENCE
+    name: "<white>Oak Fence"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 41
+    page: 10
+    clickable: true
+
+  oak_fence_gate:
+    material: OAK_FENCE_GATE
+    name: "<white>Oak Fence Gate"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 43
+    page: 10
+    clickable: true
+
+  oak_door:
+    material: OAK_DOOR
+    name: "<white>Oak Door"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 10
+    page: 11
+    clickable: true
+
+  oak_trapdoor:
+    material: OAK_TRAPDOOR
+    name: "<white>Oak Trapdoor"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 12
+    page: 11
+    clickable: true
+
+  oak_pressure_plate:
+    material: OAK_PRESSURE_PLATE
+    name: "<white>Oak Pressure Plate"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 14
+    page: 11
+    clickable: true
+
+  oak_button:
+    material: OAK_BUTTON
+    name: "<white>Oak Button"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 16
+    page: 11
+    clickable: true
+
+  oak_sign:
+    material: OAK_SIGN
+    name: "<white>Oak Sign"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 19
+    page: 11
+    clickable: true
+
+  oak_hanging_sign:
+    material: OAK_HANGING_SIGN
+    name: "<white>Oak Hanging Sign"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 21
+    page: 11
+    clickable: true
+
+  spruce_log:
+    material: SPRUCE_LOG
+    name: "<white>Spruce Log"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 23
+    page: 11
+    clickable: true
+
+  spruce_wood:
+    material: SPRUCE_WOOD
+    name: "<white>Spruce Wood"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 25
+    page: 11
+    clickable: true
+
+  stripped_spruce_log:
+    material: STRIPPED_SPRUCE_LOG
+    name: "<white>Stripped Spruce Log"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 28
+    page: 11
+    clickable: true
+
+  stripped_spruce_wood:
+    material: STRIPPED_SPRUCE_WOOD
+    name: "<white>Stripped Spruce Wood"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 30
+    page: 11
+    clickable: true
+
+  spruce_planks:
+    material: SPRUCE_PLANKS
+    name: "<white>Spruce Planks"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 32
+    page: 11
+    clickable: true
+
+  spruce_stairs:
+    material: SPRUCE_STAIRS
+    name: "<white>Spruce Stairs"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 34
+    page: 11
+    clickable: true
+
+  spruce_slab:
+    material: SPRUCE_SLAB
+    name: "<white>Spruce Slab"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 37
+    page: 11
+    clickable: true
+
+  spruce_fence:
+    material: SPRUCE_FENCE
+    name: "<white>Spruce Fence"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 39
+    page: 11
+    clickable: true
+
+  spruce_fence_gate:
+    material: SPRUCE_FENCE_GATE
+    name: "<white>Spruce Fence Gate"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 41
+    page: 11
+    clickable: true
+
+  spruce_door:
+    material: SPRUCE_DOOR
+    name: "<white>Spruce Door"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 43
+    page: 11
+    clickable: true
+
+  spruce_trapdoor:
+    material: SPRUCE_TRAPDOOR
+    name: "<white>Spruce Trapdoor"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 10
+    page: 12
+    clickable: true
+
+  spruce_pressure_plate:
+    material: SPRUCE_PRESSURE_PLATE
+    name: "<white>Spruce Pressure Plate"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 12
+    page: 12
+    clickable: true
+
+  spruce_button:
+    material: SPRUCE_BUTTON
+    name: "<white>Spruce Button"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 14
+    page: 12
+    clickable: true
+
+  spruce_sign:
+    material: SPRUCE_SIGN
+    name: "<white>Spruce Sign"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 16
+    page: 12
+    clickable: true
+
+  spruce_hanging_sign:
+    material: SPRUCE_HANGING_SIGN
+    name: "<white>Spruce Hanging Sign"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 19
+    page: 12
+    clickable: true
+
+  birch_log:
+    material: BIRCH_LOG
+    name: "<white>Birch Log"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 21
+    page: 12
+    clickable: true
+
+  birch_wood:
+    material: BIRCH_WOOD
+    name: "<white>Birch Wood"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 23
+    page: 12
+    clickable: true
+
+  stripped_birch_log:
+    material: STRIPPED_BIRCH_LOG
+    name: "<white>Stripped Birch Log"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 25
+    page: 12
+    clickable: true
+
+  stripped_birch_wood:
+    material: STRIPPED_BIRCH_WOOD
+    name: "<white>Stripped Birch Wood"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 28
+    page: 12
+    clickable: true
+
+  birch_planks:
+    material: BIRCH_PLANKS
+    name: "<white>Birch Planks"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 30
+    page: 12
+    clickable: true
+
+  birch_stairs:
+    material: BIRCH_STAIRS
+    name: "<white>Birch Stairs"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 32
+    page: 12
+    clickable: true
+
+  birch_slab:
+    material: BIRCH_SLAB
+    name: "<white>Birch Slab"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 34
+    page: 12
+    clickable: true
+
+  birch_fence:
+    material: BIRCH_FENCE
+    name: "<white>Birch Fence"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 37
+    page: 12
+    clickable: true
+
+  birch_fence_gate:
+    material: BIRCH_FENCE_GATE
+    name: "<white>Birch Fence Gate"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 39
+    page: 12
+    clickable: true
+
+  birch_door:
+    material: BIRCH_DOOR
+    name: "<white>Birch Door"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 41
+    page: 12
+    clickable: true
+
+  birch_trapdoor:
+    material: BIRCH_TRAPDOOR
+    name: "<white>Birch Trapdoor"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 43
+    page: 12
+    clickable: true
+
+  birch_pressure_plate:
+    material: BIRCH_PRESSURE_PLATE
+    name: "<white>Birch Pressure Plate"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 10
+    page: 13
+    clickable: true
+
+  birch_button:
+    material: BIRCH_BUTTON
+    name: "<white>Birch Button"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 12
+    page: 13
+    clickable: true
+
+  birch_sign:
+    material: BIRCH_SIGN
+    name: "<white>Birch Sign"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 14
+    page: 13
+    clickable: true
+
+  birch_hanging_sign:
+    material: BIRCH_HANGING_SIGN
+    name: "<white>Birch Hanging Sign"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 16
+    page: 13
+    clickable: true
+
+  jungle_log:
+    material: JUNGLE_LOG
+    name: "<white>Jungle Log"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 19
+    page: 13
+    clickable: true
+
+  jungle_wood:
+    material: JUNGLE_WOOD
+    name: "<white>Jungle Wood"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 21
+    page: 13
+    clickable: true
+
+  stripped_jungle_log:
+    material: STRIPPED_JUNGLE_LOG
+    name: "<white>Stripped Jungle Log"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 23
+    page: 13
+    clickable: true
+
+  stripped_jungle_wood:
+    material: STRIPPED_JUNGLE_WOOD
+    name: "<white>Stripped Jungle Wood"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 25
+    page: 13
+    clickable: true
+
+  jungle_planks:
+    material: JUNGLE_PLANKS
+    name: "<white>Jungle Planks"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 28
+    page: 13
+    clickable: true
+
+  jungle_stairs:
+    material: JUNGLE_STAIRS
+    name: "<white>Jungle Stairs"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 30
+    page: 13
+    clickable: true
+
+  jungle_slab:
+    material: JUNGLE_SLAB
+    name: "<white>Jungle Slab"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 32
+    page: 13
+    clickable: true
+
+  jungle_fence:
+    material: JUNGLE_FENCE
+    name: "<white>Jungle Fence"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 34
+    page: 13
+    clickable: true
+
+  jungle_fence_gate:
+    material: JUNGLE_FENCE_GATE
+    name: "<white>Jungle Fence Gate"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 37
+    page: 13
+    clickable: true
+
+  jungle_door:
+    material: JUNGLE_DOOR
+    name: "<white>Jungle Door"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 39
+    page: 13
+    clickable: true
+
+  jungle_trapdoor:
+    material: JUNGLE_TRAPDOOR
+    name: "<white>Jungle Trapdoor"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 41
+    page: 13
+    clickable: true
+
+  jungle_pressure_plate:
+    material: JUNGLE_PRESSURE_PLATE
+    name: "<white>Jungle Pressure Plate"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 43
+    page: 13
+    clickable: true
+
+  jungle_button:
+    material: JUNGLE_BUTTON
+    name: "<white>Jungle Button"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 10
+    page: 14
+    clickable: true
+
+  jungle_sign:
+    material: JUNGLE_SIGN
+    name: "<white>Jungle Sign"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 12
+    page: 14
+    clickable: true
+
+  jungle_hanging_sign:
+    material: JUNGLE_HANGING_SIGN
+    name: "<white>Jungle Hanging Sign"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 14
+    page: 14
+    clickable: true
+
+  dark_oak_log:
+    material: DARK_OAK_LOG
+    name: "<white>Dark Oak Log"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 16
+    page: 14
+    clickable: true
+
+  dark_oak_wood:
+    material: DARK_OAK_WOOD
+    name: "<white>Dark Oak Wood"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 19
+    page: 14
+    clickable: true
+
+  stripped_dark_oak_log:
+    material: STRIPPED_DARK_OAK_LOG
+    name: "<white>Stripped Dark Oak Log"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 21
+    page: 14
+    clickable: true
+
+  stripped_dark_oak_wood:
+    material: STRIPPED_DARK_OAK_WOOD
+    name: "<white>Stripped Dark Oak Wood"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 23
+    page: 14
+    clickable: true
+
+  dark_oak_planks:
+    material: DARK_OAK_PLANKS
+    name: "<white>Dark Oak Planks"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 25
+    page: 14
+    clickable: true
+
+  dark_oak_stairs:
+    material: DARK_OAK_STAIRS
+    name: "<white>Dark Oak Stairs"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 28
+    page: 14
+    clickable: true
+
+  dark_oak_slab:
+    material: DARK_OAK_SLAB
+    name: "<white>Dark Oak Slab"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 30
+    page: 14
+    clickable: true
+
+  dark_oak_fence:
+    material: DARK_OAK_FENCE
+    name: "<white>Dark Oak Fence"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 32
+    page: 14
+    clickable: true
+
+  dark_oak_fence_gate:
+    material: DARK_OAK_FENCE_GATE
+    name: "<white>Dark Oak Fence Gate"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 34
+    page: 14
+    clickable: true
+
+  dark_oak_door:
+    material: DARK_OAK_DOOR
+    name: "<white>Dark Oak Door"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 37
+    page: 14
+    clickable: true
+
+  dark_oak_trapdoor:
+    material: DARK_OAK_TRAPDOOR
+    name: "<white>Dark Oak Trapdoor"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 39
+    page: 14
+    clickable: true
+
+  dark_oak_pressure_plate:
+    material: DARK_OAK_PRESSURE_PLATE
+    name: "<white>Dark Oak Pressure Plate"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 41
+    page: 14
+    clickable: true
+
+  dark_oak_button:
+    material: DARK_OAK_BUTTON
+    name: "<white>Dark Oak Button"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 43
+    page: 14
+    clickable: true
+
+  dark_oak_sign:
+    material: DARK_OAK_SIGN
+    name: "<white>Dark Oak Sign"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 10
+    page: 15
+    clickable: true
+
+  dark_oak_hanging_sign:
+    material: DARK_OAK_HANGING_SIGN
+    name: "<white>Dark Oak Hanging Sign"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 12
+    page: 15
+    clickable: true
+
+  mangrove_log:
+    material: MANGROVE_LOG
+    name: "<white>Mangrove Log"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 14
+    page: 15
+    clickable: true
+
+  mangrove_wood:
+    material: MANGROVE_WOOD
+    name: "<white>Mangrove Wood"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 16
+    page: 15
+    clickable: true
+
+  stripped_mangrove_log:
+    material: STRIPPED_MANGROVE_LOG
+    name: "<white>Stripped Mangrove Log"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 19
+    page: 15
+    clickable: true
+
+  stripped_mangrove_wood:
+    material: STRIPPED_MANGROVE_WOOD
+    name: "<white>Stripped Mangrove Wood"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 21
+    page: 15
+    clickable: true
+
+  mangrove_planks:
+    material: MANGROVE_PLANKS
+    name: "<white>Mangrove Planks"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 23
+    page: 15
+    clickable: true
+
+  mangrove_stairs:
+    material: MANGROVE_STAIRS
+    name: "<white>Mangrove Stairs"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 25
+    page: 15
+    clickable: true
+
+  mangrove_slab:
+    material: MANGROVE_SLAB
+    name: "<white>Mangrove Slab"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 28
+    page: 15
+    clickable: true
+
+  mangrove_fence:
+    material: MANGROVE_FENCE
+    name: "<white>Mangrove Fence"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 30
+    page: 15
+    clickable: true
+
+  mangrove_fence_gate:
+    material: MANGROVE_FENCE_GATE
+    name: "<white>Mangrove Fence Gate"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 32
+    page: 15
+    clickable: true
+
+  mangrove_door:
+    material: MANGROVE_DOOR
+    name: "<white>Mangrove Door"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 34
+    page: 15
+    clickable: true
+
+  mangrove_trapdoor:
+    material: MANGROVE_TRAPDOOR
+    name: "<white>Mangrove Trapdoor"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 37
+    page: 15
+    clickable: true
+
+  mangrove_pressure_plate:
+    material: MANGROVE_PRESSURE_PLATE
+    name: "<white>Mangrove Pressure Plate"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 39
+    page: 15
+    clickable: true
+
+  mangrove_button:
+    material: MANGROVE_BUTTON
+    name: "<white>Mangrove Button"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 41
+    page: 15
+    clickable: true
+
+  mangrove_sign:
+    material: MANGROVE_SIGN
+    name: "<white>Mangrove Sign"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 43
+    page: 15
+    clickable: true
+
+  mangrove_hanging_sign:
+    material: MANGROVE_HANGING_SIGN
+    name: "<white>Mangrove Hanging Sign"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 10
+    page: 16
+    clickable: true
+
+  cherry_log:
+    material: CHERRY_LOG
+    name: "<white>Cherry Log"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 12
+    page: 16
+    clickable: true
+
+  cherry_wood:
+    material: CHERRY_WOOD
+    name: "<white>Cherry Wood"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 14
+    page: 16
+    clickable: true
+
+  stripped_cherry_log:
+    material: STRIPPED_CHERRY_LOG
+    name: "<white>Stripped Cherry Log"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 16
+    page: 16
+    clickable: true
+
+  stripped_cherry_wood:
+    material: STRIPPED_CHERRY_WOOD
+    name: "<white>Stripped Cherry Wood"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 19
+    page: 16
+    clickable: true
+
+  cherry_planks:
+    material: CHERRY_PLANKS
+    name: "<white>Cherry Planks"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 21
+    page: 16
+    clickable: true
+
+  cherry_stairs:
+    material: CHERRY_STAIRS
+    name: "<white>Cherry Stairs"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 23
+    page: 16
+    clickable: true
+
+  cherry_slab:
+    material: CHERRY_SLAB
+    name: "<white>Cherry Slab"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 25
+    page: 16
+    clickable: true
+
+  cherry_fence:
+    material: CHERRY_FENCE
+    name: "<white>Cherry Fence"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 28
+    page: 16
+    clickable: true
+
+  cherry_fence_gate:
+    material: CHERRY_FENCE_GATE
+    name: "<white>Cherry Fence Gate"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 30
+    page: 16
+    clickable: true
+
+  cherry_door:
+    material: CHERRY_DOOR
+    name: "<white>Cherry Door"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 32
+    page: 16
+    clickable: true
+
+  cherry_trapdoor:
+    material: CHERRY_TRAPDOOR
+    name: "<white>Cherry Trapdoor"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 34
+    page: 16
+    clickable: true
+
+  cherry_pressure_plate:
+    material: CHERRY_PRESSURE_PLATE
+    name: "<white>Cherry Pressure Plate"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 37
+    page: 16
+    clickable: true
+
+  cherry_button:
+    material: CHERRY_BUTTON
+    name: "<white>Cherry Button"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 39
+    page: 16
+    clickable: true
+
+  cherry_sign:
+    material: CHERRY_SIGN
+    name: "<white>Cherry Sign"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 41
+    page: 16
+    clickable: true
+
+  cherry_hanging_sign:
+    material: CHERRY_HANGING_SIGN
+    name: "<white>Cherry Hanging Sign"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 43
+    page: 16
+    clickable: true
+
+  bamboo_block:
+    material: BAMBOO_BLOCK
+    name: "<white>Bamboo Block"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 10
+    page: 17
+    clickable: true
+
+  stripped_bamboo_block:
+    material: STRIPPED_BAMBOO_BLOCK
+    name: "<white>Stripped Bamboo Block"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 12
+    page: 17
+    clickable: true
+
+  bamboo_planks:
+    material: BAMBOO_PLANKS
+    name: "<white>Bamboo Planks"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 14
+    page: 17
+    clickable: true
+
+  bamboo_mosaic:
+    material: BAMBOO_MOSAIC
+    name: "<white>Bamboo Mosaic"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 16
+    page: 17
+    clickable: true
+
+  bamboo_stairs:
+    material: BAMBOO_STAIRS
+    name: "<white>Bamboo Stairs"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 19
+    page: 17
+    clickable: true
+
+  bamboo_mosaic_stairs:
+    material: BAMBOO_MOSAIC_STAIRS
+    name: "<white>Bamboo Mosaic Stairs"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 21
+    page: 17
+    clickable: true
+
+  bamboo_slab:
+    material: BAMBOO_SLAB
+    name: "<white>Bamboo Slab"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 23
+    page: 17
+    clickable: true
+
+  bamboo_mosaic_slab:
+    material: BAMBOO_MOSAIC_SLAB
+    name: "<white>Bamboo Mosaic Slab"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 25
+    page: 17
+    clickable: true
+
+  bamboo_fence:
+    material: BAMBOO_FENCE
+    name: "<white>Bamboo Fence"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 28
+    page: 17
+    clickable: true
+
+  bamboo_fence_gate:
+    material: BAMBOO_FENCE_GATE
+    name: "<white>Bamboo Fence Gate"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 30
+    page: 17
+    clickable: true
+
+  bamboo_door:
+    material: BAMBOO_DOOR
+    name: "<white>Bamboo Door"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 32
+    page: 17
+    clickable: true
+
+  bamboo_trapdoor:
+    material: BAMBOO_TRAPDOOR
+    name: "<white>Bamboo Trapdoor"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 34
+    page: 17
+    clickable: true
+
+  bamboo_pressure_plate:
+    material: BAMBOO_PRESSURE_PLATE
+    name: "<white>Bamboo Pressure Plate"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 37
+    page: 17
+    clickable: true
+
+  bamboo_button:
+    material: BAMBOO_BUTTON
+    name: "<white>Bamboo Button"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 39
+    page: 17
+    clickable: true
+
+  bamboo_sign:
+    material: BAMBOO_SIGN
+    name: "<white>Bamboo Sign"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 41
+    page: 17
+    clickable: true
+
+  bamboo_hanging_sign:
+    material: BAMBOO_HANGING_SIGN
+    name: "<white>Bamboo Hanging Sign"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 43
+    page: 17
+    clickable: true
+
+  crimson_stem:
+    material: CRIMSON_STEM
+    name: "<white>Crimson Stem"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 10
+    page: 18
+    clickable: true
+
+  crimson_hyphae:
+    material: CRIMSON_HYPHAE
+    name: "<white>Crimson Hyphae"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 12
+    page: 18
+    clickable: true
+
+  stripped_crimson_stem:
+    material: STRIPPED_CRIMSON_STEM
+    name: "<white>Stripped Crimson Stem"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 14
+    page: 18
+    clickable: true
+
+  stripped_crimson_hyphae:
+    material: STRIPPED_CRIMSON_HYPHAE
+    name: "<white>Stripped Crimson Hyphae"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 16
+    page: 18
+    clickable: true
+
+  crimson_planks:
+    material: CRIMSON_PLANKS
+    name: "<white>Crimson Planks"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 19
+    page: 18
+    clickable: true
+
+  crimson_stairs:
+    material: CRIMSON_STAIRS
+    name: "<white>Crimson Stairs"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 21
+    page: 18
+    clickable: true
+
+  crimson_slab:
+    material: CRIMSON_SLAB
+    name: "<white>Crimson Slab"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 23
+    page: 18
+    clickable: true
+
+  crimson_fence:
+    material: CRIMSON_FENCE
+    name: "<white>Crimson Fence"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 25
+    page: 18
+    clickable: true
+
+  crimson_fence_gate:
+    material: CRIMSON_FENCE_GATE
+    name: "<white>Crimson Fence Gate"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 28
+    page: 18
+    clickable: true
+
+  crimson_door:
+    material: CRIMSON_DOOR
+    name: "<white>Crimson Door"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 30
+    page: 18
+    clickable: true
+
+  crimson_trapdoor:
+    material: CRIMSON_TRAPDOOR
+    name: "<white>Crimson Trapdoor"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 32
+    page: 18
+    clickable: true
+
+  crimson_pressure_plate:
+    material: CRIMSON_PRESSURE_PLATE
+    name: "<white>Crimson Pressure Plate"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 34
+    page: 18
+    clickable: true
+
+  crimson_button:
+    material: CRIMSON_BUTTON
+    name: "<white>Crimson Button"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 37
+    page: 18
+    clickable: true
+
+  crimson_sign:
+    material: CRIMSON_SIGN
+    name: "<white>Crimson Sign"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 39
+    page: 18
+    clickable: true
+
+  crimson_hanging_sign:
+    material: CRIMSON_HANGING_SIGN
+    name: "<white>Crimson Hanging Sign"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 41
+    page: 18
+    clickable: true
+
+  warped_stem:
+    material: WARPED_STEM
+    name: "<white>Warped Stem"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 43
+    page: 18
+    clickable: true
+
+  warped_hyphae:
+    material: WARPED_HYPHAE
+    name: "<white>Warped Hyphae"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 10
+    page: 19
+    clickable: true
+
+  stripped_warped_stem:
+    material: STRIPPED_WARPED_STEM
+    name: "<white>Stripped Warped Stem"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 12
+    page: 19
+    clickable: true
+
+  stripped_warped_hyphae:
+    material: STRIPPED_WARPED_HYPHAE
+    name: "<white>Stripped Warped Hyphae"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 14
+    page: 19
+    clickable: true
+
+  warped_planks:
+    material: WARPED_PLANKS
+    name: "<white>Warped Planks"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 16
+    page: 19
+    clickable: true
+
+  warped_stairs:
+    material: WARPED_STAIRS
+    name: "<white>Warped Stairs"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 19
+    page: 19
+    clickable: true
+
+  warped_slab:
+    material: WARPED_SLAB
+    name: "<white>Warped Slab"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 21
+    page: 19
+    clickable: true
+
+  warped_fence:
+    material: WARPED_FENCE
+    name: "<white>Warped Fence"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 23
+    page: 19
+    clickable: true
+
+  warped_fence_gate:
+    material: WARPED_FENCE_GATE
+    name: "<white>Warped Fence Gate"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 25
+    page: 19
+    clickable: true
+
+  warped_door:
+    material: WARPED_DOOR
+    name: "<white>Warped Door"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 28
+    page: 19
+    clickable: true
+
+  warped_trapdoor:
+    material: WARPED_TRAPDOOR
+    name: "<white>Warped Trapdoor"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 30
+    page: 19
+    clickable: true
+
+  warped_pressure_plate:
+    material: WARPED_PRESSURE_PLATE
+    name: "<white>Warped Pressure Plate"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 32
+    page: 19
+    clickable: true
+
+  warped_button:
+    material: WARPED_BUTTON
+    name: "<white>Warped Button"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 34
+    page: 19
+    clickable: true
+
+  warped_sign:
+    material: WARPED_SIGN
+    name: "<white>Warped Sign"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 37
+    page: 19
+    clickable: true
+
+  warped_hanging_sign:
+    material: WARPED_HANGING_SIGN
+    name: "<white>Warped Hanging Sign"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 39
+    page: 19
+    clickable: true
+
+  sandstone:
+    material: SANDSTONE
+    name: "<white>Sandstone"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 41
+    page: 19
+    clickable: true
+
+  sandstone_stairs:
+    material: SANDSTONE_STAIRS
+    name: "<white>Sandstone Stairs"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 43
+    page: 19
+    clickable: true
+
+  sandstone_slab:
+    material: SANDSTONE_SLAB
+    name: "<white>Sandstone Slab"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 10
+    page: 20
+    clickable: true
+
+  sandstone_wall:
+    material: SANDSTONE_WALL
+    name: "<white>Sandstone Wall"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 12
+    page: 20
+    clickable: true
+
+  chiseled_sandstone:
+    material: CHISELED_SANDSTONE
+    name: "<white>Chiseled Sandstone"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 14
+    page: 20
+    clickable: true
+
+  smooth_sandstone:
+    material: SMOOTH_SANDSTONE
+    name: "<white>Smooth Sandstone"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 16
+    page: 20
+    clickable: true
+
+  smooth_sandstone_stairs:
+    material: SMOOTH_SANDSTONE_STAIRS
+    name: "<white>Smooth Sandstone Stairs"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 19
+    page: 20
+    clickable: true
+
+  smooth_sandstone_slab:
+    material: SMOOTH_SANDSTONE_SLAB
+    name: "<white>Smooth Sandstone Slab"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 21
+    page: 20
+    clickable: true
+
+  cut_sandstone:
+    material: CUT_SANDSTONE
+    name: "<white>Cut Sandstone"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 23
+    page: 20
+    clickable: true
+
+  cut_sandstone_slab:
+    material: CUT_SANDSTONE_SLAB
+    name: "<white>Cut Sandstone Slab"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 25
+    page: 20
+    clickable: true
+
+  red_sandstone:
+    material: RED_SANDSTONE
+    name: "<white>Red Sandstone"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 28
+    page: 20
+    clickable: true
+
+  red_sandstone_stairs:
+    material: RED_SANDSTONE_STAIRS
+    name: "<white>Red Sandstone Stairs"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 30
+    page: 20
+    clickable: true
+
+  red_sandstone_slab:
+    material: RED_SANDSTONE_SLAB
+    name: "<white>Red Sandstone Slab"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 32
+    page: 20
+    clickable: true
+
+  red_sandstone_wall:
+    material: RED_SANDSTONE_WALL
+    name: "<white>Red Sandstone Wall"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 34
+    page: 20
+    clickable: true
+
+  chiseled_red_sandstone:
+    material: CHISELED_RED_SANDSTONE
+    name: "<white>Chiseled Red Sandstone"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 37
+    page: 20
+    clickable: true
+
+  smooth_red_sandstone:
+    material: SMOOTH_RED_SANDSTONE
+    name: "<white>Smooth Red Sandstone"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 39
+    page: 20
+    clickable: true
+
+  smooth_red_sandstone_stairs:
+    material: SMOOTH_RED_SANDSTONE_STAIRS
+    name: "<white>Smooth Red Sandstone Stairs"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 41
+    page: 20
+    clickable: true
+
+  smooth_red_sandstone_slab:
+    material: SMOOTH_RED_SANDSTONE_SLAB
+    name: "<white>Smooth Red Sandstone Slab"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 43
+    page: 20
+    clickable: true
+
+  cut_red_sandstone:
+    material: CUT_RED_SANDSTONE
+    name: "<white>Cut Red Sandstone"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 10
+    page: 21
+    clickable: true
+
+  cut_red_sandstone_slab:
+    material: CUT_RED_SANDSTONE_SLAB
+    name: "<white>Cut Red Sandstone Slab"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 12
+    page: 21
+    clickable: true
+
+  basalt:
+    material: BASALT
+    name: "<white>Basalt"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 14
+    page: 21
+    clickable: true
+
+  smooth_basalt:
+    material: SMOOTH_BASALT
+    name: "<white>Smooth Basalt"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 16
+    page: 21
+    clickable: true
+
+  polished_basalt:
+    material: POLISHED_BASALT
+    name: "<white>Polished Basalt"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 19
+    page: 21
+    clickable: true
+
+  purpur_block:
+    material: PURPUR_BLOCK
+    name: "<white>Purpur Block"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 21
+    page: 21
+    clickable: true
+
+  purpur_pillar:
+    material: PURPUR_PILLAR
+    name: "<white>Purpur Pillar"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 23
+    page: 21
+    clickable: true
+
+  purpur_stairs:
+    material: PURPUR_STAIRS
+    name: "<white>Purpur Stairs"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 25
+    page: 21
+    clickable: true
+
+  purpur_slab:
+    material: PURPUR_SLAB
+    name: "<white>Purpur Slab"
+    lore:
+      - "<gray>Buy: <green>1"
+      - "<gray>Sell: <red>0.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.0
+    sell-price: 0.5
+    amount: 1
+    slot: 28
+    page: 21
+    clickable: true
+
+  copper_block:
+    material: COPPER_BLOCK
+    name: "<white>Copper Block"
+    lore:
+      - "<gray>Buy: <green>4"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 30
+    page: 21
+    clickable: true
+
+  exposed_copper:
+    material: EXPOSED_COPPER
+    name: "<white>Exposed Copper"
+    lore:
+      - "<gray>Buy: <green>4"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 32
+    page: 21
+    clickable: true
+
+  weathered_copper:
+    material: WEATHERED_COPPER
+    name: "<white>Weathered Copper"
+    lore:
+      - "<gray>Buy: <green>4"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 34
+    page: 21
+    clickable: true
+
+  oxidized_copper:
+    material: OXIDIZED_COPPER
+    name: "<white>Oxidized Copper"
+    lore:
+      - "<gray>Buy: <green>4"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 37
+    page: 21
+    clickable: true
+
+  waxed_copper_block:
+    material: WAXED_COPPER_BLOCK
+    name: "<white>Waxed Copper Block"
+    lore:
+      - "<gray>Buy: <green>4"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 39
+    page: 21
+    clickable: true
+
+  waxed_exposed_copper:
+    material: WAXED_EXPOSED_COPPER
+    name: "<white>Waxed Exposed Copper"
+    lore:
+      - "<gray>Buy: <green>4"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 41
+    page: 21
+    clickable: true
+
+  waxed_weathered_copper:
+    material: WAXED_WEATHERED_COPPER
+    name: "<white>Waxed Weathered Copper"
+    lore:
+      - "<gray>Buy: <green>4"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 43
+    page: 21
+    clickable: true
+
+  waxed_oxidized_copper:
+    material: WAXED_OXIDIZED_COPPER
+    name: "<white>Waxed Oxidized Copper"
+    lore:
+      - "<gray>Buy: <green>4"
+      - "<gray>Sell: <red>2"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 10
+    page: 22
+    clickable: true
+
+  cut_copper:
+    material: CUT_COPPER
+    name: "<white>Cut Copper"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.5
+    amount: 1
+    slot: 12
+    page: 22
+    clickable: true
+
+  exposed_cut_copper:
+    material: EXPOSED_CUT_COPPER
+    name: "<white>Exposed Cut Copper"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.5
+    amount: 1
+    slot: 14
+    page: 22
+    clickable: true
+
+  weathered_cut_copper:
+    material: WEATHERED_CUT_COPPER
+    name: "<white>Weathered Cut Copper"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.5
+    amount: 1
+    slot: 16
+    page: 22
+    clickable: true
+
+  oxidized_cut_copper:
+    material: OXIDIZED_CUT_COPPER
+    name: "<white>Oxidized Cut Copper"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.5
+    amount: 1
+    slot: 19
+    page: 22
+    clickable: true
+
+  waxed_cut_copper:
+    material: WAXED_CUT_COPPER
+    name: "<white>Waxed Cut Copper"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.5
+    amount: 1
+    slot: 21
+    page: 22
+    clickable: true
+
+  waxed_exposed_cut_copper:
+    material: WAXED_EXPOSED_CUT_COPPER
+    name: "<white>Waxed Exposed Cut Copper"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.5
+    amount: 1
+    slot: 23
+    page: 22
+    clickable: true
+
+  waxed_weathered_cut_copper:
+    material: WAXED_WEATHERED_CUT_COPPER
+    name: "<white>Waxed Weathered Cut Copper"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.5
+    amount: 1
+    slot: 25
+    page: 22
+    clickable: true
+
+  waxed_oxidized_cut_copper:
+    material: WAXED_OXIDIZED_CUT_COPPER
+    name: "<white>Waxed Oxidized Cut Copper"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1.5"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 3.0
+    sell-price: 1.5
+    amount: 1
+    slot: 28
+    page: 22
+    clickable: true
+
+  cut_copper_slab:
+    material: CUT_COPPER_SLAB
+    name: "<white>Cut Copper Slab"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 30
+    page: 22
+    clickable: true
+
+  exposed_cut_copper_slab:
+    material: EXPOSED_CUT_COPPER_SLAB
+    name: "<white>Exposed Cut Copper Slab"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 32
+    page: 22
+    clickable: true
+
+  weathered_cut_copper_slab:
+    material: WEATHERED_CUT_COPPER_SLAB
+    name: "<white>Weathered Cut Copper Slab"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 34
+    page: 22
+    clickable: true
+
+  oxidized_cut_copper_slab:
+    material: OXIDIZED_CUT_COPPER_SLAB
+    name: "<white>Oxidized Cut Copper Slab"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 37
+    page: 22
+    clickable: true
+
+  waxed_cut_copper_slab:
+    material: WAXED_CUT_COPPER_SLAB
+    name: "<white>Waxed Cut Copper Slab"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 39
+    page: 22
+    clickable: true
+
+  waxed_exposed_cut_copper_slab:
+    material: WAXED_EXPOSED_CUT_COPPER_SLAB
+    name: "<white>Waxed Exposed Cut Copper Slab"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 41
+    page: 22
+    clickable: true
+
+  waxed_weathered_cut_copper_slab:
+    material: WAXED_WEATHERED_CUT_COPPER_SLAB
+    name: "<white>Waxed Weathered Cut Copper Slab"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 43
+    page: 22
+    clickable: true
+
+  cut_copper_stairs:
+    material: CUT_COPPER_STAIRS
+    name: "<white>Cut Copper Stairs"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 10
+    page: 23
+    clickable: true
+
+  exposed_cut_copper_stairs:
+    material: EXPOSED_CUT_COPPER_STAIRS
+    name: "<white>Exposed Cut Copper Stairs"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 12
+    page: 23
+    clickable: true
+
+  weathered_cut_copper_stairs:
+    material: WEATHERED_CUT_COPPER_STAIRS
+    name: "<white>Weathered Cut Copper Stairs"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 14
+    page: 23
+    clickable: true
+
+  oxidized_cut_copper_stairs:
+    material: OXIDIZED_CUT_COPPER_STAIRS
+    name: "<white>Oxidized Cut Copper Stairs"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 16
+    page: 23
+    clickable: true
+
+  waxed_cut_copper_stairs:
+    material: WAXED_CUT_COPPER_STAIRS
+    name: "<white>Waxed Cut Copper Stairs"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 19
+    page: 23
+    clickable: true
+
+  waxed_exposed_cut_copper_stairs:
+    material: WAXED_EXPOSED_CUT_COPPER_STAIRS
+    name: "<white>Waxed Exposed Cut Copper Stairs"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 21
+    page: 23
+    clickable: true
+
+  waxed_weathered_cut_copper_stairs:
+    material: WAXED_WEATHERED_CUT_COPPER_STAIRS
+    name: "<white>Waxed Weathered Cut Copper Stairs"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 23
+    page: 23
+    clickable: true
+
+  waxed_oxidized_cut_copper_stairs:
+    material: WAXED_OXIDIZED_CUT_COPPER_STAIRS
+    name: "<white>Waxed Oxidized Cut Copper Stairs"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 25
+    page: 23
+    clickable: true
+
+  chiseled_copper:
+    material: CHISELED_COPPER
+    name: "<white>Chiseled Copper"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 28
+    page: 23
+    clickable: true
+
+  exposed_chiseled_copper:
+    material: EXPOSED_CHISELED_COPPER
+    name: "<white>Exposed Chiseled Copper"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 30
+    page: 23
+    clickable: true
+
+  weathered_chiseled_copper:
+    material: WEATHERED_CHISELED_COPPER
+    name: "<white>Weathered Chiseled Copper"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 32
+    page: 23
+    clickable: true
+
+  oxidized_chiseled_copper:
+    material: OXIDIZED_CHISELED_COPPER
+    name: "<white>Oxidized Chiseled Copper"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 34
+    page: 23
+    clickable: true
+
+  waxed_chiseled_copper:
+    material: WAXED_CHISELED_COPPER
+    name: "<white>Waxed Chiseled Copper"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 37
+    page: 23
+    clickable: true
+
+  waxed_exposed_chiseled_copper:
+    material: WAXED_EXPOSED_CHISELED_COPPER
+    name: "<white>Waxed Exposed Chiseled Copper"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 39
+    page: 23
+    clickable: true
+
+  waxed_weathered_chiseled_copper:
+    material: WAXED_WEATHERED_CHISELED_COPPER
+    name: "<white>Waxed Weathered Chiseled Copper"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 41
+    page: 23
+    clickable: true
+
+  waxed_oxidized_cut_copper_slab:
+    material: WAXED_OXIDIZED_CUT_COPPER_SLAB
+    name: "<white>Waxed Oxidized Cut Copper Slab"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 43
+    page: 23
+    clickable: true
+
+  waxed_oxidized_chiseled_copper:
+    material: WAXED_OXIDIZED_CHISELED_COPPER
+    name: "<white>Waxed Oxidized Chiseled Copper"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 10
+    page: 24
+    clickable: true
+
+  copper_grate:
+    material: COPPER_GRATE
+    name: "<white>Copper Grate"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 12
+    page: 24
+    clickable: true
+
+  exposed_copper_grate:
+    material: EXPOSED_COPPER_GRATE
+    name: "<white>Exposed Copper Grate"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 14
+    page: 24
+    clickable: true
+
+  weathered_copper_grate:
+    material: WEATHERED_COPPER_GRATE
+    name: "<white>Weathered Copper Grate"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 16
+    page: 24
+    clickable: true
+
+  oxidized_copper_grate:
+    material: OXIDIZED_COPPER_GRATE
+    name: "<white>Oxidized Copper Grate"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 19
+    page: 24
+    clickable: true
+
+  waxed_copper_grate:
+    material: WAXED_COPPER_GRATE
+    name: "<white>Waxed Copper Grate"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 21
+    page: 24
+    clickable: true
+
+  waxed_exposed_copper_grate:
+    material: WAXED_EXPOSED_COPPER_GRATE
+    name: "<white>Waxed Exposed Copper Grate"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 23
+    page: 24
+    clickable: true
+
+  waxed_weathered_copper_grate:
+    material: WAXED_WEATHERED_COPPER_GRATE
+    name: "<white>Waxed Weathered Copper Grate"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 25
+    page: 24
+    clickable: true
+
+  waxed_oxidized_copper_grate:
+    material: WAXED_OXIDIZED_COPPER_GRATE
+    name: "<white>Waxed Oxidized Copper Grate"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 28
+    page: 24
+    clickable: true
+
+  copper_door:
+    material: COPPER_DOOR
+    name: "<white>Copper Door"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 30
+    page: 24
+    clickable: true
+
+  exposed_copper_door:
+    material: EXPOSED_COPPER_DOOR
+    name: "<white>Exposed Copper Door"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 32
+    page: 24
+    clickable: true
+
+  weathered_copper_door:
+    material: WEATHERED_COPPER_DOOR
+    name: "<white>Weathered Copper Door"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 34
+    page: 24
+    clickable: true
+
+  oxidized_copper_door:
+    material: OXIDIZED_COPPER_DOOR
+    name: "<white>Oxidized Copper Door"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 37
+    page: 24
+    clickable: true
+
+  waxed_copper_door:
+    material: WAXED_COPPER_DOOR
+    name: "<white>Waxed Copper Door"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 39
+    page: 24
+    clickable: true
+
+  waxed_exposed_copper_door:
+    material: WAXED_EXPOSED_COPPER_DOOR
+    name: "<white>Waxed Exposed Copper Door"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 41
+    page: 24
+    clickable: true
+
+  waxed_weathered_copper_door:
+    material: WAXED_WEATHERED_COPPER_DOOR
+    name: "<white>Waxed Weathered Copper Door"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 43
+    page: 24
+    clickable: true
+
+  waxed_oxidized_copper_door:
+    material: WAXED_OXIDIZED_COPPER_DOOR
+    name: "<white>Waxed Oxidized Copper Door"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 10
+    page: 25
+    clickable: true
+
+  copper_trapdoor:
+    material: COPPER_TRAPDOOR
+    name: "<white>Copper Trapdoor"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 12
+    page: 25
+    clickable: true
+
+  exposed_copper_trapdoor:
+    material: EXPOSED_COPPER_TRAPDOOR
+    name: "<white>Exposed Copper Trapdoor"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 14
+    page: 25
+    clickable: true
+
+  weathered_copper_trapdoor:
+    material: WEATHERED_COPPER_TRAPDOOR
+    name: "<white>Weathered Copper Trapdoor"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 16
+    page: 25
+    clickable: true
+
+  oxidized_copper_trapdoor:
+    material: OXIDIZED_COPPER_TRAPDOOR
+    name: "<white>Oxidized Copper Trapdoor"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 19
+    page: 25
+    clickable: true
+
+  waxed_copper_trapdoor:
+    material: WAXED_COPPER_TRAPDOOR
+    name: "<white>Waxed Copper Trapdoor"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 21
+    page: 25
+    clickable: true
+
+  waxed_exposed_copper_trapdoor:
+    material: WAXED_EXPOSED_COPPER_TRAPDOOR
+    name: "<white>Waxed Exposed Copper Trapdoor"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 23
+    page: 25
+    clickable: true
+
+  waxed_weathered_copper_trapdoor:
+    material: WAXED_WEATHERED_COPPER_TRAPDOOR
+    name: "<white>Waxed Weathered Copper Trapdoor"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 25
+    page: 25
+    clickable: true
+
+  waxed_oxidized_copper_trapdoor:
+    material: WAXED_OXIDIZED_COPPER_TRAPDOOR
+    name: "<white>Waxed Oxidized Copper Trapdoor"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 28
+    page: 25
+    clickable: true
+
+  copper_bulb:
+    material: COPPER_BULB
+    name: "<white>Copper Bulb"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 30
+    page: 25
+    clickable: true
+
+  exposed_copper_bulb:
+    material: EXPOSED_COPPER_BULB
+    name: "<white>Exposed Copper Bulb"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 32
+    page: 25
+    clickable: true
+
+  weathered_copper_bulb:
+    material: WEATHERED_COPPER_BULB
+    name: "<white>Weathered Copper Bulb"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 34
+    page: 25
+    clickable: true
+
+  oxidized_copper_bulb:
+    material: OXIDIZED_COPPER_BULB
+    name: "<white>Oxidized Copper Bulb"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 37
+    page: 25
+    clickable: true
+
+  waxed_copper_bulb:
+    material: WAXED_COPPER_BULB
+    name: "<white>Waxed Copper Bulb"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 39
+    page: 25
+    clickable: true
+
+  waxed_exposed_copper_bulb:
+    material: WAXED_EXPOSED_COPPER_BULB
+    name: "<white>Waxed Exposed Copper Bulb"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 41
+    page: 25
+    clickable: true
+
+  waxed_weathered_copper_bulb:
+    material: WAXED_WEATHERED_COPPER_BULB
+    name: "<white>Waxed Weathered Copper Bulb"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 43
+    page: 25
+    clickable: true
+
+  grass_block:
+    material: GRASS_BLOCK
+    name: "<white>Grass Block"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 10
+    page: 26
+    clickable: true
+
+  podzol:
+    material: PODZOL
+    name: "<white>Podzol"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 12
+    page: 26
+    clickable: true
+
+  mycelium:
+    material: MYCELIUM
+    name: "<white>Mycelium"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 14
+    page: 26
+    clickable: true
+
+  dirt:
+    material: DIRT
+    name: "<white>Dirt"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 16
+    page: 26
+    clickable: true
+
+  coarse_dirt:
+    material: COARSE_DIRT
+    name: "<white>Coarse Dirt"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 19
+    page: 26
+    clickable: true
+
+  rooted_dirt:
+    material: ROOTED_DIRT
+    name: "<white>Rooted Dirt"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 21
+    page: 26
+    clickable: true
+
+  mud:
+    material: MUD
+    name: "<white>Mud"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 23
+    page: 26
+    clickable: true
+
+  clay:
+    material: CLAY
+    name: "<white>Clay"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 25
+    page: 26
+    clickable: true
+
+  gravel:
+    material: GRAVEL
+    name: "<white>Gravel"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 28
+    page: 26
+    clickable: true
+
+  sand:
+    material: SAND
+    name: "<white>Sand"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 30
+    page: 26
+    clickable: true
+
+  red_sand:
+    material: RED_SAND
+    name: "<white>Red Sand"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 32
+    page: 26
+    clickable: true
+
+  ice:
+    material: ICE
+    name: "<white>Ice"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 34
+    page: 26
+    clickable: true
+
+  packed_ice:
+    material: PACKED_ICE
+    name: "<white>Packed Ice"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 37
+    page: 26
+    clickable: true
+
+  blue_ice:
+    material: BLUE_ICE
+    name: "<white>Blue Ice"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 39
+    page: 26
+    clickable: true
+
+  snow_block:
+    material: SNOW_BLOCK
+    name: "<white>Snow Block"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 41
+    page: 26
+    clickable: true
+
+  moss_block:
+    material: MOSS_BLOCK
+    name: "<white>Moss Block"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 43
+    page: 26
+    clickable: true
+
+  calcite:
+    material: CALCITE
+    name: "<white>Calcite"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 10
+    page: 27
+    clickable: true
+
+  dripstone_block:
+    material: DRIPSTONE_BLOCK
+    name: "<white>Dripstone Block"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 12
+    page: 27
+    clickable: true
+
+  magma_block:
+    material: MAGMA_BLOCK
+    name: "<white>Magma Block"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 14
+    page: 27
+    clickable: true
+
+  obsidian:
+    material: OBSIDIAN
+    name: "<white>Obsidian"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 16
+    page: 27
+    clickable: true
+
+  crying_obsidian:
+    material: CRYING_OBSIDIAN
+    name: "<white>Crying Obsidian"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 19
+    page: 27
+    clickable: true
+
+  dried_kelp_block:
+    material: DRIED_KELP_BLOCK
+    name: "<white>Dried Kelp Block"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 21
+    page: 27
+    clickable: true
+
+  ochre_froglight:
+    material: OCHRE_FROGLIGHT
+    name: "<white>Ochre Froglight"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 23
+    page: 27
+    clickable: true
+
+  verdant_froglight:
+    material: VERDANT_FROGLIGHT
+    name: "<white>Verdant Froglight"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 25
+    page: 27
+    clickable: true
+
+  pearlescent_froglight:
+    material: PEARLESCENT_FROGLIGHT
+    name: "<white>Pearlescent Froglight"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 28
+    page: 27
+    clickable: true
+
+  sponge:
+    material: SPONGE
+    name: "<white>Sponge"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 30
+    page: 27
+    clickable: true
+
+  wet_sponge:
+    material: WET_SPONGE
+    name: "<white>Wet Sponge"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 32
+    page: 27
+    clickable: true
+
+  bone_block:
+    material: BONE_BLOCK
+    name: "<white>Bone Block"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 34
+    page: 27
+    clickable: true
+
+  amethyst_block:
+    material: AMETHYST_BLOCK
+    name: "<white>Amethyst Block"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 37
+    page: 27
+    clickable: true
+
+  budding_amethyst:
+    material: BUDDING_AMETHYST
+    name: "<white>Budding Amethyst"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 39
+    page: 27
+    clickable: true
+
+  brown_mushroom_block:
+    material: BROWN_MUSHROOM_BLOCK
+    name: "<white>Brown Mushroom Block"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 41
+    page: 27
+    clickable: true
+
+  red_mushroom_block:
+    material: RED_MUSHROOM_BLOCK
+    name: "<white>Red Mushroom Block"
+    lore:
+      - "<gray>Buy: <green>1.5"
+      - "<gray>Sell: <red>0.75"
+      - "<yellow>Left-Click to Buy"
+      - "<yellow>Right-Click to Sell"
+    buy-price: 1.5
+    sell-price: 0.75
+    amount: 1
+    slot: 43
+    page: 27
+    clickable: true
