@@ -1,6 +1,5 @@
 {
   "commands": {
-
     "nick": {
       "disabled": "<#B22222>❌ The nickname system is currently disabled.",
       "only-player": "<#B22222>❌ Only players can use this command.",
@@ -35,6 +34,8 @@
     "homes": {
       "only-player": "<#B22222>❌ Only players can use this command!",
       "gui": {
+        "title": "<#4169E1>Home Manager",
+        "confirm-title": "<#B22222>Confirm Action",
         "home-title": "<#4169E1><bold>Home {slot}",
         "manage-title": "<#4169E1><bold>Manage Home {slot}",
         "no-permission": "<#B22222>❌ No Permission!",
@@ -43,24 +44,32 @@
         "click-manage": "<#1E90FF>Right-click to manage",
         "click-remove": "<#FFD900>Click to remove",
         "empty": "<#708090>Empty slot",
-        "name": "<#708090>Name: <#4169E1>{name}",
+        "name": "<#708090>Name: <#4169E1><name>",
         "coords": "<#708090>XYZ: <#4169E1>{x}, {y}, {z}",
+        "world": "<#708090>World: <#4169E1>{world}",
         "confirm": "<#3BB302>✔ Confirm",
         "cancel": "<#B22222>❌ Cancel",
         "info": "<#4169E1>Home {slot} - {mode}"
       },
-      "set": {
-        "success": "<#3BB302>✔ Home <#FFD900>{slot}</#FFD900> set!"
-      },
-      "remove": {
-        "success": "<#3BB302>✔ Home <#FFD900>{slot}</#FFD900> removed!"
-      },
+      "empty-slot": "<#708090>No home set in slot {slot}!",
+      "world-missing": "<#B22222>❌ Home world is no longer available!",
+      "world-disabled": "<#B22222>❌ You cannot access homes in this world!",
+      "require-empty-inventory": "<#B22222>❌ You must have an empty inventory to set a home!",
+      "no-permission": "<#B22222>❌ You need permission <#FFD900>{permission}</#FFD900>!",
+      "no-permission-remove": "<#B22222>❌ You don't have permission to remove homes!",
+      "teleport-cooldown": "<#B22222>⏱ Please wait <#FFD900>{seconds}</#FFD900> seconds before teleporting again!",
+      "set-cooldown": "<#B22222>⏱ Please wait <#FFD900>{seconds}</#FFD900> seconds before setting another home!",
+      "cross-world-disabled": "<#B22222>❌ Cross-world teleportation is disabled!",
+      "teleport-restricted": "<#B22222>❌ You cannot teleport from this world!",
+      "teleport": "<#3BB302>✔ Teleported to home <#FFD900>{slot}</#FFD900>!",
+      "set": "<#3BB302>✔ Home <#FFD900>{slot}</#FFD900> set!",
+      "remove": "<#3BB302>✔ Home <#FFD900>{slot}</#FFD900> removed!",
       "rename": {
         "prompt": "<#1E90FF>Enter a new name for this home in chat:",
-        "success": "<#3BB302>✔ Home renamed to <#FFD900>{name}</#FFD900>!"
-      },
-      "empty-slot": "<#708090>No home set in slot {slot}!",
-      "world-missing": "<#B22222>❌ Home world is no longer available!"
+        "success": "<#3BB302>✔ Home renamed to <#FFD900>{name}</#FFD900>!",
+        "duplicate": "<#B22222>❌ You already have a home named '<#FFD900>{name}</#FFD900>'!",
+        "too-long": "<#B22222>❌ Name too long! Maximum <#FFD900>{max}</#FFD900> characters."
+      }
     },
     "loom": {
       "only-player": "<#B22222>❌ Only players can use this command.",

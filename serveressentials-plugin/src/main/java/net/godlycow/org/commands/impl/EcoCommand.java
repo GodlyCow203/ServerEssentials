@@ -2,7 +2,7 @@ package net.godlycow.org.commands.impl;
 
 import net.godlycow.org.commands.config.EcoConfig;
 import net.godlycow.org.economy.eco.EconomyManager;
-import net.godlycow.org.economy.eco.EconomyResponse; // Correct import
+import net.godlycow.org.economy.eco.EconomyResponse;
 import net.godlycow.org.language.PlayerLanguageManager;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;

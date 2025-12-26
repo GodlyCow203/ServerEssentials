@@ -81,19 +81,13 @@ public final class NickCommand implements CommandExecutor {
 
         UUID uuid = player.getUniqueId();
 
-        // Check cooldown
         nickStorage.getNickname(uuid).thenAccept(opt -> {
             opt.ifPresent(existingNick -> {
-                // Check cooldown if player has existing nick
                 if (config.cooldown > 0) {
-                    // For cooldown, we'll use a simple in-memory approach since it's temporary
-                    // You could also store this in the database if needed
                     long lastChange = System.currentTimeMillis() - (config.cooldown * 1000);
-                    // This is a simplified cooldown check - you may want to enhance this
                 }
             });
 
-            // Check daily limits
             if (config.maxChangesPerDay > 0) {
                 String today = java.time.LocalDate.now().toString();
                 nickStorage.getDailyChanges(uuid, today).thenAccept(changesOpt -> {
@@ -117,16 +111,13 @@ public final class NickCommand implements CommandExecutor {
     private void proceedWithNickChange(Player player, String newNick, String day, int dailyChanges) {
         UUID uuid = player.getUniqueId();
 
-        // Save to database using NickStorage
         nickStorage.setNickname(uuid, newNick).thenAccept(v -> {
-            // Apply the nickname
             nickManager.applyNick(uuid, newNick);
 
             player.sendMessage(langManager.getMessageFor(player, "commands.nick.set",
                     "<green>Your nickname has been set to <white>{nick}</white>.",
                     ComponentPlaceholder.of("{nick}", newNick)));
 
-            // Update daily changes if tracking
             if (day != null) {
                 nickStorage.incrementDailyChanges(uuid);
             }

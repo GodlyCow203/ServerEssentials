@@ -37,6 +37,18 @@ public final class NickManager {
         });
     }
 
+    public void loadPlayerNickname(UUID playerId) {
+        storage.getNickname(playerId).thenAccept(opt -> {
+            if (opt.isPresent()) {
+                applyNick(playerId, opt.get());
+                plugin.getLogger().info("Loaded nickname for player: " + opt.get());
+            }
+        }).exceptionally(ex -> {
+            plugin.getLogger().warning("Failed to load nickname for player " + playerId + ": " + ex.getMessage());
+            return null;
+        });
+    }
+
     public void applyNick(UUID playerId, String nick) {
         Player player = Bukkit.getPlayer(playerId);
         if (player == null) return;

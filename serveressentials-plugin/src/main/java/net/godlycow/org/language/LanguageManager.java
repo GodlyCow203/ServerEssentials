@@ -164,7 +164,7 @@ public class LanguageManager {
 
     public void reloadLanguages() {
         plugin.getLogger().info("Reloading language files...");
-        loadLanguages(); // Reuse existing load logic
+        loadLanguages();
         plugin.getLogger().info("Reloaded " + languageData.size() + " languages!");
     }
 

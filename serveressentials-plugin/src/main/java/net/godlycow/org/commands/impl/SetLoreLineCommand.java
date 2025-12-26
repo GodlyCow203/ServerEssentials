@@ -71,7 +71,6 @@ public final class SetLoreLineCommand implements CommandExecutor {
                 "<green>Lore set to: <white>{lore}",
                 ComponentPlaceholder.of("{lore}", input)));
 
-        // Store usage statistics
         UUID playerId = player.getUniqueId();
         dataStorage.getState(playerId, "setloreline", "usage_count").thenAccept(opt -> {
             int count = opt.map(Integer::parseInt).orElse(0);

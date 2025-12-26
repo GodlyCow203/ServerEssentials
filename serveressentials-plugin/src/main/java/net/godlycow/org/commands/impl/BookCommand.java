@@ -60,7 +60,6 @@ public final class BookCommand implements CommandExecutor {
         meta.setTitle(config.title);
         meta.setAuthor(config.author);
 
-        // Convert MiniMessage to JSON book format
         for (String pageContent : pageStrings) {
             Component pageComponent = miniMessage.deserialize(pageContent);
             String jsonPage = gsonSerializer.serialize(pageComponent);

@@ -6,7 +6,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.godlycow.org.commands.config.AuctionConfig;
 import net.godlycow.org.economy.eco.EconomyManager;
-import net.godlycow.org.economy.eco.EconomyResponse; // FIXED: Direct import
+import net.godlycow.org.economy.eco.EconomyResponse;
 import net.godlycow.org.language.PlayerLanguageManager;
 import net.godlycow.org.language.LanguageManager.ComponentPlaceholder;
 import org.bukkit.Bukkit;
@@ -210,7 +210,6 @@ public class AuctionGUIListener implements Listener {
         }
 
         CompletableFuture.runAsync(() -> {
-            // FIXED: Use EconomyResponse directly without casting
             EconomyResponse withdrawResponse = economyManager.withdraw(player, item.getPrice());
 
             if (!withdrawResponse.success()) {
@@ -221,12 +220,10 @@ public class AuctionGUIListener implements Listener {
                 return;
             }
 
-            // Pay seller if they're online
             Player sellerPlayer = Bukkit.getPlayer(item.getSeller());
             if (sellerPlayer != null && sellerPlayer.isOnline()) {
                 EconomyResponse depositResponse = economyManager.deposit(sellerPlayer, item.getPrice());
                 if (!depositResponse.success()) {
-                    // Refund buyer if seller payment fails
                     economyManager.deposit(player, item.getPrice());
                     Bukkit.getScheduler().runTask(plugin, () -> {
                         player.sendMessage(langManager.getMessageFor(player, "auction.purchase.failed",
@@ -235,14 +232,12 @@ public class AuctionGUIListener implements Listener {
                     return;
                 }
 
-                // Notify seller
                 sellerPlayer.sendMessage(langManager.getMessageFor(sellerPlayer, "auction.purchase.seller-message",
                         "<green>{buyer} purchased your item for ${price}!",
                         ComponentPlaceholder.of("{buyer}", player.getName()),
                         ComponentPlaceholder.of("{price}", economyManager.format(item.getPrice()))));
             }
 
-            // Complete purchase
             storage.removeItem(item.getId()).thenAccept(v -> {
                 Bukkit.getScheduler().runTask(plugin, () -> {
                     player.getInventory().addItem(item.getItem().clone());

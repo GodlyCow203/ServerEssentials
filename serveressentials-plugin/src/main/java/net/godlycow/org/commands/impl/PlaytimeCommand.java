@@ -47,7 +47,6 @@ public final class PlaytimeCommand implements CommandExecutor {
             return true;
         }
 
-        // Calculate playtime from statistics
         long ticks = player.getStatistic(Statistic.PLAY_ONE_MINUTE);
         long minutes = ticks / (20 * 60);
         long hours = minutes / 60;
@@ -58,7 +57,6 @@ public final class PlaytimeCommand implements CommandExecutor {
                 ComponentPlaceholder.of("{hours}", hours),
                 ComponentPlaceholder.of("{minutes}", remainingMinutes)));
 
-        // Store usage statistics (async)
         UUID playerId = player.getUniqueId();
         dataStorage.getState(playerId, "playtime", "usage_count").thenAccept(opt -> {
             int count = opt.map(Integer::parseInt).orElse(0);

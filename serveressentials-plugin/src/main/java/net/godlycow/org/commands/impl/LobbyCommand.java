@@ -126,7 +126,6 @@ public class LobbyCommand extends CommandModule implements CommandExecutor, TabC
             String worldKey = config.perWorld ? player.getWorld().getName() : "global";
             lobbyStorage.getLobby(worldKey).thenAccept(optLocation -> {
                 optLocation.ifPresent(lobby -> {
-                    // Run teleport on main thread
                     Bukkit.getScheduler().runTask(plugin, () -> {
                         if (config.animationEnabled) {
                             AnimationHelper.playTeleportAnimation(plugin, player, config.animation);

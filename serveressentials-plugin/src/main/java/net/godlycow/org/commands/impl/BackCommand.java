@@ -12,7 +12,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin; // ✅ Added import
+import org.bukkit.plugin.Plugin;
 
 import java.util.ArrayList;
 import java.util.List;

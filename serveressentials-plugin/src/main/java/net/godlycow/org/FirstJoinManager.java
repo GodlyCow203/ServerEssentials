@@ -56,7 +56,7 @@ public final class FirstJoinManager implements Listener, CommandExecutor, TabExe
     private FileConfiguration cfg;
 
     private final Map<String, GUI> guiCache = new HashMap<>();
-    private final NamespacedKey KEY_ITEM_GUI;   // declare, don't instantiate
+    private final NamespacedKey KEY_ITEM_GUI;
 
     public FirstJoinManager(JavaPlugin plugin) {
         this.plugin = plugin;
@@ -160,17 +160,14 @@ public final class FirstJoinManager implements Listener, CommandExecutor, TabExe
                     t.getInt("fade-out", 20));
         }
 
-        /* Boss bars */
         if (cfg.isList("bossbars")) {
             for (Map<?, ?> raw : cfg.getMapList("bossbars")) {
                 new BossBarRunner(p, (Map<String, Object>) raw).start();
             }
         }
 
-        /* Effects */
         applyEffects(p);
 
-        /* Particles */
         if (cfg.isList("particles")) {
             for (Map<?, ?> raw : cfg.getMapList("particles")) {
                 Map<String, Object> m = (Map<String, Object>) raw;
@@ -178,7 +175,6 @@ public final class FirstJoinManager implements Listener, CommandExecutor, TabExe
             }
         }
 
-        /* Commands */
         if (cfg.isList("commands")) {
             for (Map<?, ?> raw : cfg.getMapList("commands")) {
                 Map<String, Object> m = (Map<String, Object>) raw;
@@ -189,21 +185,18 @@ public final class FirstJoinManager implements Listener, CommandExecutor, TabExe
             }
         }
 
-        /* Items */
         if (cfg.isList("items")) {
             for (Map<?, ?> raw : cfg.getMapList("items")) {
                 giveItem(p, (Map<String, Object>) raw);
             }
         }
 
-        /* Messages */
         if (cfg.isList("messages")) {
             for (String line : cfg.getStringList("messages")) {
                 sendMessage(p, line);
             }
         }
 
-        /* GUI */
         String guiId = cfg.getString("open_gui");
         if (guiId != null) {
             GUI gui = guiCache.get(guiId.toLowerCase(Locale.ROOT));
@@ -211,7 +204,6 @@ public final class FirstJoinManager implements Listener, CommandExecutor, TabExe
         }
     }
 
-    /* ---------- EFFECTS ---------- */
     private void applyEffects(Player p) {
         if (!cfg.isList("effects")) return;
         for (Map<?, ?> raw : cfg.getMapList("effects")) {
@@ -228,7 +220,6 @@ public final class FirstJoinManager implements Listener, CommandExecutor, TabExe
         }
     }
 
-    /* ---------- PARTICLES ---------- */
     private void spawnParticles(Player p, Map<String, Object> m) {
         String name = (String) m.getOrDefault("particle", "VILLAGER_HAPPY");
         Particle particle;
@@ -255,9 +246,7 @@ public final class FirstJoinManager implements Listener, CommandExecutor, TabExe
         }.runTaskTimer(plugin, 0L, 5L);
     }
 
-    /* ---------- ITEM ---------- */
     private void giveItem(Player p, Map<String, Object> map) {
-        /* 1. material */
         String matName = (String) map.getOrDefault("material", "STONE");
         Material mat;
         try {
@@ -267,27 +256,22 @@ public final class FirstJoinManager implements Listener, CommandExecutor, TabExe
             return;
         }
 
-        /* 2. amount */
         int amount = Math.max(1, ((Number) map.getOrDefault("amount", 1)).intValue());
 
-        /* 3. build stack */
         ItemStack item = new ItemStack(mat, amount);
         ItemMeta meta = item.getItemMeta();
-        if (meta == null) {   // some materials have no meta
+        if (meta == null) {
             p.getInventory().addItem(item);
             return;
         }
 
-        /* 4. display name */
         if (map.containsKey("name")) meta.displayName(parse(p, (String) map.get("name")));
 
-        /* 5. lore */
         if (map.containsKey("lore")) {
             List<String> lines = (List<String>) map.get("lore");
             meta.lore(lines.stream().map(s -> parse(p, s)).toList());
         }
 
-        /* 6. enchants */
         ConfigurationSection enchSec = (ConfigurationSection) map.get("enchants");
         if (enchSec != null) {
             for (String key : enchSec.getKeys(false)) {
@@ -296,25 +280,21 @@ public final class FirstJoinManager implements Listener, CommandExecutor, TabExe
             }
         }
 
-        /* 7. flags */
         List<String> flags = (List<String>) map.get("flags");
         if (flags != null) flags.forEach(f -> {
             try { meta.addItemFlags(ItemFlag.valueOf(f.toUpperCase(Locale.ROOT))); } catch (Exception ignored) {}
         });
 
-        /* 8. unbreakable / cmd */
         meta.setUnbreakable((Boolean) map.getOrDefault("unbreakable", false));
         if (map.containsKey("custom_model_data")) {
             try { meta.setCustomModelData(((Number) map.get("custom_model_data")).intValue()); } catch (Exception ignored) {}
         }
 
-        /* 9. on-use-commands */
         if (map.containsKey("on_use_commands")) {
             List<String> cmds = (List<String>) map.get("on_use_commands");
             meta.getPersistentDataContainer().set(KEY_ITEM_CMD, PersistentDataType.STRING, String.join("||", cmds));
         }
 
-        /* 10. GUI bind */
         if (map.containsKey("open_gui")) {
             String guiId = ((String) map.get("open_gui")).toLowerCase(Locale.ROOT);
             meta.getPersistentDataContainer().set(KEY_ITEM_GUI, PersistentDataType.STRING, guiId);
@@ -322,13 +302,11 @@ public final class FirstJoinManager implements Listener, CommandExecutor, TabExe
 
         item.setItemMeta(meta);
 
-        /* 11. slot or add */
         int slot = ((Number) map.getOrDefault("slot", -1)).intValue();
         if (slot >= 0 && slot < p.getInventory().getSize()) p.getInventory().setItem(slot, item);
         else p.getInventory().addItem(item);
     }
 
-    /* ---------- COMMANDS ---------- */
     private void runCommand(Player p, String runAs, String cmd, int delay) {
         if (cmd == null || cmd.isBlank()) return;
         cmd = applyPlaceholders(p, cmd);
@@ -385,7 +363,6 @@ public final class FirstJoinManager implements Listener, CommandExecutor, TabExe
         p.getInventory().addItem(new ItemStack(mat, amt));
     }
 
-    /* ---------- INTERACT ---------- */
     @EventHandler
     public void onInteract(PlayerInteractEvent e) {
         ItemStack item = e.getItem();
@@ -394,21 +371,16 @@ public final class FirstJoinManager implements Listener, CommandExecutor, TabExe
         ItemMeta meta = item.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
-        /* 1. Commands attached to the item */
         String cmds = pdc.get(KEY_ITEM_CMD, PersistentDataType.STRING);
 
-        /* 2. GUI bound to the item */
         String guiId = pdc.get(KEY_ITEM_GUI, PersistentDataType.STRING);
 
-        /* nothing to do -> leave event alone */
         if (cmds == null && guiId == null) return;
 
-        /* mark as handled */
         e.setCancelled(true);
 
         Player p = e.getPlayer();
 
-        /* run commands first */
         if (cmds != null) {
             for (String part : cmds.split("\\|\\|")) {
                 if (part.isBlank()) continue;
@@ -423,14 +395,12 @@ public final class FirstJoinManager implements Listener, CommandExecutor, TabExe
             }
         }
 
-        /* open chained GUI one tick later so commands finish first */
         if (guiId != null) {
             GUI gui = guiCache.get(guiId.toLowerCase(Locale.ROOT));
             if (gui != null) Bukkit.getScheduler().runTask(plugin, () -> gui.open(p));
         }
     }
 
-    /* ---------- GUI ---------- */
     private static final NamespacedKey KEY_GUI_CMD = new NamespacedKey(JavaPlugin.getProvidingPlugin(FirstJoinManager.class), "gui_cmd");
 
     private final class GUI {
@@ -503,14 +473,11 @@ public final class FirstJoinManager implements Listener, CommandExecutor, TabExe
         ItemMeta meta = item.getItemMeta();
         if (meta == null) return item;
 
-        /* name */
         if (sec.contains("name")) meta.displayName(parse(null, sec.getString("name")));
-        /* lore */
         if (sec.contains("lore")) {
             List<String> lore = sec.getStringList("lore");
             meta.lore(lore.stream().map(s -> parse(null, s)).toList());
         }
-        /* enchants */
         ConfigurationSection enchSec = sec.getConfigurationSection("enchants");
         if (enchSec != null) {
             for (String k : enchSec.getKeys(false)) {
@@ -518,19 +485,15 @@ public final class FirstJoinManager implements Listener, CommandExecutor, TabExe
                 if (e != null) meta.addEnchant(e, enchSec.getInt(k), true);
             }
         }
-        /* flags */
         if (sec.contains("flags")) {
             sec.getStringList("flags").forEach(f -> {
                 try { meta.addItemFlags(ItemFlag.valueOf(f.toUpperCase(Locale.ROOT))); } catch (Exception ignored) {}
             });
         }
-        /* unbreakable */
         meta.setUnbreakable(sec.getBoolean("unbreakable", false));
-        /* custom-model-data */
         if (sec.contains("custom_model_data")) {
             try { meta.setCustomModelData(sec.getInt("custom_model_data")); } catch (Exception ignored) {}
         }
-        /* commands */
         if (sec.contains("commands")) {
             List<String> cmds = sec.getStringList("commands");
             meta.getPersistentDataContainer().set(KEY_GUI_CMD, PersistentDataType.STRING, String.join("||", cmds));
@@ -540,7 +503,7 @@ public final class FirstJoinManager implements Listener, CommandExecutor, TabExe
         return item;
     }
 
-    /* ---------- UTILS ---------- */
+
     private void sendTitle(Player p, String title, String subtitle, int in, int stay, int out) {
         if (adventurePresent) {
             Audience a = adventure.player(p);
@@ -581,7 +544,7 @@ public final class FirstJoinManager implements Listener, CommandExecutor, TabExe
         return ChatColor.translateAlternateColorCodes('&', s);
     }
 
-    /* ---------- BOSSBAR ---------- */
+
     private final class BossBarRunner {
         private final Player player;
         private final String text;
@@ -598,7 +561,7 @@ public final class FirstJoinManager implements Listener, CommandExecutor, TabExe
             String s = ((String) m.getOrDefault("style", "SOLID")).toUpperCase(Locale.ROOT);
             this.color = tryParse(BarColor.class, c, BarColor.GREEN);
             this.style = tryParse(BarStyle.class, s, BarStyle.SOLID);
-            Component comp = parse(player, this.text);   // MiniMessage → Adventure component
+            Component comp = parse(player, this.text);
             this.bar = Bukkit.createBossBar(LegacyComponentSerializer.legacySection().serialize(comp), color, style);
         }
 

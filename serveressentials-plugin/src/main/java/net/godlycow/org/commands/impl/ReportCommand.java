@@ -151,7 +151,7 @@ public class ReportCommand implements CommandExecutor, TabCompleter {
         }
 
         if (!notified && !config.notifyOnlineOnly) {
-            storage.markAsCleared(report.id()); // Mark as pending
+            storage.markAsCleared(report.id());
         }
     }
 

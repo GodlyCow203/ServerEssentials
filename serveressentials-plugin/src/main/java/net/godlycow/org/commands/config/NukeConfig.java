@@ -2,10 +2,7 @@ package net.godlycow.org.commands.config;
 
 import org.bukkit.plugin.Plugin;
 
-/**
- * Configuration for /nuke command
- * Permission: serveressentials.command.nuke (hardcoded)
- */
+
 public final class NukeConfig {
     private final float explosionPower;
     private final boolean setFire;

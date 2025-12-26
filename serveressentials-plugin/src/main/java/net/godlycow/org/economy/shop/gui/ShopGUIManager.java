@@ -66,7 +66,6 @@ public class ShopGUIManager {
     }
 
     private void loadAllConfigs(boolean forceFromFiles) {
-        // Step 1: Check if shop folder exists
         File shopFolder = config.getShopFolder();
         if (!shopFolder.exists() || !shopFolder.isDirectory()) {
             plugin.getLogger().warning("Shop folder not found at: " + shopFolder.getPath());
@@ -75,10 +74,8 @@ public class ShopGUIManager {
             return;
         }
 
-        // Step 2: Load main config with smart source selection
         loadMainConfigSmart(forceFromFiles);
 
-        // Step 3: Load section configs
         loadSectionConfigsSmart(forceFromFiles);
 
         configsLoaded = true;
@@ -88,7 +85,6 @@ public class ShopGUIManager {
     private void loadMainConfigSmart(boolean forceFromFiles) {
         File mainFile = new File(config.getShopFolder(), "main.yml");
 
-        // Get timestamps for comparison
         long fileModified = mainFile.exists() ? mainFile.lastModified() : 0;
         long dbUpdated = dataManager.getMainConfigLastUpdate().join();
 
@@ -97,7 +93,6 @@ public class ShopGUIManager {
                 dbUpdated == 0;
 
         if (shouldLoadFromFile && mainFile.exists()) {
-            // Load from file and validate
             mainConfigCache = loadMainConfigFromFileInternal(mainFile);
             if (isValidMainConfig(mainConfigCache)) {
                 dataManager.saveMainConfig(mainConfigCache);
@@ -107,10 +102,8 @@ public class ShopGUIManager {
                 fallbackToDBMain();
             }
         } else if (dbUpdated > 0) {
-            // Load from database
             fallbackToDBMain();
         } else {
-            // No valid config found anywhere
             plugin.getLogger().warning("§eNo main shop config found in files or database. Using defaults.");
             mainConfigCache = new MainShopConfig();
         }
@@ -143,14 +136,12 @@ public class ShopGUIManager {
             loadSingleSectionSmart(name, forceFromFiles);
         }
 
-        // Clean up sections that no longer have files
         sectionCache.keySet().retainAll(processedSections);
     }
 
     private void loadSingleSectionSmart(String sectionName, boolean forceFromFiles) {
         File sectionFile = new File(config.getShopFolder(), sectionName + ".yml");
 
-        // Skip if file doesn't exist
         if (!sectionFile.exists()) {
             sectionCache.remove(sectionName);
             return;
@@ -189,7 +180,6 @@ public class ShopGUIManager {
         }
     }
 
-    // Internal file loading methods - DO NOT SAVE TO DB
     private MainShopConfig loadMainConfigFromFileInternal(File file) {
         org.bukkit.configuration.file.YamlConfiguration config =
                 org.bukkit.configuration.file.YamlConfiguration.loadConfiguration(file);
@@ -272,7 +262,6 @@ public class ShopGUIManager {
         return section;
     }
 
-    // Validation methods
     private boolean isValidMainConfig(MainShopConfig config) {
         return config != null &&
                 config.size > 0 &&
@@ -498,7 +487,6 @@ public class ShopGUIManager {
             return;
         }
 
-        // Calculate total buy price for the amount being bought
         double totalBuyPrice = item.buyPrice * item.amount;
 
         double balance = economyManager.getBalance(player);
@@ -542,7 +530,6 @@ public class ShopGUIManager {
             return;
         }
 
-        // Calculate total sell price for the amount being sold
         double totalSellPrice = item.sellPrice * item.amount;
 
         removeItems(player, item.material, item.amount);
@@ -557,7 +544,6 @@ public class ShopGUIManager {
 
             refreshGUI(player);
         } else {
-            // Return items if transaction failed
             player.getInventory().addItem(new ItemStack(item.material, item.amount));
             player.sendMessage(langManager.getMessageFor(player, "economy.shop.transaction-failed",
                     "<red>§c✗ Transaction failed: {error}",
@@ -640,15 +626,12 @@ public class ShopGUIManager {
     public void reloadConfigs(boolean forceFromFiles) {
         plugin.getLogger().info("Reloading shop configurations...");
 
-        // Clear cache first
         sectionCache.clear();
         mainConfigCache = null;
         configsLoaded = false;
 
-        // Load fresh
         loadAllConfigs(forceFromFiles);
 
-        // Refresh any open GUIs
         if (forceFromFiles) {
             refreshOpenInventories();
         }
@@ -682,7 +665,6 @@ public class ShopGUIManager {
         return skull;
     }
 
-    // Public getter methods
     public MainShopConfig getMainConfig() {
         return mainConfigCache;
     }

@@ -97,10 +97,8 @@ public class WarpTeleportCommand extends CommandModule implements CommandExecuto
                     Location location = loc.get();
                     plugin.getLogger().info("Warp location found: " + location + " in world " + location.getWorld());
 
-                    // CRITICAL: Schedule teleport on MAIN THREAD
                     plugin.getServer().getScheduler().runTask(plugin, () -> {
                         try {
-                            // Validate world is loaded
                             if (location.getWorld() == null) {
                                 player.sendMessage("§cWarp world is not loaded!");
                                 plugin.getLogger().warning("Warp '" + warpName + "' has null world!");

@@ -43,7 +43,6 @@ public class DatabaseManager {
                 hc.addDataSourceProperty("synchronous", "NORMAL");
                 plugin.getLogger().info("SQLite path: " + path);
             } else {
-                // MySQL with enhanced connection settings
                 String jdbc = String.format("jdbc:mysql://%s:%d/%s?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&connectTimeout=5000&socketTimeout=30000",
                         config.mysqlHost(), config.mysqlPort(), config.mysqlDatabase());
                 hc.setJdbcUrl(jdbc);
@@ -51,20 +50,18 @@ public class DatabaseManager {
                 hc.setPassword(config.mysqlPassword());
                 hc.setDriverClassName("com.mysql.cj.jdbc.Driver");
 
-                // Optimized pool settings
                 hc.setMaximumPoolSize(config.poolSize());
                 hc.setMinimumIdle(Math.min(1, config.poolSize() - 1));
-                hc.setConnectionTimeout(5000); // 5 second timeout
-                hc.setIdleTimeout(600000); // 10 minutes
-                hc.setMaxLifetime(1800000); // 30 minutes
-                hc.setLeakDetectionThreshold(60000); // 1 minute
+                hc.setConnectionTimeout(5000);
+                hc.setIdleTimeout(600000);
+                hc.setMaxLifetime(1800000);
+                hc.setLeakDetectionThreshold(60000);
 
                 plugin.getLogger().info("MySQL connection: " + config.mysqlHost() + ":" + config.mysqlPort());
             }
 
             HikariDataSource ds = new HikariDataSource(hc);
 
-            // Test connection before marking as connected
             try (Connection conn = ds.getConnection()) {
                 if (conn.isValid(3)) {
                     pools.put(key, ds);
@@ -79,7 +76,6 @@ public class DatabaseManager {
             plugin.getLogger().log(Level.SEVERE, "Failed to initialize database pool: " + key, ex);
             statusMap.put(key, new DatabaseStatus(false, ex.getMessage(), Instant.now()));
 
-            // Show MySQL troubleshooting if applicable
             if (config.type() == DatabaseType.MYSQL) {
                 diagnoseMySQL(config);
             }
@@ -157,7 +153,6 @@ public class DatabaseManager {
         DatabaseStatus status = statusMap.get(key);
         if (status == null) return false;
         if (status.connected()) {
-            // Verify connection is still alive
             return testConnection(key);
         }
         return false;

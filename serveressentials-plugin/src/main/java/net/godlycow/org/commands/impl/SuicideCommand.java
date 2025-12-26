@@ -40,7 +40,6 @@ public final class SuicideCommand implements CommandExecutor {
             return true;
         }
 
-        // Store usage before killing (async)
         UUID playerId = player.getUniqueId();
         dataStorage.getState(playerId, "suicide", "usage_count").thenAccept(opt -> {
             int count = opt.map(Integer::parseInt).orElse(0);
@@ -52,7 +51,6 @@ public final class SuicideCommand implements CommandExecutor {
             return null;
         });
 
-        // Kill player
         player.setHealth(0);
         player.sendMessage(langManager.getMessageFor(player, "commands.suicide.success",
                 "<dark_red>You have taken your own life."));

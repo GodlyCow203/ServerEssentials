@@ -547,15 +547,38 @@ canon:                    # Shoot TNT!
 beezooka:                 # Shoot bees!
   velocity: 2.5
 
-# Home system (/home)
 homes:
-  max-homes: 8            # Maximum homes per player
-  allow-rename: true      # Allow renaming homes
-  
-  gui:
-    titles:
-      main: "<green>Home Manager"
-      confirm: "<red>Confirm Action"
+  # Core settings
+  max-homes: 8
+  allow-rename: true
+
+  # Cooldown settings (seconds)
+  cooldowns:
+    set: 30              # Cooldown between setting homes
+    teleport: 5          # Cooldown between teleporting
+
+  # World restrictions
+  restrictions:
+    disabled-worlds:
+      - "pvp_arena"
+      - "minigame_lobby"
+      - "event_world"
+
+    # Worlds where you cannot teleport FROM (but can still set homes)
+    teleport-restricted-worlds:
+      - "jail"
+      - "combat_tagged"
+
+    allow-cross-world-teleport: true  # Allow teleporting to homes in other worlds
+
+  # Home naming rules
+  naming:
+    max-length: 4
+    allow-duplicate-names: false
+
+  # Gameplay restrictions
+  require-empty-inventory: false  # Require empty inventory to set home
+
 
 # Back command (/back)
 back:

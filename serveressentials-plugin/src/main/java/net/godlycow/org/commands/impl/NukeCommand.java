@@ -45,14 +45,12 @@ public final class NukeCommand implements CommandExecutor {
         World world = player.getWorld();
         Location loc = player.getLocation();
 
-        // Create explosion with config values
         world.createExplosion(loc, config.explosionPower(), config.setFire(), config.breakBlocks());
 
         player.sendMessage(langManager.getMessageFor(player, "commands.nuke.deployed",
                 "<green>Nuke deployed! <gray>(Power: {power})",
                 ComponentPlaceholder.of("{power}", config.explosionPower())));
 
-        // Store usage statistics (async)
         UUID playerId = player.getUniqueId();
         dataStorage.getState(playerId, "nuke", "usage_count").thenAccept(opt -> {
             int count = opt.map(Integer::parseInt).orElse(0);

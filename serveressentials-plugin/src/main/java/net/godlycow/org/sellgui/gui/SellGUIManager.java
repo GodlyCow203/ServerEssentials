@@ -5,7 +5,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.godlycow.org.commands.config.SellConfig;
 import net.godlycow.org.economy.eco.EconomyManager;
-import net.godlycow.org.economy.eco.EconomyResponse; // Fixed import
+import net.godlycow.org.economy.eco.EconomyResponse;
 import net.godlycow.org.language.PlayerLanguageManager;
 import net.godlycow.org.language.LanguageManager.ComponentPlaceholder;
 import org.bukkit.Bukkit;

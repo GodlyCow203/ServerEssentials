@@ -2,7 +2,7 @@ package net.godlycow.org.commands.impl;
 
 import net.godlycow.org.commands.config.PayConfig;
 import net.godlycow.org.economy.eco.EconomyManager;
-import net.godlycow.org.economy.eco.EconomyResponse; // FIXED: Import the correct class
+import net.godlycow.org.economy.eco.EconomyResponse;
 import net.godlycow.org.language.PlayerLanguageManager;
 import net.godlycow.org.language.LanguageManager.ComponentPlaceholder;
 import org.bukkit.Bukkit;

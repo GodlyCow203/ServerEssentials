@@ -96,7 +96,6 @@ public final class CondenseCommand implements CommandExecutor {
                     "<yellow>You don't have enough items to condense."));
         }
 
-        // Store usage statistics (async)
         UUID playerId = player.getUniqueId();
         int finalTotalBlocksCreated = totalBlocksCreated;
         dataStorage.getState(playerId, "condense", "usage_count").thenAccept(opt -> {

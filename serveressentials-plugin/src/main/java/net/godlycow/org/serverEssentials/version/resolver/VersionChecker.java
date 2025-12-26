@@ -13,7 +13,6 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-// Adventure (MiniMessage)
 import net.kyori.adventure.text.minimessage.MiniMessage;
 
 public class VersionChecker {

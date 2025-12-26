@@ -140,7 +140,6 @@ public final class ShopCommand implements CommandExecutor {
                     ShopConfigLoader.saveMainConfig(mainFile, mainConfig);
                 }
 
-                // Save sections
                 guiManager.getSectionCache().forEach((sectionName, sectionConfig) -> {
                     File sectionFile = new File(config.getShopFolder(), sectionName + ".yml");
                     ShopConfigLoader.saveSectionConfig(sectionFile, sectionConfig);

@@ -64,7 +64,6 @@ public class KitConfigManager {
         }
 
         config = YamlConfiguration.loadConfiguration(file);
-        // Reload kits into manager
         KitManager.loadKits(config);
     }
 }

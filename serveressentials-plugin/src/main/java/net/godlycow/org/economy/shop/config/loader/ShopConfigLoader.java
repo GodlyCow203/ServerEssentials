@@ -14,13 +14,11 @@ public class ShopConfigLoader {
     private static final com.google.gson.Gson gson = new com.google.gson.Gson();
 
     public static MainShopConfig loadMainConfig(File file, ShopDataManager dataManager) {
-        // Check DB first - it should be the source of truth
         MainShopConfig dbConfig = dataManager.loadMainConfig().join();
         if (dbConfig != null && isValidMainConfig(dbConfig)) {
             return dbConfig;
         }
 
-        // Only load from file if DB is empty/invalid
         if (!file.exists()) {
             System.err.println("No main.yml found. Using defaults.");
             return new MainShopConfig();
@@ -31,13 +29,11 @@ public class ShopConfigLoader {
     }
 
     public static ShopSectionConfig loadSectionConfig(File file, String sectionName, ShopDataManager dataManager) {
-        // Check DB first
         ShopSectionConfig dbConfig = dataManager.loadSectionConfig(sectionName).join();
         if (dbConfig != null && isValidSectionConfig(dbConfig)) {
             return dbConfig;
         }
 
-        // Load from file if DB empty
         if (!file.exists()) {
             System.err.println("Section file not found: " + file.getName());
             return new ShopSectionConfig();
@@ -47,7 +43,6 @@ public class ShopConfigLoader {
         return loadSectionConfigFromFileInternal(file);
     }
 
-    // Internal file loading methods - DO NOT SAVE TO DB
     private static MainShopConfig loadMainConfigFromFileInternal(File file) {
         YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
         MainShopConfig main = new MainShopConfig();
@@ -128,7 +123,6 @@ public class ShopConfigLoader {
         return section;
     }
 
-    // Validation helpers
     private static boolean isValidMainConfig(MainShopConfig config) {
         return config != null && config.size > 0 && config.layout != null && config.sectionButtons != null;
     }

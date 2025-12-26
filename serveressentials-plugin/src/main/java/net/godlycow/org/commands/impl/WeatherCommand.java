@@ -123,27 +123,22 @@ public final class WeatherCommand implements CommandExecutor, TabCompleter {
     private void sendHelpMessage(Player player) {
         Component help = Component.empty()
 
-                // HEADER
                 .append(langManager.getMessageFor(player, "commands.weather.help.header",
                         "<#FFD900><bold>=== Weather Command Help ===</bold></#FFD900>"))
                 .append(Component.newline())
 
-                // DESCRIPTION
                 .append(langManager.getMessageFor(player, "commands.weather.help.description",
                         "<gray>Change the weather in your current world for a set duration.</gray>"))
                 .append(Component.newline())
 
-                // USAGE
                 .append(langManager.getMessageFor(player, "commands.weather.help.usage",
                         "<#FFD900>Usage:</#FFD900> <white>/weather <type></white>"))
                 .append(Component.newline())
 
-                // TYPES HEADER
                 .append(langManager.getMessageFor(player, "commands.weather.help.types.header",
                         "<#FFD900>Available Weather Types:</#FFD900>"))
                 .append(Component.newline());
 
-        // CLEAR
         help = help.append(
                 player.hasPermission(PERMISSION_CLEAR)
                         ? langManager.getMessageFor(player, "commands.weather.help.types.clear",
@@ -152,7 +147,6 @@ public final class WeatherCommand implements CommandExecutor, TabCompleter {
                         "  <dark_gray>• clear</dark_gray> <gray>- No permission</gray>")
         ).append(Component.newline());
 
-        // RAIN
         help = help.append(
                 player.hasPermission(PERMISSION_RAIN)
                         ? langManager.getMessageFor(player, "commands.weather.help.types.rain",
@@ -161,7 +155,6 @@ public final class WeatherCommand implements CommandExecutor, TabCompleter {
                         "  <dark_gray>• rain</dark_gray> <gray>- No permission</gray>")
         ).append(Component.newline());
 
-        // THUNDER
         help = help.append(
                 player.hasPermission(PERMISSION_THUNDER)
                         ? langManager.getMessageFor(player, "commands.weather.help.types.thunderstorm",
@@ -170,13 +163,11 @@ public final class WeatherCommand implements CommandExecutor, TabCompleter {
                         "  <dark_gray>• thunderstorm</dark_gray> <gray>- No permission</gray>")
         ).append(Component.newline());
 
-        // DURATION
         help = help.append(langManager.getMessageFor(player, "commands.weather.help.duration",
                         "<#FFD900>Duration:</#FFD900> <white>{duration} seconds</white>",
                         ComponentPlaceholder.of("{duration}", config.durationTicks() / 20)))
                 .append(Component.newline());
 
-        // FOOTER
         help = help.append(langManager.getMessageFor(player, "commands.weather.help.footer",
                 "<dark_gray>Use /weather help to see this message again.</dark_gray>"));
 

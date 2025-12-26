@@ -276,7 +276,6 @@ public class RtpListener implements Listener {
             Block head = w.getBlockAt(x, y + 1, z);
             Block ground = w.getBlockAt(x, y - 1, z);
 
-            // Both air blocks for player
             if (!feet.getType().isAir()) return false;
             if (!head.getType().isAir()) return false;
 

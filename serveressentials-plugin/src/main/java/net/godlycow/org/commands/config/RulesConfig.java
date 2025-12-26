@@ -2,11 +2,7 @@ package net.godlycow.org.commands.config;
 
 import org.bukkit.plugin.Plugin;
 
-/**
- * Configuration for /rules command and GUI
- * Permission: serveressentials.command.rules (hardcoded)
- * Reload Permission: serveressentials.command.rules.reload (hardcoded)
- */
+
 public final class RulesConfig {
     private final String title;
     private final String acceptButtonText;
@@ -35,7 +31,6 @@ public final class RulesConfig {
         this.reloadPermission = "serveressentials.command.rules.reload";
     }
 
-    // Getter methods
     public String title() { return title; }
     public String acceptButtonText() { return acceptButtonText; }
     public String declineButtonText() { return declineButtonText; }

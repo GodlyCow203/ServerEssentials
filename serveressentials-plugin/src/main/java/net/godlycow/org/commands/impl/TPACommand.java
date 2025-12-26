@@ -83,7 +83,6 @@ public class TPACommand implements CommandExecutor {
 
     private boolean processCommand(Player player, String name, String[] args) {
 
-        // Build the permission dynamically
         String permission = "serveressentials.command." + name.toLowerCase();
 
         if (!player.hasPermission(permission)) {

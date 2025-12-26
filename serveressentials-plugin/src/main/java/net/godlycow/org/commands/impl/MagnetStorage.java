@@ -16,7 +16,6 @@ public final class MagnetStorage {
     public MagnetStorage(Plugin plugin, CommandDataStorage commandDataStorage) {
         this.plugin = plugin;
         this.commandDataStorage = commandDataStorage;
-        // Load currently online players individually
         for (Player player : Bukkit.getOnlinePlayers()) {
             loadPlayerState(player);
         }

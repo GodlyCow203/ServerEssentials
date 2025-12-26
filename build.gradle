@@ -15,6 +15,31 @@ java {
     }
     withSourcesJar()
 }
+tasks.named('clean') {
+    doLast {
+        def runPluginsDir = file("run/server/paper/plugins")
+
+        def oldJar = new File(runPluginsDir, "serveressentials-${version}.jar")
+        if (oldJar.exists()) {
+            println "Deleting old plugin jar: ${oldJar.name}"
+            oldJar.delete()
+        }
+
+        def pluginFolder = new File(runPluginsDir, "ServerEssentials")
+        if (pluginFolder.exists()) {
+            println "Deleting plugin folder: ${pluginFolder.name}"
+            pluginFolder.deleteDir()
+        }
+
+        def distPluginsDir = file("dist/plugins")
+        if (distPluginsDir.exists()) {
+            println "Deleting dist/plugins folder"
+            distPluginsDir.deleteDir()
+        }
+    }
+}
+
+
 
 def distDir = layout.projectDirectory.dir("dist/plugins")
 def buildHistoryDir = file("${projectDir}/build-history")
@@ -54,11 +79,16 @@ tasks.register('downloadPaper') {
 tasks.register('copyPlugin', Copy) {
     dependsOn tasks.named('shadowJar')
     from(distDir)
-    include '*.jar'
-    exclude 'serveressentials-api*.jar'
-    exclude '*-sources.jar'
+    include "ServerEssentials-2.0.7.9.jar"
     into runPluginsDir
+
+    doFirst {
+        distDir.asFile.mkdirs()
+    }
 }
+
+
+
 
 
 

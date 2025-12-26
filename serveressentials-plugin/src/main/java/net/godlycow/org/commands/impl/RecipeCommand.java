@@ -76,7 +76,6 @@ public final class RecipeCommand implements CommandExecutor, TabCompleter {
                 "<green>Recipe for: <yellow>{item}",
                 ComponentPlaceholder.of("{item}", result.getType().toString())));
 
-        // Handle shaped recipes
         if (recipe instanceof ShapedRecipe shaped) {
             player.sendMessage(langManager.getMessageFor(player, "commands.recipe.shaped-header",
                     "<aqua>Shaped Recipe Ingredients:"));
@@ -91,7 +90,6 @@ public final class RecipeCommand implements CommandExecutor, TabCompleter {
                 }
             });
         }
-        // Handle shapeless recipes
         else if (recipe instanceof ShapelessRecipe shapeless) {
             player.sendMessage(langManager.getMessageFor(player, "commands.recipe.shapeless-header",
                     "<aqua>Shapeless Recipe Ingredients:"));
@@ -105,13 +103,11 @@ public final class RecipeCommand implements CommandExecutor, TabCompleter {
                 }
             }
         }
-        // Handle other recipe types
         else {
             player.sendMessage(langManager.getMessageFor(player, "commands.recipe.unknown-type",
                     "<red>Unknown recipe type!"));
         }
 
-        // Store usage statistics (async)
         UUID playerId = player.getUniqueId();
         dataStorage.getState(playerId, "recipe", "usage_count").thenAccept(opt -> {
             int count = opt.map(Integer::parseInt).orElse(0);
@@ -130,13 +126,11 @@ public final class RecipeCommand implements CommandExecutor, TabCompleter {
             String current = args[0].toLowerCase();
             List<String> results = new ArrayList<>();
 
-            // Collect all recipe keys
             Bukkit.recipeIterator().forEachRemaining(recipe -> {
                 if (recipe instanceof Keyed keyed && recipe.getResult() != null) {
                     NamespacedKey key = keyed.getKey();
-                    String name = key.toString(); // Get full namespaced key
+                    String name = key.toString();
 
-                    // Only show if player has started typing the key
                     if (name.toLowerCase().startsWith(current)) {
                         results.add(name);
                     }

@@ -101,7 +101,6 @@ public final class InvseeCommand implements TabExecutor {
                 completions.add("help");
             }
 
-            // Add online players that match
             completions.addAll(
                     Bukkit.getOnlinePlayers().stream()
                             .map(Player::getName)

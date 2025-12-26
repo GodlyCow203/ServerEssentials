@@ -83,7 +83,6 @@ public class SessionManager {
     public CompletableFuture<Long> getLongestSession(Player player) {
         UUID uuid = player.getUniqueId();
 
-        // Return cached value if available
         if (longestSessions.containsKey(uuid)) {
             return CompletableFuture.completedFuture(longestSessions.get(uuid));
         }
@@ -91,7 +90,7 @@ public class SessionManager {
         return dataStorage.getState(uuid, "session", "longest")
                 .thenApply(opt -> {
                     long longest = opt.map(Long::parseLong).orElse(0L);
-                    longestSessions.put(uuid, longest); // Cache it
+                    longestSessions.put(uuid, longest);
                     return longest;
                 });
     }

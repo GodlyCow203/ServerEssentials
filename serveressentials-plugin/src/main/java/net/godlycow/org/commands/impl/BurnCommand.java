@@ -30,7 +30,6 @@ public final class BurnCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        // Permission check
         if (!sender.hasPermission(PERMISSION)) {
             sender.sendMessage(langManager.getMessageFor(null, "commands.burn.no-permission",
                     "<red>You need permission <yellow>{permission}</yellow>!",
@@ -38,14 +37,12 @@ public final class BurnCommand implements CommandExecutor {
             return true;
         }
 
-        // Usage check
         if (args.length < 1) {
             sender.sendMessage(langManager.getMessageFor(sender instanceof Player ? (Player)sender : null, "commands.burn.usage",
                     "<red>Usage: <white>/burn <player> [seconds]"));
             return true;
         }
 
-        // Find target player
         Player target = Bukkit.getPlayerExact(args[0]);
         if (target == null) {
             sender.sendMessage(langManager.getMessageFor(sender instanceof Player ? (Player)sender : null, "commands.burn.player-not-found",
@@ -54,7 +51,6 @@ public final class BurnCommand implements CommandExecutor {
             return true;
         }
 
-        // Can't burn yourself unless you have permission
         if (sender instanceof Player player && target.equals(player)) {
             if (!player.hasPermission(PERMISSION)) {
                 player.sendMessage(langManager.getMessageFor(player, "commands.burn.no-permission",
@@ -63,7 +59,6 @@ public final class BurnCommand implements CommandExecutor {
                 return true;
             }
         } else {
-            // Burning others requires permissions
             if (!sender.hasPermission(PERMISSION_OTHERS)) {
                 sender.sendMessage(langManager.getMessageFor(sender instanceof Player ? (Player)sender : null, "commands.burn.no-permission-sub",
                         "<red>You need permission <yellow>{subpermission}</yellow>!",
@@ -72,7 +67,6 @@ public final class BurnCommand implements CommandExecutor {
             }
         }
 
-        // Check target game mode immunity
         if (target.getGameMode() == GameMode.CREATIVE || target.getGameMode() == GameMode.SPECTATOR) {
             sender.sendMessage(langManager.getMessageFor(sender instanceof Player ? (Player)sender : null, "commands.burn.immune-gamemode",
                     "<red>{target} is in <yellow>{gamemode}</yellow> mode and is immune!",
@@ -81,7 +75,6 @@ public final class BurnCommand implements CommandExecutor {
             return true;
         }
 
-        // Parse duration
         int seconds = config.defaultDuration();
         if (args.length == 2) {
             try {
@@ -103,17 +96,13 @@ public final class BurnCommand implements CommandExecutor {
 
         }
 
-        // Apply fire
         target.setFireTicks(seconds * 20);
 
-        // Send messages
         if (sender instanceof Player attacker && target.equals(attacker)) {
-            // Self-burn
             target.sendMessage(langManager.getMessageFor(target, "commands.burn.self-burned",
                     "<yellow>You set yourself on fire for <gold>{seconds} <yellow>seconds!",
                     ComponentPlaceholder.of("{seconds}", seconds)));
         } else {
-            // Burn target
             target.sendMessage(langManager.getMessageFor(target, "commands.burn.target-burned",
                     "<red>You've been set on fire by <yellow>{attacker}</yellow>!",
                     ComponentPlaceholder.of("{attacker}", sender.getName())));
@@ -124,7 +113,6 @@ public final class BurnCommand implements CommandExecutor {
                     ComponentPlaceholder.of("{seconds}", seconds)));
         }
 
-        // Track usage statistics (async)
         UUID executorId = sender instanceof Player ? ((Player)sender).getUniqueId() : null;
         if (executorId != null) {
             trackUsage(executorId, target.getUniqueId(), seconds, target.equals(sender));

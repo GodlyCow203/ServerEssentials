@@ -56,7 +56,7 @@ public class BanStorage {
                 uuid.toString()
         ).thenApply(optUntil ->
                 optUntil.map(until -> {
-                    if (until == -1) return true; // permanent
+                    if (until == -1) return true;
                     return System.currentTimeMillis() <= until;
                 }).orElse(false)
         );

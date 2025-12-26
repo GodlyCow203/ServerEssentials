@@ -30,6 +30,7 @@ import net.godlycow.org.mail.trigger.MailListener;
 import net.godlycow.org.managers.cooldown.CooldownManager;
 import net.godlycow.org.managers.player.PlaytimeManager;
 import net.godlycow.org.managers.player.SessionManager;
+import net.godlycow.org.managers.plugin.ReloadManager;
 import net.godlycow.org.mute.storage.MuteStorage;
 import net.godlycow.org.nick.storage.NickStorage;
 import net.godlycow.org.notes.storage.NotesStorage;
@@ -426,12 +427,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
     private AFKCommand afkCommand;
     private AFKManager afkManager;
     private NickStorage nickStorage;
-
-
-
-
-
-
+    private ReloadManager reloadManager;
 
     @Override
     public void onEnable() {
@@ -472,6 +468,9 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         } else {
             getLogger().warning("§cEconomy system failed to initialize!");
         }
+
+        reloadManager = new ReloadManager(this);
+
 
 
 
@@ -951,7 +950,6 @@ public class ServerEssentials extends JavaPlugin implements Listener {
 
 
 
-        // 7. Register Listeners
         getServer().getPluginManager().registerEvents(reportListener, this);
         getServer().getPluginManager().registerEvents(tpaListener, this);
         getServer().getPluginManager().registerEvents(mailListener, this);
@@ -1355,9 +1353,11 @@ public class ServerEssentials extends JavaPlugin implements Listener {
     private void initializeHomesSystem() {
         homesConfig = new HomesConfig(this);
         homeStorage = new HomeStorage(databaseManager);
-        homeManager = new HomeManager(homeStorage, homesConfig.maxHomes);
+        homeManager = new HomeManager(homeStorage, homesConfig);
         homeGUIListener = new HomeGUIListener(this, playerLanguageManager, homesConfig, homeManager);
-        homeCommand = new HomeCommand(this, playerLanguageManager, homeGUIListener);
+        homeCommand = new HomeCommand(this, playerLanguageManager, homeGUIListener, homesConfig);
+        getCommand("home").setExecutor(homeCommand);
+
     }
     private void initializeAuctionSystem() {
         auctionConfig = new AuctionConfig(this);
@@ -1668,6 +1668,12 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         nickStorage = new NickStorage(this, databaseManager, "nicks");
         nickManager = new NickManager(this, nickStorage);
         nickCommand = new NickCommand(playerLanguageManager, nickConfig, nickStorage, nickManager);
+        getServer().getPluginManager().registerEvents(new NickListener(nickManager), this);
+
+    }
+
+    public HomeManager getHomeManager() {
+        return homeManager;
     }
 
 

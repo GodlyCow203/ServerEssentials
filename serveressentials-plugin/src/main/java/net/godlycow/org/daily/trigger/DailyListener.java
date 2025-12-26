@@ -70,7 +70,6 @@ DailyListener implements Listener {
                 storage.getTimeUntilNextClaim(player.getUniqueId(), config.cooldownHours).thenAccept(duration -> {
                     onCooldown[0] = duration.onCooldown();
 
-                    // Build GUI in main thread
                     new BukkitRunnable() {
                         @Override
                         public void run() {
@@ -89,7 +88,6 @@ DailyListener implements Listener {
                                   Set<Integer> claimedDays, DailyStorage.DurationInfo duration) {
         gui.clear();
 
-        // Add rewards for this page
         config.rewards.values().stream()
                 .filter(reward -> reward.page == page)
                 .forEach(reward -> {
@@ -97,7 +95,6 @@ DailyListener implements Listener {
                     gui.setItem(reward.slot, item);
                 });
 
-        // Navigation
         if (page > 1) {
             gui.setItem(45, createNavItem(Material.ARROW, "daily.gui.previous",
                     "<yellow>Previous Page"));
@@ -107,7 +104,6 @@ DailyListener implements Listener {
                     "<yellow>Next Page"));
         }
 
-        // Close button
         gui.setItem(config.guiRows * 9 - 5, createNavItem(Material.BARRIER, "daily.gui.close",
                 "<red>Close"));
     }
@@ -123,7 +119,6 @@ DailyListener implements Listener {
         ItemMeta meta;
 
         if (isClaimed) {
-            // Show actual reward item but with "claimed" overlay
             item = createActualRewardItem(reward.items.get(0));
             meta = item.getItemMeta();
 
@@ -136,10 +131,8 @@ DailyListener implements Listener {
             lore.add(langManager.getMessageFor(player, "daily.rewards.claimed.lore",
                     "<gray>You have claimed this reward."));
 
-            // Get claim date from DB (optional enhancement)
             meta.lore(lore);
         } else if (isOnCooldown) {
-            // Show locked due to cooldown
             item = new ItemStack(Material.RED_STAINED_GLASS_PANE);
             meta = item.getItemMeta();
 
@@ -155,7 +148,6 @@ DailyListener implements Listener {
 
             meta.lore(lore);
         } else if (!isUnlocked) {
-            // Show locked - previous days not completed
             item = new ItemStack(Material.RED_STAINED_GLASS_PANE);
             meta = item.getItemMeta();
 
@@ -168,7 +160,6 @@ DailyListener implements Listener {
                             "<gray>Complete previous days first.")
             ));
         } else {
-            // Show actual reward item preview
             item = createActualRewardItem(reward.items.get(0));
             meta = item.getItemMeta();
 
@@ -180,7 +171,6 @@ DailyListener implements Listener {
             List<Component> lore = new ArrayList<>();
             lore.add(Component.empty());
 
-            // Add custom lore from config
             reward.items.get(0).lore.forEach(line ->
                     lore.add(langManager.getMessageFor(player, line, line))
             );
@@ -193,14 +183,12 @@ DailyListener implements Listener {
             meta.lore(lore);
         }
 
-        // Add glow
         if ((!isClaimed && !isOnCooldown && isUnlocked) ||
                 (reward.items.get(0).glow && !isClaimed)) {
             meta.addEnchant(Enchantment.UNBREAKING, 1, true);
             meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
 
-        // Store metadata
         PersistentDataContainer container = meta.getPersistentDataContainer();
         container.set(new org.bukkit.NamespacedKey(plugin, REWARD_ID_KEY),
                 PersistentDataType.INTEGER, reward.day);
@@ -227,7 +215,6 @@ DailyListener implements Listener {
             meta.lore(lore);
         }
 
-        // Apply enchantments
         rewardItem.enchantments.forEach((enchantName, level) -> {
             org.bukkit.enchantments.Enchantment enchant =
                     org.bukkit.enchantments.Enchantment.getByName(enchantName.toUpperCase());
@@ -286,7 +273,6 @@ DailyListener implements Listener {
         );
 
         if (rewardDay == null) {
-            // Handle navigation
             if (clicked.getType() == Material.ARROW) {
                 handleNavigation(e, player);
             } else if (clicked.getType() == Material.BARRIER) {
@@ -365,7 +351,6 @@ DailyListener implements Listener {
                     });
                 }
 
-                // Check cooldown
                 return storage.hasClaimedToday(uuid, config.cooldownHours).thenCompose(onCooldown -> {
                     if (onCooldown) {
                         return storage.getTimeUntilNextClaim(uuid, config.cooldownHours).thenAccept(duration -> {
@@ -381,7 +366,6 @@ DailyListener implements Listener {
                         });
                     }
 
-                    // Process claim
                     return claimReward(player, day, uuid);
                 });
             });
@@ -393,7 +377,6 @@ DailyListener implements Listener {
         if (reward == null) return CompletableFuture.completedFuture(null);
 
         return storage.claimReward(uuid, day).thenAccept(v -> {
-            // Give items
             new BukkitRunnable() {
                 @Override
                 public void run() {
@@ -407,7 +390,6 @@ DailyListener implements Listener {
                             LanguageManager.ComponentPlaceholder.of("{day}", day)));
                     player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0f, 1.2f);
 
-                    // Refresh GUI
                     new BukkitRunnable() {
                         @Override
                         public void run() {

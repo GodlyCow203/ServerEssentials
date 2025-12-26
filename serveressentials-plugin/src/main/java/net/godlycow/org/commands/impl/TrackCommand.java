@@ -56,7 +56,6 @@ public final class TrackCommand implements CommandExecutor {
             return true;
         }
 
-        // Set compass target
         Location targetLoc = target.getLocation();
         player.setCompassTarget(targetLoc);
 
@@ -64,11 +63,9 @@ public final class TrackCommand implements CommandExecutor {
                 "<green>Now tracking <yellow>{target}</yellow>. Compass updated.",
                 ComponentPlaceholder.of("{target}", target.getName())));
 
-        // Store tracking data (async)
         UUID playerId = player.getUniqueId();
         String trackingData = target.getUniqueId() + ":" + System.currentTimeMillis();
         dataStorage.setState(playerId, "track", "last_target", trackingData).thenAccept(v -> {
-            // Also update usage count
             dataStorage.getState(playerId, "track", "usage_count").thenAccept(opt -> {
                 int count = opt.map(Integer::parseInt).orElse(0);
                 dataStorage.setState(playerId, "track", "usage_count", String.valueOf(count + 1));

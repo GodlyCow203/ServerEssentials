@@ -63,7 +63,6 @@ public final class BottomCommand implements CommandExecutor {
                     "<red>No safe ground below!"));
         }
 
-        // Store usage statistics (async)
         UUID playerId = player.getUniqueId();
         dataStorage.getState(playerId, "bottom", "usage_count").thenAccept(opt -> {
             int count = opt.map(Integer::parseInt).orElse(0);

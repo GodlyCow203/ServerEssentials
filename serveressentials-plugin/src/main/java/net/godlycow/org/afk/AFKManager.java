@@ -27,7 +27,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public final class AFKManager implements Listener {
     private final MiniMessage mini = MiniMessage.miniMessage();
     private final Map<UUID, Long> lastActivity = new ConcurrentHashMap<>();
-    private final Map<UUID, Long> lastMoveTime = new ConcurrentHashMap<>(); // NEW: Track last movement
+    private final Map<UUID, Long> lastMoveTime = new ConcurrentHashMap<>();
     private final Set<UUID> afkPlayers = ConcurrentHashMap.newKeySet();
     private final Map<UUID, BossBar> bossBars = new ConcurrentHashMap<>();
     private BukkitTask checkTask;
@@ -35,7 +35,7 @@ public final class AFKManager implements Listener {
     private final Plugin plugin;
     private final AFKConfig config;
 
-    private static final long STILLNESS_THRESHOLD_MS = 5000; // NEW: 5 second stillness requirement
+    private static final long STILLNESS_THRESHOLD_MS = 5000;
 
     public AFKManager(Plugin plugin, AFKConfig config) {
         this.plugin = plugin;
@@ -49,7 +49,7 @@ public final class AFKManager implements Listener {
         Bukkit.getOnlinePlayers().forEach(player -> {
             long currentTime = System.currentTimeMillis();
             lastActivity.put(player.getUniqueId(), currentTime);
-            lastMoveTime.put(player.getUniqueId(), currentTime); // NEW: Initialize move time
+            lastMoveTime.put(player.getUniqueId(), currentTime);
         });
     }
 
@@ -67,7 +67,6 @@ public final class AFKManager implements Listener {
         for (Player player : Bukkit.getOnlinePlayers()) {
             UUID uuid = player.getUniqueId();
 
-            // Skip exempt worlds and players
             if (config.exemptWorlds.contains(player.getWorld().getName())) continue;
             if (player.hasPermission("serveressentials.afk.exempt")) continue;
 
@@ -77,7 +76,6 @@ public final class AFKManager implements Listener {
             long timeSinceLastActivity = currentTime - lastActive;
             long timeSinceLastMove = currentTime - lastMove;
 
-            // NEW: Only mark AFK if player has been BOTH still for 5s AND inactive for timeout period
             if (!afkPlayers.contains(uuid) &&
                     timeSinceLastMove >= STILLNESS_THRESHOLD_MS &&
                     timeSinceLastActivity >= timeoutMillis) {
@@ -180,7 +178,7 @@ public final class AFKManager implements Listener {
 
     public void reload() {
         lastActivity.clear();
-        lastMoveTime.clear(); // NEW: Clear move times
+        lastMoveTime.clear();
         afkPlayers.clear();
         bossBars.values().forEach(bar -> Bukkit.getOnlinePlayers().forEach(p -> p.hideBossBar(bar)));
         bossBars.clear();
@@ -196,31 +194,28 @@ public final class AFKManager implements Listener {
     public void onPlayerJoin(PlayerJoinEvent e) {
         long currentTime = System.currentTimeMillis();
         lastActivity.put(e.getPlayer().getUniqueId(), currentTime);
-        lastMoveTime.put(e.getPlayer().getUniqueId(), currentTime); // NEW: Initialize move time
+        lastMoveTime.put(e.getPlayer().getUniqueId(), currentTime);
     }
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent e) {
         UUID u = e.getPlayer().getUniqueId();
         lastActivity.remove(u);
-        lastMoveTime.remove(u); // NEW: Remove move time
+        lastMoveTime.remove(u);
         afkPlayers.remove(u);
         removeBossBar(e.getPlayer());
     }
 
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent e) {
-        // Only detect block movement (not camera rotation)
         if (!e.getFrom().getBlock().equals(e.getTo().getBlock())) {
             Player player = e.getPlayer();
             UUID uuid = player.getUniqueId();
             long currentTime = System.currentTimeMillis();
 
-            // NEW: Update both timestamps
             lastMoveTime.put(uuid, currentTime);
             lastActivity.put(uuid, currentTime);
 
-            // FIX: Always remove AFK on movement (even for exempt players)
             if (afkPlayers.contains(uuid)) {
                 plugin.getLogger().info("[AFK] Removing AFK from " + player.getName() + " due to movement");
                 setAFK(player, false);
@@ -229,12 +224,11 @@ public final class AFKManager implements Listener {
     }
 
     public void updateActivity(Player player) {
-        // FIX: Removed exempt check so movement always cancels AFK
         UUID uuid = player.getUniqueId();
         long currentTime = System.currentTimeMillis();
 
         lastActivity.put(uuid, currentTime);
-        lastMoveTime.put(uuid, currentTime); // NEW: Update move time
+        lastMoveTime.put(uuid, currentTime);
 
         if (afkPlayers.contains(uuid)) {
             setAFK(player, false);

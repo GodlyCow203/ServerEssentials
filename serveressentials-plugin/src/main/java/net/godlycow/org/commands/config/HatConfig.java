@@ -28,7 +28,6 @@ public final class HatConfig {
             }
         }
 
-        // If list is empty, allow all items
         if (allowedItems.isEmpty()) {
             requireAllowedList1 = false;
         }

@@ -3,7 +3,7 @@ package net.godlycow.org.commands.impl;
 import net.kyori.adventure.text.Component;
 import net.godlycow.org.commands.config.CoinFlipConfig;
 import net.godlycow.org.economy.eco.EconomyManager;
-import net.godlycow.org.economy.eco.EconomyResponse; // Added correct import
+import net.godlycow.org.economy.eco.EconomyResponse;
 import net.godlycow.org.language.PlayerLanguageManager;
 import net.godlycow.org.language.LanguageManager.ComponentPlaceholder;
 import org.bukkit.command.Command;

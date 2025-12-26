@@ -10,7 +10,6 @@ import org.bukkit.entity.Player;
 import static net.godlycow.org.language.LanguageManager.ComponentPlaceholder;
 
 public final class DayCommand implements CommandExecutor {
-    // PERMISSION IS HARDCODED - NOT CONFIGURABLE
     private static final String PERMISSION = "serveressentials.command.day";
 
     private final PlayerLanguageManager langManager;

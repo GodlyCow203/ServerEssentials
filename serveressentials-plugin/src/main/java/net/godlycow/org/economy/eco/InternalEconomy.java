@@ -79,7 +79,6 @@ public class InternalEconomy implements EconomyAPI {
     @Override
     public String format(double amount) { return String.format("$%.2f", amount); }
 
-    // === CRITICAL: Account existence checking for Vault compliance ===
 
     public boolean hasAccount(OfflinePlayer player) {
         return hasAccount(player.getUniqueId());
@@ -101,7 +100,7 @@ public class InternalEconomy implements EconomyAPI {
                         "SELECT 1 FROM economy_balances WHERE player_uuid = ? LIMIT 1",
                         rs -> rs.next(),
                         uuid.toString()
-                ).thenApply(opt -> opt.orElse(false))  // Convert Optional<Boolean> to boolean
+                ).thenApply(opt -> opt.orElse(false))
                 .exceptionally(ex -> {
                     plugin.getLogger().log(Level.SEVERE, AnsiColorUtil.danger(
                             "[InternalEconomy] Account check query failed for UUID: " + uuid
@@ -150,7 +149,6 @@ public class InternalEconomy implements EconomyAPI {
     public EconomyResponse depositPlayer(OfflinePlayer player, double amount) {
         UUID uuid = player.getUniqueId();
 
-        // Handle zero-amount transactions (Homestead checks this)
         if (amount == 0) {
             double balance = getBalance(uuid);
             return new EconomyResponse(0, balance, EconomyResponse.ResponseType.SUCCESS, null);
@@ -162,7 +160,6 @@ public class InternalEconomy implements EconomyAPI {
         }
 
         try {
-            // Ensure account exists first
             if (!hasAccount(uuid)) {
                 createPlayerAccount(player);
             }
@@ -191,7 +188,6 @@ public class InternalEconomy implements EconomyAPI {
     public EconomyResponse withdrawPlayer(OfflinePlayer player, double amount) {
         UUID uuid = player.getUniqueId();
 
-        // Handle zero-amount transactions (Homestead checks this)
         if (amount == 0) {
             double balance = getBalance(uuid);
             return new EconomyResponse(0, balance, EconomyResponse.ResponseType.SUCCESS, null);
@@ -232,7 +228,6 @@ public class InternalEconomy implements EconomyAPI {
     public boolean createPlayerAccount(OfflinePlayer player) {
         UUID uuid = player.getUniqueId();
 
-        // Check if account already exists (idempotent)
         if (hasAccount(uuid)) {
             plugin.getLogger().fine(() -> AnsiColorUtil.warning(
                     "[InternalEconomy] Account already exists for " + player.getName()

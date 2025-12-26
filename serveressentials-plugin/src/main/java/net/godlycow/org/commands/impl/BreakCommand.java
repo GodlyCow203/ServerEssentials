@@ -43,7 +43,6 @@ public final class BreakCommand implements CommandExecutor {
             return true;
         }
 
-        // Get target block
         Block targetBlock = player.getTargetBlock(Set.of(Material.AIR, Material.CAVE_AIR, Material.VOID_AIR),
                 config.maxDistance());
 
@@ -54,17 +53,15 @@ public final class BreakCommand implements CommandExecutor {
             return true;
         }
 
-        // Break block
+
         targetBlock.setType(Material.AIR);
 
-        // Send success message
         player.sendMessage(langManager.getMessageFor(player, "commands.break.success",
                 "<green>Broke the block at <yellow>{x}, {y}, {z}</yellow>.",
                 ComponentPlaceholder.of("{x}", targetBlock.getX()),
                 ComponentPlaceholder.of("{y}", targetBlock.getY()),
                 ComponentPlaceholder.of("{z}", targetBlock.getZ())));
 
-        // Store usage statistics (async)
         UUID playerId = player.getUniqueId();
         dataStorage.getState(playerId, "break", "usage_count").thenAccept(opt -> {
             int count = opt.map(Integer::parseInt).orElse(0);

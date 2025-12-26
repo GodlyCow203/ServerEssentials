@@ -51,7 +51,7 @@ public class MuteStorage {
                 uuid.toString()
         ).thenApply(optExpires ->
                 optExpires.map(expires -> {
-                    if (expires == -1) return true; // permanent mute
+                    if (expires == -1) return true;
                     return System.currentTimeMillis() <= expires;
                 }).orElse(false)
         );
@@ -91,7 +91,7 @@ public class MuteStorage {
             return isMuted(uuid).get(2, TimeUnit.SECONDS);
         } catch (InterruptedException | ExecutionException | TimeoutException e) {
             plugin.getLogger().severe("Failed to check mute status for " + uuid + ": " + e.getMessage());
-            return false; // Fail-safe: don't block chat on DB error
+            return false;
         }
     }
     public Optional<MuteData> getMuteDataSync(UUID uuid) {

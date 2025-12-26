@@ -2,10 +2,6 @@ package net.godlycow.org.commands.config;
 
 import org.bukkit.plugin.Plugin;
 
-/**
- * Configuration for /weather command
- * Permission: serveressentials.command.weather (hardcoded)
- */
 public final class WeatherConfig {
     private final int durationTicks;
     private final boolean notifyWorld;

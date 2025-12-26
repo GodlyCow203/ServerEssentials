@@ -1,5 +1,7 @@
 package net.godlycow.org.managers.plugin;
 
+import net.godlycow.org.commands.config.HomesConfig;
+import net.godlycow.org.homes.HomeManager;
 import org.bukkit.command.CommandSender;
 import net.godlycow.org.ServerEssentials;
 
@@ -26,5 +28,12 @@ public class ReloadManager {
     }
 
     public void reloadEverything(CommandSender sender) {
+        if (plugin.getHomeManager() != null) {
+            plugin.getHomeManager().reload();
+            sender.sendMessage("§a✔ Homes system reloaded!");
+        } else {
+            sender.sendMessage("§c✗ Homes system not available!");
+        }
+
     }
 }

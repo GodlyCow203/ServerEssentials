@@ -15,7 +15,6 @@ import java.util.stream.Collectors;
 import static net.godlycow.org.language.LanguageManager.ComponentPlaceholder;
 
 public final class InventorySortCommand implements CommandExecutor {
-    // HARDCODED PERMISSION - NOT CONFIGURABLE
     private static final String PERMISSION = "serveressentials.command.inventorysort";
 
     private final PlayerLanguageManager langManager;
@@ -53,24 +52,20 @@ public final class InventorySortCommand implements CommandExecutor {
         ItemStack[] contents = player.getInventory().getContents();
         Map<Material, Integer> itemCounts = new HashMap<>();
 
-        // Count items in main inventory (slots 0-35, excluding armor/offhand)
         for (int i = 0; i < 36; i++) {
             ItemStack item = contents[i];
             if (item == null || item.getType().isAir()) continue;
             itemCounts.put(item.getType(), itemCounts.getOrDefault(item.getType(), 0) + item.getAmount());
         }
 
-        // Clear main inventory only
         for (int i = 0; i < 36; i++) {
             player.getInventory().setItem(i, null);
         }
 
-        // Sort materials alphabetically by name
         List<Material> sortedMaterials = itemCounts.keySet().stream()
                 .sorted(Comparator.comparing(Enum::name))
                 .collect(Collectors.toList());
 
-        // Restack items efficiently
         int slot = 0;
         for (Material mat : sortedMaterials) {
             int total = itemCounts.get(mat);

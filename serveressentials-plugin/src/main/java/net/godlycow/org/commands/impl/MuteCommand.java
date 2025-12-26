@@ -200,7 +200,6 @@ public class MuteCommand extends CommandModule implements CommandExecutor {
             uuids.forEach(uuid -> {
                 storage.isMuted(uuid).thenAccept(isMuted -> {
                     if (!isMuted) {
-                        // Expired, remove
                         storage.unmutePlayer(uuid).thenRun(() -> {
                             Player player = Bukkit.getPlayer(uuid);
                             if (player != null && player.isOnline()) {

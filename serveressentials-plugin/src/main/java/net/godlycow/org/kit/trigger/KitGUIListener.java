@@ -130,17 +130,14 @@ public class KitGUIListener implements Listener {
 
         Inventory preview = Bukkit.createInventory(null, 54, title);
 
-        // Add kit items
         List<ItemStack> items = kit.getItems();
         for (int i = 0; i < items.size() && i < 45; i++) {
             preview.setItem(i, items.get(i));
         }
 
-        // Add claim button
         ItemStack claimButton = createClaimButton(player, kitId);
         preview.setItem(53, claimButton);
 
-        // Add back button
         ItemStack backButton = createBackButton(player);
         preview.setItem(45, backButton);
 
@@ -155,7 +152,6 @@ public class KitGUIListener implements Listener {
         meta.displayName(langManager.getMessageFor(player, "kits.claim-button",
                 "<green>✓ Claim Kit"));
 
-        // Check if on cooldown
         int cooldown = KitConfigManager.getConfig().getInt("kits." + kitId + ".cooldown", 0);
         if (kitStorage.isOnCooldown(player.getUniqueId(), kitId, cooldown)) {
             item.setType(Material.RED_CONCRETE);

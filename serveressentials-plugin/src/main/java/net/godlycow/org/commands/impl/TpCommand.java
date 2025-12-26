@@ -168,7 +168,6 @@ public final class TpCommand implements TabExecutor {
         List<String> list = new ArrayList<>();
 
         if (args.length == 1 || args.length == 2) {
-            // Suggest player names
             for (Player p : Bukkit.getOnlinePlayers()) {
                 if (p.getName().toLowerCase().startsWith(args[args.length - 1].toLowerCase())) {
                     list.add(p.getName());
@@ -177,7 +176,6 @@ public final class TpCommand implements TabExecutor {
             return list;
         }
 
-        // Coordinates suggestion
         if (args.length >= 3 && args.length <= 6) {
             list.add("~");
             list.add("~ ~");

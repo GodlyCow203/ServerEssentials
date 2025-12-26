@@ -19,7 +19,6 @@ public class VaultEconomyWrapper implements Economy {
         this.name = name;
     }
 
-    // === Core Economy Methods ===
 
     @Override
     public boolean isEnabled() {
@@ -36,7 +35,6 @@ public class VaultEconomyWrapper implements Economy {
         return economy.format(amount);
     }
 
-    // === Account Management ===
 
     @Override
     public boolean hasAccount(OfflinePlayer player) {
@@ -57,7 +55,6 @@ public class VaultEconomyWrapper implements Economy {
 
     @Override
     public boolean hasAccount(OfflinePlayer player, String worldName) {
-        // ServerEssentials doesn't support per-world balances
         return hasAccount(player);
     }
 
@@ -93,7 +90,6 @@ public class VaultEconomyWrapper implements Economy {
         return createPlayerAccount(resolvePlayer(identifier));
     }
 
-    // === Balance Operations ===
 
     @Override
     public double getBalance(OfflinePlayer player) {
@@ -149,7 +145,6 @@ public class VaultEconomyWrapper implements Economy {
         return has(resolvePlayer(identifier), amount);
     }
 
-    // === Transaction Methods ===
 
     @Override
     public EconomyResponse withdrawPlayer(OfflinePlayer player, double amount) {
@@ -201,7 +196,6 @@ public class VaultEconomyWrapper implements Economy {
         return depositPlayer(resolvePlayer(identifier), amount);
     }
 
-    // === Bank Support (Not Implemented) ===
 
     @Override
     public boolean hasBankSupport() {
@@ -268,7 +262,6 @@ public class VaultEconomyWrapper implements Economy {
         return List.of();
     }
 
-    // === Utility Methods ===
 
     @Override
     public int fractionalDigits() {
@@ -285,15 +278,12 @@ public class VaultEconomyWrapper implements Economy {
         return "";
     }
 
-    // === Helper Methods ===
 
     private OfflinePlayer resolvePlayer(String identifier) {
         try {
-            // Try UUID first (Homestead uses UUID strings)
             UUID uuid = UUID.fromString(identifier);
             return Bukkit.getOfflinePlayer(uuid);
         } catch (IllegalArgumentException e) {
-            // Fall back to name (legacy support)
             return Bukkit.getOfflinePlayer(identifier);
         }
     }

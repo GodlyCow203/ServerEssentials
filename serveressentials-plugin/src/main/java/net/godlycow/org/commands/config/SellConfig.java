@@ -25,7 +25,7 @@ public final class SellConfig {
 
         FileConfiguration config = plugin.getConfig();
         this.guiTitle = config.getString("sellgui.title", "<gold>💰 Sell Items");
-        this.guiSize = Math.max(9, Math.min(54, config.getInt("sellgui.size", 45))); // Clamp between 9-54
+        this.guiSize = Math.max(9, Math.min(54, config.getInt("sellgui.size", 45)));
         this.enabled = config.getBoolean("sellgui.enabled", true);
         this.currencySymbol = config.getString("sellgui.currency-symbol", "$");
 

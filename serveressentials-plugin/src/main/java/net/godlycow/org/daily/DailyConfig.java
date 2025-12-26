@@ -143,7 +143,6 @@ public class DailyConfig {
     }
 
     private DailyReward.RewardItem parseRewardItemFromMap(Map<?, ?> map) {
-        // Use get() instead of getOrDefault() to avoid type issues with Map<?, ?>
         Object typeObj = map.get("type");
         String materialName = typeObj instanceof String ? (String) typeObj : "DIAMOND";
 
@@ -180,8 +179,7 @@ public class DailyConfig {
         boolean glow = glowObj instanceof Boolean ? (Boolean) glowObj : false;
 
         Map<String, Integer> enchantments = new HashMap<>();
-        // Note: Enchantments not parsed from map format in this implementation
-        // Add if needed similar to ConfigurationSection parsing
+
 
         Map<String, String> nbt = new HashMap<>();
 
