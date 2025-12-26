@@ -1,8 +1,0 @@
-
-Build Status : SUCCESS
-Project      : ServerEssentials
-Version      : 2.0.7.9
-Time         : Thu Dec 25 21:48:31 CET 2025
-Java         : 21.0.6
-
-

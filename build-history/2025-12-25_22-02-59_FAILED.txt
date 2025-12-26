@@ -1,8 +1,0 @@
-
-Build Status : FAILED
-Project      : ServerEssentials
-Version      : 2.0.7.9
-Time         : Thu Dec 25 22:02:59 CET 2025
-Java         : 21.0.6
-
-Error:\norg.gradle.internal.exceptions.LocationAwareException: Execution failed for task ':runPaper'.
