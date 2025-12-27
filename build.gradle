@@ -1,18 +1,18 @@
 plugins {
-    id 'base'
+    id 'maven-publish'
 }
 
 group = 'com.github.GodlyCow203'
-version = '2.0.7.20'
+version = '2.0.7.20' // Change this for new releases
 
 allprojects {
     repositories {
         mavenCentral()
-        maven { url "https://repo.papermc.io/repository/maven-public/" }
-        maven { url "https://repo.extendedclip.com/content/repositories/placeholderapi/" }
-        maven { url "https://repo.lucko.me/" }
-        maven { url "https://repo.codemc.org/repository/maven-public/" }
-        maven { url "https://jitpack.io" }
+        maven { url = "https://repo.papermc.io/repository/maven-public/" }
+        maven { url = "https://repo.extendedclip.com/content/repositories/placeholderapi/" }
+        maven { url = "https://repo.lucko.me/" }
+        maven { url = "https://repo.codemc.org/repository/maven-public/" }
+        maven { url = "https://jitpack.io" }
     }
 }
 
@@ -20,21 +20,32 @@ subprojects {
     apply plugin: 'java-library'
     apply plugin: 'maven-publish'
 
+    group = rootProject.group
+    version = rootProject.version
+
     java {
         toolchain.languageVersion = JavaLanguageVersion.of(21)
         withSourcesJar()
+        withJavadocJar()
     }
 
+    // JitPack-friendly publishing config
     publishing {
         publications {
-            mavenJava(MavenPublication) {
+            maven(MavenPublication) {
                 from components.java
-                artifactId = "serveressentials-${project.name}"
+                artifactId = project.name
+                // JitPack needs these to be explicit
+                groupId = rootProject.group
+                version = rootProject.version
             }
         }
     }
 }
 
+// Prevent plugin module from publishing (it's the final fat JAR)
 project(":plugin") {
-    publishing { publications.clear() }
+    publishing {
+        publications.clear()
+    }
 }
