@@ -1,4 +1,12 @@
 package com.serveressentials.api.home.cooldown;
 
-public class CooldownEntry {
+import java.time.Instant;
+
+public interface CooldownEntry {
+
+    Instant getStartTime();
+
+    long getDurationSeconds();
+
+    boolean isExpired();
 }

@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ServerEssentials.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ServerEssentials.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ServerEssentials.test.iml" filepath="$PROJECT_DIR$/.idea/modules/ServerEssentials.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/api/ServerEssentials.api.main.iml" filepath="$PROJECT_DIR$/.idea/modules/api/ServerEssentials.api.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/plugin/ServerEssentials.plugin.main.iml" filepath="$PROJECT_DIR$/.idea/modules/plugin/ServerEssentials.plugin.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/plugin/ServerEssentials.plugin.test.iml" filepath="$PROJECT_DIR$/.idea/modules/plugin/ServerEssentials.plugin.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/test-api/ServerEssentials.test-api.main.iml" filepath="$PROJECT_DIR$/.idea/modules/test-api/ServerEssentials.test-api.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/api.main.iml" filepath="$PROJECT_DIR$/.idea/modules/api.main.iml" />
     </modules>
   </component>
 </project>

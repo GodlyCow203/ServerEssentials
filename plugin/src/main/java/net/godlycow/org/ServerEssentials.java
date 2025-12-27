@@ -972,6 +972,13 @@ public class ServerEssentials extends JavaPlugin implements Listener {
 
 
 
+        getServer().getServicesManager().register(
+                com.serveressentials.api.PluginAPI.class,
+                new net.godlycow.org.api.PluginAPIImpl(homeManager.getAPI()),
+                this,
+                org.bukkit.plugin.ServicePriority.Normal
+        );
+
 
 
 

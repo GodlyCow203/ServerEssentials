@@ -1,4 +1,12 @@
 package com.serveressentials.api.home;
 
-public class HomeManager {
+import java.util.UUID;
+
+public interface HomeManager {
+
+    HomeAPI getAPI();
+
+    void registerListener(Object listener);
+
+    void unregisterListener(Object listener);
 }

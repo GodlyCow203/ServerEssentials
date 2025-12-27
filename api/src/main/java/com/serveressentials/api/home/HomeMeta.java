@@ -1,4 +1,16 @@
 package com.serveressentials.api.home;
 
-public class HomeMeta {
+import java.time.Instant;
+
+public interface HomeMeta {
+
+    Instant getCreatedAt();
+
+    Instant getLastUsed();
+
+    void setLastUsed(Instant instant);
+
+    String getCreatorName();
+
+    boolean isPublic();
 }

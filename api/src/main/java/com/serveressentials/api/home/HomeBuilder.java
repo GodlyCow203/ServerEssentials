@@ -1,4 +1,16 @@
 package com.serveressentials.api.home;
 
-public class HomeBuilder {
+import org.bukkit.Location;
+
+public interface HomeBuilder {
+
+    HomeBuilder name(String name);
+
+    HomeBuilder location(Location location);
+
+    HomeBuilder creator(String creatorName);
+
+    HomeBuilder isPublic(boolean isPublic);
+
+    Home build();
 }

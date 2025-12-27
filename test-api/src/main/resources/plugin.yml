@@ -1,0 +1,4 @@
+name: TestAPI
+version: '${version}'
+main: com.godlycow.testapi.TestAPI
+api-version: '1.21'

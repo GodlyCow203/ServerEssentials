@@ -8,6 +8,20 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/api" />
+            <option value="$PROJECT_DIR$/paper-server" />
+            <option value="$PROJECT_DIR$/paper-server-test-api" />
+            <option value="$PROJECT_DIR$/plugin" />
+            <option value="$PROJECT_DIR$/test-api" />
+            <option value="$PROJECT_DIR$/web" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/api" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/api" />
           </set>
         </option>
       </GradleProjectSettings>

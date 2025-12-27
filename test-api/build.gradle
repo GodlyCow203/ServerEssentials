@@ -1,0 +1,13 @@
+plugins {
+    id 'java-library'
+    id 'com.gradleup.shadow' version '8.3.5'
+}
+
+dependencies {
+    implementation 'com.github.GodlyCow203:ServerEssentials:api-0.0.5-beta'
+    compileOnly 'io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT'
+}
+
+shadowJar {
+    archiveFileName = "ServerEssentials-TestAPI-${project.version}.jar"
+    destinationDirectory = rootProject.layout.projectDirectory.dir('dist/dist/plugins')}

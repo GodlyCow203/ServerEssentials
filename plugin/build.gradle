@@ -1,0 +1,33 @@
+plugins {
+    id 'java'
+    id 'com.gradleup.shadow' version '8.3.5'
+}
+
+dependencies {
+    compileOnly 'io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT'
+    compileOnly 'me.clip:placeholderapi:2.11.5'
+    compileOnly 'net.milkbowl.vault:VaultAPI:1.7'
+    compileOnly 'net.luckperms:api:5.4'
+
+    implementation project(":api")
+
+    implementation 'org.json:json:20240303'
+    implementation 'com.zaxxer:HikariCP:5.0.1'
+    implementation 'net.kyori:adventure-text-minimessage:4.14.0'
+    implementation 'net.kyori:adventure-text-serializer-legacy:4.14.0'
+    implementation 'net.kyori:adventure-platform-bukkit:4.3.2'
+    implementation 'org.yaml:snakeyaml:2.2'
+    implementation('com.github.oshi:oshi-core:6.4.0') {
+        exclude group: 'net.java.dev.jna'
+    }
+}
+
+shadowJar {
+    archiveFileName = "ServerEssentials-${project.version}.jar"
+    destinationDirectory = rootProject.layout.projectDirectory.dir('dist/dist/plugins')
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    exclude 'META-INF/**'
+}
+
+tasks.build.dependsOn shadowJar

@@ -1,0 +1,18 @@
+def isWindows = System.getProperty("os.name").toLowerCase().contains("windows")
+def firebaseCmd = isWindows
+        ? "${System.getenv('APPDATA')}\\npm\\firebase.cmd"
+        : "firebase"
+
+tasks.register('deployWeb', Exec) {
+    description = 'Deploy to Firebase Hosting'
+    group       = 'deployment'
+    workingDir  = projectDir
+    commandLine firebaseCmd, 'deploy', '--only', 'hosting'
+}
+
+tasks.register('serveWeb', Exec) {
+    description = 'Start Firebase emulator'
+    group       = 'deployment'
+    workingDir  = projectDir
+    commandLine firebaseCmd, 'emulators:start', '--only', 'hosting'
+}

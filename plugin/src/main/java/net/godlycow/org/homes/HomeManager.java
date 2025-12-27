@@ -1,5 +1,7 @@
 package net.godlycow.org.homes;
 
+import com.serveressentials.api.home.HomeAPI;
+import net.godlycow.org.homes.api.HomeAPIImpl;
 import net.godlycow.org.homes.model.Home;
 import net.godlycow.org.homes.storage.HomeStorage;
 import net.godlycow.org.commands.config.HomesConfig;
@@ -16,10 +18,14 @@ public class HomeManager {
     private final Map<UUID, Long> lastSetTimes = new ConcurrentHashMap<>();
     private final Map<UUID, Long> lastTeleportTimes = new ConcurrentHashMap<>();
     private final Map<UUID, Map<Integer, Home>> homeCache = new ConcurrentHashMap<>();
+    private final HomeAPIImpl apiImpl;
+
 
     public HomeManager(HomeStorage storage, HomesConfig config) {
         this.storage = storage;
         this.config = config;
+        this.apiImpl = new HomeAPIImpl(this);
+
     }
 
     public CompletableFuture<Optional<Home>> getHome(UUID playerId, int slot) {
@@ -77,6 +83,11 @@ public class HomeManager {
                     Bukkit.getLogger().log(Level.WARNING, "Failed to fetch all homes for " + playerId, ex);
                     return new HashMap<>();
                 });
+    }
+
+
+    public HomeAPI getAPI() {
+        return apiImpl;
     }
 
     public CompletableFuture<Integer> countHomes(UUID playerId) {
