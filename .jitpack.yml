@@ -1,5 +1,0 @@
-jdk:
-  - openjdk21
-
-install:
-  - ./gradlew :api:publishToMavenLocal -Pgroup=com.github.GodlyCow203 -Pversion=$VERSION -xtest
