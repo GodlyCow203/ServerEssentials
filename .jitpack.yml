@@ -1,6 +1,0 @@
-jdk:
-  - openjdk21
-
-build:
-  gradle:
-    api: build

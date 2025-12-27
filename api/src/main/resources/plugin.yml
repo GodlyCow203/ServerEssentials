@@ -1,5 +1,0 @@
-name: PluginAPI
-version: '${version}'
-# noinspection PluginYml
-main: com.serveressentials.api.PluginAPI
-api-version: '1.21'
