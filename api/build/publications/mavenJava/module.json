@@ -1,0 +1,100 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.github.GodlyCow203",
+    "module": "SeEsAPI",
+    "version": "2.0.8.2",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.7"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 21,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api"
+      },
+      "files": [
+        {
+          "name": "SeEsAPI-2.0.8.2.jar",
+          "url": "SeEsAPI-2.0.8.2.jar",
+          "size": 9248,
+          "sha512": "9352f164961cae53f11fb4308cdae4542574f34fc9b45d68a5a04f73962a49e881196644ce2e3f2efe47c8fb91368220f15c461acc20dfe4d99f2dfefeb3fd81",
+          "sha256": "4b754e06967c4b221ded149d7a534054a232ee19fee49db0fa272aa048bb05f7",
+          "sha1": "3176a8a83d568df1415283ea8aa1f05c9fefea37",
+          "md5": "a0ba4ec5c0b0e98fecfb8c13975c7165"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 21,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "SeEsAPI-2.0.8.2.jar",
+          "url": "SeEsAPI-2.0.8.2.jar",
+          "size": 9248,
+          "sha512": "9352f164961cae53f11fb4308cdae4542574f34fc9b45d68a5a04f73962a49e881196644ce2e3f2efe47c8fb91368220f15c461acc20dfe4d99f2dfefeb3fd81",
+          "sha256": "4b754e06967c4b221ded149d7a534054a232ee19fee49db0fa272aa048bb05f7",
+          "sha1": "3176a8a83d568df1415283ea8aa1f05c9fefea37",
+          "md5": "a0ba4ec5c0b0e98fecfb8c13975c7165"
+        }
+      ]
+    },
+    {
+      "name": "sourcesElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "SeEsAPI-2.0.8.2-sources.jar",
+          "url": "SeEsAPI-2.0.8.2-sources.jar",
+          "size": 7212,
+          "sha512": "ab214b6b38fe03c9c54b61698d67f12b14c16a51af9edf1b8fe17304db0841a1ef55680b8075e113590c825234389446a5a6bccf9e7be79b1fc6e9ac5b2215bb",
+          "sha256": "7f739402de2177243db5f3caefd67293d58a8b982944b8381b786925ebe54c68",
+          "sha1": "7a23d5727c8c50e16f7609689f7a9da0b13b7a4f",
+          "md5": "50109748d9012e0c9d0e1fb1a90f3492"
+        }
+      ]
+    },
+    {
+      "name": "javadocElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "javadoc",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "SeEsAPI-2.0.8.2-javadoc.jar",
+          "url": "SeEsAPI-2.0.8.2-javadoc.jar",
+          "size": 124633,
+          "sha512": "1b310ba98c4a5ed4218aea0d766e0460549391ae65e67dcdc05d97b485b0d5ce32cebcf2f86ca15f39e4b5c5b2c78a17b80ede775092f83a1d3bb8451d407d1d",
+          "sha256": "2f1c6b858ef88f8ec67e9170861df65dcd7895315ed5ecc831dad2650a0fbbf7",
+          "sha1": "59f9c6453e004dbbce741ba12d3aac472485f564",
+          "md5": "e8ac4d3a077a7a21f1c1682b4a1787ac"
+        }
+      ]
+    }
+  ]
+}
