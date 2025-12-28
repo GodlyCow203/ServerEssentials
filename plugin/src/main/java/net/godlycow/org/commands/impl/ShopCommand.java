@@ -1,14 +1,14 @@
 package net.godlycow.org.commands.impl;
 
+import com.serveressentials.api.shop.ShopAPI;
 import net.godlycow.org.commands.config.ShopConfig;
 import net.godlycow.org.database.DatabaseManager;
 import net.godlycow.org.economy.eco.EconomyManager;
-import net.godlycow.org.economy.shop.*;
-import net.godlycow.org.economy.shop.api.ShopAPIImpl;
+import net.godlycow.org.economy.shop.ShopDataManager;
+import net.godlycow.org.economy.shop.storage.ShopStorage;
 import net.godlycow.org.economy.shop.config.MainShopConfig;
 import net.godlycow.org.economy.shop.config.loader.ShopConfigLoader;
 import net.godlycow.org.economy.shop.gui.ShopGUIManager;
-import net.godlycow.org.economy.shop.storage.ShopStorage;
 import net.godlycow.org.language.LanguageManager;
 import net.godlycow.org.language.PlayerLanguageManager;
 import org.bukkit.Bukkit;
@@ -33,20 +33,20 @@ public final class ShopCommand implements CommandExecutor {
     private final ShopGUIManager guiManager;
     private final ShopDataManager dataManager;
     private final EconomyManager economyManager;
+    private final ShopAPI shopAPI;
 
     public ShopCommand(Plugin plugin, PlayerLanguageManager langManager,
                        DatabaseManager dbManager, ShopConfig config,
-                       EconomyManager economyManager) {
+                       EconomyManager economyManager, ShopAPI shopAPI,
+                       ShopGUIManager guiManager, ShopDataManager dataManager) {
         this.plugin = plugin;
         this.langManager = langManager;
         this.config = config;
         this.economyManager = economyManager;
-
+        this.shopAPI = shopAPI;
+        this.guiManager = guiManager;
+        this.dataManager = dataManager;
         this.storage = new ShopStorage(plugin, dbManager);
-
-        this.dataManager = new ShopDataManager(plugin, dbManager);
-
-        this.guiManager = new ShopGUIManager(plugin, langManager, storage, config, economyManager, dataManager);
     }
 
     @Override
@@ -184,11 +184,10 @@ public final class ShopCommand implements CommandExecutor {
         return dataManager;
     }
 
-
-
-    public com.serveressentials.api.shop.ShopAPI getShopAPI() {
-        return new ShopAPIImpl(config, guiManager, dataManager);
+    public ShopAPI getShopAPI() {
+        return shopAPI;
     }
+
     public ShopGUIManager getGuiManager() {
         return guiManager;
     }

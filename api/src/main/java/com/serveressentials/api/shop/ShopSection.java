@@ -3,9 +3,7 @@ package com.serveressentials.api.shop;
 import java.util.Collections;
 import java.util.Map;
 
-/**
- * Data transfer object for shop sections
- */
+
 public class ShopSection {
     private final String title;
     private final int size;
@@ -26,7 +24,6 @@ public class ShopSection {
         this.items = Map.copyOf(items);
     }
 
-    // Getters
     public String getTitle() { return title; }
     public int getSize() { return size; }
     public int getPages() { return pages; }

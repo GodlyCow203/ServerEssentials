@@ -2,9 +2,7 @@ package com.serveressentials.api.home;
 
 import org.bukkit.Location;
 
-/**
- * Data transfer object for homes
- */
+
 public class Home {
     private final String name;
     private final Location location;

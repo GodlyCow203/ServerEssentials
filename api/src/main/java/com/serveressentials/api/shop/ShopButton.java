@@ -4,9 +4,7 @@ import org.bukkit.Material;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * Data transfer object for main shop section buttons
- */
+
 public class ShopButton {
     private final Material material;
     private final String name;
@@ -20,7 +18,6 @@ public class ShopButton {
         this.file = file;
     }
 
-    // Getters
     public Material getMaterial() { return material; }
     public String getName() { return name; }
     public List<String> getLore() { return Collections.unmodifiableList(lore); }

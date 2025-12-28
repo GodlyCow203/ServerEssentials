@@ -6,9 +6,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
-/**
- * API interface for the ServerEssentials Home System
- */
+
 public interface HomeAPI {
     /**
      * Sets a home for a player at a specific slot

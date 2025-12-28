@@ -1,8 +1,5 @@
 package com.serveressentials.api.shop;
 
-/**
- * Configuration interface for shop settings
- */
 public interface ShopConfig {
     boolean isEnabled();
     String getMainTitle();

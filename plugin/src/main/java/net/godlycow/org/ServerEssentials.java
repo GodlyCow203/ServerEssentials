@@ -1,7 +1,10 @@
 package net.godlycow.org;
 
+import com.serveressentials.api.auction.AuctionAPI;
+import com.serveressentials.api.shop.ShopAPI;
 import net.godlycow.org.PlaceholderAPI.*;
 import net.godlycow.org.api.PluginAPIImpl;
+import net.godlycow.org.auction.api.AuctionAPIImpl;
 import net.godlycow.org.auction.gui.AuctionGUIListener;
 import net.godlycow.org.auction.storage.AuctionStorage;
 import net.godlycow.org.back.storage.BackDataStorage;
@@ -429,6 +432,13 @@ public class ServerEssentials extends JavaPlugin implements Listener {
     private AFKManager afkManager;
     private NickStorage nickStorage;
     private ReloadManager reloadManager;
+    private ShopAPI shopAPI;
+    private AuctionAPI auctionAPI;
+
+
+    private net.godlycow.org.economy.shop.ShopDataManager shopDataManager;
+    private net.godlycow.org.economy.shop.gui.ShopGUIManager shopGuiManager;
+
 
     @Override
     public void onEnable() {
@@ -446,7 +456,6 @@ public class ServerEssentials extends JavaPlugin implements Listener {
 
 
 
-        registerAPIServices();
 
 
         hooksManager = HooksManager.getInstance(this);
@@ -661,8 +670,8 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         coinFlipConfig = new CoinFlipConfig(this);
         coinFlipCommand = new CoinFlipCommand(this,playerLanguageManager, coinFlipConfig, economyManager);
 
-        shopConfig = new ShopConfig(this);
-        shopCommand = new ShopCommand(this, playerLanguageManager, databaseManager, shopConfig, economyManager);
+        initializeShopSystem();
+
         this.powerToolConfig = new PowerToolConfig(this);
         this.powerToolCommand = new PowerToolCommand(playerLanguageManager, powerToolConfig, commandDataStorage, this);
         this.gravityConfig = new GravityConfig(this);
@@ -987,6 +996,8 @@ public class ServerEssentials extends JavaPlugin implements Listener {
             );
         }
 
+        registerAPIServices();
+
 
         long elapsed = System.currentTimeMillis() - start;
         BannerUtil.printBanner(elapsed);
@@ -1289,7 +1300,6 @@ public class ServerEssentials extends JavaPlugin implements Listener {
             e.printStackTrace();
         }
     }
-
     private void initializeReportSystem() {
         reportConfig = new ReportConfig(this);
         reportStorage = new ReportStorage(this, databaseManager);
@@ -1297,12 +1307,6 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         reportsListCommand = new ReportsListCommand(this, playerLanguageManager, reportStorage);
         reportListener = new ReportListener(reportCommand);
     }
-
-
-
-
-
-
 
     private void initializeDatabases() {
         if (getConfig().contains("databases.rtp")) {
@@ -1346,6 +1350,39 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         databaseManager.initializePool("tpa", new DatabaseConfig(DatabaseType.SQLITE, "tpa.db", null, 0, null, null, null, 5));
     }
 
+    private void initializeShopSystem() {
+        shopConfig = new ShopConfig(this);
+        shopDataManager = new net.godlycow.org.economy.shop.ShopDataManager(this, databaseManager);
+
+        net.godlycow.org.economy.shop.storage.ShopStorage storage =
+                new net.godlycow.org.economy.shop.storage.ShopStorage(this, databaseManager);
+
+        shopGuiManager = new net.godlycow.org.economy.shop.gui.ShopGUIManager(
+                this,
+                playerLanguageManager,
+                storage,
+                shopConfig,
+                economyManager,
+                shopDataManager
+        );
+
+        shopAPI = new net.godlycow.org.economy.shop.api.ShopAPIImpl(shopConfig, shopGuiManager, shopDataManager);
+
+        shopCommand = new ShopCommand(
+                this,
+                playerLanguageManager,
+                databaseManager,
+                shopConfig,
+                economyManager,
+                shopAPI,
+                shopGuiManager,
+                shopDataManager
+        );
+
+        getCommand("shop").setExecutor(shopCommand);
+        getServer().getPluginManager().registerEvents(new ShopGUIListener(shopGuiManager), this);
+    }
+
     private void initializeMuteSystem() {
         muteConfig = new MuteConfig(this);
         muteStorage = new MuteStorage(this, databaseManager);
@@ -1368,6 +1405,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         auctionStorage = new AuctionStorage(databaseManager);
 
 
+        auctionAPI = new AuctionAPIImpl(this, auctionConfig, auctionGUIListener, auctionStorage, economyManager);
 
         auctionGUIListener = new AuctionGUIListener(this, playerLanguageManager, auctionConfig, auctionStorage, economyManager);
         auctionCommand = new AuctionCommand(this, playerLanguageManager, auctionConfig, auctionStorage, auctionGUIListener, economyManager);
@@ -1421,15 +1459,6 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         dailyListener = new DailyListener(this, playerLanguageManager, dailyStorage, dailyConfig);
         dailyCommand = new DailyCommand(this, playerLanguageManager, dailyStorage, dailyConfig, dailyListener);
     }
-
-
-
-
-
-
-
-
-
     private void initializeMailSystem() {
         mailConfig = new MailConfig(this);
         mailStorage = new MailStorage(this, databaseManager);
@@ -1713,8 +1742,11 @@ public class ServerEssentials extends JavaPlugin implements Listener {
 
 
     private void registerAPIServices() {
-        // Register Shop API
-        com.serveressentials.api.shop.ShopAPI shopAPI = shopCommand.getShopAPI();
+        if (shopAPI == null || auctionAPI == null) {
+            getLogger().severe("FAILED TO REGISTER API: API instances are null!");
+            return;
+        }
+
         getServer().getServicesManager().register(
                 com.serveressentials.api.shop.ShopAPI.class,
                 shopAPI,
@@ -1722,14 +1754,22 @@ public class ServerEssentials extends JavaPlugin implements Listener {
                 org.bukkit.plugin.ServicePriority.High
         );
 
-        // Register Plugin API with both Shop and Home APIs
-        com.serveressentials.api.PluginAPI pluginAPI = new PluginAPIImpl(this, shopAPI, homeManager);
+        getServer().getServicesManager().register(
+                com.serveressentials.api.auction.AuctionAPI.class,
+                auctionAPI,
+                this,
+                org.bukkit.plugin.ServicePriority.High
+        );
+
+        com.serveressentials.api.PluginAPI pluginAPI = new PluginAPIImpl(this, shopAPI, homeManager, auctionAPI);
         getServer().getServicesManager().register(
                 com.serveressentials.api.PluginAPI.class,
                 pluginAPI,
                 this,
                 org.bukkit.plugin.ServicePriority.High
         );
+
+        getLogger().info("Successfully registered all API services!");
     }
 
 

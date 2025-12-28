@@ -59,8 +59,7 @@ public class HomeAPIImpl implements HomeAPI {
     public int getMaxHomes(Player player) {
         return homeManager.config.maxHomes;
 
-        // OR if that doesn't work, use a simple approach:
-        // return 10; // Default value
+
     }
 
     @Override

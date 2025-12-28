@@ -4,9 +4,7 @@ import org.bukkit.entity.Player;
 import java.util.Collection;
 import java.util.concurrent.CompletableFuture;
 
-/**
- * Main API interface for the ServerEssentials Shop System
- */
+
 public interface ShopAPI {
     /**
      * Opens the main shop GUI for a player

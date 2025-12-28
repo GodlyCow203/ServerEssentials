@@ -38,10 +38,12 @@ shadowJar {
     destinationDirectory = rootProject.layout.projectDirectory.dir("dist/plugins")
     exclude "META-INF/**"
 
-    dependencies {
-        include(dependency(":api"))
-    }
+    // Include all runtime dependencies
+    configurations = [project.configurations.runtimeClasspath]
 }
+
+
+
 
 
 tasks.jar.enabled = false

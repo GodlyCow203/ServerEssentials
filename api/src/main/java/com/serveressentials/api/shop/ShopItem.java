@@ -5,9 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Data transfer object for shop items
- */
+
 public class ShopItem {
     private final Material material;
     private final int amount;
@@ -34,7 +32,6 @@ public class ShopItem {
         this.clickable = clickable;
     }
 
-    // Getters
     public Material getMaterial() { return material; }
     public int getAmount() { return amount; }
     public String getName() { return name; }
