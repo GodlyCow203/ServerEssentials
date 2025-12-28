@@ -28,7 +28,16 @@ publishing {
             artifactId = 'api'
             version = project.version
 
-            from components.java
+            from(components.java)
+
+            artifact(tasks.named('sourcesJar'))
+            artifact(tasks.named('javadocJar'))
+        }
+    }
+
+    repositories {
+        maven {
+            url = uri("${buildDir}/repos/maven")
         }
     }
 }
