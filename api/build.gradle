@@ -28,9 +28,7 @@ publishing {
             artifactId = 'api'
             version = project.version
 
-            artifact tasks.named('jar')
-            artifact tasks.named('sourcesJar')
-            artifact tasks.named('javadocJar')
+            from components.java
         }
     }
 }
