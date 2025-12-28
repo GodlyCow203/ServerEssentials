@@ -1,2 +1,4 @@
 install:
   - ./gradlew build -x publishToMavenLocal
+  - ./gradlew :api:build
+
