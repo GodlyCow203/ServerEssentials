@@ -69,8 +69,10 @@ public class AuctionAPIImpl implements AuctionAPI {
 
         return storage.addItem(internalItem)
                 .thenApply(v -> {
-                    AuctionListEvent event = new AuctionListEvent(seller, item, price);
-                    Bukkit.getPluginManager().callEvent(event);
+                    Bukkit.getScheduler().runTask(plugin, () -> {
+                        AuctionListEvent event = new AuctionListEvent(seller, item, price);
+                        Bukkit.getPluginManager().callEvent(event);
+                    });
                     return true;
                 })
                 .exceptionally(ex -> {
@@ -92,11 +94,13 @@ public class AuctionAPIImpl implements AuctionAPI {
                     com.serveressentials.api.auction.AuctionItem apiItem = convertToDTO(optItem.get());
                     return storage.removeItem(itemId)
                             .thenApply(v -> {
-                                Player seller = Bukkit.getPlayer(apiItem.getSeller());
-                                if (seller != null && seller.isOnline()) {
-                                    AuctionRemoveEvent event = new AuctionRemoveEvent(seller, apiItem.getItem(), itemId);
-                                    Bukkit.getPluginManager().callEvent(event);
-                                }
+                                Bukkit.getScheduler().runTask(plugin, () -> {
+                                    Player seller = Bukkit.getPlayer(apiItem.getSeller());
+                                    if (seller != null && seller.isOnline()) {
+                                        AuctionRemoveEvent event = new AuctionRemoveEvent(seller, apiItem.getItem(), itemId);
+                                        Bukkit.getPluginManager().callEvent(event);
+                                    }
+                                });
                                 return true;
                             });
                 })

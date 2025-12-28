@@ -19,6 +19,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitTask;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
@@ -221,6 +222,19 @@ public final class AFKManager implements Listener {
                 setAFK(player, false);
             }
         }
+    }
+
+
+    public Collection<UUID> getAFKPlayers() {
+        return Set.copyOf(afkPlayers);
+    }
+
+    public long getAFKTimeoutSeconds() {
+        return config.timeoutSeconds;
+    }
+
+    public boolean isAFKEnabled() {
+        return config.enabled;
     }
 
     public void updateActivity(Player player) {

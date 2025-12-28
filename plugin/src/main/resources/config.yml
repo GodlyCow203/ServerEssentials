@@ -281,17 +281,15 @@ night:
   time-ticks: 13000     # Time to set when using /night
 
 # Auction house (/auction)
-commands:
-  auction:
-    gui:
-      rows: 6                 # Inventory rows (1-6)
-      titles:
-        auction: "<green>Auction House - Page {page}"  # Supports {page} placeholder
-        my-items: "<green>Your Items - Page {page}"
-        remove-confirm: "<red>Confirm Removal"
-    items-per-page: 36        # Items shown per page
-    max-sell-limit: 64        # Max items per auction
-    expiration-days: 7        # Days before auction expires
+auction:
+  enabled: true
+
+  items-per-page: 36
+  max-sell-limit: 64
+  expiration-days: 7
+  max-price-limit: 1000000.0
+  max-items-per-player: 10
+
 
 # Sleep command (/sleep)
 # Allows skipping night when sleeping

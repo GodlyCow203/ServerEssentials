@@ -9,6 +9,7 @@ commands:
   shoptest:
     description: Test all Shop API features
     usage: /shoptest <command> [args]
-    permission: shoptest.use
-    aliases: [st, shopapi]
+  auctiontest:
+    description: Test all the auctiion API feaatures
+    usage: /aauctiontest <command>
 

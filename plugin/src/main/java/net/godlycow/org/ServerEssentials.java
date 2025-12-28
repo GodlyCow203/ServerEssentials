@@ -3,6 +3,7 @@ package net.godlycow.org;
 import com.serveressentials.api.auction.AuctionAPI;
 import com.serveressentials.api.shop.ShopAPI;
 import net.godlycow.org.PlaceholderAPI.*;
+import net.godlycow.org.afk.api.AFKAPIImpl;
 import net.godlycow.org.api.PluginAPIImpl;
 import net.godlycow.org.auction.api.AuctionAPIImpl;
 import net.godlycow.org.auction.gui.AuctionGUIListener;
@@ -434,6 +435,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
     private ReloadManager reloadManager;
     private ShopAPI shopAPI;
     private AuctionAPI auctionAPI;
+
 
 
     private net.godlycow.org.economy.shop.ShopDataManager shopDataManager;
@@ -1403,13 +1405,9 @@ public class ServerEssentials extends JavaPlugin implements Listener {
     private void initializeAuctionSystem() {
         auctionConfig = new AuctionConfig(this);
         auctionStorage = new AuctionStorage(databaseManager);
-
-
-        auctionAPI = new AuctionAPIImpl(this, auctionConfig, auctionGUIListener, auctionStorage, economyManager);
-
         auctionGUIListener = new AuctionGUIListener(this, playerLanguageManager, auctionConfig, auctionStorage, economyManager);
         auctionCommand = new AuctionCommand(this, playerLanguageManager, auctionConfig, auctionStorage, auctionGUIListener, economyManager);
-
+        auctionAPI = new AuctionAPIImpl(this, auctionConfig, auctionGUIListener, auctionStorage, economyManager);
         getLogger().info("Auction system initialized successfully");
     }
     private void initializeScoreboardSystem() {
@@ -1761,7 +1759,14 @@ public class ServerEssentials extends JavaPlugin implements Listener {
                 org.bukkit.plugin.ServicePriority.High
         );
 
-        com.serveressentials.api.PluginAPI pluginAPI = new PluginAPIImpl(this, shopAPI, homeManager, auctionAPI);
+        getServer().getServicesManager().register(
+                com.serveressentials.api.afk.AFKAPI.class,
+                new AFKAPIImpl(this, afkManager),
+                this,
+                org.bukkit.plugin.ServicePriority.High
+        );
+
+        com.serveressentials.api.PluginAPI pluginAPI = new PluginAPIImpl(this, shopAPI, homeManager, auctionAPI, afkManager);
         getServer().getServicesManager().register(
                 com.serveressentials.api.PluginAPI.class,
                 pluginAPI,
