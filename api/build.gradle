@@ -29,6 +29,13 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             from components.java
+            artifactId = 'ServerEssentials-api'
         }
     }
+}
+
+
+
+tasks.build {
+    dependsOn tasks.publishToMavenLocal
 }

@@ -2,7 +2,7 @@
   "formatVersion": "1.1",
   "component": {
     "group": "com.github.GodlyCow203",
-    "module": "SeEsAPI",
+    "module": "ServerEssentials-api",
     "version": "2.0.8.2",
     "attributes": {
       "org.gradle.status": "release"
@@ -25,13 +25,13 @@
       },
       "files": [
         {
-          "name": "SeEsAPI-2.0.8.2.jar",
-          "url": "SeEsAPI-2.0.8.2.jar",
+          "name": "ServerEssentials-api-2.0.8.2.jar",
+          "url": "ServerEssentials-api-2.0.8.2.jar",
           "size": 9248,
-          "sha512": "9352f164961cae53f11fb4308cdae4542574f34fc9b45d68a5a04f73962a49e881196644ce2e3f2efe47c8fb91368220f15c461acc20dfe4d99f2dfefeb3fd81",
-          "sha256": "4b754e06967c4b221ded149d7a534054a232ee19fee49db0fa272aa048bb05f7",
-          "sha1": "3176a8a83d568df1415283ea8aa1f05c9fefea37",
-          "md5": "a0ba4ec5c0b0e98fecfb8c13975c7165"
+          "sha512": "4577aa34f1810d0e89e42aa9246afd37027dd2cc1ddde39396354dcc942310d363898a923be0f9e8c02a491fe168ee066043474fd4fa2d3931977e32c328c0ab",
+          "sha256": "029a72fd2f9eb9a027914a984619c69631949ead2178d26026816e1bcdfbcdaa",
+          "sha1": "33c1df57b54cb1be0ba18dc57505f5b0b90cbcca",
+          "md5": "18653f4720dd26acef59ef6e5409bab3"
         }
       ]
     },
@@ -46,13 +46,13 @@
       },
       "files": [
         {
-          "name": "SeEsAPI-2.0.8.2.jar",
-          "url": "SeEsAPI-2.0.8.2.jar",
+          "name": "ServerEssentials-api-2.0.8.2.jar",
+          "url": "ServerEssentials-api-2.0.8.2.jar",
           "size": 9248,
-          "sha512": "9352f164961cae53f11fb4308cdae4542574f34fc9b45d68a5a04f73962a49e881196644ce2e3f2efe47c8fb91368220f15c461acc20dfe4d99f2dfefeb3fd81",
-          "sha256": "4b754e06967c4b221ded149d7a534054a232ee19fee49db0fa272aa048bb05f7",
-          "sha1": "3176a8a83d568df1415283ea8aa1f05c9fefea37",
-          "md5": "a0ba4ec5c0b0e98fecfb8c13975c7165"
+          "sha512": "4577aa34f1810d0e89e42aa9246afd37027dd2cc1ddde39396354dcc942310d363898a923be0f9e8c02a491fe168ee066043474fd4fa2d3931977e32c328c0ab",
+          "sha256": "029a72fd2f9eb9a027914a984619c69631949ead2178d26026816e1bcdfbcdaa",
+          "sha1": "33c1df57b54cb1be0ba18dc57505f5b0b90cbcca",
+          "md5": "18653f4720dd26acef59ef6e5409bab3"
         }
       ]
     },
@@ -66,13 +66,13 @@
       },
       "files": [
         {
-          "name": "SeEsAPI-2.0.8.2-sources.jar",
-          "url": "SeEsAPI-2.0.8.2-sources.jar",
+          "name": "ServerEssentials-api-2.0.8.2-sources.jar",
+          "url": "ServerEssentials-api-2.0.8.2-sources.jar",
           "size": 7212,
-          "sha512": "ab214b6b38fe03c9c54b61698d67f12b14c16a51af9edf1b8fe17304db0841a1ef55680b8075e113590c825234389446a5a6bccf9e7be79b1fc6e9ac5b2215bb",
-          "sha256": "7f739402de2177243db5f3caefd67293d58a8b982944b8381b786925ebe54c68",
-          "sha1": "7a23d5727c8c50e16f7609689f7a9da0b13b7a4f",
-          "md5": "50109748d9012e0c9d0e1fb1a90f3492"
+          "sha512": "afb66926826e933a8c476b5492e0147183703767abd3ea0f0ec6292e48a42d90c25dc832dc39e024cf28527c15602aeb061886bfc3fa9413da3963a7da06b243",
+          "sha256": "d04c3f54e04259e655443bcb26585bcc46a399a0299940ed469590e8f611f9af",
+          "sha1": "7e83d7d6fc8075e6c3f67aa4fcbb92ff1c1628c2",
+          "md5": "3ea499ed842ca43f12fa38c60352fa02"
         }
       ]
     },
@@ -86,13 +86,13 @@
       },
       "files": [
         {
-          "name": "SeEsAPI-2.0.8.2-javadoc.jar",
-          "url": "SeEsAPI-2.0.8.2-javadoc.jar",
+          "name": "ServerEssentials-api-2.0.8.2-javadoc.jar",
+          "url": "ServerEssentials-api-2.0.8.2-javadoc.jar",
           "size": 124633,
-          "sha512": "1b310ba98c4a5ed4218aea0d766e0460549391ae65e67dcdc05d97b485b0d5ce32cebcf2f86ca15f39e4b5c5b2c78a17b80ede775092f83a1d3bb8451d407d1d",
-          "sha256": "2f1c6b858ef88f8ec67e9170861df65dcd7895315ed5ecc831dad2650a0fbbf7",
-          "sha1": "59f9c6453e004dbbce741ba12d3aac472485f564",
-          "md5": "e8ac4d3a077a7a21f1c1682b4a1787ac"
+          "sha512": "f655e0a8ee6d33c0b561cb7d89921df29b77ea94a08b02d602319789024d52f2742802744d41d2d784ed80379e54c42cf45a703e92cd749f5c54595253f017c4",
+          "sha256": "03825f4875e8828c51904e04ff45349c74cdbcffbaa5c759d77353b38dfa1a43",
+          "sha1": "dc610afc2734dbda74f2da7e1e26e96e2182195b",
+          "md5": "87801ee47fb2444c472d9ad9ddeb390a"
         }
       ]
     }
