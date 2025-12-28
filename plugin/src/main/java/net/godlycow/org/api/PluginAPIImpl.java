@@ -3,6 +3,7 @@ package net.godlycow.org.api;
 import com.serveressentials.api.PluginAPI;
 import com.serveressentials.api.afk.AFKAPI;
 import com.serveressentials.api.auction.AuctionAPI;
+import com.serveressentials.api.back.BackAPI;
 import com.serveressentials.api.home.HomeAPI;
 import com.serveressentials.api.shop.ShopAPI;
 import net.godlycow.org.ServerEssentials;
@@ -17,14 +18,17 @@ public class PluginAPIImpl implements PluginAPI {
     private final HomeAPI homeAPI;
     private final AuctionAPI auctionAPI;
     private final AFKAPI afkAPI;
+    private final BackAPI backAPI;
 
     public PluginAPIImpl(ServerEssentials plugin, ShopAPI shopAPI,
-                         HomeManager homeManager, AuctionAPI auctionAPI, AFKManager afkManager) {
+                         HomeManager homeManager, AuctionAPI auctionAPI,
+                         AFKManager afkManager, BackAPI backAPI) {
         this.plugin = plugin;
         this.shopAPI = shopAPI;
         this.homeAPI = new net.godlycow.org.homes.api.HomeAPIImpl(homeManager);
         this.auctionAPI = auctionAPI;
         this.afkAPI = new AFKAPIImpl(plugin, afkManager);
+        this.backAPI = backAPI;
     }
 
     @Override
@@ -55,5 +59,9 @@ public class PluginAPIImpl implements PluginAPI {
     @Override
     public AFKAPI getAFKAPI() {
         return afkAPI;
+    }
+
+    public BackAPI getBackAPI() {
+        return backAPI;
     }
 }

@@ -1,10 +1,15 @@
 package com.godlycow.testapi;
 
+import com.godlycow.testapi.BackAPITestCommand;
 import com.serveressentials.api.PluginAPI;
+import com.serveressentials.api.back.BackAPI;
+import com.serveressentials.api.back.event.BackLocationSaveEvent;
+import com.serveressentials.api.back.event.BackTeleportEvent;
 import com.serveressentials.api.shop.ShopAPI;
 import com.serveressentials.api.auction.AuctionAPI;
 import com.serveressentials.api.shop.event.ShopPurchaseEvent;
 import com.serveressentials.api.shop.event.ShopSellEvent;
+import com.serveressentials.api.afk.event.AFKStatusEvent;
 import com.serveressentials.api.auction.event.AuctionListEvent;
 import com.serveressentials.api.auction.event.AuctionPurchaseEvent;
 import com.serveressentials.api.auction.event.AuctionRemoveEvent;
@@ -21,10 +26,12 @@ import java.util.*;
 
 public class TestAPI extends JavaPlugin implements Listener {
 
-    private static final String PREFIX = ChatColor.GOLD + "[ShopTester] " + ChatColor.RESET;
+    private static final String PREFIX = ChatColor.GOLD + "[ServerEssentialsTester] " + ChatColor.RESET;
     private PluginAPI pluginAPI;
     private ShopAPI shopAPI;
     private AuctionAPI auctionAPI;
+    private BackAPI backAPI;
+    private BackAPITestCommand backTestCommand;
     private int retryTaskId = -1;
 
 
@@ -34,6 +41,9 @@ public class TestAPI extends JavaPlugin implements Listener {
 
         getCommand("shoptest").setExecutor(new ShopAPICommand(this));
         getCommand("auctiontest").setExecutor(new AuctionAPITestCommand(this));
+
+        backTestCommand = new BackAPITestCommand(this);
+        getCommand("backapitest").setExecutor(backTestCommand);
 
         getServer().getPluginManager().registerEvents(this, this);
 
@@ -47,9 +57,16 @@ public class TestAPI extends JavaPlugin implements Listener {
                 if (pluginAPI != null) {
                     shopAPI = pluginAPI.getShopAPI();
                     auctionAPI = pluginAPI.getAuctionAPI();
+                    backAPI = pluginAPI.getBackAPI();
+
                     getLogger().info(PREFIX + "APIs connected successfully!");
                     getServer().getScheduler().cancelTask(retryTaskId);
                     retryTaskId = -1;
+
+                    if (backTestCommand != null) {
+                        backTestCommand.setBackAPI(backAPI);
+                    }
+
                     testAPIFeatures();
                 }
             }
@@ -57,12 +74,27 @@ public class TestAPI extends JavaPlugin implements Listener {
     }
 
     private void testAPIFeatures() {
-        if (shopAPI == null || auctionAPI == null) return;
+        if (shopAPI == null || auctionAPI == null || backAPI == null) return;
 
         getLogger().info(PREFIX + "Shop enabled: " + shopAPI.isShopEnabled());
         getLogger().info(PREFIX + "Auction enabled: " + auctionAPI.isAuctionEnabled());
+        getLogger().info(PREFIX + "Back enabled: " + backAPI.isBackEnabled());
         getLogger().info(PREFIX + "Shop sections: " + shopAPI.getSectionNames().size());
         getLogger().info(PREFIX + "Auction max price: " + auctionAPI.getMaxPriceLimit());
+    }
+
+    @EventHandler
+    public void onBackTeleport(BackTeleportEvent event) {
+        getLogger().info(PREFIX + "BackTeleport - Player: " + event.getPlayer().getName() +
+                ", Type: " + event.getBackType() +
+                ", From: " + formatLocation(event.getFrom()) +
+                ", To: " + formatLocation(event.getTo()));
+    }
+
+    @EventHandler
+    public void onBackLocationSave(BackLocationSaveEvent event) {
+        getLogger().info(PREFIX + "BackLocationSave - Player: " + event.getPlayer().getName() +
+                ", Location: " + formatLocation(event.getSavedLocation()));
     }
 
     @EventHandler
@@ -87,5 +119,13 @@ public class TestAPI extends JavaPlugin implements Listener {
 
     public AuctionAPI getAuctionAPI() {
         return auctionAPI;
+    }
+
+    public BackAPI getBackAPI() {
+        return backAPI;
+    }
+
+    private String formatLocation(Location loc) {
+        return String.format("%.1f, %.1f, %.1f in %s", loc.getX(), loc.getY(), loc.getZ(), loc.getWorld().getName());
     }
 }
