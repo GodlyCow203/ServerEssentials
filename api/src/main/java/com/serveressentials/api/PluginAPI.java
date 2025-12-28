@@ -1,4 +1,14 @@
-package com.serveressentials.api.shop;
+package com.serveressentials.api;
 
-public class PluginAPI {
+import com.serveressentials.api.home.HomeAPI;
+import com.serveressentials.api.shop.ShopAPI;
+
+/**
+ * Main plugin API interface
+ */
+public interface PluginAPI {
+    String getVersion();
+    boolean isEnabled();
+    ShopAPI getShopAPI();
+    HomeAPI getHomeAPI();
 }

@@ -1,0 +1,133 @@
+#  W E L C O M E • N A V I G A T I O N  H U B
+#  Polished, not overpowered.  6-row main GUI + rule sub-GUI.
+
+titles:
+  title: "<gradient:#18ffff:#00ffff>Welcome to <white>{player}"
+  subtitle: "<gray>Grab a tour below!"
+  fade-in: 20
+  stay: 80
+  fade-out: 30
+
+bossbars:
+  - text: "<gradient:#00ffff:#18ffff>Reading the rules keeps you safe</gradient>"
+    color: BLUE
+    style: SEGMENTED_10
+    duration_seconds: 12
+
+effects:               # soft helpful buffs only
+  - type: SPEED
+    amplifier: 1
+    duration_seconds: 120
+  - type: NIGHT_VISION
+    amplifier: 1
+    duration_seconds: 120
+
+particles:             # subtle welcome aura
+  - particle: END_ROD
+    count: 40
+    offset_x: 1.5
+    offset_y: 1.5
+    offset_z: 1.5
+    duration_seconds: 8
+
+commands:
+  - run_as: console
+    command: "give {player} bread 16"
+    delay_ticks: 0
+  - run_as: console
+    command: "give {player} stone_sword 1"
+    delay_ticks: 5
+  - run_as: console
+    command: "give {player} leather_helmet 1"
+    delay_ticks: 10
+  - run_as: console
+    command: "playsound block.note_block.pling master {player} ~ ~ ~ 1 2"
+    delay_ticks: 20
+  - run_as: console
+    command: "say {player} just joined for the first time! Say hi :)"
+    delay_ticks: 40
+
+  # ===== CLICKABLE LINKS =====
+  # Vote
+  - run_as: console
+    command: 'tellraw {player} ["",{"text":"Vote → ","color":"gray"},{"text":"Click here","color":"green","underlined":true,"clickEvent":{"action":"open_url","value":"https://your-server.com/vote"}}]'
+    delay_ticks: 60
+  # Store
+  - run_as: console
+    command: 'tellraw {player} ["",{"text":"Store → ","color":"gray"},{"text":"Click here","color":"gold","underlined":true,"clickEvent":{"action":"open_url","value":"https://your-server.com/store"}}]'
+    delay_ticks: 65
+  # Discord
+  - run_as: console
+    command: 'tellraw {player} ["",{"text":"Discord → ","color":"gray"},{"text":"Click here","color":"#7289da","underlined":true,"clickEvent":{"action":"open_url","value":"https://discord.gg/yourinvite"}}]'
+    delay_ticks: 70
+
+messages:
+  - "<gradient:#00ffff:#18ffff>╭────────────────────────╮"
+  - "<gradient:#00ffff:#18ffff>│  Welcome to the server!  │"
+  - "<gradient:#00ffff:#18ffff>╰────────────────────────╯"
+  - "<gray>Right-click your navigator to open the hub."
+
+items:                 # MUST be a YAML list (-)
+  - material: compass
+    name: "<bold><gradient:#00ffff:#18ffff>Server Navigator</gradient></bold>"
+    lore:
+      - "<gray>Right-click to open the welcome hub"
+      - "<dark_gray>Slot 4"
+    custom_model_data: 1001
+    unbreakable: true
+    open_gui: welcome_hub
+    slot: 4
+
+open_gui: welcome_hub   # auto-open on first join
+
+guis:
+  welcome_hub:           # 54-slot main hub
+    title: "<bold><gradient:#00ffff:#18ffff>Welcome Hub</gradient></bold>"
+    rows: 6
+    items:
+      # decorative glass border (rainbow)
+      0:  { material: light_blue_stained_glass_pane, name: "<#00ffff>▬", commands: [] }
+      1:  { material: blue_stained_glass_pane,       name: "<#0080ff>▬", commands: [] }
+      2:  { material: cyan_stained_glass_pane,       name: "<#18ffff>▬", commands: [] }
+      3:  { material: lime_stained_glass_pane,       name: "<#00ff80>▬", commands: [] }
+      4:  { material: yellow_stained_glass_pane,     name: "<#ffff00>▬", commands: [] }
+      5:  { material: orange_stained_glass_pane,     name: "<#ff8000>▬", commands: [] }
+      6:  { material: red_stained_glass_pane,        name: "<#ff0040>▬", commands: [] }
+      7:  { material: magenta_stained_glass_pane,    name: "<#ff00ff>▬", commands: [] }
+      8:  { material: purple_stained_glass_pane,     name: "<#8000ff>▬", commands: [] }
+
+      # row 2 – core info
+      11: { material: book,                    name: "<bold><#ffff00>Rules</#ffff00></bold>", lore: ["<gray>Click to read the rules"], custom_model_data: 1002, commands: ["player:firstjoin gui rules"] }
+      13: { material: emerald,                 name: "<bold><green>Vote</green></bold>", lore: ["<gray>Vote links & rewards"], custom_model_data: 1003, commands: ["console:tellraw {player} [\"\",{\"text\":\"Vote here → \",\"color\":\"gray\"},{\"text\":\"Click\",\"color\":\"green\",\"underlined\":true,\"clickEvent\":{\"action\":\"open_url\",\"value\":\"https://your-server.com/vote\"}}]"] }
+      15: { material: gold_ingot,                name: "<bold><gold>Store</gold></bold>", lore: ["<gray>Support the server"], custom_model_data: 1004, commands: ["console:tellraw {player} [\"\",{\"text\":\"Store → \",\"color\":\"gray\"},{\"text\":\"Click\",\"color\":\"gold\",\"underlined\":true,\"clickEvent\":{\"action\":\"open_url\",\"value\":\"https://your-server.com/store\"}}]"] }
+
+      # row 3 – social
+      20: { material: composter,                 name: "<bold><#7289da>Discord</#7289da></bold>", lore: ["<gray>Join our community"], custom_model_data: 1005, commands: ["console:tellraw {player} [\"\",{\"text\":\"Discord → \",\"color\":\"gray\"},{\"text\":\"Click\",\"color\":\"#7289da\",\"underlined\":true,\"clickEvent\":{\"action\":\"open_url\",\"value\":\"https://discord.gg/yourinvite\"}}]"] }
+      22: { material: map,                     name: "<bold><#00ff80>Warps</#00ff80></bold>", lore: ["<gray>Fast-travel menu"], custom_model_data: 1006, commands: ["console:execute as {player} run warp"] }  # or open a warp GUI
+      24: { material: ender_pearl,             name: "<bold><#ff80ff>Player TPA</#ff80ff></bold>", lore: ["<gray>/tpa, /tpahere"], custom_model_data: 1007, commands: ["player:tpa"] }
+
+      # row 4 – cosmetics / perks
+      29: { material: armor_stand,             name: "<bold><white>Cosmetics</white></bold>", lore: ["<gray>Hats, particles, gadgets"], custom_model_data: 1008, commands: ["player:cosmetics"] }  # your plug-in
+      31: { material: name_tag,                name: "<bold><yellow>Nickname</yellow></bold>", lore: ["<gray>Change your display"], custom_model_data: 1009, commands: ["player:nick"] }
+      33: { material: chest,                   name: "<bold><#00ffff>Kit Menu</#00ffff></bold>", lore: ["<gray>Daily / rank kits"], custom_model_data: 1010, commands: ["player:kit"] }
+
+      # row 5 – staff / help
+      38: { material: player_head,             name: "<bold><#ff8080>Need Help?</#ff8080></bold>", lore: ["<gray>Click to page staff"], custom_model_data: 1011, commands: ["player:helpop I need assistance!"] }  # needs helpop plug-in
+      40: { material: bell,                    name: "<bold><#ffff80>Online Staff</#ffff80></bold>", lore: ["<gray>Who is online?"], custom_model_data: 1012, commands: ["player:staff"] }  # your plug-in
+      42: { material: oak_sign,                name: "<bold><gray>Server Info</gray></bold>", lore: ["<gray>IP, version, features"], custom_model_data: 1013, commands: ["console:tellraw {player} [\"\",{\"text\":\"IP: \",\"color\":\"gray\"},{\"text\":\"play.yourserver.com\",\"color\":\"aqua\"}]"] }
+
+      # bottom close / back
+      49: { material: barrier,                 name: "<bold><red>Close</red></bold>", commands: ["close"] }
+
+  rules:                 # multi-page rule book GUI
+    title: "<bold><#ffff00>Server Rules</#ffff00></bold>"
+    rows: 3
+    items:
+      10: { material: paper, name: "<bold><white>1. Be Respectful</white></bold>", lore: ["<gray>No toxicity, slurs, or harassment."], custom_model_data: 2001 }
+      12: { material: paper, name: "<bold><white>2. No Griefing</white></bold>", lore: ["<gray>Don't break or steal others' builds."], custom_model_data: 2002 }
+      14: { material: paper, name: "<bold><white>3. No Cheating</white></bold>", lore: ["<gray>X-ray, fly, speed = instant ban."], custom_model_data: 2003 }
+      16: { material: paper, name: "<bold><white>4. Chat Rules</white></bold>", lore: ["<gray>English in main, no spam/caps."], custom_model_data: 2004 }
+
+      22: { material: written_book, name: "<bold><aqua>Full Rule Book</aqua></bold>", lore: ["<gray>Click to receive a book"], custom_model_data: 2005, commands: ["console:give {player} written_book[written_book_content={title:\"Server Rules\",author:\"Staff\",pages:['[\"\",{\"text\":\"Server Rules\\\\n\\\\n1. Be respectful\\\\n2. No griefing\\\\n3. No cheating\\\\n4. Keep chat clean\\\\n\\\\nMore at discord.gg/yourinvite\",\"color\":\"black\"]}']}] 1"] }
+
+      26: { material: arrow, name: "<bold><gray>Back to Hub</gray></bold>", commands: ["player:firstjoin gui welcome_hub"] }

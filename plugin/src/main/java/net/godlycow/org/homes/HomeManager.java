@@ -1,7 +1,5 @@
 package net.godlycow.org.homes;
 
-import com.serveressentials.api.home.HomeAPI;
-import net.godlycow.org.homes.api.HomeAPIImpl;
 import net.godlycow.org.homes.model.Home;
 import net.godlycow.org.homes.storage.HomeStorage;
 import net.godlycow.org.commands.config.HomesConfig;
@@ -14,17 +12,15 @@ import java.util.logging.Level;
 
 public class HomeManager {
     private final HomeStorage storage;
-    private final HomesConfig config;
+    public final HomesConfig config;
     private final Map<UUID, Long> lastSetTimes = new ConcurrentHashMap<>();
     private final Map<UUID, Long> lastTeleportTimes = new ConcurrentHashMap<>();
     private final Map<UUID, Map<Integer, Home>> homeCache = new ConcurrentHashMap<>();
-    private final HomeAPIImpl apiImpl;
 
 
     public HomeManager(HomeStorage storage, HomesConfig config) {
         this.storage = storage;
         this.config = config;
-        this.apiImpl = new HomeAPIImpl(this);
 
     }
 
@@ -86,9 +82,6 @@ public class HomeManager {
     }
 
 
-    public HomeAPI getAPI() {
-        return apiImpl;
-    }
 
     public CompletableFuture<Integer> countHomes(UUID playerId) {
         return getAllHomes(playerId).thenApply(Map::size);
@@ -141,6 +134,8 @@ public class HomeManager {
         lastSetTimes.remove(playerId);
         lastTeleportTimes.remove(playerId);
     }
+
+
 
     public void clearCache() {
         homeCache.clear();

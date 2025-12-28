@@ -1,6 +1,7 @@
 package net.godlycow.org;
 
 import net.godlycow.org.PlaceholderAPI.*;
+import net.godlycow.org.api.PluginAPIImpl;
 import net.godlycow.org.auction.gui.AuctionGUIListener;
 import net.godlycow.org.auction.storage.AuctionStorage;
 import net.godlycow.org.back.storage.BackDataStorage;
@@ -444,6 +445,8 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         initializeDatabases();
 
 
+
+        registerAPIServices();
 
 
         hooksManager = HooksManager.getInstance(this);
@@ -972,12 +975,6 @@ public class ServerEssentials extends JavaPlugin implements Listener {
 
 
 
-        getServer().getServicesManager().register(
-                com.serveressentials.api.PluginAPI.class,
-                new net.godlycow.org.api.PluginAPIImpl(homeManager.getAPI()),
-                this,
-                org.bukkit.plugin.ServicePriority.Normal
-        );
 
 
 
@@ -1711,6 +1708,28 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+
+
+    private void registerAPIServices() {
+        // Register Shop API
+        com.serveressentials.api.shop.ShopAPI shopAPI = shopCommand.getShopAPI();
+        getServer().getServicesManager().register(
+                com.serveressentials.api.shop.ShopAPI.class,
+                shopAPI,
+                this,
+                org.bukkit.plugin.ServicePriority.High
+        );
+
+        // Register Plugin API with both Shop and Home APIs
+        com.serveressentials.api.PluginAPI pluginAPI = new PluginAPIImpl(this, shopAPI, homeManager);
+        getServer().getServicesManager().register(
+                com.serveressentials.api.PluginAPI.class,
+                pluginAPI,
+                this,
+                org.bukkit.plugin.ServicePriority.High
+        );
     }
 
 

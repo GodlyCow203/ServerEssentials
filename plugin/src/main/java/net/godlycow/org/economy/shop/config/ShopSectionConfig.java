@@ -4,6 +4,7 @@ import org.bukkit.Material;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class ShopSectionConfig {
     public String title;
@@ -13,6 +14,8 @@ public class ShopSectionConfig {
     public int closeButtonSlot = -1;
     public Map<Integer, LayoutItem> layout = new HashMap<>();
     public Map<String, ShopItem> items = new HashMap<>();
+
+
 
     public static class LayoutItem {
         public Material material;

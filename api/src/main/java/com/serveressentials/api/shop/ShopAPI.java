@@ -2,7 +2,6 @@ package com.serveressentials.api.shop;
 
 import org.bukkit.entity.Player;
 import java.util.Collection;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 /**

@@ -665,6 +665,10 @@ public class ShopGUIManager {
         return skull;
     }
 
+    public Plugin getPlugin() {
+        return plugin;
+    }
+
     public MainShopConfig getMainConfig() {
         return mainConfigCache;
     }

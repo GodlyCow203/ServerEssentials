@@ -1,19 +1,19 @@
-def runDir        = layout.projectDirectory.dir('run/paper-test-api')
-def paperJar      = runDir.file('paper.jar')
-def runPluginsDir = runDir.dir('plugins')
+// Test server with both plugin and test-api
 
+def runDir = layout.projectDirectory.dir('run/paper-test-api')
+def paperJar = runDir.file('paper.jar')
+def runPluginsDir = runDir.dir('plugins')
 def paperVersion = '1.21.1'
 
 tasks.register('downloadPaper') {
     outputs.file(paperJar)
-
     doLast {
         if (!paperJar.asFile.exists()) {
             runDir.asFile.mkdirs()
             def json = new groovy.json.JsonSlurper()
                     .parseText(new URL("https://api.papermc.io/v2/projects/paper/versions/${paperVersion}").text)
             def build = json.builds.last()
-            def url   = "https://api.papermc.io/v2/projects/paper/versions/${paperVersion}/builds/${build}/downloads/paper-${paperVersion}-${build}.jar"
+            def url = "https://api.papermc.io/v2/projects/paper/versions/${paperVersion}/builds/${build}/downloads/paper-${paperVersion}-${build}.jar"
             println "Downloading Paper ${paperVersion} build ${build}"
             paperJar.asFile.bytes = new URL(url).bytes
         }
@@ -21,14 +21,18 @@ tasks.register('downloadPaper') {
 }
 
 tasks.register('cleanOld', Delete) {
-    delete runPluginsDir
+    delete(
+            fileTree(runPluginsDir) {
+                include 'ServerEssentials-*.jar'
+            }
+    )
 }
 
 tasks.register('copyPlugins', Copy) {
-    dependsOn ':plugin:shadowJar', ':test-api:shadowJar', cleanOld
+    dependsOn ':plugin:shadowJar', ':test-api:shadowAll', cleanOld
 
-    from(rootProject.layout.buildDirectory.dir('dist/plugins')) {
-        include "ServerEssentials-${rootProject.version}.jar"
+    from(rootProject.layout.projectDirectory.dir('dist/plugins')) {
+        include "ServerEssentials-*.jar"
         include "ServerEssentials-TestAPI-*.jar"
     }
     into runPluginsDir
@@ -36,7 +40,6 @@ tasks.register('copyPlugins', Copy) {
 
 tasks.register('prepareRunServer') {
     dependsOn downloadPaper, copyPlugins
-
     doLast {
         runDir.asFile.mkdirs()
         runPluginsDir.asFile.mkdirs()
@@ -47,7 +50,7 @@ tasks.register('prepareRunServer') {
         def props = runDir.file('server.properties').asFile
         if (!props.exists()) {
             props.text = """
-                server-port=25566        
+                server-port=25566
                 online-mode=false
                 motd=ServerEssentials API Test Server
             """.stripIndent()
@@ -57,7 +60,7 @@ tasks.register('prepareRunServer') {
 
 tasks.register('runPaper', Exec) {
     dependsOn prepareRunServer
-    workingDir runDir.asFile
+    workingDir runDir
     commandLine 'java', '-Xms1G', '-Xmx2G', '-jar', 'paper.jar', '--nogui'
     standardInput = System.in
 }

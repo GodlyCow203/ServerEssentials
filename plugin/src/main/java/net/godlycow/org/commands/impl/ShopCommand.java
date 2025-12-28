@@ -4,6 +4,7 @@ import net.godlycow.org.commands.config.ShopConfig;
 import net.godlycow.org.database.DatabaseManager;
 import net.godlycow.org.economy.eco.EconomyManager;
 import net.godlycow.org.economy.shop.*;
+import net.godlycow.org.economy.shop.api.ShopAPIImpl;
 import net.godlycow.org.economy.shop.config.MainShopConfig;
 import net.godlycow.org.economy.shop.config.loader.ShopConfigLoader;
 import net.godlycow.org.economy.shop.gui.ShopGUIManager;
@@ -179,6 +180,15 @@ public final class ShopCommand implements CommandExecutor {
                 runnable -> Bukkit.getScheduler().runTaskAsynchronously(plugin, runnable)));
     }
 
+    public ShopDataManager getDataManager() {
+        return dataManager;
+    }
+
+
+
+    public com.serveressentials.api.shop.ShopAPI getShopAPI() {
+        return new ShopAPIImpl(config, guiManager, dataManager);
+    }
     public ShopGUIManager getGuiManager() {
         return guiManager;
     }
