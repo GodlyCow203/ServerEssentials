@@ -4,8 +4,6 @@ plugins {
 group = 'com.github.GodlyCow203'
 version = '2.0.8'
 
-def javaModules = [':api', ':plugin', ':test-api', ':paper-server', ':paper-server-test-api']
-
 allprojects {
     repositories {
         mavenCentral()
@@ -16,21 +14,3 @@ allprojects {
         maven { url = "https://jitpack.io" }
     }
 }
-
-subprojects {
-    apply plugin: "java-library"
-
-    java {
-        toolchain.languageVersion = JavaLanguageVersion.of(21)
-        withSourcesJar()
-        withJavadocJar()
-    }
-
-
-}
-
-project(":api") {
-    apply plugin: "java-library"
-
-}
-
