@@ -12,4 +12,7 @@ commands:
   auctiontest:
     description: Test all the auctiion API feaatures
     usage: /aauctiontest <command>
+  backapitest:
+    description: .
+    usage: /backapitest <command>
 

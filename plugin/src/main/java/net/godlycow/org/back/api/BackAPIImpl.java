@@ -115,7 +115,9 @@ public final class BackAPIImpl implements BackAPI {
     @Override
     public @NotNull CompletableFuture<Void> setBackLocation(@NotNull Player player, @NotNull Location location) {
         return backManager.setLastLocation(player.getUniqueId(), location)
-                .thenRun(() -> fireEvent(new BackLocationSaveEvent(player, location)));
+                .thenRun(() -> {
+                    Bukkit.getPluginManager().callEvent(new BackLocationSaveEvent(player, location));
+                });
     }
 
     @Override
@@ -152,17 +154,20 @@ public final class BackAPIImpl implements BackAPI {
                                                                 @NotNull BackEvent.BackType backType) {
         Location from = player.getLocation();
 
-        return CompletableFuture.supplyAsync(() -> {
-            Bukkit.getScheduler().runTask(plugin, () -> {
-                player.teleport(destination);
-                sendMessage(player, "commands.back.teleported-" + backType.name().toLowerCase(),
-                        "<green>Teleported successfully.");
+        CompletableFuture<Boolean> result = new CompletableFuture<>();
+
+        Bukkit.getScheduler().runTask(plugin, () -> {
+            player.teleport(destination);
+            sendMessage(player, "commands.back.teleported-" + backType.name().toLowerCase(),
+                    "<green>Teleported successfully.");
+
+            Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+                Bukkit.getPluginManager().callEvent(new BackTeleportEvent(player, backType, from, destination));
+                result.complete(true);
             });
-            return true;
-        }).thenApply(success -> {
-            fireEvent(new BackTeleportEvent(player, backType, from, destination));
-            return success;
         });
+
+        return result;
     }
 
     private @Nullable Location getLobbyLocation() {
@@ -192,11 +197,5 @@ public final class BackAPIImpl implements BackAPI {
         });
     }
 
-    private void fireEvent(@NotNull Event event) {
-        if (!Bukkit.isPrimaryThread()) {
-            Bukkit.getScheduler().runTask(plugin, () -> Bukkit.getPluginManager().callEvent(event));
-        } else {
-            Bukkit.getPluginManager().callEvent(event);
-        }
-    }
+
 }

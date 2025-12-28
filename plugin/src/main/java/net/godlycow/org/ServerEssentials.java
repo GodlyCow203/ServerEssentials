@@ -14,6 +14,7 @@ import net.godlycow.org.back.storage.BackDataStorage;
 import net.godlycow.org.back.trigger.BackListener;
 import net.godlycow.org.ban.storage.BanStorage;
 import net.godlycow.org.ban.trigger.BanListener;
+import net.godlycow.org.daily.api.DailyAPIImpl;
 import net.godlycow.org.daily.trigger.DailyListener;
 import net.godlycow.org.database.type.DatabaseType;
 import net.godlycow.org.economy.eco.EconomyManager;
@@ -1781,7 +1782,17 @@ public class ServerEssentials extends JavaPlugin implements Listener {
                 org.bukkit.plugin.ServicePriority.High
         );
 
-        com.serveressentials.api.PluginAPI pluginAPI = new PluginAPIImpl(this, shopAPI, homeManager, auctionAPI, afkManager, backAPI);
+        com.serveressentials.api.daily.DailyAPI dailyAPI = new DailyAPIImpl(
+                this, dailyConfig, dailyStorage, playerLanguageManager
+        );
+        getServer().getServicesManager().register(
+                com.serveressentials.api.daily.DailyAPI.class,
+                dailyAPI,
+                this,
+                org.bukkit.plugin.ServicePriority.High
+        );
+
+        com.serveressentials.api.PluginAPI pluginAPI = new PluginAPIImpl(this, shopAPI, homeManager, auctionAPI, afkManager, backAPI, dailyAPI);
         getServer().getServicesManager().register(
                 com.serveressentials.api.PluginAPI.class,
                 pluginAPI,
