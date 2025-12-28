@@ -9,8 +9,10 @@ dependencies {
     compileOnly 'net.milkbowl.vault:VaultAPI:1.7'
     compileOnly 'net.luckperms:api:5.4'
 
-    implementation project(":api")
+    // API module
+    compileOnly project(":api")
 
+    // Other dependencies
     implementation 'org.json:json:20240303'
     implementation 'com.zaxxer:HikariCP:5.0.1'
     implementation 'net.kyori:adventure-text-minimessage:4.14.0'
@@ -22,12 +24,28 @@ dependencies {
     }
 }
 
-shadowJar {
-    archiveFileName = "ServerEssentials-${project.version}.jar"
-    destinationDirectory = rootProject.layout.projectDirectory.dir('dist/dist/plugins')
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-
-    exclude 'META-INF/**'
+processResources {
+    from(sourceSets.main.resources.srcDirs) {
+        include 'plugin.yml'
+        expand(
+                name: rootProject.name,
+                version: project.version,
+                main: 'net.godlycow.org.ServerEssentials'
+        )
+    }
 }
 
-tasks.build.dependsOn shadowJar
+
+shadowJar {
+    archiveFileName = "ServerEssentials-${project.version}.jar"
+    destinationDirectory = rootProject.layout.projectDirectory.dir("dist/plugins")
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    exclude "META-INF/**"
+
+    from sourceSets.main.output
+    configurations = [project.configurations.runtimeClasspath]
+}
+
+// Disable plain jar task
+tasks.jar.enabled = false
+tasks.build.dependsOn tasks.shadowJar
