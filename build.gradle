@@ -1,9 +1,11 @@
 plugins {
-    id 'maven-publish'
+    // Root project has no plugins
 }
 
 group = 'com.github.GodlyCow203'
-version = '2.0.7.20' // Change this for new releases
+version = "2.0.7.9"
+
+def javaModules = [':api', ':plugin', ':test-api', ':paper-server', ':paper-server-test-api']
 
 allprojects {
     repositories {
@@ -16,36 +18,31 @@ allprojects {
     }
 }
 
-subprojects {
-    apply plugin: 'java-library'
-    apply plugin: 'maven-publish'
+// Configure all java modules
+group = "com.github.GodlyCow203"
+version = "2.0.8"
 
-    group = rootProject.group
-    version = rootProject.version
+subprojects {
+    apply plugin: "java-library"
 
     java {
         toolchain.languageVersion = JavaLanguageVersion.of(21)
         withSourcesJar()
         withJavadocJar()
     }
+}
 
-    // JitPack-friendly publishing config
+project(":api") {
+    apply plugin: "maven-publish"
+
     publishing {
         publications {
-            maven(MavenPublication) {
+            mavenJava(MavenPublication) {
                 from components.java
-                artifactId = project.name
-                // JitPack needs these to be explicit
-                groupId = rootProject.group
-                version = rootProject.version
             }
         }
     }
 }
 
-// Prevent plugin module from publishing (it's the final fat JAR)
-project(":plugin") {
-    publishing {
-        publications.clear()
-    }
-}
+
+

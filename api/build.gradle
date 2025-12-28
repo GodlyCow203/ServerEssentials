@@ -1,5 +1,5 @@
 plugins {
-    id 'java-library'
+    id 'java'
     id 'maven-publish'
 }
 
@@ -24,10 +24,13 @@ dependencies {
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            from components.java
-            groupId = 'com.serveressentials'
-            artifactId = 'serveressentials-api'
+            groupId = project.group
+            artifactId = 'api'
             version = project.version
+
+            artifact tasks.named('jar')
+            artifact tasks.named('sourcesJar')
+            artifact tasks.named('javadocJar')
         }
     }
 }
