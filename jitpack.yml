@@ -3,3 +3,5 @@ jdk:
 
 install:
   - ./gradlew :api:assemble
+  - ./gradlew clean build publishToMavenLocal
+
