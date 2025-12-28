@@ -26,15 +26,7 @@ subprojects {
         withJavadocJar()
     }
 
-    task sourcesJar(type: Jar) {
-        archiveClassifier.set('sources')
-        from sourceSets.main.allSource
-    }
 
-    task javadocJar(type: Jar) {
-        archiveClassifier.set('javadoc')
-        from tasks.javadoc
-    }
 }
 
 project(":api") {
