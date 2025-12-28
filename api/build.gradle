@@ -1,6 +1,5 @@
 plugins {
     id 'java'
-    id 'maven-publish'
 }
 
 group = 'com.serveressentials'
@@ -21,4 +20,6 @@ dependencies {
     compileOnly 'io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT'
 }
 
-
+jar {
+    archiveBaseName.set('ServerEssentials-api')
+}

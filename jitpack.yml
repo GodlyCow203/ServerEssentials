@@ -1,4 +1,5 @@
-install:
-  - ./gradlew build -x publishToMavenLocal
-  - ./gradlew :api:build
+jdk:
+  - openjdk21
 
+install:
+  - ./gradlew :api:build
