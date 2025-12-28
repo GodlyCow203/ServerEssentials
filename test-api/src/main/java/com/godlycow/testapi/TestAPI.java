@@ -33,7 +33,6 @@ public class TestAPI extends JavaPlugin implements Listener {
         getLogger().info(PREFIX + "ServerEssentials API Tester enabled!");
 
         getCommand("shoptest").setExecutor(new ShopAPICommand(this));
-        getCommand("afktest").setExecutor(new AFKAPITestCommand(this));
         getCommand("auctiontest").setExecutor(new AuctionAPITestCommand(this));
 
         getServer().getPluginManager().registerEvents(this, this);

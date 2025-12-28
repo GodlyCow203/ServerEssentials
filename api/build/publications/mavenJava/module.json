@@ -10,7 +10,7 @@
   },
   "createdBy": {
     "gradle": {
-      "version": "8.7"
+      "version": "8.5"
     }
   },
   "variants": [
@@ -27,11 +27,11 @@
         {
           "name": "ServerEssentials-api-2.0.8.2.jar",
           "url": "ServerEssentials-api-2.0.8.2.jar",
-          "size": 9248,
-          "sha512": "4577aa34f1810d0e89e42aa9246afd37027dd2cc1ddde39396354dcc942310d363898a923be0f9e8c02a491fe168ee066043474fd4fa2d3931977e32c328c0ab",
-          "sha256": "029a72fd2f9eb9a027914a984619c69631949ead2178d26026816e1bcdfbcdaa",
-          "sha1": "33c1df57b54cb1be0ba18dc57505f5b0b90cbcca",
-          "md5": "18653f4720dd26acef59ef6e5409bab3"
+          "size": 15478,
+          "sha512": "93fd46666c9731fc1afc46300606a3e6d72021388e0f6c7eae9578cfbe088f9eeb06f60f9d5321caf793ff3dd8015157cfe57dfcb256ef437a9c704539bcdb6a",
+          "sha256": "683537efb1eb68b69ab957196e0df7b30f286e9bf8ae2c49fd99bc27b082a26f",
+          "sha1": "955a86b4b185786e125f8fd0aa9ddde79c679efb",
+          "md5": "89a20e54be197f5f20c3b9a68ef21fd9"
         }
       ]
     },
@@ -48,11 +48,11 @@
         {
           "name": "ServerEssentials-api-2.0.8.2.jar",
           "url": "ServerEssentials-api-2.0.8.2.jar",
-          "size": 9248,
-          "sha512": "4577aa34f1810d0e89e42aa9246afd37027dd2cc1ddde39396354dcc942310d363898a923be0f9e8c02a491fe168ee066043474fd4fa2d3931977e32c328c0ab",
-          "sha256": "029a72fd2f9eb9a027914a984619c69631949ead2178d26026816e1bcdfbcdaa",
-          "sha1": "33c1df57b54cb1be0ba18dc57505f5b0b90cbcca",
-          "md5": "18653f4720dd26acef59ef6e5409bab3"
+          "size": 15478,
+          "sha512": "93fd46666c9731fc1afc46300606a3e6d72021388e0f6c7eae9578cfbe088f9eeb06f60f9d5321caf793ff3dd8015157cfe57dfcb256ef437a9c704539bcdb6a",
+          "sha256": "683537efb1eb68b69ab957196e0df7b30f286e9bf8ae2c49fd99bc27b082a26f",
+          "sha1": "955a86b4b185786e125f8fd0aa9ddde79c679efb",
+          "md5": "89a20e54be197f5f20c3b9a68ef21fd9"
         }
       ]
     },
@@ -68,11 +68,11 @@
         {
           "name": "ServerEssentials-api-2.0.8.2-sources.jar",
           "url": "ServerEssentials-api-2.0.8.2-sources.jar",
-          "size": 7212,
-          "sha512": "afb66926826e933a8c476b5492e0147183703767abd3ea0f0ec6292e48a42d90c25dc832dc39e024cf28527c15602aeb061886bfc3fa9413da3963a7da06b243",
-          "sha256": "d04c3f54e04259e655443bcb26585bcc46a399a0299940ed469590e8f611f9af",
-          "sha1": "7e83d7d6fc8075e6c3f67aa4fcbb92ff1c1628c2",
-          "md5": "3ea499ed842ca43f12fa38c60352fa02"
+          "size": 11766,
+          "sha512": "427ccf29916c8ae34a8a1f39c53affdfb64ac6a26e40c5ecfb27a2e2ef7cdd8fa925d9563e3923757cb17b6d59849cb9e5776ef433fc5fc2b20ee74eadbc0514",
+          "sha256": "b08d9a45b2c38d1113c21c1162c2beff0d670e3b934aa69b4521e175918d3164",
+          "sha1": "3984ce4c9b72156cd1e53e5e3769549dd479da78",
+          "md5": "0b28da20ab5f2538e463228d2e0f5c17"
         }
       ]
     },
@@ -88,11 +88,11 @@
         {
           "name": "ServerEssentials-api-2.0.8.2-javadoc.jar",
           "url": "ServerEssentials-api-2.0.8.2-javadoc.jar",
-          "size": 124633,
-          "sha512": "f655e0a8ee6d33c0b561cb7d89921df29b77ea94a08b02d602319789024d52f2742802744d41d2d784ed80379e54c42cf45a703e92cd749f5c54595253f017c4",
-          "sha256": "03825f4875e8828c51904e04ff45349c74cdbcffbaa5c759d77353b38dfa1a43",
-          "sha1": "dc610afc2734dbda74f2da7e1e26e96e2182195b",
-          "md5": "87801ee47fb2444c472d9ad9ddeb390a"
+          "size": 161270,
+          "sha512": "cb652e1eeb9f94f7312bade0ba8031a6b6d3745e65aedb167bf56a69787c691b152be8c891b2f92db45ab0cc0c8806c7ee95b0a85ee71584c3682279c347344a",
+          "sha256": "9acc5648fc9130d28fa3eab0598ca4f1d95c603430fb4e78a504fbbcc4301872",
+          "sha1": "db8f45057f92b6eadfa1182a4b83e35aa06230bf",
+          "md5": "0b95d5e7f843163be6e6cd288a7af1e2"
         }
       ]
     }

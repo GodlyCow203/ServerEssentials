@@ -1,4 +1,8 @@
 com.serveressentials.api
+com.serveressentials.api.afk
+com.serveressentials.api.afk.event
+com.serveressentials.api.auction
+com.serveressentials.api.auction.event
 com.serveressentials.api.home
 com.serveressentials.api.shop
 com.serveressentials.api.shop.event
