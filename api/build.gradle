@@ -1,8 +1,9 @@
 plugins {
     id 'java-library'
+    id 'maven-publish'
 }
 
-group = 'com.serveressentials'
+group = 'com.github.GodlyCow203'
 version = '2.0.8.2'
 
 java {
@@ -20,8 +21,16 @@ dependencies {
     compileOnly 'io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT'
 }
 
-tasks.jar {
+jar {
     archiveBaseName.set('ServerEssentials-api')
-    archiveVersion.set(version)
-    destinationDirectory.set(layout.buildDirectory.dir("libs"))
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            artifact sourcesJar
+            artifact javadocJar
+        }
+    }
 }
