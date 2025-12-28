@@ -1,5 +1,6 @@
 package net.godlycow.org;
 
+import com.serveressentials.api.afk.AFKAPI;
 import com.serveressentials.api.auction.AuctionAPI;
 import com.serveressentials.api.shop.ShopAPI;
 import net.godlycow.org.PlaceholderAPI.*;
@@ -435,6 +436,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
     private ReloadManager reloadManager;
     private ShopAPI shopAPI;
     private AuctionAPI auctionAPI;
+    private AFKAPI afkAPI;
 
 
 
@@ -1759,9 +1761,10 @@ public class ServerEssentials extends JavaPlugin implements Listener {
                 org.bukkit.plugin.ServicePriority.High
         );
 
+        afkAPI = new AFKAPIImpl(this, afkManager);
         getServer().getServicesManager().register(
                 com.serveressentials.api.afk.AFKAPI.class,
-                new AFKAPIImpl(this, afkManager),
+                afkAPI,
                 this,
                 org.bukkit.plugin.ServicePriority.High
         );

@@ -58,6 +58,6 @@ public class AFKAPIImpl implements AFKAPI {
 
     @Override
     public void updatePlayerActivity(Player player) {
-        afkManager.updatePlayerActivity(player);
+        afkManager.updateActivity(player);
     }
 }

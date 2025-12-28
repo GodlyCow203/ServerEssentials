@@ -236,6 +236,7 @@ public final class AFKManager implements Listener {
     public boolean isAFKEnabled() {
         return config.enabled;
     }
+    
 
     public void updateActivity(Player player) {
         UUID uuid = player.getUniqueId();
