@@ -21,23 +21,4 @@ dependencies {
     compileOnly 'io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT'
 }
 
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            groupId = project.group
-            artifactId = 'api'
-            version = project.version
 
-            from(components.java)
-
-            artifact(tasks.named('sourcesJar'))
-            artifact(tasks.named('javadocJar'))
-        }
-    }
-
-    repositories {
-        maven {
-            url = uri("${buildDir}/repos/maven")
-        }
-    }
-}

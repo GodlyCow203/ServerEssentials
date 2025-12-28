@@ -1,9 +1,8 @@
 plugins {
-    // Root project has no plugins
 }
 
 group = 'com.github.GodlyCow203'
-version = "2.0.7.9"
+version = '2.0.8'
 
 def javaModules = [':api', ':plugin', ':test-api', ':paper-server', ':paper-server-test-api']
 
@@ -18,10 +17,6 @@ allprojects {
     }
 }
 
-// Configure all java modules
-group = "com.github.GodlyCow203"
-version = "2.0.8"
-
 subprojects {
     apply plugin: "java-library"
 
@@ -30,19 +25,20 @@ subprojects {
         withSourcesJar()
         withJavadocJar()
     }
-}
 
-project(":api") {
-    apply plugin: "maven-publish"
+    task sourcesJar(type: Jar) {
+        archiveClassifier.set('sources')
+        from sourceSets.main.allSource
+    }
 
-    publishing {
-        publications {
-            mavenJava(MavenPublication) {
-                from components.java
-            }
-        }
+    task javadocJar(type: Jar) {
+        archiveClassifier.set('javadoc')
+        from tasks.javadoc
     }
 }
 
+project(":api") {
+    apply plugin: "java-library"
 
+}
 
