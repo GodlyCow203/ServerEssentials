@@ -8,6 +8,7 @@ import com.serveressentials.api.daily.DailyAPI;
 import com.serveressentials.api.economy.EconomyAPI;
 import com.serveressentials.api.home.HomeAPI;
 import com.serveressentials.api.shop.ShopAPI;
+import com.serveressentials.api.kit.KitAPI;
 import net.godlycow.org.ServerEssentials;
 import net.godlycow.org.afk.AFKManager;
 import net.godlycow.org.afk.api.AFKAPIImpl;
@@ -23,13 +24,15 @@ public class PluginAPIImpl implements PluginAPI {
     private final BackAPI backAPI;
     private final DailyAPI dailyAPI;
     private final EconomyAPI economyAPI;
+    private final KitAPI kitAPI;
+
 
 
 
 
     public PluginAPIImpl(ServerEssentials plugin, ShopAPI shopAPI,
                          HomeManager homeManager, AuctionAPI auctionAPI,
-                         AFKManager afkManager, BackAPI backAPI, DailyAPI dailyAPI, EconomyAPI economyAPI) {
+                         AFKManager afkManager, BackAPI backAPI, DailyAPI dailyAPI, EconomyAPI economyAPI, KitAPI kitAPI) {
         this.plugin = plugin;
         this.shopAPI = shopAPI;
         this.homeAPI = new net.godlycow.org.homes.api.HomeAPIImpl(homeManager);
@@ -38,6 +41,7 @@ public class PluginAPIImpl implements PluginAPI {
         this.backAPI = backAPI;
         this.dailyAPI = dailyAPI;
         this.economyAPI = economyAPI;
+        this.kitAPI = kitAPI;
 
 
     }
@@ -67,6 +71,10 @@ public class PluginAPIImpl implements PluginAPI {
 
     public EconomyAPI getEconomyAPI() {
         return economyAPI;
+    }
+
+    public  KitAPI getKitAPI() {
+        return kitAPI;
     }
 
     @Override

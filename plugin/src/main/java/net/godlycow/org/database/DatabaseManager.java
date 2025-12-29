@@ -6,6 +6,7 @@ import net.godlycow.org.database.type.DatabaseType;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -36,12 +37,16 @@ public class DatabaseManager {
             HikariConfig hc = new HikariConfig();
 
             if (config.type() == DatabaseType.SQLITE) {
-                String path = plugin.getDataFolder().getAbsolutePath() + "/" + config.sqliteFile();
+                File dbFile = new File(getDatabaseFolder(), config.sqliteFile());
+                String path = dbFile.getAbsolutePath();
+
                 hc.setJdbcUrl("jdbc:sqlite:" + path);
                 hc.setDriverClassName("org.sqlite.JDBC");
                 hc.addDataSourceProperty("journal_mode", "WAL");
                 hc.addDataSourceProperty("synchronous", "NORMAL");
+
                 plugin.getLogger().info("SQLite path: " + path);
+
             } else {
                 String jdbc = String.format("jdbc:mysql://%s:%d/%s?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&connectTimeout=5000&socketTimeout=30000",
                         config.mysqlHost(), config.mysqlPort(), config.mysqlDatabase());
@@ -190,6 +195,15 @@ public class DatabaseManager {
         pools.clear();
         statusMap.clear();
     }
+
+    private File getDatabaseFolder() {
+        File folder = new File(plugin.getDataFolder(), "databases");
+        if (!folder.exists() && !folder.mkdirs()) {
+            plugin.getLogger().warning("Failed to create databases folder!");
+        }
+        return folder;
+    }
+
 
     public Set<String> getPoolKeys() {
         return Collections.unmodifiableSet(pools.keySet());

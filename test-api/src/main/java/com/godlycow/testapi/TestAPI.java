@@ -5,6 +5,8 @@ import com.serveressentials.api.PluginAPI;
 import com.serveressentials.api.back.BackAPI;
 import com.serveressentials.api.back.event.BackLocationSaveEvent;
 import com.serveressentials.api.back.event.BackTeleportEvent;
+import com.serveressentials.api.daily.DailyAPI;
+import com.serveressentials.api.economy.EconomyAPI;
 import com.serveressentials.api.shop.ShopAPI;
 import com.serveressentials.api.auction.AuctionAPI;
 import com.serveressentials.api.shop.event.ShopPurchaseEvent;
@@ -36,6 +38,8 @@ public class TestAPI extends JavaPlugin implements Listener {
     private int retryTaskId = -1;
     private com.serveressentials.api.daily.DailyAPI dailyAPI;
     private DailyAPITestCommand dailyTestCommand;
+    private EconomyAPI economyAPI;
+    private EconomyAPITestCommand economyTestCommand;
 
 
     @Override
@@ -50,6 +54,9 @@ public class TestAPI extends JavaPlugin implements Listener {
 
         dailyTestCommand = new DailyAPITestCommand(this);
         getCommand("dailyapitest").setExecutor(dailyTestCommand);
+
+        economyTestCommand = new EconomyAPITestCommand(this);
+        getCommand("economytest").setExecutor(economyTestCommand);
 
         getServer().getPluginManager().registerEvents(this, this);
 
@@ -68,7 +75,15 @@ public class TestAPI extends JavaPlugin implements Listener {
                     this.dailyAPI = pluginAPI.getDailyAPI();
                     if (dailyTestCommand != null) {
                         dailyTestCommand.setDailyAPI(dailyAPI);
+
+
                     }
+
+                    this.economyAPI = pluginAPI.getEconomyAPI();
+                    if (economyTestCommand != null) {
+                        economyTestCommand.setEconomyAPI(economyAPI);
+                    }
+
                     getLogger().info(PREFIX + "APIs connected successfully!");
                     getServer().getScheduler().cancelTask(retryTaskId);
                     retryTaskId = -1;
@@ -90,8 +105,8 @@ public class TestAPI extends JavaPlugin implements Listener {
         getLogger().info(PREFIX + "Auction enabled: " + auctionAPI.isAuctionEnabled());
         getLogger().info(PREFIX + "Back enabled: " + backAPI.isBackEnabled());
         getLogger().info(PREFIX + "Back enabled: " + dailyAPI.isDailyEnabled());
-        getLogger().info(PREFIX + "Shop sections: " + shopAPI.getSectionNames().size());
-        getLogger().info(PREFIX + "Auction max price: " + auctionAPI.getMaxPriceLimit());
+        getLogger().info(PREFIX + "Back enabled: " + economyAPI.isEnabled());
+
     }
 
     @EventHandler
@@ -140,7 +155,11 @@ public class TestAPI extends JavaPlugin implements Listener {
         return String.format("%.1f, %.1f, %.1f in %s", loc.getX(), loc.getY(), loc.getZ(), loc.getWorld().getName());
     }
 
-    public com.serveressentials.api.daily.DailyAPI getDailyAPI() {
+    public EconomyAPI getEconomyAPI() {
+        return economyAPI;
+    }
+
+    public DailyAPI getDailyAPI() {
         return dailyAPI;
     }
 }

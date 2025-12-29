@@ -23,6 +23,7 @@ import net.godlycow.org.economy.shop.gui.trigger.ShopGUIListener;
 import net.godlycow.org.executor.CommandExecutor;
 import net.godlycow.org.homes.gui.trigger.HomeGUIListener;
 import net.godlycow.org.homes.storage.HomeStorage;
+import net.godlycow.org.kit.api.KitAPIImpl;
 import net.godlycow.org.kit.trigger.KitGUIListener;
 import net.godlycow.org.listeners.admin.AdminChatListener;
 import net.godlycow.org.listeners.admin.AdminUtilitiesListener;
@@ -441,6 +442,8 @@ public class ServerEssentials extends JavaPlugin implements Listener {
     private AuctionAPI auctionAPI;
     private AFKAPI afkAPI;
     private BackAPI backAPI;
+    private KitManager kitManager;
+    private KitConfigManager kitConfigManager;
 
 
 
@@ -1801,7 +1804,22 @@ public class ServerEssentials extends JavaPlugin implements Listener {
                 org.bukkit.plugin.ServicePriority.High
         );
 
-        com.serveressentials.api.PluginAPI pluginAPI = new PluginAPIImpl(this, shopAPI, homeManager, auctionAPI, afkManager, backAPI, dailyAPI, economyAPI);
+        com.serveressentials.api.kit.KitAPI kitAPI = new KitAPIImpl(
+                this,
+                kitManager,
+                kitConfigManager,
+                kitStorage,
+                kitConfig,
+                playerLanguageManager
+        );
+        getServer().getServicesManager().register(
+                com.serveressentials.api.kit.KitAPI.class,
+                kitAPI,
+                this,
+                org.bukkit.plugin.ServicePriority.High
+        );
+
+        com.serveressentials.api.PluginAPI pluginAPI = new PluginAPIImpl(this, shopAPI, homeManager, auctionAPI, afkManager, backAPI, dailyAPI, economyAPI, kitAPI);
         getServer().getServicesManager().register(
                 com.serveressentials.api.PluginAPI.class,
                 pluginAPI,

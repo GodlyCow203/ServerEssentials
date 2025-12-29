@@ -39,7 +39,7 @@ public class AuctionGUIListener implements Listener {
 
     private final Map<Player, Map<Integer, UUID>> auctionViewingMap = new WeakHashMap<>();
     private final Map<Player, Map<Integer, UUID>> playerItemsViewingMap = new WeakHashMap<>();
-    private final Map<Player, UUID> pendingRemovalMap = new WeakHashMap<>();
+    private final Map<UUID, UUID> pendingRemovalMap = new HashMap<>();
 
     public AuctionGUIListener(Plugin plugin, PlayerLanguageManager langManager,
                               AuctionConfig config, AuctionStorage storage, EconomyManager economyManager) {
@@ -64,7 +64,7 @@ public class AuctionGUIListener implements Listener {
         if (clicked == null || clicked.getType().isAir()) return;
 
         if (title.contains("Confirm Removal")) {
-            handleConfirmRemoval(player, clicked);
+            handleConfirmRemoval(player, clicked, event.getRawSlot());
             return;
         }
 
@@ -86,34 +86,64 @@ public class AuctionGUIListener implements Listener {
         pendingRemovalMap.remove(player);
     }
 
-    private void handleConfirmRemoval(Player player, ItemStack clicked) {
-        UUID itemId = pendingRemovalMap.remove(player);
-        if (itemId == null) return;
+    private void handleConfirmRemoval(Player player, ItemStack clicked, int slot) {
+        UUID itemId = pendingRemovalMap.remove(player.getUniqueId());
 
-        if (clicked.getType() == Material.GREEN_WOOL) {
+        if (itemId == null) {
+            plugin.getLogger().warning("[Auction] No pending removal for " + player.getName());
+            player.sendMessage(langManager.getMessageFor(
+                    player,
+                    "auction.remove.no-pending",
+                    "<red>No pending removal found!"
+            ));
+            return;
+        }
+
+        if (slot == 11 && clicked.getType() == Material.GREEN_WOOL) {
+            plugin.getLogger().fine("[Auction] Removing item " + itemId);
+
             storage.getItemData(itemId).thenAccept(optItem -> {
-                if (optItem.isEmpty()) {
-                    player.sendMessage(langManager.getMessageFor(player, "auction.gui.remove.not-found",
-                            "<red>Item no longer exists!"));
-                    return;
-                }
+                if (optItem.isEmpty()) return;
 
                 AuctionItem item = optItem.get();
-                storage.removeItem(itemId).thenAccept(v -> {
+                storage.removeItem(itemId).thenRun(() -> {
                     Bukkit.getScheduler().runTask(plugin, () -> {
-                        player.getInventory().addItem(item.getItem().clone());
-                        player.sendMessage(langManager.getMessageFor(player, "auction.gui.remove.success",
-                                "<green>Item removed from auction and returned to your inventory."));
+                        HashMap<Integer, ItemStack> remaining =
+                                player.getInventory().addItem(item.getItem().clone());
+
+                        if (!remaining.isEmpty()) {
+                            remaining.values().forEach(drop ->
+                                    player.getWorld().dropItemNaturally(player.getLocation(), drop)
+                            );
+
+                            player.sendMessage(langManager.getMessageFor(
+                                    player,
+                                    "auction.remove.inventory-full",
+                                    "<yellow>Item dropped on the ground (inventory full)"
+                            ));
+                        }
+
+                        player.sendMessage(langManager.getMessageFor(
+                                player,
+                                "auction.remove.success",
+                                "<green>Item removed successfully!"
+                        ));
+
                         openPlayerItemsGUI(player, 1);
                     });
                 });
             });
-        } else {
-            player.sendMessage(langManager.getMessageFor(player, "auction.gui.remove.cancel",
-                    "<gray>Removal cancelled."));
+
+        } else if (slot == 15 && clicked.getType() == Material.RED_WOOL) {
+            player.sendMessage(langManager.getMessageFor(
+                    player,
+                    "auction.remove.cancelled",
+                    "<gray>Removal cancelled."
+            ));
             openPlayerItemsGUI(player, 1);
         }
     }
+
 
     private boolean handleNavigation(Player player, ItemStack clicked, String title) {
         return switch (clicked.getType()) {
@@ -168,7 +198,7 @@ public class AuctionGUIListener implements Listener {
         UUID itemId = slotMap.get(slot);
         if (itemId == null) return;
 
-        pendingRemovalMap.put(player, itemId);
+        pendingRemovalMap.put(player.getUniqueId(), itemId);
         openRemoveConfirmGUI(player);
     }
 

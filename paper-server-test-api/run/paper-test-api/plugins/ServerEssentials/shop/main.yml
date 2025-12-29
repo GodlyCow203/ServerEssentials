@@ -35,13 +35,6 @@ sections:
       - "<gray>Click to open"
     file: tools.yml
     clickable: true
-  "11":
-    name: "<#FF9999><i>Test Section"
-    material: DRAGON_EGG
-    lore:
-      - "<#FE6666><u>Open at your own risk !"
-    file: test-section.yml
-    clickable: true
 
   "12":
     name: "<#A35F00><b>Food Shop"
