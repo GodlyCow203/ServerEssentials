@@ -15,4 +15,7 @@ commands:
   backapitest:
     description: .
     usage: /backapitest <command>
+  dailyapitest:
+    description: e
+    usage: /dailyapitest <command>
 

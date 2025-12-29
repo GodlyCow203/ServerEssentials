@@ -17,6 +17,7 @@ import net.godlycow.org.ban.trigger.BanListener;
 import net.godlycow.org.daily.api.DailyAPIImpl;
 import net.godlycow.org.daily.trigger.DailyListener;
 import net.godlycow.org.database.type.DatabaseType;
+import net.godlycow.org.economy.api.EconomyAPIImpl;
 import net.godlycow.org.economy.eco.EconomyManager;
 import net.godlycow.org.economy.shop.gui.trigger.ShopGUIListener;
 import net.godlycow.org.executor.CommandExecutor;
@@ -1792,7 +1793,15 @@ public class ServerEssentials extends JavaPlugin implements Listener {
                 org.bukkit.plugin.ServicePriority.High
         );
 
-        com.serveressentials.api.PluginAPI pluginAPI = new PluginAPIImpl(this, shopAPI, homeManager, auctionAPI, afkManager, backAPI, dailyAPI);
+        com.serveressentials.api.economy.EconomyAPI economyAPI = new EconomyAPIImpl(this, economyManager);
+        getServer().getServicesManager().register(
+                com.serveressentials.api.economy.EconomyAPI.class,
+                economyAPI,
+                this,
+                org.bukkit.plugin.ServicePriority.High
+        );
+
+        com.serveressentials.api.PluginAPI pluginAPI = new PluginAPIImpl(this, shopAPI, homeManager, auctionAPI, afkManager, backAPI, dailyAPI, economyAPI);
         getServer().getServicesManager().register(
                 com.serveressentials.api.PluginAPI.class,
                 pluginAPI,

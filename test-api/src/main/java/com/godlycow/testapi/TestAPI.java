@@ -34,6 +34,8 @@ public class TestAPI extends JavaPlugin implements Listener {
     private BackAPI backAPI;
     private BackAPITestCommand backTestCommand;
     private int retryTaskId = -1;
+    private com.serveressentials.api.daily.DailyAPI dailyAPI;
+    private DailyAPITestCommand dailyTestCommand;
 
 
     @Override
@@ -45,6 +47,9 @@ public class TestAPI extends JavaPlugin implements Listener {
 
         backTestCommand = new BackAPITestCommand(this);
         getCommand("backapitest").setExecutor(backTestCommand);
+
+        dailyTestCommand = new DailyAPITestCommand(this);
+        getCommand("dailyapitest").setExecutor(dailyTestCommand);
 
         getServer().getPluginManager().registerEvents(this, this);
 
@@ -60,6 +65,10 @@ public class TestAPI extends JavaPlugin implements Listener {
                     auctionAPI = pluginAPI.getAuctionAPI();
                     backAPI = pluginAPI.getBackAPI();
 
+                    this.dailyAPI = pluginAPI.getDailyAPI();
+                    if (dailyTestCommand != null) {
+                        dailyTestCommand.setDailyAPI(dailyAPI);
+                    }
                     getLogger().info(PREFIX + "APIs connected successfully!");
                     getServer().getScheduler().cancelTask(retryTaskId);
                     retryTaskId = -1;
@@ -80,6 +89,7 @@ public class TestAPI extends JavaPlugin implements Listener {
         getLogger().info(PREFIX + "Shop enabled: " + shopAPI.isShopEnabled());
         getLogger().info(PREFIX + "Auction enabled: " + auctionAPI.isAuctionEnabled());
         getLogger().info(PREFIX + "Back enabled: " + backAPI.isBackEnabled());
+        getLogger().info(PREFIX + "Back enabled: " + dailyAPI.isDailyEnabled());
         getLogger().info(PREFIX + "Shop sections: " + shopAPI.getSectionNames().size());
         getLogger().info(PREFIX + "Auction max price: " + auctionAPI.getMaxPriceLimit());
     }
@@ -128,5 +138,9 @@ public class TestAPI extends JavaPlugin implements Listener {
 
     private String formatLocation(Location loc) {
         return String.format("%.1f, %.1f, %.1f in %s", loc.getX(), loc.getY(), loc.getZ(), loc.getWorld().getName());
+    }
+
+    public com.serveressentials.api.daily.DailyAPI getDailyAPI() {
+        return dailyAPI;
     }
 }
