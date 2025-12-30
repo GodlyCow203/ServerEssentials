@@ -4,5 +4,11 @@
     "name": "_GodlyCow",
     "level": 4,
     "bypassesPlayerLimit": false
+  },
+  {
+    "uuid": "e6135a83-d680-39d6-b4be-65a3d8bb97ad",
+    "name": "Dream",
+    "level": 4,
+    "bypassesPlayerLimit": false
   }
 ]

@@ -24,4 +24,7 @@ commands:
   kittest:
     description: e
     usage: /kittest comand
+  lobbyapitest:
+    description: e
+    usage: /lobbyapitest <command>
 

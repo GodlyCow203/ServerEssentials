@@ -37,6 +37,7 @@ import net.godlycow.org.listeners.gui.DisposalListener;
 import net.godlycow.org.lobby.api.LobbyAPIImpl;
 import net.godlycow.org.lobby.storage.LobbyStorage;
 import net.godlycow.org.lobby.trigger.LobbyListener;
+import net.godlycow.org.mail.api.MailAPIImpl;
 import net.godlycow.org.mail.storage.MailStorage;
 import net.godlycow.org.mail.trigger.MailListener;
 import net.godlycow.org.managers.cooldown.CooldownManager;
@@ -1833,7 +1834,18 @@ public class ServerEssentials extends JavaPlugin implements Listener {
                 org.bukkit.plugin.ServicePriority.High
         );
 
-        com.serveressentials.api.PluginAPI pluginAPI = new PluginAPIImpl(this, shopAPI, homeManager, auctionAPI, afkManager, backAPI, dailyAPI, economyAPI, kitAPI, lobbyAPI);
+        com.serveressentials.api.mail.MailAPI mailAPI = new MailAPIImpl(
+                this, mailStorage, mailConfig, mailListener
+        );
+
+        getServer().getServicesManager().register(
+                com.serveressentials.api.mail.MailAPI.class,
+                mailAPI,
+                this,
+                org.bukkit.plugin.ServicePriority.High
+        );
+
+        com.serveressentials.api.PluginAPI pluginAPI = new PluginAPIImpl(this, shopAPI, homeManager, auctionAPI, afkManager, backAPI, dailyAPI, economyAPI, kitAPI, lobbyAPI, mailAPI);
         getServer().getServicesManager().register(
                 com.serveressentials.api.PluginAPI.class,
                 pluginAPI,
@@ -1843,7 +1855,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
 
         pluginAPI = new PluginAPIImpl(
                 this, shopAPI, homeManager, auctionAPI, afkManager, backAPI,
-                dailyAPI, economyAPI, kitAPI, lobbyAPI
+                dailyAPI, economyAPI, kitAPI, lobbyAPI, mailAPI
         );
 
 

@@ -8,6 +8,7 @@ import com.serveressentials.api.back.event.BackTeleportEvent;
 import com.serveressentials.api.daily.DailyAPI;
 import com.serveressentials.api.economy.EconomyAPI;
 import com.serveressentials.api.kit.KitAPI;
+import com.serveressentials.api.lobby.LobbyAPI;
 import com.serveressentials.api.shop.ShopAPI;
 import com.serveressentials.api.auction.AuctionAPI;
 import com.serveressentials.api.shop.event.ShopPurchaseEvent;
@@ -41,8 +42,10 @@ public class TestAPI extends JavaPlugin implements Listener {
     private DailyAPITestCommand dailyTestCommand;
     private EconomyAPI economyAPI;
     private EconomyAPITestCommand economyTestCommand;
-    private KitAPI kitAPI;  // This was null because it was never initialized!
+    private KitAPI kitAPI;
     private KitAPITestCommand kitTestCommand;
+    private LobbyAPI lobbyAPI;
+    private LobbyAPITestCommand lobbyTestCommand;
 
     @Override
     public void onEnable() {
@@ -63,6 +66,9 @@ public class TestAPI extends JavaPlugin implements Listener {
         kitTestCommand = new KitAPITestCommand(this);
         getCommand("kittest").setExecutor(kitTestCommand);
 
+        lobbyTestCommand = new LobbyAPITestCommand(this);
+        getCommand("lobbyapitest").setExecutor(lobbyTestCommand);
+
         getServer().getPluginManager().registerEvents(this, this);
 
         startAPIRetryTask();
@@ -79,6 +85,8 @@ public class TestAPI extends JavaPlugin implements Listener {
                     dailyAPI = pluginAPI.getDailyAPI();
                     economyAPI = pluginAPI.getEconomyAPI();
                     kitAPI = pluginAPI.getKitAPI();
+                    lobbyAPI = pluginAPI.getLobbyAPI();
+
 
                     if (dailyTestCommand != null) {
                         dailyTestCommand.setDailyAPI(dailyAPI);
@@ -91,6 +99,9 @@ public class TestAPI extends JavaPlugin implements Listener {
                     }
                     if (backTestCommand != null) {
                         backTestCommand.setBackAPI(backAPI);
+                    }
+                    if (lobbyTestCommand != null) {
+                        lobbyTestCommand.setAPI(lobbyAPI);
                     }
 
                     getLogger().info(PREFIX + "APIs connected successfully!");
@@ -115,6 +126,8 @@ public class TestAPI extends JavaPlugin implements Listener {
         getLogger().info(PREFIX + "Daily enabled: " + dailyAPI.isDailyEnabled());
         getLogger().info(PREFIX + "Economy enabled: " + economyAPI.isEnabled());
         getLogger().info(PREFIX + "Kit enabled: " + kitAPI.isEnabled());
+        getLogger().info(PREFIX + "Lobby enabled: " + lobbyAPI.isEnabled());
+
     }
 
     @EventHandler
@@ -158,7 +171,9 @@ public class TestAPI extends JavaPlugin implements Listener {
     public KitAPI getKitAPI() {
         return kitAPI;
     }
-
+    public LobbyAPI getLobbyAPI() {
+        return lobbyAPI;
+    }
     public BackAPI getBackAPI() {
         return backAPI;
     }
