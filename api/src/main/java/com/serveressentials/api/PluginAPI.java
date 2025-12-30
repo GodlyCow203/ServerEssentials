@@ -9,6 +9,7 @@ import com.serveressentials.api.home.HomeAPI;
 import com.serveressentials.api.kit.KitAPI;
 import com.serveressentials.api.lobby.LobbyAPI;
 import com.serveressentials.api.mail.MailAPI;
+import com.serveressentials.api.nick.NickAPI;
 import com.serveressentials.api.shop.ShopAPI;
 
 
@@ -25,4 +26,5 @@ public interface PluginAPI {
     KitAPI getKitAPI();
     LobbyAPI getLobbyAPI();
     MailAPI getMailAPI();
+    NickAPI getNickAPI();
 }

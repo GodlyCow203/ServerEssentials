@@ -27,4 +27,7 @@ commands:
   lobbyapitest:
     description: e
     usage: /lobbyapitest <command>
+  mailapitest:
+    description: e
+    usage: /mailapitest <command>
 

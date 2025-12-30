@@ -9,6 +9,7 @@ import com.serveressentials.api.daily.DailyAPI;
 import com.serveressentials.api.economy.EconomyAPI;
 import com.serveressentials.api.kit.KitAPI;
 import com.serveressentials.api.lobby.LobbyAPI;
+import com.serveressentials.api.mail.MailAPI;
 import com.serveressentials.api.shop.ShopAPI;
 import com.serveressentials.api.auction.AuctionAPI;
 import com.serveressentials.api.shop.event.ShopPurchaseEvent;
@@ -46,6 +47,8 @@ public class TestAPI extends JavaPlugin implements Listener {
     private KitAPITestCommand kitTestCommand;
     private LobbyAPI lobbyAPI;
     private LobbyAPITestCommand lobbyTestCommand;
+    private MailAPI mailAPI;
+    private MailAPITestCommand mailTestCommand;
 
     @Override
     public void onEnable() {
@@ -69,6 +72,9 @@ public class TestAPI extends JavaPlugin implements Listener {
         lobbyTestCommand = new LobbyAPITestCommand(this);
         getCommand("lobbyapitest").setExecutor(lobbyTestCommand);
 
+        mailTestCommand = new MailAPITestCommand(this);
+        getCommand("mailapitest").setExecutor(mailTestCommand);
+
         getServer().getPluginManager().registerEvents(this, this);
 
         startAPIRetryTask();
@@ -86,6 +92,8 @@ public class TestAPI extends JavaPlugin implements Listener {
                     economyAPI = pluginAPI.getEconomyAPI();
                     kitAPI = pluginAPI.getKitAPI();
                     lobbyAPI = pluginAPI.getLobbyAPI();
+                    mailAPI = pluginAPI.getMailAPI();
+
 
 
                     if (dailyTestCommand != null) {
@@ -102,6 +110,10 @@ public class TestAPI extends JavaPlugin implements Listener {
                     }
                     if (lobbyTestCommand != null) {
                         lobbyTestCommand.setAPI(lobbyAPI);
+                    }
+
+                    if (mailTestCommand != null) {
+                        mailTestCommand.setAPI(mailAPI);
                     }
 
                     getLogger().info(PREFIX + "APIs connected successfully!");
@@ -127,6 +139,8 @@ public class TestAPI extends JavaPlugin implements Listener {
         getLogger().info(PREFIX + "Economy enabled: " + economyAPI.isEnabled());
         getLogger().info(PREFIX + "Kit enabled: " + kitAPI.isEnabled());
         getLogger().info(PREFIX + "Lobby enabled: " + lobbyAPI.isEnabled());
+        getLogger().info(PREFIX + "Mail enabled: " + mailAPI.isEnabled());
+
 
     }
 
@@ -188,5 +202,10 @@ public class TestAPI extends JavaPlugin implements Listener {
 
     public DailyAPI getDailyAPI() {
         return dailyAPI;
+    }
+
+
+    public MailAPI getMailAPI() {
+        return mailAPI;
     }
 }

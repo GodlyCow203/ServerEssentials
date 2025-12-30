@@ -45,6 +45,7 @@ import net.godlycow.org.managers.player.PlaytimeManager;
 import net.godlycow.org.managers.player.SessionManager;
 import net.godlycow.org.managers.plugin.ReloadManager;
 import net.godlycow.org.mute.storage.MuteStorage;
+import net.godlycow.org.nick.api.NickAPIImpl;
 import net.godlycow.org.nick.storage.NickStorage;
 import net.godlycow.org.notes.storage.NotesStorage;
 import net.godlycow.org.reports.storage.ReportStorage;
@@ -1845,7 +1846,18 @@ public class ServerEssentials extends JavaPlugin implements Listener {
                 org.bukkit.plugin.ServicePriority.High
         );
 
-        com.serveressentials.api.PluginAPI pluginAPI = new PluginAPIImpl(this, shopAPI, homeManager, auctionAPI, afkManager, backAPI, dailyAPI, economyAPI, kitAPI, lobbyAPI, mailAPI);
+        com.serveressentials.api.nick.NickAPI nickAPI = new NickAPIImpl(
+                this, nickStorage, nickConfig, nickManager
+        );
+
+        getServer().getServicesManager().register(
+                com.serveressentials.api.nick.NickAPI.class,
+                nickAPI,
+                this,
+                org.bukkit.plugin.ServicePriority.High
+        );
+
+        com.serveressentials.api.PluginAPI pluginAPI = new PluginAPIImpl(this, shopAPI, homeManager, auctionAPI, afkManager, backAPI, dailyAPI, economyAPI, kitAPI, lobbyAPI, mailAPI, nickAPI);
         getServer().getServicesManager().register(
                 com.serveressentials.api.PluginAPI.class,
                 pluginAPI,
@@ -1855,7 +1867,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
 
         pluginAPI = new PluginAPIImpl(
                 this, shopAPI, homeManager, auctionAPI, afkManager, backAPI,
-                dailyAPI, economyAPI, kitAPI, lobbyAPI, mailAPI
+                dailyAPI, economyAPI, kitAPI, lobbyAPI, mailAPI, nickAPI
         );
 
 

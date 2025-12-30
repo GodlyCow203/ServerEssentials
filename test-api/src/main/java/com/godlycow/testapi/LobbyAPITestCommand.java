@@ -16,9 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
-/**
- * Test command for LobbyAPI functionality.
- */
+
 public final class LobbyAPITestCommand implements CommandExecutor, Listener {
     private final JavaPlugin plugin;
     private LobbyAPI api;
@@ -46,7 +44,6 @@ public final class LobbyAPITestCommand implements CommandExecutor, Listener {
             return true;
         }
 
-        // Command: /lobbyapitest or /lobbyapitest teleport - teleport to lobby
         if (args.length == 0 || (args.length == 1 && args[0].equalsIgnoreCase("teleport"))) {
             api.teleportToLobby(player).thenAccept(success -> {
                 if (!success) {
@@ -56,7 +53,6 @@ public final class LobbyAPITestCommand implements CommandExecutor, Listener {
             return true;
         }
 
-        // Command: /lobbyapitest teleport <world> - teleport to world-specific lobby
         if (args.length == 2 && args[0].equalsIgnoreCase("teleport")) {
             String worldKey = args[1];
             api.teleportToLobby(player, worldKey).thenAccept(success -> {
@@ -67,7 +63,6 @@ public final class LobbyAPITestCommand implements CommandExecutor, Listener {
             return true;
         }
 
-        // Command: /lobbyapitest set [world] - set lobby at player's location
         if (args.length >= 1 && args[0].equalsIgnoreCase("set")) {
             String worldKey = args.length == 2 ? args[1] : null;
             api.setLobby(player, player.getLocation(), worldKey).thenAccept(v -> {
@@ -79,7 +74,6 @@ public final class LobbyAPITestCommand implements CommandExecutor, Listener {
             return true;
         }
 
-        // Command: /lobbyapitest remove [world] - remove lobby
         if (args.length >= 1 && args[0].equalsIgnoreCase("remove")) {
             String worldKey = args.length == 2 ? args[1] : null;
             api.removeLobby(worldKey).thenAccept(v -> {
@@ -91,7 +85,6 @@ public final class LobbyAPITestCommand implements CommandExecutor, Listener {
             return true;
         }
 
-        // Command: /lobbyapitest check [world] - check if lobby exists
         if (args.length >= 1 && args[0].equalsIgnoreCase("check")) {
             String worldKey = args.length == 2 ? args[1] : null;
             api.hasLobby(worldKey).thenAccept(has -> {
@@ -101,7 +94,6 @@ public final class LobbyAPITestCommand implements CommandExecutor, Listener {
             return true;
         }
 
-        // Command: /lobbyapitest get [world] - get lobby location
         if (args.length >= 1 && args[0].equalsIgnoreCase("get")) {
             String worldKey = args.length == 2 ? args[1] : null;
             api.getLobby(worldKey).thenAccept(opt -> {
@@ -116,7 +108,6 @@ public final class LobbyAPITestCommand implements CommandExecutor, Listener {
             return true;
         }
 
-        // Command: /lobbyapitest status - show API status
         if (args.length == 1 && args[0].equalsIgnoreCase("status")) {
             player.sendMessage("§6LobbyAPI Status:");
             player.sendMessage("§7Enabled: " + api.isEnabled());
@@ -132,7 +123,6 @@ public final class LobbyAPITestCommand implements CommandExecutor, Listener {
             return true;
         }
 
-        // Command: /lobbyapitest reload - reload configuration
         if (args.length == 1 && args[0].equalsIgnoreCase("reload")) {
             api.reload().thenAccept(v -> {
                 player.sendMessage("§aLobby configuration reloaded!");

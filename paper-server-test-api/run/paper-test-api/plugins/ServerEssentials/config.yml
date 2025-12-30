@@ -145,7 +145,7 @@ warp:
 
 # Mail system (/mail)
 mail:
-  cooldown: 5 # Seconds between sending messages
+  cooldown: 50 # Seconds between sending messages
   max-length: 500 # Maximum characters per mail
   join-notify-delay: 40 # Ticks before notifying on join (20 ticks = 1 second)
 
