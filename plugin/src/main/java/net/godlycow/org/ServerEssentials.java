@@ -3,6 +3,7 @@ package net.godlycow.org;
 import com.serveressentials.api.afk.AFKAPI;
 import com.serveressentials.api.auction.AuctionAPI;
 import com.serveressentials.api.back.BackAPI;
+import com.serveressentials.api.lobby.LobbyAPI;
 import com.serveressentials.api.shop.ShopAPI;
 import net.godlycow.org.PlaceholderAPI.*;
 import net.godlycow.org.afk.api.AFKAPIImpl;
@@ -33,6 +34,7 @@ import net.godlycow.org.listeners.block.SpawnerPlaceListener;
 import net.godlycow.org.listeners.chat.MuteListener;
 import net.godlycow.org.listeners.event.JoinLeaveListener;
 import net.godlycow.org.listeners.gui.DisposalListener;
+import net.godlycow.org.lobby.api.LobbyAPIImpl;
 import net.godlycow.org.lobby.storage.LobbyStorage;
 import net.godlycow.org.lobby.trigger.LobbyListener;
 import net.godlycow.org.mail.storage.MailStorage;
@@ -444,6 +446,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
     private BackAPI backAPI;
     private KitManager kitManager;
     private KitConfigManager kitConfigManager;
+    private LobbyAPI lobbyAPI;
 
 
 
@@ -1819,13 +1822,30 @@ public class ServerEssentials extends JavaPlugin implements Listener {
                 org.bukkit.plugin.ServicePriority.High
         );
 
-        com.serveressentials.api.PluginAPI pluginAPI = new PluginAPIImpl(this, shopAPI, homeManager, auctionAPI, afkManager, backAPI, dailyAPI, economyAPI, kitAPI);
+        com.serveressentials.api.lobby.LobbyAPI lobbyAPI = new LobbyAPIImpl(
+                this, lobbyStorage, lobbyConfig
+        );
+
+        getServer().getServicesManager().register(
+                com.serveressentials.api.lobby.LobbyAPI.class,
+                lobbyAPI,
+                this,
+                org.bukkit.plugin.ServicePriority.High
+        );
+
+        com.serveressentials.api.PluginAPI pluginAPI = new PluginAPIImpl(this, shopAPI, homeManager, auctionAPI, afkManager, backAPI, dailyAPI, economyAPI, kitAPI, lobbyAPI);
         getServer().getServicesManager().register(
                 com.serveressentials.api.PluginAPI.class,
                 pluginAPI,
                 this,
                 org.bukkit.plugin.ServicePriority.High
         );
+
+        pluginAPI = new PluginAPIImpl(
+                this, shopAPI, homeManager, auctionAPI, afkManager, backAPI,
+                dailyAPI, economyAPI, kitAPI, lobbyAPI
+        );
+
 
         getLogger().info("Successfully registered all API services!");
     }

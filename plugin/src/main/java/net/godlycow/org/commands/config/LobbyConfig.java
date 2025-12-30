@@ -5,23 +5,28 @@ import org.bukkit.Sound;
 import org.bukkit.plugin.Plugin;
 import java.time.Duration;
 
-public class LobbyConfig {
+
+public final class LobbyConfig {
     public final Plugin plugin;
 
-    public final Duration cooldown;
-    public final boolean animationEnabled;
-    public final AnimationOptions animation;
-    public final boolean perWorld;
-    public final boolean teleportOnJoin;
+    private Duration cooldown;
+    private boolean animationEnabled;
+    private AnimationOptions animation;
+    private boolean perWorld;
+    private boolean teleportOnJoin;
 
     public static class AnimationOptions {
-        public final String type;
-        public final int duration;
-        public final Particle particle;
-        public final Sound sound;
-        public final int particleCount;
+        public String type;
+        public int duration;
+        public Particle particle;
+        public Sound sound;
+        public int particleCount;
 
         public AnimationOptions(Plugin plugin) {
+            reload(plugin);
+        }
+
+        public void reload(Plugin plugin) {
             this.type = plugin.getConfig().getString("lobby.animation.type", "FADE");
             this.duration = plugin.getConfig().getInt("lobby.animation.duration", 40);
             String particleName = plugin.getConfig().getString("lobby.animation.particle", "PORTAL");
@@ -34,10 +39,24 @@ public class LobbyConfig {
 
     public LobbyConfig(Plugin plugin) {
         this.plugin = plugin;
+        reload();
+    }
+
+    public void reload() {
         this.cooldown = Duration.ofSeconds(plugin.getConfig().getLong("lobby.cooldown", 5L));
         this.animationEnabled = plugin.getConfig().getBoolean("lobby.animation.enabled", true);
-        this.animation = animationEnabled ? new AnimationOptions(plugin) : null;
+        if (this.animation == null) {
+            this.animation = new AnimationOptions(plugin);
+        } else {
+            this.animation.reload(plugin);
+        }
         this.perWorld = plugin.getConfig().getBoolean("lobby.per-world", false);
         this.teleportOnJoin = plugin.getConfig().getBoolean("lobby.teleport-on-join", false);
     }
+
+    public Duration getCooldown() { return cooldown; }
+    public boolean isAnimationEnabled() { return animationEnabled; }
+    public AnimationOptions getAnimation() { return animation; }
+    public boolean isPerWorld() { return perWorld; }
+    public boolean isTeleportOnJoin() { return teleportOnJoin; }
 }

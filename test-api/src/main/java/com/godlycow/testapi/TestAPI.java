@@ -7,6 +7,7 @@ import com.serveressentials.api.back.event.BackLocationSaveEvent;
 import com.serveressentials.api.back.event.BackTeleportEvent;
 import com.serveressentials.api.daily.DailyAPI;
 import com.serveressentials.api.economy.EconomyAPI;
+import com.serveressentials.api.kit.KitAPI;
 import com.serveressentials.api.shop.ShopAPI;
 import com.serveressentials.api.auction.AuctionAPI;
 import com.serveressentials.api.shop.event.ShopPurchaseEvent;
@@ -36,11 +37,12 @@ public class TestAPI extends JavaPlugin implements Listener {
     private BackAPI backAPI;
     private BackAPITestCommand backTestCommand;
     private int retryTaskId = -1;
-    private com.serveressentials.api.daily.DailyAPI dailyAPI;
+    private DailyAPI dailyAPI;
     private DailyAPITestCommand dailyTestCommand;
     private EconomyAPI economyAPI;
     private EconomyAPITestCommand economyTestCommand;
-
+    private KitAPI kitAPI;  // This was null because it was never initialized!
+    private KitAPITestCommand kitTestCommand;
 
     @Override
     public void onEnable() {
@@ -58,6 +60,9 @@ public class TestAPI extends JavaPlugin implements Listener {
         economyTestCommand = new EconomyAPITestCommand(this);
         getCommand("economytest").setExecutor(economyTestCommand);
 
+        kitTestCommand = new KitAPITestCommand(this);
+        getCommand("kittest").setExecutor(kitTestCommand);
+
         getServer().getPluginManager().registerEvents(this, this);
 
         startAPIRetryTask();
@@ -71,26 +76,26 @@ public class TestAPI extends JavaPlugin implements Listener {
                     shopAPI = pluginAPI.getShopAPI();
                     auctionAPI = pluginAPI.getAuctionAPI();
                     backAPI = pluginAPI.getBackAPI();
+                    dailyAPI = pluginAPI.getDailyAPI();
+                    economyAPI = pluginAPI.getEconomyAPI();
+                    kitAPI = pluginAPI.getKitAPI();
 
-                    this.dailyAPI = pluginAPI.getDailyAPI();
                     if (dailyTestCommand != null) {
                         dailyTestCommand.setDailyAPI(dailyAPI);
-
-
                     }
-
-                    this.economyAPI = pluginAPI.getEconomyAPI();
                     if (economyTestCommand != null) {
                         economyTestCommand.setEconomyAPI(economyAPI);
+                    }
+                    if (kitTestCommand != null) {
+                        kitTestCommand.setAPI(kitAPI);
+                    }
+                    if (backTestCommand != null) {
+                        backTestCommand.setBackAPI(backAPI);
                     }
 
                     getLogger().info(PREFIX + "APIs connected successfully!");
                     getServer().getScheduler().cancelTask(retryTaskId);
                     retryTaskId = -1;
-
-                    if (backTestCommand != null) {
-                        backTestCommand.setBackAPI(backAPI);
-                    }
 
                     testAPIFeatures();
                 }
@@ -99,14 +104,17 @@ public class TestAPI extends JavaPlugin implements Listener {
     }
 
     private void testAPIFeatures() {
-        if (shopAPI == null || auctionAPI == null || backAPI == null) return;
+        if (shopAPI == null || auctionAPI == null || backAPI == null || dailyAPI == null || economyAPI == null || kitAPI == null) {
+            getLogger().warning(PREFIX + "One or more APIs are null, skipping test.");
+            return;
+        }
 
         getLogger().info(PREFIX + "Shop enabled: " + shopAPI.isShopEnabled());
         getLogger().info(PREFIX + "Auction enabled: " + auctionAPI.isAuctionEnabled());
         getLogger().info(PREFIX + "Back enabled: " + backAPI.isBackEnabled());
-        getLogger().info(PREFIX + "Back enabled: " + dailyAPI.isDailyEnabled());
-        getLogger().info(PREFIX + "Back enabled: " + economyAPI.isEnabled());
-
+        getLogger().info(PREFIX + "Daily enabled: " + dailyAPI.isDailyEnabled());
+        getLogger().info(PREFIX + "Economy enabled: " + economyAPI.isEnabled());
+        getLogger().info(PREFIX + "Kit enabled: " + kitAPI.isEnabled());
     }
 
     @EventHandler
@@ -145,6 +153,10 @@ public class TestAPI extends JavaPlugin implements Listener {
 
     public AuctionAPI getAuctionAPI() {
         return auctionAPI;
+    }
+
+    public KitAPI getKitAPI() {
+        return kitAPI;
     }
 
     public BackAPI getBackAPI() {

@@ -21,56 +21,69 @@
     },
 
     "afk": {
-      "disabled": "<#B22222>❌ The AFK system is currently disabled.",
-      "only-player": "<#B22222>❌ Only players can use this command.",
-      "no-permission": "<#B22222>❌ You need permission <#FFD900>{permission}</#FFD900>!",
-      "usage": "<#1E90FF>Usage: <white>/afk [reload]",
-      "enter-afk": "<#FFD900>%player% is now AFK.",
-      "leave-afk": "<#FFD900>%player% is no longer AFK.",
-      "kick": "<#B22222>❌ You were kicked for being AFK.",
-      "reload": "<#3BB302>✔ AFK system reloaded successfully."
+      "disabled": "<#E05A47>The AFK system is currently disabled.",
+      "only-player": "<#E05A47>Only players can use this command.",
+      "no-permission": "<#E05A47>You need permission <#F5C16C>{permission}</#F5C16C>!",
+      "usage": "<#F5C16C>Usage: <white>/afk [reload]",
+      "enter-afk": "<#F5C16C>%player% is now AFK.",
+      "leave-afk": "<#F5C16C>%player% is no longer AFK.",
+      "kick": "<#E05A47>You were kicked for being AFK.",
+      "reload": "<#F5C16C>AFK system reloaded successfully."
     },
 
+
     "homes": {
-      "only-player": "<#B22222>❌ Only players can use this command!",
+      "only-player": "<#F5C16C>Only <#E05A47>players <#F5C16C>can use this command!",
+
       "gui": {
-        "title": "<#4169E1>Home Manager",
-        "confirm-title": "<#B22222>Confirm Action",
-        "home-title": "<#4169E1><bold>Home {slot}",
-        "manage-title": "<#4169E1><bold>Manage Home {slot}",
-        "no-permission": "<#B22222>❌ No Permission!",
-        "click-set": "<#1E90FF>Click to set",
-        "click-teleport": "<#20B2AA>Left-click to teleport",
-        "click-manage": "<#1E90FF>Right-click to manage",
-        "click-remove": "<#FFD900>Click to remove",
-        "empty": "<#708090>Empty slot",
-        "name": "<#708090>Name: <#4169E1><name>",
-        "coords": "<#708090>XYZ: <#4169E1>{x}, {y}, {z}",
-        "world": "<#708090>World: <#4169E1>{world}",
-        "confirm": "<#3BB302>✔ Confirm",
-        "cancel": "<#B22222>❌ Cancel",
-        "info": "<#4169E1>Home {slot} - {mode}"
+        "title": "<#F5C16C>Home <#E05A47>Manager",
+        "confirm-title": "<#F5C16C>Confirm <#E05A47>Action",
+        "home-title": "<#F5C16C><bold>Home <#E05A47>{slot}",
+        "manage-title": "<#F5C16C><bold>Manage Home <#E05A47>{slot}",
+        "no-permission": "<#F5C16C>No <#E05A47>permission",
+
+        "click-set": "<#F5C16C>Click to <#E05A47>set",
+        "click-teleport": "<#F5C16C>Left-click to <#E05A47>teleport",
+        "click-manage": "<#F5C16C>Right-click to <#E05A47>manage",
+        "click-remove": "<#F5C16C>Click to <#E05A47>remove",
+
+        "empty": "<#F5C16C>Empty <#E05A47>slot",
+        "name": "<#F5C16C>Name: <#E05A47><name>",
+        "coords": "<#F5C16C>XYZ: <#E05A47>{x}, {y}, {z}",
+        "world": "<#F5C16C>World: <#E05A47>{world}",
+
+        "confirm": "<#F5C16C>Confirm",
+        "cancel": "<#F5C16C>Cancel",
+        "info": "<#F5C16C>Home <#E05A47>{slot} <#F5C16C>- <#E05A47>{mode}"
       },
-      "empty-slot": "<#708090>No home set in slot {slot}!",
-      "world-missing": "<#B22222>❌ Home world is no longer available!",
-      "world-disabled": "<#B22222>❌ You cannot access homes in this world!",
-      "require-empty-inventory": "<#B22222>❌ You must have an empty inventory to set a home!",
-      "no-permission": "<#B22222>❌ You need permission <#FFD900>{permission}</#FFD900>!",
-      "no-permission-remove": "<#B22222>❌ You don't have permission to remove homes!",
-      "teleport-cooldown": "<#B22222>⏱ Please wait <#FFD900>{seconds}</#FFD900> seconds before teleporting again!",
-      "set-cooldown": "<#B22222>⏱ Please wait <#FFD900>{seconds}</#FFD900> seconds before setting another home!",
-      "cross-world-disabled": "<#B22222>❌ Cross-world teleportation is disabled!",
-      "teleport-restricted": "<#B22222>❌ You cannot teleport from this world!",
-      "teleport": "<#3BB302>✔ Teleported to home <#FFD900>{slot}</#FFD900>!",
-      "set": "<#3BB302>✔ Home <#FFD900>{slot}</#FFD900> set!",
-      "remove": "<#3BB302>✔ Home <#FFD900>{slot}</#FFD900> removed!",
+
+      "empty-slot": "<#F5C16C>No home set in <#E05A47>slot {slot}",
+      "world-missing": "<#F5C16C>Home <#E05A47>world <#F5C16C>is no longer available",
+      "world-disabled": "<#F5C16C>You cannot access <#E05A47>homes <#F5C16C>in this world",
+      "require-empty-inventory": "<#F5C16C>You must have an <#E05A47>empty inventory <#F5C16C>to set a home",
+
+      "no-permission": "<#F5C16C>You need permission <#E05A47>{permission}",
+      "no-permission-remove": "<#F5C16C>You don't have permission to <#E05A47>remove homes",
+
+      "teleport-cooldown": "<#F5C16C>Please wait <#E05A47>{seconds} <#F5C16C>seconds before teleporting again",
+      "set-cooldown": "<#F5C16C>Please wait <#E05A47>{seconds} <#F5C16C>seconds before setting another home",
+
+      "cross-world-disabled": "<#F5C16C>Cross-world <#E05A47>teleportation <#F5C16C>is disabled",
+      "teleport-restricted": "<#F5C16C>You cannot teleport from <#E05A47>this world",
+
+      "teleport": "<#F5C16C>Teleported to home <#E05A47>{slot}",
+      "set": "<#F5C16C>Home <#E05A47>{slot} <#F5C16C>set",
+      "remove": "<#F5C16C>Home <#E05A47>{slot} <#F5C16C>removed",
+
       "rename": {
-        "prompt": "<#1E90FF>Enter a new name for this home in chat:",
-        "success": "<#3BB302>✔ Home renamed to <#FFD900>{name}</#FFD900>!",
-        "duplicate": "<#B22222>❌ You already have a home named '<#FFD900>{name}</#FFD900>'!",
-        "too-long": "<#B22222>❌ Name too long! Maximum <#FFD900>{max}</#FFD900> characters."
+        "prompt": "<#F5C16C>Enter a new name for this home in chat",
+        "success": "<#F5C16C>Home renamed to <#E05A47>{name}",
+        "duplicate": "<#F5C16C>You already have a home named '<#E05A47>{name}<#F5C16C>'",
+        "too-long": "<#F5C16C>Name <#E05A47>too <#F5C16C>long! Maximum <#E05A47>{max} <#F5C16C>characters"
       }
     },
+
+
     "loom": {
       "only-player": "<#B22222>❌ Only players can use this command.",
       "no-permission": "<#B22222>❌ You need permission <#FFD900>{permission}</#FFD900>!",

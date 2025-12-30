@@ -7,6 +7,7 @@ import com.serveressentials.api.daily.DailyAPI;
 import com.serveressentials.api.economy.EconomyAPI;
 import com.serveressentials.api.home.HomeAPI;
 import com.serveressentials.api.kit.KitAPI;
+import com.serveressentials.api.lobby.LobbyAPI;
 import com.serveressentials.api.shop.ShopAPI;
 
 
@@ -21,4 +22,5 @@ public interface PluginAPI {
     DailyAPI getDailyAPI();
     EconomyAPI getEconomyAPI();
     KitAPI getKitAPI();
+    LobbyAPI getLobbyAPI();
 }

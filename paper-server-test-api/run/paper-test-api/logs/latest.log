@@ -1,288 +1,298 @@
-[15:39:30] [ServerMain/INFO]: [bootstrap] Running Java 21 (OpenJDK 64-Bit Server VM 21.0.6+7-LTS; Eclipse Adoptium Temurin-21.0.6+7) on Windows 11 10.0 (amd64)
-[15:39:30] [ServerMain/INFO]: [bootstrap] Loading Paper 1.21.1-133-ver/1.21.1@3cb8529 (2025-03-28T16:14:36Z) for Minecraft 1.21.1
-[15:39:31] [ServerMain/INFO]: [PluginInitializerManager] Initializing plugins...
-[15:39:32] [ServerMain/INFO]: [PluginInitializerManager] Initialized 7 plugins
-[15:39:32] [ServerMain/INFO]: [PluginInitializerManager] Bukkit plugins (7):
+[11:45:25] [ServerMain/INFO]: [bootstrap] Running Java 21 (OpenJDK 64-Bit Server VM 21.0.6+7-LTS; Eclipse Adoptium Temurin-21.0.6+7) on Windows 11 10.0 (amd64)
+[11:45:25] [ServerMain/INFO]: [bootstrap] Loading Paper 1.21.1-133-ver/1.21.1@3cb8529 (2025-03-28T16:14:36Z) for Minecraft 1.21.1
+[11:45:26] [ServerMain/INFO]: [PluginInitializerManager] Initializing plugins...
+[11:45:28] [ServerMain/INFO]: [PluginInitializerManager] Initialized 7 plugins
+[11:45:28] [ServerMain/INFO]: [PluginInitializerManager] Bukkit plugins (7):
  - LuckPerms (5.5.22), PlaceholderAPI (2.11.7), ServerEssentials (2.0.7.9), TestAPI (2.0.7.20), Vault (1.7.3-b131), ViaBackwards (5.6.0), ViaVersion (5.6.0)
-[15:39:39] [ServerMain/INFO]: Environment: Environment[sessionHost=https://sessionserver.mojang.com, servicesHost=https://api.minecraftservices.com, name=PROD]
-[15:39:42] [ServerMain/INFO]: Loaded 1290 recipes
-[15:39:42] [ServerMain/INFO]: Loaded 1399 advancements
-[15:39:43] [Server thread/INFO]: Starting minecraft server version 1.21.1
-[15:39:43] [Server thread/INFO]: Loading properties
-[15:39:44] [Server thread/INFO]: This server is running Paper version 1.21.1-133-ver/1.21.1@3cb8529 (2025-03-28T16:14:36Z) (Implementing API version 1.21.1-R0.1-SNAPSHOT)
-[15:39:45] [Server thread/INFO]: [spark] This server bundles the spark profiler. For more information please visit https://docs.papermc.io/paper/profiling
-[15:39:45] [Server thread/INFO]: Server Ping Player Sample Count: 12
-[15:39:45] [Server thread/INFO]: Using 4 threads for Netty based IO
-[15:39:46] [Server thread/INFO]: [ChunkTaskScheduler] Chunk system is using 1 I/O threads, 3 worker threads, and population gen parallelism of 3 threads
-[15:39:47] [Server thread/INFO]: Default game type: SURVIVAL
-[15:39:47] [Server thread/INFO]: Generating keypair
-[15:39:47] [Server thread/INFO]: Starting Minecraft server on *:25566
-[15:39:47] [Server thread/INFO]: Using default channel type
-[15:39:47] [Server thread/INFO]: Paper: Using Java compression from Velocity.
-[15:39:47] [Server thread/INFO]: Paper: Using Java cipher from Velocity.
-[15:39:48] [Server thread/INFO]: [ViaVersion] Loading server plugin ViaVersion v5.6.0
-[15:39:48] [Server thread/INFO]: [ViaVersion] ViaVersion 5.6.0 is now loaded. Registering protocol transformers and injecting...
-[15:39:49] [Via-Mappingloader-1/INFO]: [ViaVersion] Loading block connection mappings ...
-[15:39:49] [Via-Mappingloader-1/INFO]: [ViaVersion] Using FastUtil Long2ObjectOpenHashMap for block connections
-[15:39:50] [Server thread/INFO]: [ViaBackwards] Loading translations...
-[15:39:50] [Server thread/INFO]: [ViaBackwards] Registering protocols...
-[15:39:52] [Server thread/INFO]: [LuckPerms] Loading server plugin LuckPerms v5.5.22
-[15:39:52] [Server thread/INFO]: [LuckPerms] Loading configuration...
-[15:39:52] [Server thread/INFO]: [Vault] Loading server plugin Vault v1.7.3-b131
-[15:39:52] [Server thread/INFO]: [PlaceholderAPI] Loading server plugin PlaceholderAPI v2.11.7
-[15:39:52] [Server thread/INFO]: [ServerEssentials] Loading server plugin ServerEssentials v2.0.7.9
-[15:39:52] [Server thread/INFO]: [ViaBackwards] Loading server plugin ViaBackwards v5.6.0
-[15:39:52] [Server thread/INFO]: [TestAPI] Loading server plugin TestAPI v2.0.7.20
-[15:39:52] [Server thread/INFO]: Server permissions file permissions.yml is empty, ignoring it
-[15:39:52] [Server thread/INFO]: [LuckPerms] Enabling LuckPerms v5.5.22
-[15:39:53] [Server thread/INFO]:         __    
-[15:39:53] [Server thread/INFO]:   |    |__)   LuckPerms v5.5.22
-[15:39:53] [Server thread/INFO]:   |___ |      Running on Bukkit - Paper
-[15:39:53] [Server thread/INFO]: 
-[15:39:53] [Server thread/INFO]: [LuckPerms] Loading storage provider... [H2]
-[15:39:54] [Server thread/INFO]: [LuckPerms] Loading internal permission managers...
-[15:39:54] [Server thread/INFO]: [LuckPerms] Performing initial data load...
-[15:39:54] [Server thread/INFO]: [LuckPerms] Successfully enabled. (took 1966ms)
-[15:39:54] [Server thread/INFO]: [Vault] Enabling Vault v1.7.3-b131
-[15:39:54] [Server thread/INFO]: [Vault] [Permission] SuperPermissions loaded as backup permission system.
-[15:39:54] [Server thread/INFO]: [Vault] Enabled Version 1.7.3-b131
-[15:39:54] [Server thread/INFO]: [LuckPerms] Registered Vault permission & chat hook.
-[15:39:54] [Server thread/WARN]: **** SERVER IS RUNNING IN OFFLINE/INSECURE MODE!
-[15:39:54] [Server thread/WARN]: The server will make no attempt to authenticate usernames. Beware.
-[15:39:54] [Server thread/WARN]: While this makes the game possible to play without internet access, it also opens up the ability for hackers to connect with any username they choose.
-[15:39:54] [Server thread/WARN]: To change this, set "online-mode" to "true" in the server.properties file.
-[15:39:54] [Server thread/INFO]: Preparing level "world"
-[15:39:55] [Server thread/INFO]: Preparing start region for dimension minecraft:overworld
-[15:39:57] [Server thread/INFO]: Time elapsed: 1692 ms
-[15:39:57] [Server thread/INFO]: Preparing start region for dimension minecraft:the_nether
-[15:39:57] [Server thread/INFO]: Time elapsed: 336 ms
-[15:39:57] [Server thread/INFO]: Preparing start region for dimension minecraft:the_end
-[15:39:57] [Server thread/INFO]: Time elapsed: 129 ms
-[15:39:57] [Server thread/INFO]: [ViaVersion] Enabling ViaVersion v5.6.0
-[15:39:58] [Server thread/INFO]: [ViaVersion] ViaVersion detected server version: 1.21-1.21.1 (767)
-[15:39:58] [Server thread/INFO]: [PlaceholderAPI] Enabling PlaceholderAPI v2.11.7
-[15:39:58] [Server thread/INFO]: [PlaceholderAPI] Fetching available expansion information...
-[15:39:58] [Server thread/INFO]: [ServerEssentials] Enabling ServerEssentials v2.0.7.9
-[15:39:58] [Server thread/INFO]: [ServerEssentials] Loaded language: en (27 keys)
-[15:39:58] [Server thread/INFO]: [ServerEssentials] Initializing database pool: rtp (SQLITE)
-[15:39:58] [Server thread/INFO]: [ServerEssentials] SQLite path: C:\Users\millm\IdeaProjects\ServerEssentials\paper-server-test-api\run\paper-test-api\plugins\ServerEssentials\databases\rtp.db
-[15:39:58] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-1 - Starting...
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.pool.HikariPool] HikariPool-1 - Added connection org.sqlite.jdbc4.JDBC4Connection@71b84ff0
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-1 - Start completed.
-[15:39:59] [Server thread/INFO]: [ServerEssentials] Initializing database pool: playerdata (SQLITE)
-[15:39:59] [Server thread/INFO]: [ServerEssentials] SQLite path: C:\Users\millm\IdeaProjects\ServerEssentials\paper-server-test-api\run\paper-test-api\plugins\ServerEssentials\databases\playerdata.db
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-2 - Starting...
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.pool.HikariPool] HikariPool-2 - Added connection org.sqlite.jdbc4.JDBC4Connection@3c317a3d
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-2 - Start completed.
-[15:39:59] [Server thread/INFO]: [ServerEssentials] Initializing database pool: kits (SQLITE)
-[15:39:59] [Server thread/INFO]: [ServerEssentials] SQLite path: C:\Users\millm\IdeaProjects\ServerEssentials\paper-server-test-api\run\paper-test-api\plugins\ServerEssentials\databases\kits.db
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-3 - Starting...
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.pool.HikariPool] HikariPool-3 - Added connection org.sqlite.jdbc4.JDBC4Connection@19088cb2
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-3 - Start completed.
-[15:39:59] [Server thread/INFO]: [ServerEssentials] Initializing database pool: nicks (SQLITE)
-[15:39:59] [Server thread/INFO]: [ServerEssentials] SQLite path: C:\Users\millm\IdeaProjects\ServerEssentials\paper-server-test-api\run\paper-test-api\plugins\ServerEssentials\databases\nicks.db
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-4 - Starting...
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.pool.HikariPool] HikariPool-4 - Added connection org.sqlite.jdbc4.JDBC4Connection@18f1a821
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-4 - Start completed.
-[15:39:59] [Server thread/INFO]: [ServerEssentials] Initializing database pool: warps (SQLITE)
-[15:39:59] [Server thread/INFO]: [ServerEssentials] SQLite path: C:\Users\millm\IdeaProjects\ServerEssentials\paper-server-test-api\run\paper-test-api\plugins\ServerEssentials\databases\warps.db
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-5 - Starting...
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.pool.HikariPool] HikariPool-5 - Added connection org.sqlite.jdbc4.JDBC4Connection@58ddae65
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-5 - Start completed.
-[15:39:59] [Server thread/INFO]: [ServerEssentials] Initializing database pool: vaults (SQLITE)
-[15:39:59] [Server thread/INFO]: [ServerEssentials] SQLite path: C:\Users\millm\IdeaProjects\ServerEssentials\paper-server-test-api\run\paper-test-api\plugins\ServerEssentials\databases\vaults.db
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-6 - Starting...
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.pool.HikariPool] HikariPool-6 - Added connection org.sqlite.jdbc4.JDBC4Connection@941d662
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-6 - Start completed.
-[15:39:59] [Server thread/INFO]: [ServerEssentials] Initializing database pool: bans (SQLITE)
-[15:39:59] [Server thread/INFO]: [ServerEssentials] SQLite path: C:\Users\millm\IdeaProjects\ServerEssentials\paper-server-test-api\run\paper-test-api\plugins\ServerEssentials\databases\bans.db
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-7 - Starting...
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.pool.HikariPool] HikariPool-7 - Added connection org.sqlite.jdbc4.JDBC4Connection@205cf2bc
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-7 - Start completed.
-[15:39:59] [Server thread/INFO]: [ServerEssentials] Initializing database pool: mutes (SQLITE)
-[15:39:59] [Server thread/INFO]: [ServerEssentials] SQLite path: C:\Users\millm\IdeaProjects\ServerEssentials\paper-server-test-api\run\paper-test-api\plugins\ServerEssentials\databases\mutes.db
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-8 - Starting...
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.pool.HikariPool] HikariPool-8 - Added connection org.sqlite.jdbc4.JDBC4Connection@69994901
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-8 - Start completed.
-[15:39:59] [Server thread/INFO]: [ServerEssentials] Initializing database pool: lobby (SQLITE)
-[15:39:59] [Server thread/INFO]: [ServerEssentials] SQLite path: C:\Users\millm\IdeaProjects\ServerEssentials\paper-server-test-api\run\paper-test-api\plugins\ServerEssentials\databases\lobby.db
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-9 - Starting...
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.pool.HikariPool] HikariPool-9 - Added connection org.sqlite.jdbc4.JDBC4Connection@3474ce20
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-9 - Start completed.
-[15:39:59] [Server thread/INFO]: [ServerEssentials] Initializing database pool: homes (SQLITE)
-[15:39:59] [Server thread/INFO]: [ServerEssentials] SQLite path: C:\Users\millm\IdeaProjects\ServerEssentials\paper-server-test-api\run\paper-test-api\plugins\ServerEssentials\databases\homes.db
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-10 - Starting...
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.pool.HikariPool] HikariPool-10 - Added connection org.sqlite.jdbc4.JDBC4Connection@396ba0fc
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-10 - Start completed.
-[15:39:59] [Server thread/INFO]: [ServerEssentials] Initializing database pool: auction (SQLITE)
-[15:39:59] [Server thread/INFO]: [ServerEssentials] SQLite path: C:\Users\millm\IdeaProjects\ServerEssentials\paper-server-test-api\run\paper-test-api\plugins\ServerEssentials\databases\auction.db
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-11 - Starting...
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.pool.HikariPool] HikariPool-11 - Added connection org.sqlite.jdbc4.JDBC4Connection@307cb63c
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-11 - Start completed.
-[15:39:59] [Server thread/INFO]: [ServerEssentials] Initializing database pool: scoreboard (SQLITE)
-[15:39:59] [Server thread/INFO]: [ServerEssentials] SQLite path: C:\Users\millm\IdeaProjects\ServerEssentials\paper-server-test-api\run\paper-test-api\plugins\ServerEssentials\databases\scoreboard.db
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-12 - Starting...
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.pool.HikariPool] HikariPool-12 - Added connection org.sqlite.jdbc4.JDBC4Connection@65407ade
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-12 - Start completed.
-[15:39:59] [Server thread/INFO]: [ServerEssentials] Initializing database pool: rules (SQLITE)
-[15:39:59] [Server thread/INFO]: [ServerEssentials] SQLite path: C:\Users\millm\IdeaProjects\ServerEssentials\paper-server-test-api\run\paper-test-api\plugins\ServerEssentials\databases\rules.db
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-13 - Starting...
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.pool.HikariPool] HikariPool-13 - Added connection org.sqlite.jdbc4.JDBC4Connection@f5fed42
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-13 - Start completed.
-[15:39:59] [Server thread/INFO]: [ServerEssentials] Initializing database pool: mail (SQLITE)
-[15:39:59] [Server thread/INFO]: [ServerEssentials] SQLite path: C:\Users\millm\IdeaProjects\ServerEssentials\paper-server-test-api\run\paper-test-api\plugins\ServerEssentials\databases\mail.db
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-14 - Starting...
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.pool.HikariPool] HikariPool-14 - Added connection org.sqlite.jdbc4.JDBC4Connection@5e57cf30
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-14 - Start completed.
-[15:39:59] [Server thread/INFO]: [ServerEssentials] Initializing database pool: sellgui (SQLITE)
-[15:39:59] [Server thread/INFO]: [ServerEssentials] SQLite path: C:\Users\millm\IdeaProjects\ServerEssentials\paper-server-test-api\run\paper-test-api\plugins\ServerEssentials\databases\sellgui.db
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-15 - Starting...
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.pool.HikariPool] HikariPool-15 - Added connection org.sqlite.jdbc4.JDBC4Connection@3b531896
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-15 - Start completed.
-[15:39:59] [Server thread/INFO]: [ServerEssentials] Initializing database pool: back (SQLITE)
-[15:39:59] [Server thread/INFO]: [ServerEssentials] SQLite path: C:\Users\millm\IdeaProjects\ServerEssentials\paper-server-test-api\run\paper-test-api\plugins\ServerEssentials\databases\back.db
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-16 - Starting...
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.pool.HikariPool] HikariPool-16 - Added connection org.sqlite.jdbc4.JDBC4Connection@6f24cf82
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-16 - Start completed.
-[15:39:59] [Server thread/INFO]: [ServerEssentials] Initializing database pool: economy (SQLITE)
-[15:39:59] [Server thread/INFO]: [ServerEssentials] SQLite path: C:\Users\millm\IdeaProjects\ServerEssentials\paper-server-test-api\run\paper-test-api\plugins\ServerEssentials\databases\economy.db
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-17 - Starting...
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.pool.HikariPool] HikariPool-17 - Added connection org.sqlite.jdbc4.JDBC4Connection@135a314e
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-17 - Start completed.
-[15:39:59] [Server thread/INFO]: [ServerEssentials] Initializing database pool: notes (SQLITE)
-[15:39:59] [Server thread/INFO]: [ServerEssentials] SQLite path: C:\Users\millm\IdeaProjects\ServerEssentials\paper-server-test-api\run\paper-test-api\plugins\ServerEssentials\databases\notes.db
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-18 - Starting...
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.pool.HikariPool] HikariPool-18 - Added connection org.sqlite.jdbc4.JDBC4Connection@48f6e8a4
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-18 - Start completed.
-[15:39:59] [Server thread/INFO]: [ServerEssentials] Initializing database pool: daily (SQLITE)
-[15:39:59] [Server thread/INFO]: [ServerEssentials] SQLite path: C:\Users\millm\IdeaProjects\ServerEssentials\paper-server-test-api\run\paper-test-api\plugins\ServerEssentials\databases\daily.db
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-19 - Starting...
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.pool.HikariPool] HikariPool-19 - Added connection org.sqlite.jdbc4.JDBC4Connection@c0b0c9f
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-19 - Start completed.
-[15:39:59] [Server thread/INFO]: [ServerEssentials] Initializing database pool: reports (SQLITE)
-[15:39:59] [Server thread/INFO]: [ServerEssentials] SQLite path: C:\Users\millm\IdeaProjects\ServerEssentials\paper-server-test-api\run\paper-test-api\plugins\ServerEssentials\databases\reports.db
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-20 - Starting...
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.pool.HikariPool] HikariPool-20 - Added connection org.sqlite.jdbc4.JDBC4Connection@1eb92a57
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-20 - Start completed.
-[15:39:59] [Server thread/INFO]: [ServerEssentials] Initializing database pool: shop (SQLITE)
-[15:39:59] [Server thread/INFO]: [ServerEssentials] SQLite path: C:\Users\millm\IdeaProjects\ServerEssentials\paper-server-test-api\run\paper-test-api\plugins\ServerEssentials\databases\shop.db
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-21 - Starting...
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.pool.HikariPool] HikariPool-21 - Added connection org.sqlite.jdbc4.JDBC4Connection@30548d96
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-21 - Start completed.
-[15:39:59] [Server thread/INFO]: [ServerEssentials] Initializing database pool: command_data (SQLITE)
-[15:39:59] [Server thread/INFO]: [ServerEssentials] SQLite path: C:\Users\millm\IdeaProjects\ServerEssentials\paper-server-test-api\run\paper-test-api\plugins\ServerEssentials\databases\command_data.db
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-22 - Starting...
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.pool.HikariPool] HikariPool-22 - Added connection org.sqlite.jdbc4.JDBC4Connection@7187a46a
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-22 - Start completed.
-[15:39:59] [Server thread/INFO]: [ServerEssentials] Initializing database pool: tpa (SQLITE)
-[15:39:59] [Server thread/INFO]: [ServerEssentials] SQLite path: C:\Users\millm\IdeaProjects\ServerEssentials\paper-server-test-api\run\paper-test-api\plugins\ServerEssentials\databases\tpa.db
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-23 - Starting...
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.pool.HikariPool] HikariPool-23 - Added connection org.sqlite.jdbc4.JDBC4Connection@3c09c93f
-[15:39:59] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-23 - Start completed.
-[15:39:59] [Server thread/INFO]: [ServerEssentials] Initializing soft-dependencies...
-[15:39:59] [Server thread/INFO]: [ServerEssentials] Vault hooked successfully!
-[15:39:59] [Server thread/INFO]: [ServerEssentials] LuckPerms hooked successfully!
-[15:39:59] [Server thread/INFO]: [ServerEssentials] PlaceholderAPI hooked successfully!
-[15:39:59] [Server thread/INFO]: [PlaceholderAPI] Successfully registered internal expansion: se [2.0.7.9]
-[15:39:59] [Server thread/INFO]: [ServerEssentials] PlaceholderAPI integration enabled!
-[15:39:59] [Server thread/INFO]: [ServerEssentials] Using internal economy system
-[15:39:59] [Server thread/INFO]: [ServerEssentials] Initializing InternalEconomy database...
-[15:40:00] [ForkJoinPool.commonPool-worker-2/INFO]: [ServerEssentials] Adding pay_confirm_disabled column...
-[15:40:00] [Server thread/INFO]: [ServerEssentials] InternalEconomy database initialized!
-[15:40:00] [Server thread/INFO]: [ServerEssentials] ServerEssentials-Internal registered with Vault for other plugins!
-[15:40:00] [Server thread/INFO]: [ServerEssentials] §aEconomy system initialized: ServerEssentials-Internal
-[15:40:00] [Server thread/INFO]: Loaded 1 kits.
-[15:40:00] [Server thread/INFO]: [ServerEssentials] Kit system initialized with 1 kits
-[15:40:00] [Server thread/WARN]: [ServerEssentials] BackManager is null in RtpListener constructor!
-[15:40:00] [Server thread/WARN]: [ServerEssentials] Invalid day key: page1-next in daily.yml
-[15:40:00] [Server thread/WARN]: [ServerEssentials] Invalid day key: page2-prev in daily.yml
-[15:40:00] [ForkJoinPool.commonPool-worker-3/INFO]: [ServerEssentials] Rules table is empty. Loading from rules.yml...
-[15:40:00] [ForkJoinPool.commonPool-worker-3/INFO]: [ServerEssentials] Loaded 6 rules from rules.yml
-[15:40:00] [Server thread/INFO]: [ServerEssentials] Back locations table initialized (or already exists)
-[15:40:00] [Server thread/INFO]: [ServerEssentials] Back system initialized with dedicated table
-[15:40:00] [Server thread/INFO]: [ServerEssentials] Loaded 7 scoreboard layouts
-[15:40:00] [Server thread/INFO]: [ServerEssentials] Scoreboard storage initialized with async support
-[15:40:00] [Server thread/INFO]: [ServerEssentials] Scoreboard updater started in production mode
-[15:40:00] [Server thread/INFO]: [ServerEssentials] Scoreboard system initialized with 7 layouts
-[15:40:00] [Server thread/INFO]: [ServerEssentials] Initializing database pool: session (SQLITE)
-[15:40:00] [Server thread/INFO]: [ServerEssentials] SQLite path: C:\Users\millm\IdeaProjects\ServerEssentials\paper-server-test-api\run\paper-test-api\plugins\ServerEssentials\databases\session.db
-[15:40:00] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-24 - Starting...
-[15:40:00] [Server thread/INFO]: [com.zaxxer.hikari.pool.HikariPool] HikariPool-24 - Added connection org.sqlite.jdbc4.JDBC4Connection@26c11d71
-[15:40:00] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-24 - Start completed.
-[15:40:00] [Server thread/INFO]: [ServerEssentials] Session system initialized
-[15:40:00] [Server thread/INFO]: [ServerEssentials] Auction system initialized successfully
-[15:40:00] [Server thread/WARN]: [ServerEssentials] [SellGUI] Invalid material 'IRON_CHAIN' in decoration.yml
-[15:40:00] [Server thread/INFO]: [ServerEssentials] [SellGUI] Successfully loaded 781 prices from 15 files
-[15:40:00] [Server thread/INFO]: [ServerEssentials] [SellGUI] Loaded 751 sellable items from shop configs
-[15:40:00] [Server thread/INFO]: [ServerEssentials] [SellGUI] Manager initialized with 751 sellable items
-[15:40:00] [Server thread/INFO]: [ServerEssentials] SellGUI system initialized with 751 items
-[15:40:01] [Server thread/INFO]: [ServerEssentials] [Eco] Max transaction amount: 1000000.0
-[15:40:01] [Server thread/INFO]: [ServerEssentials] [Eco] Notify target: true
-[15:40:01] [Server thread/INFO]: [ServerEssentials] [Eco] Log transactions: true
-[15:40:01] [Server thread/INFO]: [ServerEssentials] [CoinFlip] Loaded config: min=1.0, max=10000.0, winChance=50.0%
-[15:40:01] [Server thread/INFO]: [ServerEssentials] ✓ Loaded main shop config from file (newer than DB)
-[15:40:01] [Server thread/INFO]: [ServerEssentials] ✓ Loaded section 'blocks' from file
-[15:40:01] [Server thread/INFO]: [ServerEssentials] ✓ Loaded section 'coloredblocks' from file
-[15:40:01] [Server thread/INFO]: [ServerEssentials] ✓ Loaded section 'customsection1' from file
-[15:40:01] [Server thread/INFO]: [ServerEssentials] ✓ Loaded section 'customsection2' from file
-[15:40:01] [Server thread/INFO]: [ServerEssentials] ✓ Loaded section 'customsection3' from file
-[15:40:01] [Server thread/INFO]: [ServerEssentials] ✓ Loaded section 'customsection4' from file
-[15:40:01] [Server thread/INFO]: [ServerEssentials] ✓ Loaded section 'customsection5' from file
-[15:40:01] [Server thread/INFO]: [ServerEssentials] ✓ Loaded section 'decoration' from file
-[15:40:01] [Server thread/INFO]: [ServerEssentials] ✓ Loaded section 'farming' from file
-[15:40:01] [Server thread/INFO]: [ServerEssentials] ✓ Loaded section 'food' from file
-[15:40:01] [Server thread/INFO]: [ServerEssentials] ✓ Loaded section 'misc' from file
-[15:40:01] [Server thread/INFO]: [ServerEssentials] ✓ Loaded section 'mobs' from file
-[15:40:01] [Server thread/INFO]: [ServerEssentials] ✓ Loaded section 'ores' from file
-[15:40:01] [Server thread/INFO]: [ServerEssentials] ✓ Loaded section 'redstone' from file
-[15:40:01] [Server thread/INFO]: [ServerEssentials] ✓ Loaded section 'tools' from file
-[15:40:01] [Server thread/INFO]: [ServerEssentials] ✓ Shop configurations loaded successfully
-[15:40:01] [Server thread/INFO]: [ServerEssentials] Successfully registered all API services!
-[15:40:01] [Server thread/INFO]: 
-[15:40:01] [Server thread/INFO]:              
-[15:40:01] [Server thread/INFO]:   ┏━━━┳━━━┓     Server Software: Paper 1.21.1-133-3cb8529 (MC: 1.21.1)
-[15:40:01] [Server thread/INFO]:   ┃┏━┓┃┏━━┛     Startup Time:   3115 ms
-[15:40:01] [Server thread/INFO]:   ┃┗━━┫┗━━┓     CPU Cores:      12
-[15:40:01] [Server thread/INFO]:   ┗━━┓┃┏━━┛     Threads:        101
-[15:40:01] [Server thread/INFO]:   ┃┗━┛┃┗━━┓     
-[15:40:01] [Server thread/INFO]:   ┗━━━┻━━━┛     ✓ ServerEssentials successfully enabled!
-[15:40:01] [Server thread/INFO]: 
-[15:40:02] [Server thread/INFO]: [ServerEssentials] First install detected – running commands...
-[15:40:02] [Server thread/INFO]: [ServerEssentials] Saved default language file: de.json
-[15:40:02] [Server thread/INFO]: [ServerEssentials] Saved default language file: fr.json
-[15:40:02] [Server thread/INFO]: [ServerEssentials] Saved default language file: br.json
-[15:40:02] [Server thread/WARN]: [ServerEssentials] Could not save config.yml to plugins\ServerEssentials\config.yml because config.yml already exists.
-[15:40:02] [Server thread/INFO]: [PlaceholderAPI] Successfully registered internal expansion: se [2.0.7.9]
-[15:40:02] [Server thread/INFO]: [ViaBackwards] Enabling ViaBackwards v5.6.0
-[15:40:02] [Server thread/INFO]: [TestAPI] Enabling TestAPI v2.0.7.20
-[15:40:02] [Server thread/INFO]: [TestAPI] §6[ServerEssentialsTester] §rServerEssentials API Tester enabled!
-[15:40:02] [Server thread/INFO]: [spark] Starting background profiler...
-[15:40:02] [Server thread/INFO]: [spark] The async-profiler engine is not supported for your os/arch (windows11/amd64), so the built-in Java engine will be used instead.
-[15:40:02] [Server thread/INFO]: [PlaceholderAPI] Placeholder expansion registration initializing...
-[15:40:02] [Server thread/INFO]: 0 placeholder hook(s) registered!
-[15:40:02] [Server thread/INFO]: Done preparing level "world" (8.014s)
-[15:40:02] [Server thread/INFO]: Running delayed init tasks
-[15:40:02] [Server thread/INFO]: Done (34.108s)! For help, type "help"
-[15:40:02] [Server thread/INFO]: Timings Reset
-[15:40:02] [Craft Scheduler Thread - 1 - ViaVersion/INFO]: [ViaVersion] Finished mapping loading, shutting down loader executor.
-[15:40:02] [Craft Scheduler Thread - 7 - Vault/INFO]: [Vault] Checking for Updates ... 
-[15:40:03] [ForkJoinPool.commonPool-worker-3/INFO]: 
-[15:40:03] [ForkJoinPool.commonPool-worker-3/INFO]: ================================
-[15:40:03] [ForkJoinPool.commonPool-worker-3/INFO]: ServerEssentials - Up To Date
-[15:40:03] [ForkJoinPool.commonPool-worker-3/INFO]: --------------------------------
-[15:40:03] [ForkJoinPool.commonPool-worker-3/INFO]: Running latest version: 2.0.7.9
-[15:40:03] [ForkJoinPool.commonPool-worker-3/INFO]: ================================
-[15:40:03] [ForkJoinPool.commonPool-worker-3/INFO]: 
-[15:40:03] [Craft Scheduler Thread - 7 - Vault/INFO]: [Vault] No new version available
-[15:40:03] [placeholderapi-io-#0/INFO]: Successfully downloaded expansion Vault [1.8.3] to file: Expansion-vault.jar
-Make sure to type /papi reload to enable your new expansion!
-[15:40:03] [placeholderapi-io-#0/INFO]: [PlaceholderAPI] Fetching available expansion information...
-[15:40:07] [Server thread/INFO]: [TestAPI] DailyAPI test command received API instance: true
-[15:40:07] [Server thread/INFO]: [TestAPI] EconomyAPI test command received API instance: true
-[15:40:07] [Server thread/INFO]: [TestAPI] §6[ServerEssentialsTester] §rAPIs connected successfully!
-[15:40:07] [Server thread/INFO]: [TestAPI] BackAPI test command received API instance: true
-[15:40:07] [Server thread/INFO]: [TestAPI] §6[ServerEssentialsTester] §rShop enabled: true
-[15:40:07] [Server thread/INFO]: [TestAPI] §6[ServerEssentialsTester] §rAuction enabled: true
-[15:40:07] [Server thread/INFO]: [TestAPI] §6[ServerEssentialsTester] §rBack enabled: true
-[15:40:07] [Server thread/INFO]: [TestAPI] §6[ServerEssentialsTester] §rBack enabled: true
-[15:40:07] [Server thread/INFO]: [TestAPI] §6[ServerEssentialsTester] §rBack enabled: true
+[11:45:35] [ServerMain/INFO]: Environment: Environment[sessionHost=https://sessionserver.mojang.com, servicesHost=https://api.minecraftservices.com, name=PROD]
+[11:45:37] [ServerMain/INFO]: Loaded 1290 recipes
+[11:45:37] [ServerMain/INFO]: Loaded 1399 advancements
+[11:45:37] [Server thread/INFO]: Starting minecraft server version 1.21.1
+[11:45:37] [Server thread/INFO]: Loading properties
+[11:45:38] [Server thread/INFO]: This server is running Paper version 1.21.1-133-ver/1.21.1@3cb8529 (2025-03-28T16:14:36Z) (Implementing API version 1.21.1-R0.1-SNAPSHOT)
+[11:45:38] [Server thread/INFO]: [spark] This server bundles the spark profiler. For more information please visit https://docs.papermc.io/paper/profiling
+[11:45:38] [Server thread/INFO]: Server Ping Player Sample Count: 12
+[11:45:38] [Server thread/INFO]: Using 4 threads for Netty based IO
+[11:45:39] [Server thread/INFO]: [ChunkTaskScheduler] Chunk system is using 1 I/O threads, 3 worker threads, and population gen parallelism of 3 threads
+[11:45:40] [Server thread/INFO]: Default game type: SURVIVAL
+[11:45:40] [Server thread/INFO]: Generating keypair
+[11:45:40] [Server thread/INFO]: Starting Minecraft server on *:25566
+[11:45:40] [Server thread/INFO]: Using default channel type
+[11:45:40] [Server thread/INFO]: Paper: Using Java compression from Velocity.
+[11:45:40] [Server thread/INFO]: Paper: Using Java cipher from Velocity.
+[11:45:40] [Server thread/INFO]: [ViaVersion] Loading server plugin ViaVersion v5.6.0
+[11:45:40] [Server thread/INFO]: [ViaVersion] ViaVersion 5.6.0 is now loaded. Registering protocol transformers and injecting...
+[11:45:41] [Via-Mappingloader-1/INFO]: [ViaVersion] Loading block connection mappings ...
+[11:45:41] [Via-Mappingloader-1/INFO]: [ViaVersion] Using FastUtil Long2ObjectOpenHashMap for block connections
+[11:45:42] [Server thread/INFO]: [ViaBackwards] Loading translations...
+[11:45:42] [Server thread/INFO]: [ViaBackwards] Registering protocols...
+[11:45:43] [Server thread/INFO]: [LuckPerms] Loading server plugin LuckPerms v5.5.22
+[11:45:43] [Server thread/INFO]: [LuckPerms] Loading configuration...
+[11:45:43] [Server thread/INFO]: [Vault] Loading server plugin Vault v1.7.3-b131
+[11:45:43] [Server thread/INFO]: [PlaceholderAPI] Loading server plugin PlaceholderAPI v2.11.7
+[11:45:43] [Server thread/INFO]: [ServerEssentials] Loading server plugin ServerEssentials v2.0.7.9
+[11:45:43] [Server thread/INFO]: [ViaBackwards] Loading server plugin ViaBackwards v5.6.0
+[11:45:43] [Server thread/INFO]: [TestAPI] Loading server plugin TestAPI v2.0.7.20
+[11:45:43] [Server thread/INFO]: Server permissions file permissions.yml is empty, ignoring it
+[11:45:43] [Server thread/INFO]: [LuckPerms] Enabling LuckPerms v5.5.22
+[11:45:44] [Server thread/INFO]:         __    
+[11:45:44] [Server thread/INFO]:   |    |__)   LuckPerms v5.5.22
+[11:45:44] [Server thread/INFO]:   |___ |      Running on Bukkit - Paper
+[11:45:44] [Server thread/INFO]: 
+[11:45:44] [Server thread/INFO]: [LuckPerms] Loading storage provider... [H2]
+[11:45:44] [Server thread/INFO]: [LuckPerms] Loading internal permission managers...
+[11:45:44] [Server thread/INFO]: [LuckPerms] Performing initial data load...
+[11:45:44] [Server thread/INFO]: [LuckPerms] Successfully enabled. (took 1241ms)
+[11:45:44] [Server thread/INFO]: [Vault] Enabling Vault v1.7.3-b131
+[11:45:45] [Server thread/INFO]: [Vault] [Permission] SuperPermissions loaded as backup permission system.
+[11:45:45] [Server thread/INFO]: [Vault] Enabled Version 1.7.3-b131
+[11:45:45] [Server thread/INFO]: [LuckPerms] Registered Vault permission & chat hook.
+[11:45:45] [Server thread/WARN]: **** SERVER IS RUNNING IN OFFLINE/INSECURE MODE!
+[11:45:45] [Server thread/WARN]: The server will make no attempt to authenticate usernames. Beware.
+[11:45:45] [Server thread/WARN]: While this makes the game possible to play without internet access, it also opens up the ability for hackers to connect with any username they choose.
+[11:45:45] [Server thread/WARN]: To change this, set "online-mode" to "true" in the server.properties file.
+[11:45:45] [Server thread/INFO]: Preparing level "world"
+[11:45:45] [Server thread/INFO]: Preparing start region for dimension minecraft:overworld
+[11:45:46] [Server thread/INFO]: Time elapsed: 1037 ms
+[11:45:46] [Server thread/INFO]: Preparing start region for dimension minecraft:the_nether
+[11:45:47] [Server thread/INFO]: Time elapsed: 265 ms
+[11:45:47] [Server thread/INFO]: Preparing start region for dimension minecraft:the_end
+[11:45:47] [Server thread/INFO]: Time elapsed: 124 ms
+[11:45:47] [Server thread/INFO]: [ViaVersion] Enabling ViaVersion v5.6.0
+[11:45:47] [Server thread/INFO]: [ViaVersion] ViaVersion detected server version: 1.21-1.21.1 (767)
+[11:45:47] [Server thread/INFO]: [PlaceholderAPI] Enabling PlaceholderAPI v2.11.7
+[11:45:47] [Server thread/INFO]: [PlaceholderAPI] Fetching available expansion information...
+[11:45:47] [Server thread/INFO]: [ServerEssentials] Enabling ServerEssentials v2.0.7.9
+[11:45:47] [Server thread/INFO]: [ServerEssentials] Loaded language: br (27 keys)
+[11:45:47] [Server thread/INFO]: [ServerEssentials] Loaded language: de (26 keys)
+[11:45:47] [Server thread/INFO]: [ServerEssentials] Loaded language: en (27 keys)
+[11:45:47] [Server thread/INFO]: [ServerEssentials] Loaded language: fr (26 keys)
+[11:45:47] [Server thread/INFO]: [ServerEssentials] Initializing database pool: rtp (SQLITE)
+[11:45:47] [Server thread/INFO]: [ServerEssentials] SQLite path: C:\Users\millm\IdeaProjects\ServerEssentials\paper-server-test-api\run\paper-test-api\plugins\ServerEssentials\databases\rtp.db
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-1 - Starting...
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.pool.HikariPool] HikariPool-1 - Added connection org.sqlite.jdbc4.JDBC4Connection@4fb4e412
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-1 - Start completed.
+[11:45:47] [Server thread/INFO]: [ServerEssentials] Initializing database pool: playerdata (SQLITE)
+[11:45:47] [Server thread/INFO]: [ServerEssentials] SQLite path: C:\Users\millm\IdeaProjects\ServerEssentials\paper-server-test-api\run\paper-test-api\plugins\ServerEssentials\databases\playerdata.db
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-2 - Starting...
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.pool.HikariPool] HikariPool-2 - Added connection org.sqlite.jdbc4.JDBC4Connection@2e4aa034
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-2 - Start completed.
+[11:45:47] [Server thread/INFO]: [ServerEssentials] Initializing database pool: kits (SQLITE)
+[11:45:47] [Server thread/INFO]: [ServerEssentials] SQLite path: C:\Users\millm\IdeaProjects\ServerEssentials\paper-server-test-api\run\paper-test-api\plugins\ServerEssentials\databases\kits.db
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-3 - Starting...
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.pool.HikariPool] HikariPool-3 - Added connection org.sqlite.jdbc4.JDBC4Connection@3168279b
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-3 - Start completed.
+[11:45:47] [Server thread/INFO]: [ServerEssentials] Initializing database pool: nicks (SQLITE)
+[11:45:47] [Server thread/INFO]: [ServerEssentials] SQLite path: C:\Users\millm\IdeaProjects\ServerEssentials\paper-server-test-api\run\paper-test-api\plugins\ServerEssentials\databases\nicks.db
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-4 - Starting...
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.pool.HikariPool] HikariPool-4 - Added connection org.sqlite.jdbc4.JDBC4Connection@6d49be87
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-4 - Start completed.
+[11:45:47] [Server thread/INFO]: [ServerEssentials] Initializing database pool: warps (SQLITE)
+[11:45:47] [Server thread/INFO]: [ServerEssentials] SQLite path: C:\Users\millm\IdeaProjects\ServerEssentials\paper-server-test-api\run\paper-test-api\plugins\ServerEssentials\databases\warps.db
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-5 - Starting...
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.pool.HikariPool] HikariPool-5 - Added connection org.sqlite.jdbc4.JDBC4Connection@4102c541
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-5 - Start completed.
+[11:45:47] [Server thread/INFO]: [ServerEssentials] Initializing database pool: vaults (SQLITE)
+[11:45:47] [Server thread/INFO]: [ServerEssentials] SQLite path: C:\Users\millm\IdeaProjects\ServerEssentials\paper-server-test-api\run\paper-test-api\plugins\ServerEssentials\databases\vaults.db
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-6 - Starting...
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.pool.HikariPool] HikariPool-6 - Added connection org.sqlite.jdbc4.JDBC4Connection@23edc33f
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-6 - Start completed.
+[11:45:47] [Server thread/INFO]: [ServerEssentials] Initializing database pool: bans (SQLITE)
+[11:45:47] [Server thread/INFO]: [ServerEssentials] SQLite path: C:\Users\millm\IdeaProjects\ServerEssentials\paper-server-test-api\run\paper-test-api\plugins\ServerEssentials\databases\bans.db
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-7 - Starting...
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.pool.HikariPool] HikariPool-7 - Added connection org.sqlite.jdbc4.JDBC4Connection@38e575f8
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-7 - Start completed.
+[11:45:47] [Server thread/INFO]: [ServerEssentials] Initializing database pool: mutes (SQLITE)
+[11:45:47] [Server thread/INFO]: [ServerEssentials] SQLite path: C:\Users\millm\IdeaProjects\ServerEssentials\paper-server-test-api\run\paper-test-api\plugins\ServerEssentials\databases\mutes.db
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-8 - Starting...
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.pool.HikariPool] HikariPool-8 - Added connection org.sqlite.jdbc4.JDBC4Connection@273d68be
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-8 - Start completed.
+[11:45:47] [Server thread/INFO]: [ServerEssentials] Initializing database pool: lobby (SQLITE)
+[11:45:47] [Server thread/INFO]: [ServerEssentials] SQLite path: C:\Users\millm\IdeaProjects\ServerEssentials\paper-server-test-api\run\paper-test-api\plugins\ServerEssentials\databases\lobby.db
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-9 - Starting...
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.pool.HikariPool] HikariPool-9 - Added connection org.sqlite.jdbc4.JDBC4Connection@55d88930
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-9 - Start completed.
+[11:45:47] [Server thread/INFO]: [ServerEssentials] Initializing database pool: homes (SQLITE)
+[11:45:47] [Server thread/INFO]: [ServerEssentials] SQLite path: C:\Users\millm\IdeaProjects\ServerEssentials\paper-server-test-api\run\paper-test-api\plugins\ServerEssentials\databases\homes.db
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-10 - Starting...
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.pool.HikariPool] HikariPool-10 - Added connection org.sqlite.jdbc4.JDBC4Connection@13fac9c4
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-10 - Start completed.
+[11:45:47] [Server thread/INFO]: [ServerEssentials] Initializing database pool: auction (SQLITE)
+[11:45:47] [Server thread/INFO]: [ServerEssentials] SQLite path: C:\Users\millm\IdeaProjects\ServerEssentials\paper-server-test-api\run\paper-test-api\plugins\ServerEssentials\databases\auction.db
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-11 - Starting...
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.pool.HikariPool] HikariPool-11 - Added connection org.sqlite.jdbc4.JDBC4Connection@2b672647
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-11 - Start completed.
+[11:45:47] [Server thread/INFO]: [ServerEssentials] Initializing database pool: scoreboard (SQLITE)
+[11:45:47] [Server thread/INFO]: [ServerEssentials] SQLite path: C:\Users\millm\IdeaProjects\ServerEssentials\paper-server-test-api\run\paper-test-api\plugins\ServerEssentials\databases\scoreboard.db
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-12 - Starting...
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.pool.HikariPool] HikariPool-12 - Added connection org.sqlite.jdbc4.JDBC4Connection@524cd766
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-12 - Start completed.
+[11:45:47] [Server thread/INFO]: [ServerEssentials] Initializing database pool: rules (SQLITE)
+[11:45:47] [Server thread/INFO]: [ServerEssentials] SQLite path: C:\Users\millm\IdeaProjects\ServerEssentials\paper-server-test-api\run\paper-test-api\plugins\ServerEssentials\databases\rules.db
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-13 - Starting...
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.pool.HikariPool] HikariPool-13 - Added connection org.sqlite.jdbc4.JDBC4Connection@7069c51b
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-13 - Start completed.
+[11:45:47] [Server thread/INFO]: [ServerEssentials] Initializing database pool: mail (SQLITE)
+[11:45:47] [Server thread/INFO]: [ServerEssentials] SQLite path: C:\Users\millm\IdeaProjects\ServerEssentials\paper-server-test-api\run\paper-test-api\plugins\ServerEssentials\databases\mail.db
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-14 - Starting...
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.pool.HikariPool] HikariPool-14 - Added connection org.sqlite.jdbc4.JDBC4Connection@2cfeb76c
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-14 - Start completed.
+[11:45:47] [Server thread/INFO]: [ServerEssentials] Initializing database pool: sellgui (SQLITE)
+[11:45:47] [Server thread/INFO]: [ServerEssentials] SQLite path: C:\Users\millm\IdeaProjects\ServerEssentials\paper-server-test-api\run\paper-test-api\plugins\ServerEssentials\databases\sellgui.db
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-15 - Starting...
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.pool.HikariPool] HikariPool-15 - Added connection org.sqlite.jdbc4.JDBC4Connection@4af9edca
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-15 - Start completed.
+[11:45:47] [Server thread/INFO]: [ServerEssentials] Initializing database pool: back (SQLITE)
+[11:45:47] [Server thread/INFO]: [ServerEssentials] SQLite path: C:\Users\millm\IdeaProjects\ServerEssentials\paper-server-test-api\run\paper-test-api\plugins\ServerEssentials\databases\back.db
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-16 - Starting...
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.pool.HikariPool] HikariPool-16 - Added connection org.sqlite.jdbc4.JDBC4Connection@28d78ce1
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-16 - Start completed.
+[11:45:47] [Server thread/INFO]: [ServerEssentials] Initializing database pool: economy (SQLITE)
+[11:45:47] [Server thread/INFO]: [ServerEssentials] SQLite path: C:\Users\millm\IdeaProjects\ServerEssentials\paper-server-test-api\run\paper-test-api\plugins\ServerEssentials\databases\economy.db
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-17 - Starting...
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.pool.HikariPool] HikariPool-17 - Added connection org.sqlite.jdbc4.JDBC4Connection@7d680b06
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-17 - Start completed.
+[11:45:47] [Server thread/INFO]: [ServerEssentials] Initializing database pool: notes (SQLITE)
+[11:45:47] [Server thread/INFO]: [ServerEssentials] SQLite path: C:\Users\millm\IdeaProjects\ServerEssentials\paper-server-test-api\run\paper-test-api\plugins\ServerEssentials\databases\notes.db
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-18 - Starting...
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.pool.HikariPool] HikariPool-18 - Added connection org.sqlite.jdbc4.JDBC4Connection@268147cb
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-18 - Start completed.
+[11:45:47] [Server thread/INFO]: [ServerEssentials] Initializing database pool: daily (SQLITE)
+[11:45:47] [Server thread/INFO]: [ServerEssentials] SQLite path: C:\Users\millm\IdeaProjects\ServerEssentials\paper-server-test-api\run\paper-test-api\plugins\ServerEssentials\databases\daily.db
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-19 - Starting...
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.pool.HikariPool] HikariPool-19 - Added connection org.sqlite.jdbc4.JDBC4Connection@553a90bf
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-19 - Start completed.
+[11:45:47] [Server thread/INFO]: [ServerEssentials] Initializing database pool: reports (SQLITE)
+[11:45:47] [Server thread/INFO]: [ServerEssentials] SQLite path: C:\Users\millm\IdeaProjects\ServerEssentials\paper-server-test-api\run\paper-test-api\plugins\ServerEssentials\databases\reports.db
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-20 - Starting...
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.pool.HikariPool] HikariPool-20 - Added connection org.sqlite.jdbc4.JDBC4Connection@51b95d27
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-20 - Start completed.
+[11:45:47] [Server thread/INFO]: [ServerEssentials] Initializing database pool: shop (SQLITE)
+[11:45:47] [Server thread/INFO]: [ServerEssentials] SQLite path: C:\Users\millm\IdeaProjects\ServerEssentials\paper-server-test-api\run\paper-test-api\plugins\ServerEssentials\databases\shop.db
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-21 - Starting...
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.pool.HikariPool] HikariPool-21 - Added connection org.sqlite.jdbc4.JDBC4Connection@712fa1b2
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-21 - Start completed.
+[11:45:47] [Server thread/INFO]: [ServerEssentials] Initializing database pool: command_data (SQLITE)
+[11:45:47] [Server thread/INFO]: [ServerEssentials] SQLite path: C:\Users\millm\IdeaProjects\ServerEssentials\paper-server-test-api\run\paper-test-api\plugins\ServerEssentials\databases\command_data.db
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-22 - Starting...
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.pool.HikariPool] HikariPool-22 - Added connection org.sqlite.jdbc4.JDBC4Connection@2cfb711b
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-22 - Start completed.
+[11:45:47] [Server thread/INFO]: [ServerEssentials] Initializing database pool: tpa (SQLITE)
+[11:45:47] [Server thread/INFO]: [ServerEssentials] SQLite path: C:\Users\millm\IdeaProjects\ServerEssentials\paper-server-test-api\run\paper-test-api\plugins\ServerEssentials\databases\tpa.db
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-23 - Starting...
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.pool.HikariPool] HikariPool-23 - Added connection org.sqlite.jdbc4.JDBC4Connection@13828516
+[11:45:47] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-23 - Start completed.
+[11:45:47] [Server thread/INFO]: [ServerEssentials] Initializing soft-dependencies...
+[11:45:47] [Server thread/INFO]: [ServerEssentials] Vault hooked successfully!
+[11:45:47] [Server thread/INFO]: [ServerEssentials] LuckPerms hooked successfully!
+[11:45:47] [Server thread/INFO]: [ServerEssentials] PlaceholderAPI hooked successfully!
+[11:45:47] [Server thread/INFO]: [PlaceholderAPI] Successfully registered internal expansion: se [2.0.7.9]
+[11:45:47] [Server thread/INFO]: [ServerEssentials] PlaceholderAPI integration enabled!
+[11:45:47] [Server thread/INFO]: [ServerEssentials] Using internal economy system
+[11:45:47] [Server thread/INFO]: [ServerEssentials] Initializing InternalEconomy database...
+[11:45:47] [Server thread/INFO]: [ServerEssentials] InternalEconomy database initialized!
+[11:45:47] [Server thread/INFO]: [ServerEssentials] ServerEssentials-Internal registered with Vault for other plugins!
+[11:45:47] [Server thread/INFO]: [ServerEssentials] §aEconomy system initialized: ServerEssentials-Internal
+[11:45:47] [Server thread/INFO]: Loaded 1 kits.
+[11:45:47] [Server thread/INFO]: [ServerEssentials] Kit system initialized with 1 kits
+[11:45:48] [Server thread/WARN]: [ServerEssentials] BackManager is null in RtpListener constructor!
+[11:45:48] [Server thread/WARN]: [ServerEssentials] Invalid day key: page1-next in daily.yml
+[11:45:48] [Server thread/WARN]: [ServerEssentials] Invalid day key: page2-prev in daily.yml
+[11:45:48] [Server thread/INFO]: [ServerEssentials] Back locations table initialized (or already exists)
+[11:45:48] [Server thread/INFO]: [ServerEssentials] Back system initialized with dedicated table
+[11:45:48] [Server thread/INFO]: [ServerEssentials] Loaded 7 scoreboard layouts
+[11:45:48] [Server thread/INFO]: [ServerEssentials] Scoreboard storage initialized with async support
+[11:45:48] [Server thread/INFO]: [ServerEssentials] Scoreboard updater started in production mode
+[11:45:48] [Server thread/INFO]: [ServerEssentials] Scoreboard system initialized with 7 layouts
+[11:45:48] [Server thread/INFO]: [ServerEssentials] Initializing database pool: session (SQLITE)
+[11:45:48] [Server thread/INFO]: [ServerEssentials] SQLite path: C:\Users\millm\IdeaProjects\ServerEssentials\paper-server-test-api\run\paper-test-api\plugins\ServerEssentials\databases\session.db
+[11:45:48] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-24 - Starting...
+[11:45:48] [Server thread/INFO]: [com.zaxxer.hikari.pool.HikariPool] HikariPool-24 - Added connection org.sqlite.jdbc4.JDBC4Connection@5e85f030
+[11:45:48] [Server thread/INFO]: [com.zaxxer.hikari.HikariDataSource] HikariPool-24 - Start completed.
+[11:45:48] [Server thread/INFO]: [ServerEssentials] Session system initialized
+[11:45:48] [Server thread/INFO]: [ServerEssentials] Auction system initialized successfully
+[11:45:48] [Server thread/WARN]: [ServerEssentials] [SellGUI] Invalid material 'IRON_CHAIN' in decoration.yml
+[11:45:48] [Server thread/INFO]: [ServerEssentials] [SellGUI] Successfully loaded 781 prices from 15 files
+[11:45:48] [Server thread/INFO]: [ServerEssentials] [SellGUI] Loaded 751 sellable items from shop configs
+[11:45:48] [Server thread/INFO]: [ServerEssentials] [SellGUI] Manager initialized with 751 sellable items
+[11:45:48] [Server thread/INFO]: [ServerEssentials] SellGUI system initialized with 751 items
+[11:45:48] [Server thread/INFO]: [ServerEssentials] [Eco] Max transaction amount: 1000000.0
+[11:45:48] [Server thread/INFO]: [ServerEssentials] [Eco] Notify target: true
+[11:45:48] [Server thread/INFO]: [ServerEssentials] [Eco] Log transactions: true
+[11:45:48] [Server thread/INFO]: [ServerEssentials] [CoinFlip] Loaded config: min=1.0, max=10000.0, winChance=50.0%
+[11:45:48] [Server thread/INFO]: [ServerEssentials] ✓ Loaded main shop config from database
+[11:45:48] [Server thread/INFO]: [ServerEssentials] ✓ Loaded section 'blocks' from database
+[11:45:48] [Server thread/INFO]: [ServerEssentials] ✓ Loaded section 'coloredblocks' from database
+[11:45:48] [Server thread/INFO]: [ServerEssentials] ✓ Loaded section 'customsection1' from database
+[11:45:48] [Server thread/INFO]: [ServerEssentials] ✓ Loaded section 'customsection2' from database
+[11:45:48] [Server thread/INFO]: [ServerEssentials] ✓ Loaded section 'customsection3' from database
+[11:45:48] [Server thread/INFO]: [ServerEssentials] ✓ Loaded section 'customsection4' from database
+[11:45:48] [Server thread/INFO]: [ServerEssentials] ✓ Loaded section 'customsection5' from database
+[11:45:48] [Server thread/INFO]: [ServerEssentials] ✓ Loaded section 'decoration' from database
+[11:45:48] [Server thread/INFO]: [ServerEssentials] ✓ Loaded section 'farming' from database
+[11:45:48] [Server thread/INFO]: [ServerEssentials] ✓ Loaded section 'food' from database
+[11:45:48] [Server thread/INFO]: [ServerEssentials] ✓ Loaded section 'misc' from database
+[11:45:48] [Server thread/INFO]: [ServerEssentials] ✓ Loaded section 'mobs' from database
+[11:45:48] [Server thread/INFO]: [ServerEssentials] ✓ Loaded section 'ores' from database
+[11:45:48] [Server thread/INFO]: [ServerEssentials] ✓ Loaded section 'redstone' from database
+[11:45:48] [Server thread/INFO]: [ServerEssentials] ✓ Loaded section 'tools' from database
+[11:45:48] [Server thread/INFO]: [ServerEssentials] ✓ Shop configurations loaded successfully
+[11:45:48] [Server thread/INFO]: [ServerEssentials] Successfully registered all API services!
+[11:45:48] [Server thread/INFO]: 
+[11:45:48] [Server thread/INFO]:              
+[11:45:48] [Server thread/INFO]:   ┏━━━┳━━━┓     Server Software: Paper 1.21.1-133-3cb8529 (MC: 1.21.1)
+[11:45:48] [Server thread/INFO]:   ┃┏━┓┃┏━━┛     Startup Time:   1140 ms
+[11:45:48] [Server thread/INFO]:   ┃┗━━┫┗━━┓     CPU Cores:      12
+[11:45:48] [Server thread/INFO]:   ┗━━┓┃┏━━┛     Threads:        104
+[11:45:48] [Server thread/INFO]:   ┃┗━┛┃┗━━┓     
+[11:45:48] [Server thread/INFO]:   ┗━━━┻━━━┛     ✓ ServerEssentials successfully enabled!
+[11:45:48] [Server thread/INFO]: 
+[11:45:48] [Server thread/WARN]: [ServerEssentials] Could not save prefix.yml to plugins\ServerEssentials\storage\prefix.yml because prefix.yml already exists.
+[11:45:48] [Server thread/INFO]: [ServerEssentials] Language file already exists: de.json
+[11:45:48] [Server thread/INFO]: [ServerEssentials] Language file already exists: fr.json
+[11:45:48] [Server thread/INFO]: [ServerEssentials] Language file already exists: br.json
+[11:45:48] [Server thread/WARN]: [ServerEssentials] Could not save config.yml to plugins\ServerEssentials\config.yml because config.yml already exists.
+[11:45:48] [Server thread/INFO]: [PlaceholderAPI] Successfully registered internal expansion: se [2.0.7.9]
+[11:45:48] [Server thread/INFO]: [ViaBackwards] Enabling ViaBackwards v5.6.0
+[11:45:48] [Server thread/INFO]: [TestAPI] Enabling TestAPI v2.0.7.20
+[11:45:48] [Server thread/INFO]: [TestAPI] §6[ServerEssentialsTester] §rServerEssentials API Tester enabled!
+[11:45:48] [Server thread/INFO]: [spark] Starting background profiler...
+[11:45:48] [Server thread/INFO]: [spark] The async-profiler engine is not supported for your os/arch (windows11/amd64), so the built-in Java engine will be used instead.
+[11:45:48] [Server thread/INFO]: [PlaceholderAPI] Placeholder expansion registration initializing...
+[11:45:48] [Server thread/INFO]: Done preparing level "world" (3.775s)
+[11:45:48] [Server thread/INFO]: Running delayed init tasks
+[11:45:48] [Server thread/INFO]: Done (24.611s)! For help, type "help"
+[11:45:48] [Server thread/INFO]: Timings Reset
+[11:45:48] [Craft Scheduler Thread - 3 - ViaVersion/INFO]: [ViaVersion] Finished mapping loading, shutting down loader executor.
+[11:45:48] [Server thread/INFO]: [PlaceholderAPI] Successfully registered external expansion: vault [1.8.3]
+[11:45:48] [Craft Scheduler Thread - 1 - Vault/INFO]: [Vault] Checking for Updates ... 
+[11:45:49] [Server thread/INFO]: 1 placeholder hook(s) registered!
+[11:45:49] [ForkJoinPool.commonPool-worker-1/INFO]: 
+[11:45:49] [ForkJoinPool.commonPool-worker-1/INFO]: ================================
+[11:45:49] [ForkJoinPool.commonPool-worker-1/INFO]: ServerEssentials - Up To Date
+[11:45:49] [ForkJoinPool.commonPool-worker-1/INFO]: --------------------------------
+[11:45:49] [ForkJoinPool.commonPool-worker-1/INFO]: Running latest version: 2.0.7.9
+[11:45:49] [ForkJoinPool.commonPool-worker-1/INFO]: ================================
+[11:45:49] [ForkJoinPool.commonPool-worker-1/INFO]: 
+[11:45:49] [Craft Scheduler Thread - 1 - Vault/INFO]: [Vault] No new version available
+[11:45:49] [Server thread/WARN]: [ViaVersion] There is a newer plugin version available: 5.7.0, you're on: 5.6.0
+[11:45:53] [Server thread/INFO]: [TestAPI] DailyAPI test command received API instance: true
+[11:45:53] [Server thread/INFO]: [TestAPI] EconomyAPI test command received API instance: true
+[11:45:53] [Server thread/INFO]: [TestAPI] BackAPI test command received API instance: true
+[11:45:53] [Server thread/INFO]: [TestAPI] §6[ServerEssentialsTester] §rAPIs connected successfully!
+[11:45:53] [Server thread/INFO]: [TestAPI] §6[ServerEssentialsTester] §rShop enabled: true
+[11:45:53] [Server thread/INFO]: [TestAPI] §6[ServerEssentialsTester] §rAuction enabled: true
+[11:45:53] [Server thread/INFO]: [TestAPI] §6[ServerEssentialsTester] §rBack enabled: true
+[11:45:53] [Server thread/INFO]: [TestAPI] §6[ServerEssentialsTester] §rDaily enabled: true
+[11:45:53] [Server thread/INFO]: [TestAPI] §6[ServerEssentialsTester] §rEconomy enabled: true
+[11:45:53] [Server thread/INFO]: [TestAPI] §6[ServerEssentialsTester] §rKit enabled: true
+[11:46:48] [User Authenticator #0/INFO]: UUID of player _GodlyCow is 27f4de78-5870-3e35-9027-0d2e4506bc19
+[11:46:49] [Server thread/INFO]: Welcome _GodlyCow to the server!
+[11:46:49] [Server thread/INFO]: _GodlyCow[/127.0.0.1:56714] logged in with entity id 27 at ([world]22.420338921101365, 74.0, -279.73347246688786)
+[11:46:50] [Server thread/WARN]: [ca.spottedleaf.moonrise.patches.chunk_system.level.entity.EntityLookup] Entity uuid already exists: f65057fa-042a-4094-bdf9-a9f746b26d1f, mapped to Bat['Bat'/117, uuid='f65057fa-042a-4094-bdf9-a9f746b26d1f', l='ServerLevel[world]', x=75.57, y=23.28, z=-224.96, cpos=[4, -15], tl=639, v=true], can't add Bat['Bat'/155, uuid='f65057fa-042a-4094-bdf9-a9f746b26d1f', l='ServerLevel[world]', x=75.52, y=23.63, z=-223.36, cpos=[4, -14], tl=645, v=false]
+[11:46:55] [Server thread/INFO]: _GodlyCow issued server command: /home
+[11:47:12] [Server thread/INFO]: _GodlyCow issued server command: /home
+[11:47:17] [Server thread/INFO]: _GodlyCow issued server command: /home
+[11:47:22] [Server thread/INFO]: _GodlyCow issued server command: /home
+[11:47:37] [Server thread/INFO]: _GodlyCow lost connection: Disconnected
+[11:47:37] [Server thread/INFO]: _GodlyCow has left the server.
