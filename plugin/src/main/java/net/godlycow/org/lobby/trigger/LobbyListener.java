@@ -12,6 +12,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.entity.Player;
 
 public class LobbyListener implements Listener {
+
     private final PlayerLanguageManager langManager;
     private final LobbyStorage storage;
     private final LobbyConfig config;
@@ -24,7 +25,7 @@ public class LobbyListener implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        if (!config.teleportOnJoin) {
+        if (!config.isTeleportOnJoin()) {
             return;
         }
 
@@ -33,21 +34,33 @@ public class LobbyListener implements Listener {
             return;
         }
 
-        String worldKey = config.perWorld ? player.getWorld().getName() : "global";
+        String worldKey = config.isPerWorld()
+                ? player.getWorld().getName()
+                : "global";
+
         storage.getLobby(worldKey).thenAccept(optLocation -> {
             if (optLocation.isPresent()) {
                 Location lobby = optLocation.get();
                 Bukkit.getScheduler().runTask(config.plugin, () -> {
-                    if (config.animationEnabled) {
-                        AnimationHelper.playTeleportAnimation(config.plugin, player, config.animation);
+                    if (config.isAnimationEnabled()) {
+                        AnimationHelper.playTeleportAnimation(
+                                config.plugin,
+                                player,
+                                config.getAnimation()
+                        );
                     }
                     player.teleport(lobby);
-                    player.sendMessage(langManager.getMessageFor(player, "lobby.teleported",
-                            "<green>Teleported to lobby!"));
+                    player.sendMessage(langManager.getMessageFor(
+                            player,
+                            "lobby.teleported",
+                            "<green>Teleported to lobby!"
+                    ));
                 });
             }
         }).exceptionally(ex -> {
-            config.plugin.getLogger().severe("Failed to teleport player on join: " + ex.getMessage());
+            config.plugin.getLogger().severe(
+                    "Failed to teleport player on join: " + ex.getMessage()
+            );
             return null;
         });
     }

@@ -24,13 +24,19 @@ import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 public class LobbyCommand extends CommandModule implements CommandExecutor, TabCompleter {
+
     private final JavaPlugin plugin;
     private final PlayerLanguageManager langManager;
     private final LobbyStorage lobbyStorage;
     private final LobbyConfig config;
 
-    public LobbyCommand(JavaPlugin plugin, PlayerLanguageManager langManager,
-                        CommandDataStorage commandStorage, LobbyStorage lobbyStorage, LobbyConfig config) {
+    public LobbyCommand(
+            JavaPlugin plugin,
+            PlayerLanguageManager langManager,
+            CommandDataStorage commandStorage,
+            LobbyStorage lobbyStorage,
+            LobbyConfig config
+    ) {
         super(commandStorage, langManager);
         this.plugin = plugin;
         this.langManager = langManager;
@@ -46,8 +52,11 @@ public class LobbyCommand extends CommandModule implements CommandExecutor, TabC
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player player)) {
-            sender.sendMessage(langManager.getMessageFor(null, "commands.only-players",
-                    "<red>This command can only be used by players!"));
+            sender.sendMessage(langManager.getMessageFor(
+                    null,
+                    "commands.only-players",
+                    "<red>This command can only be used by players!"
+            ));
             return true;
         }
 
@@ -61,8 +70,11 @@ public class LobbyCommand extends CommandModule implements CommandExecutor, TabC
             case "set" -> handleSetCommand(player, args);
             case "remove" -> handleRemoveCommand(player, args);
             case "world" -> handleWorldCommand(player, args);
-            default -> player.sendMessage(langManager.getMessageFor(player, "commands.unknown",
-                    "<red>Unknown command. Usage: /lobby, /lobby set, /lobby remove"));
+            default -> player.sendMessage(langManager.getMessageFor(
+                    player,
+                    "commands.unknown",
+                    "<red>Unknown command. Usage: /lobby, /lobby set, /lobby remove"
+            ));
         }
 
         return true;
@@ -81,11 +93,11 @@ public class LobbyCommand extends CommandModule implements CommandExecutor, TabC
                 suggestions.add("set");
             if (player.hasPermission("serveressentials.command.lobby.remove"))
                 suggestions.add("remove");
-            if (player.hasPermission("serveressentials.command.lobby.world") && config.perWorld)
+            if (player.hasPermission("serveressentials.command.lobby.world") && config.isPerWorld())
                 suggestions.add("world");
         } else if (args.length == 2) {
             String sub = args[0].toLowerCase();
-            if ((sub.equals("set") || sub.equals("remove")) && config.perWorld) {
+            if ((sub.equals("set") || sub.equals("remove")) && config.isPerWorld()) {
                 suggestions.add("world");
             } else if (sub.equals("world") && player.hasPermission("serveressentials.command.lobby.world")) {
                 Bukkit.getWorlds().forEach(world -> suggestions.add(world.getName()));
@@ -97,18 +109,30 @@ public class LobbyCommand extends CommandModule implements CommandExecutor, TabC
 
     private void handleTeleport(Player player) {
         if (!player.hasPermission("serveressentials.command.lobby")) {
-            player.sendMessage(langManager.getMessageFor(player, "commands.no-permission",
+            player.sendMessage(langManager.getMessageFor(
+                    player,
+                    "commands.no-permission",
                     "<red>You need permission <yellow>{permission}</yellow>!",
-                    LanguageManager.ComponentPlaceholder.of("{permission}", "serveressentials.command.lobby")));
+                    LanguageManager.ComponentPlaceholder.of(
+                            "{permission}",
+                            "serveressentials.command.lobby"
+                    )
+            ));
             return;
         }
 
-        String worldKey = config.perWorld ? player.getWorld().getName() : "global";
+        String worldKey = config.isPerWorld()
+                ? player.getWorld().getName()
+                : "global";
+
         lobbyStorage.hasLobby(worldKey).thenAccept(has -> {
             if (!has) {
                 Bukkit.getScheduler().runTask(plugin, () ->
-                        player.sendMessage(langManager.getMessageFor(player, "lobby.no-lobby",
-                                "<red>No lobby has been set."))
+                        player.sendMessage(langManager.getMessageFor(
+                                player,
+                                "lobby.no-lobby",
+                                "<red>No lobby has been set."
+                        ))
                 );
                 return;
             }
@@ -123,19 +147,29 @@ public class LobbyCommand extends CommandModule implements CommandExecutor, TabC
         checkCooldown(player).thenAccept(onCooldown -> {
             if (onCooldown) return;
 
-            String worldKey = config.perWorld ? player.getWorld().getName() : "global";
-            lobbyStorage.getLobby(worldKey).thenAccept(optLocation -> {
-                optLocation.ifPresent(lobby -> {
-                    Bukkit.getScheduler().runTask(plugin, () -> {
-                        if (config.animationEnabled) {
-                            AnimationHelper.playTeleportAnimation(plugin, player, config.animation);
-                        }
-                        player.teleport(lobby);
-                        player.sendMessage(langManager.getMessageFor(player, "lobby.teleported",
-                                "<green>Teleported to lobby!"));
-                    });
-                });
-            });
+            String worldKey = config.isPerWorld()
+                    ? player.getWorld().getName()
+                    : "global";
+
+            lobbyStorage.getLobby(worldKey).thenAccept(optLocation ->
+                    optLocation.ifPresent(lobby ->
+                            Bukkit.getScheduler().runTask(plugin, () -> {
+                                if (config.isAnimationEnabled()) {
+                                    AnimationHelper.playTeleportAnimation(
+                                            plugin,
+                                            player,
+                                            config.getAnimation()
+                                    );
+                                }
+                                player.teleport(lobby);
+                                player.sendMessage(langManager.getMessageFor(
+                                        player,
+                                        "lobby.teleported",
+                                        "<green>Teleported to lobby!"
+                                ));
+                            })
+                    )
+            );
         }).exceptionally(ex -> {
             plugin.getLogger().severe("Failed to teleport player: " + ex.getMessage());
             return null;
@@ -155,12 +189,19 @@ public class LobbyCommand extends CommandModule implements CommandExecutor, TabC
                 .thenApply(opt -> opt.map(Long::parseLong).orElse(0L))
                 .thenApply(lastUsed -> {
                     long elapsed = now - lastUsed;
-                    if (elapsed < config.cooldown.getSeconds()) {
-                        long remaining = config.cooldown.getSeconds() - elapsed;
+                    long cooldownSeconds = config.getCooldown().getSeconds();
+                    if (elapsed < cooldownSeconds) {
+                        long remaining = cooldownSeconds - elapsed;
                         Bukkit.getScheduler().runTask(plugin, () ->
-                                player.sendMessage(langManager.getMessageFor(player, "lobby.cooldown-active",
+                                player.sendMessage(langManager.getMessageFor(
+                                        player,
+                                        "lobby.cooldown-active",
                                         "<red>Please wait <yellow>{time}</yellow> seconds before teleporting again.",
-                                        LanguageManager.ComponentPlaceholder.of("{time}", String.valueOf(remaining))))
+                                        LanguageManager.ComponentPlaceholder.of(
+                                                "{time}",
+                                                String.valueOf(remaining)
+                                        )
+                                ))
                         );
                         return true;
                     }
@@ -168,8 +209,12 @@ public class LobbyCommand extends CommandModule implements CommandExecutor, TabC
                 })
                 .thenCompose(onCooldown -> {
                     if (!onCooldown) {
-                        return this.storage.setState(uuid, getCommandName(), cooldownKey, String.valueOf(now))
-                                .thenApply(v -> false);
+                        return this.storage.setState(
+                                uuid,
+                                getCommandName(),
+                                cooldownKey,
+                                String.valueOf(now)
+                        ).thenApply(v -> false);
                     }
                     return CompletableFuture.completedFuture(true);
                 });
@@ -177,25 +222,45 @@ public class LobbyCommand extends CommandModule implements CommandExecutor, TabC
 
     private void handleSetCommand(Player player, String[] args) {
         if (!player.hasPermission("serveressentials.command.lobby.set")) {
-            player.sendMessage(langManager.getMessageFor(player, "commands.no-permission",
+            player.sendMessage(langManager.getMessageFor(
+                    player,
+                    "commands.no-permission",
                     "<red>You need permission <yellow>{permission}</yellow>!",
-                    LanguageManager.ComponentPlaceholder.of("{permission}", "serveressentials.command.lobby.set")));
+                    LanguageManager.ComponentPlaceholder.of(
+                            "{permission}",
+                            "serveressentials.command.lobby.set"
+                    )
+            ));
             return;
         }
 
         Location loc = player.getLocation();
-        boolean isWorldSpecific = args.length >= 2 && "world".equalsIgnoreCase(args[1]) && config.perWorld;
+        boolean isWorldSpecific =
+                args.length >= 2 &&
+                        "world".equalsIgnoreCase(args[1]) &&
+                        config.isPerWorld();
 
-        CompletableFuture<Void> saveFuture = isWorldSpecific ?
-                lobbyStorage.setWorldLobby(player.getWorld().getName(), loc) :
-                lobbyStorage.setLobby(loc);
+        CompletableFuture<Void> saveFuture = isWorldSpecific
+                ? lobbyStorage.setWorldLobby(player.getWorld().getName(), loc)
+                : lobbyStorage.setLobby(loc);
 
         saveFuture.thenRun(() -> {
             String messageKey = isWorldSpecific ? "lobby.set-world" : "lobby.set";
-            Component message = isWorldSpecific ?
-                    langManager.getMessageFor(player, messageKey, "<green>Lobby set!",
-                            LanguageManager.ComponentPlaceholder.of("{world}", player.getWorld().getName())) :
-                    langManager.getMessageFor(player, messageKey, "<green>Lobby set!");
+            Component message = isWorldSpecific
+                    ? langManager.getMessageFor(
+                    player,
+                    messageKey,
+                    "<green>Lobby set!",
+                    LanguageManager.ComponentPlaceholder.of(
+                            "{world}",
+                            player.getWorld().getName()
+                    )
+            )
+                    : langManager.getMessageFor(
+                    player,
+                    messageKey,
+                    "<green>Lobby set!"
+            );
             Bukkit.getScheduler().runTask(plugin, () -> player.sendMessage(message));
         }).exceptionally(ex -> {
             plugin.getLogger().severe("Failed to set lobby: " + ex.getMessage());
@@ -205,55 +270,89 @@ public class LobbyCommand extends CommandModule implements CommandExecutor, TabC
 
     private void handleRemoveCommand(Player player, String[] args) {
         if (!player.hasPermission("serveressentials.command.lobby.remove")) {
-            player.sendMessage(langManager.getMessageFor(player, "commands.no-permission",
+            player.sendMessage(langManager.getMessageFor(
+                    player,
+                    "commands.no-permission",
                     "<red>You need permission <yellow>{permission}</yellow>!",
-                    LanguageManager.ComponentPlaceholder.of("{permission}", "serveressentials.command.lobby.remove")));
+                    LanguageManager.ComponentPlaceholder.of(
+                            "{permission}",
+                            "serveressentials.command.lobby.remove"
+                    )
+            ));
             return;
         }
 
-        boolean isWorldSpecific = args.length >= 2 && "world".equalsIgnoreCase(args[1]) && config.perWorld;
+        boolean isWorldSpecific =
+                args.length >= 2 &&
+                        "world".equalsIgnoreCase(args[1]) &&
+                        config.isPerWorld();
+
         String world = isWorldSpecific ? player.getWorld().getName() : null;
 
-        lobbyStorage.removeLobby(world).thenRun(() -> {
-            Bukkit.getScheduler().runTask(plugin, () ->
-                    player.sendMessage(langManager.getMessageFor(player, "lobby.removed",
-                            "<yellow>Lobby removed."))
-            );
-        }).exceptionally(ex -> {
+        lobbyStorage.removeLobby(world).thenRun(() ->
+                Bukkit.getScheduler().runTask(plugin, () ->
+                        player.sendMessage(langManager.getMessageFor(
+                                player,
+                                "lobby.removed",
+                                "<yellow>Lobby removed."
+                        ))
+                )
+        ).exceptionally(ex -> {
             plugin.getLogger().severe("Failed to remove lobby: " + ex.getMessage());
             return null;
         });
     }
 
     private void handleWorldCommand(Player player, String[] args) {
-        if (!player.hasPermission("serveressentials.command.lobby.world") || !config.perWorld) {
-            player.sendMessage(langManager.getMessageFor(player, "commands.no-permission",
+        if (!player.hasPermission("serveressentials.command.lobby.world") || !config.isPerWorld()) {
+            player.sendMessage(langManager.getMessageFor(
+                    player,
+                    "commands.no-permission",
                     "<red>You need permission <yellow>{permission}</yellow>!",
-                    LanguageManager.ComponentPlaceholder.of("{permission}", "serveressentials.command.lobby.world")));
+                    LanguageManager.ComponentPlaceholder.of(
+                            "{permission}",
+                            "serveressentials.command.lobby.world"
+                    )
+            ));
             return;
         }
 
         if (args.length < 2) {
-            player.sendMessage(langManager.getMessageFor(player, "lobby.usage-world",
-                    "<red>Usage: <yellow>/lobby world <world-name>"));
+            player.sendMessage(langManager.getMessageFor(
+                    player,
+                    "lobby.usage-world",
+                    "<red>Usage: <yellow>/lobby world <world-name>"
+            ));
             return;
         }
 
         String worldName = args[1];
         if (plugin.getServer().getWorld(worldName) == null) {
-            player.sendMessage(langManager.getMessageFor(player, "lobby.world-not-found",
+            player.sendMessage(langManager.getMessageFor(
+                    player,
+                    "lobby.world-not-found",
                     "<red>World <yellow>{world}</yellow> not found.",
-                    LanguageManager.ComponentPlaceholder.of("{world}", worldName)));
+                    LanguageManager.ComponentPlaceholder.of(
+                            "{world}",
+                            worldName
+                    )
+            ));
             return;
         }
 
-        lobbyStorage.setWorldLobby(worldName, player.getLocation()).thenRun(() -> {
-            Bukkit.getScheduler().runTask(plugin, () ->
-                    player.sendMessage(langManager.getMessageFor(player, "lobby.set-world",
-                            "<green>Lobby for world <yellow>{world}</yellow> set!",
-                            LanguageManager.ComponentPlaceholder.of("{world}", worldName)))
-            );
-        }).exceptionally(ex -> {
+        lobbyStorage.setWorldLobby(worldName, player.getLocation()).thenRun(() ->
+                Bukkit.getScheduler().runTask(plugin, () ->
+                        player.sendMessage(langManager.getMessageFor(
+                                player,
+                                "lobby.set-world",
+                                "<green>Lobby for world <yellow>{world}</yellow> set!",
+                                LanguageManager.ComponentPlaceholder.of(
+                                        "{world}",
+                                        worldName
+                                )
+                        ))
+                )
+        ).exceptionally(ex -> {
             plugin.getLogger().severe("Failed to set world lobby: " + ex.getMessage());
             return null;
         });
