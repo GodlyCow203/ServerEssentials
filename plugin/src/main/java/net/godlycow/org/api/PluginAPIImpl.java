@@ -119,4 +119,8 @@ public class PluginAPIImpl implements PluginAPI {
         return reportAPI;
     }
 
+    public RtpAPI getRtpAPI(){
+        return rtpAPI;
+    }
+
 }
