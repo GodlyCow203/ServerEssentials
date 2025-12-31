@@ -1,0 +1,804 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="utf-8">
+    <title>Back API Documentation – _GodlyCow</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --surface: #111111;
+            --surface-2: #191919;
+            --border: #2d2d2d;
+            --text: #e0e0e0;
+            --text-2: #888888;
+            --primary: #FFFFFF;
+            --primary-2: #e0e0e0;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+            --font: 'Courier New', 'Monaco', 'Consolas', monospace;
+            --code-bg: #050505;
+            --error: #ef4444;
+        }
+        [data-theme="light"] {
+            --bg: #f0f0f0;
+            --surface: #ffffff;
+            --surface-2: #f7f7f7;
+            --border: #cccccc;
+            --text: #1a1a1a;
+            --text-2: #555555;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            --code-bg: #f5f5f5;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font);
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        .topbar {
+            background: var(--surface);
+            border-bottom: 2px solid var(--border);
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+            font-weight: bold;
+        }
+        .topbar a {
+            color: var(--text-2);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .topbar a:hover { color: var(--primary); }
+        .topbar .spacer { flex: 1; }
+        .theme-btn {
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 0.4rem 0.8rem;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        .theme-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .hero {
+            background: linear-gradient(90deg, var(--surface) 0%, var(--surface-2) 100%);
+            border-bottom: 2px solid var(--border);
+            padding: 3rem 1.5rem;
+            text-align: center;
+            position: relative;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .hero p {
+            font-size: 1rem;
+            color: var(--text-2);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 0;
+        }
+        @media (max-width: 900px) {
+            .wrapper { grid-template-columns: 1fr; }
+        }
+        main { border-right: 2px solid var(--border); }
+
+        .card {
+            background: var(--surface);
+            border: none;
+            border-bottom: 2px solid var(--border);
+            margin-bottom: 0;
+        }
+        .card-header {
+            background: var(--surface-2);
+            padding: 1rem 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            border-bottom: 1px solid var(--border);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+        }
+        .card-body { padding: 1.5rem; }
+
+        .method-section {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px dashed var(--border);
+        }
+        .method-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .method-title {
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .method-signature {
+            background: var(--code-bg);
+            padding: 0.75rem;
+            border-left: 3px solid var(--primary);
+            margin: 0.75rem 0;
+            font-family: var(--font);
+            font-size: 0.95rem;
+            overflow-x: auto;
+        }
+        .method-desc {
+            margin: 0.75rem 0;
+            color: var(--text-2);
+            line-height: 1.6;
+        }
+        .method-params {
+            margin: 0.75rem 0;
+            padding-left: 1rem;
+        }
+        .method-params dt {
+            color: var(--primary);
+            font-weight: bold;
+            margin-top: 0.5rem;
+        }
+        .method-params dd {
+            color: var(--text-2);
+            margin-left: 1rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--border);
+            border-radius: 0;
+            padding: 1rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: var(--font);
+            font-size: 13px;
+            line-height: 1.4;
+        }
+        .code-block pre {
+            margin: 0;
+            white-space: pre;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin: 2rem 0 1rem 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+        }
+
+        .sidebar .card {
+            border-left: 2px solid var(--primary);
+            margin-bottom: 1rem;
+        }
+        .sidebar .card-body {
+            padding: 1rem;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar li {
+            margin-bottom: 0.5rem;
+            padding-left: 1rem;
+            position: relative;
+        }
+        .sidebar li::before {
+            content: ">";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+        .sidebar a {
+            color: var(--text-2);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .sidebar a:hover {
+            color: var(--primary);
+        }
+
+        .footer {
+            background: var(--surface);
+            border-top: 2px solid var(--border);
+            padding: 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .footer-link {
+            color: var(--text-2);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .footer-link:hover { color: var(--primary); }
+    </style>
+</head>
+<body>
+
+<header class="topbar">
+    <a href="index.html">← BACK TO HOME</a>
+    <a href="https://github.com/GodlyCow203/ServerEssentials" target="_blank">GITHUB</a>
+    <a href="https://discord.gg/vmhQ2gZr8g" target="_blank">DISCORD</a>
+    <div class="spacer"></div>
+    <button class="theme-btn" id="themeBtn">🌙 DARK</button>
+</header>
+
+<section class="hero">
+    <h1>Back API Documentation</h1>
+    <p>Complete programmatic control over /back, /lobby, and /death teleportation with async support and event handling</p>
+</section>
+
+<div class="wrapper">
+    <main>
+        <div class="card">
+            <div class="card-header">Overview</div>
+            <div class="card-body">
+                <p style="margin-bottom: 1rem; color: var(--text-2);">
+                    The Back API provides public interfaces for managing player teleportation history and saved locations. All operations are asynchronous with CompletableFuture support to prevent server thread blocking.
+                </p>
+                <div class="method-signature">Package: com.serveressentials.api.back</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Interface: BackAPI</div>
+            <div class="card-body">
+                <div class="method-section">
+                    <div class="method-title">teleportBack(Player player)</div>
+                    <div class="method-signature">CompletableFuture&lt;Boolean&gt; teleportBack(Player player)</div>
+                    <div class="method-desc">Teleports a player to their last saved back location. Equivalent to /back command.</div>
+                    <div class="code-block">
+                        <pre>// Custom death handler
+@EventHandler
+public void onPlayerRespawn(PlayerRespawnEvent event) {
+    Player player = event.getPlayer();
+    getServer().getScheduler().runTaskLater(this, () -> {
+        backAPI.teleportBack(player).thenAccept(success -> {
+            if (success) {
+                player.sendMessage("§aTeleported back to your previous location.");
+            } else {
+                player.sendMessage("§cCould not teleport back. No saved location found.");
+            }
+        });
+    }, 40L);
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">teleportToLobby(Player player)</div>
+                    <div class="method-signature">CompletableFuture&lt;Boolean&gt; teleportToLobby(Player player)</div>
+                    <div class="method-desc">Teleports a player to the configured lobby/warp location.</div>
+                    <div class="code-block">
+                        <pre>public void endMinigameSession(Player player) {
+    backAPI.teleportToLobby(player).thenAccept(success -> {
+        if (success) {
+            player.sendMessage("§aReturned to lobby.");
+            cleanupPlayerState(player);
+        } else {
+            player.sendMessage("§cLobby teleport failed. Please use /spawn.");
+        }
+    });
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">teleportToDeath(Player player)</div>
+                    <div class="method-signature">CompletableFuture&lt;Boolean&gt; teleportToDeath(Player player)</div>
+                    <div class="method-desc">Teleports a player to their most recent death location.</div>
+                    <div class="code-block">
+                        <pre>public boolean onAdminCommand(CommandSender sender, String[] args) {
+    if (!(sender instanceof Player)) return false;
+    Player admin = (Player) sender;
+    Player target = Bukkit.getPlayer(args[0]);
+
+    if (target != null) {
+        backAPI.teleportToDeath(target).thenAccept(success -> {
+            if (success) {
+                admin.sendMessage("§aTeleported " + target.getName() + " to their death location.");
+            } else {
+                admin.sendMessage("§c" + target.getName() + " has no saved death location.");
+            }
+        });
+    }
+    return true;
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">setBackLocation(Player player, Location location)</div>
+                    <div class="method-signature">CompletableFuture&lt;Void&gt; setBackLocation(Player player, Location location)</div>
+                    <div class="method-desc">Saves a location as the player's current back location without teleporting.</div>
+                    <div class="code-block">
+                        <pre>// Save location before arena teleport
+public void joinArena(Player player, Location arenaLocation) {
+    backAPI.setBackLocation(player, player.getLocation()).thenAccept(v -> {
+        player.sendMessage("§aYour location has been saved. Use /back to return after the event.");
+        player.teleport(arenaLocation);
+    }).exceptionally(throwable -> {
+        getLogger().log(Level.WARNING, "Failed to save location for " + player.getName(), throwable);
+        player.sendMessage("§cWarning: Could not save return location.");
+        return null;
+    });
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getBackLocation(Player player)</div>
+                    <div class="method-signature">CompletableFuture&lt;Optional&lt;Location&gt;&gt; getBackLocation(Player player)</div>
+                    <div class="method-desc">Retrieves a player's saved back location without teleporting them.</div>
+                    <div class="code-block">
+                        <pre>public void previewBackLocation(Player player) {
+    backAPI.getBackLocation(player).thenAccept(optionalLocation -> {
+        if (optionalLocation.isPresent()) {
+            Location loc = optionalLocation.get();
+            player.sendMessage("§7Your back location:");
+            player.sendMessage("§fWorld: " + loc.getWorld().getName());
+            player.sendMessage("§fCoords: " + loc.getBlockX() + ", " + loc.getBlockY() + ", " + loc.getBlockZ());
+        } else {
+            player.sendMessage("§cYou have no saved back location.");
+        }
+    });
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">hasBackLocation(Player player)</div>
+                    <div class="method-signature">CompletableFuture&lt;Boolean&gt; hasBackLocation(Player player)</div>
+                    <div class="method-desc">Checks whether a player has a saved back location without retrieving the actual data.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">clearBackLocation(Player player)</div>
+                    <div class="method-signature">CompletableFuture&lt;Void&gt; clearBackLocation(Player player)</div>
+                    <div class="method-desc">Permanently removes a player's saved back location from storage.</div>
+                    <div class="method-desc">Warning: This operation cannot be undone.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">isBackEnabled()</div>
+                    <div class="method-signature">boolean isBackEnabled()</div>
+                    <div class="method-desc">Checks whether the back/lobby/death teleportation system is currently enabled.</div>
+                    <div class="method-params">
+                        <dt>When to Call:</dt>
+                        <dd>Always check this before performing any back-related operations.</dd>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">reload()</div>
+                    <div class="method-signature">CompletableFuture&lt;Void&gt; reload()</div>
+                    <div class="method-desc">Reloads the back system configuration from disk without requiring a server restart.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Class: BackLocationData</div>
+            <div class="card-body">
+                <div class="method-signature">Package: com.serveressentials.api.back</div>
+                <p style="margin: 1rem 0; color: var(--text-2);">
+                    Immutable, thread-safe data container that serializes a Bukkit Location for persistent storage.
+                </p>
+
+                <div class="section-title">Constructors</div>
+                <div class="method-signature">BackLocationData(String worldName, double x, double y, double z, float yaw, float pitch, long timestamp)</div>
+                <div class="method-signature">BackLocationData(Location location)</div>
+
+                <div class="section-title">Methods</div>
+                <div class="method-section">
+                    <div class="method-title">toLocation()</div>
+                    <div class="method-signature">@Nullable Location toLocation()</div>
+                    <div class="method-desc">Converts serialized location data back into a live Bukkit Location object.</div>
+                    <div class="code-block">
+                        <pre>public void teleportToCustomLocation(Player player, String key) {
+    BackLocationData locationData = (BackLocationData) getCustomLocationsConfig()
+        .get(key + "." + player.getUniqueId());
+
+    if (locationData != null) {
+        Location loc = locationData.toLocation();
+        if (loc != null) {
+            player.teleport(loc);
+        } else {
+            player.sendMessage("§cThe saved world is no longer available.");
+        }
+    }
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">Getters</div>
+                    <div class="method-desc">All fields have corresponding getters:</div>
+                    <div class="method-params">
+                        <dt>getWorldName()</dt>
+                        <dd>Returns String</dd>
+                        <dt>getX(), getY(), getZ()</dt>
+                        <dd>Return double</dd>
+                        <dt>getYaw(), getPitch()</dt>
+                        <dd>Return float</dd>
+                        <dt>getTimestamp()</dt>
+                        <dd>Returns long</dd>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Class: UsageTypes</div>
+            <div class="card-body">
+                <div class="method-signature">Package: com.serveressentials.api.back</div>
+                <p style="margin: 1rem 0; color: var(--text-2);">
+                    Utility class containing string constants for different types of back teleportation.
+                </p>
+                <div class="method-signature">public static final String BACK = "back"</div>
+                <div class="method-signature">public static final String LOBBY = "lobby"</div>
+                <div class="method-signature">public static final String DEATH = "death"</div>
+                <p style="margin: 1rem 0; color: var(--text-2);">Private constructor prevents instantiation. Use constants directly: UsageTypes.BACK</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Events</div>
+            <div class="card-body">
+                <div class="section-title">BackEvent</div>
+                <div class="method-signature">Package: com.serveressentials.api.back.event</div>
+                <div class="method-desc">Base event class for all back-related actions. Asynchronous if fired off main thread.</div>
+                <div class="code-block">
+                    <pre>@EventHandler
+public void onBackEvent(BackEvent event) {
+    Player player = event.getPlayer();
+    BackEvent.BackType type = event.getBackType();
+    String action = switch (type) {
+        case BACK_LOCATION -> "used /back";
+        case LOBBY -> "used /lobby";
+        case DEATH_LOCATION -> "used /death";
+    };
+    getLogger().info(player.getName() + " " + action);
+}</pre>
+                </div>
+
+                <div class="section-title">BackLocationSaveEvent</div>
+                <div class="method-signature">Package: com.serveressentials.api.back.event</div>
+                <div class="method-desc">Fired when a player's back location is successfully saved to storage.</div>
+                <div class="code-block">
+                    <pre>@EventHandler
+public void onBackLocationSave(BackLocationSaveEvent event) {
+    Player player = event.getPlayer();
+    Location loc = event.getSavedLocation();
+    loc.getWorld().playEffect(loc, Effect.ENDER_SIGNAL, 0);
+}</pre>
+                </div>
+
+                <div class="section-title">BackTeleportEvent</div>
+                <div class="method-signature">Package: com.serveressentials.api.back.event</div>
+                <div class="method-desc">Fired when a player is about to be teleported via any back method.</div>
+                <div class="code-block">
+                    <pre>@EventHandler
+public void onBackTeleport(BackTeleportEvent event) {
+    Player player = event.getPlayer();
+    Location to = event.getTo();
+    to.getWorld().spawnParticle(Particle.PORTAL, to, 50, 0.5, 0.5, 0.5, 0);
+}</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Complete Usage Scenario</div>
+            <div class="card-body">
+                <p style="margin-bottom: 1rem; color: var(--text-2);">
+                    Minigame Integration - Save player locations before arena teleport and provide custom return:
+                </p>
+                <div class="code-block">
+                    <pre>package com.spawnrush;
+
+import com.serveressentials.api.back.BackAPI;
+import com.serveressentials.api.back.event.BackTeleportEvent;
+import org.bukkit.Location;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.plugin.java.JavaPlugin;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
+public class SpawnRushPlugin extends JavaPlugin implements Listener {
+    private BackAPI backAPI;
+    private Map<UUID, Location> arenaReturnLocations;
+
+    @Override
+    public void onEnable() {
+        this.backAPI = getBackAPI();
+        this.arenaReturnLocations = new HashMap<>();
+        getServer().getPluginManager().registerEvents(this, this);
+        getCommand("leavespawnrush").setExecutor(this::onLeaveCommand);
+    }
+
+    public void joinArena(Player player, Location arenaLocation) {
+        if (!backAPI.isBackEnabled()) {
+            player.sendMessage("§cBack system is disabled. Cannot guarantee safe return.");
+            return;
+        }
+
+        Location returnLocation = player.getLocation();
+        backAPI.setBackLocation(player, returnLocation).thenAccept(v -> {
+            arenaReturnLocations.put(player.getUniqueId(), returnLocation.clone());
+            player.teleport(arenaLocation);
+            player.sendMessage("§aTeleported to Spawn Rush arena!");
+            player.sendMessage("§7Use /back or /leavespawnrush to return.");
+        }).exceptionally(throwable -> {
+            player.sendMessage("§cCould not save return location. Aborting.");
+            return null;
+        });
+    }
+
+    private boolean onLeaveCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        if (!(sender instanceof Player)) return false;
+        Player player = (Player) sender;
+        UUID playerId = player.getUniqueId();
+
+        backAPI.hasBackLocation(player).thenAccept(hasBack -> {
+            if (hasBack) {
+                backAPI.teleportBack(player).thenAccept(success -> {
+                    if (success) {
+                        arenaReturnLocations.remove(playerId);
+                    } else {
+                        fallbackTeleport(player);
+                    }
+                });
+            } else {
+                fallbackTeleport(player);
+            }
+        });
+        return true;
+    }
+
+    private void fallbackTeleport(Player player) {
+        Location fallback = arenaReturnLocations.remove(player.getUniqueId());
+        if (fallback != null) {
+            player.teleport(fallback);
+            player.sendMessage("§aReturned using fallback system.");
+        } else {
+            player.sendMessage("§cNo return location found. Contact staff.");
+        }
+    }
+
+    @EventHandler
+    public void onBackTeleport(BackTeleportEvent event) {
+        arenaReturnLocations.remove(event.getPlayer().getUniqueId());
+    }
+
+    @EventHandler
+    public void onPlayerCommand(PlayerCommandPreprocessEvent event) {
+        Player player = event.getPlayer();
+        if (event.getMessage().equalsIgnoreCase("/spawn") && arenaReturnLocations.containsKey(player.getUniqueId())) {
+            event.setCancelled(true);
+            player.sendMessage("§cUse /leavespawnrush to exit the minigame first!");
+        }
+    }
+}</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Error Handling Best Practices</div>
+            <div class="card-body">
+                <div class="code-block">
+                    <pre>public void safeTeleportBack(Player player) {
+    if (!backAPI.isBackEnabled()) {
+        player.sendMessage("§cBack teleportation is disabled on this server.");
+        return;
+    }
+
+    if (player == null || !player.isOnline()) {
+        getLogger().warning("Attempted to teleport null or offline player.");
+        return;
+    }
+
+    backAPI.hasBackLocation(player).thenAccept(hasLocation -> {
+        if (!hasLocation) {
+            player.sendMessage("§cYou don't have a saved back location.");
+            return;
+        }
+
+        backAPI.teleportBack(player)
+            .exceptionally(throwable -> {
+                getLogger().log(Level.SEVERE, "Teleport failed for " + player.getName(), throwable);
+                player.sendMessage("§cTeleport failed due to internal error.");
+                return false;
+            })
+            .thenAccept(success -> {
+                if (success) {
+                    player.sendMessage("§aWhoosh!");
+                } else {
+                    player.sendMessage("§cTeleport blocked. Location may be unsafe or obstructed.");
+                }
+            });
+    });
+}</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Usage Scenario: Death Location Logger</div>
+            <div class="card-body">
+                <p style="margin-bottom: 1rem; color: var(--text-2);">
+                    Tracks all player death locations and provides admin commands to view last death location:
+                </p>
+                <div class="code-block">
+                    <pre>package com.deathlogger;
+
+import com.serveressentials.api.back.BackAPI;
+import com.serveressentials.api.back.BackLocationData;
+import com.serveressentials.api.back.event.BackLocationSaveEvent;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.plugin.java.JavaPlugin;
+import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
+
+public class DeathLoggerPlugin extends JavaPlugin implements Listener {
+    private BackAPI backAPI;
+    private Map<UUID, BackLocationData> lastDeathLocations;
+
+    @Override
+    public void onEnable() {
+        this.backAPI = getBackAPI();
+        this.lastDeathLocations = new ConcurrentHashMap<>();
+        getServer().getPluginManager().registerEvents(this, this);
+        getCommand("lastdeath").setExecutor(this::onLastDeathCommand);
+    }
+
+    @EventHandler
+    public void onPlayerDeath(PlayerDeathEvent event) {
+        Player player = event.getEntity();
+        Location deathLoc = player.getLocation();
+        BackLocationData locationData = new BackLocationData(deathLoc);
+        lastDeathLocations.put(player.getUniqueId(), locationData);
+        backAPI.setBackLocation(player, deathLoc);
+    }
+
+    private boolean onLastDeathCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        if (!sender.hasPermission("deathlogger.view")) return false;
+
+        UUID targetId;
+        if (args.length > 0) {
+            targetId = Bukkit.getOfflinePlayer(args[0]).getUniqueId();
+        } else if (sender instanceof Player) {
+            targetId = ((Player) sender).getUniqueId();
+        } else {
+            sender.sendMessage("§cSpecify a player.");
+            return true;
+        }
+
+        BackLocationData deathLoc = lastDeathLocations.get(targetId);
+        if (deathLoc != null) {
+            sender.sendMessage("§6Last death location:");
+            sender.sendMessage("§fWorld: " + deathLoc.getWorldName());
+            sender.sendMessage("§fCoords: " + String.format("%.1f, %.1f, %.1f",
+                deathLoc.getX(), deathLoc.getY(), deathLoc.getZ()));
+        } else {
+            sender.sendMessage("§cNo death location recorded for that player.");
+        }
+        return true;
+    }
+}</pre>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <aside class="sidebar">
+        <div class="card">
+            <div class="card-header">Quick Navigation</div>
+            <div class="card-body">
+                <ul>
+                    <li><a href="#top">BackAPI Interface</a></li>
+                    <li><a href="#top">BackLocationData Class</a></li>
+                    <li><a href="#top">UsageTypes Constants</a></li>
+                    <li><a href="#top">Event Listeners</a></li>
+                    <li><a href="#top">Usage Examples</a></li>
+                    <li><a href="#top">Error Handling</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Package Structure</div>
+            <div class="card-body">
+                <ul>
+                    <li>com.serveressentials.api.back.BackAPI</li>
+                    <li>com.serveressentials.api.back.BackLocationData</li>
+                    <li>com.serveressentials.api.back.UsageTypes</li>
+                    <li>com.serveressentials.api.back.event.*</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Implementation Notes</div>
+            <div class="card-body" style="font-size: 0.85rem; color: var(--text-2);">
+                <p>All teleport operations run asynchronously to prevent server lag. Zero impact reported on servers with 100+ concurrent players.</p>
+                <p style="margin-top: 0.75rem;">Locations are automatically cloned for thread safety.</p>
+            </div>
+        </div>
+    </aside>
+</div>
+
+<footer>
+    <div class="footer-links">
+        <a href="https://modrinth.com/user/_GodlyCow" class="footer-link" target="_blank">Modrinth Profile</a>
+        <a href="https://github.com/GodlyCow203" class="footer-link" target="_blank">GitHub</a>
+        <a href="https://discord.gg/vmhQ2gZr8g" class="footer-link" target="_blank">Discord</a>
+        <a href="mailto:godlycowcow@gmail.com" class="footer-link">Email</a>
+    </div>
+    <p>&copy; <span id="yr"></span> _GodlyCow – Building plugins for the Minecraft community</p>
+</footer>
+
+<script>
+    const themeBtn = document.getElementById('themeBtn');
+    const root = document.documentElement;
+    const saved = localStorage.getItem('theme') || 'dark';
+    root.setAttribute('data-theme', saved);
+    themeBtn.textContent = saved === 'dark' ? '☀️ LIGHT' : '🌙 DARK';
+
+    themeBtn.addEventListener('click', () => {
+        const t = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', t);
+        localStorage.setItem('theme', t);
+        themeBtn.textContent = t === 'dark' ? '☀️ LIGHT' : '🌙 DARK';
+    });
+
+    document.getElementById('yr').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

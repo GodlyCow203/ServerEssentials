@@ -154,8 +154,13 @@ public final class WarpAPIImpl implements WarpAPI {
 
     @Override
     public @NotNull CompletableFuture<Integer> getWarpCountForPlayer(@NotNull UUID playerId) {
-        return manager.getWarpCountByCreator(playerId).thenApply((java.util.function.Function<? super Integer, ? extends Integer>) Long::intValue);
+        return manager.getWarpCountByCreator(playerId)
+                .thenApply(l -> l.intValue());
     }
+
+
+
+
 
     @Override
     public int getMaxWarpsForPlayer(@NotNull Player player) {

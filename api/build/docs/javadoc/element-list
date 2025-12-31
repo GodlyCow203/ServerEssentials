@@ -30,3 +30,5 @@ com.serveressentials.api.shop
 com.serveressentials.api.shop.event
 com.serveressentials.api.tpa
 com.serveressentials.api.tpa.event
+com.serveressentials.api.warp
+com.serveressentials.api.warp.event
