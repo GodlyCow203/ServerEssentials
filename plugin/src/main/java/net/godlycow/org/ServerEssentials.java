@@ -4,6 +4,7 @@ import com.serveressentials.api.afk.AFKAPI;
 import com.serveressentials.api.auction.AuctionAPI;
 import com.serveressentials.api.back.BackAPI;
 import com.serveressentials.api.lobby.LobbyAPI;
+import com.serveressentials.api.report.ReportAPI;
 import com.serveressentials.api.shop.ShopAPI;
 import net.godlycow.org.PlaceholderAPI.*;
 import net.godlycow.org.afk.api.AFKAPIImpl;
@@ -48,6 +49,7 @@ import net.godlycow.org.mute.storage.MuteStorage;
 import net.godlycow.org.nick.api.NickAPIImpl;
 import net.godlycow.org.nick.storage.NickStorage;
 import net.godlycow.org.notes.storage.NotesStorage;
+import net.godlycow.org.reports.api.ReportAPIImpl;
 import net.godlycow.org.reports.storage.ReportStorage;
 import net.godlycow.org.reports.trigger.ReportListener;
 import net.godlycow.org.rtp.*;
@@ -449,6 +451,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
     private KitManager kitManager;
     private KitConfigManager kitConfigManager;
     private LobbyAPI lobbyAPI;
+    private ReportAPI reportAPI;
 
 
 
@@ -1857,7 +1860,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
                 org.bukkit.plugin.ServicePriority.High
         );
 
-        com.serveressentials.api.PluginAPI pluginAPI = new PluginAPIImpl(this, shopAPI, homeManager, auctionAPI, afkManager, backAPI, dailyAPI, economyAPI, kitAPI, lobbyAPI, mailAPI, nickAPI);
+        com.serveressentials.api.PluginAPI pluginAPI = new PluginAPIImpl(this, shopAPI, homeManager, auctionAPI, afkManager, backAPI, dailyAPI, economyAPI, kitAPI, lobbyAPI, mailAPI, nickAPI, reportAPI);
         getServer().getServicesManager().register(
                 com.serveressentials.api.PluginAPI.class,
                 pluginAPI,
@@ -1865,9 +1868,20 @@ public class ServerEssentials extends JavaPlugin implements Listener {
                 org.bukkit.plugin.ServicePriority.High
         );
 
+        com.serveressentials.api.report.ReportAPI reportAPI = new ReportAPIImpl(
+                this, reportStorage, reportConfig, reportCommand
+        );
+
+        getServer().getServicesManager().register(
+                com.serveressentials.api.report.ReportAPI.class,
+                reportAPI,
+                this,
+                org.bukkit.plugin.ServicePriority.High
+        );
+
         pluginAPI = new PluginAPIImpl(
                 this, shopAPI, homeManager, auctionAPI, afkManager, backAPI,
-                dailyAPI, economyAPI, kitAPI, lobbyAPI, mailAPI, nickAPI
+                dailyAPI, economyAPI, kitAPI, lobbyAPI, mailAPI, nickAPI, reportAPI
         );
 
 

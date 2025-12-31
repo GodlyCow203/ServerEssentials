@@ -10,6 +10,7 @@ import com.serveressentials.api.economy.EconomyAPI;
 import com.serveressentials.api.kit.KitAPI;
 import com.serveressentials.api.lobby.LobbyAPI;
 import com.serveressentials.api.mail.MailAPI;
+import com.serveressentials.api.nick.NickAPI;
 import com.serveressentials.api.shop.ShopAPI;
 import com.serveressentials.api.auction.AuctionAPI;
 import com.serveressentials.api.shop.event.ShopPurchaseEvent;
@@ -49,6 +50,8 @@ public class TestAPI extends JavaPlugin implements Listener {
     private LobbyAPITestCommand lobbyTestCommand;
     private MailAPI mailAPI;
     private MailAPITestCommand mailTestCommand;
+    private NickAPI nickAPI;
+    private NickAPITestCommand nickTestCommand;
 
     @Override
     public void onEnable() {
@@ -75,6 +78,9 @@ public class TestAPI extends JavaPlugin implements Listener {
         mailTestCommand = new MailAPITestCommand(this);
         getCommand("mailapitest").setExecutor(mailTestCommand);
 
+        nickTestCommand = new NickAPITestCommand(this);
+        getCommand("nickapitest").setExecutor(nickTestCommand);
+
         getServer().getPluginManager().registerEvents(this, this);
 
         startAPIRetryTask();
@@ -93,6 +99,8 @@ public class TestAPI extends JavaPlugin implements Listener {
                     kitAPI = pluginAPI.getKitAPI();
                     lobbyAPI = pluginAPI.getLobbyAPI();
                     mailAPI = pluginAPI.getMailAPI();
+                    nickAPI = pluginAPI.getNickAPI();
+
 
 
 
@@ -114,6 +122,10 @@ public class TestAPI extends JavaPlugin implements Listener {
 
                     if (mailTestCommand != null) {
                         mailTestCommand.setAPI(mailAPI);
+                    }
+
+                    if (nickTestCommand != null) {
+                        nickTestCommand.setAPI(nickAPI);
                     }
 
                     getLogger().info(PREFIX + "APIs connected successfully!");
@@ -140,6 +152,8 @@ public class TestAPI extends JavaPlugin implements Listener {
         getLogger().info(PREFIX + "Kit enabled: " + kitAPI.isEnabled());
         getLogger().info(PREFIX + "Lobby enabled: " + lobbyAPI.isEnabled());
         getLogger().info(PREFIX + "Mail enabled: " + mailAPI.isEnabled());
+        getLogger().info(PREFIX + "Nick enabled: " + nickAPI.isEnabled());
+
 
 
     }
@@ -172,6 +186,9 @@ public class TestAPI extends JavaPlugin implements Listener {
 
     public ShopAPI getShopAPI() {
         return shopAPI;
+    }
+    public NickAPI getNickAPI() {
+        return nickAPI;
     }
 
     public PluginAPI getPluginAPI() {

@@ -30,4 +30,6 @@ commands:
   mailapitest:
     description: e
     usage: /mailapitest <command>
-
+  nickapitest:
+    description: e
+    usage: /nickapitest <command>

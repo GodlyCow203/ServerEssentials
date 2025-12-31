@@ -10,6 +10,7 @@ import com.serveressentials.api.home.HomeAPI;
 import com.serveressentials.api.lobby.LobbyAPI;
 import com.serveressentials.api.mail.MailAPI;
 import com.serveressentials.api.nick.NickAPI;
+import com.serveressentials.api.report.ReportAPI;
 import com.serveressentials.api.shop.ShopAPI;
 import com.serveressentials.api.kit.KitAPI;
 import net.godlycow.org.ServerEssentials;
@@ -31,13 +32,14 @@ public class PluginAPIImpl implements PluginAPI {
     private final LobbyAPI lobbyAPI;
     private final MailAPI mailAPI;
     private final NickAPI nickAPI;
+    private final ReportAPI reportAPI;
 
 
 
 
     public PluginAPIImpl(ServerEssentials plugin, ShopAPI shopAPI,
                          HomeManager homeManager, AuctionAPI auctionAPI,
-                         AFKManager afkManager, BackAPI backAPI, DailyAPI dailyAPI, EconomyAPI economyAPI, KitAPI kitAPI, LobbyAPI lobbyAPI, MailAPI mailAPI, NickAPI nickAPI) {
+                         AFKManager afkManager, BackAPI backAPI, DailyAPI dailyAPI, EconomyAPI economyAPI, KitAPI kitAPI, LobbyAPI lobbyAPI, MailAPI mailAPI, NickAPI nickAPI, ReportAPI reportAPI) {
         this.plugin = plugin;
         this.shopAPI = shopAPI;
         this.homeAPI = new net.godlycow.org.homes.api.HomeAPIImpl(homeManager);
@@ -50,6 +52,7 @@ public class PluginAPIImpl implements PluginAPI {
         this.lobbyAPI = lobbyAPI;
         this.mailAPI = mailAPI;
         this.nickAPI = nickAPI;
+        this.reportAPI = reportAPI;
 
 
     }
@@ -107,6 +110,10 @@ public class PluginAPIImpl implements PluginAPI {
     }
     public NickAPI getNickAPI() {
         return nickAPI;
+    }
+
+    public ReportAPI getReportAPI() {
+        return reportAPI;
     }
 
 }
