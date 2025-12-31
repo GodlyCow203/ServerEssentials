@@ -33,3 +33,6 @@ commands:
   nickapitest:
     description: e
     usage: /nickapitest <command>
+  reportapitest:
+    description: E
+    usage: /reportapitest <command>>

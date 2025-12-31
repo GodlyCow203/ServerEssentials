@@ -11,6 +11,7 @@ import com.serveressentials.api.kit.KitAPI;
 import com.serveressentials.api.lobby.LobbyAPI;
 import com.serveressentials.api.mail.MailAPI;
 import com.serveressentials.api.nick.NickAPI;
+import com.serveressentials.api.report.ReportAPI;
 import com.serveressentials.api.shop.ShopAPI;
 import com.serveressentials.api.auction.AuctionAPI;
 import com.serveressentials.api.shop.event.ShopPurchaseEvent;
@@ -52,6 +53,8 @@ public class TestAPI extends JavaPlugin implements Listener {
     private MailAPITestCommand mailTestCommand;
     private NickAPI nickAPI;
     private NickAPITestCommand nickTestCommand;
+    private ReportAPI reportAPI;
+    private ReportAPITestCommand reportTestCommand;
 
     @Override
     public void onEnable() {
@@ -81,6 +84,9 @@ public class TestAPI extends JavaPlugin implements Listener {
         nickTestCommand = new NickAPITestCommand(this);
         getCommand("nickapitest").setExecutor(nickTestCommand);
 
+        reportTestCommand = new ReportAPITestCommand(this);
+        getCommand("reportapitest").setExecutor(reportTestCommand);
+
         getServer().getPluginManager().registerEvents(this, this);
 
         startAPIRetryTask();
@@ -100,6 +106,8 @@ public class TestAPI extends JavaPlugin implements Listener {
                     lobbyAPI = pluginAPI.getLobbyAPI();
                     mailAPI = pluginAPI.getMailAPI();
                     nickAPI = pluginAPI.getNickAPI();
+                    reportAPI = pluginAPI.getReportAPI();
+
 
 
 
@@ -128,6 +136,10 @@ public class TestAPI extends JavaPlugin implements Listener {
                         nickTestCommand.setAPI(nickAPI);
                     }
 
+                    if (reportTestCommand != null) {
+                        reportTestCommand.setAPI(reportAPI);
+                    }
+
                     getLogger().info(PREFIX + "APIs connected successfully!");
                     getServer().getScheduler().cancelTask(retryTaskId);
                     retryTaskId = -1;
@@ -153,6 +165,10 @@ public class TestAPI extends JavaPlugin implements Listener {
         getLogger().info(PREFIX + "Lobby enabled: " + lobbyAPI.isEnabled());
         getLogger().info(PREFIX + "Mail enabled: " + mailAPI.isEnabled());
         getLogger().info(PREFIX + "Nick enabled: " + nickAPI.isEnabled());
+        if (reportAPI == null) {
+            getLogger().warning(PREFIX + "Report module not detected (disabled or not installed).");
+        }
+
 
 
 
@@ -220,7 +236,9 @@ public class TestAPI extends JavaPlugin implements Listener {
     public DailyAPI getDailyAPI() {
         return dailyAPI;
     }
-
+    public ReportAPI getReportAPI() {
+        return reportAPI;
+    }
 
     public MailAPI getMailAPI() {
         return mailAPI;

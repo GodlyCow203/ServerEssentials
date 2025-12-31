@@ -1868,7 +1868,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
                 org.bukkit.plugin.ServicePriority.High
         );
 
-        com.serveressentials.api.report.ReportAPI reportAPI = new ReportAPIImpl(
+        reportAPI = new ReportAPIImpl(
                 this, reportStorage, reportConfig, reportCommand
         );
 
