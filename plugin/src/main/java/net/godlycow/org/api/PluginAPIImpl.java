@@ -17,6 +17,7 @@ import com.serveressentials.api.sellgui.SellGUIAPI;
 import com.serveressentials.api.shop.ShopAPI;
 import com.serveressentials.api.kit.KitAPI;
 import com.serveressentials.api.tpa.TPAAPI;
+import com.serveressentials.api.warp.WarpAPI;
 import net.godlycow.org.ServerEssentials;
 import net.godlycow.org.afk.AFKManager;
 import net.godlycow.org.afk.api.AFKAPIImpl;
@@ -41,13 +42,14 @@ public class PluginAPIImpl implements PluginAPI {
     private final ScoreboardAPI scoreboardAPI;
     private final SellGUIAPI sellguiAPI;
     private final TPAAPI tpaAPI;
+    private final WarpAPI warpAPI;
 
 
 
 
     public PluginAPIImpl(ServerEssentials plugin, ShopAPI shopAPI,
                          HomeManager homeManager, AuctionAPI auctionAPI,
-                         AFKManager afkManager, BackAPI backAPI, DailyAPI dailyAPI, EconomyAPI economyAPI, KitAPI kitAPI, LobbyAPI lobbyAPI, MailAPI mailAPI, NickAPI nickAPI, ReportAPI reportAPI, RtpAPI rtpAPI, ScoreboardAPI scoreboardAPI, SellGUIAPI  sellguiAPI, TPAAPI tpaAPI) {
+                         AFKManager afkManager, BackAPI backAPI, DailyAPI dailyAPI, EconomyAPI economyAPI, KitAPI kitAPI, LobbyAPI lobbyAPI, MailAPI mailAPI, NickAPI nickAPI, ReportAPI reportAPI, RtpAPI rtpAPI, ScoreboardAPI scoreboardAPI, SellGUIAPI  sellguiAPI, TPAAPI tpaAPI, WarpAPI warpAPI) {
         this.plugin = plugin;
         this.shopAPI = shopAPI;
         this.homeAPI = new net.godlycow.org.homes.api.HomeAPIImpl(homeManager);
@@ -65,6 +67,7 @@ public class PluginAPIImpl implements PluginAPI {
         this.scoreboardAPI = scoreboardAPI;
         this.sellguiAPI = sellguiAPI;
         this.tpaAPI = tpaAPI;
+        this.warpAPI = warpAPI;
 
     }
 
@@ -142,6 +145,10 @@ public class PluginAPIImpl implements PluginAPI {
 
     public TPAAPI getTpaAPI() {
         return tpaAPI;
+    }
+
+    public WarpAPI getWarpAPI() {
+        return warpAPI;
     }
 
 

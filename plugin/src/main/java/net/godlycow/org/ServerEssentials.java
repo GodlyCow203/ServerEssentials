@@ -15,6 +15,7 @@ import com.serveressentials.api.scoreboard.ScoreboardAPI;
 import com.serveressentials.api.sellgui.SellGUIAPI;
 import com.serveressentials.api.shop.ShopAPI;
 import com.serveressentials.api.tpa.TPAAPI;
+import com.serveressentials.api.warp.WarpAPI;
 import net.godlycow.org.PlaceholderAPI.*;
 import net.godlycow.org.afk.api.AFKAPIImpl;
 import net.godlycow.org.api.PluginAPIImpl;
@@ -103,6 +104,7 @@ import net.godlycow.org.warp.*;
 
 import net.godlycow.org.hooks.*;
 
+import net.godlycow.org.warp.api.WarpAPIImpl;
 import net.godlycow.org.warp.storage.WarpStorage;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -477,6 +479,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
     private SellGUIManager sellGUIManager;
     private SellGUIAPI sellguiAPI;
     private TPAAPI tpaAPI;
+    private WarpAPI warpAPI;
 
 
     private net.godlycow.org.economy.shop.ShopDataManager shopDataManager;
@@ -1912,8 +1915,20 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         com.serveressentials.api.PluginAPI pluginAPI = new PluginAPIImpl(
                 this, shopAPI, homeManager, auctionAPI, afkManager, backAPI,
                 dailyAPI, economyAPI, kitAPI, lobbyAPI, mailAPI, nickAPI, reportAPI, rtpAPI,
-                scoreboardAPI, sellguiAPI, tpaAPI
+                scoreboardAPI, sellguiAPI, tpaAPI, warpAPI
         );
+
+
+        this.warpAPI = new WarpAPIImpl(
+                this, warpConfig, warpManager
+        );
+        getServer().getServicesManager().register(
+                com.serveressentials.api.warp.WarpAPI.class,
+                warpAPI,
+                this,
+                org.bukkit.plugin.ServicePriority.High
+        );
+
 
         this.sellguiAPI = new SellGUIAPIImpl(
                 this, sellConfig, sellStorage, sellGUIManager, economyManager
