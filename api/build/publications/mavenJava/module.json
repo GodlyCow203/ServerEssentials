@@ -27,11 +27,11 @@
         {
           "name": "ServerEssentials-api-2.0.8.2.jar",
           "url": "ServerEssentials-api-2.0.8.2.jar",
-          "size": 92664,
-          "sha512": "cdc9d3226aba7c267250391c3dd53f172a98312ef457a0fd94076058dc13fb8097a0206564f72c055d3e43862d59364f139b1647f5fa024ebf4b1c15d0c8512d",
-          "sha256": "446fbf20e1be12029c985ebaea5db8585744c9092f814e6cfd97aba52d82f423",
-          "sha1": "1f1db0583ce239c6a6d183477a1bfa1c713c8fa6",
-          "md5": "0279c6e4c6bb559eed64063609c38315"
+          "size": 103516,
+          "sha512": "bc31b055c1c42deb106e301c9514615e54c5ad4bf253e75260955b07af074645221ef07ec534c5b8a6272967505c3589a766646fed07017f5cb8beddc151f2b5",
+          "sha256": "d78187cd8d09d880a7f0840fcf80475c91cfb27e71596754d84125c144a9a214",
+          "sha1": "243baab39eb95598775464fe4b2f9e55ddb2a328",
+          "md5": "39b802e7a78a386a7595c7b7ddc8261a"
         }
       ]
     },
@@ -48,11 +48,11 @@
         {
           "name": "ServerEssentials-api-2.0.8.2.jar",
           "url": "ServerEssentials-api-2.0.8.2.jar",
-          "size": 92664,
-          "sha512": "cdc9d3226aba7c267250391c3dd53f172a98312ef457a0fd94076058dc13fb8097a0206564f72c055d3e43862d59364f139b1647f5fa024ebf4b1c15d0c8512d",
-          "sha256": "446fbf20e1be12029c985ebaea5db8585744c9092f814e6cfd97aba52d82f423",
-          "sha1": "1f1db0583ce239c6a6d183477a1bfa1c713c8fa6",
-          "md5": "0279c6e4c6bb559eed64063609c38315"
+          "size": 103516,
+          "sha512": "bc31b055c1c42deb106e301c9514615e54c5ad4bf253e75260955b07af074645221ef07ec534c5b8a6272967505c3589a766646fed07017f5cb8beddc151f2b5",
+          "sha256": "d78187cd8d09d880a7f0840fcf80475c91cfb27e71596754d84125c144a9a214",
+          "sha1": "243baab39eb95598775464fe4b2f9e55ddb2a328",
+          "md5": "39b802e7a78a386a7595c7b7ddc8261a"
         }
       ]
     },
@@ -68,11 +68,11 @@
         {
           "name": "ServerEssentials-api-2.0.8.2-sources.jar",
           "url": "ServerEssentials-api-2.0.8.2-sources.jar",
-          "size": 61459,
-          "sha512": "a62587f952034f2d6d929e13722ade7a60db8eafb3d807cc6724733a21abf17822171da72ea5d3cc35c2190dd818061d2491383035eebdbd1f899c77ba1a137a",
-          "sha256": "560e021bda8da557d4217100e66e4d7a0e37fa754054cf1674da8d68c9076033",
-          "sha1": "4bcf3894d2adf14ba4ede09a7c0a2da83fe8b95d",
-          "md5": "2adade65b306a78e8ece6c170c8c8d54"
+          "size": 67583,
+          "sha512": "29b1424604d113c7b508019c6e44734cfb5f64b1934c8d7d881a053df5fb1b94374d4469b33bc4fa8f7cc8c2e57073cc7993b9b33b58e39f1de9a34a43bcdea4",
+          "sha256": "bcb608e34553eb2078e144dacbec8dbd33a1b6bbb9c372368bd3cf6700a5378d",
+          "sha1": "050892258d680c3946a87eaa9a74ccfc108681ba",
+          "md5": "ee3e5633e4cb2950838468307f296d7c"
         }
       ]
     },
@@ -88,11 +88,11 @@
         {
           "name": "ServerEssentials-api-2.0.8.2-javadoc.jar",
           "url": "ServerEssentials-api-2.0.8.2-javadoc.jar",
-          "size": 455907,
-          "sha512": "a6947c53e85618796c7899da10f59d7ff0fc794b6455d158ad12a024c690749ff0fe896bf28e02d0704b94e26aef3fe063f44f11aa793ab772ca5e821b95438e",
-          "sha256": "834dbd52c6a781f69887e36745adb80295b305140a645448b85c34dae2fb401c",
-          "sha1": "11d449498077df93036951a39fc11217daa67f91",
-          "md5": "8021f6a1a3c0c954a6634592b1f596ff"
+          "size": 488494,
+          "sha512": "6635bdefe5d2332e331cab2b59a109782e2dcf66d9162d6e46007067ee4a8196126f512eb27ed35c07b05852f1a1afd000a0fb4c048da78e132a30b848b5cf60",
+          "sha256": "0100553c4e9598bb1f63bcd2d5ac7d035e73ed131ad47adf326359a129eba77f",
+          "sha1": "7861e912557fe3709a9fcece0bab73d9203d696e",
+          "md5": "30c9a46b70aa093b8b462159df8f297b"
         }
       ]
     }

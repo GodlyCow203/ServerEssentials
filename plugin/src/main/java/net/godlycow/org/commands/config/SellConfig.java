@@ -91,6 +91,10 @@ public final class SellConfig {
         return sellPrices.containsKey(material) && sellPrices.get(material) > 0;
     }
 
+    public Map<Material, Double> getSellPrices() {
+        return Map.copyOf(sellPrices);
+    }
+
 
     public double getSellPrice(Material material) {
         return sellPrices.getOrDefault(material, 0.0);

@@ -12,6 +12,7 @@ import com.serveressentials.api.nick.NickAPI;
 import com.serveressentials.api.report.ReportAPI;
 import com.serveressentials.api.rtp.RtpAPI;
 import com.serveressentials.api.scoreboard.ScoreboardAPI;
+import com.serveressentials.api.sellgui.SellGUIAPI;
 import com.serveressentials.api.shop.ShopAPI;
 import net.godlycow.org.PlaceholderAPI.*;
 import net.godlycow.org.afk.api.AFKAPIImpl;
@@ -70,6 +71,7 @@ import net.godlycow.org.scoreboard.api.ScoreboardAPIImpl;
 import net.godlycow.org.scoreboard.runtime.ScoreboardListener;
 import net.godlycow.org.scoreboard.runtime.ScoreboardUpdater;
 import net.godlycow.org.scoreboard.storage.ScoreboardStorage;
+import net.godlycow.org.sellgui.api.SellGUIAPIImpl;
 import net.godlycow.org.sellgui.gui.trigger.SellGUIListener;
 import net.godlycow.org.sellgui.gui.SellGUIManager;
 import net.godlycow.org.sellgui.storage.SellStorage;
@@ -470,6 +472,8 @@ public class ServerEssentials extends JavaPlugin implements Listener {
     private RtpConfig rtpConfig;
     private RtpAPI rtpAPI;
     private ScoreboardAPI scoreboardAPI;
+    private SellGUIManager sellGUIManager;
+    private SellGUIAPI sellguiAPI;
 
 
     private net.godlycow.org.economy.shop.ShopDataManager shopDataManager;
@@ -1905,8 +1909,19 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         com.serveressentials.api.PluginAPI pluginAPI = new PluginAPIImpl(
                 this, shopAPI, homeManager, auctionAPI, afkManager, backAPI,
                 dailyAPI, economyAPI, kitAPI, lobbyAPI, mailAPI, nickAPI, reportAPI, rtpAPI,
-                scoreboardAPI
+                scoreboardAPI, sellguiAPI
         );
+
+        this.sellguiAPI = new SellGUIAPIImpl(
+                this, sellConfig, sellStorage, sellGUIManager, economyManager
+        );
+        getServer().getServicesManager().register(
+                com.serveressentials.api.sellgui.SellGUIAPI.class,
+                sellguiAPI,
+                this,
+                org.bukkit.plugin.ServicePriority.High
+        );
+
         getServer().getServicesManager().register(
                 com.serveressentials.api.PluginAPI.class,
                 pluginAPI,

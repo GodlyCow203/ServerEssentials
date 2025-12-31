@@ -39,3 +39,6 @@ commands:
   rtapitest:
     description: e
     usage: /rtapitest command
+  scoreboardtest:
+    description: e
+    usage: /scoreboardtest

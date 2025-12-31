@@ -13,6 +13,7 @@ import com.serveressentials.api.nick.NickAPI;
 import com.serveressentials.api.report.ReportAPI;
 import com.serveressentials.api.rtp.RtpAPI;
 import com.serveressentials.api.scoreboard.ScoreboardAPI;
+import com.serveressentials.api.sellgui.SellGUIAPI;
 import com.serveressentials.api.shop.ShopAPI;
 
 
@@ -33,4 +34,5 @@ public interface PluginAPI {
     ReportAPI getReportAPI();
     RtpAPI getRtpAPI();
     ScoreboardAPI getScoreboardAPI();
+    SellGUIAPI getsellguiAPI();
 }

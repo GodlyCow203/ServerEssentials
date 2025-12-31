@@ -13,6 +13,7 @@ import com.serveressentials.api.mail.MailAPI;
 import com.serveressentials.api.nick.NickAPI;
 import com.serveressentials.api.report.ReportAPI;
 import com.serveressentials.api.rtp.RtpAPI;
+import com.serveressentials.api.scoreboard.ScoreboardAPI;
 import com.serveressentials.api.shop.ShopAPI;
 import com.serveressentials.api.auction.AuctionAPI;
 import com.serveressentials.api.shop.event.ShopPurchaseEvent;
@@ -58,6 +59,8 @@ public class TestAPI extends JavaPlugin implements Listener {
     private ReportAPITestCommand reportTestCommand;
     private RtpAPI rtpAPI;
     private RtpAPITestCommand rtpTestCommand;
+    private ScoreboardAPI scoreboardAPI;
+    private ScoreboardAPITestCommand scoreboardTestCommand;
 
     @Override
     public void onEnable() {
@@ -93,6 +96,12 @@ public class TestAPI extends JavaPlugin implements Listener {
         rtpTestCommand = new RtpAPITestCommand(this);
         getCommand("rtapitest").setExecutor(rtpTestCommand);
 
+        scoreboardTestCommand = new ScoreboardAPITestCommand(this);
+        getCommand("scoreboardtest").setExecutor(scoreboardTestCommand);
+
+
+
+
         getServer().getPluginManager().registerEvents(this, this);
 
         startAPIRetryTask();
@@ -114,9 +123,7 @@ public class TestAPI extends JavaPlugin implements Listener {
                     nickAPI = pluginAPI.getNickAPI();
                     reportAPI = pluginAPI.getReportAPI();
                     rtpAPI = pluginAPI.getRtpAPI();
-
-
-
+                    scoreboardAPI = pluginAPI.getScoreboardAPI();
 
 
                     if (dailyTestCommand != null) {
@@ -149,6 +156,10 @@ public class TestAPI extends JavaPlugin implements Listener {
 
                     if (rtpTestCommand != null) {
                         rtpTestCommand.setAPI(rtpAPI);
+                    }
+
+                    if (scoreboardTestCommand != null) {
+                        scoreboardTestCommand.setAPI(scoreboardAPI);
                     }
 
                     getLogger().info(PREFIX + "APIs connected successfully!");
@@ -258,5 +269,9 @@ public class TestAPI extends JavaPlugin implements Listener {
     }
     public RtpAPI getRtpAPI() {
         return rtpAPI;
+    }
+
+    public ScoreboardAPI getScoreboardAPI() {
+        return scoreboardAPI;
     }
 }
