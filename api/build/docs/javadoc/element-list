@@ -22,5 +22,7 @@ com.serveressentials.api.report
 com.serveressentials.api.report.event
 com.serveressentials.api.rtp
 com.serveressentials.api.rtp.event
+com.serveressentials.api.scoreboard
+com.serveressentials.api.scoreboard.event
 com.serveressentials.api.shop
 com.serveressentials.api.shop.event

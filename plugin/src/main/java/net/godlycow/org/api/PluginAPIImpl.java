@@ -126,4 +126,8 @@ public class PluginAPIImpl implements PluginAPI {
         return rtpAPI;
     }
 
+    public ScoreboardAPI getScoreboardAPI() {
+        return scoreboardAPI;
+    }
+
 }
