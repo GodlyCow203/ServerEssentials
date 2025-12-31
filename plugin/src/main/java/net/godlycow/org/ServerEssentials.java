@@ -3,8 +3,14 @@ package net.godlycow.org;
 import com.serveressentials.api.afk.AFKAPI;
 import com.serveressentials.api.auction.AuctionAPI;
 import com.serveressentials.api.back.BackAPI;
+import com.serveressentials.api.daily.DailyAPI;
+import com.serveressentials.api.economy.EconomyAPI;
+import com.serveressentials.api.kit.KitAPI;
 import com.serveressentials.api.lobby.LobbyAPI;
+import com.serveressentials.api.mail.MailAPI;
+import com.serveressentials.api.nick.NickAPI;
 import com.serveressentials.api.report.ReportAPI;
+import com.serveressentials.api.rtp.RtpAPI;
 import com.serveressentials.api.shop.ShopAPI;
 import net.godlycow.org.PlaceholderAPI.*;
 import net.godlycow.org.afk.api.AFKAPIImpl;
@@ -53,6 +59,7 @@ import net.godlycow.org.reports.api.ReportAPIImpl;
 import net.godlycow.org.reports.storage.ReportStorage;
 import net.godlycow.org.reports.trigger.ReportListener;
 import net.godlycow.org.rtp.*;
+import net.godlycow.org.rtp.api.RtpAPIImpl;
 import net.godlycow.org.rtp.storage.RtpLocationStorage;
 import net.godlycow.org.rtp.trigger.RtpListener;
 import net.godlycow.org.rules.gui.RulesGUI;
@@ -452,6 +459,14 @@ public class ServerEssentials extends JavaPlugin implements Listener {
     private KitConfigManager kitConfigManager;
     private LobbyAPI lobbyAPI;
     private ReportAPI reportAPI;
+    private NickAPI nickAPI;
+    private DailyAPI dailyAPI;
+    private EconomyAPI economyAPI;
+    private MailAPI mailAPI;
+    private KitAPI kitAPI;
+    private RtpListener rtpListener;
+    private RtpConfig rtpConfig;
+    private RtpAPI rtpAPI;
 
 
 
@@ -1776,7 +1791,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
                 org.bukkit.plugin.ServicePriority.High
         );
 
-        afkAPI = new AFKAPIImpl(this, afkManager);
+        this.afkAPI = new AFKAPIImpl(this, afkManager);
         getServer().getServicesManager().register(
                 com.serveressentials.api.afk.AFKAPI.class,
                 afkAPI,
@@ -1784,7 +1799,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
                 org.bukkit.plugin.ServicePriority.High
         );
 
-        com.serveressentials.api.back.BackAPI backAPI = new net.godlycow.org.back.api.BackAPIImpl(
+        this.backAPI = new net.godlycow.org.back.api.BackAPIImpl(
                 this, backManager, backConfig, backDataStorage, playerLanguageManager, commandDataStorage
         );
         getServer().getServicesManager().register(
@@ -1794,7 +1809,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
                 org.bukkit.plugin.ServicePriority.High
         );
 
-        com.serveressentials.api.daily.DailyAPI dailyAPI = new DailyAPIImpl(
+        this.dailyAPI = new DailyAPIImpl(
                 this, dailyConfig, dailyStorage, playerLanguageManager
         );
         getServer().getServicesManager().register(
@@ -1804,7 +1819,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
                 org.bukkit.plugin.ServicePriority.High
         );
 
-        com.serveressentials.api.economy.EconomyAPI economyAPI = new EconomyAPIImpl(this, economyManager);
+        this.economyAPI = new EconomyAPIImpl(this, economyManager);
         getServer().getServicesManager().register(
                 com.serveressentials.api.economy.EconomyAPI.class,
                 economyAPI,
@@ -1812,7 +1827,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
                 org.bukkit.plugin.ServicePriority.High
         );
 
-        com.serveressentials.api.kit.KitAPI kitAPI = new KitAPIImpl(
+        this.kitAPI = new KitAPIImpl(
                 this,
                 kitManager,
                 kitConfigManager,
@@ -1827,10 +1842,9 @@ public class ServerEssentials extends JavaPlugin implements Listener {
                 org.bukkit.plugin.ServicePriority.High
         );
 
-        com.serveressentials.api.lobby.LobbyAPI lobbyAPI = new LobbyAPIImpl(
+        this.lobbyAPI = new LobbyAPIImpl(
                 this, lobbyStorage, lobbyConfig
         );
-
         getServer().getServicesManager().register(
                 com.serveressentials.api.lobby.LobbyAPI.class,
                 lobbyAPI,
@@ -1838,10 +1852,9 @@ public class ServerEssentials extends JavaPlugin implements Listener {
                 org.bukkit.plugin.ServicePriority.High
         );
 
-        com.serveressentials.api.mail.MailAPI mailAPI = new MailAPIImpl(
+        this.mailAPI = new MailAPIImpl(
                 this, mailStorage, mailConfig, mailListener
         );
-
         getServer().getServicesManager().register(
                 com.serveressentials.api.mail.MailAPI.class,
                 mailAPI,
@@ -1849,10 +1862,9 @@ public class ServerEssentials extends JavaPlugin implements Listener {
                 org.bukkit.plugin.ServicePriority.High
         );
 
-        com.serveressentials.api.nick.NickAPI nickAPI = new NickAPIImpl(
+        this.nickAPI = new NickAPIImpl(
                 this, nickStorage, nickConfig, nickManager
         );
-
         getServer().getServicesManager().register(
                 com.serveressentials.api.nick.NickAPI.class,
                 nickAPI,
@@ -1860,18 +1872,9 @@ public class ServerEssentials extends JavaPlugin implements Listener {
                 org.bukkit.plugin.ServicePriority.High
         );
 
-        com.serveressentials.api.PluginAPI pluginAPI = new PluginAPIImpl(this, shopAPI, homeManager, auctionAPI, afkManager, backAPI, dailyAPI, economyAPI, kitAPI, lobbyAPI, mailAPI, nickAPI, reportAPI);
-        getServer().getServicesManager().register(
-                com.serveressentials.api.PluginAPI.class,
-                pluginAPI,
-                this,
-                org.bukkit.plugin.ServicePriority.High
-        );
-
-        reportAPI = new ReportAPIImpl(
+        this.reportAPI = new ReportAPIImpl(
                 this, reportStorage, reportConfig, reportCommand
         );
-
         getServer().getServicesManager().register(
                 com.serveressentials.api.report.ReportAPI.class,
                 reportAPI,
@@ -1879,11 +1882,24 @@ public class ServerEssentials extends JavaPlugin implements Listener {
                 org.bukkit.plugin.ServicePriority.High
         );
 
-        pluginAPI = new PluginAPIImpl(
-                this, shopAPI, homeManager, auctionAPI, afkManager, backAPI,
-                dailyAPI, economyAPI, kitAPI, lobbyAPI, mailAPI, nickAPI, reportAPI
+        this.rtpAPI = new RtpAPIImpl(this, rtpLocationStorage, rtpConfig, rtpListener, playerLanguageManager);
+        getServer().getServicesManager().register(
+                com.serveressentials.api.rtp.RtpAPI.class,
+                rtpAPI,
+                this,
+                org.bukkit.plugin.ServicePriority.High
         );
 
+        com.serveressentials.api.PluginAPI pluginAPI = new PluginAPIImpl(
+                this, shopAPI, homeManager, auctionAPI, afkManager, backAPI,
+                dailyAPI, economyAPI, kitAPI, lobbyAPI, mailAPI, nickAPI, reportAPI, rtpAPI
+        );
+        getServer().getServicesManager().register(
+                com.serveressentials.api.PluginAPI.class,
+                pluginAPI,
+                this,
+                org.bukkit.plugin.ServicePriority.High
+        );
 
         getLogger().info("Successfully registered all API services!");
     }

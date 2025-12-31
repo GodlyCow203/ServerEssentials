@@ -2,8 +2,10 @@ package net.godlycow.org.rtp.storage;
 
 import net.godlycow.org.database.DatabaseManager;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.plugin.Plugin;
 
+import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
@@ -51,6 +53,26 @@ public class RtpLocationStorage {
             return null;
         });
     }
+
+    public CompletableFuture<Optional<Location>> getRtpLocation(UUID playerId) {
+        String sql = "SELECT world, x, y, z FROM rtp_locations WHERE player_uuid = ?";
+
+        return dbManager.executeQuery(poolKey, sql, rs -> {
+            if (rs.next()) {
+                String worldName = rs.getString("world");
+                double x = rs.getDouble("x");
+                double y = rs.getDouble("y");
+                double z = rs.getDouble("z");
+
+                World world = plugin.getServer().getWorld(worldName);
+                if (world != null) {
+                    return new Location(world, x, y, z);
+                }
+            }
+            return null;
+        }, playerId.toString());
+    }
+
 
     public CompletableFuture<Void> saveRtpLocation(UUID playerId, String playerName, Location loc) {
         String sql = dbManager.getPoolKeys().stream()
