@@ -36,3 +36,6 @@ commands:
   reportapitest:
     description: E
     usage: /reportapitest <command>>
+  rtapitest:
+    description: e
+    usage: /rtapitest command

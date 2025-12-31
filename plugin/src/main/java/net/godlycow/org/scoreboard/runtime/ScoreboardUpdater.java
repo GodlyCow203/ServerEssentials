@@ -52,7 +52,7 @@ public final class ScoreboardUpdater {
         );
     }
 
-    private void updateAsync(Player player) {
+    public void updateAsync(Player player) {
         if (!config.enabled) {
             Bukkit.getScheduler().runTask(plugin, () -> clear(player));
             return;

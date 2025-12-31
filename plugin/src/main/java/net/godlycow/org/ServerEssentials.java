@@ -11,6 +11,7 @@ import com.serveressentials.api.mail.MailAPI;
 import com.serveressentials.api.nick.NickAPI;
 import com.serveressentials.api.report.ReportAPI;
 import com.serveressentials.api.rtp.RtpAPI;
+import com.serveressentials.api.scoreboard.ScoreboardAPI;
 import com.serveressentials.api.shop.ShopAPI;
 import net.godlycow.org.PlaceholderAPI.*;
 import net.godlycow.org.afk.api.AFKAPIImpl;
@@ -65,6 +66,7 @@ import net.godlycow.org.rtp.trigger.RtpListener;
 import net.godlycow.org.rules.gui.RulesGUI;
 import net.godlycow.org.rules.storage.RulesStorage;
 import net.godlycow.org.rules.trigger.RulesListener;
+import net.godlycow.org.scoreboard.api.ScoreboardAPIImpl;
 import net.godlycow.org.scoreboard.runtime.ScoreboardListener;
 import net.godlycow.org.scoreboard.runtime.ScoreboardUpdater;
 import net.godlycow.org.scoreboard.storage.ScoreboardStorage;
@@ -467,7 +469,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
     private RtpListener rtpListener;
     private RtpConfig rtpConfig;
     private RtpAPI rtpAPI;
-
+    private ScoreboardAPI scoreboardAPI;
 
 
     private net.godlycow.org.economy.shop.ShopDataManager shopDataManager;
@@ -1890,9 +1892,20 @@ public class ServerEssentials extends JavaPlugin implements Listener {
                 org.bukkit.plugin.ServicePriority.High
         );
 
+        this.scoreboardAPI = new ScoreboardAPIImpl(
+                this, scoreboardConfig, scoreboardStorage, scoreboardUpdater
+        );
+        getServer().getServicesManager().register(
+                com.serveressentials.api.scoreboard.ScoreboardAPI.class,
+                scoreboardAPI,
+                this,
+                org.bukkit.plugin.ServicePriority.High
+        );
+
         com.serveressentials.api.PluginAPI pluginAPI = new PluginAPIImpl(
                 this, shopAPI, homeManager, auctionAPI, afkManager, backAPI,
-                dailyAPI, economyAPI, kitAPI, lobbyAPI, mailAPI, nickAPI, reportAPI, rtpAPI
+                dailyAPI, economyAPI, kitAPI, lobbyAPI, mailAPI, nickAPI, reportAPI, rtpAPI,
+                scoreboardAPI
         );
         getServer().getServicesManager().register(
                 com.serveressentials.api.PluginAPI.class,

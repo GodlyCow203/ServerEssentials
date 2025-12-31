@@ -12,6 +12,7 @@ import com.serveressentials.api.mail.MailAPI;
 import com.serveressentials.api.nick.NickAPI;
 import com.serveressentials.api.report.ReportAPI;
 import com.serveressentials.api.rtp.RtpAPI;
+import com.serveressentials.api.scoreboard.ScoreboardAPI;
 import com.serveressentials.api.shop.ShopAPI;
 
 
@@ -31,4 +32,5 @@ public interface PluginAPI {
     NickAPI getNickAPI();
     ReportAPI getReportAPI();
     RtpAPI getRtpAPI();
+    ScoreboardAPI getScoreboardAPI();
 }
