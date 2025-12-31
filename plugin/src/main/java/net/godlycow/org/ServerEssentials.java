@@ -14,6 +14,7 @@ import com.serveressentials.api.rtp.RtpAPI;
 import com.serveressentials.api.scoreboard.ScoreboardAPI;
 import com.serveressentials.api.sellgui.SellGUIAPI;
 import com.serveressentials.api.shop.ShopAPI;
+import com.serveressentials.api.tpa.TPAAPI;
 import net.godlycow.org.PlaceholderAPI.*;
 import net.godlycow.org.afk.api.AFKAPIImpl;
 import net.godlycow.org.api.PluginAPIImpl;
@@ -94,6 +95,7 @@ import net.godlycow.org.mail.*;
 import net.godlycow.org.nick.*;
 import net.godlycow.org.reports.*;
 import net.godlycow.org.tpa.TPAConfig;
+import net.godlycow.org.tpa.api.TPAAPIImpl;
 import net.godlycow.org.tpa.trigger.TPAListener;
 import net.godlycow.org.tpa.storage.TPAStorage;
 import net.godlycow.org.util.logger.BannerUtil;
@@ -474,6 +476,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
     private ScoreboardAPI scoreboardAPI;
     private SellGUIManager sellGUIManager;
     private SellGUIAPI sellguiAPI;
+    private TPAAPI tpaAPI;
 
 
     private net.godlycow.org.economy.shop.ShopDataManager shopDataManager;
@@ -838,7 +841,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
 
         // Commands
         getCommand("fly").setExecutor(flyCommand);
-        getCommand("tpa").setExecutor(tpaCommand);
+        getCommand("com/serveressentials/api/tpa").setExecutor(tpaCommand);
         getCommand("tpahere").setExecutor(tpaCommand);
         getCommand("tpaccept").setExecutor(tpaCommand);
         getCommand("tpdeny").setExecutor(tpaCommand);
@@ -1387,7 +1390,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         databaseManager.initializePool("reports", new DatabaseConfig(DatabaseType.SQLITE, "reports.db", null,0,null,null,null,15));
         databaseManager.initializePool("shop", new DatabaseConfig(DatabaseType.SQLITE, "shop.db", null, 0, null, null, null, 5));
         databaseManager.initializePool("command_data", new DatabaseConfig(DatabaseType.SQLITE, "command_data.db", null, 0, null, null, null, 10));
-        databaseManager.initializePool("tpa", new DatabaseConfig(DatabaseType.SQLITE, "tpa.db", null, 0, null, null, null, 5));
+        databaseManager.initializePool("com/serveressentials/api/tpa", new DatabaseConfig(DatabaseType.SQLITE, "tpa.db", null, 0, null, null, null, 5));
     }
 
     private void initializeShopSystem() {
@@ -1909,7 +1912,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         com.serveressentials.api.PluginAPI pluginAPI = new PluginAPIImpl(
                 this, shopAPI, homeManager, auctionAPI, afkManager, backAPI,
                 dailyAPI, economyAPI, kitAPI, lobbyAPI, mailAPI, nickAPI, reportAPI, rtpAPI,
-                scoreboardAPI, sellguiAPI
+                scoreboardAPI, sellguiAPI, tpaAPI
         );
 
         this.sellguiAPI = new SellGUIAPIImpl(
@@ -1918,6 +1921,16 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         getServer().getServicesManager().register(
                 com.serveressentials.api.sellgui.SellGUIAPI.class,
                 sellguiAPI,
+                this,
+                org.bukkit.plugin.ServicePriority.High
+        );
+
+        this.tpaAPI = new TPAAPIImpl(
+                this, tpaConfig, tpaStorage, tpaListener
+        );
+        getServer().getServicesManager().register(
+                com.serveressentials.api.tpa.TPAAPI.class,
+                tpaAPI,
                 this,
                 org.bukkit.plugin.ServicePriority.High
         );

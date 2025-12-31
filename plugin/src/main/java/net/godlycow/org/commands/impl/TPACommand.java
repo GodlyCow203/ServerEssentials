@@ -91,7 +91,7 @@ public class TPACommand implements CommandExecutor {
 
         switch (name) {
 
-            case "tpa":
+            case "com/serveressentials/api/tpa":
                 if (args.length == 0) {
                     player.sendMessage(langManager.getMessageFor(player, "commands.usage.tpa",
                             "<red>Usage: /tpa <player>").toString());

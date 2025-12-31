@@ -15,6 +15,7 @@ import com.serveressentials.api.rtp.RtpAPI;
 import com.serveressentials.api.scoreboard.ScoreboardAPI;
 import com.serveressentials.api.sellgui.SellGUIAPI;
 import com.serveressentials.api.shop.ShopAPI;
+import com.serveressentials.api.tpa.TPAAPI;
 
 
 public interface PluginAPI {
@@ -35,4 +36,5 @@ public interface PluginAPI {
     RtpAPI getRtpAPI();
     ScoreboardAPI getScoreboardAPI();
     SellGUIAPI getsellguiAPI();
+    TPAAPI getTpaAPI();
 }

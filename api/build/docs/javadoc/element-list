@@ -28,3 +28,5 @@ com.serveressentials.api.sellgui
 com.serveressentials.api.sellgui.event
 com.serveressentials.api.shop
 com.serveressentials.api.shop.event
+com.serveressentials.api.tpa
+com.serveressentials.api.tpa.event
