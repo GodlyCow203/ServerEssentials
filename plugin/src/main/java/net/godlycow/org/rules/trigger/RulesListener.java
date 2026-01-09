@@ -31,6 +31,10 @@ public class RulesListener implements Listener {
     private static final ConcurrentHashMap<UUID, Long> lastReopenTime = new ConcurrentHashMap<>();
     private static final ConcurrentHashMap<UUID, Integer> spamCount = new ConcurrentHashMap<>();
 
+    private static final int PREV_PAGE_SLOT = 46;
+    private static final int NEXT_PAGE_SLOT = 52;
+    private static final int INFO_SLOT = 49;
+
     public RulesListener(PlayerLanguageManager langManager, RulesStorage storage, RulesConfig config, Plugin plugin) {
         this.langManager = langManager;
         this.storage = storage;
@@ -61,7 +65,7 @@ public class RulesListener implements Listener {
         if (!(event.getPlayer() instanceof Player player)) return;
 
         String title = event.getView().getTitle();
-        Component expectedTitle = langManager.getMessageFor(player, "rules.gui.title", config.title());
+        Component expectedTitle = langManager.getMessageFor(player, "commands.rules.gui.title", config.title());
         String expectedLegacy = LegacyComponentSerializer.legacySection().serialize(expectedTitle);
 
         if (!title.equals(expectedLegacy)) return;
@@ -84,8 +88,8 @@ public class RulesListener implements Listener {
         if (config.forceAcceptance() && pendingAcceptance.containsKey(player.getUniqueId())) {
             storage.hasAcceptedRules(player.getUniqueId()).thenAccept(accepted -> {
                 if (!accepted && player.isOnline()) {
-                    player.sendMessage(langManager.getMessageFor(player, "rules.close.cannot-close",
-                            "<red>You must accept the rules before playing!"));
+                    player.sendMessage(langManager.getMessageFor(player, "commands.rules.close.cannot-close",
+                            "<red>⚠ You must accept the rules before playing!"));
 
                     long reopenDelay = Math.max(40L, cooldown / 50);
                     lastReopenTime.put(player.getUniqueId(), System.currentTimeMillis());
@@ -101,9 +105,10 @@ public class RulesListener implements Listener {
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
-        pendingAcceptance.remove(event.getPlayer().getUniqueId());
-        lastReopenTime.remove(event.getPlayer().getUniqueId());
-        spamCount.remove(event.getPlayer().getUniqueId());
+        UUID playerId = event.getPlayer().getUniqueId();
+        pendingAcceptance.remove(playerId);
+        lastReopenTime.remove(playerId);
+        spamCount.remove(playerId);
     }
 
     @EventHandler
@@ -111,7 +116,7 @@ public class RulesListener implements Listener {
         if (!(event.getWhoClicked() instanceof Player player)) return;
 
         String title = event.getView().getTitle();
-        Component expectedTitle = langManager.getMessageFor(player, "rules.gui.title", config.title());
+        Component expectedTitle = langManager.getMessageFor(player, "commands.rules.gui.title", config.title());
         String expectedLegacy = LegacyComponentSerializer.legacySection().serialize(expectedTitle);
 
         if (!title.equals(expectedLegacy)) return;
@@ -121,15 +126,21 @@ public class RulesListener implements Listener {
         ItemStack item = event.getCurrentItem();
         if (item == null || item.getType() == Material.AIR) return;
 
-        switch (item.getType()) {
-            case GREEN_WOOL:
-                gui.handleAccept(player);
-                break;
-            case RED_WOOL:
-                gui.handleDecline(player);
-                break;
-            default:
-                break;
+        int slot = event.getSlot();
+        Material itemType = item.getType();
+
+        if (slot == config.acceptButtonSlot() && itemType == Material.matchMaterial(config.acceptButtonMaterial())) {
+            gui.handleAccept(player);
+        } else if (slot == config.declineButtonSlot() && itemType == Material.matchMaterial(config.declineButtonMaterial())) {
+            gui.handleDecline(player);
+        }
+
+        else if (config.enablePagination()) {
+            if (slot == PREV_PAGE_SLOT && itemType == Material.ARROW) {
+                gui.handlePageChange(player, false);
+            } else if (slot == NEXT_PAGE_SLOT && itemType == Material.ARROW) {
+                gui.handlePageChange(player, true);
+            }
         }
     }
 

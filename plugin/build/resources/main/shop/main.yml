@@ -1,5 +1,4 @@
-title: "Shop Menu"
-size: 54
+
 
 layout:
   "0": { material: GRAY_STAINED_GLASS_PANE, name: " ", clickable: true }

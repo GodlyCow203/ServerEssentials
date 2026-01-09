@@ -55,7 +55,11 @@ public final class VanishCommand implements CommandExecutor {
         } else {
             vanishedCache.add(playerId);
             dataStorage.setState(playerId, COMMAND_NAME, "enabled", "true");
-            Bukkit.getOnlinePlayers().forEach(p -> p.hidePlayer(plugin, player));
+
+            if (!config.showVanishedInTabList()) {
+                Bukkit.getOnlinePlayers().forEach(p -> p.hidePlayer(plugin, player));
+            }
+
             player.sendMessage(langManager.getMessageFor(player, "commands.vanish.vanished", "<green>You are now vanished."));
         }
 

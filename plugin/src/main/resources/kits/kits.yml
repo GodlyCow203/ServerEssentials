@@ -15,6 +15,8 @@ kits:
         name: "<white>Starter Sword"
         enchantments:
           SHARPNESS: 1
+        lore:
+          - <red>Look
       2:
         type: "COOKED_BEEF"
         amount: 16

@@ -2,6 +2,7 @@ package net.godlycow.org.kit;
 
 import net.godlycow.org.kit.model.Kit;
 import net.godlycow.org.kit.permission.KitPermission;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
@@ -9,13 +10,18 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 
 import java.util.*;
 import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 public class KitManager {
 
     private static final Map<String, Kit> kits = new LinkedHashMap<>();
+    private static final MiniMessage MINI_MESSAGE = MiniMessage.miniMessage();
+    private static final LegacyComponentSerializer LEGACY_SERIALIZER = LegacyComponentSerializer.legacySection();
 
     public static void loadKits(FileConfiguration config) {
         kits.clear();
@@ -85,12 +91,16 @@ public class KitManager {
             if (meta != null) {
                 String displayName = section.getString("name");
                 if (displayName != null) {
-                    meta.setDisplayName(displayName);
+                    Component nameComponent = MINI_MESSAGE.deserialize(displayName);
+                    meta.setDisplayName(LEGACY_SERIALIZER.serialize(nameComponent));
                 }
 
                 List<String> lore = section.getStringList("lore");
                 if (!lore.isEmpty()) {
-                    meta.setLore(lore);
+                    List<String> legacyLore = lore.stream()
+                            .map(line -> LEGACY_SERIALIZER.serialize(MINI_MESSAGE.deserialize(line)))
+                            .collect(Collectors.toList());
+                    meta.setLore(legacyLore);
                 }
 
                 ConfigurationSection enchants = section.getConfigurationSection("enchantments");

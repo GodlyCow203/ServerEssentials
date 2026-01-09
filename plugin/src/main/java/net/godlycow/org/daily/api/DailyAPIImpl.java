@@ -20,6 +20,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 
@@ -36,6 +38,11 @@ public final class DailyAPIImpl implements DailyAPI {
     private final @NotNull PlayerLanguageManager langManager;
     private final @NotNull Map<java.util.UUID, Integer> playerPages = new HashMap<>();
 
+    // NEW: GUI identifier for language-agnostic detection
+    private static final String GUI_IDENTIFIER_KEY = "daily_gui_identifier";
+    private static final String GUI_IDENTIFIER_VALUE = "daily_rewards_gui";
+    private static final String ITEM_TYPE_KEY = "daily_item_type";
+
     public DailyAPIImpl(@NotNull ServerEssentials plugin,
                         @NotNull DailyConfig config,
                         @NotNull DailyStorage storage,
@@ -49,7 +56,7 @@ public final class DailyAPIImpl implements DailyAPI {
     @Override
     public @NotNull CompletableFuture<Boolean> openDailyGUI(@NotNull Player player, int page) {
         if (!player.hasPermission(PERMISSION)) {
-            sendMessage(player, "daily.command.no-permission",
+            sendMessage(player, "commands.daily.command.no-permission",
                     "<red>You need permission <yellow>{permission}</yellow>!",
                     ComponentPlaceholder.of("{permission}", PERMISSION));
             return CompletableFuture.completedFuture(false);
@@ -57,7 +64,7 @@ public final class DailyAPIImpl implements DailyAPI {
 
         playerPages.put(player.getUniqueId(), page);
 
-        Component title = langManager.getMessageFor(player, "daily.gui.title",
+        Component title = langManager.getMessageFor(player, "commands.daily.gui.title",
                 "<green><bold>Daily Rewards</bold> - Page {page}",
                 ComponentPlaceholder.of("{page}", String.valueOf(page)));
 
@@ -101,19 +108,19 @@ public final class DailyAPIImpl implements DailyAPI {
             boolean canClaim = canClaimDay(claimedDays, day);
 
             if (isClaimed) {
-                sendMessage(player, "daily.messages.claim-already", "<red>You already claimed this reward!");
+                sendMessage(player, "commands.daily.messages.claim-already", "<red>You already claimed this reward!");
                 return CompletableFuture.completedFuture(false);
             }
 
             if (!canClaim) {
-                sendMessage(player, "daily.messages.claim-locked", "<red>You must claim previous days first!");
+                sendMessage(player, "commands.daily.messages.claim-locked", "<red>You must claim previous days first!");
                 return CompletableFuture.completedFuture(false);
             }
 
             return storage.hasClaimedToday(uuid, config.cooldownHours).thenCompose(onCooldown -> {
                 if (onCooldown) {
                     return storage.getTimeUntilNextClaim(uuid, config.cooldownHours).thenApply(duration -> {
-                        sendMessage(player, "daily.messages.claim-cooldown",
+                        sendMessage(player, "commands.daily.messages.claim-cooldown",
                                 "<red>You must wait {time} before claiming again!",
                                 ComponentPlaceholder.of("{time}", duration.format()));
                         return false;
@@ -129,15 +136,14 @@ public final class DailyAPIImpl implements DailyAPI {
                     new BukkitRunnable() {
                         @Override
                         public void run() {
-                            ItemStack item = createRewardItem(rewardItem);
+                            ItemStack item = createRewardItem(rewardItem, player);
                             player.getInventory().addItem(item);
 
-                            sendMessage(player, "daily.messages.claim-success",
+                            sendMessage(player, "commands.daily.messages.claim-success",
                                     "<green>You claimed Day {day} reward!",
                                     ComponentPlaceholder.of("{day}", String.valueOf(day)));
                             player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0f, 1.2f);
 
-                            // Fire event asynchronously
                             DailyRewardItem dtoItem = new DailyRewardItem(
                                     rewardItem.material, rewardItem.amount, rewardItem.name,
                                     rewardItem.lore, rewardItem.enchantments, rewardItem.glow, rewardItem.nbt
@@ -152,7 +158,7 @@ public final class DailyAPIImpl implements DailyAPI {
                     }.runTask(plugin);
                     return true;
                 }).exceptionally(ex -> {
-                    sendMessage(player, "daily.messages.claim-error", "<red>Failed to claim reward.");
+                    sendMessage(player, "commands.daily.messages.claim-error", "<red>Failed to claim reward.");
                     return false;
                 });
             });
@@ -205,13 +211,16 @@ public final class DailyAPIImpl implements DailyAPI {
                 });
 
         if (page > 1) {
-            gui.setItem(45, createNavItem(Material.ARROW, "daily.gui.previous", "<yellow>Previous Page"));
+            gui.setItem(45, createNavItem(Material.ARROW, "commands.daily.gui.previous",
+                    "<yellow>Previous Page", player, "NAV_PREVIOUS"));
         }
         if (hasNextPage(page)) {
-            gui.setItem(53, createNavItem(Material.ARROW, "daily.gui.next", "<yellow>Next Page"));
+            gui.setItem(53, createNavItem(Material.ARROW, "commands.daily.gui.next",
+                    "<yellow>Next Page", player, "NAV_NEXT"));
         }
 
-        gui.setItem(config.guiRows * 9 - 5, createNavItem(Material.BARRIER, "daily.gui.close", "<red>Close"));
+        gui.setItem(config.guiRows * 9 - 5, createNavItem(Material.BARRIER, "commands.daily.gui.close",
+                "<red>Close", player, "CLOSE"));
     }
 
     private ItemStack createRewardDisplayItem(RewardItem reward, int day, Set<Integer> claimedDays,
@@ -222,20 +231,20 @@ public final class DailyAPIImpl implements DailyAPI {
 
         ItemStack item;
         if (isClaimed) {
-            item = createRewardItem(reward);
-            applyMeta(item, player, "daily.rewards.claimed.name", "<green><bold>✓ Claimed</bold>",
-                    ComponentPlaceholder.of("lore", "daily.rewards.claimed.lore|<gray>You have claimed this reward."));
+            item = createRewardItem(reward, player);
+            applyMeta(item, player, "commands.daily.rewards.claimed.name", "<green><bold>✓ Claimed</bold>",
+                    ComponentPlaceholder.of("lore", "daily.rewards.locked.lore|<gray>Complete previous days first."));
         } else if (isOnCooldown) {
             item = new ItemStack(Material.RED_STAINED_GLASS_PANE);
-            applyMeta(item, player, "daily.rewards.cooldown.name", "<gold><bold>⏱ Cooldown</bold>",
+            applyMeta(item, player, "commands.daily.rewards.cooldown.name", "<gold><bold>⏱ Cooldown</bold>",
                     ComponentPlaceholder.of("{time}", duration.format()));
         } else if (!canClaim) {
             item = new ItemStack(Material.RED_STAINED_GLASS_PANE);
-            applyMeta(item, player, "daily.rewards.locked.name", "<red><bold>🔒 Locked</bold>",
-                    ComponentPlaceholder.of("lore", "daily.rewards.locked.lore|<gray>Complete previous days first."));
+            applyMeta(item, player, "commands.daily.rewards.locked.name", "<red><bold>🔒 Locked</bold>",
+                    ComponentPlaceholder.of("lore", "commands.daily.rewards.locked.lore|<gray>Complete previous days first."));
         } else {
-            item = createRewardItem(reward);
-            applyMeta(item, player, "daily.rewards.available.name", "<green>Day {day}",
+            item = createRewardItem(reward, player);
+            applyMeta(item, player, "commands.daily.rewards.available.name", "<green>Day {day}",
                     ComponentPlaceholder.of("{day}", String.valueOf(day)),
                     ComponentPlaceholder.of("{time}", config.cooldownHours + "h"));
         }
@@ -243,18 +252,18 @@ public final class DailyAPIImpl implements DailyAPI {
         return item;
     }
 
-    private ItemStack createRewardItem(RewardItem itemData) {
+    private ItemStack createRewardItem(RewardItem itemData, Player player) {
         ItemStack item = new ItemStack(itemData.material, itemData.amount);
         ItemMeta meta = item.getItemMeta();
 
         if (!itemData.name.isEmpty()) {
-            meta.displayName(langManager.getMessageFor(null, itemData.name, itemData.name));
+            meta.displayName(langManager.getMessageFor(player, itemData.name, itemData.name));
         }
 
         if (!itemData.lore.isEmpty()) {
             List<Component> lore = new ArrayList<>();
             itemData.lore.forEach(line ->
-                    lore.add(langManager.getMessageFor(null, line, line))
+                    lore.add(langManager.getMessageFor(player, line, line))
             );
             meta.lore(lore);
         }
@@ -271,10 +280,21 @@ public final class DailyAPIImpl implements DailyAPI {
         return item;
     }
 
-    private ItemStack createNavItem(Material material, String messageKey, String def) {
+    private ItemStack createNavItem(Material material, String messageKey, String def,
+                                    Player player, String itemType) {
         ItemStack item = new ItemStack(material);
         ItemMeta meta = item.getItemMeta();
-        meta.displayName(langManager.getMessageFor(null, messageKey, def));
+        meta.displayName(langManager.getMessageFor(player, messageKey, def));
+
+        PersistentDataContainer container = meta.getPersistentDataContainer();
+        container.set(new org.bukkit.NamespacedKey(plugin, ITEM_TYPE_KEY),
+                PersistentDataType.STRING, itemType);
+
+        if ("CLOSE".equals(itemType)) {
+            container.set(new org.bukkit.NamespacedKey(plugin, GUI_IDENTIFIER_KEY),
+                    PersistentDataType.STRING, GUI_IDENTIFIER_VALUE);
+        }
+
         item.setItemMeta(meta);
         return item;
     }
@@ -284,7 +304,6 @@ public final class DailyAPIImpl implements DailyAPI {
         ItemMeta meta = item.getItemMeta();
         meta.displayName(langManager.getMessageFor(player, key, def, placeholders));
 
-        // Check for special lore placeholder
         for (ComponentPlaceholder ph : placeholders) {
             if ("lore".equals(ph.placeholder())) {
                 String[] parts = ph.value().split("\\|", 2);

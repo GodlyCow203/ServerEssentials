@@ -47,8 +47,8 @@ public final class AnsiColorUtil {
         return hex(hexCode) + text + RESET;
     }
 
-    public static final String PRIMARY = "#A855F7";
-    public static final String SECONDARY = "#D8B4FE";
+    public static final String PRIMARY = "#279CF5";
+    public static final String SECONDARY = "#c0f0ff";
 
     public static final String SUCCESS = "#00D97E";
     public static final String WARNING = "#F6C343";

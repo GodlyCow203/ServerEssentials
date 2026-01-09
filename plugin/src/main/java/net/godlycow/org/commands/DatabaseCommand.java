@@ -22,11 +22,11 @@ public class DatabaseCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         Map<String, DatabaseManager.DatabaseStatus> statusMap = databaseManager.getAllStatus();
 
-        Component header = languageManager.getComponent("database.header",
+        Component header = languageManager.getComponent("commands.database.header",
                 "<dark_aqua>╔════════════════════════════════════╗");
-        Component title = languageManager.getComponent("database.title",
+        Component title = languageManager.getComponent("commands.database.title",
                 "<dark_aqua>║  <bold>Database Status</bold>                     ║");
-        Component separator = languageManager.getComponent("database.separator",
+        Component separator = languageManager.getComponent("commands.database.separator",
                 "<dark_aqua>╠════════════════════════════════════╣");
 
         sender.sendMessage(header);
@@ -34,7 +34,7 @@ public class DatabaseCommand implements CommandExecutor {
         sender.sendMessage(separator);
 
         if (statusMap.isEmpty()) {
-            Component none = languageManager.getComponent("database.none",
+            Component none = languageManager.getComponent("commands.database.none",
                     "<red>No databases configured!");
             sender.sendMessage(none);
         } else {
@@ -43,7 +43,7 @@ public class DatabaseCommand implements CommandExecutor {
                 String enabledText = status.connected() ? "CONNECTED" : "ERROR";
                 String message = status.connected() ? "OK" : status.message();
 
-                Component entry = languageManager.getComponent("database.entry",
+                Component entry = languageManager.getComponent("commands.database.entry",
                         "<dark_aqua>║  <yellow>{name}</yellow> - {status}{msg} <gray>({enabled})</gray>  ║",
                         LanguageManager.ComponentPlaceholder.of("{name}", key),
                         LanguageManager.ComponentPlaceholder.of("{status}", statusColor),
@@ -58,7 +58,7 @@ public class DatabaseCommand implements CommandExecutor {
             }
         }
 
-        Component footer = languageManager.getComponent("database.footer",
+        Component footer = languageManager.getComponent("commands.database.footer",
                 "<dark_aqua>╚════════════════════════════════════╝");
         sender.sendMessage(footer);
 

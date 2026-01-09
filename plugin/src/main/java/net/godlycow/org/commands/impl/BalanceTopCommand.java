@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
 
 public final class BalanceTopCommand implements CommandExecutor {
     private static final String PERMISSION = "serveressentials.command.balancetop";
-    private static final String COMMAND_NAME = "balancetop";
 
     private final PlayerLanguageManager langManager;
     private final BalanceTopConfig config;
@@ -31,19 +30,20 @@ public final class BalanceTopCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        Player player = sender instanceof Player ? (Player) sender : null;
+
         if (!sender.hasPermission(PERMISSION)) {
-            Component message = langManager.getComponent(String.valueOf(sender instanceof Player p ? p : null),
-                    "commands." + COMMAND_NAME + ".no-permission",
-                    "<red>You need permission <yellow>{permission}</yellow>!",
-                    ComponentPlaceholder.of("{permission}", PERMISSION));
-            sender.sendMessage(message);
+            sender.sendMessage(langManager.getMessageFor(player,
+                    "commands.balancetop.no-permission",
+                    "<#B22222>You need permission <#a3ff00>{permission}</#a3ff00>!",
+                    ComponentPlaceholder.of("{permission}", PERMISSION)));
             return true;
         }
 
         if (!economyManager.isEnabled()) {
-            sender.sendMessage(langManager.getComponent(String.valueOf(sender instanceof Player p ? p : null),
-                    "commands." + COMMAND_NAME + ".no-economy",
-                    "<red>§c✗ Economy system is not available."));
+            sender.sendMessage(langManager.getMessageFor(player,
+                    "commands.balancetop.no-economy",
+                    "<#B22222>Economy system is not available."));
             return true;
         }
 
@@ -52,43 +52,40 @@ public final class BalanceTopCommand implements CommandExecutor {
         CompletableFuture.runAsync(() -> {
             List<PlayerBalance> balances = Arrays.stream(Bukkit.getOfflinePlayers())
                     .filter(p -> p.hasPlayedBefore() || p.isOnline())
-                    .map(p -> {
-                        double balance = economyManager.getEconomy().getBalance(p);
-                        return new PlayerBalance(p.getUniqueId(), p.getName(), balance);
-                    })
+                    .map(p -> new PlayerBalance(p.getUniqueId(), p.getName(), economyManager.getEconomy().getBalance(p)))
                     .sorted(Comparator.comparingDouble(PlayerBalance::balance).reversed())
                     .limit(limit)
                     .collect(Collectors.toList());
 
             Bukkit.getScheduler().runTask(Bukkit.getPluginManager().getPlugin("ServerEssentials"), () -> {
-                sendTopList(sender, balances, limit);
+                sendTopList(sender, player, balances, limit);
             });
         });
 
         return true;
     }
 
-    private void sendTopList(CommandSender sender, List<PlayerBalance> balances, int limit) {
-        sender.sendMessage(langManager.getComponent(String.valueOf(sender instanceof Player p ? p : null),
-                "commands." + COMMAND_NAME + ".header",
-                "<gold>=== Top {limit} Richest Players ===",
+    private void sendTopList(CommandSender sender, Player player, List<PlayerBalance> balances, int limit) {
+        sender.sendMessage(langManager.getMessageFor(player,
+                "commands.balancetop.header",
+                "<#a3ff00>=== Top {limit} Richest Players ===",
                 ComponentPlaceholder.of("{limit}", String.valueOf(limit))));
 
         for (int i = 0; i < balances.size(); i++) {
             PlayerBalance pb = balances.get(i);
             String playerName = pb.name() != null ? pb.name() : "Unknown";
 
-            sender.sendMessage(langManager.getComponent(String.valueOf(sender instanceof Player p ? p : null),
-                    "commands." + COMMAND_NAME + ".entry",
-                    "<yellow>#{rank} <white>{player} <gray>- <green>{balance}",
+            sender.sendMessage(langManager.getMessageFor(player,
+                    "commands.balancetop.entry",
+                    "<#a3ff00>#{rank} <white>{player} <#708090>- <#a3ff00>{balance}",
                     ComponentPlaceholder.of("{rank}", String.valueOf(i + 1)),
                     ComponentPlaceholder.of("{player}", playerName),
                     ComponentPlaceholder.of("{balance}", economyManager.format(pb.balance()))));
         }
 
-        sender.sendMessage(langManager.getComponent(String.valueOf(sender instanceof Player p ? p : null),
-                "commands." + COMMAND_NAME + ".footer",
-                "<gold>========================="));
+        sender.sendMessage(langManager.getMessageFor(player,
+                "commands.balancetop.footer",
+                "<#a3ff00>========================="));
     }
 
     private record PlayerBalance(UUID uuid, String name, double balance) {}

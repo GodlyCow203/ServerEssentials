@@ -91,10 +91,10 @@ public class TPACommand implements CommandExecutor {
 
         switch (name) {
 
-            case "com/serveressentials/api/tpa":
+            case "tpa":
                 if (args.length == 0) {
                     player.sendMessage(langManager.getMessageFor(player, "commands.usage.tpa",
-                            "<red>Usage: /tpa <player>").toString());
+                            "<red>Usage: /tpa <player>"));
                     return false;
                 }
                 handleTpa(player, args[0], false);
@@ -103,7 +103,7 @@ public class TPACommand implements CommandExecutor {
             case "tpahere":
                 if (args.length == 0) {
                     player.sendMessage(langManager.getMessageFor(player, "commands.usage.tpahere",
-                            "<red>Usage: /tpahere <player>").toString());
+                            "<red>Usage: /tpahere <player>"));
                     return false;
                 }
                 handleTpa(player, args[0], true);

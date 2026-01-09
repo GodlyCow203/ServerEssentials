@@ -79,8 +79,6 @@ public final class RulesCommand implements CommandExecutor {
 
                 return storage.acceptRules(player.getUniqueId(), version)
                         .thenAccept(v -> {
-                            player.sendMessage(langManager.getMessageFor(player, "commands.rules.accept-success",
-                                    "<green>You have successfully accepted the rules!"));
                             player.removeMetadata("accepting_rules", plugin);
                         });
             });

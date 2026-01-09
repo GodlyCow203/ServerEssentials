@@ -40,7 +40,7 @@ public class MailListener implements Listener {
             public void run() {
                 storage.getUnreadCount(playerId).thenAccept(count -> {
                     if (count > 0 && notifiedPlayers.add(playerId)) {
-                        Component msg = langManager.getMessageFor(player, "mail.on-join",
+                        Component msg = langManager.getMessageFor(player, "commands.mail.on-join",
                                 "<gold>You have <yellow>{count}</yellow> unread mails! Use <white>/mail read</white>",
                                 LanguageManager.ComponentPlaceholder.of("{count}", String.valueOf(count)));
                         player.sendMessage(msg);

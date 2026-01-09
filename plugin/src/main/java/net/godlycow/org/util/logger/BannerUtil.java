@@ -15,7 +15,7 @@ public class BannerUtil {
                 AnsiColorUtil.primary("CPU Cores:      ") + AnsiColorUtil.secondary(cores),
                 AnsiColorUtil.primary("Threads:        ") + AnsiColorUtil.secondary(threads),
                 "",
-                AnsiColorUtil.success("✓ ServerEssentials successfully enabled!")
+                AnsiColorUtil.success("ServerEssentials successfully enabled!")
         };
 
         String[] asciiLogo = new String[]{

@@ -1,11 +1,14 @@
 name: ServerEssentials
 main: net.godlycow.org.ServerEssentials
-version: 2.0.8
+version: 2.0.8.3
 api-version: 1.20
 softdepend:
   - Vault
   - Luckperms
   - PlaceholderAPI
+website: https://net.godlycow.org/serveressentials
+author: _GodlyCow
+
 
 
 commands:
@@ -378,11 +381,6 @@ commands:
     permission: serveressentials.command.craftingtable
     permission-message: You don't have permission to use this command.
 
-  fletchingtable:
-    description: Opens a virtual Fletching Table
-    usage: /fletchingtable
-    permission: serveressentials.command.fletchingtable
-    permission-message: You don't have permission to use this command.
 
 
 
@@ -655,10 +653,7 @@ commands:
 
 
 
-  pv:
-    description: Opens your player vault
-    usage: /pv <1-10>
-    permission: serveressentials.command.pv
+
 
   death:
     description: Shows how many times you've died.

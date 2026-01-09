@@ -1,0 +1,1299 @@
+{
+  "commands": {
+    "nick": {
+      "disabled": "<#FF2424>Система никнеймов отключена.",
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Использование: <white>/nick <никнейм> или /nick reset",
+      "invalid-length": "<#FF2424>Никнейм должен быть от <#c0f0ff>{min} <#FF2424>до <#c0f0ff>{max} <#FF2424>символов.",
+      "blocked-word": "<#FF2424>Слово <#c0f0ff>{word} <#FF2424>запрещено.",
+      "blacklisted": "<#FF2424>Такой формат никнейма не разрешен.",
+      "no-formatting": "<#FF2424>Форматирование не разрешено в никнеймах.",
+      "reset-self": "<#279CF5>Ваш никнейм сброшен.",
+      "set": "<#279CF5>Ваш никнейм установлен на <#c0f0ff>{nick}<#279CF5>."
+    },
+    "eco": {
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}!",
+      "no-economy": "<#FF2424>Экономическая система недоступна!",
+      "usage": "<#279CF5>Использование: <#c0f0ff>/{label} give <игрок> <сумма>...",
+      "player-not-found": "<#FF2424>Игрок не найден: <#c0f0ff>{player}",
+      "unknown-subcommand": "<#FF2424>Неизвестная подкоманда: <#c0f0ff>{sub}\n<#708090>Доступные: give, take, set, reset",
+      "negative-amount": "<#FF2424>Сумма не может быть отрицательной!",
+      "invalid-amount": "<#FF2424>Неверная сумма: <#c0f0ff>{amount}",
+      "amount-too-high": "<#FF2424>Сумма превышает максимально разрешенную: <#c0f0ff>{max}",
+      "offline-player": "<#FF2424>Невозможно изменить баланс офлайн игроков.",
+      "transaction-failed": "<#FF2424>Транзакция не удалась: {error}",
+      "give-usage": "<#279CF5>Использование: <#c0f0ff>{usage}",
+      "give-success": "<#279CF5>Выдано <#c0f0ff>{amount} <#279CF5>игроку <#c0f0ff>{player}",
+      "give-received": "<#279CF5>Вы получили <#c0f0ff>{amount}",
+      "take-usage": "<#279CF5>Использование: <#c0f0ff>{usage}",
+      "take-success": "<#FF2424>Забрано <#c0f0ff>{amount} <#FF2424>у игрока <#c0f0ff>{player}",
+      "take-taken": "<#FF2424>{amount} <#708090>были забраны с вашего баланса",
+      "set-usage": "<#279CF5>Использование: <#c0f0ff>{usage}",
+      "set-success": "<#279CF5>Баланс игрока <#c0f0ff>{player} <#279CF5>установлен на <#c0f0ff>{amount}",
+      "set-received": "<#279CF5>Ваш баланс установлен на <#c0f0ff>{amount}",
+      "reset-success": "<#279CF5>Баланс игрока <#c0f0ff>{player} <#279CF5>сброшен",
+      "reset-already-zero": "<#708090>Баланс игрока <#c0f0ff>{player} <#708090>уже равен нулю"
+    },
+    "nicks": {
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Использование: <white>/nicks reload|reset <игрок>",
+      "reload": "<#279CF5>Система никнеймов перезагружена.",
+      "reset": "<#279CF5>Никнейм игрока <#c0f0ff>{player}<#279CF5> сброшен.",
+      "not-found": "<#FF2424>Игрок <#c0f0ff>{player} <#FF2424>не найден."
+    },
+    "afk": {
+      "disabled": "<#FF2424>Система AFK отключена.",
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Использование: <white>/afk [reload]",
+      "enter-afk": "<#279CF5>{player} теперь AFK.",
+      "leave-afk": "<#279CF5>{player} больше не AFK.",
+      "kick": "<#FF2424>Вы были кикнуты за AFK.",
+      "reload": "<#279CF5>Система AFK перезагружена."
+    },
+    "homes": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду!",
+      "gui": {
+        "title": "<#279CF5>Управление Домами",
+        "confirm-title": "<#FF2424>Подтвердить Действие",
+        "home-title": "<#279CF5><bold>Дом <#c0f0ff>{slot}",
+        "manage-title": "<#279CF5><bold>Управление Домом <#c0f0ff>{slot}",
+        "no-permission": "<#FF2424>Нет разрешения!",
+        "click-set": "<#279CF5>Нажмите чтобы установить",
+        "click-teleport": "<#20B2AA>Левый клик для телепортации",
+        "click-manage": "<#279CF5>Правый клик для управления",
+        "click-remove": "<#c0f0ff>Нажмите чтобы удалить",
+        "empty": "<#708090>Пустой слот",
+        "name": "<#708090>Название: <#279CF5>{name}",
+        "coords": "<#708090>Координаты: <#279CF5>{x} {y} {z}",
+        "world": "<#708090>Мир: <#279CF5>{world}",
+        "confirm": "<#279CF5>Подтвердить",
+        "cancel": "<#FF2424>Отмена",
+        "info": "<#279CF5>Дом <#c0f0ff>{slot} <#279CF5>- {mode}"
+      },
+      "empty-slot": "<#708090>Нет дома в слоте <#c0f0ff>{slot}<#708090>.",
+      "world-missing": "<#FF2424>Мир дома больше недоступен!",
+      "world-disabled": "<#FF2424>Вы не можете использовать дома в этом мире!",
+      "require-empty-inventory": "<#FF2424>У вас должен быть пустой инвентарь чтобы установить дом!",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-remove": "<#FF2424>У вас нет разрешения удалять дома!",
+      "teleport-cooldown": "<#FF2424>Подождите <#c0f0ff>{seconds}с <#FF2424>перед следующей телепортацией!",
+      "set-cooldown": "<#FF2424>Подождите <#c0f0ff>{seconds}с <#FF2424>перед установкой следующего дома!",
+      "cross-world-disabled": "<#FF2424>Межмировая телепортация отключена!",
+      "teleport-restricted": "<#FF2424>Вы не можете телепортироваться из этого мира!",
+      "teleport": "<#279CF5>Телепортировано к дому <#c0f0ff>{slot}<#279CF5>.",
+      "set": "<#279CF5>Дом <#c0f0ff>{slot} <#279CF5>установлен в <#c0f0ff>{world} {x} {y} {z}<#279CF5>.",
+      "remove": "<#279CF5>Дом <#c0f0ff>{slot}<#279CF5> удален.",
+      "rename": {
+        "prompt": "<#279CF5>Введите новое название для этого дома в чат:",
+        "success": "<#279CF5>Дом переименован в <#c0f0ff>{name}<#279CF5>.",
+        "duplicate": "<#FF2424>У вас уже есть дом с названием '<#c0f0ff>{name}<#FF2424>'!",
+        "too-long": "<#FF2424>Слишком длинное название! Максимум <#c0f0ff>{max} <#FF2424>символов."
+      }
+    },
+    "loom": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "gui-title": "<#D2691E><bold>Интерфейс Ткацкого Станка",
+      "error-item-name": "<#D2691E><bold>Ошибка",
+      "error-item-lore": "<#708090>Функция не реализована",
+      "opened": "<#279CF5>Интерфейс ткацкого станка открыт.",
+      "clicked-error": "<#FF2424>Вы нажали на предмет ошибки! Не реализовано."
+    },
+    "stonecutter": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "opened": "<#279CF5>Камнерезка открыта."
+    },
+    "grindstone": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "opened": "<#279CF5>Точило открыто."
+    },
+    "cartographytable": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "opened": "<#279CF5>Картографический стол открыт."
+    },
+    "anvil": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "opened": "<#279CF5>Наковальня открыта."
+    },
+    "craftingtable": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "opened": "<#279CF5>Верстак открыт."
+    },
+    "smithingtable": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "success": "<#279CF5>Кузнечный стол открыт."
+    },
+    "broadcast": {
+      "no-permission": "<#FF2424>У вас нет разрешения использовать эту команду!",
+      "usage": "<#FF2424>Использование: /broadcast <сообщение>",
+      "format": "<#279CF5>[Сервер] <white>{message}"
+    },
+    "reboot": {
+      "no-permission": "<#FF2424>У вас нет разрешения использовать эту команду!",
+      "usage": "<#FF2424>Использование: /reboot <минуты>",
+      "announce-scheduled": "<#FF2424>Сервер перезагрузится через {time} минуту(ы).",
+      "announce-minutes": "<#279CF5>Перезагрузка через {time} минуту(ы).",
+      "announce-seconds": "<#279CF5>Перезагрузка через {time} секунд(ы).",
+      "announce-now": "<#FF2424><bold>Перезагрузка сейчас!",
+      "titles": {
+        "minute-warning": "<#279CF5>Перезагрузка через {time} минуту(ы).",
+        "second-warning": "<#279CF5><bold>{time}",
+        "now": "<#FF2424><bold>Перезагрузка сейчас!"
+      }
+    },
+    "broadcastworld": {
+      "no-permission": "<#FF2424>У вас нет разрешения использовать эту команду!",
+      "usage": "<#FF2424>Использование: /broadcastworld <мир> <сообщение>",
+      "world-not-found": "<#FF2424>Мир <#c0f0ff>{world}<#FF2424> не найден!",
+      "message-sent": "<#279CF5>Сообщение отправлено в мир <#c0f0ff>{world}<#279CF5>.",
+      "broadcast": "<white>{message}"
+    },
+    "spawner": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду.",
+      "no-permission": "<#FF2424>У вас нет разрешения использовать эту команду!",
+      "usage": "<#279CF5>Использование: <white>/spawner <моб>",
+      "look-at-spawner": "<#FF2424>Посмотрите на спавнер чтобы изменить его!",
+      "no-permission-mob": "<#FF2424>У вас нет разрешения устанавливать спавнер на {mob}!",
+      "changed": "<#279CF5>Тип спавнера изменен на <#c0f0ff>{mob}<#279CF5>.",
+      "invalid-mob": "<#FF2424>Неверный тип моба: {mob}",
+      "help": {
+        "header": "<#279CF5><bold>=== Помощь по Команде Спавнера ===</bold>",
+        "description": "<#279CF5>Описание: <white>Изменить тип сущности спавнера.",
+        "usage": "<#279CF5>Использование:</#279CF5> <white>/spawner <моб>",
+        "permission": "<#279CF5>Требуемое Разрешение:</#279CF5> <white>{permission}",
+        "available": {
+          "header": "<#279CF5>Доступные Типы Мобов:</#279CF5>",
+          "mob": "  <white>• {mob}",
+          "more": "  <gray>... и еще {count}</gray>"
+        },
+        "footer": "<gray>Используйте <white>/spawner help</white> чтобы увидеть это сообщение снова.</gray>"
+      }
+    },
+    "serverinfo": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду!",
+      "no-permission": "<#FF2424>У вас нет разрешения использовать эту команду!",
+      "header": "<#279CF5>========== Информация о Сервере ==========",
+      "ram": "<#279CF5>ОЗУ: <white>{used}МБ / {max}МБ",
+      "disk": "<#279CF5>Диск: <white>{free}МБ свободно / {total}МБ всего",
+      "tps": "<#279CF5>TPS: <white>{tps}",
+      "cpu": "<#279CF5>CPU: <white>{cores} ядер, {load} нагрузка",
+      "os": "<#279CF5>ОС: <white>{name} {version} ({arch})",
+      "uptime": "<#279CF5>Время работы: <white>{hours}ч {minutes}м {seconds}с",
+      "java": "<#279CF5>Java: <white>{version}",
+      "host": "<#279CF5>Хост: <white>{hostname} ({address})",
+      "net": "<#279CF5>Сеть: <white>{interfaces}",
+      "plugins": "<#279CF5>Плагины: <white>{count}",
+      "minecraft": "<#279CF5>Minecraft: <white>{version}",
+      "paper": "<#279CF5>Сервер: <white>{version}",
+      "players": "<#279CF5>Игроки: <white>{online}/{max}",
+      "gpu": "<#279CF5>GPU: <white>{gpu}",
+      "jvm": "<#279CF5>Аргументы JVM: <white>{args}"
+    },
+    "unloadworld": {
+      "no-permission": "<#FF2424>У вас нет разрешения использовать эту команду!",
+      "usage": "<#FF2424>Использование: /unloadworld <мир>",
+      "not-found": "<#FF2424>Мир <#c0f0ff>{world}<#FF2424> не найден!",
+      "failed": "<#FF2424>Не удалось выгрузить мир <#c0f0ff>{world}<#FF2424>!",
+      "success": "<#279CF5>Мир <#c0f0ff>{world}<#279CF5> выгружен."
+    },
+    "uptime": {
+      "no-permission": "<#FF2424>У вас нет разрешения использовать эту команду!",
+      "info": "<#279CF5>Время работы: <white>{uptime}"
+    },
+    "loadworld": {
+      "no-permission": "<#FF2424>У вас нет разрешения использовать эту команду!",
+      "usage": "<#FF2424>Использование: /loadworld <мир>",
+      "already-loaded": "<#FF2424>Мир <#c0f0ff>{world}<#FF2424> уже загружен!",
+      "success": "<#279CF5>Мир <#c0f0ff>{world}<#279CF5> загружен.",
+      "failed": "<#FF2424>Не удалось загрузить мир <#c0f0ff>{world}<#FF2424>!"
+    },
+    "worldlist": {
+      "no-permission": "<#FF2424>У вас нет разрешения использовать эту команду!",
+      "header": "<#279CF5>========== Миры ==========",
+      "status-loaded": "<#279CF5>Загружен",
+      "entry": "<#279CF5>{world} <#708090>({status}) <white>- Чанков: {chunks}, Сущностей: {entities}, Игроков: {players}"
+    },
+    "playerinfo": {
+      "no-permission": "<#FF2424>У вас нет разрешения использовать эту команду!",
+      "usage": "<#279CF5>Использование: <white>/playerinfo <игрок>",
+      "not-found": "<#FF2424>Игрок не найден.",
+      "header": "<#279CF5>----- Информация об Игроке -----",
+      "name": "<#279CF5>Имя: <white>{player}",
+      "uuid": "<#279CF5>UUID: <white>{uuid}",
+      "health": "<#279CF5>Здоровье: <white>{health}/{maxhealth}",
+      "food": "<#279CF5>Еда: <white>{food}",
+      "location": "<#279CF5>Местоположение: <white>{location}"
+    },
+    "heal": {
+      "no-permission": "<#FF2424>У вас нет разрешения использовать эту команду!",
+      "no-permission-others": "<#FF2424>У вас нет разрешения лечить других игроков!",
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду!",
+      "player-not-found": "<#FF2424>Игрок не найден: {player}",
+      "usage": "<#FF2424>Использование: /heal [игрок]",
+      "success-self": "<#279CF5>Вы были излечены.",
+      "success-other": "<#279CF5>Вы излечили <#c0f0ff>{player}<#279CF5>.",
+      "success-healed": "<#279CF5>Вы были излечены <#c0f0ff>{healer}<#279CF5>."
+    },
+    "endersee": {
+      "no-permission": "<#FF2424>У вас нет разрешения просматривать ваш эндер-сундук!",
+      "no-permission-others": "<#FF2424>У вас нет разрешения просматривать эндер-сундуки других игроков!",
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду!",
+      "usage": "<#279CF5>Использование: <white>/endersee [игрок]",
+      "player-not-found": "<#FF2424>Игрок <#c0f0ff>{player}<#FF2424> не найден!",
+      "opened-self": "<#279CF5>Открыт ваш эндер-сундук.",
+      "opened-other": "<#279CF5>Открыт эндер-сундук игрока <#c0f0ff>{player}<#279CF5>."
+    },
+    "freeze": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду!",
+      "usage": "<#FF2424>Использование: /freeze <игрок>",
+      "player-not-found": "<#FF2424>Игрок <#c0f0ff>{player}<#FF2424> не найден.",
+      "froze": "<#279CF5>Заморожен <#c0f0ff>{player}<#279CF5>.",
+      "unfroze": "<#279CF5>Разморожен <#c0f0ff>{player}<#279CF5>.",
+      "target-frozen": "<#FF2424>Вы были заморожены!",
+      "target-unfrozen": "<#279CF5>Вы были разморожены."
+    },
+    "unfreeze": {
+      "no-permission": "<#FF2424>У вас нет разрешения использовать эту команду!",
+      "usage": "<#FF2424>Использование: /unfreeze <игрок>",
+      "player-not-found": "<#FF2424>Игрок <#c0f0ff>{player}<#FF2424> не найден!",
+      "not-frozen": "<#FF2424>Игрок <#c0f0ff>{player}<#FF2424> не заморожен!",
+      "success": "<#279CF5>Разморожен <#c0f0ff>{player}<#279CF5>.",
+      "target-unfrozen": "<#279CF5>Вы были разморожены."
+    },
+    "clearchat": {
+      "no-permission": "<#FF2424>У вас нет разрешения использовать эту команду.",
+      "cleared": "<#708090>Чат очищен <#FF2424>{player}</#FF2424>."
+    },
+    "vanish": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду!",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "vanished": "<#279CF5>Вы теперь невидимы.",
+      "visible": "<#279CF5>Вы теперь видны всем игрокам."
+    },
+    "god": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду!",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "enabled": "<#279CF5>Режим бога включен.",
+      "disabled": "<#FF2424>Режим бога отключен."
+    },
+    "invsee": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Использование: <white>/invsee <игрок>",
+      "player-not-found": "<#FF2424>Игрок не найден: <white>{player}",
+      "success": "<#279CF5>Просмотр инвентаря игрока <#c0f0ff>{player}<#279CF5>.",
+      "help": {
+        "header": "<#279CF5><bold>=== Помощь по Команде Просмотра Инвентаря ===</bold>",
+        "description": "<#279CF5>Описание: <white>Просмотр инвентаря другого игрока.",
+        "usage": "<#279CF5>Использование:</#279CF5> <white>/invsee <игрок>",
+        "permission": "<#279CF5>Требуемое Разрешение:</#279CF5> <white>{permission}",
+        "footer": "<gray>Используйте <white>/invsee help</white> чтобы увидеть это сообщение снова.</gray>"
+      }
+    },
+    "invclear": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду!",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "player-not-found": "<#FF2424>Игрок <#c0f0ff>{player}<#FF2424> не найден!",
+      "cleared": "<#279CF5>Ваш инвентарь очищен.",
+      "cleared-other": "<#279CF5>Очищен инвентарь игрока <#c0f0ff>{player}<#279CF5>."
+    },
+    "tp": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду!",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#FF2424>Использование: /tp <игрок>",
+      "player-not-found": "<#FF2424>Игрок <#c0f0ff>{player}<#FF2424> не найден.",
+      "success": "<#279CF5>Телепортировано к <#c0f0ff>{player}<#279CF5>."
+    },
+    "kickall": {
+      "usage": "<#FF2424>Использование: /kickall <причина>",
+      "kick-message": "<#FF2424>Кикнут <#c0f0ff>{admin}<#FF2424>!\n<#708090>Причина: <white>{reason}",
+      "sender-message": "<#279CF5>Кикнуто <#c0f0ff>{count}<#279CF5> игроков.\n<#708090>Причина: <white>{reason}",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!"
+    },
+    "pingall": {
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "header": "<#279CF5>Пинги Онлайн Игроков:",
+      "player-line": "<#279CF5>- {player}: <#c0f0ff>{ping}мс"
+    },
+    "alts": {
+      "usage": "<#FF2424>Использование: /alts <игрок>",
+      "player-offline": "<#FF2424>Игрок должен быть онлайн чтобы проверить его IP.",
+      "header": "<#279CF5>Игроки с тем же IP как {target}:",
+      "none": "<#708090>- Не найдено онлайн.",
+      "found": "<#708090>- {player}",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!"
+    },
+    "stafflist": {
+      "header": "<#4169E1>--- Онлайн Администрация ---",
+      "none": "<#708090>Нет администраторов онлайн.",
+      "format": "<#279CF5><#c0f0ff>{player}",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!"
+    },
+    "editsign": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "not-looking-at-sign": "<#FF2424>Вы не смотрите на табличку.",
+      "usage": "<#279CF5>Использование: <white>/editsign <строка1>|<строка2>|<строка3>|<строка4>",
+      "success": "<#279CF5>Табличка обновлена."
+    },
+    "iteminfo": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "no-item": "<#FF2424>Вы должны держать предмет в основной руке.",
+      "header": "<#4169E1>≡ <bold>Информация о Предмете</bold> <#4169E1>≡",
+      "type": "<#708090>Тип: <white>{type}",
+      "amount": "<#708090>Количество: <white>{amount}",
+      "name": "<#708090>Название: <white>{name}",
+      "lore-header": "<#708090>≡ <bold>Описание</bold> <#708090>≡",
+      "lore-content": "<white>>> {lore}",
+      "no-meta": "<#708090>Нет дополнительных метаданных.",
+      "enchants-header": "<#708090>≡ <bold>Зачарования</bold> <#708090>≡",
+      "enchant-line": "<#c0f0ff>✦ <white>{enchant} <#708090>Уровень {level}",
+      "flags-header": "<#708090>≡ <bold>Флаги Предмета</bold> <#708090>≡",
+      "flag-line": "<#c0f0ff>- <#708090>{flag}"
+    },
+    "death": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "count": "<#FF2424>Вы умерли <#c0f0ff>{deaths} <#FF2424>раз(а)."
+    },
+    "realname": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Использование: <white>/realname <никнейм>",
+      "found": "<#279CF5>Никнейм <#c0f0ff>{nickname} <#279CF5>принадлежит <#c0f0ff>{realname}<#279CF5>.",
+      "not-found": "<#FF2424>Не найден игрок с никнеймом <#c0f0ff>{nickname}<#FF2424>."
+    },
+    "speed": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Использование: <white>/speed <1-10>",
+      "invalid-number": "<#FF2424>Скорость должна быть между <#c0f0ff>1-10<#FF2424>.",
+      "fly-set": "<#279CF5>Скорость полета установлена на <#c0f0ff>{speed}<#279CF5>.",
+      "walk-set": "<#279CF5>Скорость ходьбы установлена на <#c0f0ff>{speed}<#279CF5>."
+    },
+    "launch": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "launched": "<#279CF5><bold>Вжух!</bold> <white>Вы были запущены в воздух!"
+    },
+    "repair": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "no-item": "<#FF2424>Вы должны держать предмет в основной руке чтобы починить его.",
+      "cannot-repair": "<#FF2424>Этот предмет нельзя починить.",
+      "already-full": "<#279CF5>Предмет уже имеет полную прочность.",
+      "success": "<#279CF5>Предмет полностью починен."
+    },
+    "sleep": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "broadcast": "<#279CF5>{player} пропустил ночь! <#708090>(Команда сна)",
+      "success": "<#279CF5>Ночь пропущена и погода очищена."
+    },
+    "ping": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "show": "<#708090>Ваш пинг: {ping}мс"
+    },
+    "disposal": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "inventory-title": "<#FF2424><bold>Удаление",
+      "opened": "<#279CF5>Удаление открыто. Поместите предметы сюда чтобы удалить их."
+    },
+    "compass": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "facing": "<#279CF5>Вы смотрите на <#279CF5><bold>{direction}"
+    },
+    "top": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "teleported": "<#279CF5>Телепортировано на самый высокий блок над вами! <#708090>(Y: {y})",
+      "no-block": "<#FF2424>Не найдено твердых блоков над вами!"
+    },
+    "ext": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду!",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-others": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424> чтобы тушить других игроков!",
+      "player-not-found": "<#FF2424>Игрок не найден!",
+      "self": "<#279CF5>Вы потушены.",
+      "target": "<#279CF5>Вы потушили <#c0f0ff>{target}"
+    },
+    "tpp": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-world": "<#FF2424>У вас нет разрешения доступа к миру <#c0f0ff>{world}<#FF2424>!",
+      "no-permission-others": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424> чтобы телепортировать других игроков!",
+      "usage": "<#279CF5>Использование: /tpp <игрок> <мир> [x y z]",
+      "player-not-found": "<#FF2424>Игрок <#c0f0ff>{player}<#FF2424> не найден!",
+      "world-not-loaded": "<#FF2424>Мир <#c0f0ff>{world}<#FF2424> не загружен!",
+      "invalid-coords": "<#FF2424>Координаты должны быть числами!",
+      "teleported-target": "<#279CF5>Телепортирован <#c0f0ff>{target} <#279CF5>в мир <#c0f0ff>{world}<#279CF5>.",
+      "teleported-self": "<#279CF5>Вы были телепортированы в мир <#c0f0ff>{world} <#279CF5>в <#708090>({x}, {y}, {z})"
+    },
+    "magnet": {
+      "only-player": "<#279CF5>Только игроки могут использовать эту команду.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "toggle-on": "<#279CF5>Магнит включен. Предметы в радиусе <#c0f0ff>{radius}<#279CF5> блоков будут притягиваться к вам.",
+      "toggle-off": "<#FF2424>Магнит отключен.",
+      "error": "<#FF2424>Не удалось переключить магнит: <#c0f0ff>{error}"
+    },
+    "day": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "success": "<#279CF5>Время установлено на день в мире <#c0f0ff>{world}<#279CF5>."
+    },
+    "inventorysort": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "success": "<#279CF5>Инвентарь упорядочен и отсортирован."
+    },
+    "book": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду!",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-others": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424> чтобы давать книги другим!",
+      "player-not-found": "<#FF2424>Игрок <#c0f0ff>{player}<#FF2424> не найден!",
+      "inventory-full-self": "<#FF2424>Ваш инвентарь полон!",
+      "inventory-full-other": "<#FF2424>Инвентарь {target} полон!",
+      "self-success": "<#279CF5>Вы получили информационную книгу.",
+      "target-success": "<#279CF5>Вы дали книгу игроку <#c0f0ff>{player}<#279CF5>.",
+      "received": "<#279CF5>Вы получили книгу от <#c0f0ff>{sender}<#279CF5>."
+    },
+    "break": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "no-block": "<#FF2424>Не найдено блоков для разрушения в радиусе <#c0f0ff>{distance}<#FF2424> блоков.",
+      "success": "<#279CF5>Блок разрушен на <#c0f0ff>{x} {y} {z}<#279CF5>."
+    },
+    "setloreline": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Использование: <white>/setloreline <текст>",
+      "no-item": "<#FF2424>Вы не держите предмет.",
+      "lore-set": "<#279CF5>Описание установлено: <white>{lore}"
+    },
+    "track": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Использование: <white>/track <игрок>",
+      "not-found": "<#FF2424>Игрок <#c0f0ff>{target}<#FF2424> не найден.",
+      "success": "<#279CF5>Теперь отслеживается <#c0f0ff>{target}<#279CF5>. Компас обновлен."
+    },
+    "suicide": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "success": "<#FF2424>Вы отняли свою жизнь.",
+      "error": "<#FF2424>Не удалось записать попытку самоубийства."
+    },
+    "kill": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "kill-count": "<#279CF5>У вас <#c0f0ff>{kills} <#279CF5>убийств игроков."
+    },
+    "bottom": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "success": "<#279CF5>Телепортировано вниз! <#708090>(Y: {y})",
+      "no-safe-ground": "<#FF2424>Нет безопасного места внизу!"
+    },
+    "condense": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду!",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "success": "<#279CF5>Предметы уплотнены в <#c0f0ff>{blocks}<#279CF5> блоков.",
+      "not-enough": "<#279CF5>У вас недостаточно предметов для уплотнения."
+    },
+    "nuke": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "deployed": "<#279CF5>Ядерная бомба размещена! <#708090>(Мощность: {power})"
+    },
+    "weather": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-sub": "<#FF2424>Вам нужно разрешение <#c0f0ff>{subpermission}<#FF2424>!",
+      "usage": "<#279CF5>Использование: <white>/weather <clear|rain|thunderstorm>",
+      "clear": "<#279CF5>Погода установлена на ясную на <white>{duration}с<#279CF5>.",
+      "rain": "<#c0f0ff>Погода установлена на дождь на <white>{duration}с<#c0f0ff>.",
+      "thunderstorm": "<#279CF5>Погода установлена на грозу на <white>{duration}с<#279CF5>.",
+      "invalid-type": "<#FF2424>Неверный тип погоды. Используйте: clear, rain, или thunderstorm.",
+      "help": {
+        "header": "<#279CF5><bold>=== Помощь по Команде Погоды ===</bold>",
+        "description": "<#279CF5>Описание: <white>Изменить погоду в вашем текущем мире на определенное время.",
+        "usage": "<#279CF5>Использование:</#279CF5> <white>/weather <тип>",
+        "types": {
+          "header": "<#279CF5>Доступные Типы Погоды:</#279CF5>",
+          "clear": "  <white>clear</white> <gray>- Солнечно</gray>",
+          "clear.no-perm": "  <#FF2424>clear</#FF2424> <gray>- Нет разрешения</gray>",
+          "rain": "  <white>rain</white> <gray>- Дождь</gray>",
+          "rain.no-perm": "  <#FF2424>rain</#FF2424> <gray>- Нет разрешения</gray>",
+          "thunderstorm": "  <white>thunderstorm</white> <gray>- Гроза</gray>",
+          "thunderstorm.no-perm": "  <#FF2424>thunderstorm</#FF2424> <gray>- Нет разрешения</gray>"
+        },
+        "duration": "<#279CF5>Продолжительность:</#279CF5> <white>{duration} секунд",
+        "examples": {
+          "header": "<#279CF5>Примеры:</#279CF5>",
+          "clear": "  <white>/weather clear</white> <gray>- Установить ясную погоду</gray>",
+          "rain": "  <white>/weather rain</white> <gray>- Установить дождь</gray>",
+          "thunderstorm": "  <white>/weather thunderstorm</white> <gray>- Установить грозу</gray>"
+        },
+        "footer": "<gray>Используйте <white>/weather help</white> чтобы увидеть это сообщение снова.</gray>"
+      }
+    },
+    "playtime": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Использование: <white>/playtime",
+      "playtime": "<#279CF5>Ваше время игры: <#c0f0ff>{hours}ч {minutes}м"
+    },
+    "recipe": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Использование: <white>/recipe <рецепт>",
+      "not-found": "<#FF2424>Рецепт не найден!",
+      "result": "<#279CF5>Рецепт для: <#c0f0ff>{item}",
+      "shaped-header": "<#279CF5>Ингредиенты Форменного Рецепта:",
+      "shapeless-header": "<#279CF5>Ингредиенты Бесформенного Рецепта:",
+      "ingredient-line": "<#279CF5>- {char}: <white>{item} <#279CF5>x{amount}",
+      "ingredient-line-shapeless": "<#279CF5>- <white>{item} <#279CF5>x{amount}",
+      "unknown-type": "<#FF2424>Неизвестный тип рецепта!"
+    },
+    "enderchest": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-others": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Использование: <white>/enderchest [игрок]",
+      "opening": "<#279CF5>Открытие вашего эндер-сундука...",
+      "opening-other": "<#279CF5>Открытие эндер-сундука игрока <#c0f0ff>{player}<#279CF5>...",
+      "player-not-found": "<#FF2424>Игрок <#c0f0ff>{player}<#FF2424> не найден.",
+      "offline-not-supported": "<#FF2424>Невозможно открыть эндер-сундук офлайн игрока <#c0f0ff>{player}<#FF2424>."
+    },
+    "seen": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Использование: <white>/seen <игрок>",
+      "player-not-found": "<#FF2424>Игрок <#c0f0ff>{player}<#FF2424> не найден.",
+      "result": "<#279CF5>{player} был в последний раз замечен <white>{lastSeen}",
+      "result-online": "<#279CF5>{player} сейчас <bold>онлайн<#279CF5>!",
+      "never-joined": "<#279CF5>{player} никогда не заходил на сервер."
+    },
+    "back": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-sub": "<#FF2424>Вам нужно разрешение <#c0f0ff>{subpermission}<#FF2424>!",
+      "usage": "<#279CF5>Использование: <white>/back [lobby|death|back]",
+      "no-back": "<#FF2424>Нет сохраненного предыдущего местоположения.",
+      "invalid-back": "<#FF2424>Ваше последнее местоположение недействительно.",
+      "teleported-back": "<#279CF5>Телепортировано на предыдущее местоположение.",
+      "lobby-not-set": "<#FF2424>Лобби не установлено или мир выгружен.",
+      "teleported-lobby": "<#279CF5>Телепортировано в лобби.",
+      "no-death-location": "<#FF2424>Не найдено место смерти.",
+      "teleported-death": "<#279CF5>Телепортировано на последнее место смерти.",
+      "unknown-usage": "<#FF2424>Неизвестная подкоманда. Используйте: <white>/back, /back lobby, /back death"
+    },
+    "tree": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "specify-type": "<#279CF5>Пожалуйста, укажите тип дерева.",
+      "invalid-type": "<#FF2424>Неверный тип дерева! Доступные типы: <#c0f0ff>{types}",
+      "tree-planted": "<#279CF5>Дерево посажено: <#c0f0ff>{type}",
+      "cannot-grow": "<#FF2424>Дерево не может расти здесь! Убедитесь, что есть достаточно места и подходящая почва."
+    },
+    "notes": {
+      "only-player": "<#708090>Только игроки могут использовать заметки.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424> чтобы использовать заметки!",
+      "usage": "<#279CF5>Использование:</#279CF5> <white>/notes <название> [содержание]",
+      "list-empty": "<#708090>У вас нет сохраненных заметок.",
+      "list-header": "<#279CF5>Ваши заметки:</#279CF5> ",
+      "not-found": "<#FF2424>Заметка '<#c0f0ff>{name}<#FF2424>' не найдена.",
+      "view": "<#279CF5>Заметка '<#c0f0ff>{name}<#279CF5>':</#279CF5> <white>{content}",
+      "saved": "<#279CF5>Сохранена заметка '<#c0f0ff>{name}<#279CF5>':</#279CF5> <white>{content}"
+    },
+    "scoreboard": {
+      "only-player": "<#FF2424>Только игроки могут использовать команды таблицы.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424> чтобы использовать это!",
+      "no-permission-reload": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424> чтобы перезагрузить!",
+      "no-permission-toggle": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424> чтобы переключить!",
+      "no-permission-color": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424> чтобы изменить оформление!",
+      "usage": "<#279CF5>Использование:</#279CF5> <white>/scoreboard <reload|toggle|color> [оформление]",
+      "toggle": {
+        "enabled": "<#279CF5>Таблица включена!",
+        "disabled": "<#708090>Таблица отключена!"
+      },
+      "reload": {
+        "success": "<#279CF5>Все таблицы перезагружены!"
+      },
+      "color": {
+        "usage": "<#279CF5>Использование: /scoreboard color <оформление>",
+        "not-found": "<#FF2424>Оформление '<#c0f0ff>{layout}<#FF2424>' не найдено!",
+        "changed": "<#279CF5>Оформление изменено на <#c0f0ff>{layout}<#279CF5>."
+      }
+    },
+    "burn": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду!",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-sub": "<#FF2424>Вам нужно разрешение <#c0f0ff>{subpermission}<#FF2424>!",
+      "usage": "<#279CF5>Использование: <white>/burn <игрок> [секунды]",
+      "player-not-found": "<#FF2424>Игрок <#c0f0ff>{target}<#FF2424> не найден!",
+      "immune-gamemode": "<#FF2424>{target} в режиме <#c0f0ff>{gamemode}<#FF2424> и иммунен!",
+      "invalid-number": "<#FF2424>Используйте <#c0f0ff>1-{max}<#FF2424> секунд.",
+      "target-burned": "<#FF2424>Вас поджег <#c0f0ff>{attacker}<#FF2424>!",
+      "sender-burned": "<#279CF5>{target} теперь горит в течение <#c0f0ff>{seconds}с<#279CF5>.",
+      "self-burned": "<#279CF5>Вы подожгли себя на <#c0f0ff>{seconds}с<#279CF5>."
+    },
+    "feed": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-others": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Использование: <white>/feed [игрок]",
+      "player-not-found": "<#FF2424>Игрок <#c0f0ff>{target}<#FF2424> не найден!",
+      "fed-self": "<#279CF5>Вы были накормлены досыта.",
+      "fed-other": "<#279CF5>Вы накормили <#c0f0ff>{target}<#279CF5> досыта.",
+      "fed-by-other": "<#279CF5>Вас накормил досыта <#c0f0ff>{sender}<#279CF5>."
+    },
+    "hat": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "no-item": "<#FF2424>Вы должны держать предмет в основной руке чтобы носить его как шляпу!",
+      "item-not-allowed": "<#FF2424>Этот предмет нельзя носить как шляпу! Проверьте конфиг.",
+      "success": "<#279CF5>Ваша шляпа обновлена."
+    },
+    "ptime": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-sub": "<#FF2424>Вам нужно разрешение <#c0f0ff>{subpermission}<#FF2424>!",
+      "usage": "<#279CF5>Использование: <white>/ptime <day|night|reset>",
+      "invalid-option": "<#FF2424>Используйте: <white>day, night, или reset",
+      "success": "<#279CF5>Персональное время установлено на <#c0f0ff>{option}<#279CF5>."
+    },
+    "night": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "success": "<#279CF5>Время установлено на ночь в мире <#c0f0ff>{world}<#279CF5>."
+    },
+    "auction": {
+      "only-player": "<#279CF5>Только игроки могут использовать эту команду.",
+      "no-economy": "<#FF2424>✗ Экономическая система недоступна.",
+      "usage": "<#279CF5>Использование: <white>/auction [sell <цена>|my]",
+
+      "gui": {
+        "titles": {
+          "auction": "<#279CF5>Аукцион - Страница <#c0f0ff>{page}",
+          "my-items": "<#279CF5>Ваши Предметы - Страница <#c0f0ff>{page}",
+          "remove-confirm": "<#FF2424>Подтвердить Удаление"
+        },
+
+        "navigation": {
+          "prev": "<#279CF5>⬅ Предыдущая Страница",
+          "next": "<#279CF5>Следующая Страница ➡",
+          "refresh": "<#279CF5>↻ Обновить",
+          "my-items": "<#279CF5>📦 Ваши Предметы",
+          "close": "<#FF2424>✕ Закрыть"
+        },
+
+        "balance": {
+          "message": "<#279CF5>Баланс: <#c0f0ff>${balance}",
+          "item-name": "<#279CF5>Баланс: <#c0f0ff>${balance}"
+        },
+
+        "refresh": "<#279CF5>Аукцион обновлен!",
+
+        "item": {
+          "name": "<#279CF5>Цена: <#c0f0ff>${price}",
+          "lore": {
+            "seller": "<#279CF5>Продавец: <#c0f0ff>{seller}",
+            "seller-price": "<#279CF5>Ваша цена: <#c0f0ff>${price}",
+            "expires": "<#279CF5>Истекает: <#c0f0ff>{date}",
+            "buyer-click": "<#c0f0ff>Нажмите чтобы купить",
+            "seller-click": "<#c0f0ff>Нажмите чтобы удалить"
+          }
+        },
+
+        "remove": {
+          "confirm": "<#279CF5>✓ Подтвердить Удаление",
+          "cancel": "<#FF2424>✗ Отмена"
+        }
+      },
+
+      "sell": {
+        "no-item": "<#FF2424>Вы должны держать предмет в руке чтобы продать!",
+        "usage": "<#FF2424>Использование: <white>/auction sell <цена>",
+        "invalid-price": "<#FF2424>Цена должна быть положительным числом.",
+        "max-limit": "<#FF2424>Вы можете продавать только до <#c0f0ff>{max}<#FF2424> предметов за раз!",
+        "success": "<#279CF5>Предмет выставлен на продажу за <#c0f0ff>${price}<#279CF5>."
+      },
+
+      "purchase": {
+        "not-found": "<#FF2424>Предмет больше недоступен!",
+        "no-economy": "<#FF2424>✗ Экономическая система недоступна.",
+        "not-enough-money": "<#FF2424>У вас недостаточно денег!",
+        "failed": "<#FF2424>Транзакция не удалась: <white>{error}",
+        "success": "<#279CF5>Куплено за <#c0f0ff>${price}<#279CF5>!",
+        "seller-message": "<#279CF5><#c0f0ff>{buyer}<#279CF5> купил ваш предмет за <#c0f0ff>${price}<#279CF5>!"
+      },
+
+      "remove": {
+        "no-pending": "<#FF2424>Нет ожидающего удаления!",
+        "success": "<#279CF5>Предмет успешно удален!",
+        "inventory-full": "<#279CF5>Предмет выброшен на землю (инвентарь полон)",
+        "cancelled": "<#279CF5>Удаление отменено.",
+        "not-found": "<#FF2424>Предмет не найден!",
+        "failed": "<#FF2424>Не удалось удалить предмет. Попробуйте снова."
+      }
+    },
+    "paytoggle": {
+      "only-player": "<#279CF5>Только игроки могут использовать эту команду.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "enabled": "<#279CF5>Платежи <#c0f0ff>включены<#279CF5>.",
+      "disabled": "<#FF2424>Платежи <#c0f0ff>отключены<#FF2424>.",
+      "error": "<#FF2424>Ошибка переключения состояния платежей."
+    },
+    "pay": {
+      "only-player": "<#279CF5>Только игроки могут использовать эту команду.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Использование: <white>{usage}",
+      "player-not-found": "<#FF2424>Игрок не найден: <white>{player}",
+      "self-payment": "<#FF2424>Вы не можете платить себе!",
+      "invalid-amount": "<#FF2424>Неверная сумма: <white>{amount}",
+      "positive-amount": "<#FF2424>Сумма должна быть положительной!",
+      "not-enough": "<#FF2424>Вам нужно <#c0f0ff>${needed}<#FF2424>, у вас есть <#279CF5>${balance}",
+      "target-disabled": "<#FF2424>{player} отключил платежи!",
+      "confirmation-expired": "<#FF2424>Предыдущее подтверждение платежа истекло.",
+      "pending-other": "<#279CF5>Ожидающий платеж игроку <#c0f0ff>{player} <#279CF5>на сумму <#c0f0ff>${amount}",
+      "confirm-message": "<#279CF5>Нажмите чтобы подтвердить: Заплатить <#c0f0ff>${amount} <#279CF5>игроку <#c0f0ff>{player}",
+      "confirm-instruction": "<#708090>Напишите <white>{command} <#708090>ещё раз чтобы подтвердить.",
+      "success-sender": "<#279CF5>Вы заплатили <#c0f0ff>${amount} <#279CF5>игроку <#c0f0ff>{player}",
+      "success-target": "<#279CF5>Вы получили <#c0f0ff>${amount} <#279CF5>от игрока <#c0f0ff>{player}",
+      "error": "<#FF2424>Ошибка проверки статуса платежа."
+    },
+    "payconfirmtoggle": {
+      "only-player": "<#279CF5>Только игроки могут использовать эту команду.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "disabled": "<#279CF5>Подтверждения платежей <#c0f0ff>отключены<#279CF5>.",
+      "enabled": "<#279CF5>Подтверждения платежей <#c0f0ff>включены<#279CF5>.",
+      "error": "<#FF2424>Ошибка переключения состояния подтверждений."
+    },
+    "balance": {
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-others": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Использование: <white>{usage}",
+      "only-player": "<#FF2424>Только игроки могут проверять свой баланс.",
+      "player-not-found": "<#FF2424>Игрок не найден: <white>{player}",
+      "self": "<#279CF5>Ваш баланс: <#c0f0ff>{balance}<#279CF5>.",
+      "other": "<#279CF5>Баланс игрока {player}: <#c0f0ff>{balance}<#279CF5>."
+    },
+    "balancetop": {
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "header": "<#279CF5>=== Топ {limit} Самых Богатых Игроков ===",
+      "entry": "<#279CF5>#{rank} <white>{player} <#708090>- <#279CF5>{balance}",
+      "footer": "<#279CF5>========================="
+    },
+    "coinflip": {
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Использование: <white>{usage}",
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду.",
+      "invalid-amount": "<#FF2424>Неверная сумма: <white>{amount}",
+      "positive-amount": "<#FF2424>Сумма должна быть положительной!",
+      "not-enough": "<#FF2424>Вам нужно <#c0f0ff>${needed}<#FF2424>, у вас есть <#279CF5>${balance}",
+      "win": "<#279CF5>Вы выиграли <#c0f0ff>${amount}<#279CF5>!",
+      "lose": "<#FF2424>Вы проиграли <#c0f0ff>${amount}<#FF2424>."
+    },
+    "powertool": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-create": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424> чтобы создавать PowerTools!",
+      "usage": "<#279CF5>Использование: <white>/powertool <команда> | <использования> | <название> | <инструмент> | enchanted <да/нет>",
+      "invalid-uses": "<#FF2424>Использования должны быть -1 (бесконечно) или 1-{max}.",
+      "invalid-tool": "<#FF2424>Неверный материал инструмента: <white>{tool}",
+      "received-tool": "<#279CF5>Вы получили PowerTool: <white>{name}",
+      "out-of-uses": "<#FF2424>Ваш PowerTool закончилось количество использований!"
+    },
+    "gravity": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду.",
+      "target-not-found": "<#FF2424>Игрок не найден.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-sub": "<#FF2424>Вам нужно разрешение <#c0f0ff>{subpermission}<#FF2424>!",
+      "usage": "<#279CF5>Использование: <white>/gravity [игрок] [-s]",
+      "toggled-self": "<#279CF5>Гравитация <#c0f0ff>{state}<#279CF5>.",
+      "toggled-other": "<#279CF5>Гравитация <#c0f0ff>{state}<#279CF5> для <#c0f0ff>{target}<#279CF5>."
+    },
+    "thunder": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду!",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-others": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "struck": "<#279CF5>Эффект грома вызван на <#c0f0ff>{target}<#279CF5>.",
+      "self-name": "<white>себя"
+    },
+    "celebrate": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду!",
+      "target-not-found": "<#FF2424>Игрок не найден.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-others": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Использование: /celebrate [игрок] [-s]",
+      "message": "<#279CF5>Бум! Праздник!",
+      "message-other": "<#279CF5>Праздник для <#c0f0ff>{target}<#279CF5>.",
+      "self-name": "<white>себя"
+    },
+    "fireball": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду!",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "launched": "<#279CF5>Фаербол запущен."
+    },
+    "fakeop": {
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Использование: <white>/fakeop <игрок>",
+      "target-not-found": "<#FF2424>Игрок не найден.",
+      "fake-message": "<#708090><italic>[Сервер: Сделал {target} оператором сервера]",
+      "success": "<#279CF5>Фальшивый OP отправлен игроку <#c0f0ff>{target}<#279CF5>."
+    },
+    "whois": {
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Использование: <white>/whois <игрок>",
+      "target-not-found": "<#FF2424>Игрок не найден.",
+      "info-header": "<#279CF5>Информация об игроке:",
+      "info-name": "<#708090>Имя: <white>{name}",
+      "info-health": "<#708090>Здоровье: <white>{health}",
+      "info-location": "<#708090>Местоположение: <white>{location}"
+    },
+    "kittycannon": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду!",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Использование: <white>/kittycannon [скорость]",
+      "fired": "<#279CF5>Пушка китти выстрелила со скоростью {velocity}.",
+      "name": "<#279CF5>Пушка Китти!"
+    },
+    "explosion": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду!",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "no-radius": "<#279CF5>Пожалуйста, укажите радиус!",
+      "invalid-radius": "<#FF2424>Неверный радиус: {input}",
+      "created": "<#279CF5>Взрыв создан с радиусом <#c0f0ff>{radius}<#279CF5>.",
+      "usage": "<#279CF5>Использование: <white>/explosion <радиус>"
+    },
+    "canon": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду!",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Использование: <white>/canon",
+      "success": "<#279CF5>Вжух! Вы были запущены в воздух!"
+    },
+    "lightning": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду!",
+      "target-not-found": "<#FF2424>Игрок <white>{target}</white> не найден.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#white>{permission}</white>.",
+      "struck-self": "<#279CF5>Молния ударила!",
+      "struck-other": "<#279CF5>Молния ударила <#c0f0ff>{target}<#279CF5>.",
+      "usage": "<#279CF5>Использование: <white>/lightning [игрок] [-s]"
+    },
+    "swap": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду!",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Использование: <white>/swap <игрок>",
+      "target-not-found": "<#FF2424>Игрок <white>{target}</white> не найден или нельзя меняться с собой.",
+      "success": "<#279CF5>Вы поменялись местами с <#c0f0ff>{target}<#279CF5>.",
+      "target-notified": "<#279CF5><#c0f0ff>{player}</#c0f0ff> поменялся с вами местами!"
+    },
+    "beezooka": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду!",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Использование: <white>/beezooka [скорость]",
+      "fired": "<#279CF5>Beezooka выстрелил со скоростью {velocity}.",
+      "name": "<#279CF5>Beezooka Пчела!"
+    },
+    "glow": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду!",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Использование: <white>/glow",
+      "disabled": "<#708090>Свечение отключено.",
+      "enabled": "<#279CF5>Свечение включено."
+    },
+    "near": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "header": "<#279CF5>Игроки рядом с вами:",
+      "entry": "<#279CF5>- {name} <#708090>({distance} блоков)",
+      "none": "<#FF2424>Рядом нет игроков."
+    },
+    "rename": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#FF2424>Использование: /rename <название>",
+      "no-item": "<#FF2424>Вы не держите предмет.",
+      "no-meta": "<#FF2424>Не удалось получить метаданные предмета.",
+      "renamed": "<#279CF5>Предмет переименован в: <white>{item}"
+    },
+    "world": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#FF2424>Использование: /world",
+      "current": "<#279CF5>Вы в мире: <#c0f0ff>{world}"
+    },
+    "language": {
+      "usage": "<#279CF5>Использование: /language <язык>",
+      "invalid": "<#FF2424>Неверный язык: <white>{lang}",
+      "changed": "<#279CF5>Язык изменен на: <white>{lang}"
+    },
+    "warp": {
+      "usage": "<#279CF5>Использование: <#279CF5>/warp <название>",
+      "not-found": "<#FF2424>Варп <#c0f0ff>{warp}<#FF2424> не найден.",
+      "success": "<#279CF5>Телепортировано к варпу <#c0f0ff>{warp}",
+      "cooldown-active": "<#FF2424>Подождите <#c0f0ff>{time}<#FF2424> секунд перед следующей телепортацией."
+    },
+    "setwarp": {
+      "usage": "<#279CF5>Использование: <#279CF5>/setwarp <название>",
+      "limit-reached": "<#FF2424>Вы достигли лимита варпов в <#c0f0ff>{limit}<#FF2424>!",
+      "already-exists": "<#FF2424>Варп <#c0f0ff>{warp}<#FF2424> уже существует.",
+      "success": "<#279CF5>Создан варп <#c0f0ff>{warp}"
+    },
+    "delwarp": {
+      "usage": "<#FF2424>Использование: <#279CF5>/delwarp <название>",
+      "not-found": "<#FF2424>Варп <#c0f0ff>{warp}<#FF2424> не найден.",
+      "no-permission": "<#FF2424>У вас нет разрешения удалять этот варп!",
+      "success": "<#279CF5>Удален варп <#c0f0ff>{warp}"
+    },
+    "warps": {
+      "empty": "<#279CF5>Варпы не установлены!",
+      "header": "<#279CF5>------[ Варпы ]------",
+      "entry": "<#279CF5>{warp}",
+      "footer": "<#279CF5>-------------------"
+    },
+    "ban": {
+      "usage": "<#FF2424>Использование: <#279CF5>/ban <игрок> <время> <причина>",
+      "never-joined": "<#FF2424>Этот игрок никогда не заходил на сервер.",
+      "invalid-time": "<#FF2424>Неверный формат времени. Используйте <#c0f0ff>с/м/ч/д<#FF2424> или <#c0f0ff>perm<#FF2424>",
+      "success": "<#279CF5><#c0f0ff>{player}<#279CF5> был забанен.",
+      "kick-message": "<#FF2424>Вы были забанены на сервере <#FF2424>{server}\n<#708090>Причина: <#c0f0ff>{reason}\n<#708090>Забанил: <#c0f0ff>{banner}\n<#708090>До: <#c0f0ff>{until}\n\n<#708090>Обжаловать: <#c0f0ff>{discord}"
+    },
+    "banlist": {
+      "empty": "<#279CF5>Нет забаненных игроков.",
+      "header": "<#279CF5>------[ Забаненные Игроки ]------",
+      "format": "<#FF2424>{player} <#708090>- <white>{reason} <#708090>(<#c0f0ff>{time})",
+      "footer": "<#279CF5>-----------------------------"
+    },
+    "unban": {
+      "usage": "<#279CF5>Использование: <#279CF5>/unban <игрок>",
+      "player-not-found": "<#279CF5>Не удалось найти забаненного игрока с именем '<#c0f0ff>{player}<#279CF5>'.",
+      "not-banned": "<#279CF5>{player} не забанен.",
+      "success": "<#279CF5>{player} был разбанен."
+    },
+    "mute": {
+      "usage": "<#FF2424>Использование: <#279CF5>/mute <игрок> <причина> [продолжительность]",
+      "not-found": "<#FF2424>Игрок не найден.",
+      "already-muted": "<#FF2424><#c0f0ff>{player}<#FF2424> уже замучен за <white>{reason}",
+      "success": "<#279CF5>Вы замутили <#c0f0ff>{player} <#279CF5>за <white>{reason} <#279CF5>({duration}).",
+      "notify": "<#FF2424>Вы были замучены! <#708090>Причина: <white>{reason} <#279CF5>({duration})",
+      "chat-blocked": "<#FF2424>Вы замучены! Причина: <white>{reason}"
+    },
+    "unmute": {
+      "usage": "<#279CF5>Использование: <#279CF5>/unmute <игрок>",
+      "player-not-found": "<#279CF5>Игрок <#c0f0ff>{player}<#279CF5> не найден.",
+      "not-muted": "<#FF2424><#c0f0ff>{player}<#FF2424> не замучен.",
+      "unmuted": "<#279CF5>Успешно размучен <#c0f0ff>{player}",
+      "notify": "<#279CF5>Вы были размучены!"
+    },
+    "adminchat": {
+      "format": "<#4B5563>[<#FF2424>AdminChat<#4B5563>] <#279CF5>{player} <#708090>» <white>{message}",
+      "toggle": "<#279CF5>Режим админ чата: {state}",
+      "only-players": "<#FF2424>Только игроки могут использовать эту команду.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!"
+    },
+    "daily": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду!",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "command": {
+        "no-permission": "<#FF2424>Вам нужно разрешение <yellow>{permission}</yellow>!"
+      },
+      "gui": {
+        "title": "<#279CF5><bold>Ежедневные Награды</bold> - Страница <#c0f0ff>{page}",
+        "previous": "<#279CF5>⬅ Предыдущая Страница",
+        "next": "<#279CF5>Следующая Страница ➡",
+        "close": "<#FF2424>✕ Закрыть",
+        "cooldown-display": "<#c0f0ff>Перезарядка: <#EBA916>{time}"
+      },
+      "rewards": {
+        "claimed": {
+          "name": "<#21D0B2><bold>✓ Получено</bold>",
+          "lore": "<#c0f0ff>Вы уже получили эту награду."
+        },
+        "cooldown": {
+          "name": "<#EBA916><bold>⏱ Перезарядка</bold>",
+          "lore": "<#c0f0ff>Подождите: <#EBA916>{time}"
+        },
+        "locked": {
+          "name": "<#FF2424><bold>🔒 Заблокировано</bold>",
+          "lore": "<#c0f0ff>Сначала завершите предыдущие дни."
+        },
+        "available": {
+          "name": "<#279CF5>День <#c0f0ff>{day}"
+        }
+      },
+      "messages": {
+        "claim-already": "<#FF2424>Вы уже получили эту награду!",
+        "claim-locked": "<#FF2424>Сначала получите награды предыдущих дней!",
+        "claim-cooldown": "<#FF2424>Вы должны подождать <#c0f0ff>{time}<#FF2424> перед следующим получением!",
+        "claim-success": "<#279CF5>Вы получили награду дня <#c0f0ff>{day}<#279CF5>!",
+        "claim-error": "<#FF2424>Не удалось получить награду. Попробуйте снова."
+      }
+    },
+    "tpa": {
+      "no-player": "<#FF2424>Игрок <#c0f0ff>{player}<#FF2424> не найден.",
+      "cannot-tpa-self": "<#FF2424>Вы не можете отправить TPA запрос себе.",
+      "target-toggled": "<#FF2424>{player} отключил TPA запросы.",
+      "crossworld-disabled": "<#FF2424>Межмировая телепортация отключена.",
+      "blocked-world": "<#FF2424>Вы не можете телепортироваться в этот мир.",
+      "cooldown": "<#FF2424>Подождите <#c0f0ff>{time}<#FF2424> секунд перед следующим использованием TPA.",
+      "not-enough-money": "<#FF2424>Вам нужно <#c0f0ff>${cost}<#FF2424> для этого TPA запроса.",
+      "request-sent": "<#279CF5>TPA запрос отправлен игроку <#c0f0ff>{player}",
+      "request-sent-here": "<#279CF5>TPAhere запрос отправлен игроку <#c0f0ff>{player}",
+      "request-received": "<#279CF5><bold>{player}</bold> хочет телепортироваться к вам! <white>[<#279CF5>/tpaccept {player} | <#FF2424>/tpdeny {player}]",
+      "request-received-here": "<#279CF5><bold>{player}</bold> хочет чтобы вы телепортировались к нему! <white>[<#279CF5>/tpaccept {player} | <#FF2424>/tpdeny {player}]",
+      "request-received-all": "<#279CF5><bold>{player}</bold> хочет чтобы все телепортировались! <white>[<#279CF5>/tpaccept {player}]",
+      "request-accepted": "<#279CF5>{player} принял ваш запрос! Телепортация через <#c0f0ff>{delay}с",
+      "request-accepted-target": "<#279CF5>Вы приняли запрос от <#c0f0ff>{player}<#279CF5>.",
+      "request-denied": "<#FF2424>{player} отклонил ваш TPA запрос.",
+      "request-denied-target": "<#279CF5>Вы отклонили запрос от <#c0f0ff>{player}<#279CF5>.",
+      "no-request": "<#FF2424>У вас нет ожидающих TPA запросов.",
+      "no-request-from-player": "<#FF2424>Нет ожидающих запросов от <#c0f0ff>{player}",
+      "no-requests-sent": "<#FF2424>У вас нет ожидающих TPA запросов для отмены.",
+      "teleport-cancelled-move": "<#FF2424>Телепортация отменена из-за движения!",
+      "warmup-start": "<#279CF5>Разогрев начался... <#FF2424>Не двигайтесь!",
+      "toggle-on": "<#279CF5>TPA запросы теперь <bold>ОТКЛЮЧЕНЫ",
+      "toggle-off": "<#279CF5>TPA запросы теперь <bold>ВКЛЮЧЕНЫ",
+      "request-cancelled": "<#279CF5>Отменен TPA запрос к <#c0f0ff>{player}",
+      "request-cancelled-target": "<#279CF5>{player} отменил свой TPA запрос.",
+      "request-cancelled-all": "<#279CF5>Отменены все ваши TPA запросы.",
+      "request-expired": "<#FF2424>Ваш TPA запрос к <#c0f0ff>{player} <#FF2424>истек.",
+      "request-expired-target": "<#FF2424>TPA запрос от <#c0f0ff>{player} <#FF2424>истек.",
+      "request-sent-all": "<#279CF5>Отправлен TPA запрос <#c0f0ff>{count} <#279CF5>игрокам.",
+      "info-incoming-header": "<#279CF5><bold>Входящие Запросы:",
+      "info-outgoing-header": "<#279CF5><bold>Исходящие Запросы:",
+      "info-request": "<#279CF5>- {player} <#708090>({type})"
+    },
+    "fly": {
+      "enabled": "<#279CF5>Полет включен! Нажмите <white>ПРОБЕЛ<#279CF5> дважды чтобы летать.",
+      "disabled": "<#FF2424>Полет отключен.",
+      "error": "<#FF2424>Ошибка: Не удалось сохранить состояние полета.",
+      "cooldown": "<#FF2424>Подождите <#c0f0ff>{time}с<#FF2424> перед следующим переключением полета.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>fly.use<#FF2424> чтобы использовать эту команду."
+    },
+    "reports": {
+      "cooldown": "<#FF2424>Подождите <#c0f0ff>{time}<#FF2424> секунд перед следующим репортом.",
+      "reason-too-long": "<#FF2424>Причина слишком длинная! Максимум <#c0f0ff>{max}<#FF2424> символов.",
+      "error": "<#FF2424>Ошибка обработки репорта.",
+      "command": {
+        "usage": "<#FF2424>Использование: /report <игрок> <причина>",
+        "invalid-player": "<#FF2424>Игрок <#c0f0ff>{player}<#FF2424> не найден.",
+        "submitted": "<#279CF5>Репорт отправлен против <#c0f0ff>{player}",
+        "notify": "<#FF2424>[РЕПОРТ] <#279CF5>{reporter} <#FF2424>зарепортил <#279CF5>{target} <#708090>за {reason} <#708090>(ID: {id})"
+      },
+      "commandclear": {
+        "usage": "<#279CF5>Использование: /reportclear <id>",
+        "invalid": "<#279CF5>Неверный ID репорта: <#c0f0ff>{id}",
+        "cleared": "<#279CF5>Очищен репорт ID: <#c0f0ff>{id}"
+      },
+      "list": {
+        "header": "<#279CF5>----- <#279CF5>Все Репорты<#279CF5> -----",
+        "none": "<#279CF5>Репорты не найдены.",
+        "entry": "<#708090>[{id}] <#279CF5>{reporter} → <#279CF5>{target}: <white>{reason}",
+        "footer": "<#279CF5>Всего: <#c0f0ff>{count} <#279CF5>репортов"
+      },
+      "reportslist": {
+        "header": "<#279CF5>У вас есть репорты для просмотра:",
+        "entry": "<#FF2424>[ОЖИДАЕТ] <#279CF5>{reporter} → <#279CF5>{target}: <#708090>{reason} <#708090>(ID: {id})"
+      }
+    },
+    "rules": {
+      "only-player": "<#FF2424>Только игроки могут использовать эту команду.",
+      "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-sub": "<#FF2424>Вам нужно разрешение <#c0f0ff>{subpermission}<#FF2424>!",
+      "usage": "<#279CF5>Использование: <white>/rules [accept|reload]",
+      "no-rules": "<#FF2424>Правила не настроены.",
+      "already-accepted": "<#279CF5>Вы уже приняли последние правила.",
+      "error": "<#FF2424>Произошла ошибка: <#c0f0ff>{error}",
+      "reload-success": "<#279CF5>Правила успешно перезагружены!",
+      "reload-failure": "<#FF2424>Не удалось перезагрузить правила: <#c0f0ff>{error}",
+      "gui": {
+        "title": "<#279CF5>Правила Сервера",
+        "no-rules": "<#FF2424>Правила не настроены.",
+        "info-title": "<#FFD700><bold>ℹ Информация о Правилах",
+        "info-line1": "<#708090>Пожалуйста, прочтите и примите",
+        "info-line2": "<#708090>наши правила сообщества",
+        "page-info": "<#FFB000>Страница <#FFFFFF>{current}<#FFB000> / <#FFFFFF>{total}",
+        "prev-page": "<#279CF5>← Предыдущая Страница",
+        "prev-page-lore": "<#708090>Нажмите чтобы вернуться",
+        "next-page": "<#279CF5>Следующая Страница →",
+        "next-page-lore": "<#708090>Нажмите чтобы продолжить",
+        "accept-title": "<#00FF7F><bold>✔ Принять Правила",
+        "accept-lore1": "<#708090>Нажмите чтобы принять правила",
+        "accept-lore2": "<#708090>и получить доступ к серверу",
+        "decline-title": "<#FF2424><bold>✖ Отклонить и Выйти",
+        "decline-lore1": "<#708090>Нажмите чтобы отклонить и",
+        "decline-lore2": "<#708090>покинуть сервер",
+        "rule-name": "<#FFFFFF><bold>Правило #{number}",
+        "rule-content": "<#C0C0C0>",
+        "rule-hint": "<#708090><italic>Прочтите все правила перед принятием"
+      },
+      "accept": {
+        "success": "<#279CF5>Вы приняли правила сервера!"
+      },
+      "decline": {
+        "kick-message": "<#FF2424>Вы должны принять правила чтобы присоединиться к серверу!"
+      },
+      "close": {
+        "cannot-close": "<#FF2424>⚠ Вы должны принять правила перед игрой!"
+      }
+    },
+    "chatfilter": {
+      "blocked": "<#FF2424>Ваше сообщение содержит неподходящий язык.",
+      "staff-notice": "<#F54927>[<#FF2424>Фильтр<#F54927>] <white>{player}<#FF2424> : <white>{message}"
+    },
+    "rtp": {
+      "gui": {
+        "title": "<bold><gradient:#279CF5:#279CF5>RTP Меню</gradient>",
+        "overworld": {
+          "name": "<#279CF5>Обычный мир",
+          "lore": [
+            "<#708090>Нажмите чтобы телепортироваться",
+            "<#708090>в случайное место в обычном мире"
+          ]
+        },
+        "nether": {
+          "name": "<#FF2424>Ад",
+          "lore": [
+            "<#708090>Нажмите чтобы телепортироваться",
+            "<#708090>в случайное место в аду"
+          ]
+        },
+        "end": {
+          "name": "<#4169E1>Энд",
+          "lore": [
+            "<#708090>Нажмите чтобы телепортироваться",
+            "<#708090>в случайное место в энде"
+          ]
+        }
+      },
+      "world_disabled": "<#FF2424>RTP отключен в этом мире!",
+      "cooldown": "<#FF2424>Подождите <#c0f0ff>{seconds} секунд</#c0f0ff> перед следующим использованием RTP!",
+      "teleport_success": "<#279CF5>Успешно телепортировано в <white>{world}",
+      "reloaded": "<#279CF5>RTP конфигурация перезагружена!"
+    },
+    "lobby": {
+      "no-lobby": "<#FF2424>Для этого мира не установлено лобби.",
+      "teleported": "<#279CF5>Телепортировано в лобби!",
+      "set": "<#279CF5>Локация лобби установлена!",
+      "set-world": "<#279CF5>Лобби для мира <#c0f0ff>{world}<#279CF5> установлено!",
+      "removed": "<#279CF5>Локация лобби удалена.",
+      "cooldown-active": "<#FF2424>Подождите <#c0f0ff>{time}<#FF2424> секунд перед следующей телепортацией.",
+      "usage-world": "<#FF2424>Использование: <#279CF5>/lobby world <название-мира>",
+      "world-not-found": "<#FF2424>Мир <#c0f0ff>{world}<#FF2424> не найден."
+    },
+    "general": {
+      "error": "<#FF2424>Произошла ошибка: {error}",
+      "success": "<#279CF5>Успешно!",
+      "loading": "<#708090>Загрузка..."
+    },
+    "database": {
+      "header": "<#4169E1>╔════════════════════════════════════╗",
+      "title": "<#4169E1>║  <bold>Статус Базы Данных</bold>                     ║",
+      "separator": "<#4169E1>╠════════════════════════════════════╣",
+      "footer": "<#4169E1>╚════════════════════════════════════╝",
+      "none": "<#FF2424>Базы данных не настроены!",
+      "entry": "<#4169E1>║  <#c0f0ff>{name}</#c0f0ff> - {status}{msg} <#708090>({enabled})</#708090>  ║"
+    },
+    "economy": {
+      "shop": {
+        "main-title": "<gradient:#279CF5:#279CF5>Серверный Магазин</gradient>",
+        "section-title": "<#279CF5>{section} Магазин",
+        "disabled": " <#FF2424>Магазин отключен",
+        "balance-display": "<#279CF5>Ваш Баланс: <#c0f0ff>{balance}",
+        "buy-success": "<#279CF5>Куплено <white>{amount}x {item} <#279CF5>за <#c0f0ff>{price}",
+        "sell-success": "<#279CF5>Продано <white>{amount}x {item} <#279CF5>за <#c0f0ff>{price}",
+        "cannot-afford": "<#FF2424>Не хватает денег для {item} (цена: <#c0f0ff>{price})",
+        "no-items": "<#FF2424>Недостаточно {item} для продажи",
+        "no-section": "<#FF2424>Раздел магазина '<#c0f0ff>{section}<#FF2424>' не найден!",
+        "reload-success": "<#279CF5>Конфигурация магазина перезагружена.",
+        "reload-error": "<#FF2424>Ошибка перезагрузки конфигурации магазина. Проверьте консоль.",
+        "no-economy": "<#FF2424>Экономика недоступна. Магазин только для просмотра.",
+        "transaction-failed": "<#FF2424>Транзакция не удалась: {error}",
+        "no-main-config": "<#FF2424>Конфигурация магазина не найдена. Обратитесь к администратору.",
+        "gui": {
+          "close-button": "<#FF2424>✕ Закрыть",
+          "back-button": "<#279CF5>← Назад",
+          "previous-page": "<#708090>← Предыдущая",
+          "next-page": "<#708090>Следующая →",
+          "loading": "<#708090>Загрузка..."
+        }
+      },
+      "sellgui": {
+        "disabled": "<#FF2424>GUI продажи отключено.",
+        "sold-success": "<#279CF5><bold>ПРОДАНО <white>{amount} <#279CF5>предметов за <#c0f0ff>{symbol}{price}",
+        "returned-items": "<#708090>Возвращено <white>{amount} <#708090>непродаваемых предметов в инвентарь",
+        "no-items": "<#708090>Нет предметов для продажи",
+        "inventory-full": "<#279CF5>Некоторые предметы выброшены на землю (инвентарь полон)",
+        "not-sellable": "<#FF2424>Этот предмет нельзя продать!",
+        "no-economy": "<#FF2424>Экономика недоступна. Обратитесь к администратору.",
+        "transaction-failed": "<#FF2424>Транзакция не удалась: {error}",
+        "title": "<#279CF5>Продать Предметы",
+        "info": {
+          "title": "<#279CF5>ЗОНА ПРОДАЖИ",
+          "subtitle": "<#708090>Разместите предметы здесь для продажи",
+          "instruction": "<#279CF5>Закройте инвентарь для обработки",
+          "value-prefix": "<#279CF5>Всего: <#c0f0ff>"
+        }
+      }
+    },
+    "kits": {
+      "gui": {
+        "title": "<bold><gradient:#279CF5:#279CF5>Доступные Наборы</gradient>",
+        "preview-title": "<white>Предпросмотр Набора: <#c0f0ff>{kit}"
+      },
+      "cooldown": "<#FF2424>Подождите <#c0f0ff>{time}с</#c0f0ff> перед следующим получением <white>{kit}</white>!",
+      "no-permission": "<#FF2424>У вас нет разрешения получать <white>{kit}</white>!",
+      "claim-success": "<#279CF5>Успешно получен набор <white>{kit}</white>!",
+      "kit-not-found": "<#FF2424>Набор <white>{kit}</white> не найден!",
+      "locked-name": "<#FF2424>Заблокировано: <#708090>{kit}",
+      "requires-permission": "<#708090>Требуется: <white>{permission}",
+      "cooldown-info": "<#708090>Перезарядка: <#FF2424>{time}с осталось",
+      "claim-button": "<#279CF5>Получить Набор",
+      "cooldown-button": "<#FF2424>В Перезарядке",
+      "back-button": "<#FF2424>← Назад",
+      "no-kits-defined": "<#FF2424>Наборы не определены!",
+      "reload-success": "<#279CF5>Наборы успешно перезагружены!",
+      "reload-no-permission": "<#FF2424>У вас нет разрешения перезагружать наборы!"
+    },
+    "mail": {
+      "on-join": "<#279CF5>У вас есть <#c0f0ff>{count}</#c0f0ff> непрочитанных писем! Используйте <white>/mail read</white>",
+      "send-usage": "<#FF2424>Использование: /mail send <игрок> <сообщение>",
+      "no-mail": "<#279CF5>У вас нет писем.",
+      "usage": {
+        "header": "<#279CF5>----- <white>Почтовая Система <#279CF5>-----",
+        "read": "<#279CF5>/mail read <#708090>- <white>Прочитать входящие",
+        "send": "<#279CF5>/mail send <игрок> <сообщение> <#708090>- <white>Отправить письмо",
+        "clear": "<#279CF5>/mail clear <#708090>- <white>Очистить все письма",
+        "footer": "<#279CF5>---------------------------"
+      },
+      "header": "<#279CF5><bold>Ваш Почтовый Ящик:</bold>",
+      "message": {
+        "index": "<#708090>[{index}]",
+        "sender": "<#279CF5>{sender}: "
+      },
+      "footer": "<#279CF5>-------------------- <#708090>({count} сообщений)",
+      "cooldown": "<#FF2424>Подождите {time} секунд перед следующей отправкой письма.",
+      "player-not-found": "<#FF2424>Игрок <#c0f0ff>{player}<#FF2424> не найден.",
+      "message-too-long": "<#FF2424>Сообщение слишком длинное! Максимум <#c0f0ff>{max}<#FF2424> символов.",
+      "sent": "<#279CF5>Письмо отправлено игроку <#c0f0ff>{player}",
+      "received": "<#279CF5>У вас новое письмо от <#c0f0ff>{sender}</#c0f0ff>! Используйте <white>/mail read</white>",
+      "error": "<#FF2424>Ошибка обработки почты.",
+      "cleared": "<#279CF5>Все письма очищены!"
+    },
+    "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}<#FF2424>!"
+  }
+}

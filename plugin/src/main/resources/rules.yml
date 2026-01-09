@@ -1,18 +1,35 @@
+
+
 rules:
-  - text: "<#FF3B3B><bold>No Griefing</bold></#FF3B3B><gray> — <white>Respect all players’ builds, items, and personal space. Any form of destruction or stealing is strictly forbidden.</gray>"
-    slot: 10
+  # Rule format: text (required), slot (optional)
+  # If no slot is specified, rules are placed automatically in the grid
 
-  - text: "<#FFD93B><bold>Respectful Communication</bold></#FFD93B><gray> — <white>Keep chat friendly and mature. Avoid harassment, arguments, spam, or inappropriate language.</gray>"
-    slot: 12
+  - text: "<yellow>Respect all players<gray> - No harassment, discrimination, or hate speech of any kind will be tolerated. Treat others with kindness and respect."
+    slot: 20
 
-  - text: "<#4DFF4D><bold>No Cheats or Hacks</bold></#4DFF4D><gray> — <white>All players are expected to play fairly. Unauthorized modifications or abuse of glitches are not allowed.</gray>"
-    slot: 14
+  - text: "<aqua>No griefing or stealing<gray> - Do not destroy, modify, or take items from other players' builds without explicit permission. This includes unclaimed areas that show clear signs of development."
+    slot: 21
 
-  - text: "<#4DA3FF><bold>Build Responsibly</bold></#4DA3FF><gray> — <white>Build freely, but do not create lag machines, crash devices, or excessive redstone that harms server stability.</gray>"
-    slot: 16
+  - text: "<green>Keep chat appropriate<gray> - No spamming, advertising, or excessive use of capital letters. Keep conversations friendly and suitable for all ages."
+    slot: 22
 
-  - text: "<#C04DFF><bold>Report Bugs</bold></#C04DFF><gray> — <white>If you discover server problems, glitches, or exploits, please report them to staff as soon as possible.</gray>"
-    slot: 28
+  - text: "<gold>No cheating or exploits<gray> - Using hacked clients, x-ray texture packs, or exploiting bugs/glitches will result in permanent ban. Play fair!"
+    slot: 23
 
-  - text: "<#FFB84D><bold>Enjoy the Server</bold></#FFB84D><gray> — <white>Contribute positively to the community, help others when possible, and have a great time on the server.</gray>"
-    slot: 34
+  - text: "<light_purple>Claim your builds<gray> - Use the claim system to protect your territory. Builds that are not claimed may be modified or removed by staff."
+    slot: 24
+
+  - text: "<red>PvP Rules<gray> - PvP is only allowed in designated PvP zones or when both parties agree. No spawn camping or TP killing."
+    slot: 29
+
+  - text: "<blue>Shop Guidelines<gray> - Set fair prices in player shops. Scamming players through trade or shops is prohibited and will result in account suspension."
+    slot: 30
+
+  - text: "<dark_aqua>AFK Policy<gray> - AFK farms are allowed but must not cause server lag. Use the /afk command when away. AFK timers apply."
+    slot: 31
+
+  - text: "<yellow>Report Issues<gray> - Use /report to notify staff of rule breakers or problems. Do not take matters into your own hands."
+    slot: 32
+
+  - text: "<green>Have Fun!<gray> - This is a game! Be friendly, help new players, and contribute to making our server an awesome place for everyone."
+    slot: 33

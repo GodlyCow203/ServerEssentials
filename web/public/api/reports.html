@@ -1,0 +1,1001 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="utf-8">
+    <title>Report API Documentation – _GodlyCow</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --surface: #111111;
+            --surface-2: #191919;
+            --border: #2d2d2d;
+            --text: #e0e0e0;
+            --text-2: #888888;
+            --primary: #FFFFFF;
+            --primary-2: #e0e0e0;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+            --font: 'Courier New', 'Monaco', 'Consolas', monospace;
+            --code-bg: #050505;
+            --error: #ef4444;
+        }
+        [data-theme="light"] {
+            --bg: #f0f0f0;
+            --surface: #ffffff;
+            --surface-2: #f7f7f7;
+            --border: #cccccc;
+            --text: #1a1a1a;
+            --text-2: #555555;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            --code-bg: #f5f5f5;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font);
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        .topbar {
+            background: var(--surface);
+            border-bottom: 2px solid var(--border);
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+            font-weight: bold;
+        }
+        .topbar a {
+            color: var(--text-2);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .topbar a:hover { color: var(--primary); }
+        .topbar .spacer { flex: 1; }
+        .theme-btn {
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 0.4rem 0.8rem;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        .theme-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .hero {
+            background: linear-gradient(90deg, var(--surface) 0%, var(--surface-2) 100%);
+            border-bottom: 2px solid var(--border);
+            padding: 3rem 1.5rem;
+            text-align: center;
+            position: relative;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .hero p {
+            font-size: 1rem;
+            color: var(--text-2);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 0;
+        }
+        @media (max-width: 900px) {
+            .wrapper { grid-template-columns: 1fr; }
+        }
+        main { border-right: 2px solid var(--border); }
+
+        .card {
+            background: var(--surface);
+            border: none;
+            border-bottom: 2px solid var(--border);
+            margin-bottom: 0;
+        }
+        .card-header {
+            background: var(--surface-2);
+            padding: 1rem 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            border-bottom: 1px solid var(--border);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .card-body { padding: 1.5rem; }
+
+        .method-section {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px dashed var(--border);
+        }
+        .method-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .method-title {
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .method-signature {
+            background: var(--code-bg);
+            padding: 0.75rem;
+            border-left: 3px solid var(--primary);
+            margin: 0.75rem 0;
+            font-family: var(--font);
+            font-size: 0.95rem;
+            overflow-x: auto;
+        }
+        .method-desc {
+            margin: 0.75rem 0;
+            color: var(--text-2);
+            line-height: 1.6;
+        }
+        .method-params {
+            margin: 0.75rem 0;
+            padding-left: 1rem;
+        }
+        .method-params dt {
+            color: var(--primary);
+            font-weight: bold;
+            margin-top: 0.5rem;
+        }
+        .method-params dd {
+            color: var(--text-2);
+            margin-left: 1rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--border);
+            border-radius: 0;
+            padding: 1rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: var(--font);
+            font-size: 13px;
+            line-height: 1.4;
+        }
+        .code-block pre {
+            margin: 0;
+            white-space: pre;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin: 2rem 0 1rem 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+        }
+
+        .sidebar .card {
+            border-left: 2px solid var(--primary);
+            margin-bottom: 1rem;
+        }
+        .sidebar .card-body {
+            padding: 1rem;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar li {
+            margin-bottom: 0.5rem;
+            padding-left: 1rem;
+            position: relative;
+        }
+        .sidebar li::before {
+            content: ">";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+        .sidebar a {
+            color: var(--text-2);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .sidebar a:hover {
+            color: var(--primary);
+        }
+
+        .footer {
+            background: var(--surface);
+            border-top: 2px solid var(--border);
+            padding: 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .footer-link {
+            color: var(--text-2);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .footer-link:hover { color: var(--primary); }
+    </style>
+</head>
+<body>
+
+<header class="topbar">
+    <a href="index.html">← BACK TO HOME</a>
+    <a href="https://github.com/GodlyCow203/ServerEssentials" target="_blank">GITHUB</a>
+    <a href="https://discord.gg/vmhQ2gZr8g" target="_blank">DISCORD</a>
+    <div class="spacer"></div>
+    <button class="theme-btn" id="themeBtn">🌙 DARK</button>
+</header>
+
+<section class="hero">
+    <h1>Report API Documentation</h1>
+    <p>Asynchronous player reporting system with cooldown management, validation, auto-clear capabilities, and comprehensive event handling for moderation workflows</p>
+</section>
+
+<div class="wrapper">
+    <main>
+        <div class="card">
+            <div class="card-header">Overview</div>
+            <div class="card-body">
+                <p style="margin-bottom: 1rem; color: var(--text-2);">
+                    The Report API provides public interfaces for managing player reports. Supports cooldown enforcement, duplicate prevention, staff notifications, auto-clear of stale reports, and player-specific cooldown tracking. All operations are asynchronous to prevent blocking the main server thread.
+                </p>
+                <div class="method-signature">Package: com.serveressentials.api.report</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Interface: ReportAPI</div>
+            <div class="card-body">
+                <div class="method-section">
+                    <div class="method-title">submitReport(Player reporter, String targetName, String reason)</div>
+                    <div class="method-signature">CompletableFuture&lt;Boolean&gt; submitReport(Player reporter, String targetName, String reason)</div>
+                    <div class="method-desc">Submits a new player report to the system. Automatically enforces cooldowns and prevents duplicate reports.</div>
+                    <div class="method-params">
+                        <dt>Parameters:</dt>
+                        <dd><strong>reporter:</strong> The player submitting the report. Annotated with @NotNull.</dd>
+                        <dd><strong>targetName:</strong> The exact name of the player being reported. Annotated with @NotNull.</dd>
+                        <dd><strong>reason:</strong> Detailed description of the violation. Annotated with @NotNull.</dd>
+                    </div>
+                    <div class="code-block">
+                        <pre>// Basic /report command handler
+public boolean onReportCommand(CommandSender sender, String label, String[] args) {
+    if (!(sender instanceof Player)) {
+        sender.sendMessage("Only players can submit reports.");
+        return true;
+    }
+
+    Player reporter = (Player) sender;
+
+    if (args.length < 2) {
+        reporter.sendMessage("Usage: /report <player> <reason>");
+        return true;
+    }
+
+    String targetName = args[0];
+    String reason = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
+
+    if (!reportAPI.isEnabled()) {
+        reporter.sendMessage("§cReport system is disabled.");
+        return true;
+    }
+
+    reportAPI.submitReport(reporter, targetName, reason).thenAccept(success -> {
+        if (success) {
+            reporter.sendMessage("§aReport submitted successfully. Staff will review it soon.");
+
+            // Notify staff
+            Bukkit.getOnlinePlayers().forEach(online -> {
+                if (online.hasPermission("reports.admin.notify")) {
+                    online.sendMessage("§c[NEW REPORT] " + targetName + " was reported by " + reporter.getName());
+                    online.sendMessage("§7Reason: " + reason);
+                }
+            });
+        } else {
+            reporter.sendMessage("§cFailed to submit report. You may be on cooldown or target not found.");
+        }
+    });
+
+    return true;
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getReport(String reportId)</div>
+                    <div class="method-signature">CompletableFuture&lt;Optional&lt;ReportInfo&gt;&gt; getReport(String reportId)</div>
+                    <div class="method-desc">Retrieves a specific report by its unique ID.</div>
+                    <div class="method-params">
+                        <dt>Parameters:</dt>
+                        <dd><strong>reportId:</strong> The unique identifier of the report. Annotated with @NotNull.</dd>
+                    </div>
+                    <div class="code-block">
+                        <pre>// Display report details
+public boolean onReportInfoCommand(CommandSender sender, String[] args) {
+    if (!sender.hasPermission("reports.admin.view")) return false;
+
+    if (args.length < 1) {
+        sender.sendMessage("Usage: /reportinfo <id>");
+        return true;
+    }
+
+    String reportId = args[0];
+
+    reportAPI.getReport(reportId).thenAccept(optReport -> {
+        if (optReport.isEmpty()) {
+            sender.sendMessage("§cReport not found: " + reportId);
+            return;
+        }
+
+        ReportInfo report = optReport.get();
+        sender.sendMessage("§6Report " + reportId + ":");
+        sender.sendMessage("§7Target: " + report.getTargetName());
+        sender.sendMessage("§7Reason: " + report.getReason());
+        sender.sendMessage("§7Status: " + (report.isPending() ? "Pending" : "Cleared"));
+        sender.sendMessage("§7Date: " + new Date(report.getTimestamp()).toLocaleString());
+    });
+
+    return true;
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getPendingReports()</div>
+                    <div class="method-signature">CompletableFuture&lt;List&lt;ReportInfo&gt;&gt; getPendingReports()</div>
+                    <div class="method-desc">Retrieves all uncleared/pending reports. Primary method for building moderation GUIs and lists.</div>
+                    <div class="code-block">
+                        <pre>// Display pending reports to moderators
+public void showPendingReports(Player moderator) {
+    moderator.sendMessage("§eFetching pending reports...");
+
+    reportAPI.getPendingReports().thenAccept(reports -> {
+        if (reports.isEmpty()) {
+            moderator.sendMessage("§aNo pending reports!");
+            return;
+        }
+
+        moderator.sendMessage("§6§lPending Reports:");
+        moderator.sendMessage("§7Total: " + reports.size());
+        moderator.sendMessage("§8--------------------");
+
+        reports.forEach(report -> {
+            moderator.sendMessage("§c[ID: " + report.getId() + "] §7" + report.getTargetName());
+            moderator.sendMessage("  §7Reported by: " + report.getReporterName());
+            moderator.sendMessage("  §7Reason: " + report.getReason());
+        });
+    });
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getAllReports()</div>
+                    <div class="method-signature">CompletableFuture&lt;List&lt;ReportInfo&gt;&gt; getAllReports()</div>
+                    <div class="method-desc">Retrieves all reports including both pending and cleared ones.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getReportStats()</div>
+                    <div class="method-signature">CompletableFuture&lt;ReportStats&gt; getReportStats()</div>
+                    <div class="method-desc">Retrieves summary statistics about all reports in the system.</div>
+                    <div class="code-block">
+                        <pre>// Show report statistics
+public boolean onReportStatsCommand(CommandSender sender) {
+    if (!sender.hasPermission("reports.admin.stats")) return false;
+
+    reportAPI.getReportStats().thenAccept(stats -> {
+        sender.sendMessage("§6§lReport Statistics:");
+        sender.sendMessage("§7Total reports: " + stats.getTotalReports());
+        sender.sendMessage("§7Pending: " + stats.getPendingReports());
+        sender.sendMessage("§7Cleared: " + stats.getClearedReports());
+
+        long oldestDays = (System.currentTimeMillis() - stats.getOldestReportTimestamp()) / (1000 * 60 * 60 * 24);
+        sender.sendMessage("§7Oldest report: " + oldestDays + " days old");
+    });
+
+    return true;
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">clearReport(Player clearer, String reportId)</div>
+                    <div class="method-signature">CompletableFuture&lt;Void&gt; clearReport(Player clearer, String reportId)</div>
+                    <div class="method-desc">Marks a report as cleared (resolved) by a staff member.</div>
+                    <div class="method-params">
+                        <dt>Parameters:</dt>
+                        <dd><strong>clearer:</strong> The staff member clearing the report. Annotated with @NotNull.</dd>
+                        <dd><strong>reportId:</strong> The ID of the report to clear. Annotated with @NotNull.</dd>
+                    </div>
+                    <div class="code-block">
+                        <pre>// Command: /clearreport <id>
+public boolean onClearReportCommand(CommandSender sender, String[] args) {
+    if (!(sender instanceof Player)) return false;
+
+    Player staff = (Player) sender;
+
+    if (!staff.hasPermission("reports.admin.clear")) {
+        staff.sendMessage("§cNo permission.");
+        return true;
+    }
+
+    if (args.length < 1) {
+        staff.sendMessage("Usage: /clearreport <id>");
+        return true;
+    }
+
+    String reportId = args[0];
+
+    reportAPI.clearReport(staff, reportId).thenAccept(v -> {
+        staff.sendMessage("§aReport " + reportId + " cleared.");
+
+        // Notify reporter
+        reportAPI.getReport(reportId).thenAccept(optReport -> {
+            optReport.ifPresent(report -> {
+                Player reporter = Bukkit.getPlayer(report.getReporterId());
+                if (reporter != null && reporter.isOnline()) {
+                    reporter.sendMessage("§6Your report against " + report.getTargetName() + " has been reviewed and cleared.");
+                }
+            });
+        });
+    });
+
+    return true;
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getRemainingCooldown(UUID playerId)</div>
+                    <div class="method-signature">CompletableFuture&lt;Long&gt; getRemainingCooldown(UUID playerId)</div>
+                    <div class="method-desc">Retrieves the remaining cooldown time before a player can submit another report. Returns 0 if no cooldown is active (player can report immediately).</div>
+                    <div class="method-params">
+                        <dt>Parameters:</dt>
+                        <dd><strong>playerId:</strong> The UUID of the player to check. The player does not need to be online. Annotated with @NotNull.</dd>
+                    </div>
+                    <div class="code-block">
+                        <pre>// Check if player can report
+public boolean canSubmitReport(Player player) {
+    return reportAPI.getRemainingCooldown(player.getUniqueId())
+        .thenApply(cooldown -> cooldown <= 0)
+        .join(); // Use with caution - may block
+}
+
+// Display cooldown in report command
+public void checkReportCooldown(Player player) {
+    reportAPI.getRemainingCooldown(player.getUniqueId()).thenAccept(cooldown -> {
+        if (cooldown > 0) {
+            String timeLeft = formatCooldown(cooldown);
+            player.sendMessage("§cYou must wait " + timeLeft + " before submitting another report.");
+        } else {
+            player.sendMessage("§aYou can submit a report now.");
+        }
+    });
+}
+
+private String formatCooldown(long seconds) {
+    long minutes = seconds / 60;
+    long secs = seconds % 60;
+    return String.format("%02d:%02d", minutes, secs);
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">autoClearReports(Player clearer)</div>
+                    <div class="method-signature">CompletableFuture&lt;Integer&gt; autoClearReports(Player clearer)</div>
+                    <div class="method-desc">Automatically clears all reports that are older than the configured threshold (e.g., 7 days). Returns the count of reports that were cleared.</div>
+                    <div class="method-params">
+                        <dt>Parameters:</dt>
+                        <dd><strong>clearer:</strong> The player triggering the auto-clear (can be null for system/console operations). Annotated with @Nullable.</dd>
+                    </div>
+                    <div class="code-block">
+                        <pre>// Command: /reports autoclear (admin)
+public boolean onAutoClearCommand(CommandSender sender) {
+    if (!sender.hasPermission("reports.admin.autoclear")) {
+        sender.sendMessage("§cNo permission.");
+        return true;
+    }
+
+    Player clearer = (sender instanceof Player) ? (Player) sender : null;
+    String clearerName = clearer != null ? clearer.getName() : "Console";
+
+    sender.sendMessage("§eRunning auto-clear for old reports...");
+
+    reportAPI.autoClearReports(clearer).thenAccept(count -> {
+        sender.sendMessage("§aAuto-cleared " + count + " old reports.");
+        getLogger().info(clearerName + " auto-cleared " + count + " reports");
+
+        if (count > 0) {
+            // Notify staff
+            Bukkit.broadcast("§7[Reports] " + count + " old reports were auto-cleared.", "reports.admin");
+        }
+    }).exceptionally(throwable -> {
+        sender.sendMessage("§cAuto-clear failed: " + throwable.getMessage());
+        getLogger().log(Level.SEVERE, "Report auto-clear failed", throwable);
+        return null;
+    });
+
+    return true;
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">isEnabled()</div>
+                    <div class="method-signature">boolean isEnabled()</div>
+                    <div class="method-desc">Checks whether the report system is currently enabled on the server. Always call this before performing any report operations.</div>
+                    <div class="code-block">
+                        <pre>@EventHandler
+public void onPlayerJoin(PlayerJoinEvent event) {
+    Player player = event.getPlayer();
+
+    // Only notify if reports are enabled
+    if (reportAPI.isEnabled()) {
+        reportAPI.getPendingReports().thenAccept(pending -> {
+            if (!pending.isEmpty() && player.hasPermission("reports.admin.notify")) {
+                player.sendMessage("§6§l[Staff] §cThere are " + pending.size() + " pending reports!");
+                player.sendMessage("§eUse /reports list to view them.");
+            }
+        });
+    }
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">reload()</div>
+                    <div class="method-signature">CompletableFuture&lt;Void&gt; reload()</div>
+                    <div class="method-desc">Reloads the report configuration from disk, updating cooldown settings, auto-clear thresholds, and other report parameters without requiring a server restart.</div>
+                    <div class="code-block">
+                        <pre>// Command: /reports reload (admin)
+public boolean onReportsReloadCommand(CommandSender sender) {
+    if (!sender.hasPermission("reports.admin.reload")) {
+        sender.sendMessage("§cNo permission.");
+        return true;
+    }
+
+    sender.sendMessage("§eReloading report configuration...");
+
+    reportAPI.reload().thenAccept(v -> {
+        sender.sendMessage("§aReport configuration reloaded!");
+        getLogger().info("Reports configuration reloaded by " + sender.getName());
+
+        // Show updated settings
+        ReportStats stats = reportAPI.getReportStats().join();
+        sender.sendMessage("§7Current pending: " + stats.getPendingReports());
+
+    }).exceptionally(throwable -> {
+        sender.sendMessage("§cFailed to reload config: " + throwable.getMessage());
+        getLogger().log(Level.SEVERE, "Reports reload failed", throwable);
+        return null;
+    });
+
+    return true;
+}</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Class: ReportInfo</div>
+            <div class="card-body">
+                <div class="method-signature">Package: com.serveressentials.api.report</div>
+                <p style="margin: 1rem 0; color: var(--text-2);">An immutable data container representing a complete player report record, including reporter, target, reason, timestamp, and status.</p>
+
+                <div class="section-title">Constructor</div>
+                <div class="method-signature">ReportInfo(String id, UUID reporterId, UUID targetId, String reason, long timestamp, boolean pending, String reporterName, String targetName)</div>
+
+                <div class="section-title">Methods</div>
+                <div class="method-section">
+                    <div class="method-title">getId()</div>
+                    <div class="method-signature">@NotNull String getId()</div>
+                    <div class="method-desc">Returns the unique identifier of this report. Use this ID to reference the report in clearReport() calls.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getReporterId()</div>
+                    <div class="method-signature">@NotNull UUID getReporterId()</div>
+                    <div class="method-desc">Returns the UUID of the player who submitted the report.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getTargetId()</div>
+                    <div class="method-signature">@NotNull UUID getTargetId()</div>
+                    <div class="method-desc">Returns the UUID of the player who was reported.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getReason()</div>
+                    <div class="method-signature">@NotNull String getReason()</div>
+                    <div class="method-desc">Returns the detailed reason for the report.</div>
+                    <div class="code-block">
+                        <pre>// Check if report is old
+public boolean isStaleReport(ReportInfo report) {
+    long daysOld = (System.currentTimeMillis() - report.getTimestamp()) / (1000 * 60 * 60 * 24);
+    return daysOld > 7; // Older than 7 days
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getTimestamp()</div>
+                    <div class="method-signature">long getTimestamp()</div>
+                    <div class="method-desc">Returns when the report was submitted (milliseconds since epoch).</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">isPending()</div>
+                    <div class="method-signature">boolean isPending()</div>
+                    <div class="method-desc">Indicates whether the report is still pending (uncleared) or has been resolved.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getReporterName(), getTargetName()</div>
+                    <div class="method-signature">@Nullable String getReporterName(), @Nullable String getTargetName()</div>
+                    <div class="method-desc">Returns the names of the reporter and target players for display (null if player data not available).</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Class: ReportStats</div>
+            <div class="card-body">
+                <div class="method-signature">Package: com.serveressentials.api.report</div>
+                <p style="margin: 1rem 0; color: var(--text-2);">An immutable data container representing aggregated statistics about all reports in the system.</p>
+
+                <div class="section-title">Constructor</div>
+                <div class="method-signature">ReportStats(int totalReports, int pendingReports, int clearedReports, long oldestReportTimestamp, long newestReportTimestamp)</div>
+
+                <div class="section-title">Methods</div>
+                <div class="method-section">
+                    <div class="method-title">getTotalReports()</div>
+                    <div class="method-signature">int getTotalReports()</div>
+                    <div class="method-desc">Returns total number of reports submitted.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getPendingReports()</div>
+                    <div class="method-signature">int getPendingReports()</div>
+                    <div class="method-desc">Returns number of pending (uncleared) reports.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getClearedReports()</div>
+                    <div class="method-signature">int getClearedReports()</div>
+                    <div class="method-desc">Returns number of cleared (resolved) reports.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getOldestReportTimestamp(), getNewestReportTimestamp()</div>
+                    <div class="method-signature">long getOldestReportTimestamp(), long getNewestReportTimestamp()</div>
+                    <div class="method-desc">Returns timestamp range of all reports.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Events</div>
+            <div class="card-body">
+                <div class="section-title">ReportEvent</div>
+                <div class="method-signature">Package: com.serveressentials.api.report.event</div>
+                <div class="method-desc">Base event class for all report-related actions. Asynchronous if fired off main thread.</div>
+
+                <div class="section-title">ReportCreateEvent</div>
+                <div class="method-signature">Package: com.serveressentials.api.report.event</div>
+                <div class="method-desc">Fired when a player successfully submits a report.</div>
+                <div class="code-block">
+                    <pre>@EventHandler
+public void onReportCreate(ReportCreateEvent event) {
+    ReportInfo report = event.getReportInfo();
+    Player reporter = event.getPlayer();
+
+    // Log creation
+    getLogger().info(String.format(
+        "REPORT CREATED: %s reported %s for: %s",
+        reporter.getName(),
+        report.getTargetName(),
+        report.getReason()
+    ));
+
+    // Staff notification
+    Bukkit.getOnlinePlayers().forEach(online -> {
+        if (online.hasPermission("reports.admin.notify")) {
+            online.sendMessage("§c[NEW REPORT] " + report.getTargetName() + " reported by " + reporter.getName());
+            online.sendMessage("§7Reason: " + report.getReason());
+        }
+    });
+}</pre>
+                </div>
+
+                <div class="section-title">ReportClearEvent</div>
+                <div class="method-signature">Package: com.serveressentials.api.report.event</div>
+                <div class="method-desc">Fired when a report is cleared (resolved).</div>
+                <div class="code-block">
+                    <pre>@EventHandler
+public void onReportClear(ReportClearEvent event) {
+    ReportInfo report = event.getReportInfo();
+    Player clearer = event.getPlayer();
+    boolean manual = event.isManualClear();
+
+    String clearedBy = clearer != null ? clearer.getName() : "System";
+    String actionType = manual ? "MANUAL" : "AUTO";
+
+    getLogger().info(String.format(
+        "REPORT %s CLEARED: %s by %s",
+        actionType,
+        report.getId(),
+        clearedBy
+    ));
+
+    // Notify reporter
+    Player reporter = Bukkit.getPlayer(report.getReporterId());
+    if (reporter != null && reporter.isOnline()) {
+        reporter.sendMessage("§6Your report against " + report.getTargetName() + " has been reviewed and cleared.");
+    }
+}</pre>
+                </div>
+
+                <div class="section-title">ReportAutoClearEvent</div>
+                <div class="method-signature">Package: com.serveressentials.api.report.event</div>
+                <div class="method-desc">Fired when multiple reports are auto-cleared by the system.</div>
+                <div class="code-block">
+                    <pre>@EventHandler
+public void onAutoClear(ReportAutoClearEvent event) {
+    List<ReportInfo> cleared = event.getClearedReports();
+
+    getLogger().info("AUTO-CLEARED " + cleared.size() + " reports");
+
+    if (!cleared.isEmpty()) {
+        // Notify admins
+        Bukkit.getOnlinePlayers().forEach(online -> {
+            if (online.hasPermission("reports.admin.notify")) {
+                online.sendMessage("§e[Reports] Auto-cleared " + cleared.size() + " old reports");
+            }
+        });
+    }
+}</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Complete Usage Scenario</div>
+            <div class="card-body">
+                <p style="margin-bottom: 1rem; color: var(--text-2);">
+                    Advanced moderation system with punishment integration, report prioritization, and automated investigation tools:
+                </p>
+                <div class="code-block">
+                    <pre>package com.advancedmoderation;
+
+import com.serveressentials.api.report.*;
+import com.serveressentials.api.report.event.*;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.plugin.java.JavaPlugin;
+import java.util.*;
+
+public class AdvancedModerationPlugin extends JavaPlugin implements Listener {
+    private ReportAPI reportAPI;
+    private Map<String, Integer> reportSeverity;
+
+    @Override
+    public void onEnable() {
+        this.reportAPI = getReportAPI();
+        this.reportSeverity = new HashMap<>();
+
+        getServer().getPluginManager().registerEvents(this, this);
+        getCommand("modreports").setExecutor(this::onModReportsCommand);
+    }
+
+    @EventHandler
+    public void onReportCreate(ReportCreateEvent event) {
+        ReportInfo report = event.getReportInfo();
+
+        // Calculate severity score
+        int severity = calculateSeverity(report);
+        reportSeverity.put(report.getId(), severity);
+
+        // High severity = immediate alert
+        if (severity >= 10) {
+            alertStaffHighPriority(report);
+        }
+    }
+
+    private int calculateSeverity(ReportInfo report) {
+        String lowerReason = report.getReason().toLowerCase();
+        // Keywords that increase report severity
+        Map&lt;String, Integer&gt; severityKeywords = Map.of(
+            "hack", 10,
+            "cheat", 10,
+            "grief", 5,
+            "spam", 3,
+            "offensive", 7,
+            "exploit", 8
+        );
+
+        int baseSeverity = 0;
+        for (Map.Entry&lt;String, Integer&gt; entry : severityKeywords.entrySet()) {
+            if (lowerReason.contains(entry.getKey())) {
+                baseSeverity = Math.max(baseSeverity, entry.getValue());
+            }
+        }
+        return baseSeverity;
+    }
+
+    private void alertStaffHighPriority(ReportInfo report) {
+        String alert = "§4§l[URGENT] §c" + report.getTargetName() + " reported for: " + report.getReason();
+
+        Bukkit.getOnlinePlayers().forEach(online -> {
+            if (online.hasPermission("reports.urgent")) {
+                online.sendMessage(alert);
+                online.playSound(online.getLocation(), Sound.ENTITY_ENDER_DRAGON_GROWL, 1.0f, 1.0f);
+            }
+        });
+    }
+}</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Error Handling Best Practices</div>
+            <div class="card-body">
+                <div class="code-block">
+                    <pre>public void safeReportSubmission(Player reporter, String targetName, String reason) {
+    // Check if report system is enabled first
+    if (!reportAPI.isEnabled()) {
+        reporter.sendMessage("§cReport system is disabled.");
+        return;
+    }
+
+    // Validate parameters
+    if (reporter == null || !reporter.isOnline()) {
+        getLogger().warning("Attempted to submit report from null/offline player.");
+        return;
+    }
+
+    if (targetName == null || targetName.isEmpty()) {
+        reporter.sendMessage("§cTarget player name cannot be empty.");
+        return;
+    }
+
+    if (reason == null || reason.isEmpty()) {
+        reporter.sendMessage("§cReason cannot be empty.");
+        return;
+    }
+
+    // Check cooldown before submission
+    reportAPI.getRemainingCooldown(reporter.getUniqueId()).thenAccept(cooldown -> {
+        if (cooldown > 0) {
+            reporter.sendMessage("§cYou're on cooldown. Wait " + formatCooldown(cooldown));
+            return;
+        }
+
+        // Perform submission with error handling
+        reportAPI.submitReport(reporter, targetName, reason)
+            .exceptionally(throwable -> {
+                getLogger().log(Level.SEVERE, "Report submission failed", throwable);
+                reporter.sendMessage("§cCritical error. Contact staff.");
+                return false;
+            })
+            .thenAccept(success -> {
+                if (!success) {
+                    reporter.sendMessage("§cFailed to submit. Target not found or duplicate report.");
+                }
+            });
+    });
+}
+
+private String formatCooldown(long seconds) {
+    if (seconds < 60) {
+        return seconds + " seconds";
+    }
+    return String.format("%d minutes, %d seconds",
+        seconds / 60, seconds % 60);
+}</pre>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <aside class="sidebar">
+        <div class="card">
+            <div class="card-header">Quick Navigation</div>
+            <div class="card-body">
+                <ul>
+                    <li><a href="#top">ReportAPI Interface</a></li>
+                    <li><a href="#top">ReportInfo Class</a></li>
+                    <li><a href="#top">ReportStats Class</a></li>
+                    <li><a href="#top">Event Listeners</a></li>
+                    <li><a href="#top">Usage Examples</a></li>
+                    <li><a href="#top">Error Handling</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Package Structure</div>
+            <div class="card-body">
+                <ul>
+                    <li>com.serveressentials.api.report.ReportAPI</li>
+                    <li>com.serveressentials.api.report.ReportInfo</li>
+                    <li>com.serveressentials.api.report.ReportStats</li>
+                    <li>com.serveressentials.api.report.event.*</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Implementation Notes</div>
+            <div class="card-body" style="font-size: 0.85rem; color: var(--text-2);">
+                <p>All report operations run asynchronously with automatic cooldown enforcement. Zero lag reported on servers with 100+ concurrent players.</p>
+                <p style="margin-top: 0.75rem;">Supports duplicate prevention, staff notifications, and auto-clear of stale reports based on configurable thresholds.</p>
+            </div>
+        </div>
+    </aside>
+</div>
+
+<footer>
+    <div class="footer-links">
+        <a href="https://modrinth.com/user/_GodlyCow" class="footer-link" target="_blank">Modrinth Profile</a>
+        <a href="https://github.com/GodlyCow203" class="footer-link" target="_blank">GitHub</a>
+        <a href="https://discord.gg/vmhQ2gZr8g" class="footer-link" target="_blank">Discord</a>
+        <a href="mailto:godlycowcow@gmail.com" class="footer-link">Email</a>
+    </div>
+    <p>&copy; <span id="yr"></span> _GodlyCow – Building plugins for the Minecraft community</p>
+</footer>
+
+<script>
+    const themeBtn = document.getElementById('themeBtn');
+    const root = document.documentElement;
+    const saved = localStorage.getItem('theme') || 'dark';
+    root.setAttribute('data-theme', saved);
+    themeBtn.textContent = saved === 'dark' ? '☀️ LIGHT' : '🌙 DARK';
+
+    themeBtn.addEventListener('click', () => {
+        const t = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', t);
+        localStorage.setItem('theme', t);
+        themeBtn.textContent = t === 'dark' ? '☀️ LIGHT' : '🌙 DARK';
+    });
+
+    document.getElementById('yr').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

@@ -1,4 +1,3 @@
-// Test server with both plugin and test-api
 
 def runDir = layout.projectDirectory.dir('run/paper-test-api')
 def paperJar = runDir.file('paper.jar')

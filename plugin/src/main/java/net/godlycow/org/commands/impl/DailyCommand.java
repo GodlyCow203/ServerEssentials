@@ -4,7 +4,6 @@ import net.godlycow.org.daily.DailyConfig;
 import net.godlycow.org.daily.trigger.DailyListener;
 import net.godlycow.org.daily.storage.DailyStorage;
 import net.kyori.adventure.text.Component;
-
 import net.godlycow.org.language.LanguageManager;
 import net.godlycow.org.language.PlayerLanguageManager;
 import org.bukkit.command.Command;
@@ -32,16 +31,16 @@ public class DailyCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player player)) {
-            String message = langManager.getMessageFor(null, "daily.command.only-player",
-                    "<red>Only players can use this command!").toString();
-            sender.sendMessage(message);
+            Component message = langManager.getMessageFor(null, "commands.daily.only-player",
+                    "<#FF2424>Only players can use this command!");
+            plugin.getServer().sendMessage(message);
             return true;
         }
 
         if (!player.hasPermission("serveressentials.command.daily")) {
-            Component message = langManager.getMessageFor(player, "daily.command.no-permission",
-                    "<red>You need permission <yellow>{permission}</yellow>!",
-                    LanguageManager.ComponentPlaceholder.of("{permission}", "serveressentials.daily"));
+            Component message = langManager.getMessageFor(player, "commands.daily.no-permission",
+                    "<#FF2424>You need permission <#c0f0ff>{permission}<#FF2424>!",
+                    LanguageManager.ComponentPlaceholder.of("{permission}", "serveressentials.command.daily"));
             player.sendMessage(message);
             return true;
         }

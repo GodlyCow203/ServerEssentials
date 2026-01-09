@@ -74,7 +74,7 @@ public final class ShopCommand implements CommandExecutor {
         }
 
         if (!economyManager.isEnabled()) {
-            player.sendMessage(langManager.getMessageFor(player, "economy.shop.no-economy",
+            player.sendMessage(langManager.getMessageFor(player, "commands.economy.shop.no-economy",
                     "<red>✗ Economy system is not available. Shop features disabled."));
             return true;
         }
@@ -97,13 +97,13 @@ public final class ShopCommand implements CommandExecutor {
         }
 
         if (!config.enabled) {
-            player.sendMessage(langManager.getMessageFor(player, "economy.shop.reload-error",
+            player.sendMessage(langManager.getMessageFor(player, "commands.economy.shop.reload-error",
                     "<red>✗ Cannot reload: Shop system is disabled!"));
             return true;
         }
 
         if (!economyManager.isEnabled()) {
-            player.sendMessage(langManager.getMessageFor(player, "economy.shop.reload-error",
+            player.sendMessage(langManager.getMessageFor(player, "commands.economy.shop.reload-error",
                     "<red>✗ Cannot reload: Economy system is not available!"));
             return true;
         }
@@ -114,10 +114,10 @@ public final class ShopCommand implements CommandExecutor {
 
         reloadShop(player).thenAccept(success -> {
             if (success) {
-                player.sendMessage(langManager.getMessageFor(player, "economy.shop.reload-success",
+                player.sendMessage(langManager.getMessageFor(player, "commands.economy.shop.reload-success",
                         "<green>✓ Shop reloaded from YML files and saved to database."));
             } else {
-                player.sendMessage(langManager.getMessageFor(player, "economy.shop.reload-error",
+                player.sendMessage(langManager.getMessageFor(player, "commands.economy.shop.reload-error",
                         "<red>✗ Error reloading shop configuration."));
             }
         });
@@ -126,7 +126,7 @@ public final class ShopCommand implements CommandExecutor {
 
     private boolean handleSaveToFile(Player player) {
         if (!config.enabled) {
-            player.sendMessage(langManager.getMessageFor(player, "economy.shop.save-to-file-error",
+            player.sendMessage(langManager.getMessageFor(player, "commands.economy.shop.save-to-file-error",
                     "<red>✗ Cannot save: Shop system is disabled!"));
             return true;
         }
@@ -146,13 +146,13 @@ public final class ShopCommand implements CommandExecutor {
                     ShopConfigLoader.saveSectionConfig(sectionFile, sectionConfig);
                 });
 
-                player.sendMessage(langManager.getMessageFor(player, "economy.shop.save-to-file-success",
+                player.sendMessage(langManager.getMessageFor(player, "commands.economy.shop.save-to-file-success",
                         "<green>✓ Saved current database config to YML files!"));
                 future.complete(true);
             } catch (Exception e) {
                 plugin.getLogger().severe("Failed to save to file: " + e.getMessage());
                 e.printStackTrace();
-                player.sendMessage(langManager.getMessageFor(player, "economy.shop.save-to-file-error",
+                player.sendMessage(langManager.getMessageFor(player, "commands.economy.shop.save-to-file-error",
                         "<red>✗ Failed to save to files!"));
                 future.complete(false);
             }

@@ -21,6 +21,7 @@ public class LanguageManager {
 
     private final Map<String, Map<String, JsonElement>> languageData = new HashMap<>();
     private String defaultLanguage = "en";
+    private String globalPrefix = "";
 
     public LanguageManager(Plugin plugin) {
         this.plugin = plugin;
@@ -28,6 +29,10 @@ public class LanguageManager {
 
     public LanguageManager() {
         plugin = null;
+    }
+
+    public void setGlobalPrefix(String prefix) {
+        this.globalPrefix = prefix != null ? prefix : "";
     }
 
     public void loadLanguages() {
@@ -60,8 +65,6 @@ public class LanguageManager {
             }
         }
     }
-
-
 
     public Set<String> getAvailableLanguages() {
         return Collections.unmodifiableSet(languageData.keySet());
@@ -131,12 +134,31 @@ public class LanguageManager {
 
     public Component getComponent(String langId, String key, String def, ComponentPlaceholder... placeholders) {
         String raw = getString(langId, key, def, placeholders);
+
+        Component messageComponent;
         try {
-            return miniMessage.deserialize(raw);
+            messageComponent = miniMessage.deserialize(raw);
         } catch (Exception ex) {
-            plugin.getLogger().log(Level.WARNING, "Invalid MiniMessage at '" + key + "': " + raw, ex);
-            return Component.text(raw);
+            if (plugin != null) {
+                plugin.getLogger().log(Level.WARNING, "Invalid MiniMessage at '" + key + "': " + raw, ex);
+            }
+            messageComponent = Component.text(raw);
         }
+
+        if (!globalPrefix.isEmpty()) {
+            Component prefixComponent;
+            try {
+                prefixComponent = miniMessage.deserialize(globalPrefix);
+            } catch (Exception ex) {
+                if (plugin != null) {
+                    plugin.getLogger().log(Level.WARNING, "Invalid prefix MiniMessage: " + globalPrefix, ex);
+                }
+                prefixComponent = Component.text(globalPrefix);
+            }
+            return prefixComponent.append(messageComponent);
+        }
+
+        return messageComponent;
     }
 
     public Component getComponent(String key, String def, ComponentPlaceholder... placeholders) {
@@ -163,9 +185,11 @@ public class LanguageManager {
     }
 
     public void reloadLanguages() {
-        plugin.getLogger().info("Reloading language files...");
-        loadLanguages();
-        plugin.getLogger().info("Reloaded " + languageData.size() + " languages!");
+        if (plugin != null) {
+            plugin.getLogger().info("Reloading language files...");
+            loadLanguages();
+            plugin.getLogger().info("Reloaded " + languageData.size() + " languages!");
+        }
     }
 
     private String replacePlaceholders(String raw, ComponentPlaceholder... placeholders) {

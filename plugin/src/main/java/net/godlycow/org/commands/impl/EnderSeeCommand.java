@@ -75,13 +75,9 @@ public final class EnderSeeCommand implements CommandExecutor, TabCompleter {
     }
 
     private void openEnderChest(Player viewer, Player target, boolean isOther) {
-        Inventory enderChestCopy = Bukkit.createInventory(null, 27,
-                Component.text("EnderChest of " + target.getName()));
+        Inventory enderChest = target.getEnderChest();
 
-        ItemStack[] contents = target.getEnderChest().getContents();
-        enderChestCopy.setContents(contents);
-
-        viewer.openInventory(enderChestCopy);
+        viewer.openInventory(enderChest);
 
         if (isOther) {
             viewer.sendMessage(langManager.getMessageFor(viewer, "commands.endersee.opened-other",
@@ -92,6 +88,7 @@ public final class EnderSeeCommand implements CommandExecutor, TabCompleter {
                     "<green>Opened your ender chest."));
         }
     }
+
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {

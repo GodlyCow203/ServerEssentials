@@ -1242,27 +1242,13 @@
       "kick-message": "<#B22222>❌ You must accept the rules to join this server!"
     },
     "close": {
-      "message": "<#FFD900>You closed the rules GUI. You must accept them to play."
+      "cannot-close": "<#FFD900>You closed the rules GUI. You must accept them to play."
     }
   },
   "general": {
     "error": "<#B22222>❌ ✗ An error occurred: {error}",
-    "success": "<#3BB302>✔ ✔ Success!",
+    "success": "<#3BB302>✔ Success!",
     "loading": "<#708090>Loading..."
-  },
-  "vault": {
-    "only-players": "<#FFD900>Only players can use vault commands!",
-    "usage": "<#FFD900>Usage: <#FFD900>/pv [number]",
-    "invalid-number": "<#B22222>❌ Vault number must be between 1-10!",
-    "saved": "<#3BB302>✔ Vault <#FFD900>{vault}</#FFD900> saved!",
-    "admin-saved": "<#3BB302>✔ Saved vault <#FFD900>{vault}</#FFD900> for <#FFD900>{player}</#FFD900>!",
-    "selector": {
-      "title": "<#FFD900>Select a Vault",
-      "unlocked": "<#3BB302>✔ Vault <white>#{number}",
-      "locked": "<#B22222>❌ Vault <white>#{number} <#B22222>❌ 🔒",
-      "click-to-open": "<#708090>Click to open",
-      "no-permission": "<#708090>No permission"
-    }
   },
   "warp": {
     "usage": "<#FFD900>Usage: <#FFD900>/warp <name>",

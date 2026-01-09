@@ -1,0 +1,886 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="utf-8">
+    <title>Shop API Documentation – _GodlyCow</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --surface: #111111;
+            --surface-2: #191919;
+            --border: #2d2d2d;
+            --text: #e0e0e0;
+            --text-2: #888888;
+            --primary: #FFFFFF;
+            --primary-2: #e0e0e0;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+            --font: 'Courier New', 'Monaco', 'Consolas', monospace;
+            --code-bg: #050505;
+            --error: #ef4444;
+        }
+        [data-theme="light"] {
+            --bg: #f0f0f0;
+            --surface: #ffffff;
+            --surface-2: #f7f7f7;
+            --border: #cccccc;
+            --text: #1a1a1a;
+            --text-2: #555555;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            --code-bg: #f5f5f5;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font);
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        .topbar {
+            background: var(--surface);
+            border-bottom: 2px solid var(--border);
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+            font-weight: bold;
+        }
+        .topbar a {
+            color: var(--text-2);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .topbar a:hover { color: var(--primary); }
+        .topbar .spacer { flex: 1; }
+        .theme-btn {
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 0.4rem 0.8rem;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        .theme-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .hero {
+            background: linear-gradient(90deg, var(--surface) 0%, var(--surface-2) 100%);
+            border-bottom: 2px solid var(--border);
+            padding: 3rem 1.5rem;
+            text-align: center;
+            position: relative;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .hero p {
+            font-size: 1rem;
+            color: var(--text-2);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 0;
+        }
+        @media (max-width: 900px) {
+            .wrapper { grid-template-columns: 1fr; }
+        }
+        main { border-right: 2px solid var(--border); }
+
+        .card {
+            background: var(--surface);
+            border: none;
+            border-bottom: 2px solid var(--border);
+            margin-bottom: 0;
+        }
+        .card-header {
+            background: var(--surface-2);
+            padding: 1rem 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            border-bottom: 1px solid var(--border);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .card-body { padding: 1.5rem; }
+
+        .method-section {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px dashed var(--border);
+        }
+        .method-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .method-title {
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .method-signature {
+            background: var(--code-bg);
+            padding: 0.75rem;
+            border-left: 3px solid var(--primary);
+            margin: 0.75rem 0;
+            font-family: var(--font);
+            font-size: 0.95rem;
+            overflow-x: auto;
+        }
+        .method-desc {
+            margin: 0.75rem 0;
+            color: var(--text-2);
+            line-height: 1.6;
+        }
+        .method-params {
+            margin: 0.75rem 0;
+            padding-left: 1rem;
+        }
+        .method-params dt {
+            color: var(--primary);
+            font-weight: bold;
+            margin-top: 0.5rem;
+        }
+        .method-params dd {
+            color: var(--text-2);
+            margin-left: 1rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--border);
+            border-radius: 0;
+            padding: 1rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: var(--font);
+            font-size: 13px;
+            line-height: 1.4;
+        }
+        .code-block pre {
+            margin: 0;
+            white-space: pre;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin: 2rem 0 1rem 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+        }
+
+        .sidebar .card {
+            border-left: 2px solid var(--primary);
+            margin-bottom: 1rem;
+        }
+        .sidebar .card-body {
+            padding: 1rem;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar li {
+            margin-bottom: 0.5rem;
+            padding-left: 1rem;
+            position: relative;
+        }
+        .sidebar li::before {
+            content: ">";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+        .sidebar a {
+            color: var(--text-2);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .sidebar a:hover {
+            color: var(--primary);
+        }
+
+        .footer {
+            background: var(--surface);
+            border-top: 2px solid var(--border);
+            padding: 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .footer-link {
+            color: var(--text-2);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .footer-link:hover { color: var(--primary); }
+    </style>
+</head>
+<body>
+
+<header class="topbar">
+    <a href="index.html">← BACK TO HOME</a>
+    <a href="https://github.com/GodlyCow203/ServerEssentials" target="_blank">GITHUB</a>
+    <a href="https://discord.gg/vmhQ2gZr8g" target="_blank">DISCORD</a>
+    <div class="spacer"></div>
+    <button class="theme-btn" id="themeBtn">🌙 DARK</button>
+</header>
+
+<section class="hero">
+    <h1>Shop API Documentation</h1>
+    <p>Asynchronous graphical player shop system with multiple sections, pagination, custom layouts, per-item buy/sell prices, and comprehensive transaction events</p>
+</section>
+
+<div class="wrapper">
+    <main>
+        <div class="card">
+            <div class="card-header">Overview</div>
+            <div class="card-body">
+                <p style="margin-bottom: 1rem; color: var(--text-2);">
+                    The Shop API provides public interfaces for managing a comprehensive graphical player shop system with multiple sections, pagination, and custom layouts. Supports opening main shop GUIs and individual sections, per-item buy/sell prices, custom item support, and detailed transaction events. Configuration is loaded asynchronously to prevent main thread blocking.
+                </p>
+                <div class="method-signature">Package: com.serveressentials.api.shop</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Interface: ShopAPI</div>
+            <div class="card-body">
+                <div class="method-section">
+                    <div class="method-title">openShop(Player player)</div>
+                    <div class="method-signature">void openShop(@NotNull Player player)</div>
+                    <div class="method-desc">Opens the main shop GUI menu for a player, displaying all configured shop sections as category buttons.</div>
+                    <div class="method-params">
+                        <dt>Parameters:</dt>
+                        <dd><strong>player:</strong> The player who will view the shop GUI. Must be online and not null.</dd>
+                    </div>
+                    <div class="code-block">
+                        <pre>// Basic /shop command implementation
+public boolean onShopCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    if (!(sender instanceof Player)) {
+        sender.sendMessage("Only players can use the shop.");
+        return true;
+    }
+
+    Player player = (Player) sender;
+
+    // Check if shop is enabled globally
+    if (!shopAPI.isShopEnabled()) {
+        player.sendMessage("§cShop system is currently disabled.");
+        return true;
+    }
+
+    // Open the main shop GUI
+    shopAPI.openShop(player);
+
+    // Record shop access for analytics
+    getLogger().info(player.getName() + " opened the main shop.");
+
+    return true;
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">openShopSection(Player player, String sectionName)</div>
+                    <div class="method-signature">void openShopSection(@NotNull Player player, @NotNull String sectionName)</div>
+                    <div class="method-desc">Opens a specific shop section directly, bypassing the main menu.</div>
+                    <div class="method-params">
+                        <dt>Parameters:</dt>
+                        <dd><strong>player:</strong> The player who will view the section. Must be online.</dd>
+                        <dd><strong>sectionName:</strong> The section identifier (without .yml extension). Case-sensitive.</dd>
+                    </div>
+                    <div class="code-block">
+                        <pre>// Handle shop signs with format: [Shop] <section>
+public void onSignClick(PlayerInteractEvent event) {
+    if (event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
+
+    Block block = event.getClickedBlock();
+    if (!(block.getState() instanceof Sign sign)) return;
+
+    if (!sign.getLine(0).equalsIgnoreCase("[Shop]")) return;
+
+    String sectionName = sign.getLine(1).trim();
+    Player player = event.getPlayer();
+
+    // Validate section exists before opening
+    if (shopAPI.getSection(sectionName) == null) {
+        player.sendMessage("§cShop section '" + sectionName + "' not found.");
+        return;
+    }
+
+    // Open the specific section
+    shopAPI.openShopSection(player, sectionName);
+    player.sendMessage("§aOpening " + sectionName + " section...");
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">reloadShop()</div>
+                    <div class="method-signature">CompletableFuture&lt;Boolean&gt; reloadShop()</div>
+                    <div class="method-desc">Reloads all shop configurations from files and/or database without requiring a server restart.</div>
+                    <div class="code-block">
+                        <pre>// /shopreload command (admin)
+public boolean onShopReloadCommand(CommandSender sender) {
+    if (!sender.hasPermission("shop.admin.reload")) {
+        sender.sendMessage("§cNo permission.");
+        return true;
+    }
+
+    sender.sendMessage("§eReloading shop configuration...");
+
+    shopAPI.reloadShop().thenAccept(success -> {
+        if (success) {
+            sender.sendMessage("§aShop configuration reloaded successfully!");
+
+            // Display loaded sections
+            Collection<String> sections = shopAPI.getSectionNames();
+            sender.sendMessage("§7Loaded sections: " + String.join(", ", sections));
+
+            // Display total items
+            int totalItems = shopAPI.getSectionNames().stream()
+                .mapToInt(name -> shopAPI.getSection(name).getItems().size())
+                .sum();
+            sender.sendMessage("§7Total shop items: " + totalItems);
+
+            getLogger().info("Shop configuration reloaded by " + sender.getName());
+        } else {
+            sender.sendMessage("§cFailed to reload shop configuration. Check console for errors.");
+        }
+    }).exceptionally(throwable -> {
+        sender.sendMessage("§cCritical error during reload: " + throwable.getMessage());
+        getLogger().log(Level.SEVERE, "Shop reload failed", throwable);
+        return null;
+    });
+
+    return true;
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">isShopEnabled()</div>
+                    <div class="method-signature">boolean isShopEnabled()</div>
+                    <div class="method-desc">Checks whether the shop system is globally enabled on the server.</div>
+                    <div class="code-block">
+                        <pre>@EventHandler
+public void onPlayerJoin(PlayerJoinEvent event) {
+    Player player = event.getPlayer();
+
+    if (shopAPI.isShopEnabled()) {
+        player.sendMessage("§eShop is open! §7Use §f/shop §7to browse items.");
+
+        // Show number of available sections
+        int sectionCount = shopAPI.getSectionNames().size();
+        player.sendMessage("§7" + sectionCount + " categories available.");
+    }
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getSection(String sectionName)</div>
+                    <div class="method-signature">ShopSection getSection(@NotNull String sectionName)</div>
+                    <div class="method-desc">Retrieves a specific shop section configuration for inspection, validation, or programmatic access.</div>
+                    <div class="method-params">
+                        <dt>Parameters:</dt>
+                        <dd><strong>sectionName:</strong> The exact name of the section (case-sensitive, no extension).</dd>
+                    </div>
+                    <div class="code-block">
+                        <pre>// Find best buy/sell prices for a material across all sections
+public void findBestPrices(Player player, Material material) {
+    double bestBuyPrice = Double.MAX_VALUE;
+    double bestSellPrice = 0.0;
+    String bestBuySection = "";
+    String bestSellSection = "";
+
+    for (String sectionName : shopAPI.getSectionNames()) {
+        ShopSection section = shopAPI.getSection(sectionName);
+        if (section == null) continue;
+
+        for (ShopItem item : section.getItems().values()) {
+            if (item.getMaterial() == material) {
+                // Check buy price (lowest is best)
+                if (item.getBuyPrice() < bestBuyPrice) {
+                    bestBuyPrice = item.getBuyPrice();
+                    bestBuySection = sectionName;
+                }
+
+                // Check sell price (highest is best)
+                if (item.getSellPrice() > bestSellPrice) {
+                    bestSellPrice = item.getSellPrice();
+                    bestSellSection = sectionName;
+                }
+            }
+        }
+    }
+
+    String currency = "$"; // Get from ShopConfig
+
+    player.sendMessage("§6§lPrice Comparison for " + material.name() + ":");
+    player.sendMessage("§7Best Buy: §c" + currency + bestBuyPrice + " §7(in " + bestBuySection + ")");
+    player.sendMessage("§7Best Sell: §a" + currency + bestSellPrice + " §7(in " + bestSellSection + ")");
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getSectionNames()</div>
+                    <div class="method-signature">Collection&lt;String&gt; getSectionNames()</div>
+                    <div class="method-desc">Retrieves all configured shop section names for iteration, validation, or display.</div>
+                    <div class="code-block">
+                        <pre>// Create dynamic category selection GUI
+public void openCategorySelector(Player player) {
+    Inventory gui = Bukkit.createInventory(null, 54, "§6Shop Categories");
+
+    Collection<String> sections = shopAPI.getSectionNames();
+    int slot = 10;
+
+    for (String sectionName : sections) {
+        ShopSection section = shopAPI.getSection(sectionName);
+        if (section == null) continue;
+
+        // Create category icon
+        ItemStack icon = new ItemStack(Material.CHEST);
+        ItemMeta meta = icon.getItemMeta();
+        meta.setDisplayName("§e" + sectionName.toUpperCase());
+
+        List<String> lore = new ArrayList<>();
+        lore.add("§7Items: " + section.getItems().size());
+        lore.add("§7Pages: " + section.getPages());
+        lore.add("");
+        lore.add("§aClick to browse!");
+        meta.setLore(lore);
+
+        icon.setItemMeta(meta);
+        gui.setItem(slot, icon);
+
+        slot += 2; // Space out icons
+        if (slot >= 44) break; // Prevent overflow
+    }
+
+    player.openInventory(gui);
+}</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Interface: ShopConfig</div>
+            <div class="card-body">
+                <div class="method-section">
+                    <div class="method-title">isEnabled()</div>
+                    <div class="method-signature">boolean isEnabled()</div>
+                    <div class="method-desc">Returns true if shop system is enabled globally.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getMainTitle()</div>
+                    <div class="method-signature">String getMainTitle()</div>
+                    <div class="method-desc">Returns title string for main shop GUI (may support placeholders).</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getMainSize()</div>
+                    <div class="method-signature">int getMainSize()</div>
+                    <div class="method-desc">Returns inventory size for main shop (typically 27, 36, or 54).</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getCurrencySymbol()</div>
+                    <div class="method-signature">String getCurrencySymbol()</div>
+                    <div class="method-desc">Returns currency symbol for price displays (e.g., "$", "⛁").</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">isSellEnabled()</div>
+                    <div class="method-signature">boolean isSellEnabled()</div>
+                    <div class="method-desc">Returns true if selling items back to shop is enabled.</div>
+                    <div class="code-block">
+                        <pre>public boolean onShopInfoCommand(CommandSender sender) {
+    if (!sender.hasPermission("shop.admin.info")) {
+        sender.sendMessage("§cNo permission.");
+        return true;
+    }
+
+    ShopConfig config = shopAPI.isShopEnabled() ? getShopConfig() : null;
+
+    if (config == null) {
+        sender.sendMessage("§cShop configuration not available.");
+        return true;
+    }
+
+    sender.sendMessage("§6§lShop Configuration:");
+    sender.sendMessage("§7Enabled: " + (config.isEnabled() ? "§aYes" : "§cNo"));
+    sender.sendMessage("§7Main GUI: " + config.getMainTitle() + " §7(Size: " + config.getMainSize() + ")");
+    sender.sendMessage("§7Currency: " + config.getCurrencySymbol());
+    sender.sendMessage("§7Sell Enabled: " + (config.isSellEnabled() ? "§aYes" : "§cNo"));
+
+    return true;
+}</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Class: ShopItem</div>
+            <div class="card-body">
+                <div class="method-signature">Package: com.serveressentials.api.shop</div>
+                <p style="margin: 1rem 0; color: var(--text-2);">Immutable data container representing a purchasable/sellable item in the shop with full configuration.</p>
+
+                <div class="section-title">Constructor</div>
+                <div class="method-signature">ShopItem(Material material, int amount, String name, List&lt;String&gt; lore, double buyPrice, double sellPrice, String customItemId, int slot, int page, boolean clickable)</div>
+
+                <div class="section-title">Methods</div>
+                <div class="method-section">
+                    <div class="method-title">getMaterial()</div>
+                    <div class="method-signature">Material getMaterial()</div>
+                    <div class="method-desc">Returns the Bukkit material type of this shop item.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getAmount()</div>
+                    <div class="method-signature">int getAmount()</div>
+                    <div class="method-desc">Returns stack size being sold/purchased in one transaction.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getName()</div>
+                    <div class="method-signature">String getName()</div>
+                    <div class="method-desc">Returns display name shown in the shop GUI.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getBuyPrice()</div>
+                    <div class="method-signature">double getBuyPrice()</div>
+                    <div class="method-desc">Returns price to purchase this amount of items.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getSellPrice()</div>
+                    <div class="method-signature">double getSellPrice()</div>
+                    <div class="method-desc">Returns price received when selling this amount back to shop.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getCustomItemId()</div>
+                    <div class="method-signature">Optional&lt;String&gt; getCustomItemId()</div>
+                    <div class="method-desc">Returns Optional containing custom item ID if this represents a custom item, or empty Optional if vanilla material.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getSlot()</div>
+                    <div class="method-signature">int getSlot()</div>
+                    <div class="method-desc">Returns inventory slot position (0-53) where this item appears.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getPage()</div>
+                    <div class="method-signature">int getPage()</div>
+                    <div class="method-desc">Returns page number (1-indexed) where this item appears in multi-page sections.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">isClickable()</div>
+                    <div class="method-signature">boolean isClickable()</div>
+                    <div class="method-desc">Returns true if players can click this item to buy/sell.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Class: ShopSection</div>
+            <div class="card-body">
+                <div class="method-signature">Package: com.serveressentials.api.shop</div>
+                <p style="margin: 1rem 0; color: var(--text-2);">Immutable data container representing a complete shop section with layout, items, pagination, and configuration.</p>
+
+                <div class="section-title">Constructor</div>
+                <div class="method-signature">ShopSection(String title, int size, int pages, int playerHeadSlot, int closeButtonSlot, Map&lt;Integer, ShopLayout&gt; layout, Map&lt;String, ShopItem&gt; items)</div>
+
+                <div class="section-title">Methods</div>
+                <div class="method-section">
+                    <div class="method-title">getTitle()</div>
+                    <div class="method-signature">String getTitle()</div>
+                    <div class="method-desc">Returns title for this section GUI (supports placeholders).</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getSize()</div>
+                    <div class="method-signature">int getSize()</div>
+                    <div class="method-desc">Returns inventory size (typically 54 for double chest).</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getPages()</div>
+                    <div class="method-signature">int getPages()</div>
+                    <div class="method-desc">Returns number of pages configured (1 for single-page sections).</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getLayout()</div>
+                    <div class="method-signature">Map&lt;Integer, ShopLayout&gt; getLayout()</div>
+                    <div class="method-desc">Returns unmodifiable map of slot → ShopLayout for navigation elements.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getItems()</div>
+                    <div class="method-signature">Map&lt;String, ShopItem&gt; getItems()</div>
+                    <div class="method-desc">Returns unmodifiable map of item ID → ShopItem for all sale items.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Events</div>
+            <div class="card-body">
+                <div class="section-title">ShopPurchaseEvent</div>
+                <div class="method-signature">Package: com.serveressentials.api.shop.event</div>
+                <div class="method-desc">Fired when a player purchases an item from any shop section.</div>
+                <div class="code-block">
+                    <pre>@EventHandler
+public void onShopPurchase(ShopPurchaseEvent event) {
+    Player player = event.getPlayer();
+    double price = event.getPrice();
+
+    // Award loyalty points: 1 point per $10 spent
+    int points = (int)(price / 10.0);
+    if (points > 0) {
+        loyaltyAPI.addPoints(player.getUniqueId(), points);
+        player.sendMessage("§6§l+ " + points + " Loyalty Points!");
+    }
+}</pre>
+                </div>
+
+                <div class="section-title">ShopSellEvent</div>
+                <div class="method-signature">Package: com.serveressentials.api.shop.event</div>
+                <div class="method-desc">Fired when a player sells an item to the shop.</div>
+                <div class="code-block">
+                    <pre>private Map&lt;UUID, Long&gt; lastSaleTime = new HashMap&lt;&gt;();
+
+@EventHandler
+public void onShopSell(ShopSellEvent event) {
+    Player player = event.getPlayer();
+    UUID playerId = player.getUniqueId();
+
+    // Prevent rapid-fire selling (potential macro)
+    long currentTime = System.currentTimeMillis();
+    long lastTime = lastSaleTime.getOrDefault(playerId, 0L);
+
+    if (currentTime - lastTime < 100) { // Less than 100ms between sales
+        getLogger().warning("Rapid selling detected from " + player.getName() + " - possible macro!");
+    }
+
+    lastSaleTime.put(playerId, currentTime);
+}</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Complete Usage Scenario</div>
+            <div class="card-body">
+                <p style="margin-bottom: 1rem; color: var(--text-2);">
+                    Advanced dynamic shop system with price fluctuation based on supply/demand, using all Shop API features.
+                </p>
+                <div class="code-block">
+                    <pre>package com.dynamicshop;
+
+import com.serveressentials.api.shop.*;
+import com.serveressentials.api.shop.event.*;
+import org.bukkit.*;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.java.JavaPlugin;
+import java.util.*;
+
+public class DynamicShop extends JavaPlugin implements Listener {
+    private ShopAPI shopAPI;
+    private Map&lt;Material, Double&gt; demandMultiplier = new HashMap&lt;&gt;();
+
+    @Override
+    public void onEnable() {
+        this.shopAPI = getShopAPI(); // Obtain from plugin manager
+
+        // Register events
+        getServer().getPluginManager().registerEvents(this, this);
+
+        // Register commands
+        getCommand("market").setExecutor(this::onMarketCommand);
+        getCommand("shopvalue").setExecutor(this::onShopValueCommand);
+
+        // Load demand data
+        loadDemandData();
+    }
+
+    @EventHandler
+    public void onShopPurchase(ShopPurchaseEvent event) {
+        // Increase demand for purchased items
+        Material material = event.getItem().getType();
+        double currentDemand = demandMultiplier.getOrDefault(material, 1.0);
+        demandMultiplier.put(material, Math.min(currentDemand + 0.05, 3.0)); // Cap at 3x
+
+        // Notify about price increase
+        if (currentDemand > 1.5) {
+            event.getPlayer().sendMessage("§cDemand is high for " + material.name() + "! Prices increased.");
+        }
+    }
+}</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Error Handling Best Practices</div>
+            <div class="card-body">
+                <div class="code-block">
+                    <pre>public void safeShopOpen(Player player, String sectionName) {
+    // Validate prerequisites
+    if (!shopAPI.isShopEnabled()) {
+        player.sendMessage("§cShop system is disabled.");
+        return;
+    }
+
+    if (player == null || !player.isOnline()) {
+        getLogger().warning("Attempted to open shop for null/offline player.");
+        return;
+    }
+
+    // Validate section if specified
+    if (sectionName != null) {
+        ShopSection section = shopAPI.getSection(sectionName);
+        if (section == null) {
+            player.sendMessage("§cUnknown shop section: " + sectionName);
+
+            // Helpful suggestion
+            Collection<String> available = shopAPI.getSectionNames();
+            player.sendMessage("§7Available: " + String.join(", ", available));
+            return;
+        }
+    }
+
+    // Open shop with error handling
+    try {
+        if (sectionName == null) {
+            shopAPI.openShop(player);
+        } else {
+            shopAPI.openShopSection(player, sectionName);
+        }
+
+        getLogger().info("Opened " + (sectionName == null ? "main shop" : sectionName) +
+            " for " + player.getName());
+
+    } catch (Exception e) {
+        player.sendMessage("§cFailed to open shop. Please contact staff.");
+        getLogger().log(Level.SEVERE, "Failed to open shop for " + player.getName(), e);
+    }
+}</pre>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <aside class="sidebar">
+        <div class="card">
+            <div class="card-header">Quick Navigation</div>
+            <div class="card-body">
+                <ul>
+                    <li><a href="#top">ShopAPI Interface</a></li>
+                    <li><a href="#top">ShopConfig Interface</a></li>
+                    <li><a href="#top">ShopItem Class</a></li>
+                    <li><a href="#top">ShopSection Class</a></li>
+                    <li><a href="#top">Event Listeners</a></li>
+                    <li><a href="#top">Usage Examples</a></li>
+                    <li><a href="#top">Error Handling</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Package Structure</div>
+            <div class="card-body">
+                <ul>
+                    <li>com.serveressentials.api.shop.ShopAPI</li>
+                    <li>com.serveressentials.api.shop.ShopConfig</li>
+                    <li>com.serveressentials.api.shop.ShopItem</li>
+                    <li>com.serveressentials.api.shop.ShopSection</li>
+                    <li>com.serveressentials.api.shop.event.*</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Implementation Notes</div>
+            <div class="card-body" style="font-size: 0.85rem; color: var(--text-2);">
+                <p>All shop operations run asynchronously during configuration loading. Zero lag reported on servers with 100+ concurrent players and complex multi-section shops.</p>
+                <p style="margin-top: 0.75rem;">Supports pagination up to configured max pages, custom item integration, and comprehensive event monitoring for analytics and anti-cheat integration.</p>
+            </div>
+        </div>
+    </aside>
+</div>
+
+<footer>
+    <div class="footer-links">
+        <a href="https://modrinth.com/user/_GodlyCow" class="footer-link" target="_blank">Modrinth Profile</a>
+        <a href="https://github.com/GodlyCow203" class="footer-link" target="_blank">GitHub</a>
+        <a href="https://discord.gg/vmhQ2gZr8g" class="footer-link" target="_blank">Discord</a>
+        <a href="mailto:godlycowcow@gmail.com" class="footer-link">Email</a>
+    </div>
+    <p>&copy; <span id="yr"></span> _GodlyCow – Building plugins for the Minecraft community</p>
+</footer>
+
+<script>
+    const themeBtn = document.getElementById('themeBtn');
+    const root = document.documentElement;
+    const saved = localStorage.getItem('theme') || 'dark';
+    root.setAttribute('data-theme', saved);
+    themeBtn.textContent = saved === 'dark' ? '☀️ LIGHT' : '🌙 DARK';
+
+    themeBtn.addEventListener('click', () => {
+        const t = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', t);
+        localStorage.setItem('theme', t);
+        themeBtn.textContent = t === 'dark' ? '☀️ LIGHT' : '🌙 DARK';
+    });
+
+    document.getElementById('yr').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

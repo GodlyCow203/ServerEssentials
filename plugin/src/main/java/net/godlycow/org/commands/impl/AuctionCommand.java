@@ -13,8 +13,10 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.command.ConsoleCommandSender;
 
 import java.util.List;
+import java.util.logging.Level;
 
 import static net.godlycow.org.language.LanguageManager.ComponentPlaceholder;
 
@@ -43,8 +45,15 @@ public final class AuctionCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player player)) {
-            sender.sendMessage(langManager.getMessageFor(null, "commands.auction.only-player",
-                    "<red>This command can only be used by players!").toString());
+            if (sender instanceof ConsoleCommandSender) {
+                // Use proper message path - this was missing
+                plugin.getLogger().log(Level.INFO, langManager.getMessageFor(null, "commands.auction.only-player",
+                        "<red>This command can only be used by players!").toString());
+            } else {
+                // Use proper message path - this was missing
+                sender.sendMessage(langManager.getMessageFor(null, "commands.auction.only-player",
+                        "<red>This command can only be used by players!"));
+            }
             return true;
         }
 
@@ -57,7 +66,7 @@ public final class AuctionCommand implements CommandExecutor, TabCompleter {
 
         if (!economyManager.isEnabled()) {
             player.sendMessage(langManager.getMessageFor(player, "commands.auction.no-economy",
-                    "<red>§c✗ Economy system is not available."));
+                    "<red>✗ Economy system is not available."));
             return true;
         }
 
@@ -104,7 +113,7 @@ public final class AuctionCommand implements CommandExecutor, TabCompleter {
 
         if (!economyManager.isEnabled()) {
             player.sendMessage(langManager.getMessageFor(player, "commands.auction.no-economy",
-                    "<red>§c✗ Economy system is not available."));
+                    "<red>✗ Economy system is not available."));
             return;
         }
 
@@ -146,7 +155,7 @@ public final class AuctionCommand implements CommandExecutor, TabCompleter {
 
         storage.addItem(auctionItem).thenAccept(v -> {
             player.sendMessage(langManager.getMessageFor(player, "commands.auction.sell.success",
-                    "<green>Item listed for <yellow>${price}</yellow>!",
+                    "<green>Item listed for <red>${price}</red>!",
                     ComponentPlaceholder.of("{price}", economyManager.format(price))));
         });
     }

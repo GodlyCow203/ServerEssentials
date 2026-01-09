@@ -1,0 +1,934 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="utf-8">
+    <title>Scoreboard API Documentation – _GodlyCow</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --surface: #111111;
+            --surface-2: #191919;
+            --border: #2d2d2d;
+            --text: #e0e0e0;
+            --text-2: #888888;
+            --primary: #FFFFFF;
+            --primary-2: #e0e0e0;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+            --font: 'Courier New', 'Monaco', 'Consolas', monospace;
+            --code-bg: #050505;
+            --error: #ef4444;
+        }
+        [data-theme="light"] {
+            --bg: #f0f0f0;
+            --surface: #ffffff;
+            --surface-2: #f7f7f7;
+            --border: #cccccc;
+            --text: #1a1a1a;
+            --text-2: #555555;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            --code-bg: #f5f5f5;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font);
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        .topbar {
+            background: var(--surface);
+            border-bottom: 2px solid var(--border);
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+            font-weight: bold;
+        }
+        .topbar a {
+            color: var(--text-2);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .topbar a:hover { color: var(--primary); }
+        .topbar .spacer { flex: 1; }
+        .theme-btn {
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 0.4rem 0.8rem;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        .theme-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .hero {
+            background: linear-gradient(90deg, var(--surface) 0%, var(--surface-2) 100%);
+            border-bottom: 2px solid var(--border);
+            padding: 3rem 1.5rem;
+            text-align: center;
+            position: relative;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .hero p {
+            font-size: 1rem;
+            color: var(--text-2);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 0;
+        }
+        @media (max-width: 900px) {
+            .wrapper { grid-template-columns: 1fr; }
+        }
+        main { border-right: 2px solid var(--border); }
+
+        .card {
+            background: var(--surface);
+            border: none;
+            border-bottom: 2px solid var(--border);
+            margin-bottom: 0;
+        }
+        .card-header {
+            background: var(--surface-2);
+            padding: 1rem 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            border-bottom: 1px solid var(--border);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .card-body { padding: 1.5rem; }
+
+        .method-section {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px dashed var(--border);
+        }
+        .method-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .method-title {
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .method-signature {
+            background: var(--code-bg);
+            padding: 0.75rem;
+            border-left: 3px solid var(--primary);
+            margin: 0.75rem 0;
+            font-family: var(--font);
+            font-size: 0.95rem;
+            overflow-x: auto;
+        }
+        .method-desc {
+            margin: 0.75rem 0;
+            color: var(--text-2);
+            line-height: 1.6;
+        }
+        .method-params {
+            margin: 0.75rem 0;
+            padding-left: 1rem;
+        }
+        .method-params dt {
+            color: var(--primary);
+            font-weight: bold;
+            margin-top: 0.5rem;
+        }
+        .method-params dd {
+            color: var(--text-2);
+            margin-left: 1rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--border);
+            border-radius: 0;
+            padding: 1rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: var(--font);
+            font-size: 13px;
+            line-height: 1.4;
+        }
+        .code-block pre {
+            margin: 0;
+            white-space: pre;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin: 2rem 0 1rem 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+        }
+
+        .sidebar .card {
+            border-left: 2px solid var(--primary);
+            margin-bottom: 1rem;
+        }
+        .sidebar .card-body {
+            padding: 1rem;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar li {
+            margin-bottom: 0.5rem;
+            padding-left: 1rem;
+            position: relative;
+        }
+        .sidebar li::before {
+            content: ">";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+        .sidebar a {
+            color: var(--text-2);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .sidebar a:hover {
+            color: var(--primary);
+        }
+
+        .footer {
+            background: var(--surface);
+            border-top: 2px solid var(--border);
+            padding: 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .footer-link {
+            color: var(--text-2);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .footer-link:hover { color: var(--primary); }
+    </style>
+</head>
+<body>
+
+<header class="topbar">
+    <a href="index.html">← BACK TO HOME</a>
+    <a href="https://github.com/GodlyCow203/ServerEssentials" target="_blank">GITHUB</a>
+    <a href="https://discord.gg/vmhQ2gZr8g" target="_blank">DISCORD</a>
+    <div class="spacer"></div>
+    <button class="theme-btn" id="themeBtn">🌙 DARK</button>
+</header>
+
+<section class="hero">
+    <h1>Scoreboard API Documentation</h1>
+    <p>Asynchronous scoreboard toggling, dynamic layout management, per-world configuration, player data tracking, and comprehensive event handling for scoreboard lifecycle changes</p>
+</section>
+
+<div class="wrapper">
+    <main>
+        <div class="card">
+            <div class="card-header">Overview</div>
+            <div class="card-body">
+                <p style="margin-bottom: 1rem; color: var(--text-2);">
+                    The Scoreboard API provides public interfaces for managing custom player scoreboards. Supports toggling visibility, applying layouts, player data tracking, and per-world configuration. All operations are asynchronous to prevent blocking the main server thread.
+                </p>
+                <div class="method-signature">Package: com.serveressentials.api.scoreboard</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Interface: ScoreboardAPI</div>
+            <div class="card-body">
+                <div class="method-section">
+                    <div class="method-title">toggleScoreboard(Player player)</div>
+                    <div class="method-signature">CompletableFuture&lt;Boolean&gt; toggleScoreboard(Player player)</div>
+                    <div class="method-desc">Toggles the scoreboard display state for a player. Persists the player's preference.</div>
+                    <div class="code-block">
+                        <pre>// Basic /scoreboard toggle command
+public boolean onScoreboardToggleCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    if (!(sender instanceof Player)) {
+        sender.sendMessage("Only players can toggle their scoreboard.");
+        return true;
+    }
+    
+    Player player = (Player) sender;
+    
+    if (!scoreboardAPI.isEnabled()) {
+        player.sendMessage("§cScoreboard system is disabled.");
+        return true;
+    }
+    
+    scoreboardAPI.toggleScoreboard(player).thenAccept(enabled -> {
+        String status = enabled ? "§aenabled" : "§cdisabled";
+        player.sendMessage("§7Scoreboard is now " + status);
+        player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_CHIME, 1.0f, enabled ? 1.0f : 0.5f);
+    });
+    
+    return true;
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">setLayout(Player player, String layout)</div>
+                    <div class="method-signature">CompletableFuture&lt;Void&gt; setLayout(Player player, String layout)</div>
+                    <div class="method-desc">Applies a specific scoreboard layout to a player.</div>
+                    <div class="code-block">
+                        <pre>// Command: /scoreboard layout &lt;layout-name&gt;
+public boolean onScoreboardLayoutCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    if (!(sender instanceof Player)) {
+        sender.sendMessage("Only players can change their scoreboard layout.");
+        return true;
+    }
+    
+    Player player = (Player) sender;
+    
+    if (args.length < 1) {
+        player.sendMessage("Usage: /scoreboard layout <layout>");
+        player.sendMessage("Available layouts: default, pvp, survival, creative");
+        return true;
+    }
+    
+    String layoutName = args[0];
+    
+    if (!scoreboardAPI.isEnabled()) {
+        player.sendMessage("§cScoreboard system is disabled.");
+        return true;
+    }
+    
+    // Verify layout exists first
+    scoreboardAPI.getLayout(layoutName).thenAccept(optLayout -> {
+        if (optLayout.isEmpty()) {
+            player.sendMessage("§cLayout not found: " + layoutName);
+            player.sendMessage("§eUse /scoreboard layouts to see available layouts.");
+            return;
+        }
+        
+        // Apply layout
+        scoreboardAPI.setLayout(player, layoutName).thenAccept(v -> {
+            player.sendMessage("§aLayout applied: " + layoutName);
+        });
+    });
+    
+    return true;
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">reload()</div>
+                    <div class="method-signature">CompletableFuture&lt;Void&gt; reload()</div>
+                    <div class="method-desc">Reloads all scoreboard configurations from disk and refreshes all currently visible scoreboards.</div>
+                    <div class="code-block">
+                        <pre>// Command: /scoreboard reload (admin)
+public boolean onScoreboardReloadCommand(CommandSender sender) {
+    if (!sender.hasPermission("scoreboard.admin.reload")) {
+        sender.sendMessage("§cNo permission.");
+        return true;
+    }
+    
+    sender.sendMessage("§eReloading scoreboard configurations...");
+    
+    scoreboardAPI.reload().thenAccept(v -> {
+        sender.sendMessage("§aScoreboard configuration reloaded!");
+        
+        // Show available layouts after reload
+        scoreboardAPI.getLayouts().thenAccept(layouts -> {
+            sender.sendMessage("§7Available layouts: " + layouts.size());
+        });
+        
+        getLogger().info("Scoreboard configuration reloaded by " + sender.getName());
+    });
+    
+    return true;
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">isEnabled()</div>
+                    <div class="method-signature">boolean isEnabled()</div>
+                    <div class="method-desc">Checks whether the scoreboard system is globally enabled on the server.</div>
+                    <div class="code-block">
+                        <pre>@EventHandler
+public void onPlayerJoin(PlayerJoinEvent event) {
+    Player player = event.getPlayer();
+    
+    // Only enable scoreboard if system is on
+    if (scoreboardAPI.isEnabled()) {
+        scoreboardAPI.getPlayerData(player).thenAccept(data -> {
+            if (data.isEnabled()) {
+                // Scoreboard was enabled, restore it
+                scoreboardAPI.setLayout(player, "default");
+            }
+        });
+    }
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getPlayerData(Player player)</div>
+                    <div class="method-signature">CompletableFuture&lt;ScoreboardPlayerData&gt; getPlayerData(Player player)</div>
+                    <div class="method-desc">Retrieves a player's current scoreboard state, including whether it's enabled and what layout they're using.</div>
+                    <div class="code-block">
+                        <pre>// Command: /scoreboard info
+public boolean onScoreboardInfoCommand(CommandSender sender, String[] args) {
+    if (!(sender instanceof Player)) {
+        sender.sendMessage("Only players can view their scoreboard info.");
+        return true;
+    }
+    
+    Player player = (Player) sender;
+    
+    if (!scoreboardAPI.isEnabled()) {
+        player.sendMessage("§cScoreboard system is disabled.");
+        return true;
+    }
+    
+    player.sendMessage("§eLoading your scoreboard info...");
+    
+    scoreboardAPI.getPlayerData(player).thenAccept(data -> {
+        player.sendMessage("§6§lYour Scoreboard Info:");
+        player.sendMessage("§7Enabled: " + (data.isEnabled() ? "§aYes" : "§cNo"));
+        player.sendMessage("§7Current layout: §f" + (data.getLayout() != null ? data.getLayout() : "None"));
+        
+        long sinceUpdate = (System.currentTimeMillis() - data.getLastUpdate()) / 1000;
+        player.sendMessage("§7Last update: " + sinceUpdate + " seconds ago");
+    });
+    
+    return true;
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getLayouts()</div>
+                    <div class="method-signature">CompletableFuture&lt;List&lt;ScoreboardLayout&gt;&gt; getLayouts()</div>
+                    <div class="method-desc">Retrieves a list of all configured scoreboard layouts available on the server.</div>
+                    <div class="code-block">
+                        <pre>// Command: /scoreboard layouts
+public boolean onScoreboardLayoutsCommand(CommandSender sender) {
+    if (!sender.hasPermission("scoreboard.view.layouts")) {
+        sender.sendMessage("§cNo permission.");
+        return true;
+    }
+    
+    if (!scoreboardAPI.isEnabled()) {
+        sender.sendMessage("§cScoreboard system is disabled.");
+        return true;
+    }
+    
+    sender.sendMessage("§eLoading available layouts...");
+    
+    scoreboardAPI.getLayouts().thenAccept(layouts -> {
+        if (layouts.isEmpty()) {
+            sender.sendMessage("§7No layouts configured.");
+            return;
+        }
+        
+        sender.sendMessage("§6§lAvailable Scoreboard Layouts:");
+        sender.sendMessage("§7Total: " + layouts.size());
+        sender.sendMessage("§8--------------------");
+        
+        layouts.forEach(layout -> {
+            sender.sendMessage("§f" + layout.getTitle());
+            sender.sendMessage("  §7Lines: " + layout.getLines().size() + " / " + layout.getMaxLines());
+        });
+    });
+    
+    return true;
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getLayout(String name)</div>
+                    <div class="method-signature">CompletableFuture&lt;Optional&lt;ScoreboardLayout&gt;&gt; getLayout(String name)</div>
+                    <div class="method-desc">Retrieves a specific scoreboard layout by its name.</div>
+                    <div class="code-block">
+                        <pre>// Validate layout before applying
+public void applyLayoutWithValidation(Player player, String layoutName) {
+    scoreboardAPI.getLayout(layoutName).thenAccept(optLayout -> {
+        if (optLayout.isPresent()) {
+            ScoreboardLayout layout = optLayout.get();
+            
+            // Check if layout has required placeholders
+            boolean hasBalance = layout.getLines().stream().anyMatch(line -> line.contains("{balance}"));
+            boolean hasOnline = layout.getLines().stream().anyMatch(line -> line.contains("{online}"));
+            
+            if (hasBalance && hasOnline) {
+                scoreboardAPI.setLayout(player, layoutName);
+                player.sendMessage("§aApplied layout with economy and player count.");
+            } else {
+                player.sendMessage("§cLayout missing required placeholders.");
+            }
+        } else {
+            player.sendMessage("§cLayout not found: " + layoutName);
+        }
+    });
+}</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Class: ScoreboardLayout</div>
+            <div class="card-body">
+                <div class="method-signature">Package: com.serveressentials.api.scoreboard</div>
+                <p style="margin: 1rem 0; color: var(--text-2);">An immutable data container representing a scoreboard layout definition, including the title, content lines, and maximum allowed lines.</p>
+
+                <div class="section-title">Constructor</div>
+                <div class="method-signature">ScoreboardLayout(String title, List&lt;String&gt; lines, int maxLines)</div>
+
+                <div class="section-title">Methods</div>
+                <div class="method-section">
+                    <div class="method-title">getTitle()</div>
+                    <div class="method-signature">@NotNull String getTitle()</div>
+                    <div class="method-desc">Returns the scoreboard title (appears at the top).</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getLines()</div>
+                    <div class="method-signature">@NotNull List&lt;String&gt; getLines()</div>
+                    <div class="method-desc">Returns the list of content lines for the scoreboard (support color codes and placeholders).</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getMaxLines()</div>
+                    <div class="method-signature">int getMaxLines()</div>
+                    <div class="method-desc">Returns the maximum number of lines this layout supports (typically 15 for Minecraft scoreboard limits).</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Class: ScoreboardPlayerData</div>
+            <div class="card-body">
+                <div class="method-signature">Package: com.serveressentials.api.scoreboard</div>
+                <p style="margin: 1rem 0; color: var(--text-2);">An immutable data container representing a player's current scoreboard state and metadata.</p>
+
+                <div class="section-title">Constructor</div>
+                <div class="method-signature">ScoreboardPlayerData(boolean enabled, String layout, long lastUpdate, long joinTime)</div>
+
+                <div class="section-title">Methods</div>
+                <div class="method-section">
+                    <div class="method-title">isEnabled()</div>
+                    <div class="method-signature">boolean isEnabled()</div>
+                    <div class="method-desc">Returns whether the scoreboard is enabled (visible) for this player.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getLayout()</div>
+                    <div class="method-signature">@Nullable String getLayout()</div>
+                    <div class="method-desc">Returns the name of the player's current layout, or null if no layout is active.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getLastUpdate()</div>
+                    <div class="method-signature">long getLastUpdate()</div>
+                    <div class="method-desc">Returns the timestamp of the last content update (milliseconds since epoch).</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getJoinTime()</div>
+                    <div class="method-signature">long getJoinTime()</div>
+                    <div class="method-desc">Returns the player's join time timestamp (milliseconds since epoch).</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Class: ScoreboardWorldSetting</div>
+            <div class="card-body">
+                <div class="method-signature">Package: com.serveressentials.api.scoreboard</div>
+                <p style="margin: 1rem 0; color: var(--text-2);">An immutable data container representing per-world scoreboard settings.</p>
+
+                <div class="section-title">Constructor</div>
+                <div class="method-signature">ScoreboardWorldSetting(boolean enabled, String layout)</div>
+
+                <div class="section-title">Methods</div>
+                <div class="method-section">
+                    <div class="method-title">isEnabled()</div>
+                    <div class="method-signature">boolean isEnabled()</div>
+                    <div class="method-desc">Returns whether scoreboard is enabled by default in this world.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getLayout()</div>
+                    <div class="method-signature">@Nullable String getLayout()</div>
+                    <div class="method-desc">Returns the default layout name for this world, or null.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Events</div>
+            <div class="card-body">
+                <div class="section-title">ScoreboardEvent</div>
+                <div class="method-signature">Package: com.serveressentials.api.scoreboard.event</div>
+                <div class="method-desc">Base event class for all scoreboard-related actions. Asynchronous if fired off main thread.</div>
+
+                <div class="section-title">ScoreboardLayoutChangeEvent</div>
+                <div class="method-signature">Package: com.serveressentials.api.scoreboard.event</div>
+                <div class="method-desc">Fired when a player's scoreboard layout is changed successfully.</div>
+                <div class="code-block">
+                    <pre>@EventHandler
+public void onScoreboardLayoutChange(ScoreboardLayoutChangeEvent event) {
+    Player player = event.getPlayer();
+    String newLayout = event.getNewLayout();
+    String oldLayout = event.getPreviousLayout();
+    
+    getLogger().info(String.format(
+        "Scoreboard layout changed for %s: %s -> %s",
+        player.getName(),
+        oldLayout != null ? oldLayout : "None",
+        newLayout
+    ));
+}</pre>
+                </div>
+
+                <div class="section-title">ScoreboardReloadEvent</div>
+                <div class="method-signature">Package: com.serveressentials.api.scoreboard.event</div>
+                <div class="method-desc">Fired when scoreboard configurations are reloaded.</div>
+                <div class="code-block">
+                    <pre>@EventHandler
+public void onScoreboardReload(ScoreboardReloadEvent event) {
+    Player player = event.getPlayer();
+    long time = event.getReloadTime();
+    
+    getLogger().info(player.getName() + " reloaded scoreboards at " + new Date(time));
+    
+    // Notify all players with scoreboards
+    Bukkit.getOnlinePlayers().forEach(online -> {
+        scoreboardAPI.getPlayerData(online).thenAccept(data -> {
+            if (data.isEnabled()) {
+                online.sendMessage("§7Scoreboard has been reloaded by " + player.getName());
+            }
+        });
+    });
+}</pre>
+                </div>
+
+                <div class="section-title">ScoreboardToggleEvent</div>
+                <div class="method-signature">Package: com.serveressentials.api.scoreboard.event</div>
+                <div class="method-desc">Fired when a player toggles their scoreboard visibility on or off.</div>
+                <div class="code-block">
+                    <pre>@EventHandler
+public void onScoreboardToggle(ScoreboardToggleEvent event) {
+    Player player = event.getPlayer();
+    boolean enabled = event.getNewState();
+    
+    getLogger().info(player.getName() + " " + (enabled ? "enabled" : "disabled") + " their scoreboard");
+    
+    // Track usage statistics
+    if (enabled) {
+        statsAPI.trackScoreboardEnabled(player);
+    } else {
+        statsAPI.trackScoreboardDisabled(player);
+    }
+}</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Complete Usage Scenario</div>
+            <div class="card-body">
+                <p style="margin-bottom: 1rem; color: var(--text-2);">
+                    Dynamic scoreboard management plugin with dynamic content updates, region-based layouts, and player statistics tracking:
+                </p>
+                <div class="code-block">
+                    <pre>package com.dynamicscoreboard;
+
+import com.serveressentials.api.scoreboard.*;
+import com.serveressentials.api.scoreboard.event.*;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerChangedWorldEvent;
+import org.bukkit.plugin.java.JavaPlugin;
+import java.util.*;
+
+public class DynamicScoreboardPlugin extends JavaPlugin implements Listener {
+    private ScoreboardAPI scoreboardAPI;
+    private Map&lt;UUID, Long&gt; lastLayoutChanges;
+    
+    @Override
+    public void onEnable() {
+        this.scoreboardAPI = getScoreboardAPI();
+        this.lastLayoutChanges = new HashMap&lt;&gt;();
+        
+        getServer().getPluginManager().registerEvents(this, this);
+        getCommand("dscoreboard").setExecutor(this::onDScoreboardCommand);
+        
+        // Start dynamic update task
+        startDynamicUpdates();
+    }
+
+    @EventHandler
+    public void onScoreboardLayoutChange(ScoreboardLayoutChangeEvent event) {
+        Player player = event.getPlayer();
+        UUID playerId = player.getUniqueId();
+        
+        // Prevent layout change spam (max 1 per minute)
+        long lastChange = lastLayoutChanges.getOrDefault(playerId, 0L);
+        if (System.currentTimeMillis() - lastChange &lt; 60000) {
+            player.sendMessage("§cPlease wait before changing layouts again.");
+            // Revert change
+            scoreboardAPI.setLayout(player, event.getPreviousLayout() != null ? event.getPreviousLayout() : "default");
+            return;
+        }
+        
+        lastLayoutChanges.put(playerId, System.currentTimeMillis());
+    }
+
+    @EventHandler
+    public void onPlayerChangedWorld(PlayerChangedWorldEvent event) {
+        Player player = event.getPlayer();
+        String worldName = player.getWorld().getName();
+        
+        // Apply world-specific layout
+        getWorldLayout(worldName).thenAccept(optLayout -> {
+            optLayout.ifPresent(layout -> {
+                scoreboardAPI.setLayout(player, layout).thenAccept(v -> {
+                    player.sendMessage("§7World-specific scoreboard applied.");
+                });
+            });
+        });
+    }
+
+    private void startDynamicUpdates() {
+        getServer().getScheduler().runTaskTimerAsynchronously(this, () -> {
+            for (Player online : Bukkit.getOnlinePlayers()) {
+                updateDynamicContent(online);
+            }
+        }, 20L, 100L); // Update every 5 seconds
+    }
+
+    private void updateDynamicContent(Player player) {
+        scoreboardAPI.getPlayerData(player).thenAccept(data -> {
+            if (!data.isEnabled() || data.getLayout() == null) return;
+            
+            // Update time played
+            long sessionTime = System.currentTimeMillis() - data.getJoinTime();
+            updateScoreboardLine(player, "time", formatTime(sessionTime));
+            
+            // Update player count
+            updateScoreboardLine(player, "online", "Online: " + Bukkit.getOnlinePlayers().size());
+        });
+    }
+
+    private boolean onDScoreboardCommand(CommandSender sender, String[] args) {
+        if (!(sender instanceof Player)) return false;
+        
+        Player player = (Player) sender;
+        String subCmd = args.length > 0 ? args[0] : "help";
+        
+        switch (subCmd) {
+            case "toggle":
+                handleToggle(player);
+                break;
+            case "stats":
+                showStats(player, args);
+                break;
+            default:
+                showHelp(player);
+        }
+        
+        return true;
+    }
+
+    private void handleToggle(Player player) {
+        scoreboardAPI.toggleScoreboard(player).thenAccept(enabled -> {
+            player.sendMessage("§7Scoreboard " + (enabled ? "§aenabled" : "§cdisabled"));
+        });
+    }
+
+    private void showStats(Player player, String[] args) {
+        scoreboardAPI.getPlayerData(player).thenAccept(data -> {
+            player.sendMessage("§6§lScoreboard Stats:");
+            player.sendMessage("§7Enabled: " + (data.isEnabled() ? "§a✓" : "§c✗"));
+            player.sendMessage("§7Layout: §f" + data.getLayout());
+            
+            long sessionTime = System.currentTimeMillis() - data.getJoinTime();
+            player.sendMessage("§7Session: " + formatTime(sessionTime));
+        });
+    }
+
+    private void showHelp(Player player) {
+        player.sendMessage("§6§lDynamic Scoreboard Help:");
+        player.sendMessage("§f/dscoreboard toggle §7- Toggle scoreboard");
+        player.sendMessage("§f/dscoreboard layout <name> §7- Change layout");
+        player.sendMessage("§f/dscoreboard stats §7- View statistics");
+    }
+
+    private String formatTime(long millis) {
+        long seconds = millis / 1000;
+        long minutes = seconds / 60;
+        return String.format("%02d:%02d", minutes, seconds % 60);
+    }
+}</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Error Handling Best Practices</div>
+            <div class="card-body">
+                <div class="code-block">
+                    <pre>public void safeScoreboardToggle(Player player) {
+    // Check if scoreboard system is enabled first
+    if (!scoreboardAPI.isEnabled()) {
+        player.sendMessage("§cScoreboard system is disabled.");
+        return;
+    }
+    
+    // Validate parameters
+    if (player == null || !player.isOnline()) {
+        getLogger().warning("Attempted to toggle scoreboard for null/offline player.");
+        return;
+    }
+    
+    // Perform toggle with error handling
+    scoreboardAPI.toggleScoreboard(player)
+        .exceptionally(throwable -> {
+            getLogger().log(Level.SEVERE, "Scoreboard toggle failed for " + player.getName(), throwable);
+            player.sendMessage("§cCritical error. Contact staff.");
+            return false;
+        })
+        .thenAccept(newState -> {
+            player.sendMessage("§7Scoreboard is now " + (newState ? "§aenabled" : "§cdisabled"));
+        });
+}
+
+public void safeLayoutChange(Player player, String layoutName) {
+    // Validate layout first
+    scoreboardAPI.getLayout(layoutName).thenAccept(optLayout -> {
+        if (optLayout.isEmpty()) {
+            player.sendMessage("§cLayout not found: " + layoutName);
+            return;
+        }
+        
+        // Then apply
+        scoreboardAPI.setLayout(player, layoutName).thenAccept(v -> {
+            player.sendMessage("§aLayout applied!");
+        }).exceptionally(throwable -> {
+            player.sendMessage("§cFailed to apply layout: " + throwable.getMessage());
+            return null;
+        });
+    });
+}</pre>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <aside class="sidebar">
+        <div class="card">
+            <div class="card-header">Quick Navigation</div>
+            <div class="card-body">
+                <ul>
+                    <li><a href="#top">ScoreboardAPI Interface</a></li>
+                    <li><a href="#top">ScoreboardLayout Class</a></li>
+                    <li><a href="#top">ScoreboardPlayerData Class</a></li>
+                    <li><a href="#top">ScoreboardWorldSetting Class</a></li>
+                    <li><a href="#top">Event Listeners</a></li>
+                    <li><a href="#top">Usage Examples</a></li>
+                    <li><a href="#top">Error Handling</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Package Structure</div>
+            <div class="card-body">
+                <ul>
+                    <li>com.serveressentials.api.scoreboard.ScoreboardAPI</li>
+                    <li>com.serveressentials.api.scoreboard.ScoreboardLayout</li>
+                    <li>com.serveressentials.api.scoreboard.ScoreboardPlayerData</li>
+                    <li>com.serveressentials.api.scoreboard.ScoreboardWorldSetting</li>
+                    <li>com.serveressentials.api.scoreboard.event.*</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Implementation Notes</div>
+            <div class="card-body" style="font-size: 0.85rem; color: var(--text-2);">
+                <p>All scoreboard operations run asynchronously with automatic refresh cycles. Zero lag reported on servers with 100+ concurrent players.</p>
+                <p style="margin-top: 0.75rem;">Supports dynamic placeholders, per-world layouts, and comprehensive event monitoring for analytics and player engagement tracking.</p>
+            </div>
+        </div>
+    </aside>
+</div>
+
+<footer>
+    <div class="footer-links">
+        <a href="https://modrinth.com/user/_GodlyCow" class="footer-link" target="_blank">Modrinth Profile</a>
+        <a href="https://github.com/GodlyCow203" class="footer-link" target="_blank">GitHub</a>
+        <a href="https://discord.gg/vmhQ2gZr8g" class="footer-link" target="_blank">Discord</a>
+        <a href="mailto:godlycowcow@gmail.com" class="footer-link">Email</a>
+    </div>
+    <p>&copy; <span id="yr"></span> _GodlyCow – Building plugins for the Minecraft community</p>
+</footer>
+
+<script>
+    const themeBtn = document.getElementById('themeBtn');
+    const root = document.documentElement;
+    const saved = localStorage.getItem('theme') || 'dark';
+    root.setAttribute('data-theme', saved);
+    themeBtn.textContent = saved === 'dark' ? '☀️ LIGHT' : '🌙 DARK';
+
+    themeBtn.addEventListener('click', () => {
+        const t = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', t);
+        localStorage.setItem('theme', t);
+        themeBtn.textContent = t === 'dark' ? '☀️ LIGHT' : '🌙 DARK';
+    });
+
+    document.getElementById('yr').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

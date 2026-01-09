@@ -9,7 +9,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class TPAStorage {
     private final DatabaseManager dbManager;
-    private final String poolKey = "com/serveressentials/api/tpa";
+    private final String poolKey = "tpa";
     private final Plugin plugin;
 
     public TPAStorage(Plugin plugin, DatabaseManager dbManager) {

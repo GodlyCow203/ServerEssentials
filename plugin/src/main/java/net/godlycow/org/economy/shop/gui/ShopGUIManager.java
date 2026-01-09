@@ -57,7 +57,7 @@ public class ShopGUIManager {
         loadAllConfigs(false);
 
         if (!economyManager.isEnabled()) {
-            plugin.getLogger().warning("§eShopGUIManager: Economy disabled! Shop will be view-only.");
+            plugin.getLogger().warning("ShopGUIManager: Economy disabled! Shop will be view-only.");
         }
     }
 
@@ -98,13 +98,13 @@ public class ShopGUIManager {
                 dataManager.saveMainConfig(mainConfigCache);
                 plugin.getLogger().info("✓ Loaded main shop config from file (newer than DB)");
             } else {
-                plugin.getLogger().severe("§cLoaded main config from file but it's invalid! Using DB fallback.");
+                plugin.getLogger().severe("Loaded main config from file but it's invalid! Using DB fallback.");
                 fallbackToDBMain();
             }
         } else if (dbUpdated > 0) {
             fallbackToDBMain();
         } else {
-            plugin.getLogger().warning("§eNo main shop config found in files or database. Using defaults.");
+            plugin.getLogger().warning("No main shop config found in files or database. Using defaults.");
             mainConfigCache = new MainShopConfig();
         }
     }
@@ -115,7 +115,7 @@ public class ShopGUIManager {
             mainConfigCache = dbConfig;
             plugin.getLogger().info("✓ Loaded main shop config from database");
         } else {
-            plugin.getLogger().severe("§cDatabase main config is invalid! Creating new default.");
+            plugin.getLogger().severe("Database main config is invalid! Creating new default.");
             mainConfigCache = new MainShopConfig();
         }
     }
@@ -161,7 +161,7 @@ public class ShopGUIManager {
                 dataManager.saveSectionConfig(sectionName, section);
                 plugin.getLogger().info("✓ Loaded section '" + sectionName + "' from file");
             } else {
-                plugin.getLogger().severe("§cSection '" + sectionName + "' loaded from file is invalid! Using DB fallback.");
+                plugin.getLogger().severe("Section '" + sectionName + "' loaded from file is invalid! Using DB fallback.");
                 fallbackToDBSection(sectionName);
             }
         } else if (dbUpdated > 0) {
@@ -175,7 +175,7 @@ public class ShopGUIManager {
             sectionCache.put(sectionName, dbSection);
             plugin.getLogger().info("✓ Loaded section '" + sectionName + "' from database");
         } else {
-            plugin.getLogger().warning("§eSection '" + sectionName + "' not found in database. Skipping.");
+            plugin.getLogger().warning("Section '" + sectionName + "' not found in database. Skipping.");
             sectionCache.remove(sectionName);
         }
     }
@@ -280,18 +280,18 @@ public class ShopGUIManager {
 
     public void openMainGUI(Player player) {
         if (!configsLoaded) {
-            player.sendMessage(langManager.getMessageFor(player, "economy.shop.loading",
-                    "<yellow>Loading shop...</yellow>"));
+            player.sendMessage(langManager.getMessageFor(player, "commands.economy.shop.loading",
+                    "<yellow>Loading shop..."));
             return;
         }
 
         if (mainConfigCache == null) {
-            player.sendMessage(langManager.getMessageFor(player, "economy.shop.no-main-config",
+            player.sendMessage(langManager.getMessageFor(player, "commands.economy.shop.no-main-config",
                     "<red>Shop configuration not found. Please contact an administrator."));
             return;
         }
 
-        Component title = langManager.getMessageFor(player, "economy.shop.main-title",
+        Component title = langManager.getMessageFor(player, "commands.economy.shop.main-title",
                 mainConfigCache.title != null ? mainConfigCache.title : "<green>Main Shop");
 
         Inventory inv = Bukkit.createInventory(null, config.mainSize, title);
@@ -321,14 +321,14 @@ public class ShopGUIManager {
 
     public void openSectionGUI(Player player, String fileName, int page) {
         if (!configsLoaded) {
-            player.sendMessage(langManager.getMessageFor(player, "economy.shop.loading",
-                    "<yellow>Loading shop...</yellow>"));
+            player.sendMessage(langManager.getMessageFor(player, "commands.economy.shop.loading",
+                    "<yellow>Loading shop..."));
             return;
         }
 
         ShopSectionConfig section = sectionCache.get(fileName);
         if (section == null) {
-            player.sendMessage(langManager.getMessageFor(player, "economy.shop.no-section",
+            player.sendMessage(langManager.getMessageFor(player, "commands.economy.shop.no-section",
                     "<red>Shop section not found: <white>{section}",
                     LanguageManager.ComponentPlaceholder.of("{section}", fileName)));
             return;
@@ -336,7 +336,7 @@ public class ShopGUIManager {
 
         String displayTitle = section.title != null ? section.title :
                 fileName.replace(".yml", "").replace("-", " ");
-        Component title = langManager.getMessageFor(player, "economy.shop.section-title",
+        Component title = langManager.getMessageFor(player, "commands.economy.shop.section-title",
                 "<green>{section} Shop",
                 LanguageManager.ComponentPlaceholder.of("{section}", displayTitle));
 
@@ -357,17 +357,11 @@ public class ShopGUIManager {
                     if (economyManager.isEnabled()) {
                         List<String> itemLore = new ArrayList<>(item.lore != null ? item.lore : new ArrayList<>());
 
-                        if (item.buyPrice > 0) {
-                            itemLore.add("<green>L-Click: Buy for " + economyManager.format(item.buyPrice));
-                        }
-                        if (item.sellPrice > 0 && config.enableSell) {
-                            itemLore.add("<yellow>R-Click: Sell for " + economyManager.format(item.sellPrice));
-                        }
 
                         stack = createItem(item.material, item.name, itemLore, item.amount);
                     } else {
                         List<String> disabledLore = new ArrayList<>();
-                        disabledLore.add("<red>§c✗ Economy not available");
+                        disabledLore.add("<red>✗ Economy not available");
                         disabledLore.add("<gray>Shop is view-only");
                         stack = createItem(item.material, item.name, disabledLore, item.amount);
                     }
@@ -460,8 +454,8 @@ public class ShopGUIManager {
         }
 
         if (!economyManager.isEnabled()) {
-            player.sendMessage(langManager.getMessageFor(player, "economy.shop.no-economy",
-                    "<red>§c✗ Economy system is not available. Shop is view-only."));
+            player.sendMessage(langManager.getMessageFor(player, "commands.economy.shop.no-economy",
+                    "<red>✗ Economy system is not available. Shop is view-only."));
             return;
         }
 
@@ -482,8 +476,8 @@ public class ShopGUIManager {
 
     private void handleBuy(Player player, ShopSectionConfig.ShopItem item) {
         if (!economyManager.isEnabled()) {
-            player.sendMessage(langManager.getMessageFor(player, "economy.shop.no-economy",
-                    "<red>§c✗ Economy system is not available."));
+            player.sendMessage(langManager.getMessageFor(player, "commands.economy.shop.no-economy",
+                    "<red>✗ Economy system is not available."));
             return;
         }
 
@@ -496,7 +490,7 @@ public class ShopGUIManager {
             if (response.success()) {
                 player.getInventory().addItem(new ItemStack(item.material, item.amount));
 
-                player.sendMessage(langManager.getMessageFor(player, "economy.shop.buy-success",
+                player.sendMessage(langManager.getMessageFor(player, "commands.economy.shop.buy-success",
                         "<green>✓ You bought {amount}x {item} for {price}",
                         LanguageManager.ComponentPlaceholder.of("{amount}", item.amount),
                         LanguageManager.ComponentPlaceholder.of("{item}", item.name),
@@ -504,13 +498,13 @@ public class ShopGUIManager {
 
                 refreshGUI(player);
             } else {
-                player.sendMessage(langManager.getMessageFor(player, "economy.shop.transaction-failed",
-                        "<red>§c✗ Transaction failed: {error}",
+                player.sendMessage(langManager.getMessageFor(player, "commands.economy.shop.transaction-failed",
+                        "<red>✗ Transaction failed: {error}",
                         LanguageManager.ComponentPlaceholder.of("{error}", response.errorMessage)));
             }
         } else {
-            player.sendMessage(langManager.getMessageFor(player, "economy.shop.cannot-afford",
-                    "<red>§c✗ You cannot afford {item} (cost: {price})",
+            player.sendMessage(langManager.getMessageFor(player, "commands.economy.shop.cannot-afford",
+                    "<red>✗ You cannot afford {item} (cost: {price})",
                     LanguageManager.ComponentPlaceholder.of("{item}", item.name),
                     LanguageManager.ComponentPlaceholder.of("{price}", economyManager.format(totalBuyPrice))));
         }
@@ -518,14 +512,14 @@ public class ShopGUIManager {
 
     private void handleSell(Player player, ShopSectionConfig.ShopItem item) {
         if (!economyManager.isEnabled()) {
-            player.sendMessage(langManager.getMessageFor(player, "economy.shop.no-economy",
-                    "<red>§c✗ Economy system is not available."));
+            player.sendMessage(langManager.getMessageFor(player, "commands.economy.shop.no-economy",
+                    "<red>✗ Economy system is not available."));
             return;
         }
 
         if (!player.getInventory().containsAtLeast(new ItemStack(item.material), item.amount)) {
-            player.sendMessage(langManager.getMessageFor(player, "economy.shop.no-items",
-                    "<red>§c✗ You don't have enough {item} to sell",
+            player.sendMessage(langManager.getMessageFor(player, "commands.economy.shop.no-items",
+                    "<red>✗ You don't have enough {item} to sell",
                     LanguageManager.ComponentPlaceholder.of("{item}", item.name)));
             return;
         }
@@ -536,7 +530,7 @@ public class ShopGUIManager {
         EconomyResponse response = economyManager.deposit(player, totalSellPrice);
 
         if (response.success()) {
-            player.sendMessage(langManager.getMessageFor(player, "economy.shop.sell-success",
+            player.sendMessage(langManager.getMessageFor(player, "commands.economy.shop.sell-success",
                     "<green>✓ You sold {amount}x {item} for {price}",
                     LanguageManager.ComponentPlaceholder.of("{amount}", item.amount),
                     LanguageManager.ComponentPlaceholder.of("{item}", item.name),
@@ -545,8 +539,8 @@ public class ShopGUIManager {
             refreshGUI(player);
         } else {
             player.getInventory().addItem(new ItemStack(item.material, item.amount));
-            player.sendMessage(langManager.getMessageFor(player, "economy.shop.transaction-failed",
-                    "<red>§c✗ Transaction failed: {error}",
+            player.sendMessage(langManager.getMessageFor(player, "commands.economy.shop.transaction-failed",
+                    "<red>✗ Transaction failed: {error}",
                     LanguageManager.ComponentPlaceholder.of("{error}", response.errorMessage)));
         }
     }
@@ -650,13 +644,13 @@ public class ShopGUIManager {
                     economyManager.format(economyManager.getBalance(player)) :
                     "N/A";
 
-            meta.displayName(langManager.getMessageFor(player, "economy.shop.balance-display",
+            meta.displayName(langManager.getMessageFor(player, "commands.economy.shop.balance-display",
                     "<green>Your Balance: <gold>{balance}",
                     LanguageManager.ComponentPlaceholder.of("{balance}", balanceText)));
 
             if (!economyManager.isEnabled()) {
                 List<Component> lore = new ArrayList<>();
-                lore.add(mini.deserialize("<red>§c✗ Economy disabled"));
+                lore.add(mini.deserialize("<red>✗ Economy disabled"));
                 meta.lore(lore);
             }
 

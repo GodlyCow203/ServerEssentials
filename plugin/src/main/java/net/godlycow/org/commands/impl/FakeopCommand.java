@@ -34,7 +34,7 @@ public final class FakeopCommand implements CommandExecutor {
                     "commands.fakeop.no-permission",
                     "You need permission {permission}!",
                     LanguageManager.ComponentPlaceholder.of("{permission}", PERMISSION));
-            sender.sendMessage(message.toString());
+            sender.sendMessage(message);
             return true;
         }
 
@@ -42,7 +42,7 @@ public final class FakeopCommand implements CommandExecutor {
             Component message = langManager.getMessageFor(sender instanceof Player ? (Player) sender : null,
                     "commands.fakeop.usage",
                     "Usage: /fakeop <player>");
-            sender.sendMessage(message.toString());
+            sender.sendMessage(message);
             return true;
         }
 
@@ -52,7 +52,7 @@ public final class FakeopCommand implements CommandExecutor {
                     "commands.fakeop.target-not-found",
                     "Player not found.",
                     LanguageManager.ComponentPlaceholder.of("{target}", args[0]));
-            sender.sendMessage(message.toString());
+            sender.sendMessage(message);
             return true;
         }
 
@@ -68,7 +68,7 @@ public final class FakeopCommand implements CommandExecutor {
                 "commands.fakeop.success",
                 "Fake OP sent to {target}",
                 LanguageManager.ComponentPlaceholder.of("{target}", target.getName()));
-        sender.sendMessage(confirmMessage.toString());
+        sender.sendMessage(confirmMessage);
 
         trackUsage(target.getUniqueId(), "fakeop", 1);
 

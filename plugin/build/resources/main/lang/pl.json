@@ -1,0 +1,1299 @@
+{
+  "commands": {
+    "nick": {
+      "disabled": "<#FF2424>System nickname'ów jest obecnie wyłączony.",
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Użycie: <white>/nick <nickname> lub /nick reset",
+      "invalid-length": "<#FF2424>Nickname musi mieć od <#c0f0ff>{min} <#FF2424>do <#c0f0ff>{max} <#FF2424>znaków.",
+      "blocked-word": "<#FF2424>Słowo <#c0f0ff>{word} <#FF2424>nie jest dozwolone.",
+      "blacklisted": "<#FF2424>Ten format nickname'u nie jest dozwolony.",
+      "no-formatting": "<#FF2424>Formatowanie nie jest dozwolone w nickname'ach.",
+      "reset-self": "<#279CF5>Twój nickname został zresetowany.",
+      "set": "<#279CF5>Twój nickname został ustawiony na <#c0f0ff>{nick}<#279CF5>."
+    },
+    "eco": {
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}!",
+      "no-economy": "<#FF2424>System ekonomii nie jest dostępny!",
+      "usage": "<#279CF5>Użycie: <#c0f0ff>/{label} give <gracz> <ilość>...",
+      "player-not-found": "<#FF2424>Nie znaleziono gracza: <#c0f0ff>{player}",
+      "unknown-subcommand": "<#FF2424>Nieznana subkomenda: <#c0f0ff>{sub}\n<#708090>Dostępne: give, take, set, reset",
+      "negative-amount": "<#FF2424>Ilość nie może być ujemna!",
+      "invalid-amount": "<#FF2424>Nieprawidłowa ilość: <#c0f0ff>{amount}",
+      "amount-too-high": "<#FF2424>Ilość przekracza maksymalną dozwoloną: <#c0f0ff>{max}",
+      "offline-player": "<#FF2424>Nie można modyfikować balansu graczy offline.",
+      "transaction-failed": "<#FF2424>Transakcja nie powiodła się: {error}",
+      "give-usage": "<#279CF5>Użycie: <#c0f0ff>{usage}",
+      "give-success": "<#279CF5>Dano <#c0f0ff>{amount} <#279CF5>graczowi <#c0f0ff>{player}",
+      "give-received": "<#279CF5>Otrzymałeś <#c0f0ff>{amount}",
+      "take-usage": "<#279CF5>Użycie: <#c0f0ff>{usage}",
+      "take-success": "<#FF2424>Zabrano <#c0f0ff>{amount} <#FF2424>od gracza <#c0f0ff>{player}",
+      "take-taken": "<#FF2424>{amount} <#708090>zostało zabrane z twojego balansu",
+      "set-usage": "<#279CF5>Użycie: <#c0f0ff>{usage}",
+      "set-success": "<#279CF5>Ustawiono balans dla <#c0f0ff>{player} <#279CF5>na <#c0f0ff>{amount}",
+      "set-received": "<#279CF5>Twój balans został ustawiony na <#c0f0ff>{amount}",
+      "reset-success": "<#279CF5>Zresetowano balans dla <#c0f0ff>{player}",
+      "reset-already-zero": "<#708090>Balans dla <#c0f0ff>{player} <#708090>jest już zerowy"
+    },
+    "nicks": {
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Użycie: <white>/nicks reload|reset <gracz>",
+      "reload": "<#279CF5>System nickname'ów przeładowany.",
+      "reset": "<#279CF5>Zresetowano nickname dla <#c0f0ff>{player}<#279CF5>.",
+      "not-found": "<#FF2424>Nie znaleziono gracza <#c0f0ff>{player}<#FF2424>."
+    },
+    "afk": {
+      "disabled": "<#FF2424>System AFK jest wyłączony.",
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Użycie: <white>/afk [reload]",
+      "enter-afk": "<#279CF5>{player} jest teraz AFK.",
+      "leave-afk": "<#279CF5>{player} nie jest już AFK.",
+      "kick": "<#FF2424>Zostałeś wyrzucony za bycie AFK.",
+      "reload": "<#279CF5>System AFK przeładowany."
+    },
+    "homes": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy!",
+      "gui": {
+        "title": "<#279CF5>Menedżer Domów",
+        "confirm-title": "<#FF2424>Potwierdź Akcję",
+        "home-title": "<#279CF5><bold>Dom <#c0f0ff>{slot}",
+        "manage-title": "<#279CF5><bold>Zarządzaj Domem <#c0f0ff>{slot}",
+        "no-permission": "<#FF2424>Brak permisji!",
+        "click-set": "<#279CF5>Kliknij aby ustawić",
+        "click-teleport": "<#20B2AA>Lewy klik aby się przeteleportować",
+        "click-manage": "<#279CF5>Prawy klik aby zarządzać",
+        "click-remove": "<#c0f0ff>Kliknij aby usunąć",
+        "empty": "<#708090>Puste miejsce",
+        "name": "<#708090>Nazwa: <#279CF5>{name}",
+        "coords": "<#708090>XYZ: <#279CF5>{x} {y} {z}",
+        "world": "<#708090>Świat: <#279CF5>{world}",
+        "confirm": "<#279CF5>Potwierdź",
+        "cancel": "<#FF2424>Anuluj",
+        "info": "<#279CF5>Dom <#c0f0ff>{slot} <#279CF5>- {mode}"
+      },
+      "empty-slot": "<#708090>Brak domu w miejscu <#c0f0ff>{slot}<#708090>.",
+      "world-missing": "<#FF2424>Świat domu nie jest już dostępny!",
+      "world-disabled": "<#FF2424>Nie możesz uzyskać dostępu do domów w tym świecie!",
+      "require-empty-inventory": "<#FF2424>Musisz mieć puste ekwipunek aby ustawić dom!",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-remove": "<#FF2424>Nie masz permisji aby usuwać domy!",
+      "teleport-cooldown": "<#FF2424>Poczekaj <#c0f0ff>{seconds}s <#FF2424>przed kolejną teleportacją!",
+      "set-cooldown": "<#FF2424>Poczekaj <#c0f0ff>{seconds}s <#FF2424>przed ustawieniem kolejnego domu!",
+      "cross-world-disabled": "<#FF2424>Teleportacja między światami jest wyłączona!",
+      "teleport-restricted": "<#FF2424>Nie możesz się teleportować z tego świata!",
+      "teleport": "<#279CF5>Przeteleportowano do domu <#c0f0ff>{slot}<#279CF5>.",
+      "set": "<#279CF5>Dom <#c0f0ff>{slot} <#279CF5>ustawiony w <#c0f0ff>{world} {x} {y} {z}<#279CF5>.",
+      "remove": "<#279CF5>Dom <#c0f0ff>{slot}<#279CF5> usunięty.",
+      "rename": {
+        "prompt": "<#279CF5>Wprowadź nową nazwę dla tego domu na czacie:",
+        "success": "<#279CF5>Dom przemianowany na <#c0f0ff>{name}<#279CF5>.",
+        "duplicate": "<#FF2424>Masz już dom o nazwie '<#c0f0ff>{name}<#FF2424>'!",
+        "too-long": "<#FF2424>Nazwa za długa! Max <#c0f0ff>{max} <#FF2424>znaków."
+      }
+    },
+    "loom": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "gui-title": "<#D2691E><bold>Interfejs Krosna",
+      "error-item-name": "<#D2691E><bold>Błąd",
+      "error-item-lore": "<#708090>Funkcja niezaimplementowana",
+      "opened": "<#279CF5>Otwarto interfejs krosna.",
+      "clicked-error": "<#FF2424>Kliknąłeś item błędu! Niezaimplementowane."
+    },
+    "stonecutter": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "opened": "<#279CF5>Otwarto piłę do kamienia."
+    },
+    "grindstone": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "opened": "<#279CF5>Otwarto kamień szlifierski."
+    },
+    "cartographytable": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "opened": "<#279CF5>Otwarto stół kartograficzny."
+    },
+    "anvil": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "opened": "<#279CF5>Otwarto kowadło."
+    },
+    "craftingtable": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "opened": "<#279CF5>Otwarto stół rzemieślniczy."
+    },
+    "smithingtable": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "success": "<#279CF5>Otwarto stół kowalski."
+    },
+    "broadcast": {
+      "no-permission": "<#FF2424>Nie masz permisji do używania tej komendy!",
+      "usage": "<#FF2424>Użycie: /broadcast <wiadomość>",
+      "format": "<#279CF5>[Serwer] <white>{message}"
+    },
+    "reboot": {
+      "no-permission": "<#FF2424>Nie masz permisji do używania tej komendy!",
+      "usage": "<#FF2424>Użycie: /reboot <minuty>",
+      "announce-scheduled": "<#FF2424>Serwer zrestartuje się za {time} minut(y).",
+      "announce-minutes": "<#279CF5>Restart za {time} minut(y).",
+      "announce-seconds": "<#279CF5>Restart za {time} sekund(y).",
+      "announce-now": "<#FF2424><bold>Restartuję teraz!",
+      "titles": {
+        "minute-warning": "<#279CF5>Restart za {time} minut(y).",
+        "second-warning": "<#279CF5><bold>{time}",
+        "now": "<#FF2424><bold>Restartuję teraz!"
+      }
+    },
+    "broadcastworld": {
+      "no-permission": "<#FF2424>Nie masz permisji do używania tej komendy!",
+      "usage": "<#FF2424>Użycie: /broadcastworld <świat> <wiadomość>",
+      "world-not-found": "<#FF2424>Świat <#c0f0ff>{world}<#FF2424> nie znaleziony!",
+      "message-sent": "<#279CF5>Wysłano wiadomość do świata <#c0f0ff>{world}<#279CF5>.",
+      "broadcast": "<white>{message}"
+    },
+    "spawner": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy.",
+      "no-permission": "<#FF2424>Nie masz permisji do używania tej komendy!",
+      "usage": "<#279CF5>Użycie: <white>/spawner <mob>",
+      "look-at-spawner": "<#FF2424>Spójrz na spawner aby go zmienić!",
+      "no-permission-mob": "<#FF2424>Nie masz permisji aby ustawić spawner na {mob}!",
+      "changed": "<#279CF5>Zmieniono typ spawnera na <#c0f0ff>{mob}<#279CF5>.",
+      "invalid-mob": "<#FF2424>Nieprawidłowy typ moba: {mob}",
+      "help": {
+        "header": "<#279CF5><bold>=== Pomoc Komendy Spawner ===</bold>",
+        "description": "<#279CF5>Opis: <white>Zmień typ spawnera stworzeń.",
+        "usage": "<#279CF5>Użycie:</#279CF5> <white>/spawner <mob>",
+        "permission": "<#279CF5>Wymagana Permisja:</#279CF5> <white>{permission}",
+        "available": {
+          "header": "<#279CF5>Dostępne Typy Mobów:</#279CF5>",
+          "mob": "  <white>• {mob}",
+          "more": "  <gray>... i {count} więcej</gray>"
+        },
+        "footer": "<gray>Użyj <white>/spawner help</white> aby zobaczyć tę wiadomość ponownie.</gray>"
+      }
+    },
+    "serverinfo": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy!",
+      "no-permission": "<#FF2424>Nie masz permisji do używania tej komendy!",
+      "header": "<#279CF5>========== Informacje o Serwerze ==========",
+      "ram": "<#279CF5>RAM: <white>{used}MB / {max}MB",
+      "disk": "<#279CF5>Dysk: <white>{free}MB wolne / {total}MB całkowite",
+      "tps": "<#279CF5>TPS: <white>{tps}",
+      "cpu": "<#279CF5>CPU: <white>{cores} rdzenie, {load} obciążenie",
+      "os": "<#279CF5>OS: <white>{name} {version} ({arch})",
+      "uptime": "<#279CF5>Czas pracy: <white>{hours}h {minutes}m {seconds}s",
+      "java": "<#279CF5>Java: <white>{version}",
+      "host": "<#279CF5>Host: <white>{hostname} ({address})",
+      "net": "<#279CF5>Sieć: <white>{interfaces}",
+      "plugins": "<#279CF5>Pluginy: <white>{count}",
+      "minecraft": "<#279CF5>Minecraft: <white>{version}",
+      "paper": "<#279CF5>Serwer: <white>{version}",
+      "players": "<#279CF5>Gracze: <white>{online}/{max}",
+      "gpu": "<#279CF5>GPU: <white>{gpu}",
+      "jvm": "<#279CF5>Argumenty JVM: <white>{args}"
+    },
+    "unloadworld": {
+      "no-permission": "<#FF2424>Nie masz permisji do używania tej komendy!",
+      "usage": "<#FF2424>Użycie: /unloadworld <świat>",
+      "not-found": "<#FF2424>Świat <#c0f0ff>{world}<#FF2424> nie znaleziony!",
+      "failed": "<#FF2424>Nie udało się wyładować świata <#c0f0ff>{world}<#FF2424>!",
+      "success": "<#279CF5>Wyładowano świat <#c0f0ff>{world}<#279CF5>."
+    },
+    "uptime": {
+      "no-permission": "<#FF2424>Nie masz permisji do używania tej komendy!",
+      "info": "<#279CF5>Czas pracy: <white>{uptime}"
+    },
+    "loadworld": {
+      "no-permission": "<#FF2424>Nie masz permisji do używania tej komendy!",
+      "usage": "<#FF2424>Użycie: /loadworld <świat>",
+      "already-loaded": "<#FF2424>Świat <#c0f0ff>{world}<#FF2424> jest już załadowany!",
+      "success": "<#279CF5>Załadowano świat <#c0f0ff>{world}<#279CF5>.",
+      "failed": "<#FF2424>Nie udało się załadować świata <#c0f0ff>{world}<#FF2424>!"
+    },
+    "worldlist": {
+      "no-permission": "<#FF2424>Nie masz permisji do używania tej komendy!",
+      "header": "<#279CF5>========== Światy ==========",
+      "status-loaded": "<#279CF5>Załadowany",
+      "entry": "<#279CF5>{world} <#708090>({status}) <white>- Chunki: {chunks}, Istoty: {entities}, Gracze: {players}"
+    },
+    "playerinfo": {
+      "no-permission": "<#FF2424>Nie masz permisji do używania tej komendy!",
+      "usage": "<#279CF5>Użycie: <white>/playerinfo <gracz>",
+      "not-found": "<#FF2424>Nie znaleziono gracza.",
+      "header": "<#279CF5>----- Info o Graczu -----",
+      "name": "<#279CF5>Nazwa: <white>{player}",
+      "uuid": "<#279CF5>UUID: <white>{uuid}",
+      "health": "<#279CF5>Zdrowie: <white>{health}/{maxhealth}",
+      "food": "<#279CF5>Jedzenie: <white>{food}",
+      "location": "<#279CF5>Lokalizacja: <white>{location}"
+    },
+    "heal": {
+      "no-permission": "<#FF2424>Nie masz permisji do używania tej komendy!",
+      "no-permission-others": "<#FF2424>Nie masz permisji aby leczyć innych graczy!",
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy!",
+      "player-not-found": "<#FF2424>Nie znaleziono gracza: {player}",
+      "usage": "<#FF2424>Użycie: /heal [gracz]",
+      "success-self": "<#279CF5>Zostałeś uleczony.",
+      "success-other": "<#279CF5>Uleczyłeś <#c0f0ff>{player}<#279CF5>.",
+      "success-healed": "<#279CF5>Zostałeś uleczony przez <#c0f0ff>{healer}<#279CF5>."
+    },
+    "endersee": {
+      "no-permission": "<#FF2424>Nie masz permisji aby przeglądać swój enderchest!",
+      "no-permission-others": "<#FF2424>Nie masz permisji aby przeglądać enderchest'e innych graczy!",
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy!",
+      "usage": "<#279CF5>Użycie: <white>/endersee [gracz]",
+      "player-not-found": "<#FF2424>Nie znaleziono gracza <#c0f0ff>{player}<#FF2424>!",
+      "opened-self": "<#279CF5>Otwarto twój enderchest.",
+      "opened-other": "<#279CF5>Otwarto enderchest gracza <#c0f0ff>{player}<#279CF5>."
+    },
+    "freeze": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy!",
+      "usage": "<#FF2424>Użycie: /freeze <gracz>",
+      "player-not-found": "<#FF2424>Nie znaleziono gracza <#c0f0ff>{player}<#FF2424>.",
+      "froze": "<#279CF5>Zamrożono <#c0f0ff>{player}<#279CF5>.",
+      "unfroze": "<#279CF5>Odmrożono <#c0f0ff>{player}<#279CF5>.",
+      "target-frozen": "<#FF2424>Zostałeś zamrożony!",
+      "target-unfrozen": "<#279CF5>Zostałeś odmrożony."
+    },
+    "unfreeze": {
+      "no-permission": "<#FF2424>Nie masz permisji do używania tej komendy!",
+      "usage": "<#FF2424>Użycie: /unfreeze <gracz>",
+      "player-not-found": "<#FF2424>Nie znaleziono gracza <#c0f0ff>{player}<#FF2424>!",
+      "not-frozen": "<#FF2424>Gracz <#c0f0ff>{player}<#FF2424> nie jest zamrożony!",
+      "success": "<#279CF5>Odmrożono <#c0f0ff>{player}<#279CF5>.",
+      "target-unfrozen": "<#279CF5>Zostałeś odmrożony."
+    },
+    "clearchat": {
+      "no-permission": "<#FF2424>Nie masz permisji do używania tej komendy.",
+      "cleared": "<#708090>Czat wyczyszczony przez <#FF2424>{player}</#FF2424>."
+    },
+    "vanish": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy!",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "vanished": "<#279CF5>Jesteś teraz niewidzialny.",
+      "visible": "<#279CF5>Jesteś teraz widzialny dla wszystkich graczy."
+    },
+    "god": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy!",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "enabled": "<#279CF5>Tryb boga włączony.",
+      "disabled": "<#FF2424>Tryb boga wyłączony."
+    },
+    "invsee": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Użycie: <white>/invsee <gracz>",
+      "player-not-found": "<#FF2424>Nie znaleziono gracza: <white>{player}",
+      "success": "<#279CF5>Przeglądanie ekwipunku <#c0f0ff>{player}<#279CF5>.",
+      "help": {
+        "header": "<#279CF5><bold>=== Pomoc Komendy Invsee ===</bold>",
+        "description": "<#279CF5>Opis: <white>Przeglądaj ekwipunek innego gracza.",
+        "usage": "<#279CF5>Użycie:</#279CF5> <white>/invsee <gracz>",
+        "permission": "<#279CF5>Wymagana Permisja:</#279CF5> <white>{permission}",
+        "footer": "<gray>Użyj <white>/invsee help</white> aby zobaczyć tę wiadomość ponownie.</gray>"
+      }
+    },
+    "invclear": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy!",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "player-not-found": "<#FF2424>Gracz <#c0f0ff>{player}<#FF2424> nie znaleziony!",
+      "cleared": "<#279CF5>Twój ekwipunek został wyczyszczony.",
+      "cleared-other": "<#279CF5>Wyczyszczono ekwipunek <#c0f0ff>{player}<#279CF5>."
+    },
+    "tp": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy!",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#FF2424>Użycie: /tp <gracz>",
+      "player-not-found": "<#FF2424>Gracz <#c0f0ff>{player}<#FF2424> nie znaleziony.",
+      "success": "<#279CF5>Przeteleportowano do <#c0f0ff>{player}<#279CF5>."
+    },
+    "kickall": {
+      "usage": "<#FF2424>Użycie: /kickall <powód>",
+      "kick-message": "<#FF2424>Wyrzucony przez <#c0f0ff>{admin}<#FF2424>!\n<#708090>Powód: <white>{reason}",
+      "sender-message": "<#279CF5>Wyrzucono <#c0f0ff>{count}<#279CF5> graczy.\n<#708090>Powód: <white>{reason}",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!"
+    },
+    "pingall": {
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "header": "<#279CF5>Pingi Graczy Online:",
+      "player-line": "<#279CF5>- {player}: <#c0f0ff>{ping}ms"
+    },
+    "alts": {
+      "usage": "<#FF2424>Użycie: /alts <gracz>",
+      "player-offline": "<#FF2424>Gracz musi być online aby sprawdzić jego IP.",
+      "header": "<#279CF5>Gracze z tym samym IP co {target}:",
+      "none": "<#708090>- Nie znaleziono online.",
+      "found": "<#708090>- {player}",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!"
+    },
+    "stafflist": {
+      "header": "<#4169E1>--- Staff Online ---",
+      "none": "<#708090>Brak członków staffu online.",
+      "format": "<#279CF5><#c0f0ff>{player}",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!"
+    },
+    "editsign": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "not-looking-at-sign": "<#FF2424>Nie patrzysz na znak.",
+      "usage": "<#279CF5>Użycie: <white>/editsign <linia1>|<linia2>|<linia3>|<linia4>",
+      "success": "<#279CF5>Znak zaktualizowany."
+    },
+    "iteminfo": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "no-item": "<#FF2424>Musisz trzymać item w głównej ręce.",
+      "header": "<#4169E1>≡ <bold>Informacje o Itemie</bold> <#4169E1>≡",
+      "type": "<#708090>Typ: <white>{type}",
+      "amount": "<#708090>Ilość: <white>{amount}",
+      "name": "<#708090>Nazwa: <white>{name}",
+      "lore-header": "<#708090>≡ <bold>Lore</bold> <#708090>≡",
+      "lore-content": "<white>>> {lore}",
+      "no-meta": "<#708090>Brak dodatkowych metadanych.",
+      "enchants-header": "<#708090>≡ <bold>Zaklęcia</bold> <#708090>≡",
+      "enchant-line": "<#c0f0ff>✦ <white>{enchant} <#708090>Poziom {level}",
+      "flags-header": "<#708090>≡ <bold>Flagi Itemu</bold> <#708090>≡",
+      "flag-line": "<#c0f0ff>- <#708090>{flag}"
+    },
+    "death": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "count": "<#FF2424>Umarłeś <#c0f0ff>{deaths} <#FF2424>razy."
+    },
+    "realname": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Użycie: <white>/realname <nickname>",
+      "found": "<#279CF5>Nickname <#c0f0ff>{nickname} <#279CF5>należy do <#c0f0ff>{realname}<#279CF5>.",
+      "not-found": "<#FF2424>Nie znaleziono gracza z nickiem <#c0f0ff>{nickname}<#FF2424>."
+    },
+    "speed": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Użycie: <white>/speed <1-10>",
+      "invalid-number": "<#FF2424>Prędkość musi być między <#c0f0ff>1-10<#FF2424>.",
+      "fly-set": "<#279CF5>Prędkość lotu ustawiona na <#c0f0ff>{speed}<#279CF5>.",
+      "walk-set": "<#279CF5>Prędkość chodzenia ustawiona na <#c0f0ff>{speed}<#279CF5>."
+    },
+    "launch": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "launched": "<#279CF5><bold>Woosh!</bold> <white>Zostałeś wystrzelony!"
+    },
+    "repair": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "no-item": "<#FF2424>Musisz trzymać item w głównej ręce aby go naprawić.",
+      "cannot-repair": "<#FF2424>Ten item nie może być naprawiony.",
+      "already-full": "<#279CF5>Item jest już na pełnej wytrzymałości.",
+      "success": "<#279CF5>Item w pełni naprawiony."
+    },
+    "sleep": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "broadcast": "<#279CF5>{player} pominął noc! <#708090>(Komenda sleep)",
+      "success": "<#279CF5>Noc pominięta i pogoda wyczyszczona."
+    },
+    "ping": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "show": "<#708090>Twój ping: {ping}ms"
+    },
+    "disposal": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "inventory-title": "<#FF2424><bold>Eliminacja",
+      "opened": "<#279CF5>Otwarto eliminację. Umieść tutaj itemy aby je usunąć."
+    },
+    "compass": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "facing": "<#279CF5>Jesteś skierowany na <#279CF5><bold>{direction}"
+    },
+    "top": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "teleported": "<#279CF5>Przeteleportowano na najwyższy blok nad tobą!",
+      "no-block": "<#FF2424>Nie znaleziono solidnego bloku nad tobą!"
+    },
+    "ext": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy!",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-others": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424> aby gasić innych graczy!",
+      "player-not-found": "<#FF2424>Nie znaleziono gracza!",
+      "self": "<#279CF5>Zostałeś ugaszony.",
+      "target": "<#279CF5>Ugaszono <#c0f0ff>{target}"
+    },
+    "tpp": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-world": "<#FF2424>Nie masz permisji aby uzyskać dostęp do świata <#c0f0ff>{world}<#FF2424>!",
+      "no-permission-others": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424> aby teleportować innych graczy!",
+      "usage": "<#279CF5>Użycie: /tpp <gracz> <świat> [x y z]",
+      "player-not-found": "<#FF2424>Gracz <#c0f0ff>{player}<#FF2424> nie znaleziony!",
+      "world-not-loaded": "<#FF2424>Świat <#c0f0ff>{world}<#FF2424> nie jest załadowany!",
+      "invalid-coords": "<#FF2424>Współrzędne muszą być liczbami!",
+      "teleported-target": "<#279CF5>Przeteleportowano <#c0f0ff>{target} <#279CF5>do świata <#c0f0ff>{world}<#279CF5>.",
+      "teleported-self": "<#279CF5>Zostałeś przeteleportowany do świata <#c0f0ff>{world} <#279CF5>na <#708090>({x}, {y}, {z})"
+    },
+    "magnet": {
+      "only-player": "<#279CF5>Tylko gracze mogą używać tej komendy.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "toggle-on": "<#279CF5>Magnet włączony. Itemy w promieniu <#c0f0ff>{radius}<#279CF5> bloków będą przyciągane do ciebie.",
+      "toggle-off": "<#FF2424>Magnet wyłączony.",
+      "error": "<#FF2424>Nie udało się przełączyć magnetu: <#c0f0ff>{error}"
+    },
+    "day": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "success": "<#279CF5>Czas ustawiony na dzień w świecie <#c0f0ff>{world}<#279CF5>."
+    },
+    "inventorysort": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "success": "<#279CF5>Ekwipunek uporządkowany i posortowany."
+    },
+    "book": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy!",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-others": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424> aby dawać książki innym!",
+      "player-not-found": "<#FF2424>Gracz <#c0f0ff>{player}<#FF2424> nie znaleziony!",
+      "inventory-full-self": "<#FF2424>Twój ekwipunek jest pełny!",
+      "inventory-full-other": "<#FF2424>Ekwipunek {target} jest pełny!",
+      "self-success": "<#279CF5>Otrzymałeś książkę informacyjną.",
+      "target-success": "<#279CF5>Dałeś książkę graczowi <#c0f0ff>{player}<#279CF5>.",
+      "received": "<#279CF5>Otrzymałeś książkę od <#c0f0ff>{sender}<#279CF5>."
+    },
+    "break": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "no-block": "<#FF2424>Nie znaleziono łamiącego się bloku w promieniu <#c0f0ff>{distance}<#FF2424> bloków.",
+      "success": "<#279CF5>Złamano blok na <#c0f0ff>{x} {y} {z}<#279CF5>."
+    },
+    "setloreline": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Użycie: <white>/setloreline <tekst>",
+      "no-item": "<#FF2424>Nie trzymasz itemu.",
+      "lore-set": "<#279CF5>Lore ustawiony na: <white>{lore}"
+    },
+    "track": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Użycie: <white>/track <gracz>",
+      "not-found": "<#FF2424>Nie znaleziono gracza <#c0f0ff>{target}<#FF2424>.",
+      "success": "<#279CF5>Teraz śledzisz <#c0f0ff>{target}<#279CF5>. Kompas zaktualizowany."
+    },
+    "suicide": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "success": "<#FF2424>Odebrałeś sobie życie.",
+      "error": "<#FF2424>Nie udało się zarejestrować próby samobójczej."
+    },
+    "kill": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "kill-count": "<#279CF5>Masz <#c0f0ff>{kills} <#279CF5>zabójstw graczy."
+    },
+    "bottom": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "success": "<#279CF5>Przeteleportowano na dół! <#708090>(Y: {y})",
+      "no-safe-ground": "<#FF2424>Brak bezpiecznego gruntu poniżej!"
+    },
+    "condense": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy!",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "success": "<#279CF5>Skondensowano itemy w <#c0f0ff>{blocks}<#279CF5> bloki.",
+      "not-enough": "<#279CF5>Nie masz wystarczająco itemów do kondensacji."
+    },
+    "nuke": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy!",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "deployed": "<#279CF5>Nuke rozmieszczona! <#708090>(Moc: {power})"
+    },
+    "weather": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-sub": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{subpermission}<#FF2424>!",
+      "usage": "<#279CF5>Użycie: <white>/weather <clear|rain|thunderstorm>",
+      "clear": "<#279CF5>Pogoda ustawiona na słoneczną na <white>{duration}s<#279CF5>.",
+      "rain": "<#c0f0ff>Pogoda ustawiona na deszczową na <white>{duration}s<#c0f0ff>.",
+      "thunderstorm": "<#279CF5>Pogoda ustawiona na burzę na <white>{duration}s<#279CF5>.",
+      "invalid-type": "<#FF2424>Nieprawidłowy typ pogody. Użyj: clear, rain, lub thunderstorm.",
+      "help": {
+        "header": "<#279CF5><bold>=== Pomoc Komendy Weather ===</bold>",
+        "description": "<#279CF5>Opis: <white>Zmień pogodę w swoim obecnym świecie na określony czas.",
+        "usage": "<#279CF5>Użycie:</#279CF5> <white>/weather <typ>",
+        "types": {
+          "header": "<#279CF5>Dostępne Typy Pogody:</#279CF5>",
+          "clear": "  <white>clear</white> <gray>- Słonecznie</gray>",
+          "clear.no-perm": "  <#FF2424>clear</#FF2424> <gray>- Brak permisji</gray>",
+          "rain": "  <white>rain</white> <gray>- Deszcz</gray>",
+          "rain.no-perm": "  <#FF2424>rain</#FF2424> <gray>- Brak permisji</gray>",
+          "thunderstorm": "  <white>thunderstorm</white> <gray>- Burza</gray>",
+          "thunderstorm.no-perm": "  <#FF2424>thunderstorm</#FF2424> <gray>- Brak permisji</gray>"
+        },
+        "duration": "<#279CF5>Czas trwania:</#279CF5> <white>{duration} sekund",
+        "examples": {
+          "header": "<#279CF5>Przykłady:</#279CF5>",
+          "clear": "  <white>/weather clear</white> <gray>- Ustaw pogodę na słoneczną</gray>",
+          "rain": "  <white>/weather rain</white> <gray>- Ustaw pogodę na deszczową</gray>",
+          "thunderstorm": "  <white>/weather thunderstorm</white> <gray>- Ustaw pogodę na burzę</gray>"
+        },
+        "footer": "<gray>Użyj <white>/weather help</white> aby zobaczyć tę wiadomość ponownie.</gray>"
+      }
+    },
+    "playtime": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Użycie: <white>/playtime",
+      "playtime": "<#279CF5>Twój czas gry: <#c0f0ff>{hours}h {minutes}m"
+    },
+    "recipe": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Użycie: <white>/recipe <przepis>",
+      "not-found": "<#FF2424>Nie znaleziono przepisu!",
+      "result": "<#279CF5>Przepis na: <#c0f0ff>{item}",
+      "shaped-header": "<#279CF5>Składniki Przepisu z Kształtem:",
+      "shapeless-header": "<#279CF5>Składniki Przepisu bez Kształtu:",
+      "ingredient-line": "<#279CF5>- {char}: <white>{item} <#279CF5>x{amount}",
+      "ingredient-line-shapeless": "<#279CF5>- <white>{item} <#279CF5>x{amount}",
+      "unknown-type": "<#FF2424>Nieznany typ przepisu!"
+    },
+    "enderchest": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-others": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Użycie: <white>/enderchest [gracz]",
+      "opening": "<#279CF5>Otwieranie twojego enderchest'u...",
+      "opening-other": "<#279CF5>Otwieranie enderchest'u gracza <#c0f0ff>{player}<#279CF5>...",
+      "player-not-found": "<#FF2424>Gracz <#c0f0ff>{player}<#FF2424> nie znaleziony.",
+      "offline-not-supported": "<#FF2424>Nie można otworzyć enderchest'u gracza offline <#c0f0ff>{player}<#FF2424>."
+    },
+    "seen": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Użycie: <white>/seen <gracz>",
+      "player-not-found": "<#FF2424>Gracz <#c0f0ff>{player}<#FF2424> nie znaleziony.",
+      "result": "<#279CF5>{player} był ostatnio widziany <white>{lastSeen}",
+      "result-online": "<#279CF5>{player} jest obecnie <bold>online<#279CF5>!",
+      "never-joined": "<#279CF5>{player} nigdy nie dołączył do serwera."
+    },
+    "back": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-sub": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{subpermission}<#FF2424>!",
+      "usage": "<#279CF5>Użycie: <white>/back [lobby|death|back]",
+      "no-back": "<#FF2424>Nie zapisano poprzedniej lokalizacji.",
+      "invalid-back": "<#FF2424>Twoja ostatnia lokalizacja jest nieprawidłowa.",
+      "teleported-back": "<#279CF5>Przeteleportowano do poprzedniej lokalizacji.",
+      "lobby-not-set": "<#FF2424>Lokalizacja lobby nie jest ustawiona lub świat jest wyładowany.",
+      "teleported-lobby": "<#279CF5>Przeteleportowano do lobby.",
+      "no-death-location": "<#FF2424>Nie znaleziono lokalizacji śmierci.",
+      "teleported-death": "<#279CF5>Przeteleportowano do ostatniej lokalizacji śmierci.",
+      "unknown-usage": "<#FF2424>Nieznana subkomenda. Użyj: <white>/back, /back lobby, /back death"
+    },
+    "tree": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "specify-type": "<#279CF5>Proszę określić typ drzewa.",
+      "invalid-type": "<#FF2424>Nieprawidłowy typ drzewa! Dostępne typy: <#c0f0ff>{types}",
+      "tree-planted": "<#279CF5>Zasadzono drzewo: <#c0f0ff>{type}",
+      "cannot-grow": "<#FF2424>Drzewo nie może tu urosnąć! Upewnij się że jest wystarczająco miejsca i odpowiedni grunt."
+    },
+    "notes": {
+      "only-player": "<#708090>Tylko gracze mogą używać notatek.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424> aby używać notatek!",
+      "usage": "<#279CF5>Użycie:</#279CF5> <white>/notes <nazwa> [treść]",
+      "list-empty": "<#708090>Nie masz zapisanych notatek.",
+      "list-header": "<#279CF5>Twoje notatki:</#279CF5> ",
+      "not-found": "<#FF2424>Notatka '<#c0f0ff>{name}<#FF2424>' nie znaleziona.",
+      "view": "<#279CF5>Notatka '<#c0f0ff>{name}<#279CF5>':</#279CF5> <white>{content}",
+      "saved": "<#279CF5>Zapisano notatkę '<#c0f0ff>{name}<#279CF5>':</#279CF5> <white>{content}"
+    },
+    "scoreboard": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać komend scoreboard.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424> aby używać tego!",
+      "no-permission-reload": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424> aby przeładować!",
+      "no-permission-toggle": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424> aby przełączyć!",
+      "no-permission-color": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424> aby zmieniać layout'y!",
+      "usage": "<#279CF5>Użycie:</#279CF5> <white>/scoreboard <reload|toggle|color> [layout]",
+      "toggle": {
+        "enabled": "<#279CF5>Scoreboard włączony!",
+        "disabled": "<#708090>Scoreboard wyłączony!"
+      },
+      "reload": {
+        "success": "<#279CF5>Przeładowano wszystkie scoreboard'y!"
+      },
+      "color": {
+        "usage": "<#279CF5>Użycie: /scoreboard color <layout>",
+        "not-found": "<#FF2424>Layout '<#c0f0ff>{layout}<#FF2424>' nie znaleziony!",
+        "changed": "<#279CF5>Zmieniono layout na <#c0f0ff>{layout}<#279CF5>."
+      }
+    },
+    "burn": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy!",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-sub": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{subpermission}<#FF2424>!",
+      "usage": "<#279CF5>Użycie: <white>/burn <gracz> [sekundy]",
+      "player-not-found": "<#FF2424>Gracz <#c0f0ff>{target}<#FF2424> nie znaleziony!",
+      "immune-gamemode": "<#FF2424>{target} jest w trybie <#c0f0ff>{gamemode}<#FF2424> i jest odporny!",
+      "invalid-number": "<#FF2424>Użyj <#c0f0ff>1-{max}<#FF2424> sekund.",
+      "target-burned": "<#FF2424>Zostałeś podpalony przez <#c0f0ff>{attacker}<#FF2424>!",
+      "sender-burned": "<#279CF5>{target} jest teraz w ogniu przez <#c0f0ff>{seconds}s<#279CF5>.",
+      "self-burned": "<#279CF5>Podpaliłeś się na <#c0f0ff>{seconds}s<#279CF5>."
+    },
+    "feed": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-others": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Użycie: <white>/feed [gracz]",
+      "player-not-found": "<#FF2424>Gracz <#c0f0ff>{target}<#FF2424> nie znaleziony!",
+      "fed-self": "<#279CF5>Zostałeś nakarmiony do pełna.",
+      "fed-other": "<#279CF5>Nakarmiłeś <#c0f0ff>{target}<#279CF5> do pełna.",
+      "fed-by-other": "<#279CF5>Zostałeś nakarmiony do pełna przez <#c0f0ff>{sender}<#279CF5>."
+    },
+    "hat": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "no-item": "<#FF2424>Musisz trzymać item w głównej ręce aby nosić go jako kapelusz!",
+      "item-not-allowed": "<#FF2424>Ten item nie może być noszony jako kapelusz! Sprawdź config.",
+      "success": "<#279CF5>Twój kapelusz został zaktualizowany."
+    },
+    "ptime": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-sub": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{subpermission}<#FF2424>!",
+      "usage": "<#279CF5>Użycie: <white>/ptime <day|night|reset>",
+      "invalid-option": "<#FF2424>Użyj: <white>day, night, lub reset",
+      "success": "<#279CF5>Osobisty czas ustawiony na <#c0f0ff>{option}<#279CF5>."
+    },
+    "night": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "success": "<#279CF5>Czas ustawiony na noc w świecie <#c0f0ff>{world}<#279CF5>."
+    },
+    "auction": {
+      "only-player": "<#279CF5>Tylko gracze mogą używać tej komendy.",
+      "no-economy": "<#FF2424>✗ System ekonomii nie jest dostępny.",
+      "usage": "<#279CF5>Użycie: <white>/auction [sell <cena>|my]",
+
+      "gui": {
+        "titles": {
+          "auction": "<#279CF5>Dom Aukcyjny - Strona <#c0f0ff>{page}",
+          "my-items": "<#279CF5>Twoje Itemy - Strona <#c0f0ff>{page}",
+          "remove-confirm": "<#FF2424>Potwierdź Usunięcie"
+        },
+
+        "navigation": {
+          "prev": "<#279CF5>⬅ Poprzednia Strona",
+          "next": "<#279CF5>Następna Strona ➡",
+          "refresh": "<#279CF5>↻ Odśwież",
+          "my-items": "<#279CF5>📦 Twoje Itemy",
+          "close": "<#FF2424>✕ Zamknij"
+        },
+
+        "balance": {
+          "message": "<#279CF5>Balans: <#c0f0ff>${balance}",
+          "item-name": "<#279CF5>Balans: <#c0f0ff>${balance}"
+        },
+
+        "refresh": "<#279CF5>Aukcja odświeżona!",
+
+        "item": {
+          "name": "<#279CF5>Cena: <#c0f0ff>${price}",
+          "lore": {
+            "seller": "<#279CF5>Sprzedawca: <#c0f0ff>{seller}",
+            "seller-price": "<#279CF5>Twoja cena: <#c0f0ff>${price}",
+            "expires": "<#279CF5>Wygasa: <#c0f0ff>{date}",
+            "buyer-click": "<#c0f0ff>Kliknij aby kupić",
+            "seller-click": "<#c0f0ff>Kliknij aby usunąć"
+          }
+        },
+
+        "remove": {
+          "confirm": "<#279CF5>✓ Potwierdź Usunięcie",
+          "cancel": "<#FF2424>✗ Anuluj"
+        }
+      },
+
+      "sell": {
+        "no-item": "<#FF2424>Musisz trzymać item w ręce aby sprzedać!",
+        "usage": "<#FF2424>Użycie: <white>/auction sell <cena>",
+        "invalid-price": "<#FF2424>Cena musi być dodatnią liczbą.",
+        "max-limit": "<#FF2424>Możesz sprzedać tylko do <#c0f0ff>{max}<#FF2424> itemów na raz!",
+        "success": "<#279CF5>Item wystawiony za <#c0f0ff>${price}<#279CF5>."
+      },
+
+      "purchase": {
+        "not-found": "<#FF2424>Item już niedostępny!",
+        "no-economy": "<#FF2424>✗ System ekonomii nie jest dostępny.",
+        "not-enough-money": "<#FF2424>Nie masz wystarczająco pieniędzy!",
+        "failed": "<#FF2424>Transakcja nie powiodła się: <white>{error}",
+        "success": "<#279CF5>Kupiono za <#c0f0ff>${price}<#279CF5>!",
+        "seller-message": "<#279CF5><#c0f0ff>{buyer}<#279CF5> kupił twój item za <#c0f0ff>${price}<#279CF5>!"
+      },
+
+      "remove": {
+        "no-pending": "<#FF2424>Nie znaleziono oczekującego usunięcia!",
+        "success": "<#279CF5>Item pomyślnie usunięty!",
+        "inventory-full": "<#279CF5>Item wyrzucony na ziemię (ekwipunek pełny)",
+        "cancelled": "<#279CF5>Usunięcie anulowane.",
+        "not-found": "<#FF2424>Item nie znaleziony!",
+        "failed": "<#FF2424>Nie udało się usunąć itemu. Spróbuj ponownie."
+      }
+    },
+    "paytoggle": {
+      "only-player": "<#279CF5>Tylko gracze mogą używać tej komendy.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "enabled": "<#279CF5>Płatności <#c0f0ff>włączone<#279CF5>.",
+      "disabled": "<#FF2424>Płatności <#c0f0ff>wyłączone<#FF2424>.",
+      "error": "<#FF2424>Błąd podczas przełączania stanu płatności."
+    },
+    "pay": {
+      "only-player": "<#279CF5>Tylko gracze mogą używać tej komendy.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Użycie: <white>{usage}",
+      "player-not-found": "<#FF2424>Nie znaleziono gracza: <white>{player}",
+      "self-payment": "<#FF2424>Nie możesz płacić samemu sobie!",
+      "invalid-amount": "<#FF2424>Nieprawidłowa ilość: <white>{amount}",
+      "positive-amount": "<#FF2424>Ilość musi być dodatnia!",
+      "not-enough": "<#FF2424>Potrzebujesz <#c0f0ff>${needed}<#FF2424>, masz <#279CF5>${balance}",
+      "target-disabled": "<#FF2424>{player} wyłączył płatności!",
+      "confirmation-expired": "<#FF2424>Poprzednia potwierdzenie płatności wygasło.",
+      "pending-other": "<#279CF5>Oczekująca płatność do <#c0f0ff>{player} <#279CF5>za <#c0f0ff>${amount}",
+      "confirm-message": "<#279CF5>Kliknij aby potwierdzić: Zapłać <#c0f0ff>${amount} <#279CF5>graczowi <#c0f0ff>{player}",
+      "confirm-instruction": "<#708090>Wpisz <white>{command} <#708090>ponownie aby potwierdzić.",
+      "success-sender": "<#279CF5>Zapłaciłeś <#c0f0ff>${amount} <#279CF5>graczowi <#c0f0ff>{player}",
+      "success-target": "<#279CF5>Otrzymałeś <#c0f0ff>${amount} <#279CF5>od gracza <#c0f0ff>{player}",
+      "error": "<#FF2424>Błąd podczas sprawdzania statusu płatności."
+    },
+    "payconfirmtoggle": {
+      "only-player": "<#279CF5>Tylko gracze mogą używać tej komendy.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "disabled": "<#279CF5>Potwierdzenia płatności <#c0f0ff>wyłączone<#279CF5>.",
+      "enabled": "<#279CF5>Potwierdzenia płatności <#c0f0ff>włączone<#279CF5>.",
+      "error": "<#FF2424>Błąd podczas przełączania stanu potwierdzeń."
+    },
+    "balance": {
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-others": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Użycie: <white>{usage}",
+      "only-player": "<#FF2424>Tylko gracze mogą sprawdzać swój balans.",
+      "player-not-found": "<#FF2424>Nie znaleziono gracza: <white>{player}",
+      "self": "<#279CF5>Twój balans to <#c0f0ff>{balance}<#279CF5>.",
+      "other": "<#279CF5>Balans gracza {player} to <#c0f0ff>{balance}<#279CF5>."
+    },
+    "balancetop": {
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "header": "<#279CF5>=== Top {limit} Najbogatszych Graczy ===",
+      "entry": "<#279CF5>#{rank} <white>{player} <#708090>- <#279CF5>{balance}",
+      "footer": "<#279CF5>========================="
+    },
+    "coinflip": {
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Użycie: <white>{usage}",
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy.",
+      "invalid-amount": "<#FF2424>Nieprawidłowa ilość: <white>{amount}",
+      "positive-amount": "<#FF2424>Ilość musi być dodatnia!",
+      "not-enough": "<#FF2424>Potrzebujesz <#c0f0ff>${needed}<#FF2424>, masz <#279CF5>${balance}",
+      "win": "<#279CF5>Wygrałeś <#c0f0ff>${amount}<#279CF5>!",
+      "lose": "<#FF2424>Przegrałeś <#c0f0ff>${amount}<#FF2424>."
+    },
+    "powertool": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-create": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424> aby tworzyć PowerTools!",
+      "usage": "<#279CF5>Użycie: <white>/powertool <komenda> | <użycia> | <nazwa> | <narzędzie> | enchanted <tak/nie>",
+      "invalid-uses": "<#FF2424>Użycia muszą być -1 (nieskończoność) lub 1-{max}.",
+      "invalid-tool": "<#FF2424>Nieprawidłowy materiał narzędzia: <white>{tool}",
+      "received-tool": "<#279CF5>Otrzymałeś PowerTool: <white>{name}",
+      "out-of-uses": "<#FF2424>Twój PowerTool wyczerpał użycia!"
+    },
+    "gravity": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy.",
+      "target-not-found": "<#FF2424>Nie znaleziono gracza.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-sub": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{subpermission}<#FF2424>!",
+      "usage": "<#279CF5>Użycie: <white>/gravity [gracz] [-s]",
+      "toggled-self": "<#279CF5>Grawitacja <#c0f0ff>{state}<#279CF5>.",
+      "toggled-other": "<#279CF5>Grawitacja <#c0f0ff>{state}<#279CF5> dla <#c0f0ff>{target}<#279CF5>."
+    },
+    "thunder": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy!",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-others": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "struck": "<#279CF5>Efekt grzmotu przywołany na <#c0f0ff>{target}<#279CF5>.",
+      "self-name": "<white>ciebie"
+    },
+    "celebrate": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy!",
+      "target-not-found": "<#FF2424>Nie znaleziono gracza.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-others": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Użycie: /celebrate [gracz] [-s]",
+      "message": "<#279CF5>Bum! Świętowanie!",
+      "message-other": "<#279CF5>Świętowanie dla <#c0f0ff>{target}<#279CF5>.",
+      "self-name": "<white>ciebie"
+    },
+    "fireball": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy!",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "launched": "<#279CF5>Wystrzelono kulę ognia."
+    },
+    "fakeop": {
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Użycie: <white>/fakeop <gracz>",
+      "target-not-found": "<#FF2424>Nie znaleziono gracza.",
+      "fake-message": "<#708090><italic>[Serwer: {target} został operatorem serwera]",
+      "success": "<#279CF5>Wysłano fałszywego OP'a do <#c0f0ff>{target}<#279CF5>."
+    },
+    "whois": {
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Użycie: <white>/whois <gracz>",
+      "target-not-found": "<#FF2424>Nie znaleziono gracza.",
+      "info-header": "<#279CF5>Info o graczu:",
+      "info-name": "<#708090>Nazwa: <white>{name}",
+      "info-health": "<#708090>Zdrowie: <white>{health}",
+      "info-location": "<#708090>Lokalizacja: <white>{location}"
+    },
+    "kittycannon": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy!",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Użycie: <white>/kittycannon [prędkość]",
+      "fired": "<#279CF5>Wystrzelono kitty cannon z prędkością {velocity}.",
+      "name": "<#279CF5>Kitty Cannon!"
+    },
+    "explosion": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy!",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "no-radius": "<#279CF5>Proszę określić promień!",
+      "invalid-radius": "<#FF2424>Nieprawidłowy promień: {input}",
+      "created": "<#279CF5>Stworzono eksplozję z promieniem <#c0f0ff>{radius}<#279CF5>.",
+      "usage": "<#279CF5>Użycie: <white>/explosion <promień>"
+    },
+    "canon": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy!",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Użycie: <white>/canon",
+      "success": "<#279CF5>Woosh! Zostałeś wystrzelony w powietrze!"
+    },
+    "lightning": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy!",
+      "target-not-found": "<#FF2424>Nie znaleziono gracza <white>{target}</white>.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <white>{permission}</white>.",
+      "struck-self": "<#279CF5>Uderzył piorun!",
+      "struck-other": "<#279CF5>Uderzył piorun w <#c0f0ff>{target}<#279CF5>.",
+      "usage": "<#279CF5>Użycie: <white>/lightning [gracz] [-s]"
+    },
+    "swap": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy!",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Użycie: <white>/swap <gracz>",
+      "target-not-found": "<#FF2424>Nie znaleziono gracza <white>{target}</white> lub nie możesz zamienić się z samym sobą.",
+      "success": "<#279CF5>Zamieniłeś się lokalizacją z <#c0f0ff>{target}<#279CF5>.",
+      "target-notified": "<#279CF5><#c0f0ff>{player}</#c0f0ff> zamienił się z tobą lokalizacją!"
+    },
+    "beezooka": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy!",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Użycie: <white>/beezooka [prędkość]",
+      "fired": "<#279CF5>Wystrzelono beezooka z prędkością {velocity}.",
+      "name": "<#279CF5>Beezooka Bee!"
+    },
+    "glow": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy!",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Użycie: <white>/glow",
+      "disabled": "<#708090>Poświata wyłączona.",
+      "enabled": "<#279CF5>Poświata włączona."
+    },
+    "near": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "header": "<#279CF5>Gracze w pobliżu:",
+      "entry": "<#279CF5>- {name} <#708090>({distance} bloków)",
+      "none": "<#FF2424>Nie ma graczy w pobliżu."
+    },
+    "rename": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#FF2424>Użycie: /rename <nazwa>",
+      "no-item": "<#FF2424>Nie trzymasz itemu.",
+      "no-meta": "<#FF2424>Nie można pobrać metadanych itemu.",
+      "renamed": "<#279CF5>Item przemianowany na: <white>{item}"
+    },
+    "world": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#FF2424>Użycie: /world",
+      "current": "<#279CF5>Jesteś w świecie: <#c0f0ff>{world}"
+    },
+    "language": {
+      "usage": "<#279CF5>Użycie: /language <język>",
+      "invalid": "<#FF2424>Nieprawidłowy język: <white>{lang}",
+      "changed": "<#279CF5>Język zmieniony na: <white>{lang}"
+    },
+    "warp": {
+      "usage": "<#279CF5>Użycie: <#279CF5>/warp <nazwa>",
+      "not-found": "<#FF2424>Warp <#c0f0ff>{warp}<#FF2424> nie znaleziony.",
+      "success": "<#279CF5>Przeteleportowano do warpa <#c0f0ff>{warp}",
+      "cooldown-active": "<#FF2424>Poczekaj <#c0f0ff>{time}<#FF2424> sekund przed kolejnym warp'em."
+    },
+    "setwarp": {
+      "usage": "<#279CF5>Użycie: <#279CF5>/setwarp <nazwa>",
+      "limit-reached": "<#FF2424>Osiągnąłeś limit warpsów <#c0f0ff>{limit}<#FF2424>!",
+      "already-exists": "<#FF2424>Warp <#c0f0ff>{warp}<#FF2424> już istnieje.",
+      "success": "<#279CF5>Utworzono warp <#c0f0ff>{warp}"
+    },
+    "delwarp": {
+      "usage": "<#FF2424>Użycie: <#279CF5>/delwarp <nazwa>",
+      "not-found": "<#FF2424>Warp <#c0f0ff>{warp}<#FF2424> nie znaleziony.",
+      "no-permission": "<#FF2424>Nie masz permisji aby usunąć ten warp!",
+      "success": "<#279CF5>Usunięto warp <#c0f0ff>{warp}"
+    },
+    "warps": {
+      "empty": "<#279CF5>Nie ustawiono żadnych warpsów!",
+      "header": "<#279CF5>------[ Warpy ]------",
+      "entry": "<#279CF5>{warp}",
+      "footer": "<#279CF5>-------------------"
+    },
+    "ban": {
+      "usage": "<#FF2424>Użycie: <#279CF5>/ban <gracz> <czas> <powód>",
+      "never-joined": "<#FF2424>Ten gracz nigdy nie dołączył do serwera.",
+      "invalid-time": "<#FF2424>Nieprawidłowy format czasu. Użyj <#c0f0ff>s/m/h/d<#FF2424> lub <#c0f0ff>perm<#FF2424>",
+      "success": "<#279CF5><#c0f0ff>{player}<#279CF5> został zbanowany.",
+      "kick-message": "<#FF2424>Zostałeś zbanowany z <#FF2424>{server}\n<#708090>Powód: <#c0f0ff>{reason}\n<#708090>Zbanowany przez: <#c0f0ff>{banner}\n<#708090>Do: <#c0f0ff>{until}\n\n<#708090>Apeluj na: <#c0f0ff>{discord}"
+    },
+    "banlist": {
+      "empty": "<#279CF5>Nie ma zbanowanych graczy.",
+      "header": "<#279CF5>------[ Zbanowani Gracze ]------",
+      "format": "<#FF2424>{player} <#708090>- <white>{reason} <#708090>(<#c0f0ff>{time})",
+      "footer": "<#279CF5>-----------------------------"
+    },
+    "unban": {
+      "usage": "<#279CF5>Użycie: <#279CF5>/unban <gracz>",
+      "player-not-found": "<#279CF5>Nie można znaleźć zbanowanego gracza o nazwie '<#c0f0ff>{player}<#279CF5>'.",
+      "not-banned": "<#279CF5>{player} nie jest obecnie zbanowany.",
+      "success": "<#279CF5>{player} został odbanowany."
+    },
+    "mute": {
+      "usage": "<#FF2424>Użycie: <#279CF5>/mute <gracz> <powód> [czas]",
+      "not-found": "<#FF2424>Nie znaleziono gracza.",
+      "already-muted": "<#FF2424><#c0f0ff>{player}<#FF2424> jest już wyciszony za <white>{reason}",
+      "success": "<#279CF5>Wyciszyłeś <#c0f0ff>{player} <#279CF5>za <white>{reason} <#279CF5>({duration}).",
+      "notify": "<#FF2424>Zostałeś wyciszony! <#708090>Powód: <white>{reason} <#279CF5>({duration})",
+      "chat-blocked": "<#FF2424>Jesteś wyciszony! Powód: <white>{reason}"
+    },
+    "unmute": {
+      "usage": "<#279CF5>Użycie: <#279CF5>/unmute <gracz>",
+      "player-not-found": "<#279CF5>Gracz <#c0f0ff>{player}<#279CF5> nie znaleziony.",
+      "not-muted": "<#FF2424><#c0f0ff>{player}<#FF2424> nie jest obecnie wyciszony.",
+      "unmuted": "<#279CF5>Pomyślnie odciszono <#c0f0ff>{player}",
+      "notify": "<#279CF5>Zostałeś odciszony!"
+    },
+    "adminchat": {
+      "format": "<#4B5563>[<#FF2424>AdminChat<#4B5563>] <#279CF5>{player} <#708090>» <white>{message}",
+      "toggle": "<#279CF5>Tryb czatu admina: {state}",
+      "only-players": "<#FF2424>Tylko gracze mogą używać tej komendy.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!"
+    },
+    "daily": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy!",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "command": {
+        "no-permission": "<#FF2424>Potrzebujesz permisji <yellow>{permission}</yellow>!"
+      },
+      "gui": {
+        "title": "<#279CF5><bold>Dzienne Nagrody</bold> - Strona <#c0f0ff>{page}",
+        "previous": "<#279CF5>⬅ Poprzednia Strona",
+        "next": "<#279CF5>Następna Strona ➡",
+        "close": "<#FF2424>✕ Zamknij",
+        "cooldown-display": "<#c0f0ff>Cooldown: <#EBA916>{time}"
+      },
+      "rewards": {
+        "claimed": {
+          "name": "<#21D0B2><bold>✓ Odebrane</bold>",
+          "lore": "<#c0f0ff>Odebrałeś tę nagrodę."
+        },
+        "cooldown": {
+          "name": "<#EBA916><bold>⏱ Czas</bold>",
+          "lore": "<#c0f0ff>Czekaj: <#EBA916>{time}"
+        },
+        "locked": {
+          "name": "<#FF2424><bold>🔒 Zablokowane</bold>",
+          "lore": "<#c0f0ff>Najpierw ukończ poprzednie dni."
+        },
+        "available": {
+          "name": "<#279CF5>Dzień <#c0f0ff>{day}"
+        }
+      },
+      "messages": {
+        "claim-already": "<#FF2424>Już odebrałeś tę nagrodę!",
+        "claim-locked": "<#FF2424>Musisz najpierw odebrać poprzednie dni!",
+        "claim-cooldown": "<#FF2424>Musisz poczekać <#c0f0ff>{time}<#FF2424> przed kolejnym odbiorem!",
+        "claim-success": "<#279CF5>Odebrałeś nagrodę Dnia <#c0f0ff>{day}<#279CF5>!",
+        "claim-error": "<#FF2424>Nie udało się odebrać nagrody. Spróbuj ponownie."
+      }
+    },
+    "tpa": {
+      "no-player": "<#FF2424>Gracz <#c0f0ff>{player}<#FF2424> nie znaleziony.",
+      "cannot-tpa-self": "<#FF2424>Nie możesz wysłać prośby TPA do siebie.",
+      "target-toggled": "<#FF2424>{player} wyłączył prośby TPA.",
+      "crossworld-disabled": "<#FF2424>Teleportacja między światami jest wyłączona.",
+      "blocked-world": "<#FF2424>Nie możesz się teleportować do tego świata.",
+      "cooldown": "<#FF2424>Poczekaj <#c0f0ff>{time}<#FF2424> sekund przed ponownym użyciem TPA.",
+      "not-enough-money": "<#FF2424>Potrzebujesz <#c0f0ff>${cost}<#FF2424> dla tej prośby TPA.",
+      "request-sent": "<#279CF5>Wysłano prośbę TPA do <#c0f0ff>{player}",
+      "request-sent-here": "<#279CF5>Wysłano prośbę TPAhere do <#c0f0ff>{player}",
+      "request-received": "<#279CF5><bold>{player}</bold> chce się do ciebie przeteleportować! <white>[<#279CF5>/tpaccept {player} | <#FF2424>/tpdeny {player}]",
+      "request-received-here": "<#279CF5><bold>{player}</bold> chce abyś się do niego przeteleportował! <white>[<#279CF5>/tpaccept {player} | <#FF2424>/tpdeny {player}]",
+      "request-received-all": "<#279CF5><bold>{player}</bold> chce aby wszyscy się przeteleportowali! <white>[<#279CF5>/tpaccept {player}]",
+      "request-accepted": "<#279CF5>{player} przyjął twoją prośbę! Teleportacja za <#c0f0ff>{delay}s",
+      "request-accepted-target": "<#279CF5>Przyjąłeś prośbę od <#c0f0ff>{player}<#279CF5>.",
+      "request-denied": "<#FF2424>{player} odrzucił twoją prośbę TPA.",
+      "request-denied-target": "<#279CF5>Odrzuciłeś prośbę od <#c0f0ff>{player}<#279CF5>.",
+      "no-request": "<#FF2424>Nie masz oczekujących próśb TPA.",
+      "no-request-from-player": "<#FF2424>Brak oczekującej prośby od <#c0f0ff>{player}",
+      "no-requests-sent": "<#FF2424>Nie masz oczekujących próśb TPA do anulowania.",
+      "teleport-cancelled-move": "<#FF2424>Teleportacja anulowana z powodu ruchu!",
+      "warmup-start": "<#279CF5>Rozpoczęcie rozgrzewki... <#FF2424>Nie ruszaj się!",
+      "toggle-on": "<#279CF5>Prośby TPA są teraz <bold>WYŁĄCZONE",
+      "toggle-off": "<#279CF5>Prośby TPA są teraz <bold>WŁĄCZONE",
+      "request-cancelled": "<#279CF5>Anulowano prośbę TPA do <#c0f0ff>{player}",
+      "request-cancelled-target": "<#279CF5>{player} anulował swoją prośbę TPA.",
+      "request-cancelled-all": "<#279CF5>Anulowano wszystkie twoje prośby TPA.",
+      "request-expired": "<#FF2424>Twoja prośba TPA do <#c0f0ff>{player} <#FF2424>wygasła.",
+      "request-expired-target": "<#FF2424>Prośba TPA od <#c0f0ff>{player} <#FF2424>wygasła.",
+      "request-sent-all": "<#279CF5>Wysłano prośbę TPA do <#c0f0ff>{count} <#279CF5>graczy.",
+      "info-incoming-header": "<#279CF5><bold>Przychodzące Prośby:",
+      "info-outgoing-header": "<#279CF5><bold>Wychodzące Prośby:",
+      "info-request": "<#279CF5>- {player} <#708090>({type})"
+    },
+    "fly": {
+      "enabled": "<#279CF5>Latanie włączone! Naciśnij <white>SPACJĘ<#279CF5> dwa razy aby latać.",
+      "disabled": "<#FF2424>Latanie wyłączone.",
+      "error": "<#FF2424>Błąd: Nie udało się zapisać stanu lotu.",
+      "cooldown": "<#FF2424>Poczekaj <#c0f0ff>{time}s<#FF2424> przed ponownym przełączeniem lotu.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>fly.use<#FF2424> aby używać tej komendy."
+    },
+    "reports": {
+      "cooldown": "<#FF2424>Poczekaj <#c0f0ff>{time}<#FF2424> sekund przed kolejnym zgłoszeniem.",
+      "reason-too-long": "<#FF2424>Powód za długi! Max <#c0f0ff>{max}<#FF2424> znaków.",
+      "error": "<#FF2424>Błąd podczas przetwarzania zgłoszenia.",
+      "command": {
+        "usage": "<#FF2424>Użycie: /report <gracz> <powód>",
+        "invalid-player": "<#FF2424>Gracz <#c0f0ff>{player}<#FF2424> nie znaleziony.",
+        "submitted": "<#279CF5>Zgłoszenie wysłane przeciwko <#c0f0ff>{player}",
+        "notify": "<#FF2424>[ZGŁOSZENIE] <#279CF5>{reporter} <#FF2424>zgłosił <#279CF5>{target} <#708090>za {reason} <#708090>(ID: {id})"
+      },
+      "commandclear": {
+        "usage": "<#279CF5>Użycie: /reportclear <id>",
+        "invalid": "<#279CF5>Nieprawidłowe ID zgłoszenia: <#c0f0ff>{id}",
+        "cleared": "<#279CF5>Wyczyszczono zgłoszenie ID: <#c0f0ff>{id}"
+      },
+      "list": {
+        "header": "<#279CF5>----- <#279CF5>Wszystkie Zgłoszenia<#279CF5> -----",
+        "none": "<#279CF5>Nie znaleziono zgłoszeń.",
+        "entry": "<#708090>[{id}] <#279CF5>{reporter} → <#279CF5>{target}: <white>{reason}",
+        "footer": "<#279CF5>Łącznie: <#c0f0ff>{count} <#279CF5>zgłoszeń"
+      },
+      "reportslist": {
+        "header": "<#279CF5>Masz oczekujące zgłoszenia do przejrzenia:",
+        "entry": "<#FF2424>[OCZEKUJĄCE] <#279CF5>{reporter} → <#279CF5>{target}: <#708090>{reason} <#708090>(ID: {id})"
+      }
+    },
+    "rules": {
+      "only-player": "<#FF2424>Tylko gracze mogą używać tej komendy.",
+      "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-sub": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{subpermission}<#FF2424>!",
+      "usage": "<#279CF5>Użycie: <white>/rules [accept|reload]",
+      "no-rules": "<#FF2424>Obecnie nie skonfigurowano żadnych zasad.",
+      "already-accepted": "<#279CF5>Już zaakceptowałeś najnowsze zasady.",
+      "error": "<#FF2424>Wystąpił błąd: <#c0f0ff>{error}",
+      "reload-success": "<#279CF5>Zasady pomyślnie przeładowane!",
+      "reload-failure": "<#FF2424>Nie udało się przeładować zasad: <#c0f0ff>{error}",
+      "gui": {
+        "title": "<#279CF5>Zasady Serwera",
+        "no-rules": "<#FF2424>Obecnie nie skonfigurowano żadnych zasad.",
+        "info-title": "<#FFD700><bold>ℹ Info o Zasadach Serwera",
+        "info-line1": "<#708090>Proszę przeczytać i zaakceptować",
+        "info-line2": "<#708090>nasze wytyczne społeczności",
+        "page-info": "<#FFB000>Strona <#FFFFFF>{current}<#FFB000> / <#FFFFFF>{total}",
+        "prev-page": "<#279CF5>← Poprzednia Strona",
+        "prev-page-lore": "<#708090>Kliknij aby wrócić",
+        "next-page": "<#279CF5>Następna Strona →",
+        "next-page-lore": "<#708090>Kliknij aby kontynuować",
+        "accept-title": "<#00FF7F><bold>✔ Zaakceptuj Zasady",
+        "accept-lore1": "<#708090>Kliknij aby zaakceptować zasady",
+        "accept-lore2": "<#708090>i uzyskać dostęp do serwera",
+        "decline-title": "<#FF2424><bold>✖ Odrzuć & Opuść",
+        "decline-lore1": "<#708090>Kliknij aby odrzucić i",
+        "decline-lore2": "<#708090>opuścić serwer",
+        "rule-name": "<#FFFFFF><bold>Zasada #{number}",
+        "rule-content": "<#C0C0C0>",
+        "rule-hint": "<#708090><italic>Przeczytaj wszystkie zasady przed akceptacją"
+      },
+      "accept": {
+        "success": "<#279CF5>Zaakceptowałeś zasady serwera!"
+      },
+      "decline": {
+        "kick-message": "<#FF2424>Musisz zaakceptować zasady aby dołączyć do tego serwera!"
+      },
+      "close": {
+        "cannot-close": "<#FF2424>⚠ Musisz zaakceptować zasady przed grą!"
+      }
+    },
+    "chatfilter": {
+      "blocked": "<#FF2424>Twoja wiadomość zawierała nieodpowiedni język.",
+      "staff-notice": "<#F54927>[<#FF2424>Filter<#F54927>] <white>{player}<#FF2424> : <white>{message}"
+    },
+    "rtp": {
+      "gui": {
+        "title": "<bold><gradient:#279CF5:#279CF5>Menu RTP</gradient>",
+        "overworld": {
+          "name": "<#279CF5>Świat Normalny",
+          "lore": [
+            "<#708090>Kliknij aby przeteleportować się do losowej",
+            "<#708090>lokalizacji w świecie normalnym"
+          ]
+        },
+        "nether": {
+          "name": "<#FF2424>Nether",
+          "lore": [
+            "<#708090>Kliknij aby przeteleportować się do losowej",
+            "<#708090>lokalizacji w netherze"
+          ]
+        },
+        "end": {
+          "name": "<#4169E1>Koniec",
+          "lore": [
+            "<#708090>Kliknij aby przeteleportować się do losowej",
+            "<#708090>lokalizacji w endzie"
+          ]
+        }
+      },
+      "world_disabled": "<#FF2424>RTP jest wyłączone w tym świecie!",
+      "cooldown": "<#FF2424>Poczekaj <#c0f0ff>{seconds} sekund</#c0f0ff> przed ponownym użyciem RTP!",
+      "teleport_success": "<#279CF5>Pomyślnie przeteleportowano do <white>{world}",
+      "reloaded": "<#279CF5>Konfiguracja RTP przeładowana!"
+    },
+    "lobby": {
+      "no-lobby": "<#FF2424>Nie ustawiono lobby dla tego świata.",
+      "teleported": "<#279CF5>Przeteleportowano do lobby!",
+      "set": "<#279CF5>Ustawiono lokalizację lobby!",
+      "set-world": "<#279CF5>Ustawiono lobby dla świata <#c0f0ff>{world}<#279CF5>!",
+      "removed": "<#279CF5>Usunięto lokalizację lobby.",
+      "cooldown-active": "<#FF2424>Poczekaj <#c0f0ff>{time}<#FF2424> sekund przed kolejną teleportacją.",
+      "usage-world": "<#FF2424>Użycie: <#279CF5>/lobby world <nazwa-świata>",
+      "world-not-found": "<#FF2424>Świat <#c0f0ff>{world}<#FF2424> nie znaleziony."
+    },
+    "general": {
+      "error": "<#FF2424>Wystąpił błąd: {error}",
+      "success": "<#279CF5>Sukces!",
+      "loading": "<#708090>Ładowanie..."
+    },
+    "database": {
+      "header": "<#4169E1>╔════════════════════════════════════╗",
+      "title": "<#4169E1>║  <bold>Status Bazy Danych</bold>                     ║",
+      "separator": "<#4169E1>╠════════════════════════════════════╣",
+      "footer": "<#4169E1>╚════════════════════════════════════╝",
+      "none": "<#FF2424>Nie skonfigurowano baz danych!",
+      "entry": "<#4169E1>║  <#c0f0ff>{name}</#c0f0ff> - {status}{msg} <#708090>({enabled})</#708090>  ║"
+    },
+    "economy": {
+      "shop": {
+        "main-title": "<gradient:#279CF5:#279CF5>Sklep Serwera</gradient>",
+        "section-title": "<#279CF5>Sklep {section}",
+        "disabled": " <#FF2424>Sklep wyłączony",
+        "balance-display": "<#279CF5>Twój Balans: <#c0f0ff>{balance}",
+        "buy-success": "<#279CF5>Kupiono <white>{amount}x {item} <#279CF5>za <#c0f0ff>{price}",
+        "sell-success": "<#279CF5>Sprzedano <white>{amount}x {item} <#279CF5>za <#c0f0ff>{price}",
+        "cannot-afford": "<#FF2424>Stać cię na {item} (koszt: <#c0f0ff>{price})",
+        "no-items": "<#FF2424>Za mało {item} do sprzedania",
+        "no-section": "<#FF2424>Sekcja sklepu '<#c0f0ff>{section}<#FF2424>' nie znaleziona!",
+        "reload-success": "<#279CF5>Przeładowano konfigurację sklepu.",
+        "reload-error": "<#FF2424>Błąd podczas przeładowywania konfiguracji sklepu. Sprawdź konsole.",
+        "no-economy": "<#FF2424>Ekonomia niedostępna. Sklep tylko do przeglądania.",
+        "transaction-failed": "<#FF2424>Transakcja nie powiodła się: {error}",
+        "no-main-config": "<#FF2424>Nie znaleziono konfiguracji sklepu. Skontaktuj się z adminem.",
+        "gui": {
+          "close-button": "<#FF2424>✕ Zamknij",
+          "back-button": "<#279CF5>← Wróć",
+          "previous-page": "<#708090>← Poprzedni",
+          "next-page": "<#708090>Następny →",
+          "loading": "<#708090>Ładowanie..."
+        }
+      },
+      "sellgui": {
+        "disabled": "<#FF2424>GUI Sprzedaży wyłączone.",
+        "sold-success": "<#279CF5><bold>SPRZEDANO <white>{amount} <#279CF5>itemów za <#c0f0ff>{symbol}{price}",
+        "returned-items": "<#708090>Zwrócono <white>{amount} <#708090>niesprzedawalnych itemów do twojego ekwipunku",
+        "no-items": "<#708090>Brak itemów do sprzedania",
+        "inventory-full": "<#279CF5>Niektóre itemy zostały wyrzucone (ekwipunek pełny)",
+        "not-sellable": "<#FF2424>Ten item nie może być sprzedany!",
+        "no-economy": "<#FF2424>Ekonomia niedostępna. Skontaktuj się z adminem.",
+        "transaction-failed": "<#FF2424>Transakcja nie powiodła się: {error}",
+        "title": "<#279CF5>Sprzedaj Itemy",
+        "info": {
+          "title": "<#279CF5>STREFA SPRZEDAŻY",
+          "subtitle": "<#708090>Umieść tutaj itemy aby sprzedać",
+          "instruction": "<#279CF5>Zamknij ekwipunek aby przetworzyć",
+          "value-prefix": "<#279CF5>Łącznie: <#c0f0ff>"
+        }
+      }
+    },
+    "kits": {
+      "gui": {
+        "title": "<bold><gradient:#279CF5:#279CF5>Dostępne Kity</gradient>",
+        "preview-title": "<white>Podgląd Kita: <#c0f0ff>{kit}"
+      },
+      "cooldown": "<#FF2424>Poczekaj <#c0f0ff>{time}s</#c0f0ff> przed ponownym odebraniem <white>{kit}</white>!",
+      "no-permission": "<#FF2424>Nie masz permisji aby odebrać <white>{kit}</white>!",
+      "claim-success": "<#279CF5>Pomyślnie odebrano kit <white>{kit}</white>!",
+      "kit-not-found": "<#FF2424>Kit <white>{kit}</white> nie znaleziony!",
+      "locked-name": "<#FF2424>Zablokowany: <#708090>{kit}",
+      "requires-permission": "<#708090>Wymaga: <white>{permission}",
+      "cooldown-info": "<#708090>Czas: <#FF2424>{time}s pozostało",
+      "claim-button": "<#279CF5>Odbierz Kit",
+      "cooldown-button": "<#FF2424>Na Czasie",
+      "back-button": "<#FF2424>← Wróć",
+      "no-kits-defined": "<#FF2424>Obecnie nie zdefiniowano żadnych kitów!",
+      "reload-success": "<#279CF5>Pomyślnie przeładowano kity!",
+      "reload-no-permission": "<#FF2424>Nie masz permisji aby przeładować kity!"
+    },
+    "mail": {
+      "on-join": "<#279CF5>Masz <#c0f0ff>{count}</#c0f0ff> nieprzeczytanych maili! Użyj <white>/mail read</white>",
+      "send-usage": "<#FF2424>Użycie: /mail send <gracz> <wiadomość>",
+      "no-mail": "<#279CF5>Nie masz maili.",
+      "usage": {
+        "header": "<#279CF5>----- <white>System Maili <#279CF5>-----",
+        "read": "<#279CF5>/mail read <#708090>- <white>Czytaj swoją skrzynkę",
+        "send": "<#279CF5>/mail send <gracz> <wiadomość> <#708090>- <white>Wyślij maila",
+        "clear": "<#279CF5>/mail clear <#708090>- <white>Wyczyść wszystkie maile",
+        "footer": "<#279CF5>---------------------------"
+      },
+      "header": "<#279CF5><bold>Twoja Skrzynka Mailowa:</bold>",
+      "message": {
+        "index": "<#708090>[{index}]",
+        "sender": "<#279CF5>{sender}: "
+      },
+      "footer": "<#279CF5>-------------------- <#708090>({count} wiadomości)",
+      "cooldown": "<#FF2424>Poczekaj {time} sekund przed ponownym wysłaniem maila.",
+      "player-not-found": "<#FF2424>Gracz <#c0f0ff>{player}<#FF2424> nie znaleziony.",
+      "message-too-long": "<#FF2424>Wiadomość za długa! Max <#c0f0ff>{max}<#FF2424> znaków.",
+      "sent": "<#279CF5>Mail wysłany do <#c0f0ff>{player}",
+      "received": "<#279CF5>Masz nowego maila od <#c0f0ff>{sender}</#c0f0ff>! Użyj <white>/mail read</white>",
+      "error": "<#FF2424>Błąd podczas przetwarzania maila.",
+      "cleared": "<#279CF5>Wszystkie maile wyczyszczone!"
+    },
+    "no-permission": "<#FF2424>Potrzebujesz permisji <#c0f0ff>{permission}<#FF2424>!"
+  }
+}

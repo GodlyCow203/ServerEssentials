@@ -49,7 +49,7 @@ public class BanCommand extends CommandModule implements CommandExecutor, TabCom
 
         if (args.length < 3) {
             sender.sendMessage(langManager.getMessageFor(sender instanceof Player ? (Player) sender : null,
-                    "ban.usage",
+                    "commands.ban.usage",
                     "<red>Usage: <yellow>/ban <player> <time> <reason>"));
             return true;
         }
@@ -59,7 +59,7 @@ public class BanCommand extends CommandModule implements CommandExecutor, TabCom
 
         if (target.getName() == null) {
             sender.sendMessage(langManager.getMessageFor(sender instanceof Player ? (Player) sender : null,
-                    "ban.never-joined",
+                    "commands.ban.never-joined",
                     "<red>That player has never joined the server."));
             return true;
         }
@@ -67,7 +67,7 @@ public class BanCommand extends CommandModule implements CommandExecutor, TabCom
         long duration = parseTime(args[1]);
         if (duration == -2) {
             sender.sendMessage(langManager.getMessageFor(sender instanceof Player ? (Player) sender : null,
-                    "ban.invalid-time",
+                    "commands.ban.invalid-time",
                     "<red>Invalid time format. Use <yellow>s/m/h/d</yellow> or <yellow>perm</yellow>"));
             return true;
         }
@@ -82,7 +82,7 @@ public class BanCommand extends CommandModule implements CommandExecutor, TabCom
             Bukkit.getScheduler().runTask(plugin, () -> {
                 if (target.isOnline()) {
                     Component kickMsg = langManager.getMessageFor(target.getPlayer(),
-                            "ban.kick-message",
+                            "commands.ban.kick-message",
                             "<red>You have been banned!\n<gray>Reason: <yellow>{reason}</yellow>\n<gray>Banned by: <yellow>{banner}</yellow>\n<gray>Until: <yellow>{until}</yellow>\n<gray>Appeal at: <aqua>{discord}</aqua>",
                             LanguageManager.ComponentPlaceholder.of("{reason}", reason),
                             LanguageManager.ComponentPlaceholder.of("{banner}", bannedBy),
@@ -92,7 +92,7 @@ public class BanCommand extends CommandModule implements CommandExecutor, TabCom
                 }
 
                 sender.sendMessage(langManager.getMessageFor(sender instanceof Player ? (Player) sender : null,
-                        "ban.success",
+                        "commands.ban.success",
                         "<green><yellow>{player}</yellow> has been banned.",
                         LanguageManager.ComponentPlaceholder.of("{player}", target.getName())));
             });

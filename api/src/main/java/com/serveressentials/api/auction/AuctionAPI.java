@@ -2,7 +2,9 @@ package com.serveressentials.api.auction;
 
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import java.util.Collection;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
@@ -38,16 +40,18 @@ public interface AuctionAPI {
 
     /**
      * Gets all currently active auction items
+     *
      * @return Future with collection of auction items
      */
-    CompletableFuture<Collection<AuctionItem>> getActiveItems();
+    CompletableFuture<@NotNull List<AuctionItem>> getActiveItems();
 
     /**
      * Gets all auction items for a specific player
+     *
      * @param playerId The player's UUID
      * @return Future with collection of player's auction items
      */
-    CompletableFuture<Collection<AuctionItem>> getPlayerItems(UUID playerId);
+    CompletableFuture<@NotNull List<AuctionItem>> getPlayerItems(UUID playerId);
 
     /**
      * Checks if the auction system is enabled

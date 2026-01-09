@@ -4,7 +4,6 @@ import net.godlycow.org.daily.DailyConfig;
 import net.godlycow.org.daily.reward.DailyReward;
 import net.godlycow.org.daily.storage.DailyStorage;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import net.godlycow.org.language.LanguageManager;
 import net.godlycow.org.language.PlayerLanguageManager;
 import org.bukkit.Bukkit;
@@ -28,8 +27,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 
-public class
-DailyListener implements Listener {
+public class DailyListener implements Listener {
     private final JavaPlugin plugin;
     private final PlayerLanguageManager langManager;
     private final DailyStorage storage;
@@ -39,6 +37,8 @@ DailyListener implements Listener {
     private static final String GUI_NAMESPACE = "daily_gui";
     private static final String REWARD_ID_KEY = "daily_reward_day";
     private static final String ITEM_TYPE_KEY = "daily_item_type";
+    private static final String GUI_IDENTIFIER_KEY = "daily_gui_identifier";
+    private static final String GUI_IDENTIFIER_VALUE = "daily_rewards_gui";
 
     public DailyListener(JavaPlugin plugin, PlayerLanguageManager langManager,
                          DailyStorage storage, DailyConfig config) {
@@ -51,7 +51,7 @@ DailyListener implements Listener {
     public void openRewardsGUI(Player player, int page) {
         playerPages.put(player.getUniqueId(), page);
 
-        Component title = langManager.getMessageFor(player, "daily.gui.title",
+        Component title = langManager.getMessageFor(player, "commands.daily.gui.title",
                 "<green><bold>Daily Rewards</bold> - Page {page}",
                 LanguageManager.ComponentPlaceholder.of("{page}", page));
 
@@ -96,16 +96,16 @@ DailyListener implements Listener {
                 });
 
         if (page > 1) {
-            gui.setItem(45, createNavItem(Material.ARROW, "daily.gui.previous",
-                    "<yellow>Previous Page"));
+            gui.setItem(45, createNavItem(Material.ARROW, "commands.daily.gui.previous",
+                    "<yellow>Previous Page", player, "NAV_PREVIOUS"));
         }
         if (hasNextPage(page)) {
-            gui.setItem(53, createNavItem(Material.ARROW, "daily.gui.next",
-                    "<yellow>Next Page"));
+            gui.setItem(53, createNavItem(Material.ARROW, "commands.daily.gui.next",
+                    "<yellow>Next Page", player, "NAV_NEXT"));
         }
 
-        gui.setItem(config.guiRows * 9 - 5, createNavItem(Material.BARRIER, "daily.gui.close",
-                "<red>Close"));
+        gui.setItem(config.guiRows * 9 - 5, createNavItem(Material.BARRIER, "commands.daily.gui.close",
+                "<red>Close", player, "CLOSE"));
     }
 
     private ItemStack createRewardDisplayItem(DailyReward reward, Set<Integer> claimedDays,
@@ -119,30 +119,35 @@ DailyListener implements Listener {
         ItemMeta meta;
 
         if (isClaimed) {
-            item = createActualRewardItem(reward.items.get(0));
+            item = createActualRewardItem(reward.items.get(0), player);
             meta = item.getItemMeta();
 
-            Component name = langManager.getMessageFor(player, "daily.rewards.claimed.name",
+            Component name = langManager.getMessageFor(player, "commands.daily.rewards.claimed.name",
                     "<green><bold>✓ Claimed</bold>");
             meta.displayName(name);
 
             List<Component> lore = new ArrayList<>();
             lore.add(Component.empty());
-            lore.add(langManager.getMessageFor(player, "daily.rewards.claimed.lore",
+            lore.add(langManager.getMessageFor(player, "commands.daily.rewards.claimed.lore",
                     "<gray>You have claimed this reward."));
 
             meta.lore(lore);
+
+            if (reward.items.get(0).glow) {
+                meta.addEnchant(Enchantment.UNBREAKING, 1, true);
+                meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+            }
         } else if (isOnCooldown) {
             item = new ItemStack(Material.RED_STAINED_GLASS_PANE);
             meta = item.getItemMeta();
 
-            Component name = langManager.getMessageFor(player, "daily.rewards.cooldown.name",
+            Component name = langManager.getMessageFor(player, "commands.daily.rewards.cooldown.name",
                     "<gold><bold>⏱ Cooldown</bold>");
             meta.displayName(name);
 
             List<Component> lore = new ArrayList<>();
             lore.add(Component.empty());
-            lore.add(langManager.getMessageFor(player, "daily.rewards.cooldown.lore",
+            lore.add(langManager.getMessageFor(player, "commands.daily.rewards.cooldown.lore",
                     "<gray>Wait: <gold>{time}",
                     LanguageManager.ComponentPlaceholder.of("{time}", duration.format())));
 
@@ -151,19 +156,19 @@ DailyListener implements Listener {
             item = new ItemStack(Material.RED_STAINED_GLASS_PANE);
             meta = item.getItemMeta();
 
-            Component name = langManager.getMessageFor(player, "daily.rewards.locked.name",
+            Component name = langManager.getMessageFor(player, "commands.daily.rewards.locked.name",
                     "<red><bold>🔒 Locked</bold>");
             meta.displayName(name);
 
             meta.lore(List.of(
-                    langManager.getMessageFor(player, "daily.rewards.locked.lore",
+                    langManager.getMessageFor(player, "commands.daily.rewards.locked.lore",
                             "<gray>Complete previous days first.")
             ));
         } else {
-            item = createActualRewardItem(reward.items.get(0));
+            item = createActualRewardItem(reward.items.get(0), player);
             meta = item.getItemMeta();
 
-            Component name = langManager.getMessageFor(player, "daily.rewards.available.name",
+            Component name = langManager.getMessageFor(player, "commands.daily.rewards.available.name",
                     "<green>Day {day}",
                     LanguageManager.ComponentPlaceholder.of("{day}", reward.day));
             meta.displayName(name);
@@ -176,17 +181,16 @@ DailyListener implements Listener {
             );
 
             lore.add(Component.empty());
-            lore.add(langManager.getMessageFor(player, "daily.gui.cooldown-display",
+            lore.add(langManager.getMessageFor(player, "commands.daily.gui.cooldown-display",
                     "<gray>Cooldown: <yellow>{time}",
                     LanguageManager.ComponentPlaceholder.of("{time}", config.cooldownHours + "h")));
 
             meta.lore(lore);
-        }
 
-        if ((!isClaimed && !isOnCooldown && isUnlocked) ||
-                (reward.items.get(0).glow && !isClaimed)) {
-            meta.addEnchant(Enchantment.UNBREAKING, 1, true);
-            meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+            if (reward.items.get(0).glow) {
+                meta.addEnchant(Enchantment.UNBREAKING, 1, true);
+                meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+            }
         }
 
         PersistentDataContainer container = meta.getPersistentDataContainer();
@@ -199,18 +203,18 @@ DailyListener implements Listener {
         return item;
     }
 
-    private ItemStack createActualRewardItem(DailyReward.RewardItem rewardItem) {
+    private ItemStack createActualRewardItem(DailyReward.RewardItem rewardItem, Player player) {
         ItemStack item = new ItemStack(rewardItem.material, rewardItem.amount);
         ItemMeta meta = item.getItemMeta();
 
         if (!rewardItem.name.isEmpty()) {
-            meta.displayName(langManager.getMessageFor(null, rewardItem.name, rewardItem.name));
+            meta.displayName(langManager.getMessageFor(player, rewardItem.name, rewardItem.name));
         }
 
         if (!rewardItem.lore.isEmpty()) {
             List<Component> lore = new ArrayList<>();
             rewardItem.lore.forEach(line ->
-                    lore.add(langManager.getMessageFor(null, line, line))
+                    lore.add(langManager.getMessageFor(player, line, line))
             );
             meta.lore(lore);
         }
@@ -223,19 +227,25 @@ DailyListener implements Listener {
             }
         });
 
-        if (rewardItem.glow) {
-            meta.addEnchant(Enchantment.UNBREAKING, 1, true);
-            meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-        }
-
         item.setItemMeta(meta);
         return item;
     }
 
-    private ItemStack createNavItem(Material material, String messageKey, String def) {
+    private ItemStack createNavItem(Material material, String messageKey, String def,
+                                    Player player, String itemType) {
         ItemStack item = new ItemStack(material);
         ItemMeta meta = item.getItemMeta();
-        meta.displayName(langManager.getMessageFor(null, messageKey, def));
+        meta.displayName(langManager.getMessageFor(player, messageKey, def));
+
+        PersistentDataContainer container = meta.getPersistentDataContainer();
+        container.set(new org.bukkit.NamespacedKey(plugin, ITEM_TYPE_KEY),
+                PersistentDataType.STRING, itemType);
+
+        if ("CLOSE".equals(itemType)) {
+            container.set(new org.bukkit.NamespacedKey(plugin, GUI_IDENTIFIER_KEY),
+                    PersistentDataType.STRING, GUI_IDENTIFIER_VALUE);
+        }
+
         item.setItemMeta(meta);
         return item;
     }
@@ -251,12 +261,32 @@ DailyListener implements Listener {
         return config.rewards.values().stream().anyMatch(r -> r.page > currentPage);
     }
 
+    private boolean isDailyRewardsGUI(Inventory inventory) {
+        if (inventory == null) return false;
+
+        int closeButtonSlot = config.guiRows * 9 - 5;
+        if (closeButtonSlot >= inventory.getSize()) return false;
+
+        ItemStack closeButton = inventory.getItem(closeButtonSlot);
+        if (closeButton == null || closeButton.getType() != Material.BARRIER) return false;
+
+        ItemMeta meta = closeButton.getItemMeta();
+        if (meta == null) return false;
+
+        PersistentDataContainer container = meta.getPersistentDataContainer();
+        String identifier = container.get(
+                new org.bukkit.NamespacedKey(plugin, GUI_IDENTIFIER_KEY),
+                PersistentDataType.STRING
+        );
+
+        return GUI_IDENTIFIER_VALUE.equals(identifier);
+    }
+
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
         if (!(e.getWhoClicked() instanceof Player player)) return;
 
-        String title = PlainTextComponentSerializer.plainText().serialize(e.getView().title());
-        if (!title.contains("Daily Rewards")) return;
+        if (!isDailyRewardsGUI(e.getInventory())) return;
 
         e.setCancelled(true);
 
@@ -267,47 +297,52 @@ DailyListener implements Listener {
         if (meta == null) return;
 
         PersistentDataContainer container = meta.getPersistentDataContainer();
-        Integer rewardDay = container.get(
-                new org.bukkit.NamespacedKey(plugin, REWARD_ID_KEY),
-                PersistentDataType.INTEGER
+        String itemType = container.get(
+                new org.bukkit.NamespacedKey(plugin, ITEM_TYPE_KEY),
+                PersistentDataType.STRING
         );
 
-        if (rewardDay == null) {
-            if (clicked.getType() == Material.ARROW) {
-                handleNavigation(e, player);
-            } else if (clicked.getType() == Material.BARRIER) {
-                player.closeInventory();
-            }
-            return;
-        }
+        if (itemType == null) return;
 
-        handleRewardClaim(player, rewardDay, e.getSlot());
+        switch (itemType) {
+            case "REWARD":
+                Integer rewardDay = container.get(
+                        new org.bukkit.NamespacedKey(plugin, REWARD_ID_KEY),
+                        PersistentDataType.INTEGER
+                );
+                if (rewardDay != null) {
+                    handleRewardClaim(player, rewardDay, e.getSlot());
+                }
+                break;
+
+            case "NAV_PREVIOUS":
+                handleNavigation(player, -1);
+                break;
+
+            case "NAV_NEXT":
+                handleNavigation(player, 1);
+                break;
+
+            case "CLOSE":
+                player.closeInventory();
+                break;
+        }
     }
 
-    private void handleNavigation(InventoryClickEvent e, Player player) {
-        ItemMeta meta = e.getCurrentItem().getItemMeta();
-        if (meta == null) return;
-
-        String itemName = PlainTextComponentSerializer.plainText().serialize(meta.displayName());
+    private void handleNavigation(Player player, int direction) {
         int currentPage = playerPages.getOrDefault(player.getUniqueId(), 1);
+        int newPage = currentPage + direction;
 
-        if (itemName.contains("Previous") && currentPage > 1) {
-            player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 1.0f, 1.0f);
-            new BukkitRunnable() {
-                @Override
-                public void run() {
-                    openRewardsGUI(player, currentPage - 1);
-                }
-            }.runTaskLater(plugin, 1);
-        } else if (itemName.contains("Next")) {
-            player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 1.0f, 1.0f);
-            new BukkitRunnable() {
-                @Override
-                public void run() {
-                    openRewardsGUI(player, currentPage + 1);
-                }
-            }.runTaskLater(plugin, 1);
-        }
+        if (newPage < 1) return;
+        if (direction > 0 && !hasNextPage(currentPage)) return;
+
+        player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 1.0f, 1.0f);
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                openRewardsGUI(player, newPage);
+            }
+        }.runTaskLater(plugin, 1);
     }
 
     private void handleRewardClaim(Player player, int day, int slot) {
@@ -330,7 +365,7 @@ DailyListener implements Listener {
                         new BukkitRunnable() {
                             @Override
                             public void run() {
-                                player.sendMessage(langManager.getMessageFor(player, "daily.messages.claim-already",
+                                player.sendMessage(langManager.getMessageFor(player, "commands.daily.messages.claim-already",
                                         "<red>You already claimed this reward!"));
                                 player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
                             }
@@ -343,7 +378,7 @@ DailyListener implements Listener {
                         new BukkitRunnable() {
                             @Override
                             public void run() {
-                                player.sendMessage(langManager.getMessageFor(player, "daily.messages.claim-locked",
+                                player.sendMessage(langManager.getMessageFor(player, "commands.daily.messages.claim-locked",
                                         "<red>You must claim previous days first!"));
                                 player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
                             }
@@ -357,7 +392,7 @@ DailyListener implements Listener {
                             new BukkitRunnable() {
                                 @Override
                                 public void run() {
-                                    player.sendMessage(langManager.getMessageFor(player, "daily.messages.claim-cooldown",
+                                    player.sendMessage(langManager.getMessageFor(player, "commands.daily.messages.claim-cooldown",
                                             "<red>You must wait {time} before claiming again!",
                                             LanguageManager.ComponentPlaceholder.of("{time}", duration.format())));
                                     player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
@@ -381,11 +416,11 @@ DailyListener implements Listener {
                 @Override
                 public void run() {
                     for (DailyReward.RewardItem itemData : reward.items) {
-                        ItemStack item = createActualRewardItem(itemData);
+                        ItemStack item = createActualRewardItem(itemData, player);
                         player.getInventory().addItem(item);
                     }
 
-                    player.sendMessage(langManager.getMessageFor(player, "daily.messages.claim-success",
+                    player.sendMessage(langManager.getMessageFor(player, "commands.daily.messages.claim-success",
                             "<green>You claimed Day {day} reward!",
                             LanguageManager.ComponentPlaceholder.of("{day}", day)));
                     player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0f, 1.2f);
@@ -402,7 +437,7 @@ DailyListener implements Listener {
             new BukkitRunnable() {
                 @Override
                 public void run() {
-                    player.sendMessage(langManager.getMessageFor(player, "daily.messages.claim-error",
+                    player.sendMessage(langManager.getMessageFor(player, "commands.daily.messages.claim-error",
                             "<red>Failed to claim reward. Please try again."));
                 }
             }.runTask(plugin);
@@ -414,11 +449,8 @@ DailyListener implements Listener {
     public void onInventoryClose(InventoryCloseEvent e) {
         if (!(e.getPlayer() instanceof Player player)) return;
 
-        String title = PlainTextComponentSerializer.plainText().serialize(e.getView().title());
-
-        if (title.contains("Daily Rewards")) {
+        if (isDailyRewardsGUI(e.getInventory())) {
             playerPages.remove(player.getUniqueId());
         }
     }
-
 }

@@ -10,6 +10,7 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.godlycow.org.kit.storage.KitStorage;
 import net.godlycow.org.language.LanguageManager;
 import net.godlycow.org.language.PlayerLanguageManager;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -25,6 +26,7 @@ import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.Plugin;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class KitGUIListener implements Listener {
 
@@ -35,6 +37,7 @@ public class KitGUIListener implements Listener {
     private static final String GUI_TITLE_KEY = "kits.gui.title";
     private static final String PREVIEW_TITLE_KEY = "kits.gui.preview-title";
     private final MiniMessage miniMessage = MiniMessage.miniMessage();
+    private static final LegacyComponentSerializer LEGACY_SERIALIZER = LegacyComponentSerializer.legacySection();
 
     public KitGUIListener(Plugin plugin, PlayerLanguageManager langManager, KitStorage kitStorage, KitConfig kitConfig) {
         this.plugin = plugin;
@@ -46,13 +49,14 @@ public class KitGUIListener implements Listener {
     public void openKitGUI(Player player) {
         kitStorage.loadIntoCache(player.getUniqueId());
 
-        Component title = langManager.getMessageFor(player, GUI_TITLE_KEY, kitConfig.getGuiTitle());
-        Inventory gui = Bukkit.createInventory(null, kitConfig.getGuiSize(), title);
+        Component titleComponent = langManager.getMessageFor(player, GUI_TITLE_KEY, kitConfig.getGuiTitle());
+        String legacyTitle = LEGACY_SERIALIZER.serialize(titleComponent);
+        Inventory gui = Bukkit.createInventory(null, kitConfig.getGuiSize(), legacyTitle);
 
         ConfigurationSection kitsSec = KitConfigManager.getConfig().getConfigurationSection("kits");
         if (kitsSec == null) {
-            player.sendMessage(langManager.getMessageFor(player, "kits.no-kits-defined",
-                    "<red>No kits are currently defined!"));
+            player.sendMessage(LEGACY_SERIALIZER.serialize(langManager.getMessageFor(player, "commands.kits.no-kits-defined",
+                    "<red>No kits are currently defined!")));
             return;
         }
 
@@ -83,17 +87,18 @@ public class KitGUIListener implements Listener {
 
         Component name = hasPermission
                 ? miniMessage.deserialize(kit.getDisplayName())
-                : langManager.getMessageFor(player, "kits.locked-name",
+                : langManager.getMessageFor(player, "commands.kits.locked-name",
                 "<red>Locked: <gray>{kit}",
                 LanguageManager.ComponentPlaceholder.of("{kit}", kit.getName()));
-        meta.displayName(name);
+        meta.setDisplayName(LEGACY_SERIALIZER.serialize(name));
+
         List<Component> lore = new ArrayList<>();
         for (String line : kit.getDisplayLore()) {
             lore.add(miniMessage.deserialize(line));
         }
 
         if (!hasPermission) {
-            lore.add(langManager.getMessageFor(player, "kits.requires-permission",
+            lore.add(langManager.getMessageFor(player, "commands.kits.requires-permission",
                     "<gray>Requires: <white>{permission}",
                     LanguageManager.ComponentPlaceholder.of("{permission}",
                             KitPermission.node(kit.getName()))));
@@ -102,12 +107,12 @@ public class KitGUIListener implements Listener {
         long remaining = kitStorage.getRemainingCooldown(player.getUniqueId(), kit.getName(),
                 KitConfigManager.getConfig().getInt("kits." + kit.getName() + ".cooldown", 0));
         if (remaining > 0) {
-            lore.add(langManager.getMessageFor(player, "kits.cooldown-info",
+            lore.add(langManager.getMessageFor(player, "commands.kits.cooldown-info",
                     "<gray>Cooldown: <red>{time}s",
                     LanguageManager.ComponentPlaceholder.of("{time}", remaining)));
         }
 
-        meta.lore(lore);
+        meta.setLore(lore.stream().map(LEGACY_SERIALIZER::serialize).collect(Collectors.toList()));
 
         NamespacedKey key = new NamespacedKey(plugin, "kit_id");
         meta.getPersistentDataContainer().set(key, PersistentDataType.STRING, kit.getName());
@@ -119,16 +124,18 @@ public class KitGUIListener implements Listener {
     public void openKitPreview(Player player, String kitId) {
         Kit kit = KitManager.getKit(kitId);
         if (kit == null) {
-            player.sendMessage(langManager.getMessageFor(player, "kits.kit-not-found",
-                    kitConfig.getKitNotFoundMessage(),
-                    LanguageManager.ComponentPlaceholder.of("{kit}", kitId)));
+            player.sendMessage(LEGACY_SERIALIZER.serialize(
+                    langManager.getMessageFor(player, "commands.kits.kit-not-found",
+                            "<red>Kit <white>{kit}</white> not found!",
+                            LanguageManager.ComponentPlaceholder.of("{kit}", kitId))
+            ));
             return;
         }
 
-        Component title = langManager.getMessageFor(player, PREVIEW_TITLE_KEY, kitConfig.getPreviewTitle(),
+        Component titleComponent = langManager.getMessageFor(player, PREVIEW_TITLE_KEY, kitConfig.getPreviewTitle(),
                 LanguageManager.ComponentPlaceholder.of("{kit}", kitId));
-
-        Inventory preview = Bukkit.createInventory(null, 54, title);
+        String legacyTitle = LEGACY_SERIALIZER.serialize(titleComponent);
+        Inventory preview = Bukkit.createInventory(null, 54, legacyTitle);
 
         List<ItemStack> items = kit.getItems();
         for (int i = 0; i < items.size() && i < 45; i++) {
@@ -145,18 +152,20 @@ public class KitGUIListener implements Listener {
     }
 
     private ItemStack createClaimButton(Player player, String kitId) {
-        ItemStack item = new ItemStack(Material.LIME_CONCRETE);
+        ItemStack item = new ItemStack(kitConfig.getClaimButtonMaterial());
         ItemMeta meta = item.getItemMeta();
         if (meta == null) return item;
 
-        meta.displayName(langManager.getMessageFor(player, "kits.claim-button",
-                "<green>✓ Claim Kit"));
-
         int cooldown = KitConfigManager.getConfig().getInt("kits." + kitId + ".cooldown", 0);
         if (kitStorage.isOnCooldown(player.getUniqueId(), kitId, cooldown)) {
-            item.setType(Material.RED_CONCRETE);
-            meta.displayName(langManager.getMessageFor(player, "kits.cooldown-button",
-                    "<red>⏱ On Cooldown"));
+            item.setType(kitConfig.getCooldownButtonMaterial());
+            meta.setDisplayName(LEGACY_SERIALIZER.serialize(
+                    langManager.getMessageFor(player, "commands.kits.cooldown-button", "<red>⏱ On Cooldown")
+            ));
+        } else {
+            meta.setDisplayName(LEGACY_SERIALIZER.serialize(
+                    langManager.getMessageFor(player, "commands.kits.claim-button", "<green>✓ Claim Kit")
+            ));
         }
 
         NamespacedKey key = new NamespacedKey(plugin, "kit_action");
@@ -167,11 +176,12 @@ public class KitGUIListener implements Listener {
     }
 
     private ItemStack createBackButton(Player player) {
-        ItemStack item = new ItemStack(Material.BARRIER);
+        ItemStack item = new ItemStack(kitConfig.getBackButtonMaterial());
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.displayName(langManager.getMessageFor(player, "kits.back-button",
-                    "<red>← Back"));
+            meta.setDisplayName(LEGACY_SERIALIZER.serialize(
+                    langManager.getMessageFor(player, "commands.kits.back-button", "<red>← Back")
+            ));
 
             NamespacedKey key = new NamespacedKey(plugin, "kit_action");
             meta.getPersistentDataContainer().set(key, PersistentDataType.STRING, "back");
@@ -185,12 +195,13 @@ public class KitGUIListener implements Listener {
     public void onInventoryClick(InventoryClickEvent event) {
         if (!(event.getWhoClicked() instanceof Player player)) return;
 
-        String mainTitle = langManager.getMessageFor(player, GUI_TITLE_KEY, kitConfig.getGuiTitle()).toString();
-        String previewTitle = langManager.getMessageFor(player, PREVIEW_TITLE_KEY, kitConfig.getPreviewTitle()).toString();
+        String clickedTitle = event.getView().getTitle();
 
-        String clickedTitle = event.getView().title().toString();
+        String mainTitle = LEGACY_SERIALIZER.serialize(langManager.getMessageFor(player, GUI_TITLE_KEY, kitConfig.getGuiTitle()));
+        String previewTitle = LEGACY_SERIALIZER.serialize(langManager.getMessageFor(player, PREVIEW_TITLE_KEY, kitConfig.getPreviewTitle()));
+
         boolean isMainGui = clickedTitle.equals(mainTitle);
-        boolean isPreviewGui = clickedTitle.contains("Preview Kit:") || clickedTitle.equals(previewTitle);
+        boolean isPreviewGui = clickedTitle.contains("Preview Kit") || clickedTitle.startsWith(previewTitle.split("\\{kit\\}")[0]);
 
         if (!isMainGui && !isPreviewGui) return;
 
@@ -224,27 +235,33 @@ public class KitGUIListener implements Listener {
     private void claimKit(Player player, String kitId) {
         Kit kit = KitManager.getKit(kitId);
         if (kit == null) {
-            player.sendMessage(langManager.getMessageFor(player, "kits.kit-not-found",
-                    kitConfig.getKitNotFoundMessage(),
-                    LanguageManager.ComponentPlaceholder.of("{kit}", kitId)));
+            player.sendMessage(LEGACY_SERIALIZER.serialize(
+                    langManager.getMessageFor(player, "commands.kits.kit-not-found",
+                            "<red>Kit <white>{kit}</white> not found!",
+                            LanguageManager.ComponentPlaceholder.of("{kit}", kitId))
+            ));
             return;
         }
 
         if (!player.hasPermission(KitPermission.node(kitId))) {
-            player.sendMessage(langManager.getMessageFor(player, "kits.no-permission",
-                    kitConfig.getNoPermissionMessage(),
-                    LanguageManager.ComponentPlaceholder.of("{kit}", kitId),
-                    LanguageManager.ComponentPlaceholder.of("{permission}", KitPermission.node(kitId))));
+            player.sendMessage(LEGACY_SERIALIZER.serialize(
+                    langManager.getMessageFor(player, "commands.kits.no-permission",
+                            "<red>You don't have permission to claim <white>{kit}</white>!",
+                            LanguageManager.ComponentPlaceholder.of("{kit}", kitId),
+                            LanguageManager.ComponentPlaceholder.of("{permission}", KitPermission.node(kitId)))
+            ));
             return;
         }
 
         int cooldown = KitConfigManager.getConfig().getInt("kits." + kitId + ".cooldown", 0);
         if (kitStorage.isOnCooldown(player.getUniqueId(), kitId, cooldown)) {
             long remaining = kitStorage.getRemainingCooldown(player.getUniqueId(), kitId, cooldown);
-            player.sendMessage(langManager.getMessageFor(player, "kits.cooldown",
-                    kitConfig.getCooldownMessage(),
-                    LanguageManager.ComponentPlaceholder.of("{kit}", kitId),
-                    LanguageManager.ComponentPlaceholder.of("{time}", remaining)));
+            player.sendMessage(LEGACY_SERIALIZER.serialize(
+                    langManager.getMessageFor(player, "commands.kits.cooldown",
+                            "<red>Please wait <yellow>{time}s</yellow> before claiming <white>{kit}</white> again!",
+                            LanguageManager.ComponentPlaceholder.of("{kit}", kitId),
+                            LanguageManager.ComponentPlaceholder.of("{time}", remaining))
+            ));
             return;
         }
 
@@ -256,8 +273,10 @@ public class KitGUIListener implements Listener {
 
         kitStorage.saveKitClaim(player.getUniqueId(), kitId);
 
-        player.sendMessage(langManager.getMessageFor(player, "kits.claim-success",
-                kitConfig.getClaimSuccessMessage(),
-                LanguageManager.ComponentPlaceholder.of("{kit}", kitId)));
+        player.sendMessage(LEGACY_SERIALIZER.serialize(
+                langManager.getMessageFor(player, "commands.kits.claim-success",
+                        "<green>✓ Successfully claimed kit <white>{kit}</white>!",
+                        LanguageManager.ComponentPlaceholder.of("{kit}", kitId))
+        ));
     }
 }

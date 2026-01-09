@@ -18,6 +18,7 @@ import net.godlycow.org.language.LanguageManager;
 import net.godlycow.org.language.PlayerLanguageManager;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -41,8 +42,7 @@ public final class KitAPIImpl implements KitAPI {
     private final @NotNull KitConfig kitConfig;
     private final @NotNull PlayerLanguageManager langManager;
     private final @NotNull MiniMessage miniMessage = MiniMessage.miniMessage();
-
-
+    private static final LegacyComponentSerializer LEGACY_SERIALIZER = LegacyComponentSerializer.legacySection();
 
     public KitAPIImpl(
             @NotNull ServerEssentials plugin,
@@ -111,8 +111,9 @@ public final class KitAPIImpl implements KitAPI {
                     .collect(Collectors.toList());
 
             Bukkit.getScheduler().runTask(plugin, () -> {
-                Component title = langManager.getMessageFor(player, "kits.gui.title", kitConfig.getGuiTitle());
-                Inventory gui = Bukkit.createInventory(null, kitConfig.getGuiSize(), title);
+                Component titleComponent = langManager.getMessageFor(player, "kits.gui.title", kitConfig.getGuiTitle());
+                String legacyTitle = LEGACY_SERIALIZER.serialize(titleComponent);
+                Inventory gui = Bukkit.createInventory(null, kitConfig.getGuiSize(), legacyTitle);
 
                 int slotIndex = 0;
                 for (Kit kit : kits) {
@@ -126,7 +127,6 @@ public final class KitAPIImpl implements KitAPI {
 
                 player.openInventory(gui);
 
-                // Fire event
                 Bukkit.getPluginManager().callEvent(new KitOpenGUIEvent(player, kits.size()));
             });
 
@@ -145,8 +145,11 @@ public final class KitAPIImpl implements KitAPI {
             }
 
             Bukkit.getScheduler().runTask(plugin, () -> {
-                Component title = langManager.getMessageFor(player, "kits.gui.preview-title", kitConfig.getPreviewTitle());
-                Inventory preview = Bukkit.createInventory(null, 54, title);
+                Component titleComponent = langManager.getMessageFor(player, "kits.gui.preview-title",
+                        kitConfig.getPreviewTitle(),
+                        LanguageManager.ComponentPlaceholder.of("{kit}", kitId));
+                String legacyTitle = LEGACY_SERIALIZER.serialize(titleComponent);
+                Inventory preview = Bukkit.createInventory(null, 54, legacyTitle);
 
                 List<org.bukkit.inventory.ItemStack> items = kit.getItems();
                 for (int i = 0; i < items.size() && i < 45; i++) {
@@ -154,7 +157,6 @@ public final class KitAPIImpl implements KitAPI {
                 }
 
                 preview.setItem(53, createClaimButton(player, normalizedKitId));
-
                 preview.setItem(45, createBackButton(player));
 
                 player.openInventory(preview);
@@ -199,8 +201,8 @@ public final class KitAPIImpl implements KitAPI {
     public @NotNull CompletableFuture<Void> reload() {
         return CompletableFuture.runAsync(() -> {
             plugin.reloadConfig();
-            kitConfigManager.reload();
             kitConfig.load();
+            kitConfigManager.reload();
             plugin.getLogger().info("[ServerEssentials] Kit configuration reloaded: " +
                     kitManager.getKits().size() + " kits loaded.");
         });
@@ -222,7 +224,7 @@ public final class KitAPIImpl implements KitAPI {
                 : langManager.getMessageFor(player, "kits.locked-name",
                 "<red>Locked: <gray>{kit}",
                 LanguageManager.ComponentPlaceholder.of("{kit}", kit.getName()));
-        meta.displayName(name);
+        meta.setDisplayName(LEGACY_SERIALIZER.serialize(name));
 
         List<Component> lore = new ArrayList<>();
         for (String line : kit.getDisplayLore()) {
@@ -243,7 +245,7 @@ public final class KitAPIImpl implements KitAPI {
                     LanguageManager.ComponentPlaceholder.of("{time}", remaining)));
         }
 
-        meta.lore(lore);
+        meta.setLore(lore.stream().map(LEGACY_SERIALIZER::serialize).collect(Collectors.toList()));
 
         NamespacedKey key = new NamespacedKey(plugin, "kit_id");
         meta.getPersistentDataContainer().set(key, PersistentDataType.STRING, kit.getName());
@@ -260,18 +262,20 @@ public final class KitAPIImpl implements KitAPI {
         ItemMeta meta;
 
         if (kitStorage.isOnCooldown(player.getUniqueId(), kitId, cooldown)) {
-            item = new ItemStack(Material.RED_CONCRETE);
+            item = new ItemStack(kitConfig.getCooldownButtonMaterial());
             meta = item.getItemMeta();
             if (meta != null) {
-                meta.displayName(langManager.getMessageFor(player, "kits.cooldown-button",
-                        "<red>⏱ On Cooldown"));
+                meta.setDisplayName(LEGACY_SERIALIZER.serialize(
+                        langManager.getMessageFor(player, "kits.cooldown-button", "<red>⏱ On Cooldown")
+                ));
             }
         } else {
-            item = new ItemStack(Material.LIME_CONCRETE);
+            item = new ItemStack(kitConfig.getClaimButtonMaterial());
             meta = item.getItemMeta();
             if (meta != null) {
-                meta.displayName(langManager.getMessageFor(player, "kits.claim-button",
-                        "<green>✓ Claim Kit"));
+                meta.setDisplayName(LEGACY_SERIALIZER.serialize(
+                        langManager.getMessageFor(player, "kits.claim-button", "<green>✓ Claim Kit")
+                ));
             }
         }
 
@@ -285,11 +289,12 @@ public final class KitAPIImpl implements KitAPI {
     }
 
     private @NotNull ItemStack createBackButton(@NotNull Player player) {
-        ItemStack item = new ItemStack(Material.BARRIER);
+        ItemStack item = new ItemStack(kitConfig.getBackButtonMaterial());
         ItemMeta meta = item.getItemMeta();
         if (meta != null) {
-            meta.displayName(langManager.getMessageFor(player, "kits.back-button",
-                    "<red>← Back"));
+            meta.setDisplayName(LEGACY_SERIALIZER.serialize(
+                    langManager.getMessageFor(player, "kits.back-button", "<red>← Back")
+            ));
 
             NamespacedKey key = new NamespacedKey(plugin, "kit_action");
             meta.getPersistentDataContainer().set(key, PersistentDataType.STRING, "back");

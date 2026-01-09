@@ -3,7 +3,7 @@ plugins {
     id "com.gradleup.shadow" version "8.3.5"
 }
 
-version = "2.0.8"
+version = "2.0.8.3"
 
 dependencies {
     implementation project(":api")
@@ -24,7 +24,6 @@ dependencies {
     }
 }
 
-
 processResources {
     filesMatching("plugin.yml") {
         expand(
@@ -39,14 +38,51 @@ shadowJar {
     archiveFileName = "ServerEssentials-${project.version}.jar"
     destinationDirectory = rootProject.layout.projectDirectory.dir("dist/plugins")
     exclude "META-INF/**"
-
-    // Include all runtime dependencies
     configurations = [project.configurations.runtimeClasspath]
 }
 
-
-
-
-
 tasks.jar.enabled = false
 tasks.build.dependsOn tasks.shadowJar
+
+tasks.register("setUp") {
+    group = "build"
+    description = "Cleans plugin folders, builds the shadow jar, and copies it to server and dist."
+
+    dependsOn "shadowJar"
+
+    doLast {
+        def pluginName = "ServerEssentials"
+        def jarPattern = ~/ServerEssentials-.*\.jar/
+        def paperPluginsDir = file("paper-server/run/paper/plugins")
+        def distPluginsDir = file("dist/plugins")
+        def pluginFolderInPaper = new File(paperPluginsDir, pluginName)
+
+        paperPluginsDir.mkdirs()
+        distPluginsDir.mkdirs()
+
+        paperPluginsDir.listFiles()?.each { file ->
+            if (file.name ==~ jarPattern) {
+                println "Deleting old plugin jar: ${file}"
+                file.delete()
+            }
+        }
+
+        if (pluginFolderInPaper.exists()) {
+            println "Deleting plugin folder: ${pluginFolderInPaper}"
+            pluginFolderInPaper.deleteDir()
+        }
+
+        if (distPluginsDir.exists()) {
+            println "Deleting dist/plugins contents"
+            distPluginsDir.listFiles()?.each { it.delete() }
+        }
+
+        def builtJar = tasks.shadowJar.get().archiveFile.get().asFile
+        println "Copying jar to paper plugins..."
+        copy { from builtJar; into paperPluginsDir }
+        println "Copying jar to dist/plugins..."
+        copy { from builtJar; into distPluginsDir }
+
+        println "SetUp task completed successfully!"
+    }
+}

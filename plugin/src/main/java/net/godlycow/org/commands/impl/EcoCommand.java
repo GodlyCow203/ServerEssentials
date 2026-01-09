@@ -4,7 +4,6 @@ import net.godlycow.org.commands.config.EcoConfig;
 import net.godlycow.org.economy.eco.EconomyManager;
 import net.godlycow.org.economy.eco.EconomyResponse;
 import net.godlycow.org.language.PlayerLanguageManager;
-import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
@@ -19,10 +18,8 @@ import java.util.List;
 
 import static net.godlycow.org.language.LanguageManager.ComponentPlaceholder;
 
-
 public final class EcoCommand implements CommandExecutor, TabCompleter {
     private static final String PERMISSION = "serveressentials.command.eco";
-    private static final String COMMAND_NAME = "eco";
 
     private final PlayerLanguageManager langManager;
     private final EcoConfig config;
@@ -37,7 +34,6 @@ public final class EcoCommand implements CommandExecutor, TabCompleter {
         this.economyManager = economyManager;
     }
 
-
     private OfflinePlayer getTargetPlayer(String name) {
         Player online = Bukkit.getPlayer(name);
         if (online != null) return online;
@@ -51,308 +47,236 @@ public final class EcoCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        Player player = sender instanceof Player ? (Player) sender : null;
+
         if (!sender.hasPermission(PERMISSION)) {
-            Component message = langManager.getComponent(String.valueOf(sender instanceof Player p ? p : null),
-                    "commands." + COMMAND_NAME + ".no-permission",
-                    "<red>You need permission <yellow>{permission}</yellow>!",
-                    ComponentPlaceholder.of("{permission}", PERMISSION));
-            sender.sendMessage(message);
+            sender.sendMessage(langManager.getMessageFor(player, "commands.eco.no-permission",
+                    "<#FF2424>You need permission <#c0f0ff>{permission}<#FF2424>!",
+                    ComponentPlaceholder.of("{permission}", PERMISSION)));
             return true;
         }
 
         if (!economyManager.isEnabled()) {
-            sender.sendMessage(langManager.getComponent(String.valueOf(sender instanceof Player p ? p : null),
-                    "commands." + COMMAND_NAME + ".no-economy",
-                    "<red>✗ Economy system is not available!"));
+            sender.sendMessage(langManager.getMessageFor(player, "commands.eco.no-economy",
+                    "<#FF2424>Economy system is not available!"));
             return true;
         }
 
         if (args.length < 2) {
-            sendUsageMessage(sender, label);
+            sendUsageMessage(sender, label, player);
             return true;
         }
 
         OfflinePlayer target = getTargetPlayer(args[1]);
         if (target.getName() == null) {
-            Component message = langManager.getComponent(String.valueOf(sender instanceof Player p ? p : null),
-                    "commands." + COMMAND_NAME + ".player-not-found",
-                    "<red>Player not found: <white>{player}",
-                    ComponentPlaceholder.of("{player}", args[1]));
-            sender.sendMessage(message);
+            sender.sendMessage(langManager.getMessageFor(player, "commands.eco.player-not-found",
+                    "<#FF2424>Player not found: <#c0f0ff>{player}",
+                    ComponentPlaceholder.of("{player}", args[1])));
             return true;
         }
 
         String sub = args[0].toLowerCase();
         switch (sub) {
-            case "give" -> handleGive(sender, target, args, label);
-            case "take" -> handleTake(sender, target, args, label);
-            case "reset" -> handleReset(sender, target);
-            case "set" -> handleSet(sender, target, args, label);
-            default -> {
-                Component message = langManager.getComponent(String.valueOf(sender instanceof Player p ? p : null),
-                        "commands." + COMMAND_NAME + ".unknown-subcommand",
-                        "<red>Unknown subcommand: <white>{sub}\n<gray>Available: give, take, set, reset",
-                        ComponentPlaceholder.of("{sub}", sub));
-                sender.sendMessage(message);
-            }
+            case "give" -> handleGive(sender, player, target, args, label);
+            case "take" -> handleTake(sender, player, target, args, label);
+            case "reset" -> handleReset(sender, player, target);
+            case "set" -> handleSet(sender, player, target, args, label);
+            default -> sender.sendMessage(langManager.getMessageFor(player, "commands.eco.unknown-subcommand",
+                    "<#FF2424>Unknown subcommand: <#c0f0ff>{sub}\n<#708090>Available: give, take, set, reset",
+                    ComponentPlaceholder.of("{sub}", sub)));
         }
 
         return true;
     }
 
-
-    private void sendUsageMessage(CommandSender sender, String label) {
-        Component message = langManager.getComponent(String.valueOf(sender instanceof Player p ? p : null),
-                "commands." + COMMAND_NAME + ".usage",
-                "<yellow>Usage:\n" +
-                        "<white>/" + label + " give <player> <amount>\n" +
+    private void sendUsageMessage(CommandSender sender, String label, Player player) {
+        sender.sendMessage(langManager.getMessageFor(player, "commands.eco.usage",
+                "<#279CF5>Usage: <white>/" + label + " give <player> <amount>\n" +
                         "<white>/" + label + " take <player> <amount>\n" +
                         "<white>/" + label + " set <player> <amount>\n" +
-                        "<white>/" + label + " reset <player>");
-        sender.sendMessage(message);
+                        "<white>/" + label + " reset <player>"));
     }
 
-
-    private void handleGive(CommandSender sender, OfflinePlayer target, String[] args, String label) {
+    private void handleGive(CommandSender sender, Player player, OfflinePlayer target, String[] args, String label) {
         if (args.length < 3) {
-            Component message = langManager.getComponent(String.valueOf(sender instanceof Player p ? p : null),
-                    "commands." + COMMAND_NAME + ".give-usage",
-                    "<yellow>Usage: <white>{usage}",
-                    ComponentPlaceholder.of("{usage}", "/" + label + " give <player> <amount>"));
-            sender.sendMessage(message);
+            sender.sendMessage(langManager.getMessageFor(player, "commands.eco.give-usage",
+                    "<#279CF5>Usage: <white>{usage}",
+                    ComponentPlaceholder.of("{usage}", "/" + label + " give <player> <amount>")));
             return;
         }
 
-        double amount = parseAmount(args[2], sender);
+        double amount = parseAmount(args[2], sender, player);
         if (amount < 0) return;
 
         if (target instanceof Player onlineTarget) {
             EconomyResponse response = economyManager.deposit(onlineTarget, amount);
 
             if (response.success()) {
-                Component message = langManager.getComponent(String.valueOf(sender instanceof Player p ? p : null),
-                        "commands." + COMMAND_NAME + ".give-success",
-                        "<green>Gave <white>{amount} <green>to <white>{player}",
+                sender.sendMessage(langManager.getMessageFor(player, "commands.eco.give-success",
+                        "<#279CF5>Gave <#c0f0ff>{amount} <#279CF5>to <#c0f0ff>{player}",
                         ComponentPlaceholder.of("{amount}", economyManager.format(amount)),
-                        ComponentPlaceholder.of("{player}", target.getName()));
-                sender.sendMessage(message);
+                        ComponentPlaceholder.of("{player}", target.getName())));
 
                 if (!sender.equals(target)) {
-                    onlineTarget.sendMessage(langManager.getComponent(String.valueOf(onlineTarget),
-                            "commands." + COMMAND_NAME + ".give-received",
-                            "<green>You received <white>{amount}",
+                    onlineTarget.sendMessage(langManager.getMessageFor(onlineTarget, "commands.eco.give-received",
+                            "<#279CF5>You received <#c0f0ff>{amount}",
                             ComponentPlaceholder.of("{amount}", economyManager.format(amount))));
                 }
 
                 plugin.getLogger().info(String.format("[Eco] %s gave %s %.2f to %s",
                         sender.getName(), economyManager.getEconomyName(), amount, target.getName()));
             } else {
-                Component message = langManager.getComponent(String.valueOf(sender instanceof Player p ? p : null),
-                        "commands." + COMMAND_NAME + ".transaction-failed",
-                        "<red>Transaction failed: {error}",
-                        ComponentPlaceholder.of("{error}", response.errorMessage));
-                sender.sendMessage(message);
-
-                plugin.getLogger().warning(String.format("[Eco] Give failed for %s: %s",
-                        target.getName(), response.errorMessage));
+                sendTransactionFailedMessage(sender, player, response.errorMessage);
             }
         } else {
-            sender.sendMessage(langManager.getComponent(String.valueOf(sender instanceof Player p ? p : null),
-                    "commands." + COMMAND_NAME + ".offline-player",
-                    "<red>Cannot modify balance of offline players."));
+            sender.sendMessage(langManager.getMessageFor(player, "commands.eco.offline-player",
+                    "<#FF2424>Cannot modify balance of offline players."));
         }
     }
 
-    private void handleTake(CommandSender sender, OfflinePlayer target, String[] args, String label) {
+    private void handleTake(CommandSender sender, Player player, OfflinePlayer target, String[] args, String label) {
         if (args.length < 3) {
-            Component message = langManager.getComponent(String.valueOf(sender instanceof Player p ? p : null),
-                    "commands." + COMMAND_NAME + ".take-usage",
-                    "<yellow>Usage: <white>{usage}",
-                    ComponentPlaceholder.of("{usage}", "/" + label + " take <player> <amount>"));
-            sender.sendMessage(message);
+            sender.sendMessage(langManager.getMessageFor(player, "commands.eco.take-usage",
+                    "<#279CF5>Usage: <white>{usage}",
+                    ComponentPlaceholder.of("{usage}", "/" + label + " take <player> <amount>")));
             return;
         }
 
-        double amount = parseAmount(args[2], sender);
+        double amount = parseAmount(args[2], sender, player);
         if (amount < 0) return;
 
         if (target instanceof Player onlineTarget) {
             EconomyResponse response = economyManager.withdraw(onlineTarget, amount);
 
             if (response.success()) {
-                Component message = langManager.getComponent(String.valueOf(sender instanceof Player p ? p : null),
-                        "commands." + COMMAND_NAME + ".take-success",
-                        "<green>Took <white>{amount} <green>from <white>{player}",
+                sender.sendMessage(langManager.getMessageFor(player, "commands.eco.take-success",
+                        "<#FF2424>Took <#c0f0ff>{amount} <#FF2424>from <#c0f0ff>{player}",
                         ComponentPlaceholder.of("{amount}", economyManager.format(amount)),
-                        ComponentPlaceholder.of("{player}", target.getName()));
-                sender.sendMessage(message);
+                        ComponentPlaceholder.of("{player}", target.getName())));
 
                 if (!sender.equals(target)) {
-                    onlineTarget.sendMessage(langManager.getComponent(String.valueOf(onlineTarget),
-                            "commands." + COMMAND_NAME + ".take-taken",
-                            "<red>{amount} <gray>was taken from your balance",
+                    onlineTarget.sendMessage(langManager.getMessageFor(onlineTarget, "commands.eco.take-taken",
+                            "<#FF2424>{amount} <#708090>was taken from your balance",
                             ComponentPlaceholder.of("{amount}", economyManager.format(amount))));
                 }
 
                 plugin.getLogger().info(String.format("[Eco] %s took %s %.2f from %s",
                         sender.getName(), economyManager.getEconomyName(), amount, target.getName()));
             } else {
-                Component message = langManager.getComponent(String.valueOf(sender instanceof Player p ? p : null),
-                        "commands." + COMMAND_NAME + ".transaction-failed",
-                        "<red>Transaction failed: {error}",
-                        ComponentPlaceholder.of("{error}", response.errorMessage));
-                sender.sendMessage(message);
+                sendTransactionFailedMessage(sender, player, response.errorMessage);
             }
         } else {
-            sender.sendMessage(langManager.getComponent(String.valueOf(sender instanceof Player p ? p : null),
-                    "commands." + COMMAND_NAME + ".offline-player",
-                    "<red>Cannot modify balance of offline players."));
+            sender.sendMessage(langManager.getMessageFor(player, "commands.eco.offline-player",
+                    "<#FF2424>Cannot modify balance of offline players."));
         }
     }
 
-
-    private void handleSet(CommandSender sender, OfflinePlayer target, String[] args, String label) {
+    private void handleSet(CommandSender sender, Player player, OfflinePlayer target, String[] args, String label) {
         if (args.length < 3) {
-            Component message = langManager.getComponent(String.valueOf(sender instanceof Player p ? p : null),
-                    "commands." + COMMAND_NAME + ".set-usage",
-                    "<yellow>Usage: <white>{usage}",
-                    ComponentPlaceholder.of("{usage}", "/" + label + " set <player> <amount>"));
-            sender.sendMessage(message);
+            sender.sendMessage(langManager.getMessageFor(player, "commands.eco.set-usage",
+                    "<#279CF5>Usage: <white>{usage}",
+                    ComponentPlaceholder.of("{usage}", "/" + label + " set <player> <amount>")));
             return;
         }
 
-        double amount = parseAmount(args[2], sender);
+        double amount = parseAmount(args[2], sender, player);
         if (amount < 0) return;
 
         if (target instanceof Player onlineTarget) {
             double currentBalance = economyManager.getBalance(onlineTarget);
 
             if (amount > currentBalance) {
-                double giveAmount = amount - currentBalance;
-                EconomyResponse response = economyManager.deposit(onlineTarget, giveAmount);
-
-                if (response.success()) {
-                    sendSetSuccessMessage(sender, onlineTarget, amount);
-                } else {
-                    sendTransactionFailedMessage(sender, response.errorMessage);
-                }
+                EconomyResponse response = economyManager.deposit(onlineTarget, amount - currentBalance);
+                if (response.success()) sendSetSuccessMessage(sender, player, onlineTarget, amount);
+                else sendTransactionFailedMessage(sender, player, response.errorMessage);
             } else if (amount < currentBalance) {
-                double takeAmount = currentBalance - amount;
-                EconomyResponse response = economyManager.withdraw(onlineTarget, takeAmount);
-
-                if (response.success()) {
-                    sendSetSuccessMessage(sender, onlineTarget, amount);
-                } else {
-                    sendTransactionFailedMessage(sender, response.errorMessage);
-                }
+                EconomyResponse response = economyManager.withdraw(onlineTarget, currentBalance - amount);
+                if (response.success()) sendSetSuccessMessage(sender, player, onlineTarget, amount);
+                else sendTransactionFailedMessage(sender, player, response.errorMessage);
             } else {
-                sender.sendMessage(langManager.getComponent(String.valueOf(sender instanceof Player p ? p : null),
-                        "commands." + COMMAND_NAME + ".set-success",
-                        "<green>Set balance for <white>{player} <green>to <white>{amount}",
+                sender.sendMessage(langManager.getMessageFor(player, "commands.eco.set-success",
+                        "<#279CF5>Set balance for <#c0f0ff>{player} <#279CF5>to <#c0f0ff>{amount}",
                         ComponentPlaceholder.of("{player}", target.getName()),
                         ComponentPlaceholder.of("{amount}", economyManager.format(amount))));
             }
         } else {
-            sender.sendMessage(langManager.getComponent(String.valueOf(sender instanceof Player p ? p : null),
-                    "commands." + COMMAND_NAME + ".offline-player",
-                    "<red>Cannot modify balance of offline players."));
+            sender.sendMessage(langManager.getMessageFor(player, "commands.eco.offline-player",
+                    "<#FF2424>Cannot modify balance of offline players."));
         }
     }
 
-
-    private void handleReset(CommandSender sender, OfflinePlayer target) {
+    private void handleReset(CommandSender sender, Player player, OfflinePlayer target) {
         if (target instanceof Player onlineTarget) {
             double bal = economyManager.getBalance(onlineTarget);
 
             if (bal > 0) {
                 EconomyResponse response = economyManager.withdraw(onlineTarget, bal);
-
                 if (response.success()) {
-                    Component message = langManager.getComponent(String.valueOf(sender instanceof Player p ? p : null),
-                            "commands." + COMMAND_NAME + ".reset-success",
-                            "<green>Reset balance for <white>{player}",
-                            ComponentPlaceholder.of("{player}", target.getName()));
-                    sender.sendMessage(message);
+                    sender.sendMessage(langManager.getMessageFor(player, "commands.eco.reset-success",
+                            "<#279CF5>Reset balance for <#c0f0ff>{player}",
+                            ComponentPlaceholder.of("{player}", target.getName())));
 
                     plugin.getLogger().info(String.format("[Eco] %s reset balance for %s",
                             sender.getName(), target.getName()));
                 } else {
-                    Component message = langManager.getComponent(String.valueOf(sender instanceof Player p ? p : null),
-                            "commands." + COMMAND_NAME + ".transaction-failed",
-                            "<red>Transaction failed: {error}",
-                            ComponentPlaceholder.of("{error}", response.errorMessage));
-                    sender.sendMessage(message);
+                    sendTransactionFailedMessage(sender, player, response.errorMessage);
                 }
             } else {
-                sender.sendMessage(langManager.getComponent(String.valueOf(sender instanceof Player p ? p : null),
-                        "commands." + COMMAND_NAME + ".reset-already-zero",
-                        "<gray>Balance for <white>{player} <gray>is already zero",
+                sender.sendMessage(langManager.getMessageFor(player, "commands.eco.reset-already-zero",
+                        "<#708090>Balance for <#c0f0ff>{player} <#708090>is already zero",
                         ComponentPlaceholder.of("{player}", target.getName())));
             }
         } else {
-            sender.sendMessage(langManager.getComponent(String.valueOf(sender instanceof Player p ? p : null),
-                    "commands." + COMMAND_NAME + ".offline-player",
-                    "<red>Cannot modify balance of offline players."));
+            sender.sendMessage(langManager.getMessageFor(player, "commands.eco.offline-player",
+                    "<#FF2424>Cannot modify balance of offline players."));
         }
     }
 
-    private void sendSetSuccessMessage(CommandSender sender, Player target, double amount) {
-        Component message = langManager.getComponent(String.valueOf(sender instanceof Player p ? p : null),
-                "commands." + COMMAND_NAME + ".set-success",
-                "<green>Set balance for <white>{player} <green>to <white>{amount}",
+    private void sendSetSuccessMessage(CommandSender sender, Player senderPlayer, Player target, double amount) {
+        sender.sendMessage(langManager.getMessageFor(senderPlayer, "commands.eco.set-success",
+                "<#279CF5>Set balance for <#c0f0ff>{player} <#279CF5>to <#c0f0ff>{amount}",
                 ComponentPlaceholder.of("{player}", target.getName()),
-                ComponentPlaceholder.of("{amount}", economyManager.format(amount)));
-        sender.sendMessage(message);
+                ComponentPlaceholder.of("{amount}", economyManager.format(amount))));
 
         if (!sender.equals(target)) {
-            target.sendMessage(langManager.getComponent(String.valueOf(target),
-                    "commands." + COMMAND_NAME + ".set-received",
-                    "<green>Your balance was set to <white>{amount}",
+            target.sendMessage(langManager.getMessageFor(target, "commands.eco.set-received",
+                    "<#279CF5>Your balance was set to <#c0f0ff>{amount}",
                     ComponentPlaceholder.of("{amount}", economyManager.format(amount))));
         }
     }
 
-    private void sendTransactionFailedMessage(CommandSender sender, String errorMessage) {
-        Component message = langManager.getComponent(String.valueOf(sender instanceof Player p ? p : null),
-                "commands." + COMMAND_NAME + ".transaction-failed",
-                "<red>Transaction failed: {error}",
-                ComponentPlaceholder.of("{error}", errorMessage));
-        sender.sendMessage(message);
+    private void sendTransactionFailedMessage(CommandSender sender, Player player, String errorMessage) {
+        sender.sendMessage(langManager.getMessageFor(player, "commands.eco.transaction-failed",
+                "<#FF2424>Transaction failed: {error}",
+                ComponentPlaceholder.of("{error}", errorMessage)));
     }
 
-
-    private double parseAmount(String input, CommandSender sender) {
+    private double parseAmount(String input, CommandSender sender, Player player) {
         try {
             double amount = Double.parseDouble(input);
             if (amount < 0) {
-                sender.sendMessage(langManager.getComponent(String.valueOf(sender instanceof Player p ? p : null),
-                        "commands." + COMMAND_NAME + ".negative-amount",
-                        "<red>Amount cannot be negative!"));
+                sender.sendMessage(langManager.getMessageFor(player, "commands.eco.negative-amount",
+                        "<#FF2424>Amount cannot be negative!"));
                 return -1;
             }
             if (amount > config.maxTransactionAmount) {
-                sender.sendMessage(langManager.getComponent(String.valueOf(sender instanceof Player p ? p : null),
-                        "commands." + COMMAND_NAME + ".amount-too-high",
-                        "<red>Amount exceeds maximum allowed: {max}",
+                sender.sendMessage(langManager.getMessageFor(player, "commands.eco.amount-too-high",
+                        "<#FF2424>Amount exceeds maximum allowed: {max}",
                         ComponentPlaceholder.of("{max}", economyManager.format(config.maxTransactionAmount))));
                 return -1;
             }
             return amount;
         } catch (NumberFormatException e) {
-            Component message = langManager.getComponent(String.valueOf(sender instanceof Player p ? p : null),
-                    "commands." + COMMAND_NAME + ".invalid-amount",
-                    "<red>Invalid amount: <white>{amount}",
-                    ComponentPlaceholder.of("{amount}", input));
-            sender.sendMessage(message);
+            sender.sendMessage(langManager.getMessageFor(player, "commands.eco.invalid-amount",
+                    "<#FF2424>Invalid amount: <#c0f0ff>{amount}",
+                    ComponentPlaceholder.of("{amount}", input)));
             return -1;
         }
     }
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-        if (!sender.hasPermission(PERMISSION)) {
-            return List.of();
-        }
+        if (!sender.hasPermission(PERMISSION)) return List.of();
 
         List<String> completions = new ArrayList<>();
         if (args.length == 1) {
@@ -363,9 +287,7 @@ public final class EcoCommand implements CommandExecutor, TabCompleter {
         } else if (args.length == 2) {
             String input = args[1].toLowerCase();
             for (Player p : Bukkit.getOnlinePlayers()) {
-                if (p.getName().toLowerCase().startsWith(input)) {
-                    completions.add(p.getName());
-                }
+                if (p.getName().toLowerCase().startsWith(input)) completions.add(p.getName());
             }
         }
         return completions;

@@ -132,7 +132,7 @@ public final class MailAPIImpl implements MailAPI {
         return CompletableFuture.supplyAsync(() -> {
             int totalCount = mailStorage.getTotalMailCount(playerId).join();
             int unreadCount = mailStorage.getUnreadCount(playerId).join();
-            long lastActivity = mailStorage.getCooldown(playerId).join();  // Using cooldown as activity timestamp
+            long lastActivity = mailStorage.getCooldown(playerId).join();
             return new MailStats(playerId, totalCount, unreadCount, lastActivity);
         });
     }

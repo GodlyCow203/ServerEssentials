@@ -1,5 +1,6 @@
 package net.godlycow.org.commands.config;
 
+import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.Plugin;
 
@@ -7,11 +8,10 @@ public class KitConfig {
     private final Plugin plugin;
     private String guiTitle;
     private int guiSize;
-    private String cooldownMessage;
-    private String noPermissionMessage;
-    private String claimSuccessMessage;
-    private String kitNotFoundMessage;
     private String previewTitle;
+    private Material claimButtonMaterial;
+    private Material cooldownButtonMaterial;
+    private Material backButtonMaterial;
 
     public KitConfig(Plugin plugin) {
         this.plugin = plugin;
@@ -25,21 +25,21 @@ public class KitConfig {
         this.guiSize = config.getInt("kits.gui.size", 54);
         this.previewTitle = config.getString("kits.gui.preview-title", "<white>Preview Kit: <yellow>{kit}");
 
-        this.cooldownMessage = config.getString("kits.messages.cooldown",
-                "<red>Please wait <yellow>{time}s</yellow> before claiming <white>{kit}</white> again!");
-        this.noPermissionMessage = config.getString("kits.messages.no-permission",
-                "<red>You don't have permission to claim <white>{kit}</white>!");
-        this.claimSuccessMessage = config.getString("kits.messages.claim-success",
-                "<green>✓ Successfully claimed kit <white>{kit}</white>!");
-        this.kitNotFoundMessage = config.getString("kits.messages.kit-not-found",
-                "<red>Kit <white>{kit}</white> not found!");
+        this.claimButtonMaterial = Material.valueOf(
+                config.getString("kits.gui.buttons.claim.material", "LIME_CONCRETE").toUpperCase()
+        );
+        this.cooldownButtonMaterial = Material.valueOf(
+                config.getString("kits.gui.buttons.cooldown.material", "RED_CONCRETE").toUpperCase()
+        );
+        this.backButtonMaterial = Material.valueOf(
+                config.getString("kits.gui.buttons.back.material", "BARRIER").toUpperCase()
+        );
     }
 
     public String getGuiTitle() { return guiTitle; }
     public int getGuiSize() { return guiSize; }
     public String getPreviewTitle() { return previewTitle; }
-    public String getCooldownMessage() { return cooldownMessage; }
-    public String getNoPermissionMessage() { return noPermissionMessage; }
-    public String getClaimSuccessMessage() { return claimSuccessMessage; }
-    public String getKitNotFoundMessage() { return kitNotFoundMessage; }
+    public Material getClaimButtonMaterial() { return claimButtonMaterial; }
+    public Material getCooldownButtonMaterial() { return cooldownButtonMaterial; }
+    public Material getBackButtonMaterial() { return backButtonMaterial; }
 }

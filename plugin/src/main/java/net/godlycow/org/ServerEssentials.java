@@ -31,7 +31,11 @@ import net.godlycow.org.daily.trigger.DailyListener;
 import net.godlycow.org.database.type.DatabaseType;
 import net.godlycow.org.economy.api.EconomyAPIImpl;
 import net.godlycow.org.economy.eco.EconomyManager;
+import net.godlycow.org.economy.shop.ShopDataManager;
+import net.godlycow.org.economy.shop.api.ShopAPIImpl;
+import net.godlycow.org.economy.shop.gui.ShopGUIManager;
 import net.godlycow.org.economy.shop.gui.trigger.ShopGUIListener;
+import net.godlycow.org.economy.shop.storage.ShopStorage;
 import net.godlycow.org.executor.CommandExecutor;
 import net.godlycow.org.homes.gui.trigger.HomeGUIListener;
 import net.godlycow.org.homes.storage.HomeStorage;
@@ -190,7 +194,6 @@ public class ServerEssentials extends JavaPlugin implements Listener {
     private ReportsListCommand reportsListCommand;
     private ReportListener reportListener;
 
-    private ShopCommand shopCommand;
 
 
     private SellConfig sellConfig;
@@ -480,10 +483,13 @@ public class ServerEssentials extends JavaPlugin implements Listener {
     private SellGUIAPI sellguiAPI;
     private TPAAPI tpaAPI;
     private WarpAPI warpAPI;
+    private ShopGUIManager shopGUIManager;
+    private ShopCommand shopCommand;
+    private ShopDataManager shopDataManager;
+    private ShopStorage shopStorage;
+    private ShopGUIManager shopGuiManager;
 
 
-    private net.godlycow.org.economy.shop.ShopDataManager shopDataManager;
-    private net.godlycow.org.economy.shop.gui.ShopGUIManager shopGuiManager;
 
 
     @Override
@@ -497,6 +503,8 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         languageManager = new LanguageManager(this);
         languageManager.loadLanguages();
         languageManager.setDefaultLanguage(getConfig().getString("default_language", "en"));
+        String prefix = getConfig().getString("message-prefix", "");
+        languageManager.setGlobalPrefix(prefix);
         databaseManager = new DatabaseManager(this);
         initializeDatabases();
 
@@ -558,6 +566,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         initializeMuteSystem();
         initializeWarpSystem();
         initializeNickSystem();
+        initializeShopSystem();
 
 
 
@@ -716,7 +725,6 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         coinFlipConfig = new CoinFlipConfig(this);
         coinFlipCommand = new CoinFlipCommand(this,playerLanguageManager, coinFlipConfig, economyManager);
 
-        initializeShopSystem();
 
         this.powerToolConfig = new PowerToolConfig(this);
         this.powerToolCommand = new PowerToolCommand(playerLanguageManager, powerToolConfig, commandDataStorage, this);
@@ -844,7 +852,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
 
         // Commands
         getCommand("fly").setExecutor(flyCommand);
-        getCommand("com/serveressentials/api/tpa").setExecutor(tpaCommand);
+        getCommand("tpa").setExecutor(tpaCommand);
         getCommand("tpahere").setExecutor(tpaCommand);
         getCommand("tpaccept").setExecutor(tpaCommand);
         getCommand("tpdeny").setExecutor(tpaCommand);
@@ -857,7 +865,6 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         getCommand("report").setTabCompleter(reportCommand);
         getCommand("reportclear").setExecutor(reportCommand);
         getCommand("reportslist").setExecutor(reportsListCommand);
-        getCommand("shop").setExecutor(shopCommand);
         getCommand("daily").setExecutor(dailyCommand);
         getCommand("near").setExecutor(nearCommand);
         getCommand("rename").setExecutor(renameItemCommand);
@@ -906,7 +913,6 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         getCommand("balance").setExecutor(balanceCommand);
         getCommand("balancetop").setExecutor(balanceTopCommand);
         getCommand("coinflip").setExecutor(coinFlipCommand);
-        getCommand("shop").setExecutor(shopCommand);
         getCommand("sell").setExecutor(sellCommand);
         getCommand("powertool").setExecutor(powerToolCommand);
         getCommand("gravity").setExecutor(gravityCommand);
@@ -1035,12 +1041,6 @@ public class ServerEssentials extends JavaPlugin implements Listener {
 
 
 
-        if (shopCommand != null) {
-            getServer().getPluginManager().registerEvents(
-                    new ShopGUIListener(shopCommand.getGuiManager()),
-                    this
-            );
-        }
 
         registerAPIServices();
 
@@ -1068,7 +1068,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
 
 
         createPrefixFile();
-        String prefix = ChatColor.translateAlternateColorCodes('&',
+        String chickensandwich = ChatColor.translateAlternateColorCodes('&',
                 prefixConfig.getString("prefix", "&9&l[&bSE&9&l]&r ")
         );
 
@@ -1082,6 +1082,21 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         saveLangFile("de.json");
         saveLangFile("fr.json");
         saveLangFile("br.json");
+        saveLangFile("fi.json");
+        saveLangFile("it.json");
+        saveLangFile("nl.json");
+        saveLangFile("pl.json");
+        saveLangFile("ru.json");
+        saveLangFile("es.json");
+        saveLangFile("sv.json");
+
+
+
+
+
+
+
+
 
 
 
@@ -1393,41 +1408,11 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         databaseManager.initializePool("reports", new DatabaseConfig(DatabaseType.SQLITE, "reports.db", null,0,null,null,null,15));
         databaseManager.initializePool("shop", new DatabaseConfig(DatabaseType.SQLITE, "shop.db", null, 0, null, null, null, 5));
         databaseManager.initializePool("command_data", new DatabaseConfig(DatabaseType.SQLITE, "command_data.db", null, 0, null, null, null, 10));
-        databaseManager.initializePool("com/serveressentials/api/tpa", new DatabaseConfig(DatabaseType.SQLITE, "tpa.db", null, 0, null, null, null, 5));
+        databaseManager.initializePool("tpa", new DatabaseConfig(DatabaseType.SQLITE, "tpa.db", null, 0, null, null, null, 5));
     }
 
-    private void initializeShopSystem() {
-        shopConfig = new ShopConfig(this);
-        shopDataManager = new net.godlycow.org.economy.shop.ShopDataManager(this, databaseManager);
 
-        net.godlycow.org.economy.shop.storage.ShopStorage storage =
-                new net.godlycow.org.economy.shop.storage.ShopStorage(this, databaseManager);
 
-        shopGuiManager = new net.godlycow.org.economy.shop.gui.ShopGUIManager(
-                this,
-                playerLanguageManager,
-                storage,
-                shopConfig,
-                economyManager,
-                shopDataManager
-        );
-
-        shopAPI = new net.godlycow.org.economy.shop.api.ShopAPIImpl(shopConfig, shopGuiManager, shopDataManager);
-
-        shopCommand = new ShopCommand(
-                this,
-                playerLanguageManager,
-                databaseManager,
-                shopConfig,
-                economyManager,
-                shopAPI,
-                shopGuiManager,
-                shopDataManager
-        );
-
-        getCommand("shop").setExecutor(shopCommand);
-        getServer().getPluginManager().registerEvents(new ShopGUIListener(shopGuiManager), this);
-    }
 
     private void initializeMuteSystem() {
         muteConfig = new MuteConfig(this);
@@ -1475,8 +1460,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         this.rulesListener = new RulesListener(playerLanguageManager, rulesStorage, rulesConfig, this);
         this.rulesCommand = new RulesCommand(playerLanguageManager, rulesConfig, rulesStorage, this);
 
-        getCommand("rules").setExecutor(rulesCommand);
-        getServer().getPluginManager().registerEvents(rulesListener, this);
+
     }
 
     private void initializeNotesSystem() {
@@ -1706,7 +1690,6 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         getCommand("back").setTabCompleter(backCommand);
         getServer().getPluginManager().registerEvents(backListener, this);
 
-        getLogger().info("Back system initialized with dedicated table");
     }
 
 
@@ -1753,6 +1736,39 @@ public class ServerEssentials extends JavaPlugin implements Listener {
 
 
 
+    private void initializeShopSystem() {
+        shopConfig = new ShopConfig(this);
+        shopDataManager = new net.godlycow.org.economy.shop.ShopDataManager(this, databaseManager);
+
+        net.godlycow.org.economy.shop.storage.ShopStorage storage =
+                new net.godlycow.org.economy.shop.storage.ShopStorage(this, databaseManager);
+
+        shopGuiManager = new net.godlycow.org.economy.shop.gui.ShopGUIManager(
+                this,
+                playerLanguageManager,
+                storage,
+                shopConfig,
+                economyManager,
+                shopDataManager
+        );
+
+        shopAPI = new net.godlycow.org.economy.shop.api.ShopAPIImpl(shopConfig, shopGuiManager, shopDataManager);
+
+        shopCommand = new ShopCommand(
+                this,
+                playerLanguageManager,
+                databaseManager,
+                shopConfig,
+                economyManager,
+                shopAPI,
+                shopGuiManager,
+                shopDataManager
+        );
+
+        getCommand("shop").setExecutor(shopCommand);
+        getServer().getPluginManager().registerEvents(new ShopGUIListener(shopGuiManager), this);
+    }
+
     private void saveResourceFolder(String folderPath) {
         try {
             var jar = getClass().getProtectionDomain().getCodeSource().getLocation();
@@ -1780,6 +1796,9 @@ public class ServerEssentials extends JavaPlugin implements Listener {
             e.printStackTrace();
         }
     }
+
+
+
 
 
 

@@ -45,7 +45,7 @@ public final class CelebrateCommand implements CommandExecutor, TabCompleter {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (args.length > 2) {
             Component message = langManager.getMessageFor(sender instanceof Player ? (Player) sender : null, "commands.celebrate.usage", "Usage: /celebrate [player] [-s]");
-            sender.sendMessage(message.toString());
+            sender.sendMessage(message);
             return true;
         }
 
@@ -65,7 +65,7 @@ public final class CelebrateCommand implements CommandExecutor, TabCompleter {
         if (targetName == null) {
             if (!(sender instanceof Player player)) {
                 Component message = langManager.getMessageFor(null, "commands.celebrate.only-player", "Only players can use this command!");
-                sender.sendMessage(message.toString());
+                sender.sendMessage(message);
                 return true;
             }
             target = player;
@@ -74,7 +74,7 @@ public final class CelebrateCommand implements CommandExecutor, TabCompleter {
             target = Bukkit.getPlayerExact(targetName);
             if (target == null || !target.isOnline()) {
                 Component message = langManager.getMessageFor(sender instanceof Player ? (Player) sender : null, "commands.celebrate.target-not-found", "Player not found.", ComponentPlaceholder.of("{target}", targetName));
-                sender.sendMessage(message.toString());
+                sender.sendMessage(message);
                 return true;
             }
         }
@@ -88,7 +88,7 @@ public final class CelebrateCommand implements CommandExecutor, TabCompleter {
         } else {
             if (!sender.hasPermission(PERMISSION_OTHERS)) {
                 Component message = langManager.getMessageFor(sender instanceof Player ? (Player) sender : null, "commands.celebrate.no-permission-others", "You need permission {permission}!", ComponentPlaceholder.of("{permission}", PERMISSION_OTHERS));
-                sender.sendMessage(message.toString());
+                sender.sendMessage(message);
                 return true;
             }
         }
@@ -116,7 +116,7 @@ public final class CelebrateCommand implements CommandExecutor, TabCompleter {
                     "Celebration!",
                     ComponentPlaceholder.of("{target}", targetNameForMessage)
             );
-            sender.sendMessage(message.toString());
+            sender.sendMessage(message);
         }
 
         trackUsage(target.getUniqueId(), isSelf ? "self" : "other", 1);

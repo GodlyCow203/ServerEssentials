@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="utf-8">
+    <title>ServerEssentials API Documentation – _GodlyCow</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --surface: #111111;
+            --surface-2: #191919;
+            --border: #2d2d2d;
+            --text: #e0e0e0;
+            --text-2: #888888;
+            --primary: #FFFFFF;
+            --primary-2: #e0e0e0;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+            --font: 'Courier New', 'Monaco', 'Consolas', monospace;
+            --code-bg: #050505;
+            --error: #ef4444;
+        }
+        [data-theme="light"] {
+            --bg: #f0f0f0;
+            --surface: #ffffff;
+            --surface-2: #f7f7f7;
+            --border: #cccccc;
+            --text: #1a1a1a;
+            --text-2: #555555;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            --code-bg: #f5f5f5;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font);
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        .topbar {
+            background: var(--surface);
+            border-bottom: 2px solid var(--border);
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+            font-weight: bold;
+        }
+        .topbar a {
+            color: var(--text-2);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .topbar a:hover { color: var(--primary); }
+        .topbar .spacer { flex: 1; }
+        .theme-btn {
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 0.4rem 0.8rem;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        .theme-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .hero {
+            background: linear-gradient(90deg, var(--surface) 0%, var(--surface-2) 100%);
+            border-bottom: 2px solid var(--border);
+            padding: 3rem 1.5rem;
+            text-align: center;
+            position: relative;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .hero p {
+            font-size: 1rem;
+            color: var(--text-2);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 0;
+        }
+        @media (max-width: 900px) {
+            .wrapper { grid-template-columns: 1fr; }
+        }
+        main { border-right: 2px solid var(--border); }
+
+        .card {
+            background: var(--surface);
+            border: none;
+            border-bottom: 2px solid var(--border);
+            margin-bottom: 0;
+        }
+        .card-header {
+            background: var(--surface-2);
+            padding: 1rem 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            border-bottom: 1px solid var(--border);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .card-body { padding: 1.5rem; }
+
+        .api-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .api-card {
+            background: var(--surface);
+            border: 2px solid var(--border);
+            padding: 1.5rem;
+            transition: border-color 0.2s;
+        }
+        .api-card:hover {
+            border-color: var(--primary);
+        }
+        .api-card h3 {
+            color: var(--primary);
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .api-card p {
+            color: var(--text-2);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+        .api-card .package {
+            background: var(--code-bg);
+            padding: 0.5rem;
+            border-left: 3px solid var(--primary);
+            font-size: 0.8rem;
+            color: var(--text-2);
+            margin-bottom: 1rem;
+        }
+        .api-card a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        .api-card a:hover {
+            text-decoration: underline;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin: 2rem 0 1rem 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+        }
+
+        .sidebar .card {
+            border-left: 2px solid var(--primary);
+            margin-bottom: 1rem;
+        }
+        .sidebar .card-body {
+            padding: 1rem;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar li {
+            margin-bottom: 0.5rem;
+            padding-left: 1rem;
+            position: relative;
+        }
+        .sidebar li::before {
+            content: ">";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+        .sidebar a {
+            color: var(--text-2);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .sidebar a:hover {
+            color: var(--primary);
+        }
+
+        .footer {
+            background: var(--surface);
+            border-top: 2px solid var(--border);
+            padding: 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .footer-link {
+            color: var(--text-2);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .footer-link:hover { color: var(--primary); }
+    </style>
+</head>
+<body>
+
+<header class="topbar">
+    <a href="index.html">← BACK TO HOME</a>
+    <a href="https://github.com/GodlyCow203/ServerEssentials" target="_blank">GITHUB</a>
+    <a href="https://discord.gg/vmhQ2gZr8g" target="_blank">DISCORD</a>
+    <div class="spacer"></div>
+    <button class="theme-btn" id="themeBtn">🌙 DARK</button>
+</header>
+
+<section class="hero">
+    <h1>ServerEssentials API Documentation</h1>
+    <p>Complete reference for all ServerEssentials plugin APIs – asynchronous operations, event-driven architecture, and comprehensive Minecraft server management</p>
+</section>
+
+<div class="wrapper">
+    <main>
+        <div class="card">
+            <div class="card-header">Overview</div>
+            <div class="card-body">
+                <p style="margin-bottom: 1rem; color: var(--text-2);">
+                    ServerEssentials provides a modular API system for Minecraft server management. Each API module is designed for thread-safe, asynchronous operations with comprehensive event support. Click any module below to view detailed documentation, usage examples, and implementation guides.
+                </p>
+                <div class="method-signature">Base Package: com.serveressentials.api</div>
+            </div>
+        </div>
+
+        <div class="section-title">Core API Modules</div>
+        <div class="api-grid">
+            <div class="api-card">
+                <h3>Economy API</h3>
+                <div class="package">com.serveressentials.api.economy</div>
+                <p>Vault integration with fallback economy system. Supports transactions, balances, and multi-currency operations.</p>
+                <a href="/api/economy.html">View Documentation →</a>
+            </div>
+
+            <div class="api-card">
+                <h3>Warp API</h3>
+                <div class="package">com.serveressentials.api.warp</div>
+                <p>Complete warp point system with permissions, cooldowns, per-player limits, and persistent storage.</p>
+                <a href="/api/warps.html">View Documentation →</a>
+            </div>
+
+            <div class="api-card">
+                <h3>TPA API</h3>
+                <div class="package">com.serveressentials.api.tpa</div>
+                <p>Player teleportation requests with economic costs, cooldowns, and comprehensive request lifecycle management.</p>
+                <a href="/api/tpa.html">View Documentation →</a>
+            </div>
+
+            <div class="api-card">
+                <h3>Lobby API</h3>
+                <div class="package">com.serveressentials.api.lobby</div>
+                <p>Asynchronous lobby teleportation with per-world support, animations, and dynamic configuration.</p>
+                <a href="/api/lobby.html">View Documentation →</a>
+            </div>
+
+            <div class="api-card">
+                <h3>Shop API</h3>
+                <div class="package">com.serveressentials.api.shop</div>
+                <p>Graphical shop system with sections, pagination, custom layouts, and per-item buy/sell pricing.</p>
+                <a href="/api/shop.html">View Documentation →</a>
+            </div>
+
+            <div class="api-card">
+                <h3>SellGUI API</h3>
+                <div class="package">com.serveressentials.api.sellgui</div>
+                <p>Inventory-based item selling interface with price calculations and economic integration.</p>
+                <a href="/api/sellgui.html">View Documentation →</a>
+            </div>
+        </div>
+
+        <div class="section-title">Player Management APIs</div>
+        <div class="api-grid">
+            <div class="api-card">
+                <h3>Kits API</h3>
+                <div class="package">com.serveressentials.api.kits</div>
+                <p>Kit redemption system with cooldowns, permissions, and inventory management.</p>
+                <a href="/api/kits.html">View Documentation →</a>
+            </div>
+
+            <div class="api-card">
+                <h3>Nick API</h3>
+                <div class="package">com.serveressentials.api.nick</div>
+                <p>Player nickname management with prefix/suffix support and tab list integration.</p>
+                <a href="/api/nick.html">View Documentation →</a>
+            </div>
+
+            <div class="api-card">
+                <h3>AFK API</h3>
+                <div class="package">com.serveressentials.api.afk</div>
+                <p>Automatic AFK detection with kick timers, status messages, and event handling.</p>
+                <a href="/api/afk.html">View Documentation →</a>
+            </div>
+
+            <div class="api-card">
+                <h3>Back API</h3>
+                <div class="package">com.serveressentials.api.back</div>
+                <p>Player death/teleport location tracking with configurable expiration and storage.</p>
+                <a href="/api/back.html">View Documentation →</a>
+            </div>
+        </div>
+
+        <div class="section-title">Utility & Gameplay APIs</div>
+        <div class="api-grid">
+            <div class="api-card">
+                <h3>Random Teleport API</h3>
+                <div class="package">com.serveressentials.api.rtp</div>
+                <p>Safe random location teleportation with biome filtering, border checks, and cooldowns.</p>
+                <a href="/api/rtp.html">View Documentation →</a>
+            </div>
+
+            <div class="api-card">
+                <h3>Scoreboard API</h3>
+                <div class="package">com.serveressentials.api.scoreboard</div>
+                <p>Dynamic scoreboard management with per-player displays, animations, and placeholders.</p>
+                <a href="/api/scoreboard.html">View Documentation →</a>
+            </div>
+
+            <div class="api-card">
+                <h3>Daily Rewards API</h3>
+                <div class="package">com.serveressentials.api.daily</div>
+                <p>Login reward system with streak tracking, economy integration, and customizable rewards.</p>
+                <a href="/api/daily.html">View Documentation →</a>
+            </div>
+
+            <div class="api-card">
+                <h3>Auction API</h3>
+                <div class="package">com.serveressentials.api.auction</div>
+                <p>Player-to-player auction house with bidding, timers, and economic transaction handling.</p>
+                <a href="/api/auction.html">View Documentation →</a>
+            </div>
+        </div>
+
+        <div class="section-title">Administrative APIs</div>
+        <div class="api-grid">
+            <div class="api-card">
+                <h3>Reports API</h3>
+                <div class="package">com.serveressentials.api.reports</div>
+                <p>Player report system with evidence collection, admin notifications, and ticket management.</p>
+                <a href="/api/reports.html">View Documentation →</a>
+            </div>
+        </div>
+
+        <div class="card" style="margin-top: 2rem;">
+            <div class="card-header">Implementation Guidelines</div>
+            <div class="card-body">
+                <p style="margin-bottom: 1rem; color: var(--text-2);">
+                    All ServerEssentials APIs follow these core principles:
+                </p>
+                <ul style="color: var(--text-2); padding-left: 1rem;">
+                    <li style="margin-bottom: 0.5rem;"><strong>Thread Safety:</strong> All methods are thread-safe and return CompletableFuture for async operations</li>
+                    <li style="margin-bottom: 0.5rem;"><strong>Event-Driven:</strong> Comprehensive event system for monitoring all state changes</li>
+                    <li style="margin-bottom: 0.5rem;"><strong>Null Safety:</strong> All public methods use @NotNull annotations</li>
+                    <li style="margin-bottom: 0.5rem;"><strong>Immutability:</strong> Data classes are immutable with defensive copying</li>
+                    <li style="margin-bottom: 0.5rem;"><strong>Economy Integration:</strong> Built-in support for Vault and internal economy systems</li>
+                    <li><strong>Persistent Storage:</strong> Automatic saving to disk/database with reload support</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <aside class="sidebar">
+        <div class="card">
+            <div class="card-header">Quick Navigation</div>
+            <div class="card-body">
+                <ul>
+                    <li><a href="/api/economy.html">Economy API</a></li>
+                    <li><a href="/api/warps.html">Warp API</a></li>
+                    <li><a href="/api/tpa.html">TPA API</a></li>
+                    <li><a href="/api/lobby.html">Lobby API</a></li>
+                    <li><a href="/api/shop.html">Shop API</a></li>
+                    <li><a href="/api/sellgui.html">SellGUI API</a></li>
+                    <li><a href="/api/kits.html">Kits API</a></li>
+                    <li><a href="/api/nick.html">Nick API</a></li>
+                    <li><a href="/api/afk.html">AFK API</a></li>
+                    <li><a href="/api/back.html">Back API</a></li>
+                    <li><a href="/api/rtp.html">RTP API</a></li>
+                    <li><a href="/api/scoreboard.html">Scoreboard API</a></li>
+                    <li><a href="/api/daily.html">Daily Rewards API</a></li>
+                    <li><a href="/api/auction.html">Auction API</a></li>
+                    <li><a href="/api/reports.html">Reports API</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Getting Started</div>
+            <div class="card-body" style="font-size: 0.85rem; color: var(--text-2);">
+                <p>All APIs can be accessed through the ServerEssentials plugin manager:</p>
+                <div class="code-block" style="margin-top: 0.75rem; font-size: 0.8rem;">
+                    <pre>ServerEssentialsAPI api = ServerEssentials.getAPI();
+EconomyAPI economy = api.getEconomy();
+WarpAPI warps = api.getWarp();</pre>
+                </div>
+                <p style="margin-top: 0.75rem;">Refer to individual API documentation for detailed usage examples and configuration options.</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Support</div>
+            <div class="card-body" style="font-size: 0.85rem; color: var(--text-2);">
+                <p>Need help implementing these APIs?</p>
+                <ul style="margin-top: 0.75rem; padding-left: 1rem;">
+                    <li>Join our Discord for developer support</li>
+                    <li>Check example plugins on GitHub</li>
+                    <li>View complete JavaDocs for method details</li>
+                </ul>
+            </div>
+        </div>
+    </aside>
+</div>
+
+<footer>
+    <div class="footer-links">
+        <a href="https://modrinth.com/user/_GodlyCow" class="footer-link" target="_blank">Modrinth Profile</a>
+        <a href="https://github.com/GodlyCow203" class="footer-link" target="_blank">GitHub</a>
+        <a href="https://discord.gg/vmhQ2gZr8g" class="footer-link" target="_blank">Discord</a>
+        <a href="mailto:godlycowcow@gmail.com" class="footer-link">Email</a>
+    </div>
+    <p>&copy; <span id="yr"></span> _GodlyCow – Building plugins for the Minecraft community</p>
+</footer>
+
+<script>
+    const themeBtn = document.getElementById('themeBtn');
+    const root = document.documentElement;
+    const saved = localStorage.getItem('theme') || 'dark';
+    root.setAttribute('data-theme', saved);
+    themeBtn.textContent = saved === 'dark' ? '☀️ LIGHT' : '🌙 DARK';
+
+    themeBtn.addEventListener('click', () => {
+        const t = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', t);
+        localStorage.setItem('theme', t);
+        themeBtn.textContent = t === 'dark' ? '☀️ LIGHT' : '🌙 DARK';
+    });
+
+    document.getElementById('yr').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

@@ -63,7 +63,7 @@ public class MailCommand implements CommandExecutor, TabCompleter {
                 break;
             case "send":
                 if (args.length < 3) {
-                    Component msg = langManager.getMessageFor(player, "mail.send-usage",
+                    Component msg = langManager.getMessageFor(player, "commands.mail.send-usage",
                             "<red>Usage: /mail send <player> <message>");
                     player.sendMessage(msg);
                     return true;
@@ -81,23 +81,23 @@ public class MailCommand implements CommandExecutor, TabCompleter {
     }
 
     private void sendUsage(Player player) {
-        Component header = langManager.getMessageFor(player, "mail.usage.header",
+        Component header = langManager.getMessageFor(player, "commands.mail.usage.header",
                 "<gold>----- <white>Mail System <gold>-----");
         player.sendMessage(header);
 
-        Component readLine = langManager.getMessageFor(player, "mail.usage.read",
+        Component readLine = langManager.getMessageFor(player, "commands.mail.usage.read",
                 "<yellow>/mail read <gray>- <white>Read your inbox");
         player.sendMessage(readLine);
 
-        Component sendLine = langManager.getMessageFor(player, "mail.usage.send",
+        Component sendLine = langManager.getMessageFor(player, "commands.mail.usage.send",
                 "<yellow>/mail send <player> <message> <gray>- <white>Send a mail");
         player.sendMessage(sendLine);
 
-        Component clearLine = langManager.getMessageFor(player, "mail.usage.clear",
+        Component clearLine = langManager.getMessageFor(player, "commands.mail.usage.clear",
                 "<yellow>/mail clear <gray>- <white>Clear all mail");
         player.sendMessage(clearLine);
 
-        Component footer = langManager.getMessageFor(player, "mail.usage.footer",
+        Component footer = langManager.getMessageFor(player, "commands.mail.usage.footer",
                 "<gold>---------------------------");
         player.sendMessage(footer);
     }
@@ -105,13 +105,13 @@ public class MailCommand implements CommandExecutor, TabCompleter {
     private void readMail(Player player) {
         storage.getMailbox(player.getUniqueId()).thenAccept(mails -> {
             if (mails.isEmpty()) {
-                Component msg = langManager.getMessageFor(player, "mail.no-mail",
+                Component msg = langManager.getMessageFor(player, "commands.mail.no-mail",
                         "<yellow>You have no mail.");
                 player.sendMessage(msg);
                 return;
             }
 
-            Component header = langManager.getMessageFor(player, "mail.header",
+            Component header = langManager.getMessageFor(player, "commands.mail.header",
                     "<gold><bold>Your Mailbox:</bold>");
             player.sendMessage(header);
 
@@ -119,11 +119,11 @@ public class MailCommand implements CommandExecutor, TabCompleter {
                 MailMessage mail = mails.get(i);
                 int index = i + 1;
 
-                Component indexComp = langManager.getMessageFor(player, "mail.message.index",
+                Component indexComp = langManager.getMessageFor(player, "commands.mail.message.index",
                         "<gray>[{index}]",
                         LanguageManager.ComponentPlaceholder.of("{index}", String.valueOf(index)));
 
-                Component senderComp = langManager.getMessageFor(player, "mail.message.sender",
+                Component senderComp = langManager.getMessageFor(player, "commands.mail.message.sender",
                         "<yellow>{sender}: ",
                         LanguageManager.ComponentPlaceholder.of("{sender}", mail.senderName()));
 
@@ -132,7 +132,7 @@ public class MailCommand implements CommandExecutor, TabCompleter {
                 player.sendMessage(indexComp.append(senderComp).append(messageComp));
             }
 
-            Component footer = langManager.getMessageFor(player, "mail.footer",
+            Component footer = langManager.getMessageFor(player, "commands.mail.footer",
                     "<gold>-------------------- <gray>({count} messages)",
                     LanguageManager.ComponentPlaceholder.of("{count}", String.valueOf(mails.size())));
             player.sendMessage(footer);
@@ -148,7 +148,7 @@ public class MailCommand implements CommandExecutor, TabCompleter {
 
             if (now - lastUsed < cdMillis) {
                 long remainingSeconds = (cdMillis - (now - lastUsed)) / 1000;
-                Component msg = langManager.getMessageFor(sender, "mail.cooldown",
+                Component msg = langManager.getMessageFor(sender, "commands.mail.cooldown",
                         "<red>Please wait {time} seconds before sending mail again.",
                         LanguageManager.ComponentPlaceholder.of("{time}", String.valueOf(remainingSeconds)));
                 sender.sendMessage(msg);
@@ -158,7 +158,7 @@ public class MailCommand implements CommandExecutor, TabCompleter {
             String targetName = args[1];
             OfflinePlayer target = Bukkit.getOfflinePlayerIfCached(targetName);
             if (target == null || target.getName() == null) {
-                Component msg = langManager.getMessageFor(sender, "mail.player-not-found",
+                Component msg = langManager.getMessageFor(sender, "commands.mail.player-not-found",
                         "<red>Player <yellow>{player}</yellow> not found.",
                         LanguageManager.ComponentPlaceholder.of("{player}", targetName));
                 sender.sendMessage(msg);
@@ -173,7 +173,7 @@ public class MailCommand implements CommandExecutor, TabCompleter {
             String message = messageBuilder.toString();
 
             if (message.length() > config.maxLength) {
-                Component msg = langManager.getMessageFor(sender, "mail.message-too-long",
+                Component msg = langManager.getMessageFor(sender, "commands.mail.message-too-long",
                         "<red>Message too long! Max {max} characters.",
                         LanguageManager.ComponentPlaceholder.of("{max}", String.valueOf(config.maxLength)));
                 sender.sendMessage(msg);
@@ -188,20 +188,20 @@ public class MailCommand implements CommandExecutor, TabCompleter {
             storage.addMail(target.getUniqueId(), mail).thenRun(() -> {
                 storage.saveCooldown(sender.getUniqueId(), System.currentTimeMillis());
 
-                Component senderMsg = langManager.getMessageFor(sender, "mail.sent",
+                Component senderMsg = langManager.getMessageFor(sender, "commands.mail.sent",
                         "<green>Mail sent to <yellow>{player}</yellow>.",
                         LanguageManager.ComponentPlaceholder.of("{player}", target.getName()));
                 sender.sendMessage(senderMsg);
 
                 Player onlineTarget = target.getPlayer();
                 if (onlineTarget != null && onlineTarget.isOnline()) {
-                    Component targetMsg = langManager.getMessageFor(onlineTarget, "mail.received",
+                    Component targetMsg = langManager.getMessageFor(onlineTarget, "commands.mail.received",
                             "<green>You have new mail from <yellow>{sender}</yellow>! Use <white>/mail read</white>",
                             LanguageManager.ComponentPlaceholder.of("{sender}", sender.getName()));
                     onlineTarget.sendMessage(targetMsg);
                 }
             }).exceptionally(ex -> {
-                sender.sendMessage(langManager.getMessageFor(sender, "mail.error",
+                sender.sendMessage(langManager.getMessageFor(sender, "commands.mail.error",
                         "<red>Error sending mail. Please try again."));
                 plugin.getLogger().warning("Failed to send mail: " + ex.getMessage());
                 return null;
@@ -212,18 +212,18 @@ public class MailCommand implements CommandExecutor, TabCompleter {
     private void clearMail(Player player) {
         storage.getTotalMailCount(player.getUniqueId()).thenAccept(count -> {
             if (count == 0) {
-                Component msg = langManager.getMessageFor(player, "mail.no-mail",
+                Component msg = langManager.getMessageFor(player, "commands.mail.no-mail",
                         "<yellow>You have no mail to clear.");
                 player.sendMessage(msg);
                 return;
             }
 
             storage.clearMailbox(player.getUniqueId()).thenRun(() -> {
-                Component msg = langManager.getMessageFor(player, "mail.cleared",
+                Component msg = langManager.getMessageFor(player, "commands.mail.cleared",
                         "<green>All mail cleared!");
                 player.sendMessage(msg);
             }).exceptionally(ex -> {
-                player.sendMessage(langManager.getMessageFor(player, "mail.error",
+                player.sendMessage(langManager.getMessageFor(player, "commands.mail.error",
                         "<red>Error clearing mail. Please try again."));
                 plugin.getLogger().warning("Failed to clear mail: " + ex.getMessage());
                 return null;

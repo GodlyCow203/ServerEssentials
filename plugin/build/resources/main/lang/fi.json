@@ -1,0 +1,1299 @@
+{
+  "commands": {
+    "nick": {
+      "disabled": "<#FF2424>Lempinimijärjestelmä on tällä hetkellä pois käytöstä.",
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Käyttö: <white>/nick <lempinimi> tai /nick reset",
+      "invalid-length": "<#FF2424>Lempinimen on oltava <#c0f0ff>{min}<#FF2424> ja <#c0f0ff>{max}<#FF2424> merkin välillä.",
+      "blocked-word": "<#FF2424>Sana <#c0f0ff>{word}<#FF2424> ei ole sallittu.",
+      "blacklisted": "<#FF2424>Tämä lempinimimuoto ei ole sallittu.",
+      "no-formatting": "<#FF2424>Muotoilu ei ole sallittu lempinimissä.",
+      "reset-self": "<#279CF5>Lempinimesi on nollattu.",
+      "set": "<#279CF5>Lempinimesi on asetettu: <#c0f0ff>{nick}<#279CF5>."
+    },
+    "eco": {
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}!",
+      "no-economy": "<#FF2424>Taloussysteemi ei ole käytettävissä!",
+      "usage": "<#279CF5>Käyttö: <#c0f0ff>/{label} give <pelaaja> <määrä>...",
+      "player-not-found": "<#FF2424>Pelaajaa ei löydy: <#c0f0ff>{player}",
+      "unknown-subcommand": "<#FF2424>Tuntematon alikomento: <#c0f0ff>{sub}\n<#708090>Saatavilla: give, take, set, reset",
+      "negative-amount": "<#FF2424>Määrä ei voi olla negatiivinen!",
+      "invalid-amount": "<#FF2424>Virheellinen määrä: <#c0f0ff>{amount}",
+      "amount-too-high": "<#FF2424>Määrä ylittää sallitun enimmäismäärän: <#c0f0ff>{max}",
+      "offline-player": "<#FF2424>Offline-pelaajien saldoa ei voi muuttaa.",
+      "transaction-failed": "<#FF2424>Transaktio epäonnistui: {error}",
+      "give-usage": "<#279CF5>Käyttö: <#c0f0ff>{usage}",
+      "give-success": "<#279CF5>Annettu <#c0f0ff>{amount}<#279CF5> pelaajalle <#c0f0ff>{player}",
+      "give-received": "<#279CF5>Sait <#c0f0ff>{amount}",
+      "take-usage": "<#279CF5>Käyttö: <#c0f0ff>{usage}",
+      "take-success": "<#FF2424>Otettu <#c0f0ff>{amount}<#FF2424> pelaajalta <#c0f0ff>{player}",
+      "take-taken": "<#FF2424>{amount}<#708090> otettiin saldostasi",
+      "set-usage": "<#279CF5>Käyttö: <#c0f0ff>{usage}",
+      "set-success": "<#279CF5>Asetettu pelaajan <#c0f0ff>{player}<#279CF5> saldo: <#c0f0ff>{amount}",
+      "set-received": "<#279CF5>Saldosi asetettiin: <#c0f0ff>{amount}",
+      "reset-success": "<#279CF5>Pelaajan <#c0f0ff>{player}<#279CF5> saldo nollattu",
+      "reset-already-zero": "<#708090>Pelaajan <#c0f0ff>{player}<#708090> saldo on jo nolla"
+    },
+    "nicks": {
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Käyttö: <white>/nicks reload|reset <pelaaja>",
+      "reload": "<#279CF5>Lempinimijärjestelmä päivitetty.",
+      "reset": "<#279CF5>Pelaajan <#c0f0ff>{player}<#279CF5> lempinimi nollattu.",
+      "not-found": "<#FF2424>Pelaajaa <#c0f0ff>{player}<#FF2424> ei löydy."
+    },
+    "afk": {
+      "disabled": "<#FF2424>AFK-järjestelmä on pois käytöstä.",
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Käyttö: <white>/afk [reload]",
+      "enter-afk": "<#279CF5>{player} on nyt AFK.",
+      "leave-afk": "<#279CF5>{player} ei ole enää AFK.",
+      "kick": "<#FF2424>Sinut potkaistiin AFK-tilan vuoksi.",
+      "reload": "<#279CF5>AFK-järjestelmä päivitetty."
+    },
+    "homes": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa!",
+      "gui": {
+        "title": "<#279CF5>Kotien Hallinta",
+        "confirm-title": "<#FF2424>Vahvista Toiminto",
+        "home-title": "<#279CF5><bold>Koti <#c0f0ff>{slot}",
+        "manage-title": "<#279CF5><bold>Hallitse Kotia <#c0f0ff>{slot}",
+        "no-permission": "<#FF2424>Ei lupaa!",
+        "click-set": "<#279CF5>Klikkaa asettaaksesi",
+        "click-teleport": "<#20B2AA>Vasemman klikkaus teleportataksesi",
+        "click-manage": "<#279CF5>Oikean klikkaus hallitaksesi",
+        "click-remove": "<#c0f0ff>Klikkaa poistaaksesi",
+        "empty": "<#708090>Tyhjä paikka",
+        "name": "<#708090>Nimi: <#279CF5>{name}",
+        "coords": "<#708090>XYZ: <#279CF5>{x} {y} {z}",
+        "world": "<#708090>Maailma: <#279CF5>{world}",
+        "confirm": "<#279CF5>Vahvista",
+        "cancel": "<#FF2424>Peruuta",
+        "info": "<#279CF5>Koti <#c0f0ff>{slot}<#279CF5> - {mode}"
+      },
+      "empty-slot": "<#708090>Kotia ei ole asetettu paikkaan <#c0f0ff>{slot}<#708090>.",
+      "world-missing": "<#FF2424>Kodin maailma ei ole enää käytettävissä!",
+      "world-disabled": "<#FF2424>Et voi käyttää koteja tässä maailmassa!",
+      "require-empty-inventory": "<#FF2424>Sinulla on oltava tyhjä reppu asettaaksesi kodin!",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-remove": "<#FF2424>Sinulla ei ole lupaa poistaa koteja!",
+      "teleport-cooldown": "<#FF2424>Odota <#c0f0ff>{seconds}s<#FF2424> ennen kuin teleportaat uudelleen!",
+      "set-cooldown": "<#FF2424>Odota <#c0f0ff>{seconds}s<#FF2424> ennen kuin asetat toisen kodin!",
+      "cross-world-disabled": "<#FF2424>Maanvälinen teleporttaus on pois käytöstä!",
+      "teleport-restricted": "<#FF2424>Et voi teleportata tästä maailmasta!",
+      "teleport": "<#279CF5>Teleportattu kotiin <#c0f0ff>{slot}<#279CF5>.",
+      "set": "<#279CF5>Koti <#c0f0ff>{slot}<#279CF5> asetettu: <#c0f0ff>{world} {x} {y} {z}<#279CF5>.",
+      "remove": "<#279CF5>Koti <#c0f0ff>{slot}<#279CF5> poistettu.",
+      "rename": {
+        "prompt": "<#279CF5>Kirjoita uusi nimi tälle kodille chattiin:",
+        "success": "<#279CF5>Koti nimetty uudelleen: <#c0f0ff>{name}<#279CF5>.",
+        "duplicate": "<#FF2424>Sinulla on jo koti nimeltä '<#c0f0ff>{name}<#FF2424>'!",
+        "too-long": "<#FF2424>Nimi liian pitkä! Max <#c0f0ff>{max}<#FF2424> merkkiä."
+      }
+    },
+    "loom": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "gui-title": "<#D2691E><bold>Kangaspuu Käyttöliittymä",
+      "error-item-name": "<#D2691E><bold>Virhe",
+      "error-item-lore": "<#708090>Ominaisuutta ei ole toteutettu",
+      "opened": "<#279CF5>Kangaspuu käyttöliittymä avattu.",
+      "clicked-error": "<#FF2424>Klikkasit virhekohdetta! Ei toteutettu."
+    },
+    "stonecutter": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "opened": "<#279CF5>Kivileikkuri avattu."
+    },
+    "grindstone": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "opened": "<#279CF5>Taso avattu."
+    },
+    "cartographytable": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "opened": "<#279CF5>Karttatyöpöytä avattu."
+    },
+    "anvil": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "opened": "<#279CF5>Alasin avattu."
+    },
+    "craftingtable": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "opened": "<#279CF5>Työpöytä avattu."
+    },
+    "smithingtable": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "success": "<#279CF5>Takomon työpöytä avattu."
+    },
+    "broadcast": {
+      "no-permission": "<#FF2424>Sinulla ei ole lupaa käyttää tätä komentoa!",
+      "usage": "<#FF2424>Käyttö: /broadcast <viesti>",
+      "format": "<#279CF5>[Palvelin] <white>{message}"
+    },
+    "reboot": {
+      "no-permission": "<#FF2424>Sinulla ei ole lupaa käyttää tätä komentoa!",
+      "usage": "<#FF2424>Käyttö: /reboot <minuutit>",
+      "announce-scheduled": "<#FF2424>Palvelin käynnistetään uudelleen {time} minuutin kuluttua.",
+      "announce-minutes": "<#279CF5>Uudelleenkäynnistys {time} minuutin kuluttua.",
+      "announce-seconds": "<#279CF5>Uudelleenkäynnistys {time} sekunnin kuluttua.",
+      "announce-now": "<#FF2424><bold>Käynnistetään uudelleen nyt!",
+      "titles": {
+        "minute-warning": "<#279CF5>Uudelleenkäynnistys {time} minuutin kuluttua.",
+        "second-warning": "<#279CF5><bold>{time}",
+        "now": "<#FF2424><bold>Käynnistetään uudelleen nyt!"
+      }
+    },
+    "broadcastworld": {
+      "no-permission": "<#FF2424>Sinulla ei ole lupaa käyttää tätä komentoa!",
+      "usage": "<#FF2424>Käyttö: /broadcastworld <maailma> <viesti>",
+      "world-not-found": "<#FF2424>Maailmaa <#c0f0ff>{world}<#FF2424> ei löydy!",
+      "message-sent": "<#279CF5>Viesti lähetetty maailmaan <#c0f0ff>{world}<#279CF5>.",
+      "broadcast": "<white>{message}"
+    },
+    "spawner": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa.",
+      "no-permission": "<#FF2424>Sinulla ei ole lupaa käyttää tätä komentoa!",
+      "usage": "<#279CF5>Käyttö: <white>/spawner <hirviö>",
+      "look-at-spawner": "<#FF2424>Katso spawneria vaihtaaksesi sitä!",
+      "no-permission-mob": "<#FF2424>Sinulla ei ole lupaa asettaa spawneria kohteeksi {mob}!",
+      "changed": "<#279CF5>Spawnerin tyyppi vaihdettu: <#c0f0ff>{mob}<#279CF5>.",
+      "invalid-mob": "<#FF2424>Virheellinen hirviötyyppi: {mob}",
+      "help": {
+        "header": "<#279CF5><bold>=== Spawner Komennon Ohje ===</bold>",
+        "description": "<#279CF5>Kuvaus: <white>Vaihda olentospawnerin tyyppi.",
+        "usage": "<#279CF5>Käyttö:</#279CF5> <white>/spawner <hirviö>",
+        "permission": "<#279CF5>Vaadittu Lupa:</#279CF5> <white>{permission}",
+        "available": {
+          "header": "<#279CF5>Saatavilla olevat hirviötyypit:</#279CF5>",
+          "mob": "  <white>• {mob}",
+          "more": "  <gray>... ja {count} lisää</gray>"
+        },
+        "footer": "<gray>Käytä <white>/spawner help</white> nähdäksesi tämän viestin uudelleen.</gray>"
+      }
+    },
+    "serverinfo": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa!",
+      "no-permission": "<#FF2424>Sinulla ei ole lupaa käyttää tätä komentoa!",
+      "header": "<#279CF5>========== Palvelimen Tiedot ==========",
+      "ram": "<#279CF5>RAM: <white>{used}MB / {max}MB",
+      "disk": "<#279CF5>Levy: <white>{free}MB vapaana / {total}MB yhteensä",
+      "tps": "<#279CF5>TPS: <white>{tps}",
+      "cpu": "<#279CF5>CPU: <white>{cores} ydintä, {load} kuorma",
+      "os": "<#279CF5>Käyttöjärjestelmä: <white>{name} {version} ({arch})",
+      "uptime": "<#279CF5>Käyttöaika: <white>{hours}h {minutes}m {seconds}s",
+      "java": "<#279CF5>Java: <white>{version}",
+      "host": "<#279CF5>Isäntä: <white>{hostname} ({address})",
+      "net": "<#279CF5>Verkko: <white>{interfaces}",
+      "plugins": "<#279CF5>Lisäosat: <white>{count}",
+      "minecraft": "<#279CF5>Minecraft: <white>{version}",
+      "paper": "<#279CF5>Palvelin: <white>{version}",
+      "players": "<#279CF5>Pelaajat: <white>{online}/{max}",
+      "gpu": "<#279CF5>GPU: <white>{gpu}",
+      "jvm": "<#279CF5>JVM Argumentit: <white>{args}"
+    },
+    "unloadworld": {
+      "no-permission": "<#FF2424>Sinulla ei ole lupaa käyttää tätä komentoa!",
+      "usage": "<#FF2424>Käyttö: /unloadworld <maailma>",
+      "not-found": "<#FF2424>Maailmaa <#c0f0ff>{world}<#FF2424> ei löydy!",
+      "failed": "<#FF2424>Maailman <#c0f0ff>{world}<#FF2424> purkaminen epäonnistui!",
+      "success": "<#279CF5>Maailma <#c0f0ff>{world}<#279CF5> purettu."
+    },
+    "uptime": {
+      "no-permission": "<#FF2424>Sinulla ei ole lupaa käyttää tätä komentoa!",
+      "info": "<#279CF5>Käyttöaika: <white>{uptime}"
+    },
+    "loadworld": {
+      "no-permission": "<#FF2424>Sinulla ei ole lupaa käyttää tätä komentoa!",
+      "usage": "<#FF2424>Käyttö: /loadworld <maailma>",
+      "already-loaded": "<#FF2424>Maailma <#c0f0ff>{world}<#FF2424> on jo ladattu!",
+      "success": "<#279CF5>Maailma <#c0f0ff>{world}<#279CF5> ladattu.",
+      "failed": "<#FF2424>Maailman <#c0f0ff>{world}<#FF2424> lataaminen epäonnistui!"
+    },
+    "worldlist": {
+      "no-permission": "<#FF2424>Sinulla ei ole lupaa käyttää tätä komentoa!",
+      "header": "<#279CF5>========== Maailmat ==========",
+      "status-loaded": "<#279CF5>Ladattu",
+      "entry": "<#279CF5>{world} <#708090>({status}) <white>- Chunkit: {chunks}, Entiteetit: {entities}, Pelaajat: {players}"
+    },
+    "playerinfo": {
+      "no-permission": "<#FF2424>Sinulla ei ole lupaa käyttää tätä komentoa!",
+      "usage": "<#279CF5>Käyttö: <white>/playerinfo <pelaaja>",
+      "not-found": "<#FF2424>Pelaajaa ei löydy.",
+      "header": "<#279CF5>----- Pelaajan Tiedot -----",
+      "name": "<#279CF5>Nimi: <white>{player}",
+      "uuid": "<#279CF5>UUID: <white>{uuid}",
+      "health": "<#279CF5>Elämä: <white>{health}/{maxhealth}",
+      "food": "<#279CF5>Ruoka: <white>{food}",
+      "location": "<#279CF5>Sijainti: <white>{location}"
+    },
+    "heal": {
+      "no-permission": "<#FF2424>Sinulla ei ole lupaa käyttää tätä komentoa!",
+      "no-permission-others": "<#FF2424>Sinulla ei ole lupaa parantaa muita pelaajia!",
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa!",
+      "player-not-found": "<#FF2424>Pelaajaa ei löydy: {player}",
+      "usage": "<#FF2424>Käyttö: /heal [pelaaja]",
+      "success-self": "<#279CF5>Sinut on parannettu.",
+      "success-other": "<#279CF5>Paransit pelaajan <#c0f0ff>{player}<#279CF5>.",
+      "success-healed": "<#279CF5>Sinut paransi <#c0f0ff>{healer}<#279CF5>."
+    },
+    "endersee": {
+      "no-permission": "<#FF2424>Sinulla ei ole lupaa katsella omaa ender-arkkusi!",
+      "no-permission-others": "<#FF2424>Sinulla ei ole lupaa katsella muiden pelaajien ender-arkkuja!",
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa!",
+      "usage": "<#279CF5>Käyttö: <white>/endersee [pelaaja]",
+      "player-not-found": "<#FF2424>Pelaajaa <#c0f0ff>{player}<#FF2424> ei löydy!",
+      "opened-self": "<#279CF5>Avattiin oma ender-arkkusi.",
+      "opened-other": "<#279CF5>Avattiin pelaajan <#c0f0ff>{player}<#279CF5> ender-arkku."
+    },
+    "freeze": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa!",
+      "usage": "<#FF2424>Käyttö: /freeze <pelaaja>",
+      "player-not-found": "<#FF2424>Pelaajaa <#c0f0ff>{player}<#FF2424> ei löydy.",
+      "froze": "<#279CF5>Jäädytetty <#c0f0ff>{player}<#279CF5>.",
+      "unfroze": "<#279CF5>Sulatettu <#c0f0ff>{player}<#279CF5>.",
+      "target-frozen": "<#FF2424>Sinut on jäädytetty!",
+      "target-unfrozen": "<#279CF5>Sinut on sulatettu."
+    },
+    "unfreeze": {
+      "no-permission": "<#FF2424>Sinulla ei ole lupaa käyttää tätä komentoa!",
+      "usage": "<#FF2424>Käyttö: /unfreeze <pelaaja>",
+      "player-not-found": "<#FF2424>Pelaajaa <#c0f0ff>{player}<#FF2424> ei löydy!",
+      "not-frozen": "<#FF2424>Pelaaja <#c0f0ff>{player}<#FF2424> ei ole jäädytetty!",
+      "success": "<#279CF5>Sulatettu <#c0f0ff>{player}<#279CF5>.",
+      "target-unfrozen": "<#279CF5>Sinut on sulatettu."
+    },
+    "clearchat": {
+      "no-permission": "<#FF2424>Sinulla ei ole lupaa käyttää tätä komentoa.",
+      "cleared": "<#708090>Chat tyhjennetty käyttäjän <#FF2424>{player}</#FF2424> toimesta."
+    },
+    "vanish": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa!",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "vanished": "<#279CF5>Olet nyt näkymätön.",
+      "visible": "<#279CF5>Olet nyt näkyvissä kaikille pelaajille."
+    },
+    "god": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa!",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "enabled": "<#279CF5>Jumalatila päällä.",
+      "disabled": "<#FF2424>Jumalatila pois päältä."
+    },
+    "invsee": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Käyttö: <white>/invsee <pelaaja>",
+      "player-not-found": "<#FF2424>Pelaajaa ei löydy: <white>{player}",
+      "success": "<#279CF5>Katsot pelaajan <#c0f0ff>{player}<#279CF5> reppua.",
+      "help": {
+        "header": "<#279CF5><bold>=== Invsee Komennon Ohje ===</bold>",
+        "description": "<#279CF5>Kuvaus: <white>Katso toisen pelaajan reppu.",
+        "usage": "<#279CF5>Käyttö:</#279CF5> <white>/invsee <pelaaja>",
+        "permission": "<#279CF5>Vaadittu Lupa:</#279CF5> <white>{permission}",
+        "footer": "<gray>Käytä <white>/invsee help</white> nähdäksesi tämän viestin uudelleen.</gray>"
+      }
+    },
+    "invclear": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa!",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "player-not-found": "<#FF2424>Pelaajaa <#c0f0ff>{player}<#FF2424> ei löydy!",
+      "cleared": "<#279CF5>Reppusi on tyhjennetty.",
+      "cleared-other": "<#279CF5>Tyhjennetty pelaajan <#c0f0ff>{player}<#279CF5> reppu."
+    },
+    "tp": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa!",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#FF2424>Käyttö: /tp <pelaaja>",
+      "player-not-found": "<#FF2424>Pelaajaa <#c0f0ff>{player}<#FF2424> ei löydy.",
+      "success": "<#279CF5>Teleportattu pelaajan <#c0f0ff>{player}<#279CF5> luokse."
+    },
+    "kickall": {
+      "usage": "<#FF2424>Käyttö: /kickall <syy>",
+      "kick-message": "<#FF2424>Potkittu käyttäjän <#c0f0ff>{admin}<#FF2424> toimesta!\n<#708090>Syy: <white>{reason}",
+      "sender-message": "<#279CF5>Potkittu <#c0f0ff>{count}<#279CF5> pelaajaa.\n<#708090>Syy: <white>{reason}",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!"
+    },
+    "pingall": {
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "header": "<#279CF5>Paikalla olevien pelaajien pingit:",
+      "player-line": "<#279CF5>- {player}: <#c0f0ff>{ping}ms"
+    },
+    "alts": {
+      "usage": "<#FF2424>Käyttö: /alts <pelaaja>",
+      "player-offline": "<#FF2424>Pelaajan on oltava paikalla tarkistaaksesi hänen IP-osoitteensa.",
+      "header": "<#279CF5>Saman IP-osoitteen pelaajat kuin {target}:",
+      "none": "<#708090>- Ei löydy paikalla olevia.",
+      "found": "<#708090>- {player}",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!"
+    },
+    "stafflist": {
+      "header": "<#4169E1>--- Paikalla oleva henkilökunta ---",
+      "none": "<#708090>Ei henkilökunnan jäseniä paikalla.",
+      "format": "<#279CF5><#c0f0ff>{player}",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!"
+    },
+    "editsign": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "not-looking-at-sign": "<#FF2424>Et katso kylttiä.",
+      "usage": "<#279CF5>Käyttö: <white>/editsign <rivi1>|<rivi2>|<rivi3>|<rivi4>",
+      "success": "<#279CF5>Kyltti päivitetty."
+    },
+    "iteminfo": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "no-item": "<#FF2424>Sinun on pidettävä esinettä pääkädessäsi.",
+      "header": "<#4169E1>≡ <bold>Esineen Tiedot</bold> <#4169E1>≡",
+      "type": "<#708090>Tyyppi: <white>{type}",
+      "amount": "<#708090>Määrä: <white>{amount}",
+      "name": "<#708090>Nimi: <white>{name}",
+      "lore-header": "<#708090>≡ <bold>Tarina</bold> <#708090>≡",
+      "lore-content": "<white>>> {lore}",
+      "no-meta": "<#708090>Ei lisätietoja.",
+      "enchants-header": "<#708090>≡ <bold>Lumoukset</bold> <#708090>≡",
+      "enchant-line": "<#c0f0ff>✦ <white>{enchant} <#708090>Taso {level}",
+      "flags-header": "<#708090>≡ <bold>Esineen Liput</bold> <#708090>≡",
+      "flag-line": "<#c0f0ff>- <#708090>{flag}"
+    },
+    "death": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "count": "<#FF2424>Olet kuollut <#c0f0ff>{deaths}<#FF2424> kertaa."
+    },
+    "realname": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Käyttö: <white>/realname <lempinimi>",
+      "found": "<#279CF5>Lempinimi <#c0f0ff>{nickname}<#279CF5> kuuluu pelaajalle <#c0f0ff>{realname}<#279CF5>.",
+      "not-found": "<#FF2424>Ei pelaajaa lempinimellä <#c0f0ff>{nickname}<#FF2424>."
+    },
+    "speed": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Käyttö: <white>/speed <1-10>",
+      "invalid-number": "<#FF2424>Nopeuden on oltava <#c0f0ff>1-10<#FF2424> välillä.",
+      "fly-set": "<#279CF5>Lentonopeus asetettu: <#c0f0ff>{speed}<#279CF5>.",
+      "walk-set": "<#279CF5>Kävelynopeus asetettu: <#c0f0ff>{speed}<#279CF5>."
+    },
+    "launch": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "launched": "<#279CF5><bold>Whoosh!</bold> <white>Sinut on laukaistu!"
+    },
+    "repair": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "no-item": "<#FF2424>Sinun on pidettävä esinettä pääkädessäsi korjataksesi sen.",
+      "cannot-repair": "<#FF2424>Tätä esinettä ei voi korjata.",
+      "already-full": "<#279CF5>Esine on jo täydessä kestävyydessä.",
+      "success": "<#279CF5>Esine täysin korjattu."
+    },
+    "sleep": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "broadcast": "<#279CF5>{player} ohitti yön! <#708090>(Nuku komento)",
+      "success": "<#279CF5>Yö ohitettu ja sää selkeytetty."
+    },
+    "ping": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "show": "<#708090>Pingisi: {ping}ms"
+    },
+    "disposal": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "inventory-title": "<#FF2424><bold>Hävitys",
+      "opened": "<#279CF5>Hävitys avattu. Aseta esineet tähän poistaaksesi ne."
+    },
+    "compass": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "facing": "<#279CF5>Olet suunnassa <#279CF5><bold>{direction}"
+    },
+    "top": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "teleported": "<#279CF5>Teleportattu ylimmän lohkon päälle!",
+      "no-block": "<#FF2424>Ei kiinteää lohkoa yläpuolellasi!"
+    },
+    "ext": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa!",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-others": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424> sammuttaaksesi muita pelaajia!",
+      "player-not-found": "<#FF2424>Pelaajaa ei löydy!",
+      "self": "<#279CF5>Sinut on sammutettu.",
+      "target": "<#279CF5>Sammutit pelaajan <#c0f0ff>{target}"
+    },
+    "tpp": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-world": "<#FF2424>Sinulla ei ole lupaa käyttää maailmaa <#c0f0ff>{world}<#FF2424>!",
+      "no-permission-others": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424> teleportataksesi muita pelaajia!",
+      "usage": "<#279CF5>Käyttö: /tpp <pelaaja> <maailma> [x y z]",
+      "player-not-found": "<#FF2424>Pelaajaa <#c0f0ff>{player}<#FF2424> ei löydy!",
+      "world-not-loaded": "<#FF2424>Maailma <#c0f0ff>{world}<#FF2424> ei ole ladattu!",
+      "invalid-coords": "<#FF2424>Koordinaattien on oltava numeroita!",
+      "teleported-target": "<#279CF5>Teleportattu pelaaja <#c0f0ff>{target}<#279CF5> maailmaan <#c0f0ff>{world}<#279CF5>.",
+      "teleported-self": "<#279CF5>Teleportattu maailmaan <#c0f0ff>{world}<#279CF5> kohtaan <#708090>({x}, {y}, {z})"
+    },
+    "magnet": {
+      "only-player": "<#279CF5>Vain pelaajat voivat käyttää tätä komentoa.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "toggle-on": "<#279CF5>Magneetti päällä. Esineet <#c0f0ff>{radius}<#279CF5> lohkon säteellä vedetään luoksesi.",
+      "toggle-off": "<#FF2424>Magneetti pois päältä.",
+      "error": "<#FF2424>Magneetin vaihto epäonnistui: <#c0f0ff>{error}"
+    },
+    "day": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "success": "<#279CF5>Aika asetettu päivään maailmassa <#c0f0ff>{world}<#279CF5>."
+    },
+    "inventorysort": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "success": "<#279CF5>Reppu järjestetty ja pinottu."
+    },
+    "book": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa!",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-others": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424> antaaksesi kirjoja muille!",
+      "player-not-found": "<#FF2424>Pelaajaa <#c0f0ff>{player}<#FF2424> ei löydy!",
+      "inventory-full-self": "<#FF2424>Repussasi ei ole tilaa!",
+      "inventory-full-other": "<#FF2424>Pelaajan {target} repussa ei ole tilaa!",
+      "self-success": "<#279CF5>Sait infokirjan.",
+      "target-success": "<#279CF5>Annoit kirjan pelaajalle <#c0f0ff>{player}<#279CF5>.",
+      "received": "<#279CF5>Sait kirjan pelaajalta <#c0f0ff>{sender}<#279CF5>."
+    },
+    "break": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "no-block": "<#FF2424>Ei hajotettavaa lohkoa <#c0f0ff>{distance}<#FF2424> lohkon säteellä.",
+      "success": "<#279CF5>Rikottiin lohko kohtaa <#c0f0ff>{x} {y} {z}<#279CF5>."
+    },
+    "setloreline": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Käyttö: <white>/setloreline <teksti>",
+      "no-item": "<#FF2424>Et pidä esinettä kädessäsi.",
+      "lore-set": "<#279CF5>Tarina asetettu: <white>{lore}"
+    },
+    "track": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Käyttö: <white>/track <pelaaja>",
+      "not-found": "<#FF2424>Pelaajaa <#c0f0ff>{target}<#FF2424> ei löydy.",
+      "success": "<#279CF5>Seurataan nyt pelaajaa <#c0f0ff>{target}<#279CF5>. Kompassi päivitetty."
+    },
+    "suicide": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "success": "<#FF2424>Otat omaa henkeäsi.",
+      "error": "<#FF2424>Itsemurhayrityksen kirjaaminen epäonnistui."
+    },
+    "kill": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "kill-count": "<#279CF5>Sinulla on <#c0f0ff>{kills}<#279CF5> pelaajatappoa."
+    },
+    "bottom": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "success": "<#279CF5>Teleportattu pohjalle! <#708090>(Y: {y})",
+      "no-safe-ground": "<#FF2424>Ei turvallista maata alla!"
+    },
+    "condense": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa!",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "success": "<#279CF5>Tiivistetty esineitä <#c0f0ff>{blocks}<#279CF5> lohkoksi.",
+      "not-enough": "<#279CF5>Sinulla ei ole tarpeeksi esineitä tiivistettäväksi."
+    },
+    "nuke": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa!",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "deployed": "<#279CF5>Ydinpommi asetettu! <#708090>(Voima: {power})"
+    },
+    "weather": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-sub": "<#FF2424>Tarvitset luvan <#c0f0ff>{subpermission}<#FF2424>!",
+      "usage": "<#279CF5>Käyttö: <white>/weather <clear|rain|thunderstorm>",
+      "clear": "<#279CF5>Sää asetettu kirkkaaksi <white>{duration}s<#279CF5>.",
+      "rain": "<#c0f0ff>Sää asetettu sateiseksi <white>{duration}s<#c0f0ff>.",
+      "thunderstorm": "<#279CF5>Sää asetettu ukkosmyrskyksi <white>{duration}s<#279CF5>.",
+      "invalid-type": "<#FF2424>Virheellinen säätyyppi. Käytä: clear, rain, tai thunderstorm.",
+      "help": {
+        "header": "<#279CF5><bold>=== Sää Komennon Ohje ===</bold>",
+        "description": "<#279CF5>Kuvaus: <white>Muuta säätä nykyisessä maailmassa asetetun keston ajaksi.",
+        "usage": "<#279CF5>Käyttö:</#279CF5> <white>/weather <tyyppi>",
+        "types": {
+          "header": "<#279CF5>Saatavilla olevat säätyypit:</#279CF5>",
+          "clear": "  <white>clear</white> <gray>- Aurinkoinen</gray>",
+          "clear.no-perm": "  <#FF2424>clear</#FF2424> <gray>- Ei lupaa</gray>",
+          "rain": "  <white>rain</white> <gray>- Sade</gray>",
+          "rain.no-perm": "  <#FF2424>rain</#FF2424> <gray>- Ei lupaa</gray>",
+          "thunderstorm": "  <white>thunderstorm</white> <gray>- Ukkosmyrsky</gray>",
+          "thunderstorm.no-perm": "  <#FF2424>thunderstorm</#FF2424> <gray>- Ei lupaa</gray>"
+        },
+        "duration": "<#279CF5>Kesto:</#279CF5> <white>{duration} sekuntia",
+        "examples": {
+          "header": "<#279CF5>Esimerkkejä:</#279CF5>",
+          "clear": "  <white>/weather clear</white> <gray>- Aseta sää aurinkoiseksi</gray>",
+          "rain": "  <white>/weather rain</white> <gray>- Aseta sää sateiseksi</gray>",
+          "thunderstorm": "  <white>/weather thunderstorm</white> <gray>- Aseta sää ukkosmyrskyksi</gray>"
+        },
+        "footer": "<gray>Käytä <white>/weather help</white> nähdäksesi tämän viestin uudelleen.</gray>"
+      }
+    },
+    "playtime": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Käyttö: <white>/playtime",
+      "playtime": "<#279CF5>Peliaikasi: <#c0f0ff>{hours}h {minutes}m"
+    },
+    "recipe": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Käyttö: <white>/recipe <resepti>",
+      "not-found": "<#FF2424>Reseptiä ei löydy!",
+      "result": "<#279CF5>Resepti: <#c0f0ff>{item}",
+      "shaped-header": "<#279CF5>Muotoon aseteltu resepti:",
+      "shapeless-header": "<#279CF5>Muodoton resepti:",
+      "ingredient-line": "<#279CF5>- {char}: <white>{item} <#279CF5>x{amount}",
+      "ingredient-line-shapeless": "<#279CF5>- <white>{item} <#279CF5>x{amount}",
+      "unknown-type": "<#FF2424>Tuntematon reseptityyppi!"
+    },
+    "enderchest": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-others": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Käyttö: <white>/enderchest [pelaaja]",
+      "opening": "<#279CF5>Avataan ender-arkkusi...",
+      "opening-other": "<#279CF5>Avataan pelaajan <#c0f0ff>{player}<#279CF5> ender-arkku...",
+      "player-not-found": "<#FF2424>Pelaajaa <#c0f0ff>{player}<#FF2424> ei löydy.",
+      "offline-not-supported": "<#FF2424>Offline-pelaajan <#c0f0ff>{player}<#FF2424> ender-arkkua ei voi avata."
+    },
+    "seen": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Käyttö: <white>/seen <pelaaja>",
+      "player-not-found": "<#FF2424>Pelaajaa <#c0f0ff>{player}<#FF2424> ei löydy.",
+      "result": "<#279CF5>{player} nähtiin viimeksi: <white>{lastSeen}",
+      "result-online": "<#279CF5>{player} on tällä hetkellä <bold>paikalla<#279CF5>!",
+      "never-joined": "<#279CF5>{player} ei ole koskaan liittynyt palvelimelle."
+    },
+    "back": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-sub": "<#FF2424>Tarvitset luvan <#c0f0ff>{subpermission}<#FF2424>!",
+      "usage": "<#279CF5>Käyttö: <white>/back [lobby|death|back]",
+      "no-back": "<#FF2424>Ei aiempaa sijaintia tallennettuna.",
+      "invalid-back": "<#FF2424>Viimeinen sijaintisi on virheellinen.",
+      "teleported-back": "<#279CF5>Teleportattu takaisin edelliseen sijaintiin.",
+      "lobby-not-set": "<#FF2424>Aulaa ei ole asetettu tai maailma ei ole ladattu.",
+      "teleported-lobby": "<#279CF5>Teleportattu aulaan.",
+      "no-death-location": "<#FF2424>Kuolinsijaintia ei löydy.",
+      "teleported-death": "<#279CF5>Teleportattu viimeiseen kuolinkohtaasi.",
+      "unknown-usage": "<#FF2424>Tuntematon alikomento. Käytä: <white>/back, /back lobby, /back death"
+    },
+    "tree": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "specify-type": "<#279CF5>Määritä puutyyppi.",
+      "invalid-type": "<#FF2424>Virheellinen puutyyppi! Sallitut tyypit: <#c0f0ff>{types}",
+      "tree-planted": "<#279CF5>Puun istutus: <#c0f0ff>{type}",
+      "cannot-grow": "<#FF2424>Puuta ei voi kasvattaa täällä! Varmista riittävä tila ja sopiva maa."
+    },
+    "notes": {
+      "only-player": "<#708090>Vain pelaajat voivat käyttää muistiinpanoja.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424> käyttääksesi muistiinpanoja!",
+      "usage": "<#279CF5>Käyttö:</#279CF5> <white>/notes <nimi> [sisältö]",
+      "list-empty": "<#708090>Sinulla ei ole tallennettuja muistiinpanoja.",
+      "list-header": "<#279CF5>Sinun muistiinpanosi:</#279CF5> ",
+      "not-found": "<#FF2424>Muistiinpanoa '<#c0f0ff>{name}<#FF2424>' ei löydy.",
+      "view": "<#279CF5>Muistiinpano '<#c0f0ff>{name}<#279CF5>':</#279CF5> <white>{content}",
+      "saved": "<#279CF5>Tallennettu muistiinpano '<#c0f0ff>{name}<#279CF5>':</#279CF5> <white>{content}"
+    },
+    "scoreboard": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tulostaulukomentoja.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424> käyttääksesi tätä!",
+      "no-permission-reload": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424> päivittääksesi!",
+      "no-permission-toggle": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424> vaihtaaksesi!",
+      "no-permission-color": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424> vaihtaaksesi asetuksia!",
+      "usage": "<#279CF5>Käyttö:</#279CF5> <white>/scoreboard <reload|toggle|color> [asetus]",
+      "toggle": {
+        "enabled": "<#279CF5>Tulostaulu päällä!",
+        "disabled": "<#708090>Tulostaulu pois päältä!"
+      },
+      "reload": {
+        "success": "<#279CF5>Kaikki tulostaulut päivitetty!"
+      },
+      "color": {
+        "usage": "<#279CF5>Käyttö: /scoreboard color <asetus>",
+        "not-found": "<#FF2424>Asetusta '<#c0f0ff>{layout}<#FF2424>' ei löydy!",
+        "changed": "<#279CF5>Asetus vaihdettu: <#c0f0ff>{layout}<#279CF5>."
+      }
+    },
+    "burn": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa!",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-sub": "<#FF2424>Tarvitset luvan <#c0f0ff>{subpermission}<#FF2424>!",
+      "usage": "<#279CF5>Käyttö: <white>/burn <pelaaja> [sekuntia]",
+      "player-not-found": "<#FF2424>Pelaajaa <#c0f0ff>{target}<#FF2424> ei löydy!",
+      "immune-gamemode": "<#FF2424>{target} on <#c0f0ff>{gamemode}<#FF2424>-tilassa ja on immuuni!",
+      "invalid-number": "<#FF2424>Käytä <#c0f0ff>1-{max}<#FF2424> sekuntia.",
+      "target-burned": "<#FF2424>Sinut sytytettiin tuleen pelaajan <#c0f0ff>{attacker}<#FF2424> toimesta!",
+      "sender-burned": "<#279CF5>Pelaaja <#c0f0ff>{target}<#279CF5> on nyt tulessa <#c0f0ff>{seconds}s<#279CF5>.",
+      "self-burned": "<#279CF5>Asetuit itse tuleen <#c0f0ff>{seconds}s<#279CF5> ajaksi."
+    },
+    "feed": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-others": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Käyttö: <white>/feed [pelaaja]",
+      "player-not-found": "<#FF2424>Pelaajaa <#c0f0ff>{target}<#FF2424> ei löydy!",
+      "fed-self": "<#279CF5>Sinut on ruokittu täyteen.",
+      "fed-other": "<#279CF5>Ruokit pelaajan <#c0f0ff>{target}<#279CF5> täyteen.",
+      "fed-by-other": "<#279CF5>Sinut ruokki täyteen pelaaja <#c0f0ff>{sender}<#279CF5>."
+    },
+    "hat": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "no-item": "<#FF2424>Sinun on pidettävä esinettä pääkädessäsi laittaaksesi sen päähäsi!",
+      "item-not-allowed": "<#FF2424>Tätä esinettä ei voi laittaa päähän! Tarkista asetukset.",
+      "success": "<#279CF5>Päähineesi on päivitetty."
+    },
+    "ptime": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-sub": "<#FF2424>Tarvitset luvan <#c0f0ff>{subpermission}<#FF2424>!",
+      "usage": "<#279CF5>Käyttö: <white>/ptime <day|night|reset>",
+      "invalid-option": "<#FF2424>Käytä: <white>day, night, tai reset",
+      "success": "<#279CF5>Henkilökoikainen aika asetettu: <#c0f0ff>{option}<#279CF5>."
+    },
+    "night": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "success": "<#279CF5>Aika asetettu yöhön maailmassa <#c0f0ff>{world}<#279CF5>."
+    },
+    "auction": {
+      "only-player": "<#279CF5>Vain pelaajat voivat käyttää tätä komentoa.",
+      "no-economy": "<#FF2424>✗ Taloussysteemi ei ole käytettävissä.",
+      "usage": "<#279CF5>Käyttö: <white>/auction [sell <hinta>|my]",
+
+      "gui": {
+        "titles": {
+          "auction": "<#279CF5>Huutokauppa - Sivu <#c0f0ff>{page}",
+          "my-items": "<#279CF5>Sinun Esineesi - Sivu <#c0f0ff>{page}",
+          "remove-confirm": "<#FF2424>Vahvista Poisto"
+        },
+
+        "navigation": {
+          "prev": "<#279CF5>⬅ Edellinen Sivu",
+          "next": "<#279CF5>Seuraava Sivu ➡",
+          "refresh": "<#279CF5>↻ Päivitä",
+          "my-items": "<#279CF5>📦 Sinun Esineesi",
+          "close": "<#FF2424>✕ Sulje"
+        },
+
+        "balance": {
+          "message": "<#279CF5>Saldo: <#c0f0ff>${balance}",
+          "item-name": "<#279CF5>Saldo: <#c0f0ff>${balance}"
+        },
+
+        "refresh": "<#279CF5>Huutokauppa päivitetty!",
+
+        "item": {
+          "name": "<#279CF5>Hinta: <#c0f0ff>${price}",
+          "lore": {
+            "seller": "<#279CF5>Myyjä: <#c0f0ff>{seller}",
+            "seller-price": "<#279CF5>Sinun hintasi: <#c0f0ff>${price}",
+            "expires": "<#279CF5>Vanhenee: <#c0f0ff>{date}",
+            "buyer-click": "<#c0f0ff>Klikkaa ostaaksesi",
+            "seller-click": "<#c0f0ff>Klikkaa poistaaksesi"
+          }
+        },
+
+        "remove": {
+          "confirm": "<#279CF5>✓ Vahvista Poisto",
+          "cancel": "<#FF2424>✗ Peruuta"
+        }
+      },
+
+      "sell": {
+        "no-item": "<#FF2424>Sinun on pidettävä esinettä kädessäsi myydäksesi!",
+        "usage": "<#FF2424>Käyttö: <white>/auction sell <hinta>",
+        "invalid-price": "<#FF2424>Hinnan on oltava positiivinen numero.",
+        "max-limit": "<#FF2424>Voit myydä vain <#c0f0ff>{max}<#FF2424> esinettä kerralla!",
+        "success": "<#279CF5>Esine listattu hintaan <#c0f0ff>${price}<#279CF5>."
+      },
+
+      "purchase": {
+        "not-found": "<#FF2424>Esinettä ei ole enää saatavilla!",
+        "no-economy": "<#FF2424>✗ Taloussysteemi ei ole käytettävissä.",
+        "not-enough-money": "<#FF2424>Sinulla ei ole tarpeeksi rahaa!",
+        "failed": "<#FF2424>Transaktio epäonnistui: <white>{error}",
+        "success": "<#279CF5>Ostettu hintaan <#c0f0ff>${price}<#279CF5>!",
+        "seller-message": "<#279CF5><#c0f0ff>{buyer}<#279CF5> osti esineesi hintaan <#c0f0ff>${price}<#279CF5>!"
+      },
+
+      "remove": {
+        "no-pending": "<#FF2424>Ei odottavaa poistoa löydetty!",
+        "success": "<#279CF5>Esine poistettu onnistuneesti!",
+        "inventory-full": "<#279CF5>Esine pudotettiin maahan (reppu täynnä)",
+        "cancelled": "<#279CF5>Poisto peruutettu.",
+        "not-found": "<#FF2424>Esinettä ei löydy!",
+        "failed": "<#FF2424>Esineen poisto epäonnistui. Yritä uudelleen."
+      }
+    },
+    "paytoggle": {
+      "only-player": "<#279CF5>Vain pelaajat voivat käyttää tätä komentoa.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "enabled": "<#279CF5>Maksut <#c0f0ff>päällä<#279CF5>.",
+      "disabled": "<#FF2424>Maksut <#c0f0ff>pois päältä<#FF2424>.",
+      "error": "<#FF2424>Virhe vaihdettaessa maksutilaa."
+    },
+    "pay": {
+      "only-player": "<#279CF5>Vain pelaajat voivat käyttää tätä komentoa.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Käyttö: <white>{usage}",
+      "player-not-found": "<#FF2424>Pelaajaa ei löydy: <white>{player}",
+      "self-payment": "<#FF2424>Et voi maksaa itsellesi!",
+      "invalid-amount": "<#FF2424>Virheellinen määrä: <white>{amount}",
+      "positive-amount": "<#FF2424>Määrän on oltava positiivinen!",
+      "not-enough": "<#FF2424>Tarvitset <#c0f0ff>${needed}<#FF2424>, sinulla on <#279CF5>${balance}",
+      "target-disabled": "<#FF2424>{player} on poistanut maksut käytöstä!",
+      "confirmation-expired": "<#FF2424>Edellinen maksuvahvistus vanhentui.",
+      "pending-other": "<#279CF5>Odottava maksu pelaajalle <#c0f0ff>{player}<#279CF5> summa <#c0f0ff>${amount}",
+      "confirm-message": "<#279CF5>Klikkaa vahvistaaksesi: Maksa <#c0f0ff>${amount}<#279CF5> pelaajalle <#c0f0ff>{player}",
+      "confirm-instruction": "<#708090>Kirjoita <white>{command}<#708090> uudelleen vahvistaaksesi.",
+      "success-sender": "<#279CF5>Maksoit <#c0f0ff>${amount}<#279CF5> pelaajalle <#c0f0ff>{player}",
+      "success-target": "<#279CF5>Sait <#c0f0ff>${amount}<#279CF5> pelaajalta <#c0f0ff>{player}",
+      "error": "<#FF2424>Virhe tarkistaessa maksutilaa."
+    },
+    "payconfirmtoggle": {
+      "only-player": "<#279CF5>Vain pelaajat voivat käyttää tätä komentoa.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "disabled": "<#279CF5>Maksuvahvistukset <#c0f0ff>pois päältä<#279CF5>.",
+      "enabled": "<#279CF5>Maksuvahvistukset <#c0f0ff>päällä<#279CF5>.",
+      "error": "<#FF2424>Virhe vaihdettaessa vahvistustilaa."
+    },
+    "balance": {
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-others": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Käyttö: <white>{usage}",
+      "only-player": "<#FF2424>Vain pelaajat voivat tarkistaa oman saldonsa.",
+      "player-not-found": "<#FF2424>Pelaajaa ei löydy: <white>{player}",
+      "self": "<#279CF5>Saldosi on <#c0f0ff>{balance}<#279CF5>.",
+      "other": "<#279CF5>Pelaajan {player} saldo on <#c0f0ff>{balance}<#279CF5>."
+    },
+    "balancetop": {
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "header": "<#279CF5>=== Top {limit} Rikkainta Pelaajaa ===",
+      "entry": "<#279CF5>#{rank} <white>{player} <#708090>- <#279CF5>{balance}",
+      "footer": "<#279CF5>========================="
+    },
+    "coinflip": {
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Käyttö: <white>{usage}",
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa.",
+      "invalid-amount": "<#FF2424>Virheellinen määrä: <white>{amount}",
+      "positive-amount": "<#FF2424>Määrän on oltava positiivinen!",
+      "not-enough": "<#FF2424>Tarvitset <#c0f0ff>${needed}<#FF2424>, sinulla on <#279CF5>${balance}",
+      "win": "<#279CF5>Voitit <#c0f0ff>${amount}<#279CF5>!",
+      "lose": "<#FF2424>Hävisit <#c0f0ff>${amount}<#FF2424>."
+    },
+    "powertool": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-create": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424> luodaksesi PowerToolseja!",
+      "usage": "<#279CF5>Käyttö: <white>/powertool <komento> | <käyttökertoja> | <nimi> | <työkalu> | lumottu <kyllä/ei>",
+      "invalid-uses": "<#FF2424>Käyttökertojen on oltava -1 (ääretön) tai 1-{max}.",
+      "invalid-tool": "<#FF2424>Virheellinen työkalumateriaali: <white>{tool}",
+      "received-tool": "<#279CF5>Sait PowerToolin: <white>{name}",
+      "out-of-uses": "<#FF2424>PowerToolisi on loppunut käyttökerroista!"
+    },
+    "gravity": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa.",
+      "target-not-found": "<#FF2424>Pelaajaa ei löydy.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-sub": "<#FF2424>Tarvitset luvan <#c0f0ff>{subpermission}<#FF2424>!",
+      "usage": "<#279CF5>Käyttö: <white>/gravity [pelaaja] [-s]",
+      "toggled-self": "<#279CF5>Gravitaatio <#c0f0ff>{state}<#279CF5>.",
+      "toggled-other": "<#279CF5>Gravitaatio <#c0f0ff>{state}<#279CF5> pelaajalle <#c0f0ff>{target}<#279CF5>."
+    },
+    "thunder": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa!",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-others": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "struck": "<#279CF5>Ukkosvaikutus kutsuttu kohteeseen <#c0f0ff>{target}<#279CF5>.",
+      "self-name": "<white>itsesi"
+    },
+    "celebrate": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa!",
+      "target-not-found": "<#FF2424>Pelaajaa ei löydy.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-others": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Käyttö: /celebrate [pelaaja] [-s]",
+      "message": "<#279CF5>Boom! Juhlintaa!",
+      "message-other": "<#279CF5>Juhlintaa pelaajalle <#c0f0ff>{target}<#279CF5>.",
+      "self-name": "<white>itsesi"
+    },
+    "fireball": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa!",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "launched": "<#279CF5>Tulipallo laukaistu."
+    },
+    "fakeop": {
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Käyttö: <white>/fakeop <pelaaja>",
+      "target-not-found": "<#FF2424>Pelaajaa ei löydy.",
+      "fake-message": "<#708090><italic>[Palvelin: Tehtiin {target}stä palvelimen operaattori]",
+      "success": "<#279CF5>Fake OP lähetetty pelaajalle <#c0f0ff>{target}<#279CF5>."
+    },
+    "whois": {
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Käyttö: <white>/whois <pelaaja>",
+      "target-not-found": "<#FF2424>Pelaajaa ei löydy.",
+      "info-header": "<#279CF5>Pelaajan tiedot:",
+      "info-name": "<#708090>Nimi: <white>{name}",
+      "info-health": "<#708090>Elämä: <white>{health}",
+      "info-location": "<#708090>Sijainti: <white>{location}"
+    },
+    "kittycannon": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa!",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Käyttö: <white>/kittycannon [nopeus]",
+      "fired": "<#279CF5>Kissitykki laukaistu nopeudella {velocity}.",
+      "name": "<#279CF5>Kissitykki!"
+    },
+    "explosion": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa!",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "no-radius": "<#279CF5>Määritä säde!",
+      "invalid-radius": "<#FF2424>Virheellinen säde: {input}",
+      "created": "<#279CF5>Räjähdys luotu säteellä <#c0f0ff>{radius}<#279CF5>.",
+      "usage": "<#279CF5>Käyttö: <white>/explosion <säde>"
+    },
+    "canon": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa!",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Käyttö: <white>/canon",
+      "success": "<#279CF5>Whoosh! Sinut laukaistiin ilmaan!"
+    },
+    "lightning": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa!",
+      "target-not-found": "<#FF2424>Pelaajaa <white>{target}</white> ei löydy.",
+      "no-permission": "<#FF2424>Tarvitset luvan <white>{permission}</white>.",
+      "struck-self": "<#279CF5>Salaman isku!",
+      "struck-other": "<#279CF5>Salaman isku kohteeseen <#c0f0ff>{target}<#279CF5>.",
+      "usage": "<#279CF5>Käyttö: <white>/lightning [pelaaja] [-s]"
+    },
+    "swap": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa!",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Käyttö: <white>/swap <pelaaja>",
+      "target-not-found": "<#FF2424>Pelaajaa <white>{target}</white> ei löydy tai et voi vaihtaa itsesi kanssa.",
+      "success": "<#279CF5>Vaihdoit sijaintia pelaajan <#c0f0ff>{target}<#279CF5> kanssa.",
+      "target-notified": "<#279CF5><#c0f0ff>{player}</#c0f0ff> vaihtoi sijaintia kanssasi!"
+    },
+    "beezooka": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa!",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Käyttö: <white>/beezooka [nopeus]",
+      "fired": "<#279CF5>Mehukranaatti laukaistu nopeudella {velocity}.",
+      "name": "<#279CF5>Mehukranaatti Bee!"
+    },
+    "glow": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa!",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Käyttö: <white>/glow",
+      "disabled": "<#708090>Hohde pois päältä.",
+      "enabled": "<#279CF5>Hohde päällä."
+    },
+    "near": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa!",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "header": "<#279CF5>Lähelläsi olevat pelaajat:",
+      "entry": "<#279CF5>- {name} <#708090>({distance} lohkoa)",
+      "none": "<#FF2424>Ei pelaajia lähellä."
+    },
+    "rename": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#FF2424>Käyttö: /rename <nimi>",
+      "no-item": "<#FF2424>Et pidä esinettä kädessäsi.",
+      "no-meta": "<#FF2424>Esineen tietoja ei saatu.",
+      "renamed": "<#279CF5>Esine nimetty uudelleen: <white>{item}"
+    },
+    "world": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#FF2424>Käyttö: /world",
+      "current": "<#279CF5>Olet maailmassa: <#c0f0ff>{world}"
+    },
+    "language": {
+      "usage": "<#279CF5>Käyttö: /language <kieli>",
+      "invalid": "<#FF2424>Virheellinen kieli: <white>{lang}",
+      "changed": "<#279CF5>Kieli vaihdettu: <white>{lang}"
+    },
+    "warp": {
+      "usage": "<#279CF5>Käyttö: <#279CF5>/warp <nimi>",
+      "not-found": "<#FF2424>Warpia <#c0f0ff>{warp}<#FF2424> ei löydy.",
+      "success": "<#279CF5>Teleportattu warpiin <#c0f0ff>{warp}",
+      "cooldown-active": "<#FF2424>Odota <#c0f0ff>{time}<#FF2424> sekuntia ennen kuin warpaat uudelleen."
+    },
+    "setwarp": {
+      "usage": "<#279CF5>Käyttö: <#279CF5>/setwarp <nimi>",
+      "limit-reached": "<#FF2424>Olet saavuttanut warp-rajan <#c0f0ff>{limit}<#FF2424>!",
+      "already-exists": "<#FF2424>Warpi <#c0f0ff>{warp}<#FF2424> on jo olemassa.",
+      "success": "<#279CF5>Luotu warp <#c0f0ff>{warp}"
+    },
+    "delwarp": {
+      "usage": "<#FF2424>Käyttö: <#279CF5>/delwarp <nimi>",
+      "not-found": "<#FF2424>Warpia <#c0f0ff>{warp}<#FF2424> ei löydy.",
+      "no-permission": "<#FF2424>Sinulla ei ole lupaa poistaa tätä warppia!",
+      "success": "<#279CF5>Poistettu warp <#c0f0ff>{warp}"
+    },
+    "warps": {
+      "empty": "<#279CF5>Warppia ei ole asetettu!",
+      "header": "<#279CF5>------[ Warpit ]------",
+      "entry": "<#279CF5>{warp}",
+      "footer": "<#279CF5>-------------------"
+    },
+    "ban": {
+      "usage": "<#FF2424>Käyttö: <#279CF5>/ban <pelaaja> <aika> <syy>",
+      "never-joined": "<#FF2424>Tämä pelaaja ei ole koskaan liittynyt palvelimelle.",
+      "invalid-time": "<#FF2424>Virheellinen aikamuoto. Käytä <#c0f0ff>s/m/h/d<#FF2424> tai <#c0f0ff>perm<#FF2424>",
+      "success": "<#279CF5><#c0f0ff>{player}<#279CF5> on bannattu.",
+      "kick-message": "<#FF2424>Sinut on bannattu palvelimelta <#FF2424>{server}\n<#708090>Syy: <#c0f0ff>{reason}\n<#708090>Bannannut: <#c0f0ff>{banner}\n<#708090>Voimassa: <#c0f0ff>{until}\n\n<#708090>Valitus: <#c0f0ff>{discord}"
+    },
+    "banlist": {
+      "empty": "<#279CF5>Ei bannattuja pelaajia.",
+      "header": "<#279CF5>------[ Bannatut Pelaajat ]------",
+      "format": "<#FF2424>{player} <#708090>- <white>{reason} <#708090>(<#c0f0ff>{time})",
+      "footer": "<#279CF5>-----------------------------"
+    },
+    "unban": {
+      "usage": "<#279CF5>Käyttö: <#279CF5>/unban <pelaaja>",
+      "player-not-found": "<#279CF5>Bannattua pelaajaa nimellä '<#c0f0ff>{player}<#279CF5>' ei löydy.",
+      "not-banned": "<#279CF5>{player} ei ole tällä hetkellä bannattu.",
+      "success": "<#279CF5>{player} on unbannattu."
+    },
+    "mute": {
+      "usage": "<#FF2424>Käyttö: <#279CF5>/mute <pelaaja> <syy> [kesto]",
+      "not-found": "<#FF2424>Pelaajaa ei löydy.",
+      "already-muted": "<#FF2424><#c0f0ff>{player}<#FF2424> on jo mykistetty syyllä <white>{reason}",
+      "success": "<#279CF5>Mykistit pelaajan <#c0f0ff>{player}<#279CF5> syyllä <white>{reason}<#279CF5> ({duration}).",
+      "notify": "<#FF2424>Sinut on mykistetty! <#708090>Syy: <white>{reason}<#279CF5> ({duration})",
+      "chat-blocked": "<#FF2424>Sinut on mykistetty! Syy: <white>{reason}"
+    },
+    "unmute": {
+      "usage": "<#279CF5>Käyttö: <#279CF5>/unmute <pelaaja>",
+      "player-not-found": "<#279CF5>Pelaajaa <#c0f0ff>{player}<#279CF5> ei löydy.",
+      "not-muted": "<#FF2424><#c0f0ff>{player}<#FF2424> ei ole tällä hetkellä mykistetty.",
+      "unmuted": "<#279CF5>Mykistys poistettu pelaajalta <#c0f0ff>{player}",
+      "notify": "<#279CF5>Mykistyksesi on poistettu!"
+    },
+    "adminchat": {
+      "format": "<#4B5563>[<#FF2424>AdminChat<#4B5563>] <#279CF5>{player} <#708090>» <white>{message}",
+      "toggle": "<#279CF5>Admin chat tila: {state}",
+      "only-players": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!"
+    },
+    "daily": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa!",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "command": {
+        "no-permission": "<#FF2424>Tarvitset luvan <yellow>{permission}</yellow>!"
+      },
+      "gui": {
+        "title": "<#279CF5><bold>Päivittäiset Palkinnot</bold> - Sivu <#c0f0ff>{page}",
+        "previous": "<#279CF5>⬅ Edellinen Sivu",
+        "next": "<#279CF5>Seuraava Sivu ➡",
+        "close": "<#FF2424>✕ Sulje",
+        "cooldown-display": "<#c0f0ff>Jäähdytys: <#EBA916>{time}"
+      },
+      "rewards": {
+        "claimed": {
+          "name": "<#21D0B2><bold>✓ Lunastettu</bold>",
+          "lore": "<#c0f0ff>Olet jo lunastanut tämän palkinnon."
+        },
+        "cooldown": {
+          "name": "<#EBA916><bold>⏱ Jäähdytys</bold>",
+          "lore": "<#c0f0ff>Odota: <#EBA916>{time}"
+        },
+        "locked": {
+          "name": "<#FF2424><bold>🔒 Lukittu</bold>",
+          "lore": "<#c0f0ff>Suorita ensin edelliset päivät."
+        },
+        "available": {
+          "name": "<#279CF5>Päivä <#c0f0ff>{day}"
+        }
+      },
+      "messages": {
+        "claim-already": "<#FF2424>Olet jo lunastanut tämän palkinnon!",
+        "claim-locked": "<#FF2424>Sinun on lunastettava edelliset päivät ensin!",
+        "claim-cooldown": "<#FF2424>Odota <#c0f0ff>{time}<#FF2424> ennen kuin voit lunastaa uudelleen!",
+        "claim-success": "<#279CF5>Lunastit päivän <#c0f0ff>{day}<#279CF5> palkinnon!",
+        "claim-error": "<#FF2424>Palkinnon lunastus epäonnistui. Yritä uudelleen."
+      }
+    },
+    "tpa": {
+      "no-player": "<#FF2424>Pelaajaa <#c0f0ff>{player}<#FF2424> ei löydy.",
+      "cannot-tpa-self": "<#FF2424>Et voi lähettää TPA-pyyntöä itsellesi.",
+      "target-toggled": "<#FF2424>{player} on poistanut TPA-pyynnöt käytöstä.",
+      "crossworld-disabled": "<#FF2424>Maanvälinen teleporttaus on pois käytöstä.",
+      "blocked-world": "<#FF2424>Et voi teleportata tähän maailmaan.",
+      "cooldown": "<#FF2424>Odota <#c0f0ff>{time}<#FF2424> sekuntia ennen kuin käytät TPA:ta uudelleen.",
+      "not-enough-money": "<#FF2424>Tarvitset <#c0f0ff>${cost}<#FF2424> tähän TPA-pyyntöön.",
+      "request-sent": "<#279CF5>TPA-pyyntö lähetetty pelaajalle <#c0f0ff>{player}",
+      "request-sent-here": "<#279CF5>TPAhere-pyyntö lähetetty pelaajalle <#c0f0ff>{player}",
+      "request-received": "<#279CF5><bold>{player}</bold> haluaa teleportata luoksesi! <white>[<#279CF5>/tpaccept {player} | <#FF2424>/tpdeny {player}]",
+      "request-received-here": "<#279CF5><bold>{player}</bold> haluaa sinun teleporttavan hänen luokseen! <white>[<#279CF5>/tpaccept {player} | <#FF2424>/tpdeny {player}]",
+      "request-received-all": "<#279CF5><bold>{player}</bold> haluaa kaikkien teleporttavan! <white>[<#279CF5>/tpaccept {player}]",
+      "request-accepted": "<#279CF5>{player} hyväksyi pyyntösi! Teleporttaus <#c0f0ff>{delay}s",
+      "request-accepted-target": "<#279CF5>Hyväksyit pelaajan <#c0f0ff>{player}<#279CF5> pyynnön.",
+      "request-denied": "<#FF2424>{player} hylkäsi TPA-pyyntösi.",
+      "request-denied-target": "<#279CF5>Hylkäsit pelaajan <#c0f0ff>{player}<#279CF5> pyynnön.",
+      "no-request": "<#FF2424>Sinulla ei ole odottavia TPA-pyyntöjä.",
+      "no-request-from-player": "<#FF2424>Ei odottavaa pyyntöä pelaajalta <#c0f0ff>{player}",
+      "no-requests-sent": "<#FF2424>Sinulla ei ole odottavia TPA-pyyntöjä peruutettavaksi.",
+      "teleport-cancelled-move": "<#FF2424>Teleporttaus peruutettu liikkumisen vuoksi!",
+      "warmup-start": "<#279CF5>Lämmitys aloitettu... <#FF2424>Älä liiku!",
+      "toggle-on": "<#279CF5>TPA-pyynnöt ovat nyt <bold>POIS PÄÄLTÄ",
+      "toggle-off": "<#279CF5>TPA-pyynnöt ovat nyt <bold>PÄÄLLÄ",
+      "request-cancelled": "<#279CF5>Peruutettu TPA-pyyntö pelaajalle <#c0f0ff>{player}",
+      "request-cancelled-target": "<#279CF5>{player} peruutti TPA-pyyntönsä.",
+      "request-cancelled-all": "<#279CF5>Peruutettu kaikki TPA-pyyntösi.",
+      "request-expired": "<#FF2424>TPA-pyyntösi pelaajalle <#c0f0ff>{player}<#FF2424> vanhentui.",
+      "request-expired-target": "<#FF2424>TPA-pyyntö pelaajalta <#c0f0ff>{player}<#FF2424> vanhentui.",
+      "request-sent-all": "<#279CF5>Lähetetty TPA-pyyntö <#c0f0ff>{count}<#279CF5> pelaajalle.",
+      "info-incoming-header": "<#279CF5><bold>Saapuvat Pyynnöt:",
+      "info-outgoing-header": "<#279CF5><bold>Lähtevät Pyynnöt:",
+      "info-request": "<#279CF5>- {player} <#708090>({type})"
+    },
+    "fly": {
+      "enabled": "<#279CF5>Lento päällä! Paina <white>SPACE<#279CF5> kahdesti lentääksesi.",
+      "disabled": "<#FF2424>Lento pois päältä.",
+      "error": "<#FF2424>Virhe: Lentotilaa ei voitu tallentaa.",
+      "cooldown": "<#FF2424>Odota <#c0f0ff>{time}s<#FF2424> ennen kuin vaihdat lentoa uudelleen.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>fly.use<#FF2424> käyttääksesi tätä komentoa."
+    },
+    "reports": {
+      "cooldown": "<#FF2424>Odota <#c0f0ff>{time}<#FF2424> sekuntia ennen kuin raportoit uudelleen.",
+      "reason-too-long": "<#FF2424>Syy liian pitkä! Max <#c0f0ff>{max}<#FF2424> merkkiä.",
+      "error": "<#FF2424>Virhe käsiteltäessä raporttia.",
+      "command": {
+        "usage": "<#FF2424>Käyttö: /report <pelaaja> <syy>",
+        "invalid-player": "<#FF2424>Pelaajaa <#c0f0ff>{player}<#FF2424> ei löydy.",
+        "submitted": "<#279CF5>Raportti lähetetty pelaajasta <#c0f0ff>{player}",
+        "notify": "<#FF2424>[RAPORTTI] <#279CF5>{reporter}<#FF2424> raportoi <#279CF5>{target}<#708090> syyllä {reason}<#708090>(ID: {id})"
+      },
+      "commandclear": {
+        "usage": "<#279CF5>Käyttö: /reportclear <id>",
+        "invalid": "<#279CF5>Virheellinen raportti ID: <#c0f0ff>{id}",
+        "cleared": "<#279CF5>Tyhjennetty raportti ID: <#c0f0ff>{id}"
+      },
+      "list": {
+        "header": "<#279CF5>----- <#279CF5>Kaikki Raportit<#279CF5> -----",
+        "none": "<#279CF5>Raportteja ei löydy.",
+        "entry": "<#708090>[{id}] <#279CF5>{reporter} → <#279CF5>{target}: <white>{reason}",
+        "footer": "<#279CF5>Yhteensä: <#c0f0ff>{count}<#279CF5> raporttia"
+      },
+      "reportslist": {
+        "header": "<#279CF5>Sinulla on arvioitavia raportteja:",
+        "entry": "<#FF2424>[ODOTTAA] <#279CF5>{reporter} → <#279CF5>{target}: <#708090>{reason}<#708090>(ID: {id})"
+      }
+    },
+    "rules": {
+      "only-player": "<#FF2424>Vain pelaajat voivat käyttää tätä komentoa.",
+      "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-sub": "<#FF2424>Tarvitset luvan <#c0f0ff>{subpermission}<#FF2424>!",
+      "usage": "<#279CF5>Käyttö: <white>/rules [accept|reload]",
+      "no-rules": "<#FF2424>Sääntöjä ei ole tällä hetkellä määritetty.",
+      "already-accepted": "<#279CF5>Olet jo hyväksynyt uusimmat säännöt.",
+      "error": "<#FF2424>Tapahtui virhe: <#c0f0ff>{error}",
+      "reload-success": "<#279CF5>Säännöt päivitetty onnistuneesti!",
+      "reload-failure": "<#FF2424>Sääntöjen päivitys epäonnistui: <#c0f0ff>{error}",
+      "gui": {
+        "title": "<#279CF5>Palvelimen Säännöt",
+        "no-rules": "<#FF2424>Sääntöjä ei ole tällä hetkellä määritetty.",
+        "info-title": "<#FFD700><bold>ℹ Palvelimen Säännöt Info",
+        "info-line1": "<#708090>Lue ja hyväksy",
+        "info-line2": "<#708090>yhteisöohjeemme",
+        "page-info": "<#FFB000>Sivu <#FFFFFF>{current}<#FFB000> / <#FFFFFF>{total}",
+        "prev-page": "<#279CF5>← Edellinen Sivu",
+        "prev-page-lore": "<#708090>Klikkaa mennäksesi takaisin",
+        "next-page": "<#279CF5>Seuraava Sivu →",
+        "next-page-lore": "<#708090>Klikkaa jatkaaksesi",
+        "accept-title": "<#00FF7F><bold>✔ Hyväksy Säännöt",
+        "accept-lore1": "<#708090>Klikkaa hyväksyäksesi säännöt",
+        "accept-lore2": "<#708090>ja saadaksesi pääsyn palvelimelle",
+        "decline-title": "<#FF2424><bold>✖ Hylkää & Poistu",
+        "decline-lore1": "<#708090>Klikkaa hylätäksesi ja",
+        "decline-lore2": "<#708090>poistuaksesi palvelimelta",
+        "rule-name": "<#FFFFFF><bold>Sääntö #{number}",
+        "rule-content": "<#C0C0C0>",
+        "rule-hint": "<#708090><italic>Lue kaikki säännöt ennen hyväksymistä"
+      },
+      "accept": {
+        "success": "<#279CF5>Olet hyväksynyt palvelimen säännöt!"
+      },
+      "decline": {
+        "kick-message": "<#FF2424>Sinun on hyväksyttävä säännöt liittyäksesi tälle palvelimelle!"
+      },
+      "close": {
+        "cannot-close": "<#FF2424>⚠ Sinun on hyväksyttävä säännöt ennen pelaamista!"
+      }
+    },
+    "chatfilter": {
+      "blocked": "<#FF2424>Viestisi sisälsi sopimatonta kieltä.",
+      "staff-notice": "<#F54927>[<#FF2424>Suodatin<#F54927>] <white>{player}<#FF2424> : <white>{message}"
+    },
+    "rtp": {
+      "gui": {
+        "title": "<bold><gradient:#279CF5:#279CF5>RTP Valikko</gradient>",
+        "overworld": {
+          "name": "<#279CF5>Ylätaso",
+          "lore": [
+            "<#708090>Klikkaa teleportataksesi satunnaiseen",
+            "<#708090>sijaintiin ylätasolla"
+          ]
+        },
+        "nether": {
+          "name": "<#FF2424>Alamaailma",
+          "lore": [
+            "<#708090>Klikkaa teleportataksesi satunnaiseen",
+            "<#708090>sijaintiin alamaailmassa"
+          ]
+        },
+        "end": {
+          "name": "<#4169E1>Loppu",
+          "lore": [
+            "<#708090>Klikkaa teleportataksesi satunnaiseen",
+            "<#708090>sijaintiin lopussa"
+          ]
+        }
+      },
+      "world_disabled": "<#FF2424>RTP on pois käytöstä tässä maailmassa!",
+      "cooldown": "<#FF2424>Odota <#c0f0ff>{seconds} sekuntia</#c0f0ff> ennen kuin käytät RTP:tä uudelleen!",
+      "teleport_success": "<#279CF5>Teleportattu onnistuneesti kohteeseen <white>{world}",
+      "reloaded": "<#279CF5>RTP-asetukset päivitetty!"
+    },
+    "lobby": {
+      "no-lobby": "<#FF2424>Tälle maailmalle ei ole asetettu aulaa.",
+      "teleported": "<#279CF5>Teleportattu aulaan!",
+      "set": "<#279CF5>Aulan sijainti asetettu!",
+      "set-world": "<#279CF5>Maailman <#c0f0ff>{world}<#279CF5> aula asetettu!",
+      "removed": "<#279CF5>Aulan sijainti poistettu.",
+      "cooldown-active": "<#FF2424>Odota <#c0f0ff>{time}<#FF2424> sekuntia ennen kuin teleportaat uudelleen.",
+      "usage-world": "<#FF2424>Käyttö: <#279CF5>/lobby world <maailman-nimi>",
+      "world-not-found": "<#FF2424>Maailmaa <#c0f0ff>{world}<#FF2424> ei löydy."
+    },
+    "general": {
+      "error": "<#FF2424>Tapahtui virhe: {error}",
+      "success": "<#279CF5>Onnistui!",
+      "loading": "<#708090>Ladataan..."
+    },
+    "database": {
+      "header": "<#4169E1>╔════════════════════════════════════╗",
+      "title": "<#4169E1>║  <bold>Tietokannan Tila</bold>                     ║",
+      "separator": "<#4169E1>╠════════════════════════════════════╣",
+      "footer": "<#4169E1>╚════════════════════════════════════╝",
+      "none": "<#FF2424>Ei tietokantoja määritetty!",
+      "entry": "<#4169E1>║  <#c0f0ff>{name}</#c0f0ff> - {status}{msg} <#708090>({enabled})</#708090>  ║"
+    },
+    "economy": {
+      "shop": {
+        "main-title": "<gradient:#279CF5:#279CF5>Palvelimen Kauppa</gradient>",
+        "section-title": "<#279CF5>{section} Kauppa",
+        "disabled": " <#FF2424>Kauppa on pois käytöstä",
+        "balance-display": "<#279CF5>Saldo: <#c0f0ff>{balance}",
+        "buy-success": "<#279CF5>Ostettu <white>{amount}x {item}<#279CF5> hintaan <#c0f0ff>{price}",
+        "sell-success": "<#279CF5>Myyty <white>{amount}x {item}<#279CF5> hintaan <#c0f0ff>{price}",
+        "cannot-afford": "<#FF2424>Raha ei riitä {item} (hinta: <#c0f0ff>{price})",
+        "no-items": "<#FF2424>Ei tarpeeksi {item} myytäväksi",
+        "no-section": "<#FF2424>Kauppaosiota '<#c0f0ff>{section}<#FF2424>' ei löydy!",
+        "reload-success": "<#279CF5>Kauppa-asetukset päivitetty.",
+        "reload-error": "<#FF2424>Virhe päivittäessä kauppa-asetuksia. Tarkista konsoli.",
+        "no-economy": "<#FF2424>Talous ei käytettävissä. Kauppa on vain katseltavissa.",
+        "transaction-failed": "<#FF2424>Transaktio epäonnistui: {error}",
+        "no-main-config": "<#FF2424>Kauppa-asetuksia ei löydy. Ota yhteyttä ylläpitäjään.",
+        "gui": {
+          "close-button": "<#FF2424>✕ Sulje",
+          "back-button": "<#279CF5>← Takaisin",
+          "previous-page": "<#708090>← Edellinen",
+          "next-page": "<#708090>Seuraava →",
+          "loading": "<#708090>Ladataan..."
+        }
+      },
+      "sellgui": {
+        "disabled": "<#FF2424>Myynti-GUI on pois käytöstä.",
+        "sold-success": "<#279CF5><bold>MYYTY <white>{amount}<#279CF5> esinettä hintaan <#c0f0ff>{symbol}{price}",
+        "returned-items": "<#708090>Palautettu <white>{amount}<#708090> ei-myytävää esinettä reppuusi",
+        "no-items": "<#708090>Ei myytäviä esineitä",
+        "inventory-full": "<#279CF5>Joitakin esineitä pudotettiin (reppu täynnä)",
+        "not-sellable": "<#FF2424>Tätä esinettä ei voi myydä!",
+        "no-economy": "<#FF2424>Talous ei käytettävissä. Ota yhteyttä ylläpitäjään.",
+        "transaction-failed": "<#FF2424>Transaktio epäonnistui: {error}",
+        "title": "<#279CF5>Myy Esineitä",
+        "info": {
+          "title": "<#279CF5>MYYNTIALUE",
+          "subtitle": "<#708090>Aseta esineet tähän myydäksesi",
+          "instruction": "<#279CF5>Sulje reppu käsitelläksesi",
+          "value-prefix": "<#279CF5>Yhteensä: <#c0f0ff>"
+        }
+      }
+    },
+    "kits": {
+      "gui": {
+        "title": "<bold><gradient:#279CF5:#279CF5>Saatavilla olevat Kitit</gradient>",
+        "preview-title": "<white>Esikatsele Kit: <#c0f0ff>{kit}"
+      },
+      "cooldown": "<#FF2424>Odota <#c0f0ff>{time}s</#c0f0ff> ennen kuin haet <white>{kit}</white> uudelleen!",
+      "no-permission": "<#FF2424>Sinulla ei ole lupaa hakea <white>{kit}</white>!",
+      "claim-success": "<#279CF5>Kit <white>{kit}</white> haettu onnistuneesti!",
+      "kit-not-found": "<#FF2424>Kittiä <white>{kit}</white> ei löydy!",
+      "locked-name": "<#FF2424>Lukittu: <#708090>{kit}",
+      "requires-permission": "<#708090>Vaatii: <white>{permission}",
+      "cooldown-info": "<#708090>Jäähdytys: <#FF2424>{time}s jäljellä",
+      "claim-button": "<#279CF5>Hae Kit",
+      "cooldown-button": "<#FF2424>Jäähdytyksellä",
+      "back-button": "<#FF2424>← Takaisin",
+      "no-kits-defined": "<#FF2424>Kittejä ei ole tällä hetkellä määritetty!",
+      "reload-success": "<#279CF5>Kitit päivitetty onnistuneesti!",
+      "reload-no-permission": "<#FF2424>Sinulla ei ole lupaa päivittää kittejä!"
+    },
+    "mail": {
+      "on-join": "<#279CF5>Sinulla on <#c0f0ff>{count}</#c0f0ff> lukematonta viestiä! Käytä <white>/mail read</white>",
+      "send-usage": "<#FF2424>Käyttö: /mail send <pelaaja> <viesti>",
+      "no-mail": "<#279CF5>Sinulla ei ole viestejä.",
+      "usage": {
+        "header": "<#279CF5>----- <white>Viestijärjestelmä <#279CF5>-----",
+        "read": "<#279CF5>/mail read <#708090>- <white>Lue saapuneet",
+        "send": "<#279CF5>/mail send <pelaaja> <viesti> <#708090>- <white>Lähetä viesti",
+        "clear": "<#279CF5>/mail clear <#708090>- <white>Tyhjennä kaikki viestit",
+        "footer": "<#279CF5>---------------------------"
+      },
+      "header": "<#279CF5><bold>Sinun Viestilaatikkosi:</bold>",
+      "message": {
+        "index": "<#708090>[{index}]",
+        "sender": "<#279CF5>{sender}: "
+      },
+      "footer": "<#279CF5>-------------------- <#708090>({count} viestiä)",
+      "cooldown": "<#FF2424>Odota {time} sekuntia ennen kuin lähetät viestin uudelleen.",
+      "player-not-found": "<#FF2424>Pelaajaa <#c0f0ff>{player}<#FF2424> ei löydy.",
+      "message-too-long": "<#FF2424>Viesti liian pitkä! Max <#c0f0ff>{max}<#FF2424> merkkiä.",
+      "sent": "<#279CF5>Viesti lähetetty pelaajalle <#c0f0ff>{player}",
+      "received": "<#279CF5>Sinulla on uusi viesti pelaajalta <#c0f0ff>{sender}</#c0f0ff>! Käytä <white>/mail read</white>",
+      "error": "<#FF2424>Virhe käsiteltäessä viestiä.",
+      "cleared": "<#279CF5>Kaikki viestit tyhjennetty!"
+    },
+    "no-permission": "<#FF2424>Tarvitset luvan <#c0f0ff>{permission}<#FF2424>!"
+  }
+}

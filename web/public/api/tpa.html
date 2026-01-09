@@ -1,0 +1,1576 @@
+
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <title>TPA API Documentation – _GodlyCow</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+        --bg: #0a0a0a;
+        --surface: #111111;
+        --surface-2: #191919;
+        --border: #2d2d2d;
+        --text: #e0e0e0;
+        --text-2: #888888;
+        --primary: #FFFFFF;
+        --primary-2: #e0e0e0;
+        --shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+        --font: 'Courier New', 'Monaco', 'Consolas', monospace;
+        --code-bg: #050505;
+        --error: #ef4444;
+    }
+    [data-theme="light"] {
+        --bg: #f0f0f0;
+        --surface: #ffffff;
+        --surface-2: #f7f7f7;
+        --border: #cccccc;
+        --text: #1a1a1a;
+        --text-2: #555555;
+        --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        --code-bg: #f5f5f5;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--font);
+        line-height: 1.5;
+        font-size: 14px;
+    }
+
+    .topbar {
+        background: var(--surface);
+        border-bottom: 2px solid var(--border);
+        padding: 0.75rem 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: var(--shadow);
+        font-weight: bold;
+    }
+    .topbar a {
+        color: var(--text-2);
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+    .topbar a:hover { color: var(--primary); }
+    .topbar .spacer { flex: 1; }
+    .theme-btn {
+        background: var(--surface-2);
+        border: 1px solid var(--border);
+        color: var(--text);
+        padding: 0.4rem 0.8rem;
+        cursor: pointer;
+        font-weight: bold;
+        transition: all 0.2s;
+    }
+    .theme-btn:hover {
+        border-color: var(--primary);
+        color: var(--primary);
+    }
+
+    .hero {
+        background: linear-gradient(90deg, var(--surface) 0%, var(--surface-2) 100%);
+        border-bottom: 2px solid var(--border);
+        padding: 3rem 1.5rem;
+        text-align: center;
+        position: relative;
+    }
+    .hero h1 {
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        color: var(--primary);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+    .hero p {
+        font-size: 1rem;
+        color: var(--text-2);
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .wrapper {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 320px;
+        gap: 0;
+    }
+    @media (max-width: 900px) {
+        .wrapper { grid-template-columns: 1fr; }
+    }
+    main { border-right: 2px solid var(--border); }
+
+    .card {
+        background: var(--surface);
+        border: none;
+        border-bottom: 2px solid var(--border);
+        margin-bottom: 0;
+    }
+    .card-header {
+        background: var(--surface-2);
+        padding: 1rem 1.5rem;
+        font-weight: bold;
+        color: var(--primary);
+        border-bottom: 1px solid var(--border);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+    .card-body { padding: 1.5rem; }
+
+    .method-section {
+        margin-bottom: 2rem;
+        padding-bottom: 2rem;
+        border-bottom: 1px dashed var(--border);
+    }
+    .method-section:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+    .method-title {
+        font-size: 1.1rem;
+        color: var(--primary);
+        margin-bottom: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    .method-signature {
+        background: var(--code-bg);
+        padding: 0.75rem;
+        border-left: 3px solid var(--primary);
+        margin: 0.75rem 0;
+        font-family: var(--font);
+        font-size: 0.95rem;
+        overflow-x: auto;
+    }
+    .method-desc {
+        margin: 0.75rem 0;
+        color: var(--text-2);
+        line-height: 1.6;
+    }
+    .method-params {
+        margin: 0.75rem 0;
+        padding-left: 1rem;
+    }
+    .method-params dt {
+        color: var(--primary);
+        font-weight: bold;
+        margin-top: 0.5rem;
+    }
+    .method-params dd {
+        color: var(--text-2);
+        margin-left: 1rem;
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    .code-block {
+        background: var(--code-bg);
+        border: 1px solid var(--border);
+        border-radius: 0;
+        padding: 1rem;
+        margin: 1rem 0;
+        overflow-x: auto;
+        font-family: var(--font);
+        font-size: 13px;
+        line-height: 1.4;
+    }
+    .code-block pre {
+        margin: 0;
+        white-space: pre;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+        color: var(--primary);
+        margin: 2rem 0 1rem 0;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 0.5rem;
+    }
+
+    .sidebar .card {
+        border-left: 2px solid var(--primary);
+        margin-bottom: 1rem;
+    }
+    .sidebar .card-body {
+        padding: 1rem;
+    }
+    .sidebar ul {
+        list-style: none;
+        padding: 0;
+    }
+    .sidebar li {
+        margin-bottom: 0.5rem;
+        padding-left: 1rem;
+        position: relative;
+    }
+    .sidebar li::before {
+        content: ">";
+        position: absolute;
+        left: 0;
+        color: var(--primary);
+    }
+    .sidebar a {
+        color: var(--text-2);
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+    .sidebar a:hover {
+        color: var(--primary);
+    }
+
+    .footer {
+        background: var(--surface);
+        border-top: 2px solid var(--border);
+        padding: 2rem;
+        text-align: center;
+        font-size: 0.9rem;
+    }
+    .footer-links {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    .footer-link {
+        color: var(--text-2);
+        text-decoration: none;
+        font-weight: bold;
+    }
+    .footer-link:hover { color: var(--primary); }
+  </style>
+</head>
+<body>
+
+<header class="topbar">
+  <a href="index.html">← BACK TO HOME</a>
+  <a href="https://github.com/GodlyCow203/ServerEssentials" target="_blank">GITHUB</a>
+  <a href="https://discord.gg/vmhQ2gZr8g" target="_blank">DISCORD</a>
+  <div class="spacer"></div>
+  <button class="theme-btn" id="themeBtn">🌙 DARK</button>
+</header>
+
+<section class="hero">
+  <h1>TPA API Documentation</h1>
+  <p>Asynchronous teleportation requests with economic integration, cooldown enforcement, request lifecycle tracking, and comprehensive event handling</p>
+</section>
+
+<div class="wrapper">
+  <main>
+    <div class="card">
+      <div class="card-header">Overview</div>
+      <div class="card-body">
+        <p style="margin-bottom: 1rem; color: var(--text-2);">
+          The TPA API provides public interfaces for managing player teleportation requests with full economic integration, cooldown enforcement, request lifecycle tracking, and comprehensive event handling. Supports TPA (teleport to player), TPAHere (teleport player to you), and TPAAll (broadcast requests). All operations are asynchronous to prevent blocking the main server thread.
+        </p>
+        <div class="method-signature">Package: com.serveressentials.api.tpa</div>
+        <div class="method-signature" style="margin-top: 0.5rem;">Event Package: com.serveressentials.api.tpa.event</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">Interface: TPAAPI</div>
+      <div class="card-body">
+        <div class="method-desc" style="margin-bottom: 1.5rem;">
+          The central API interface for all TPA functionality. Plugin developers obtain an instance through the ServerEssentials plugin manager.
+        </div>
+
+        <div class="method-section">
+          <div class="method-title">sendRequest(Player sender, Player target, boolean here)</div>
+          <div class="method-signature">CompletableFuture&lt;TPARequestData&gt; sendRequest(@NotNull Player sender, @NotNull Player target, boolean here)</div>
+          <div class="method-desc">Sends a TPA or TPAHere request from sender to target. Automatically checks permissions, costs, cooldowns, and blocked settings.</div>
+          <div class="method-params">
+            <dt>When to Call:</dt>
+            <dd>When processing /tpa &lt;player&gt;, /tpahere &lt;player&gt;, or custom teleport request commands.</dd>
+            <dt>Parameters:</dt>
+            <dd><strong>sender:</strong> Player initiating the teleport request (cannot be null)</dd>
+            <dd><strong>target:</strong> Target player who must accept/deny (cannot be null)</dd>
+            <dd><strong>here:</strong> true for TPAHere (target teleports to sender), false for TPA (sender teleports to target)</dd>
+            <dt>Return Value:</dt>
+            <dd>CompletableFuture&lt;TPARequestData&gt; - Resolves to request data if sent successfully, completes exceptionally if validation fails (insufficient funds, on cooldown, target has requests disabled, etc.).</dd>
+          </div>
+          <div class="code-block">
+                        <pre>// /tpa &lt;player&gt; command
+public boolean onTpaCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    if (!(sender instanceof Player)) {
+        sender.sendMessage("Only players can send TPA requests.");
+        return true;
+    }
+    
+    Player player = (Player) sender;
+    
+    if (args.length < 1) {
+        player.sendMessage("Usage: /tpa &lt;player&gt;");
+        return true;
+    }
+    
+    Player target = Bukkit.getPlayer(args[0]);
+    if (target == null) {
+        player.sendMessage("§cPlayer not found: " + args[0]);
+        return true;
+    }
+    
+    if (target.equals(player)) {
+        player.sendMessage("§cYou cannot send a TPA request to yourself.");
+        return true;
+    }
+    
+    // Send TPA request (here = false)
+    tpaAPI.sendRequest(player, target, false).thenAccept(request -> {
+        player.sendMessage("§aTPA request sent to " + target.getName() + "!");
+        target.sendMessage("§6" + player.getName() + " wants to teleport to you.");
+        target.sendMessage("§7Type /tpaccept " + player.getName() + " or /tpadeny " + player.getName());
+        
+        // Show cost if applicable
+        if (request.getCost() > 0) {
+            String currency = economy.currencyNamePlural();
+            player.sendMessage("§7Cost: §c" + currency + request.getCost());
+        }
+    }).exceptionally(throwable -> {
+        player.sendMessage("§cFailed to send TPA request: " + throwable.getMessage());
+        getLogger().log(Level.WARNING, "TPA send failed", throwable);
+        return null;
+    });
+    
+    return true;
+}</pre>
+          </div>
+        </div>
+
+        <div class="method-section">
+          <div class="method-title">acceptRequest(Player target, UUID senderId)</div>
+          <div class="method-signature">CompletableFuture&lt;Boolean&gt; acceptRequest(@NotNull Player target, @Nullable UUID senderId)</div>
+          <div class="method-desc">Accepts a pending TPA request. Teleports the appropriate player after warmup delay, deducts costs, and fires events.</div>
+          <div class="method-params">
+            <dt>When to Call:</dt>
+            <dd>When processing /tpaccept or custom accept commands; when implementing auto-accept for trusted players.</dd>
+            <dt>Parameters:</dt>
+            <dd><strong>target:</strong> Player accepting the request (the player who received the TPA)</dd>
+            <dd><strong>senderId:</strong> UUID of the specific request sender, or null to accept most recent request</dd>
+            <dt>Return Value:</dt>
+            <dd>CompletableFuture&lt;Boolean&gt; - Resolves to true if request accepted and teleport initiated, false if no matching request found or acceptance failed.</dd>
+          </div>
+          <div class="code-block">
+                        <pre>// /tpaccept [player] command
+public boolean onTpacceptCommand(CommandSender sender, String[] args) {
+    if (!(sender instanceof Player)) {
+        sender.sendMessage("Only players can accept TPA requests.");
+        return true;
+    }
+    
+    Player target = (Player) sender;
+    UUID senderId = null;
+    
+    // Optional: accept from specific player
+    if (args.length > 0) {
+        Player senderPlayer = Bukkit.getPlayer(args[0]);
+        if (senderPlayer == null) {
+            target.sendMessage("§cPlayer not found: " + args[0]);
+            return true;
+        }
+        senderId = senderPlayer.getUniqueId();
+    }
+    
+    // Accept the request
+    tpaAPI.acceptRequest(target, senderId).thenAccept(success -> {
+        if (success) {
+            // Success message handled by API events
+            // Could add custom announcer here
+        } else {
+            if (senderId != null) {
+                target.sendMessage("§cNo pending TPA request from that player.");
+            } else {
+                target.sendMessage("§cYou have no pending TPA requests.");
+            }
+        }
+    }).exceptionally(throwable -> {
+        target.sendMessage("§cError accepting request: " + throwable.getMessage());
+        return null;
+    });
+    
+    return true;
+}</pre>
+          </div>
+        </div>
+
+        <div class="method-section">
+          <div class="method-title">denyRequest(Player target, UUID senderId)</div>
+          <div class="method-signature">CompletableFuture&lt;Boolean&gt; denyRequest(@NotNull Player target, @Nullable UUID senderId)</div>
+          <div class="method-desc">Denies a pending TPA request. Issues refunds if configured, removes request from queue, and fires denial events.</div>
+          <div class="method-params">
+            <dt>When to Call:</dt>
+            <dd>When processing /tpadeny commands; when implementing auto-deny for blocked players; when request timeout expires.</dd>
+            <dt>Parameters:</dt>
+            <dd><strong>target:</strong> Player denying the request (the player who received the TPA)</dd>
+            <dd><strong>senderId:</strong> UUID of the specific request sender, or null to deny most recent request</dd>
+            <dt>Return Value:</dt>
+            <dd>CompletableFuture&lt;Boolean&gt; - Resolves to true if request denied successfully, false if no matching request found.</dd>
+          </div>
+          <div class="code-block">
+                        <pre>// /tpadeny [player] command
+public boolean onTpadenyCommand(CommandSender sender, String[] args) {
+    if (!(sender instanceof Player)) {
+        sender.sendMessage("Only players can deny TPA requests.");
+        return true;
+    }
+    
+    Player target = (Player) sender;
+    UUID senderId = null;
+    
+    if (args.length > 0) {
+        Player senderPlayer = Bukkit.getPlayer(args[0]);
+        if (senderPlayer == null) {
+            target.sendMessage("§cPlayer not found: " + args[0]);
+            return true;
+        }
+        senderId = senderPlayer.getUniqueId();
+    }
+    
+    tpaAPI.denyRequest(target, senderId).thenAccept(success -> {
+        if (success) {
+            // API handles messaging, we can add logging
+            getLogger().info(target.getName() + " denied a TPA request.");
+        } else {
+            target.sendMessage("§cNo pending request to deny.");
+        }
+    });
+    
+    return true;
+}</pre>
+          </div>
+        </div>
+
+        <div class="method-section">
+          <div class="method-title">cancelRequest(Player sender, UUID targetId)</div>
+          <div class="method-signature">CompletableFuture&lt;Integer&gt; cancelRequest(@NotNull Player sender, @Nullable UUID targetId)</div>
+          <div class="method-desc">Cancels TPA requests sent by the player. Can cancel a specific request or all pending requests.</div>
+          <div class="method-params">
+            <dt>When to Call:</dt>
+            <dd>When processing /tpacancel command; when player logs out; when implementing request management GUIs.</dd>
+            <dt>Parameters:</dt>
+            <dd><strong>sender:</strong> Player who sent the requests to cancel</dd>
+            <dd><strong>targetId:</strong> UUID of specific target to cancel request for, or null to cancel all pending requests</dd>
+            <dt>Return Value:</dt>
+            <dd>CompletableFuture&lt;Integer&gt; - Resolves to number of requests canceled (0 if none found).</dd>
+          </div>
+          <div class="code-block">
+                        <pre>// /tpacancel [player] command
+public boolean onTpacancelCommand(CommandSender sender, String[] args) {
+    if (!(sender instanceof Player)) {
+        sender.sendMessage("Only players can cancel TPA requests.");
+        return true;
+    }
+    
+    Player player = (Player) sender;
+    UUID targetId = null;
+    
+    // Optional: cancel specific request
+    if (args.length > 0) {
+        Player target = Bukkit.getPlayer(args[0]);
+        if (target == null) {
+            player.sendMessage("§cPlayer not found: " + args[0]);
+            return true;
+        }
+        targetId = target.getUniqueId();
+    }
+    
+    tpaAPI.cancelRequest(player, targetId).thenAccept(count -> {
+        if (count > 0) {
+            if (targetId != null) {
+                player.sendMessage("§cCanceled your TPA request to " + Bukkit.getPlayer(targetId).getName());
+            } else {
+                player.sendMessage("§cCanceled " + count + " pending TPA requests.");
+            }
+        } else {
+            player.sendMessage("§7No TPA requests to cancel.");
+        }
+    });
+    
+    return true;
+}</pre>
+          </div>
+        </div>
+
+        <div class="method-section">
+          <div class="method-title">sendRequestToAll(Player sender)</div>
+          <div class="method-signature">CompletableFuture&lt;Integer&gt; sendRequestToAll(@NotNull Player sender)</div>
+          <div class="method-desc">Broadcasts a TPAHere request to all online players simultaneously. Useful for events or emergencies.</div>
+          <div class="method-params">
+            <dt>When to Call:</dt>
+            <dd>When processing /tpall command; when implementing "gather" features for events; for admin emergency teleportation.</dd>
+            <dt>Parameters:</dt>
+            <dd><strong>sender:</strong> Player who wants everyone to teleport to them (cannot be null)</dd>
+            <dt>Return Value:</dt>
+            <dd>CompletableFuture&lt;Integer&gt; - Resolves to number of requests sent (players who have TPA enabled).</dd>
+          </div>
+          <div class="code-block">
+                        <pre>// /tpall command (admin/permission controlled)
+public boolean onTpallCommand(CommandSender sender) {
+    if (!(sender instanceof Player)) {
+        sender.sendMessage("Only players can use this command.");
+        return true;
+    }
+    
+    Player player = (Player) sender;
+    
+    if (!sender.hasPermission("tpa.admin.tpall")) {
+        player.sendMessage("§cYou don't have permission to use /tpall.");
+        return true;
+    }
+    
+    if (!tpaAPI.isEnabled()) {
+        player.sendMessage("§cTPA system is disabled.");
+        return true;
+    }
+    
+    TPASettings settings = tpaAPI.getSettings();
+    if (!settings.isCrossWorld()) {
+        // Verify all players are in same world
+        long otherWorldCount = Bukkit.getOnlinePlayers().stream()
+            .filter(p -> !p.equals(player))
+            .filter(p -> !p.getWorld().equals(player.getWorld()))
+            .count();
+        
+        if (otherWorldCount > 0) {
+            player.sendMessage("§cTPAAll is blocked across worlds (crossWorld: false).");
+            return true;
+        }
+    }
+    
+    double cost = tpaAPI.getCosts().getCostTpall();
+    if (cost > 0 && !economy.has(player, cost)) {
+        player.sendMessage("§cInsufficient funds. Cost: $" + cost);
+        return true;
+    }
+    
+    player.sendMessage("§6Sending teleport request to all online players...");
+    
+    tpaAPI.sendRequestToAll(player).thenAccept(count -> {
+        String currency = economy.currencyNamePlural();
+        player.sendMessage("§aTPAAll request sent to " + count + " players.");
+        
+        if (cost > 0) {
+            player.sendMessage("§7Cost: " + currency + cost);
+        }
+        
+        getLogger().info(player.getName() + " sent TPAAll to " + count + " players.");
+    });
+    
+    return true;
+}</pre>
+          </div>
+        </div>
+
+        <div class="method-section">
+          <div class="method-title">toggleRequests(Player player)</div>
+          <div class="method-signature">CompletableFuture&lt;Boolean&gt; toggleRequests(@NotNull Player player)</div>
+          <div class="method-desc">Toggles whether a player can receive TPA requests. When disabled, all incoming requests are automatically denied.</div>
+          <div class="method-params">
+            <dt>When to Call:</dt>
+            <dd>When processing /tpatoggle command; when implementing "do not disturb" features; for automatic toggling during minigames or events.</dd>
+            <dt>Parameters:</dt>
+            <dd><strong>player:</strong> Player toggling their request reception status</dd>
+            <dt>Return Value:</dt>
+            <dd>CompletableFuture&lt;Boolean&gt; - Resolves to new state (true if requests now enabled, false if disabled).</dd>
+          </div>
+          <div class="code-block">
+                        <pre>// /tpatoggle command
+public boolean onTpatoggleCommand(CommandSender sender) {
+    if (!(sender instanceof Player)) {
+        sender.sendMessage("Only players can toggle TPA requests.");
+        return true;
+    }
+    
+    Player player = (Player) sender;
+    
+    tpaAPI.toggleRequests(player).thenAccept(enabled -> {
+        if (enabled) {
+            player.sendMessage("§a✓ TPA requests are now §aENABLED");
+            player.sendMessage("§7Other players can send you teleport requests.");
+        } else {
+            player.sendMessage("§c✗ TPA requests are now §cDISABLED");
+            player.sendMessage("§7All incoming requests will be automatically denied.");
+        }
+    });
+    
+    return true;
+}</pre>
+          </div>
+        </div>
+
+        <div class="method-section">
+          <div class="method-title">getPlayerData(UUID playerId)</div>
+          <div class="method-signature">CompletableFuture&lt;TPAPlayerData&gt; getPlayerData(@NotNull UUID playerId)</div>
+          <div class="method-desc">Retrieves comprehensive TPA data for a player including cooldowns, request status, and active request counts.</div>
+          <div class="method-params">
+            <dt>When to Call:</dt>
+            <dd>When displaying player statistics; for administrative inspection; for implementing custom cooldown checks; for analytics.</dd>
+            <dt>Parameters:</dt>
+            <dd><strong>playerId:</strong> UUID of the player to query</dd>
+            <dt>Return Value:</dt>
+            <dd>CompletableFuture&lt;TPAPlayerData&gt; - Resolves to immutable player data object.</dd>
+          </div>
+          <div class="code-block">
+                        <pre>// /tpastatus &lt;player&gt; command (admin)
+public boolean onTpastatusCommand(CommandSender sender, String[] args) {
+    if (!sender.hasPermission("tpa.admin.status")) {
+        sender.sendMessage("§cNo permission.");
+        return true;
+    }
+    
+    if (args.length < 1) {
+        sender.sendMessage("Usage: /tpastatus &lt;player&gt;");
+        return true;
+    }
+    
+    OfflinePlayer target = Bukkit.getOfflinePlayer(args[0]);
+    
+    tpaAPI.getPlayerData(target.getUniqueId()).thenAccept(data -> {
+        sender.sendMessage("§6§lTPA Status for " + target.getName() + ":");
+        sender.sendMessage("§7Requests Enabled: " + (data.isRequestsDisabled() ? "§cNo" : "§aYes"));
+        sender.sendMessage("§7Active Requests Sent: §e" + data.getActiveRequestsSent());
+        sender.sendMessage("§7Active Requests Received: §e" + data.getActiveRequestsReceived());
+        
+        long cooldown = data.getCooldownTime();
+        if (cooldown > 0) {
+            sender.sendMessage("§7Cooldown: §c" + formatCooldown(cooldown) + " remaining");
+        } else {
+            sender.sendMessage("§7Cooldown: §aReady");
+        }
+        
+        // Show active requests if any
+        if (data.getActiveRequestsReceived() > 0) {
+            tpaAPI.getActiveRequests(target.getUniqueId()).thenAccept(requests -> {
+                sender.sendMessage("§7Pending Requests:");
+                requests.forEach(req -> {
+                    Player senderPlayer = Bukkit.getPlayer(req.getSenderId());
+                    String senderName = senderPlayer != null ? senderPlayer.getName() : "N/A";
+                    String type = req.isHere() ? "TPAHere" : "TPA";
+                    sender.sendMessage("§7  - " + senderName + " (" + type + ")");
+                });
+            });
+        }
+    }).exceptionally(throwable -> {
+        sender.sendMessage("§cFailed to retrieve player data: " + throwable.getMessage());
+        return null;
+    });
+    
+    return true;
+}
+
+private String formatCooldown(long cooldownMs) {
+    long seconds = cooldownMs / 1000;
+    long minutes = seconds / 60;
+    return String.format("%d minutes, %d seconds", minutes, seconds % 60);
+}</pre>
+          </div>
+        </div>
+
+        <div class="method-section">
+          <div class="method-title">getActiveRequests(UUID targetId)</div>
+          <div class="method-signature">CompletableFuture&lt;List&lt;TPARequestData&gt;&gt; getActiveRequests(@NotNull UUID targetId)</div>
+          <div class="method-desc">Retrieves all pending TPA requests for a target player. Useful for creating custom request management GUIs.</div>
+          <div class="method-params">
+            <dt>When to Call:</dt>
+            <dd>When building request management interfaces; for displaying pending requests in scoreboards; for administrative oversight.</dd>
+            <dt>Parameters:</dt>
+            <dd><strong>targetId:</strong> UUID of the player who received the requests</dd>
+            <dt>Return Value:</dt>
+            <dd>CompletableFuture&lt;List&lt;TPARequestData&gt;&gt; - Resolves to list of all active requests (may be empty).</dd>
+          </div>
+          <div class="code-block">
+                        <pre>// Open TPA request manager GUI
+public void openRequestManager(Player player) {
+    tpaAPI.getActiveRequests(player.getUniqueId()).thenAccept(requests -> {
+        if (requests.isEmpty()) {
+            player.sendMessage("§7You have no pending TPA requests.");
+            return;
+        }
+        
+        Inventory gui = Bukkit.createInventory(null, 54, "§6Pending TPA Requests");
+        
+        int slot = 10;
+        for (TPARequestData request : requests) {
+            Player sender = Bukkit.getPlayer(request.getSenderId());
+            if (sender == null) continue; // Skip offline senders
+            
+            ItemStack head = getPlayerHead(sender);
+            ItemMeta meta = head.getItemMeta();
+            
+            String requestType = request.isHere() ? "TPA Here" : "TPA";
+            meta.setDisplayName("§e" + sender.getName() + " - " + requestType);
+            
+            List<String> lore = new ArrayList<>();
+            lore.add("§7Click to accept");
+            lore.add("§7Shift-click to deny");
+            
+            if (request.getCost() > 0) {
+                lore.add("§7Cost: $" + request.getCost());
+            }
+            
+            meta.setLore(lore);
+            head.setItemMeta(meta);
+            
+            gui.setItem(slot, head);
+            slot += 2;
+            
+            if (slot >= 44) break; // Prevent overflow
+        }
+        
+        player.openInventory(gui);
+        activeTPAGuis.put(player.getUniqueId(), requests);
+    });
+}</pre>
+          </div>
+        </div>
+
+        <div class="method-section">
+          <div class="method-title">getSettings()</div>
+          <div class="method-signature">TPASettings getSettings()</div>
+          <div class="method-desc">Retrieves the TPA system configuration settings (cooldowns, timeouts, warmup, movement policies, cross-world, particles).</div>
+          <div class="method-params">
+            <dt>When to Call:</dt>
+            <dd>To display TPA rules to players; to validate custom teleport logic against system settings; for administrative configuration checks.</dd>
+            <dt>Parameters:</dt>
+            <dd>None.</dd>
+            <dt>Return Value:</dt>
+            <dd>TPASettings - Immutable configuration object.</dd>
+          </div>
+          <div class="code-block">
+                        <pre>// /tparules command
+public boolean onTparulesCommand(CommandSender sender) {
+    TPASettings settings = tpaAPI.getSettings();
+    
+    sender.sendMessage("§6§lTPA System Rules:");
+    sender.sendMessage("§7Cooldown: §e" + settings.getCooldown() + " seconds");
+    sender.sendMessage("§7Request Timeout: §e" + settings.getTimeout() + " seconds");
+    sender.sendMessage("§7Teleport Warmup: §e" + settings.getWarmup() + " seconds");
+    sender.sendMessage("§7Teleport Delay: §e" + settings.getTeleportDelay() + " ticks");
+    sender.sendMessage("§7Cancel on Move: " + (settings.isCancelOnMove() ? "§aYes" : "§cNo"));
+    sender.sendMessage("§7Cross-World: " + (settings.isCrossWorld() ? "§aEnabled" : "§cDisabled"));
+    
+    if (!settings.getBlockedWorlds().isEmpty()) {
+        sender.sendMessage("§7Blocked Worlds: §c" + String.join(", ", settings.getBlockedWorlds()));
+    }
+    
+    sender.sendMessage("§7Economy: " + (settings.isEconomyEnabled() ? "§aEnabled" : "§cDisabled"));
+    sender.sendMessage("§7Particles: " + (settings.isParticlesEnabled() ? "§a" + settings.getParticleType() : "§cDisabled"));
+    
+    TPACosts costs = tpaAPI.getCosts();
+    sender.sendMessage("§7Costs: §6TPA: $" + costs.getCostTpa() + 
+        " §7| §6TPAHere: $" + costs.getCostTpahere() + 
+        " §7| §6TPAAll: $" + costs.getCostTpall());
+    
+    return true;
+}</pre>
+          </div>
+        </div>
+
+        <div class="method-section">
+          <div class="method-title">getCosts()</div>
+          <div class="method-signature">TPACosts getCosts()</div>
+          <div class="method-desc">Retrieves the economic cost configuration for different TPA types and refund policies.</div>
+          <div class="method-params">
+            <dt>When to Call:</dt>
+            <dd>When displaying prices to players; when calculating costs for custom TPA variants; for refund calculations.</dd>
+            <dt>Parameters:</dt>
+            <dd>None.</dd>
+            <dt>Return Value:</dt>
+            <dd>TPACosts - Immutable cost configuration object.</dd>
+          </div>
+          <div class="code-block">
+                        <pre>// Admin command with discounted costs
+public boolean onAdminTpaCommand(CommandSender sender, String[] args) {
+    if (!sender.hasPermission("tpa.admin.stafftpa")) {
+        sender.sendMessage("§cNo permission.");
+        return true;
+    }
+    
+    if (!(sender instanceof Player) || args.length < 1) {
+        sender.sendMessage("Usage: /stafftpa &lt;player&gt;");
+        return true;
+    }
+    
+    Player admin = (Player) sender;
+    Player target = Bukkit.getPlayer(args[0]);
+    
+    if (target == null) {
+        sender.sendMessage("§cPlayer not found.");
+        return true;
+    }
+    
+    // Staff get 50% discount
+    double normalCost = tpaAPI.getCosts().getCostTpa();
+    double staffCost = normalCost * 0.5;
+    
+    if (economy.getBalance(admin) < staffCost) {
+        admin.sendMessage("§cEven with staff discount, you need $" + staffCost);
+        return true;
+    }
+    
+    // Implement custom staff TPA logic here
+    // Note: This is a simplified example - full implementation would need to bypass normal cost logic
+    
+    return true;
+}</pre>
+          </div>
+        </div>
+
+        <div class="method-section">
+          <div class="method-title">isEnabled()</div>
+          <div class="method-signature">boolean isEnabled()</div>
+          <div class="method-desc">Checks whether the TPA system is globally enabled on the server.</div>
+          <div class="method-params">
+            <dt>When to Call:</dt>
+            <dd>Before any TPA operation; in command pre-checks; in event handlers to prevent processing when TPA is disabled.</dd>
+            <dt>Parameters:</dt>
+            <dd>None.</dd>
+            <dt>Return Value:</dt>
+            <dd>boolean - true if TPA system is enabled.</dd>
+          </div>
+          <div class="code-block">
+                        <pre>@EventHandler
+public void onPlayerJoin(PlayerJoinEvent event) {
+    Player player = event.getPlayer();
+    
+    // Only show TPA help if system is enabled
+    if (tpaAPI.isEnabled()) {
+        TPASettings settings = tpaAPI.getSettings();
+        if (!settings.isRequestsDisabled()) {
+            player.sendMessage("§eUse §f/tpa &lt;player&gt; §eto request teleportation!");
+            player.sendMessage("§7Type §f/tpatoggle §eto disable requests.");
+        }
+    }
+}
+
+// Block commands when disabled
+public class TpaCommand implements CommandExecutor {
+    @Override
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (!tpaAPI.isEnabled()) {
+            sender.sendMessage("§cTPA system is currently disabled.");
+            return true;
+        }
+        // ... command logic
+    }
+}</pre>
+          </div>
+        </div>
+
+        <div class="method-section">
+          <div class="method-title">reload()</div>
+          <div class="method-signature">CompletableFuture&lt;Void&gt; reload()</div>
+          <div class="method-desc">Reloads TPA configuration from disk without server restart. Updates cooldowns, timeouts, costs, and settings.</div>
+          <div class="method-params">
+            <dt>When to Call:</dt>
+            <dd>In admin reload commands; after automated config updates; for live tuning of TPA parameters.</dd>
+            <dt>Parameters:</dt>
+            <dd>None.</dd>
+            <dt>Return Value:</dt>
+            <dd>CompletableFuture&lt;Void&gt; - Completes when reload finishes.</dd>
+          </div>
+          <div class="code-block">
+                        <pre>// /tpareload command (admin)
+public boolean onTpareloadCommand(CommandSender sender) {
+    if (!sender.hasPermission("tpa.admin.reload")) {
+        sender.sendMessage("§cNo permission.");
+        return true;
+    }
+    
+    sender.sendMessage("§eReloading TPA configuration...");
+    long start = System.currentTimeMillis();
+    
+    tpaAPI.reload().thenAccept(v -> {
+        long duration = System.currentTimeMillis() - start;
+        sender.sendMessage("§aTPA configuration reloaded in " + duration + "ms!");
+        
+        // Show updated settings
+        TPASettings settings = tpaAPI.getSettings();
+        sender.sendMessage("§7Cooldown: " + settings.getCooldown() + "s | Timeout: " + settings.getTimeout() + "s");
+        
+        TPACosts costs = tpaAPI.getCosts();
+        sender.sendMessage("§7TPA Cost: $" + costs.getCostTpa() + " | Refund on Deny: " + costs.isRefundOnDeny());
+        
+        getLogger().info("TPA config reloaded by " + sender.getName());
+        
+    }).exceptionally(throwable -> {
+        sender.sendMessage("§cReload failed: " + throwable.getMessage());
+        getLogger().log(Level.SEVERE, "TPA reload error", throwable);
+        return null;
+    });
+    
+    return true;
+}</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">Class: TPACosts</div>
+      <div class="card-body">
+        <div class="method-signature">Package: com.serveressentials.api.tpa</div>
+        <p style="margin: 1rem 0; color: var(--text-2);">
+          Immutable data container for TPA economic costs and refund policies.
+        </p>
+
+        <div class="section-title">Constructor</div>
+        <div class="method-signature">TPACosts(double costTpa, double costTpahere, double costTpall, boolean refundOnDeny, boolean refundOnExpire)</div>
+
+        <div class="section-title">Methods</div>
+
+        <div class="method-section">
+          <div class="method-title">getCostTpa()</div>
+          <div class="method-signature">double getCostTpa()</div>
+          <div class="method-desc">Returns: Cost for regular TPA requests (sender teleports to target)</div>
+        </div>
+
+        <div class="method-section">
+          <div class="method-title">getCostTpahere()</div>
+          <div class="method-signature">double getCostTpahere()</div>
+          <div class="method-desc">Returns: Cost for TPAHere requests (target teleports to sender)</div>
+        </div>
+
+        <div class="method-section">
+          <div class="method-title">getCostTpall()</div>
+          <div class="method-signature">double getCostTpall()</div>
+          <div class="method-desc">Returns: Cost for TPAAll broadcast requests</div>
+        </div>
+
+        <div class="method-section">
+          <div class="method-title">isRefundOnDeny()</div>
+          <div class="method-signature">boolean isRefundOnDeny()</div>
+          <div class="method-desc">Returns: true if costs are refunded when target denies request</div>
+        </div>
+
+        <div class="method-section">
+          <div class="method-title">isRefundOnExpire()</div>
+          <div class="method-signature">boolean isRefundOnExpire()</div>
+          <div class="method-desc">Returns: true if costs are refunded when request times out</div>
+        </div>
+
+        <div class="section-title">Usage Scenario</div>
+        <div class="code-block">
+                    <pre>// Building a cost calculator for custom TPA commands
+public double calculateRequestCost(Player sender, Player target, boolean isHere, boolean isAll) {
+    TPACosts costs = tpaAPI.getCosts();
+    
+    if (isAll) {
+        return costs.getCostTpall();
+    }
+    
+    // VIP discount
+    if (sender.hasPermission("tpa.vip.discount")) {
+        return isHere ? costs.getCostTpahere() * 0.5 : costs.getCostTpa() * 0.5;
+    }
+    
+    return isHere ? costs.getCostTpahere() : costs.getCostTpa();
+}</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">Class: TPAPlayerData</div>
+      <div class="card-body">
+        <div class="method-signature">Package: com.serveressentials.api.tpa</div>
+        <p style="margin: 1rem 0; color: var(--text-2);">
+          Immutable data container for per-player TPA state.
+        </p>
+
+        <div class="section-title">Constructor</div>
+        <div class="method-signature">TPAPlayerData(@NotNull UUID playerId, long cooldownTime, boolean requestsDisabled, int activeRequestsSent, int activeRequestsReceived)</div>
+
+        <div class="section-title">Methods</div>
+
+        <div class="method-section">
+          <div class="method-title">getPlayerId()</div>
+          <div class="method-signature">UUID getPlayerId()</div>
+          <div class="method-desc">Returns: UUID of the player this data represents</div>
+        </div>
+
+        <div class="method-section">
+          <div class="method-title">getCooldownTime()</div>
+          <div class="method-signature">long getCooldownTime()</div>
+          <div class="method-desc">Returns: Unix timestamp (milliseconds) when cooldown expires, or 0 if no cooldown active</div>
+        </div>
+
+        <div class="method-section">
+          <div class="method-title">isRequestsDisabled()</div>
+          <div class="method-signature">boolean isRequestsDisabled()</div>
+          <div class="method-desc">Returns: true if player has TPA requests disabled via /tpatoggle</div>
+        </div>
+
+        <div class="method-section">
+          <div class="method-title">getActiveRequestsSent()</div>
+          <div class="method-signature">int getActiveRequestsSent()</div>
+          <div class="method-desc">Returns: Number of pending requests this player has sent awaiting response</div>
+        </div>
+
+        <div class="method-section">
+          <div class="method-title">getActiveRequestsReceived()</div>
+          <div class="method-signature">int getActiveRequestsReceived()</div>
+          <div class="method-desc">Returns: Number of pending requests this player has received awaiting response</div>
+        </div>
+
+        <div class="section-title">Usage Scenario</div>
+        <div class="code-block">
+                    <pre>// Update TPA stats on scoreboard
+public void updateTpaStats(Player player) {
+    tpaAPI.getPlayerData(player.getUniqueId()).thenAccept(data -> {
+        Scoreboard board = player.getScoreboard();
+        Objective objective = board.getObjective("tpastats");
+        
+        if (objective == null) {
+            objective = board.registerNewObjective("tpastats", "dummy", "§6TPA Stats");
+            objective.setDisplaySlot(DisplaySlot.SIDEBAR);
+        }
+        
+        objective.getScore("§7Requests In:").setScore(4);
+        objective.getScore("§e" + data.getActiveRequestsReceived()).setScore(3);
+        objective.getScore("§7Requests Out:").setScore(2);
+        objective.getScore("§e" + data.getActiveRequestsSent()).setScore(1);
+        
+        long cooldownLeft = data.getCooldownTime() - System.currentTimeMillis();
+        if (cooldownLeft > 0) {
+            objective.getScore("§cCooldown Active").setScore(0);
+        }
+    });
+}</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">Class: TPARequestData</div>
+      <div class="card-body">
+        <div class="method-signature">Package: com.serveressentials.api.tpa</div>
+        <p style="margin: 1rem 0; color: var(--text-2);">
+          Immutable data representing a single teleport request.
+        </p>
+
+        <div class="section-title">Constructor</div>
+        <div class="method-signature">TPARequestData(@NotNull UUID senderId, @NotNull UUID targetId, boolean here, double cost, long timestamp)</div>
+
+        <div class="section-title">Methods</div>
+
+        <div class="method-section">
+          <div class="method-title">getSenderId()</div>
+          <div class="method-signature">UUID getSenderId()</div>
+          <div class="method-desc">Returns: UUID of player who sent the request</div>
+        </div>
+
+        <div class="method-section">
+          <div class="method-title">getTargetId()</div>
+          <div class="method-signature">UUID getTargetId()</div>
+          <div class="method-desc">Returns: UUID of player who received the request</div>
+        </div>
+
+        <div class="method-section">
+          <div class="method-title">isHere()</div>
+          <div class="method-signature">boolean isHere()</div>
+          <div class="method-desc">Returns: true if TPAHere request (target teleports to sender), false for regular TPA</div>
+        </div>
+
+        <div class="method-section">
+          <div class="method-title">getCost()</div>
+          <div class="method-signature">double getCost()</div>
+          <div class="method-desc">Returns: Economic cost of this request (may be 0 if economy disabled)</div>
+        </div>
+
+        <div class="method-section">
+          <div class="method-title">getTimestamp()</div>
+          <div class="method-signature">long getTimestamp()</div>
+          <div class="method-desc">Returns: Unix timestamp when request was created (milliseconds)</div>
+        </div>
+
+        <div class="section-title">Usage Scenario</div>
+        <div class="code-block">
+                    <pre>// Custom request logging for anti-cheat or analytics
+@EventHandler
+public void onRequestSend(TPARequestSendEvent event) {
+    TPARequestData request = event.getRequest();
+    
+    // Log all TPA requests to external analytics
+    analytics.logTeleportRequest(
+        request.getSenderId(),
+        request.getTargetId(),
+        request.isHere(),
+        request.getCost(),
+        request.getTimestamp()
+    );
+}</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">Class: TPASettings</div>
+      <div class="card-body">
+        <div class="method-signature">Package: com.serveressentials.api.tpa</div>
+        <p style="margin: 1rem 0; color: var(--text-2);">
+          Immutable system-wide TPA configuration.
+        </p>
+
+        <div class="section-title">Constructor</div>
+        <div class="method-signature">TPASettings(int cooldown, int timeout, int warmup, int teleportDelay, boolean cancelOnMove, boolean blockMoveThresholdBlocks, boolean crossWorld, @NotNull List&lt;String&gt; blockedWorlds, boolean economyEnabled, boolean particlesEnabled, @NotNull String particleType)</div>
+
+        <div class="section-title">Methods</div>
+
+        <div class="method-section">
+          <div class="method-title">getCooldown()</div>
+          <div class="method-signature">int getCooldown()</div>
+          <div class="method-desc">Returns: Seconds between allowed TPA requests per player</div>
+        </div>
+
+        <div class="method-section">
+          <div class="method-title">getTimeout()</div>
+          <div class="method-signature">int getTimeout()</div>
+          <div class="method-desc">Returns: Seconds before pending requests expire</div>
+        </div>
+
+        <div class="method-section">
+          <div class="method-title">getWarmup()</div>
+          <div class="method-signature">int getWarmup()</div>
+          <div class="method-desc">Returns: Seconds player must stand still before teleporting</div>
+        </div>
+
+        <div class="method-section">
+          <div class="method-title">getTeleportDelay()</div>
+          <div class="method-signature">int getTeleportDelay()</div>
+          <div class="method-desc">Returns: Ticks of server delay after teleport (0 for instant)</div>
+        </div>
+
+        <div class="method-section">
+          <div class="method-title">isCancelOnMove()</div>
+          <div class="method-signature">boolean isCancelOnMove()</div>
+          <div class="method-desc">Returns: true if moving during warmup cancels teleport</div>
+        </div>
+
+        <div class="method-section">
+          <div class="method-title">isCrossWorld()</div>
+          <div class="method-signature">boolean isCrossWorld()</div>
+          <div class="method-desc">Returns: true if TPA is allowed between different worlds</div>
+        </div>
+
+        <div class="method-section">
+          <div class="method-title">getBlockedWorlds()</div>
+          <div class="method-signature">List&lt;String&gt; getBlockedWorlds()</div>
+          <div class="method-desc">Returns: Unmodifiable list of world names where TPA is prohibited</div>
+        </div>
+
+        <div class="method-section">
+          <div class="method-title">isEconomyEnabled()</div>
+          <div class="method-signature">boolean isEconomyEnabled()</div>
+          <div class="method-desc">Returns: true if economic costs are active</div>
+        </div>
+
+        <div class="method-section">
+          <div class="method-title">isParticlesEnabled()</div>
+          <div class="method-signature">boolean isParticlesEnabled()</div>
+          <div class="method-desc">Returns: true if teleport particles are shown</div>
+        </div>
+
+        <div class="section-title">Usage Scenario</div>
+        <div class="code-block">
+                    <pre>// Validating custom teleport logic against system rules
+public boolean isTeleportAllowed(Player from, Player to) {
+    if (!tpaAPI.isEnabled()) return false;
+    
+    TPASettings settings = tpaAPI.getSettings();
+    
+    // Check cross-world
+    if (!from.getWorld().equals(to.getWorld()) && !settings.isCrossWorld()) {
+        return false;
+    }
+    
+    // Check blocked worlds
+    if (settings.getBlockedWorlds().contains(from.getWorld().getName()) || 
+        settings.getBlockedWorlds().contains(to.getWorld().getName())) {
+        return false;
+    }
+    
+    // Check economy
+    if (settings.isEconomyEnabled()) {
+        TPACosts costs = tpaAPI.getCosts();
+        double cost = costs.getCostTpa();
+        if (!economy.has(from, cost)) {
+            return false;
+        }
+    }
+    
+    return true;
+}</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">Events</div>
+      <div class="card-body">
+        <div class="section-title">TPARequestSendEvent</div>
+        <div class="method-signature">Package: com.serveressentials.api.tpa.event</div>
+        <div class="method-desc">Fired When: A TPA request is successfully sent and validated.</div>
+        <div class="code-block">
+                    <pre>@EventHandler
+public void onRequestSend(TPARequestSendEvent event) {
+    TPARequestData request = event.getRequest();
+    Player sender = event.getPlayer(); // Request sender
+    Player target = Bukkit.getPlayer(request.getTargetId());
+    
+    if (target != null) {
+        // Send formatted message
+        String type = request.isHere() ? "wants you to teleport to them" : "wants to teleport to you";
+        target.sendMessage("§6§lTPA Request §7| §f" + sender.getName() + " " + type);
+        target.sendMessage("§7Use §a/tpaccept " + sender.getName() + " §7or §c/tpadeny " + sender.getName());
+        
+        // Show cost
+        if (request.getCost() > 0) {
+            target.sendMessage("§7They paid: §c$" + request.getCost());
+        }
+        
+        // Play sound
+        target.playSound(target.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1.0f, 1.5f);
+    }
+}</pre>
+        </div>
+
+        <div class="section-title">TPARequestAcceptEvent</div>
+        <div class="method-signature">Package: com.serveressentials.api.tpa.event</div>
+        <div class="method-desc">Fired When: A TPA request is accepted and teleportation begins.</div>
+        <div class="code-block">
+                    <pre>@EventHandler
+public void onRequestAccept(TPARequestAcceptEvent event) {
+    TPARequestData request = event.getRequest();
+    Player target = event.getPlayer(); // Player who accepted
+    Player sender = Bukkit.getPlayer(request.getSenderId());
+    
+    if (sender != null && target != null) {
+        String type = request.isHere() ? "is teleporting to you" : "you are teleporting to";
+        String recipient = request.isHere() ? target.getName() : sender.getName();
+        String teleporting = request.isHere() ? sender.getName() : target.getName();
+        
+        sender.sendMessage("§a✓ " + recipient + " accepted your request!");
+        target.sendMessage("§a✓ Accepting request from " + sender.getName());
+        
+        // Warmup message
+        TPASettings settings = tpaAPI.getSettings();
+        if (settings.getWarmup() > 0) {
+            String message = "§7Teleporting in " + settings.getWarmup() + " seconds... Don't move!";
+            sender.sendMessage(message);
+            target.sendMessage(message);
+        }
+    }
+}</pre>
+        </div>
+
+        <div class="section-title">TPARequestDenyEvent</div>
+        <div class="method-signature">Package: com.serveressentials.api.tpa.event</div>
+        <div class="method-desc">Fired When: A TPA request is denied.</div>
+        <div class="code-block">
+                    <pre>@EventHandler
+public void onRequestDeny(TPARequestDenyEvent event) {
+    TPARequestData request = event.getRequest();
+    Player target = event.getPlayer(); // Player who denied
+    Player sender = Bukkit.getPlayer(request.getSenderId());
+    
+    if (sender != null) {
+        sender.sendMessage("§c✗ " + target.getName() + " denied your teleport request.");
+        
+        // Refund notification
+        if (tpaAPI.getCosts().isRefundOnDeny() && request.getCost() > 0) {
+            sender.sendMessage("§aYou have been refunded: $" + request.getCost());
+        }
+    }
+}</pre>
+        </div>
+
+        <div class="section-title">TPARequestExpireEvent</div>
+        <div class="method-signature">Package: com.serveressentials.api.tpa.event</div>
+        <div class="method-desc">Fired When: A TPA request times out.</div>
+        <div class="code-block">
+                    <pre>@EventHandler
+public void onRequestExpire(TPARequestExpireEvent event) {
+    TPARequestData request = event.getRequest();
+    Player target = event.getPlayer(); // Target whose request expired
+    Player sender = Bukkit.getPlayer(request.getSenderId());
+    
+    if (sender != null) {
+        sender.sendMessage("§7Your TPA request to " + target.getName() + " has expired.");
+        
+        // Refund notification
+        if (tpaAPI.getCosts().isRefundOnExpire() && request.getCost() > 0) {
+            sender.sendMessage("§aYou have been refunded: $" + request.getCost());
+        }
+    }
+    
+    target.sendMessage("§7TPA request from " + sender.getName() + " has expired.");
+}</pre>
+        </div>
+
+        <div class="section-title">TPAToggleEvent</div>
+        <div class="method-signature">Package: com.serveressentials.api.tpa.event</div>
+        <div class="method-desc">Fired When: A player toggles their TPA request reception state.</div>
+        <div class="code-block">
+                    <pre>@EventHandler
+public void onToggle(TPAToggleEvent event) {
+    Player player = event.getPlayer();
+    boolean enabled = event.getNewState();
+    
+    // Log to admin channel
+    Bukkit.getConsoleSender().sendMessage("§7[TPA] " + player.getName() + " " + 
+        (enabled ? "enabled" : "disabled") + " TPA requests");
+    
+    // Could trigger Discord webhook
+    if (!enabled) {
+        discord.sendMessage(":no_entry: " + player.getName() + " is now blocking TPA requests");
+    }
+}</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">Complete Usage Scenario</div>
+      <div class="card-body">
+        <p style="margin-bottom: 1rem; color: var(--text-2);">
+          Advanced TPA system with custom cooldown bypass for VIPs and request analytics.
+        </p>
+        <div class="code-block">
+                    <pre>package com.advancedtpa;
+
+import com.serveressentials.api.tpa.*;
+import com.serveressentials.api.tpa.event.*;
+import org.bukkit.*;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.plugin.java.JavaPlugin;
+import java.util.*;
+
+public class AdvancedTpaPlugin extends JavaPlugin implements Listener {
+    private TPAAPI tpaAPI;
+    private Map<UUID, Integer> playerRequestCounts = new HashMap<>();
+    
+    @Override
+    public void onEnable() {
+        this.tpaAPI = getTPAAPI(); // Obtain from plugin manager
+        
+        // Register events
+        getServer().getPluginManager().registerEvents(this, this);
+        
+        // Register commands
+        getCommand("tpa").setExecutor(this::onTpaCommand);
+        getCommand("tpahere").setExecutor(this::onTpahereCommand);
+        getCommand("tpastatus").setExecutor(this::onTpastatusCommand);
+    }
+
+    @EventHandler
+    public void onRequestSend(TPARequestSendEvent event) {
+        UUID senderId = event.getRequest().getSenderId();
+        
+        // Track requests for rate limiting
+        int count = playerRequestCounts.getOrDefault(senderId, 0) + 1;
+        playerRequestCounts.put(senderId, count);
+        
+        // Warn if spamming
+        if (count > 5) {
+            Player sender = Bukkit.getPlayer(senderId);
+            if (sender != null) {
+                sender.sendMessage("§cWarning: You have sent " + count + " TPA requests. Don't spam!");
+            }
+        }
+        
+        // Reset count after 1 minute
+        Bukkit.getScheduler().runTaskLater(this, () -> {
+            playerRequestCounts.put(senderId, Math.max(0, playerRequestCounts.getOrDefault(senderId, 0) - 1));
+        }, 1200L); // 1 minute
+    }
+
+    @EventHandler
+    public void onRequestAccept(TPARequestAcceptEvent event) {
+        TPARequestData request = event.getRequest();
+        Player target = event.getPlayer();
+        Player sender = Bukkit.getPlayer(request.getSenderId());
+        
+        if (sender != null && target != null) {
+            // Achievement: First TPA
+            if (!sender.hasMetadata("firstTpa")) {
+                sender.setMetadata("firstTpa", new FixedMetadataValue(this, true));
+                sender.sendMessage("§6§lFirst TPA! §aYou teleported for the first time!");
+                sender.getInventory().addItem(new ItemStack(Material.ENDER_PEARL));
+            }
+        }
+    }
+
+    public boolean onTpastatusCommand(CommandSender sender, String[] args) {
+        if (!(sender instanceof Player)) return true;
+        
+        Player player = (Player) sender;
+        
+        tpaAPI.getPlayerData(player.getUniqueId()).thenAccept(data -> {
+            player.sendMessage("§6§lYour TPA Status:");
+            player.sendMessage("§7Requests: " + (data.isRequestsDisabled() ? "§cOFF" : "§aON"));
+            player.sendMessage("§7Pending In: §e" + data.getActiveRequestsReceived());
+            player.sendMessage("§7Pending Out: §e" + data.getActiveRequestsSent());
+            
+            // Show cooldown
+            long cooldown = data.getCooldownTime() - System.currentTimeMillis();
+            if (cooldown > 0) {
+                player.sendMessage("§7Cooldown: §c" + (cooldown / 1000) + "s remaining");
+            }
+        });
+        
+        return true;
+    }
+}</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">Error Handling Best Practices</div>
+      <div class="card-body">
+        <div class="code-block">
+                    <pre>public void safeTpaRequest(Player sender, Player target, boolean isHere) {
+    // Validate prerequisites
+    if (!tpaAPI.isEnabled()) {
+        sender.sendMessage("§cTPA system is disabled.");
+        return;
+    }
+    
+    if (sender == null || !sender.isOnline()) {
+        getLogger().warning("Attempted to teleport null/offline player to lobby.");
+        return;
+    }
+    
+    if (target == null || !target.isOnline()) {
+        sender.sendMessage("§cTarget player is offline.");
+        return;
+    }
+    
+    // Check settings
+    TPASettings settings = tpaAPI.getSettings();
+    
+    // Cross-world check
+    if (!sender.getWorld().equals(target.getWorld()) && !settings.isCrossWorld()) {
+        sender.sendMessage("§cCross-world TPA is disabled.");
+        return;
+    }
+    
+    // Blocked worlds check
+    if (settings.getBlockedWorlds().contains(sender.getWorld().getName()) || 
+        settings.getBlockedWorlds().contains(target.getWorld().getName())) {
+        sender.sendMessage("§cTPA is disabled in this world.");
+        return;
+    }
+    
+    // Send request with error handling
+    tpaAPI.sendRequest(sender, target, isHere)
+        .thenAccept(request -> {
+            getLogger().info(String.format("TPA sent: %s -> %s (here: %b, cost: %.2f)",
+                sender.getName(), target.getName(), isHere, request.getCost()));
+        })
+        .exceptionally(throwable -> {
+            sender.sendMessage("§c" + throwable.getMessage());
+            getLogger().log(Level.WARNING, "TPA request failed", throwable);
+            return null;
+        });
+}</pre>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">Key Implementation Notes</div>
+        <div class="card-body" style="font-size: 0.85rem; color: var(--text-2);">
+          <p><strong>Thread Safety:</strong> All TPAAPI methods are thread-safe. Most return CompletableFuture for async operations.</p>
+          <p style="margin-top: 0.75rem;"><strong>Null Safety:</strong> All public methods use @NotNull annotations. Data classes make defensive copies where needed.</p>
+          <p style="margin-top: 0.75rem;"><strong>Immutability:</strong> All data classes (TPARequestData, TPAPlayerData, TPASettings, TPACosts) are immutable.</p>
+          <p style="margin-top: 0.75rem;"><strong>Event-Driven:</strong> Comprehensive event system for monitoring all request lifecycle changes.</p>
+          <p style="margin-top: 0.75rem;"><strong>Economy Integration:</strong> Built-in cost support with configurable refund policies.</p>
+          <p style="margin-top: 0.75rem;"><strong>Cooldown Precision:</strong> Cooldowns are tracked per-player with millisecond precision.</p>
+          <p style="margin-top: 0.75rem;"><strong>Request Management:</strong> Full support for multiple pending requests per player with UUID-based identification.</p>
+        </div>
+      </div>
+  </main>
+
+  <aside class="sidebar">
+    <div class="card">
+      <div class="card-header">Quick Navigation</div>
+      <div class="card-body">
+        <ul>
+          <li><a href="#top">TPAAPI Interface</a></li>
+          <li><a href="#top">TPACosts Class</a></li>
+          <li><a href="#top">TPAPlayerData Class</a></li>
+          <li><a href="#top">TPARequestData Class</a></li>
+          <li><a href="#top">TPASettings Class</a></li>
+          <li><a href="#top">Event Listeners</a></li>
+          <li><a href="#top">Usage Examples</a></li>
+          <li><a href="#top">Error Handling</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">Package Structure</div>
+      <div class="card-body">
+        <ul>
+          <li>com.serveressentials.api.tpa.TPAAPI</li>
+          <li>com.serveressentials.api.tpa.TPACosts</li>
+          <li>com.serveressentials.api.tpa.TPAPlayerData</li>
+          <li>com.serveressentials.api.tpa.TPARequestData</li>
+          <li>com.serveressentials.api.tpa.TPASettings</li>
+          <li>com.serveressentials.api.tpa.event.*</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">Implementation Notes</div>
+      <div class="card-body" style="font-size: 0.85rem; color: var(--text-2);">
+        <p>Zero blocking operations. All database IO and cross-world validation runs on async threads.</p>
+        <p style="margin-top: 0.75rem;">Economic integration supports both Vault and internal economy systems with seamless fallback.</p>
+        <p style="margin-top: 0.75rem;">Event system enables monitoring of all request lifecycle changes for custom plugins.</p>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<footer>
+  <div class="footer-links">
+    <a href="https://modrinth.com/user/_GodlyCow" class="footer-link" target="_blank">Modrinth Profile</a>
+    <a href="https://github.com/GodlyCow203" class="footer-link" target="_blank">GitHub</a>
+    <a href="https://discord.gg/vmhQ2gZr8g" class="footer-link" target="_blank">Discord</a>
+    <a href="mailto:godlycowcow@gmail.com" class="footer-link">Email</a>
+  </div>
+  <p>&copy; <span id="yr"></span> _GodlyCow – Building plugins for the Minecraft community</p>
+</footer>
+
+<script>
+  const themeBtn = document.getElementById('themeBtn');
+  const root = document.documentElement;
+  const saved = localStorage.getItem('theme') || 'dark';
+  root.setAttribute('data-theme', saved);
+  themeBtn.textContent = saved === 'dark' ? '☀️ LIGHT' : '🌙 DARK';
+
+  themeBtn.addEventListener('click', () => {
+      const t = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', t);
+      localStorage.setItem('theme', t);
+      themeBtn.textContent = t === 'dark' ? '☀️ LIGHT' : '🌙 DARK';
+  });
+
+  document.getElementById('yr').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
