@@ -75,3 +75,4 @@ Thank you for choosing EssentialsC, and enjoy building your server.
 
 
 • [Discord](https://discord.gg/7VT4cDGYg6) • [Github](https://github.com/GodlyCow203/ServerEssentials) • [Website](https://net.godlycow.org/serveressentials)
+
