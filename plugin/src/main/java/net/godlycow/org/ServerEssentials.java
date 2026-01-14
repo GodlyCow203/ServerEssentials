@@ -99,6 +99,9 @@ import net.godlycow.org.language.storage.*;
 import net.godlycow.org.mail.*;
 import net.godlycow.org.nick.*;
 import net.godlycow.org.reports.*;
+import net.godlycow.org.settings.SettingsConfig;
+import net.godlycow.org.settings.SettingsGUI;
+import net.godlycow.org.settings.SettingsGUIListener;
 import net.godlycow.org.tpa.TPAConfig;
 import net.godlycow.org.tpa.api.TPAAPIImpl;
 import net.godlycow.org.tpa.trigger.TPAListener;
@@ -492,6 +495,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
 
 
 
+
     @Override
     public void onEnable() {
         long start = System.currentTimeMillis();
@@ -530,7 +534,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         economyManager.initialize();
 
         if (economyManager.isEnabled()) {
-            getLogger().info("§aEconomy system initialized: " + economyManager.getEconomyName());
+            getLogger().info("Economy system initialized: " + economyManager.getEconomyName());
         } else {
             getLogger().warning("§cEconomy system failed to initialize!");
         }
@@ -724,6 +728,10 @@ public class ServerEssentials extends JavaPlugin implements Listener {
 
         coinFlipConfig = new CoinFlipConfig(this);
         coinFlipCommand = new CoinFlipCommand(this,playerLanguageManager, coinFlipConfig, economyManager);
+
+        SettingsConfig settingsConfig = new SettingsConfig(this);
+        SettingsGUI settingsGUI = new SettingsGUI(this, playerLanguageManager, settingsConfig);
+        SettingsGUIListener settingsListener = new SettingsGUIListener(this, playerLanguageManager, settingsConfig);
 
 
         this.powerToolConfig = new PowerToolConfig(this);
@@ -978,6 +986,7 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         getCommand("nick").setExecutor(nickCommand);
         getCommand("nicks").setExecutor(nickCommand);
         getCommand("afk").setExecutor(afkCommand);
+        getCommand("settings").setExecutor(new SettingsCommand(playerLanguageManager, settingsConfig, settingsGUI));
 
 
 
@@ -1005,6 +1014,8 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         getCommand("invsee").setTabCompleter(invseeCommand);
         getCommand("tp").setTabCompleter(tpCommand);
         getCommand("invclear").setTabCompleter(invClearCommand);
+        getServer().getPluginManager().registerEvents(settingsListener, this);
+
 
 
 
@@ -1645,7 +1656,6 @@ public class ServerEssentials extends JavaPlugin implements Listener {
 
         getCommand("session").setExecutor(sessionCommand);
 
-        getLogger().info("Session system initialized");
     }
 
     public static class SessionListener implements org.bukkit.event.Listener {
@@ -1714,9 +1724,6 @@ public class ServerEssentials extends JavaPlugin implements Listener {
 
         if (!outFile.exists()) {
             saveResource("lang/" + fileName, false);
-            getLogger().info("Saved default language file: " + fileName);
-        } else {
-            getLogger().info("Language file already exists: " + fileName);
         }
     }
 
@@ -1766,7 +1773,9 @@ public class ServerEssentials extends JavaPlugin implements Listener {
         );
 
         getCommand("shop").setExecutor(shopCommand);
-        getServer().getPluginManager().registerEvents(new ShopGUIListener(shopGuiManager), this);
+        ShopGUIListener shopGUIListener = new ShopGUIListener(shopGuiManager, this);
+        getServer().getPluginManager().registerEvents(shopGUIListener, this);
+
     }
 
     private void saveResourceFolder(String folderPath) {
@@ -1978,7 +1987,5 @@ public class ServerEssentials extends JavaPlugin implements Listener {
 
         getLogger().info("Successfully registered all API services!");
     }
-
-
 
 }

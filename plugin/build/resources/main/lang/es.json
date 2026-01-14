@@ -680,17 +680,6 @@
       "no-permission": "<#FF2424>¡Necesitas el permiso <#c0f0ff>{permission}<#FF2424>!",
       "success": "<#279CF5>Tiempo establecido a noche en el mundo <#c0f0ff>{world}<#279CF5>."
     },
-    "auction": {
-      "only-player": "<#279CF5>Solo los jugadores pueden usar este comando.",
-      "usage": "<#279CF5>Uso:</#279CF5> /auction [sell <precio>|my]",
-      "sell": {
-        "no-item": "<#FF2424>¡Debes tener un item en tu mano para vender!",
-        "usage": "<#FF2424>Uso: /auction sell <precio>",
-        "invalid-price": "<#FF2424>El precio debe ser un número positivo.",
-        "max-limit": "<#FF2424>¡Solo puedes vender hasta <#c0f0ff>{max}<#FF2424> items a la vez!",
-        "success": "<#279CF5>Item listado por <#c0f0ff>${price}<#279CF5>."
-      }
-    },
     "paytoggle": {
       "only-player": "<#279CF5>Solo los jugadores pueden usar este comando.",
       "no-permission": "<#FF2424>¡Necesitas el permiso <#c0f0ff>{permission}<#FF2424>!",
@@ -1150,45 +1139,56 @@
       "none": "<#FF2424>¡No hay bases de datos configuradas!",
       "entry": "<#4169E1>║  <#c0f0ff>{name}</#c0f0ff> - {status}{msg} <#708090>({enabled})</#708090>  ║"
     },
-    "economy": {
-      "shop": {
-        "main-title": "<gradient:#279CF5:#279CF5>Tienda del Servidor</gradient>",
-        "section-title": "<#279CF5>Tienda {section}",
-        "disabled": " <#FF2424>Tienda deshabilitada",
-        "balance-display": "<#279CF5>Tu Saldo: <#c0f0ff>{balance}",
-        "buy-success": "<#279CF5>Compraste <white>{amount}x {item} <#279CF5>por <#c0f0ff>{price}",
-        "sell-success": "<#279CF5>Vendiste <white>{amount}x {item} <#279CF5>por <#c0f0ff>{price}",
-        "cannot-afford": "<#FF2424>No puedes pagar {item} (costo: <#c0f0ff>{price})",
-        "no-items": "<#FF2424>No tienes suficientes {item} para vender",
-        "no-section": "<#FF2424>¡Sección de tienda '<#c0f0ff>{section}<#FF2424>' no encontrada!",
-        "reload-success": "<#279CF5>Configuración de tienda recargada.",
-        "reload-error": "<#FF2424>Error al recargar configuración de tienda. Revisa la consola.",
-        "no-economy": "<#FF2424>Economía no disponible. La tienda es solo de vista.",
-        "transaction-failed": "<#FF2424>Transacción fallida: {error}",
-        "no-main-config": "<#FF2424>Configuración de tienda no encontrada. Contacta a un admin.",
-        "gui": {
-          "close-button": "<#FF2424>✕ Cerrar",
-          "back-button": "<#279CF5>← Atrás",
-          "previous-page": "<#708090>← Anterior",
-          "next-page": "<#708090>Siguiente →",
-          "loading": "<#708090>Cargando..."
-        }
-      },
-      "sellgui": {
-        "disabled": "<#FF2424>GUI de venta deshabilitado.",
-        "sold-success": "<#279CF5><bold>VENDIDO <white>{amount} <#279CF5>items por <#c0f0ff>{symbol}{price}",
-        "returned-items": "<#708090>Devueltos <white>{amount} <#708090>items no vendibles a tu inventario",
-        "no-items": "<#708090>No hay items para vender",
-        "inventory-full": "<#279CF5>Algunos items fueron tirados (inventario lleno)",
-        "not-sellable": "<#FF2424>¡Este item no se puede vender!",
-        "no-economy": "<#FF2424>Economía no disponible. Contacta a un admin.",
-        "transaction-failed": "<#FF2424>Transacción fallida: {error}",
-        "title": "<#279CF5>Vender Items",
-        "info": {
-          "title": "<#279CF5>ZONA DE VENTA",
-          "subtitle": "<#708090>Coloca items aquí para vender",
-          "instruction": "<#279CF5>Cierra el inventario para procesar",
-          "value-prefix": "<#279CF5>Total: <#c0f0ff>"
+    "es": {
+      "economy": {
+        "shop": {
+          "main-title": "<gradient:#279CF5:#279CF5>Tienda del Servidor</gradient>",
+          "section-title": "<#279CF5>Tienda: {section}",
+          "disabled": " <#FF2424>La tienda está deshabilitada",
+          "balance-display": "<#279CF5>Tu saldo: <#c0f0ff>{balance}",
+          "buy-success": "<#279CF5>Compraste <white>{amount}x {item} <#279CF5>por <#c0f0ff>{price}",
+          "sell-success": "<#279CF5>Vendiste <white>{amount}x {item} <#279CF5>por <#c0f0ff>{price}",
+          "cannot-afford": "<#FF2424>No puedes permitirte {item} (costo: <#c0f0ff>{price})",
+          "no-items": "<#FF2424>No hay suficientes {item} para vender",
+          "no-section": "<#FF2424>Sección de la tienda '<#c0f0ff>{section}<#FF2424>' no encontrada!",
+          "reload-success": "<#279CF5>Configuración de la tienda recargada.",
+          "reload-error": "<#FF2424>Error al recargar la configuración de la tienda. Revisa la consola.",
+          "no-economy": "<#FF2424>Economía no disponible. La tienda es solo de visualización.",
+          "transaction-failed": "<#FF2424>La transacción falló: {error}",
+          "no-main-config": "<#FF2424>No se encontró la configuración de la tienda. Contacta a un administrador.",
+          "quantity-title": "<#279CF5>Selecciona cantidad: <#c0f0ff>{item}",
+          "custom-amount-prompt": "<#279CF5>Escribe en el chat la cantidad que deseas comprar o escribe <#FF2424>cancel<#279CF5> para salir.",
+          "custom-amount-timeout": "<#FF2424>✗ Tiempo para ingresar la cantidad agotado.",
+          "cancelled": "<#FF2424>✗ Compra cancelada",
+          "zero-quantity": "<#FF2424>✗ Selecciona una cantidad mayor que 0",
+          "negative-amount": "<#FF2424>✗ La cantidad debe ser positiva",
+          "invalid-amount": "<#FF2424>✗ Cantidad inválida. Introduce un número.",
+          "cannot-afford-bulk": "<#FF2424>✗ No puedes permitirte {quantity}x {item} (costo: <#c0f0ff>{price})",
+          "bulk-buy-success": "<#279CF5>✓ Compraste {quantity}x {item} por <#c0f0ff>{price}",
+          "gui": {
+            "close-button": "<#FF2424>✕ Cerrar",
+            "back-button": "<#279CF5>← Atrás",
+            "previous-page": "<#708090>← Anterior",
+            "next-page": "<#708090>Siguiente →",
+            "loading": "<#708090>Cargando..."
+          }
+        },
+        "sellgui": {
+          "disabled": "<#FF2424>La GUI de venta está deshabilitada.",
+          "sold-success": "<#279CF5><bold>VENDIDO <white>{amount} <#279CF5>objetos por <#c0f0ff>{symbol}{price}",
+          "returned-items": "<#708090>Devueltos <white>{amount} <#708090>objetos no vendibles a tu inventario",
+          "no-items": "<#708090>No hay objetos para vender",
+          "inventory-full": "<#279CF5>Algunos objetos se soltaron (inventario lleno)",
+          "not-sellable": "<#FF2424>¡Este objeto no se puede vender!",
+          "no-economy": "<#FF2424>Economía no disponible. Contacta a un administrador.",
+          "transaction-failed": "<#FF2424>La transacción falló: {error}",
+          "title": "<#279CF5>Vender Objetos",
+          "info": {
+            "title": "<#279CF5>ZONA DE VENTA",
+            "subtitle": "<#708090>Coloca objetos aquí para venderlos",
+            "instruction": "<#279CF5>Cierra el inventario para procesar",
+            "value-prefix": "<#279CF5>Total: <#c0f0ff>"
+          }
         }
       }
     },
@@ -1279,5 +1279,4 @@
       "cleared": "<#279CF5>¡Todo el correo limpiado!"
     }
   }
-}
 }

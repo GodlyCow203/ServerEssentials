@@ -24,18 +24,5 @@ public final class CoinFlipConfig {
         this.logFlips = config.getBoolean("coinflip.log-flips", true);
         this.winChance = config.getDouble("coinflip.win-chance", 0.5);
 
-        if (minBetAmount < 0) {
-            plugin.getLogger().warning("[CoinFlip] min-bet-amount cannot be negative, using default 1.0");
-        }
-        if (maxBetAmount < minBetAmount) {
-            plugin.getLogger().warning("[CoinFlip] max-bet-amount must be greater than min-bet-amount");
-        }
-        if (winChance < 0.0 || winChance > 1.0) {
-            plugin.getLogger().warning("[CoinFlip] win-chance must be between 0.0 and 1.0, using default 0.5");
-        }
-
-        plugin.getLogger().info("[CoinFlip] Loaded config: min=" + minBetAmount +
-                ", max=" + maxBetAmount +
-                ", winChance=" + (winChance * 100) + "%");
     }
 }

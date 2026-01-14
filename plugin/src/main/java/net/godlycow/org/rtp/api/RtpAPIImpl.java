@@ -11,6 +11,7 @@ import net.godlycow.org.language.PlayerLanguageManager;
 import net.godlycow.org.rtp.RtpConfig;
 import net.godlycow.org.rtp.storage.RtpLocationStorage;
 import net.godlycow.org.rtp.trigger.RtpListener;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -18,24 +19,25 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ConcurrentHashMap;
 
 public final class RtpAPIImpl implements RtpAPI {
-    private final @NotNull ServerEssentials plugin;
-    private final @NotNull RtpLocationStorage rtpLocationStorage;
-    private final @NotNull RtpConfig rtpConfig;
-    private final @NotNull RtpListener rtpListener;
-    private final @NotNull PlayerLanguageManager langManager;
+    private final ServerEssentials plugin;
+    private final RtpLocationStorage rtpLocationStorage;
+    private final RtpConfig rtpConfig;
+    private final RtpListener rtpListener;
+    private final PlayerLanguageManager langManager;
+    private final ConcurrentHashMap<String, World> worldCache = new ConcurrentHashMap<>();
 
-    public RtpAPIImpl(@NotNull ServerEssentials plugin,
-                      @NotNull RtpLocationStorage rtpLocationStorage,
-                      @NotNull RtpConfig rtpConfig,
-                      @NotNull RtpListener rtpListener,
-                      @NotNull PlayerLanguageManager langManager) {
+    public RtpAPIImpl(ServerEssentials plugin,
+                      RtpLocationStorage rtpLocationStorage,
+                      RtpConfig rtpConfig,
+                      RtpListener rtpListener,
+                      PlayerLanguageManager langManager) {
         this.plugin = plugin;
         this.rtpLocationStorage = rtpLocationStorage;
         this.rtpConfig = rtpConfig;
@@ -44,92 +46,74 @@ public final class RtpAPIImpl implements RtpAPI {
     }
 
     @Override
-    public @NotNull CompletableFuture<Boolean> randomTeleport(@NotNull Player player) {
+    public CompletableFuture<Boolean> randomTeleport(Player player) {
         return randomTeleport(player, player.getWorld());
     }
 
     @Override
-    public @NotNull CompletableFuture<Boolean> randomTeleport(@NotNull Player player, @NotNull World world) {
-        return CompletableFuture.supplyAsync(() -> {
-            if (!player.hasPermission("serveressentials.command.rtp")) {
-                return false;
-            }
+    public CompletableFuture<Boolean> randomTeleport(Player player, World world) {
+        if (!player.hasPermission("serveressentials.command.rtp")) {
+            return CompletableFuture.completedFuture(false);
+        }
 
-            if (!isRtpEnabled(world.getName()).join()) {
-                return false;
-            }
+        return isRtpEnabled(world.getName())
+                .thenCompose(enabled -> {
+                    if (!enabled) {
+                        return CompletableFuture.completedFuture(false);
+                    }
 
-            long remainingCooldown = getRemainingCooldown(player.getUniqueId()).join();
-            if (remainingCooldown > 0) {
-                return false;
-            }
+                    return getRemainingCooldown(player.getUniqueId())
+                            .thenCompose(remaining -> {
+                                if (remaining > 0) {
+                                    return CompletableFuture.completedFuture(false);
+                                }
 
-            int minRadius = rtpConfig.getMinRadius(world.getName());
-            int maxRadius = rtpConfig.getMaxRadius(world.getName());
+                                int minRadius = rtpConfig.getMinRadius(world.getName());
+                                int maxRadius = rtpConfig.getMaxRadius(world.getName());
 
-            if (maxRadius < minRadius) {
-                int swap = minRadius;
-                minRadius = maxRadius;
-                maxRadius = swap;
-            }
+                                return findSafeLocation(player, world, minRadius, maxRadius)
+                                        .thenCompose(safeLocation -> {
+                                            if (safeLocation == null) {
+                                                CompletableFuture.runAsync(() ->
+                                                        player.sendMessage(langManager.getMessageFor(
+                                                                player,
+                                                                "commands.rtp.unsafe_location",
+                                                                "<red>Could not find a safe location to teleport to!"
+                                                        ))
+                                                );
+                                                return CompletableFuture.completedFuture(false);
+                                            }
 
-            Location safeLocation = findSafeLocation(player, world, minRadius, maxRadius).join();
-            if (safeLocation == null) {
-                return false;
-            }
+                                            return completeTeleport(player, safeLocation, world)
+                                                    .thenApply(v -> true);
+                                        });
+                            });
+                });
+    }
 
-            Location fromLocation = player.getLocation();
 
-            Bukkit.getScheduler().runTask(plugin, () -> {
-                player.teleport(safeLocation);
+    @Override
+    public CompletableFuture<Boolean> openRtpGUI(Player player) {
+        if (!player.hasPermission("serveressentials.command.rtp")) {
+            return CompletableFuture.completedFuture(false);
+        }
 
-                saveRtpLocation(player.getUniqueId(), safeLocation).join();
+        Bukkit.getScheduler().runTask(plugin, () -> {
+            Component title = langManager.getMessageFor(player, "commands.rtp.gui.title", "RTP Menu");
+            org.bukkit.inventory.Inventory gui = Bukkit.createInventory(null, 9, title);
 
-                RtpLocation rtpLocation = new RtpLocation(
-                        player.getUniqueId(),
-                        player.getName(),
-                        world.getName(),
-                        safeLocation.getX(),
-                        safeLocation.getY(),
-                        safeLocation.getZ(),
-                        System.currentTimeMillis()
-                );
+            gui.setItem(2, createGuiItem(player, Material.GRASS_BLOCK, "overworld"));
+            gui.setItem(4, createGuiItem(player, Material.NETHERRACK, "nether"));
+            gui.setItem(6, createGuiItem(player, Material.END_STONE, "end"));
 
-                Bukkit.getPluginManager().callEvent(new RtpTeleportEvent(player, rtpLocation, fromLocation, world.getName()));
-
-                player.sendMessage(langManager.getMessageFor(player, "rtp.teleport_success",
-                        "<green>Teleported to <white>{world}</white>!",
-                        LanguageManager.ComponentPlaceholder.of("{world}", world.getName())));
-            });
-
-            return true;
+            player.openInventory(gui);
         });
+
+        return CompletableFuture.completedFuture(true);
     }
 
     @Override
-    public @NotNull CompletableFuture<Boolean> openRtpGUI(@NotNull Player player) {
-        return CompletableFuture.supplyAsync(() -> {
-            if (!player.hasPermission("serveressentials.command.rtp")) {
-                return false;
-            }
-
-            Bukkit.getScheduler().runTask(plugin, () -> {
-                org.bukkit.inventory.Inventory gui = Bukkit.createInventory(null, 9,
-                        langManager.getMessageFor(player, "rtp.gui.title", "RTP Menu"));
-
-                gui.setItem(2, createGuiItem(player, Material.GRASS_BLOCK, "Overworld"));
-                gui.setItem(4, createGuiItem(player, Material.NETHERRACK, "Nether"));
-                gui.setItem(6, createGuiItem(player, Material.END_STONE, "The End"));
-
-                player.openInventory(gui);
-            });
-
-            return true;
-        });
-    }
-
-    @Override
-    public @NotNull CompletableFuture<Optional<RtpLocation>> getLastRtpLocation(@NotNull UUID playerId) {
+    public CompletableFuture<Optional<RtpLocation>> getLastRtpLocation(UUID playerId) {
         return rtpLocationStorage.getRtpLocation(playerId)
                 .thenApply(opt -> opt.map(loc -> new RtpLocation(
                         playerId,
@@ -143,39 +127,36 @@ public final class RtpAPIImpl implements RtpAPI {
     }
 
     @Override
-    public @NotNull CompletableFuture<Void> saveRtpLocation(@NotNull UUID playerId, @NotNull Location location) {
-        return rtpLocationStorage.saveRtpLocation(
-                playerId,
-                "Unknown",
-                location
-        ).thenRun(() -> {
-            Player player = plugin.getServer().getPlayer(playerId);
-            if (player != null && player.isOnline()) {
-                RtpLocation rtpLocation = new RtpLocation(
-                        playerId,
-                        player.getName(),
-                        location.getWorld().getName(),
-                        location.getX(),
-                        location.getY(),
-                        location.getZ(),
-                        System.currentTimeMillis()
-                );
+    public CompletableFuture<Void> saveRtpLocation(UUID playerId, Location location) {
+        Player player = plugin.getServer().getPlayer(playerId);
+        String playerName = player != null ? player.getName() : "Unknown";
 
-                Bukkit.getScheduler().runTask(plugin, () -> {
-                    Bukkit.getPluginManager().callEvent(new RtpLocationSaveEvent(player, rtpLocation));
+        return rtpLocationStorage.saveRtpLocation(playerId, playerName, location)
+                .thenRun(() -> {
+                    if (player != null && player.isOnline()) {
+                        RtpLocation rtpLocation = new RtpLocation(
+                                playerId,
+                                player.getName(),
+                                location.getWorld().getName(),
+                                location.getX(),
+                                location.getY(),
+                                location.getZ(),
+                                System.currentTimeMillis()
+                        );
+                        Bukkit.getScheduler().runTask(plugin, () -> {
+                            Bukkit.getPluginManager().callEvent(new RtpLocationSaveEvent(player, rtpLocation));
+                        });
+                    }
                 });
-            }
-        });
     }
 
     @Override
-    public @NotNull CompletableFuture<Long> getRemainingCooldown(@NotNull UUID playerId) {
-        // still need to implement this
+    public CompletableFuture<Long> getRemainingCooldown(UUID playerId) {
         return CompletableFuture.completedFuture(0L);
     }
 
     @Override
-    public @NotNull CompletableFuture<Optional<RtpWorldConfig>> getWorldConfig(@NotNull String worldName) {
+    public CompletableFuture<Optional<RtpWorldConfig>> getWorldConfig(String worldName) {
         return CompletableFuture.supplyAsync(() -> {
             boolean enabled = rtpConfig.isWorldEnabled(worldName);
             int minRadius = rtpConfig.getMinRadius(worldName);
@@ -191,7 +172,7 @@ public final class RtpAPIImpl implements RtpAPI {
     }
 
     @Override
-    public @NotNull CompletableFuture<Boolean> isRtpEnabled(@NotNull String worldName) {
+    public CompletableFuture<Boolean> isRtpEnabled(String worldName) {
         return CompletableFuture.supplyAsync(() -> rtpConfig.isWorldEnabled(worldName));
     }
 
@@ -201,16 +182,17 @@ public final class RtpAPIImpl implements RtpAPI {
     }
 
     @Override
-    public @NotNull CompletableFuture<Void> reload() {
+    public CompletableFuture<Void> reload() {
         return CompletableFuture.runAsync(() -> {
             plugin.reloadConfig();
             rtpConfig.reload();
+            worldCache.clear();
             plugin.getLogger().info("[ServerEssentials] RTP configuration reloaded");
         });
     }
 
-    private @NotNull CompletableFuture<Location> findSafeLocation(@NotNull Player player, @NotNull World world,
-                                                                  int minRadius, int maxRadius) {
+    private CompletableFuture<Location> findSafeLocation(Player player, World world,
+                                                         int minRadius, int maxRadius) {
         return CompletableFuture.supplyAsync(() -> {
             java.util.Random random = new java.util.Random();
             int maxAttempts = world.getEnvironment() == World.Environment.NETHER ? 50 : 25;
@@ -221,70 +203,46 @@ public final class RtpAPIImpl implements RtpAPI {
                 if (random.nextBoolean()) x = -x;
                 if (random.nextBoolean()) z = -z;
 
-                Location testLoc = world.getEnvironment() == World.Environment.NETHER
-                        ? findSafeNetherLocation(world, x, z, random)
-                        : findSafeOverworldLocation(world, x, z);
-
-                if (testLoc != null) {
-                    return testLoc;
+                if (world.getEnvironment() == World.Environment.NETHER) {
+                    Location result = findSafeNetherLocation(world, x, z, random);
+                    if (result != null) return result;
+                } else {
+                    Location result = findSafeOverworldLocation(world, x, z);
+                    if (result != null) return result;
                 }
             }
-
             return null;
         });
     }
 
-    private @Nullable Location findSafeOverworldLocation(@NotNull World world, int x, int z) {
-        int y = world.getHighestBlockYAt(x, z) + 1;
-        Location test = new Location(world, x + 0.5, y, z + 0.5);
-
-        return isLocationSafeSync(test) ? test : null;
+    private Location findSafeOverworldLocation(World world, int x, int z) {
+        return CompletableFuture.supplyAsync(() -> {
+            world.loadChunk(x >> 4, z >> 4, true);
+            int y = world.getHighestBlockYAt(x, z) + 1;
+            Location test = new Location(world, x + 0.5, y, z + 0.5);
+            return isLocationSafeSync(test) ? test : null;
+        }).join();
     }
 
-    private @Nullable Location findSafeNetherLocation(@NotNull World world, int x, int z, java.util.Random random) {
+    private Location findSafeNetherLocation(World world, int x, int z, java.util.Random random) {
         for (int i = 0; i < 15; i++) {
             int y = i == 0 ? random.nextInt(90) + 30 : 30 + (i * 6);
             if (y > 120) y = 120 - (i % 15);
 
             Location test = new Location(world, x + 0.5, y, z + 0.5);
             if (isNetherLocationSafeSync(test)) {
+                Bukkit.getScheduler().runTask(plugin, () -> {
+                    world.loadChunk(x >> 4, z >> 4, true);
+                });
                 return test;
             }
         }
         return null;
     }
 
-    private boolean isLocationSafeSync(@NotNull Location loc) {
+    private boolean isLocationSafeSync(Location loc) {
         World w = loc.getWorld();
         if (w == null) return false;
-
-        int x = loc.getBlockX();
-        int y = loc.getBlockY();
-        int z = loc.getBlockZ();
-
-        if (y < w.getMinHeight() + 1 || y > w.getMaxHeight() - 2) return false;
-        if (!w.isChunkLoaded(x >> 4, z >> 4)) return false;
-
-        try {
-            org.bukkit.block.Block feet = w.getBlockAt(x, y, z);
-            org.bukkit.block.Block head = w.getBlockAt(x, y + 1, z);
-            org.bukkit.block.Block ground = w.getBlockAt(x, y - 1, z);
-
-            if (!feet.getType().isAir()) return false;
-            if (!head.getType().isAir()) return false;
-
-            org.bukkit.Material g = ground.getType();
-            if (!g.isSolid()) return false;
-
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    private boolean isNetherLocationSafeSync(@NotNull Location loc) {
-        World w = loc.getWorld();
-        if (w == null || w.getEnvironment() != World.Environment.NETHER) return false;
 
         int x = loc.getBlockX();
         int y = loc.getBlockY();
@@ -307,12 +265,68 @@ public final class RtpAPIImpl implements RtpAPI {
         }
     }
 
-    private @NotNull ItemStack createGuiItem(@NotNull Player player, @NotNull org.bukkit.Material material,
-                                             @NotNull String worldName) {
+    private boolean isNetherLocationSafeSync(Location loc) {
+        World w = loc.getWorld();
+        if (w == null || w.getEnvironment() != World.Environment.NETHER) return false;
+
+        int x = loc.getBlockX();
+        int y = loc.getBlockY();
+        int z = loc.getBlockZ();
+
+        if (y < w.getMinHeight() + 1 || y > w.getMaxHeight() - 2) return false;
+        if (!w.isChunkLoaded(x >> 4, z >> 4)) return false;
+
+        try {
+            org.bukkit.block.Block feet = w.getBlockAt(x, y, z);
+            org.bukkit.block.Block head = w.getBlockAt(x, y + 1, z);
+            org.bukkit.block.Block ground = w.getBlockAt(x, y - 1, z);
+
+            if (!feet.getType().isAir()) return false;
+            if (!head.getType().isAir()) return false;
+
+            Material g = ground.getType();
+            return g.isSolid() && !isUnsafeNetherMaterial(g);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private boolean isUnsafeNetherMaterial(Material mat) {
+        return mat == Material.LAVA || mat == Material.MAGMA_BLOCK || mat == Material.FIRE;
+    }
+
+    private CompletableFuture<Void> completeTeleport(Player player, Location safeLocation, World world) {
+        return CompletableFuture.runAsync(() -> {
+            Bukkit.getScheduler().runTask(plugin, () -> {
+                Location fromLocation = player.getLocation();
+                player.teleport(safeLocation);
+
+                saveRtpLocation(player.getUniqueId(), safeLocation);
+
+                RtpLocation rtpLocation = new RtpLocation(
+                        player.getUniqueId(),
+                        player.getName(),
+                        world.getName(),
+                        safeLocation.getX(),
+                        safeLocation.getY(),
+                        safeLocation.getZ(),
+                        System.currentTimeMillis()
+                );
+
+                Bukkit.getPluginManager().callEvent(new RtpTeleportEvent(player, rtpLocation, fromLocation, world.getName()));
+
+                player.sendMessage(langManager.getMessageFor(player, "commands.rtp.teleport_success",
+                        "<green>Teleported to <white>{world}</white>!",
+                        LanguageManager.ComponentPlaceholder.of("{world}", world.getName())));
+            });
+        });
+    }
+
+    private ItemStack createGuiItem(Player player, Material material, String worldKey) {
         ItemStack item = new ItemStack(material);
         ItemMeta meta = item.getItemMeta();
-        meta.displayName(langManager.getMessageFor(player, "rtp.gui." + worldName.toLowerCase() + ".name", worldName));
-        meta.lore(langManager.getMessageList(player, "rtp.gui." + worldName.toLowerCase() + ".lore"));
+        meta.displayName(langManager.getMessageFor(player, "rtp.gui." + worldKey + ".name", worldKey));
+        meta.lore(langManager.getMessageList(player, "rtp.gui." + worldKey + ".lore"));
         item.setItemMeta(meta);
         return item;
     }

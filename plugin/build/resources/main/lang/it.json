@@ -1207,45 +1207,56 @@
       "none": "<#FF2424>Nessun database configurato!",
       "entry": "<#4169E1>║  <#c0f0ff>{name}</#c0f0ff> - {status}{msg} <#708090>({enabled})</#708090>  ║"
     },
-    "economy": {
-      "shop": {
-        "main-title": "<gradient:#279CF5:#279CF5>Negozio Server</gradient>",
-        "section-title": "<#279CF5>Negozio {section}",
-        "disabled": " <#FF2424>Negozio disabilitato",
-        "balance-display": "<#279CF5>Il Tuo Saldo: <#c0f0ff>{balance}",
-        "buy-success": "<#279CF5>Acquistato <white>{amount}x {item} <#279CF5>per <#c0f0ff>{price}",
-        "sell-success": "<#279CF5>Venduto <white>{amount}x {item} <#279CF5>per <#c0f0ff>{price}",
-        "cannot-afford": "<#FF2424>Non puoi permetterti {item} (costo: <#c0f0ff>{price})",
-        "no-items": "<#FF2424>Non abbastanza {item} da vendere",
-        "no-section": "<#FF2424>Sezione negozio '<#c0f0ff>{section}<#FF2424>' non trovata!",
-        "reload-success": "<#279CF5>Configurazione negozio ricaricata.",
-        "reload-error": "<#FF2424>Errore nel ricaricare configurazione negozio. Controlla console.",
-        "no-economy": "<#FF2424>Economia non disponibile. Il negozio è solo in visualizzazione.",
-        "transaction-failed": "<#FF2424>Transazione fallita: {error}",
-        "no-main-config": "<#FF2424>Configurazione negozio non trovata. Contatta un admin.",
-        "gui": {
-          "close-button": "<#FF2424>✕ Chiudi",
-          "back-button": "<#279CF5>← Indietro",
-          "previous-page": "<#708090>← Precedente",
-          "next-page": "<#708090>Successivo →",
-          "loading": "<#708090>Caricamento..."
-        }
-      },
-      "sellgui": {
-        "disabled": "<#FF2424>Sell GUI disabilitato.",
-        "sold-success": "<#279CF5><bold>VENDUTO <white>{amount} <#279CF5>oggetti per <#c0f0ff>{symbol}{price}",
-        "returned-items": "<#708090>Restituiti <white>{amount} <#708090>oggetti non vendibili al tuo inventario",
-        "no-items": "<#708090>Nessun oggetto da vendere",
-        "inventory-full": "<#279CF5>Alcuni oggetti sono stati lasciati a terra (inventario pieno)",
-        "not-sellable": "<#FF2424>Questo oggetto non può essere venduto!",
-        "no-economy": "<#FF2424>Economia non disponibile. Contatta un admin.",
-        "transaction-failed": "<#FF2424>Transazione fallita: {error}",
-        "title": "<#279CF5>Vendi Oggetti",
-        "info": {
-          "title": "<#279CF5>ZONA VENDITA",
-          "subtitle": "<#708090>Metti oggetti qui per vendere",
-          "instruction": "<#279CF5>Chiudi inventario per processare",
-          "value-prefix": "<#279CF5>Totale: <#c0f0ff>"
+    "it": {
+      "economy": {
+        "shop": {
+          "main-title": "<gradient:#279CF5:#279CF5>Negozio del Server</gradient>",
+          "section-title": "<#279CF5>Negozio: {section}",
+          "disabled": " <#FF2424>Il negozio è disabilitato",
+          "balance-display": "<#279CF5>Il tuo saldo: <#c0f0ff>{balance}",
+          "buy-success": "<#279CF5>Acquistato <white>{amount}x {item} <#279CF5>per <#c0f0ff>{price}",
+          "sell-success": "<#279CF5>Venduto <white>{amount}x {item} <#279CF5>per <#c0f0ff>{price}",
+          "cannot-afford": "<#FF2424>Non puoi permetterti {item} (costo: <#c0f0ff>{price})",
+          "no-items": "<#FF2424>Non ci sono abbastanza {item} da vendere",
+          "no-section": "<#FF2424>Sezione negozio '<#c0f0ff>{section}<#FF2424>' non trovata!",
+          "reload-success": "<#279CF5>Configurazione del negozio ricaricata.",
+          "reload-error": "<#FF2424>Errore nel ricaricare la configurazione del negozio. Controlla la console.",
+          "no-economy": "<#FF2424>Economia non disponibile. Negozio solo visualizzazione.",
+          "transaction-failed": "<#FF2424>Transazione fallita: {error}",
+          "no-main-config": "<#FF2424>Configurazione del negozio non trovata. Contatta un amministratore.",
+          "quantity-title": "<#279CF5>Seleziona quantità: <#c0f0ff>{item}",
+          "custom-amount-prompt": "<#279CF5>Digita in chat la quantità che vuoi acquistare o digita <#FF2424>cancel<#279CF5> per uscire.",
+          "custom-amount-timeout": "<#FF2424>✗ Tempo per l'inserimento scaduto.",
+          "cancelled": "<#FF2424>✗ Acquisto annullato",
+          "zero-quantity": "<#FF2424>✗ Seleziona una quantità maggiore di 0",
+          "negative-amount": "<#FF2424>✗ La quantità deve essere positiva",
+          "invalid-amount": "<#FF2424>✗ Quantità non valida. Inserisci un numero.",
+          "cannot-afford-bulk": "<#FF2424>✗ Non puoi permetterti {quantity}x {item} (costo: <#c0f0ff>{price})",
+          "bulk-buy-success": "<#279CF5>✓ Hai acquistato {quantity}x {item} per <#c0f0ff>{price}",
+          "gui": {
+            "close-button": "<#FF2424>✕ Chiudi",
+            "back-button": "<#279CF5>← Indietro",
+            "previous-page": "<#708090>← Precedente",
+            "next-page": "<#708090>Successiva →",
+            "loading": "<#708090>Caricamento..."
+          }
+        },
+        "sellgui": {
+          "disabled": "<#FF2424>La GUI di vendita è disabilitata.",
+          "sold-success": "<#279CF5><bold>VENDUTO <white>{amount} <#279CF5>oggetti per <#c0f0ff>{symbol}{price}",
+          "returned-items": "<#708090>Restituiti <white>{amount} <#708090>oggetti non vendibili al tuo inventario",
+          "no-items": "<#708090>Nessun oggetto da vendere",
+          "inventory-full": "<#279CF5>Alcuni oggetti sono stati droppati (inventario pieno)",
+          "not-sellable": "<#FF2424>Questo oggetto non può essere venduto!",
+          "no-economy": "<#FF2424>Economia non disponibile. Contatta un amministratore.",
+          "transaction-failed": "<#FF2424>Transazione fallita: {error}",
+          "title": "<#279CF5>Vendi Oggetti",
+          "info": {
+            "title": "<#279CF5>ZONA DI VENDITA",
+            "subtitle": "<#708090>Metti qui gli oggetti per venderli",
+            "instruction": "<#279CF5>Chiudi l'inventario per elaborare",
+            "value-prefix": "<#279CF5>Totale: <#c0f0ff>"
+          }
         }
       }
     },

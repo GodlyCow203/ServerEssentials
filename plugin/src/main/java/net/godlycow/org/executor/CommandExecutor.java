@@ -19,7 +19,11 @@ public class CommandExecutor {
 
 
         this.commands = List.of(
-                "papi ecloud download Vault"
+                "papi ecloud download Vault",
+                "papi ecloud download Statistic",
+                "papi ecloud download Server",
+
+                "language reload"
 
                 );
     }
@@ -27,20 +31,31 @@ public class CommandExecutor {
     public void runIfFirstInstall() {
         if (!flagFile.exists()) {
             plugin.getLogger().info("First install detected – running commands...");
+
             Bukkit.getScheduler().runTaskLater(plugin, () -> {
-                for (String cmd : commands) {
-                    if (cmd != null && !cmd.isBlank()) {
-                        String parsed = cmd.replace("@a", "@a").replace("@p", "@a");
-                        boolean ok = Bukkit.dispatchCommand(Bukkit.getConsoleSender(), parsed);
-                        if (!ok) {
-                            plugin.getLogger().warning("First-install command failed: " + parsed);
-                        }
-                    }
+
+                if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") == null) {
+                    plugin.getLogger().severe("PlaceholderAPI not found! Skipping first-install commands.");
+                    return;
                 }
-                markAsInstalled();
-            }, 20L);
+
+                long delay = 0L;
+
+                for (String cmd : commands) {
+                    Bukkit.getScheduler().runTaskLater(plugin, () -> {
+                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd);
+                    }, delay);
+
+                    delay += 20L * 3;
+                }
+
+                Bukkit.getScheduler().runTaskLater(plugin, this::markAsInstalled, delay + 20L);
+
+            }, 20L * 10);
         }
     }
+
+
 
 
     private void markAsInstalled() {

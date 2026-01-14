@@ -52,7 +52,7 @@ public class LobbyListener implements Listener {
                     player.teleport(lobby);
                     player.sendMessage(langManager.getMessageFor(
                             player,
-                            "lobby.teleported",
+                            "commands.lobby.teleported",
                             "<green>Teleported to lobby!"
                     ));
                 });

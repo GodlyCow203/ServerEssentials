@@ -43,6 +43,7 @@ public class ShopGUIManager {
     private final Map<UUID, Integer> currentPage = new ConcurrentHashMap<>();
     private final Map<UUID, Long> clickCooldowns = new ConcurrentHashMap<>();
     private final Set<UUID> mainGUIOpen = ConcurrentHashMap.newKeySet();
+    private final QuantitySelectorGUI quantitySelectorGUI;
 
     public ShopGUIManager(Plugin plugin, PlayerLanguageManager langManager,
                           ShopStorage storage, ShopConfig config,
@@ -53,6 +54,7 @@ public class ShopGUIManager {
         this.config = config;
         this.economyManager = economyManager;
         this.dataManager = dataManager;
+        this.quantitySelectorGUI = new QuantitySelectorGUI(plugin, langManager, economyManager, this);
 
         loadAllConfigs(false);
 
@@ -159,7 +161,6 @@ public class ShopGUIManager {
             if (isValidSectionConfig(section)) {
                 sectionCache.put(sectionName, section);
                 dataManager.saveSectionConfig(sectionName, section);
-                plugin.getLogger().info("✓ Loaded section '" + sectionName + "' from file");
             } else {
                 plugin.getLogger().severe("Section '" + sectionName + "' loaded from file is invalid! Using DB fallback.");
                 fallbackToDBSection(sectionName);
@@ -173,7 +174,6 @@ public class ShopGUIManager {
         ShopSectionConfig dbSection = dataManager.loadSectionConfig(sectionName).join();
         if (isValidSectionConfig(dbSection)) {
             sectionCache.put(sectionName, dbSection);
-            plugin.getLogger().info("✓ Loaded section '" + sectionName + "' from database");
         } else {
             plugin.getLogger().warning("Section '" + sectionName + "' not found in database. Skipping.");
             sectionCache.remove(sectionName);
@@ -465,8 +465,11 @@ public class ShopGUIManager {
                 boolean isRightClick = clickType.equals("RIGHT");
 
                 if (isLeftClick && item.buyPrice > 0) {
-                    handleBuy(player, item);
-                } else if (isRightClick && item.sellPrice > 0 && config.enableSell) {
+                    quantitySelectorGUI.open(player, item, sectionFile, page);
+                    return;
+                }
+
+                if (isRightClick && item.sellPrice > 0 && config.enableSell) {
                     handleSell(player, item);
                 }
                 break;
@@ -673,5 +676,17 @@ public class ShopGUIManager {
 
     public Map<String, ShopSectionConfig> getSectionCache() {
         return new HashMap<>(sectionCache);
+    }
+
+    public QuantitySelectorGUI getQuantitySelectorGUI() {
+        return quantitySelectorGUI;
+    }
+
+    public String getPlayerSection(UUID playerUuid) {
+        return openSection.get(playerUuid);
+    }
+
+    public int getPlayerPage(UUID playerUuid) {
+        return currentPage.getOrDefault(playerUuid, 1);
     }
 }

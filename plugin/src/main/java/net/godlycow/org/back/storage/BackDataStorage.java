@@ -34,7 +34,6 @@ public class BackDataStorage {
                 "timestamp BIGINT NOT NULL)";
 
         dbManager.executeUpdate(poolKey, sql).join();
-        plugin.getLogger().info("Back locations table initialized (or already exists)");
     }
 
     public CompletableFuture<Void> saveBackLocation(UUID uuid, Location location) {

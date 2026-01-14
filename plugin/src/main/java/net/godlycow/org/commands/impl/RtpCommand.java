@@ -6,6 +6,7 @@ import net.godlycow.org.language.LanguageManager;
 import net.godlycow.org.language.PlayerLanguageManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.World;  // <-- THIS WAS MISSING
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -16,11 +17,13 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class RtpCommand implements CommandExecutor {
     private final Plugin plugin;
     private final PlayerLanguageManager langManager;
     private final RtpConfig rtpConfig;
+    private final ConcurrentHashMap<String, World> worldCache = new ConcurrentHashMap<>();
 
     public RtpCommand(Plugin plugin, PlayerLanguageManager langManager, RtpConfig rtpConfig) {
         this.plugin = plugin;
@@ -52,7 +55,8 @@ public class RtpCommand implements CommandExecutor {
             }
 
             rtpConfig.reload();
-            player.sendMessage(langManager.getMessageFor(player, "rtp.reloaded",
+            worldCache.clear();
+            player.sendMessage(langManager.getMessageFor(player, "commands.rtp.reloaded",
                     "RTP configuration reloaded!"));
             return true;
         }
@@ -62,31 +66,28 @@ public class RtpCommand implements CommandExecutor {
     }
 
     private void openRtpGui(Player player) {
-        Component title = langManager.getMessageFor(player, "rtp.gui.title", "<green>RTP Menu");
-        Inventory gui = Bukkit.createInventory(null, 9, title);
+        Bukkit.getScheduler().runTask(plugin, () -> {
+            Component title = langManager.getMessageFor(player, "commands.rtp.gui.title", "<green>RTP Menu");
+            Inventory gui = Bukkit.createInventory(null, 9, title);
 
-        gui.setItem(2, createGuiItem(Material.GRASS_BLOCK,
-                langManager.getMessageFor(player, "rtp.gui.overworld.name", "Overworld"),
-                langManager.getMessageList(player, "rtp.gui.overworld.lore")));
+            gui.setItem(2, createGuiItem(player, Material.GRASS_BLOCK, "overworld"));
+            gui.setItem(4, createGuiItem(player, Material.NETHERRACK, "nether"));
+            gui.setItem(6, createGuiItem(player, Material.END_STONE, "end"));
 
-
-        gui.setItem(4, createGuiItem(Material.NETHERRACK,
-                langManager.getMessageFor(player, "rtp.gui.nether.name", "Nether"),
-                langManager.getMessageList(player, "rtp.gui.nether.lore")));
-
-        gui.setItem(6, createGuiItem(Material.END_STONE,
-                langManager.getMessageFor(player, "rtp.gui.end.name", "The End"),
-                langManager.getMessageList(player, "rtp.gui.end.lore")));
-
-        player.openInventory(gui);
+            player.openInventory(gui);
+        });
     }
 
-    private ItemStack createGuiItem(Material material, Component name, List<Component> lore) {
+    private ItemStack createGuiItem(Player player, Material material, String worldKey) {
         ItemStack item = new ItemStack(material);
         ItemMeta meta = item.getItemMeta();
-        meta.displayName(name);
-        meta.lore(lore);
+        meta.displayName(langManager.getMessageFor(player, "commands.rtp.gui." + worldKey + ".name", worldKey));
+        meta.lore(langManager.getMessageList(player, "rtp.gui." + worldKey + ".lore"));
         item.setItemMeta(meta);
         return item;
+    }
+
+    private World getWorld(String name) {
+        return worldCache.computeIfAbsent(name, Bukkit::getWorld);
     }
 }

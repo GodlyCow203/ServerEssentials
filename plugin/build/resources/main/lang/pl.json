@@ -1208,45 +1208,56 @@
       "none": "<#FF2424>Nie skonfigurowano baz danych!",
       "entry": "<#4169E1>║  <#c0f0ff>{name}</#c0f0ff> - {status}{msg} <#708090>({enabled})</#708090>  ║"
     },
-    "economy": {
-      "shop": {
-        "main-title": "<gradient:#279CF5:#279CF5>Sklep Serwera</gradient>",
-        "section-title": "<#279CF5>Sklep {section}",
-        "disabled": " <#FF2424>Sklep wyłączony",
-        "balance-display": "<#279CF5>Twój Balans: <#c0f0ff>{balance}",
-        "buy-success": "<#279CF5>Kupiono <white>{amount}x {item} <#279CF5>za <#c0f0ff>{price}",
-        "sell-success": "<#279CF5>Sprzedano <white>{amount}x {item} <#279CF5>za <#c0f0ff>{price}",
-        "cannot-afford": "<#FF2424>Stać cię na {item} (koszt: <#c0f0ff>{price})",
-        "no-items": "<#FF2424>Za mało {item} do sprzedania",
-        "no-section": "<#FF2424>Sekcja sklepu '<#c0f0ff>{section}<#FF2424>' nie znaleziona!",
-        "reload-success": "<#279CF5>Przeładowano konfigurację sklepu.",
-        "reload-error": "<#FF2424>Błąd podczas przeładowywania konfiguracji sklepu. Sprawdź konsole.",
-        "no-economy": "<#FF2424>Ekonomia niedostępna. Sklep tylko do przeglądania.",
-        "transaction-failed": "<#FF2424>Transakcja nie powiodła się: {error}",
-        "no-main-config": "<#FF2424>Nie znaleziono konfiguracji sklepu. Skontaktuj się z adminem.",
-        "gui": {
-          "close-button": "<#FF2424>✕ Zamknij",
-          "back-button": "<#279CF5>← Wróć",
-          "previous-page": "<#708090>← Poprzedni",
-          "next-page": "<#708090>Następny →",
-          "loading": "<#708090>Ładowanie..."
-        }
-      },
-      "sellgui": {
-        "disabled": "<#FF2424>GUI Sprzedaży wyłączone.",
-        "sold-success": "<#279CF5><bold>SPRZEDANO <white>{amount} <#279CF5>itemów za <#c0f0ff>{symbol}{price}",
-        "returned-items": "<#708090>Zwrócono <white>{amount} <#708090>niesprzedawalnych itemów do twojego ekwipunku",
-        "no-items": "<#708090>Brak itemów do sprzedania",
-        "inventory-full": "<#279CF5>Niektóre itemy zostały wyrzucone (ekwipunek pełny)",
-        "not-sellable": "<#FF2424>Ten item nie może być sprzedany!",
-        "no-economy": "<#FF2424>Ekonomia niedostępna. Skontaktuj się z adminem.",
-        "transaction-failed": "<#FF2424>Transakcja nie powiodła się: {error}",
-        "title": "<#279CF5>Sprzedaj Itemy",
-        "info": {
-          "title": "<#279CF5>STREFA SPRZEDAŻY",
-          "subtitle": "<#708090>Umieść tutaj itemy aby sprzedać",
-          "instruction": "<#279CF5>Zamknij ekwipunek aby przetworzyć",
-          "value-prefix": "<#279CF5>Łącznie: <#c0f0ff>"
+    "pl": {
+      "economy": {
+        "shop": {
+          "main-title": "<gradient:#279CF5:#279CF5>Sklep Serwera</gradient>",
+          "section-title": "<#279CF5>Sklep: {section}",
+          "disabled": " <#FF2424>Sklep jest wyłączony",
+          "balance-display": "<#279CF5>Twoje saldo: <#c0f0ff>{balance}",
+          "buy-success": "<#279CF5>Kupiono <white>{amount}x {item} <#279CF5>za <#c0f0ff>{price}",
+          "sell-success": "<#279CF5>Sprzedano <white>{amount}x {item} <#279CF5>za <#c0f0ff>{price}",
+          "cannot-afford": "<#FF2424>Nie stać Cię na {item} (koszt: <#c0f0ff>{price})",
+          "no-items": "<#FF2424>Za mało {item} do sprzedaży",
+          "no-section": "<#FF2424>Sekcja sklepu '<#c0f0ff>{section}<#FF2424>' nie została znaleziona!",
+          "reload-success": "<#279CF5>Konfiguracja sklepu została przeładowana.",
+          "reload-error": "<#FF2424>Błąd podczas przeładowywania konfiguracji sklepu. Sprawdź konsolę.",
+          "no-economy": "<#FF2424>Ekonomia niedostępna. Sklep tylko do podglądu.",
+          "transaction-failed": "<#FF2424>Transakcja nie powiodła się: {error}",
+          "no-main-config": "<#FF2424>Nie znaleziono konfiguracji sklepu. Skontaktuj się z administratorem.",
+          "quantity-title": "<#279CF5>Wybierz ilość: <#c0f0ff>{item}",
+          "custom-amount-prompt": "<#279CF5>Wpisz na czacie ilość, którą chcesz kupić, lub wpisz <#FF2424>cancel<#279CF5>, aby wyjść.",
+          "custom-amount-timeout": "<#FF2424>✗ Czas na wpisanie ilości minął.",
+          "cancelled": "<#FF2424>✗ Zakup anulowany",
+          "zero-quantity": "<#FF2424>✗ Wybierz ilość większą niż 0",
+          "negative-amount": "<#FF2424>✗ Ilość musi być dodatnia",
+          "invalid-amount": "<#FF2424>✗ Nieprawidłowa ilość. Wpisz liczbę.",
+          "cannot-afford-bulk": "<#FF2424>✗ Nie stać Cię na {quantity}x {item} (koszt: <#c0f0ff>{price})",
+          "bulk-buy-success": "<#279CF5>✓ Kupiono {quantity}x {item} za <#c0f0ff>{price}",
+          "gui": {
+            "close-button": "<#FF2424>✕ Zamknij",
+            "back-button": "<#279CF5>← Wstecz",
+            "previous-page": "<#708090>← Poprzednia",
+            "next-page": "<#708090>Następna →",
+            "loading": "<#708090>Ładowanie..."
+          }
+        },
+        "sellgui": {
+          "disabled": "<#FF2424>GUI sprzedaży jest wyłączone.",
+          "sold-success": "<#279CF5><bold>SPRZEDANO <white>{amount} <#279CF5>przedmiotów za <#c0f0ff>{symbol}{price}",
+          "returned-items": "<#708090>Zwrócono <white>{amount} <#708090>niesprzedawalnych przedmiotów do ekwipunku",
+          "no-items": "<#708090>Brak przedmiotów do sprzedaży",
+          "inventory-full": "<#279CF5>Niektóre przedmioty zostały upuszczone (pełny ekwipunek)",
+          "not-sellable": "<#FF2424>Ten przedmiot nie może zostać sprzedany!",
+          "no-economy": "<#FF2424>Ekonomia niedostępna. Skontaktuj się z administratorem.",
+          "transaction-failed": "<#FF2424>Transakcja nie powiodła się: {error}",
+          "title": "<#279CF5>Sprzedaj przedmioty",
+          "info": {
+            "title": "<#279CF5>STREFA SPRZEDAŻY",
+            "subtitle": "<#708090>Umieść tutaj przedmioty, aby je sprzedać",
+            "instruction": "<#279CF5>Zamknij ekwipunek, aby przetworzyć",
+            "value-prefix": "<#279CF5>Razem: <#c0f0ff>"
+          }
         }
       }
     },

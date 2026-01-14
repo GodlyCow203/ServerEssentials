@@ -1208,45 +1208,56 @@
       "none": "<#FF2424>Aucune base de données configurée!",
       "entry": "<#4169E1>║  <#c0f0ff>{name}</#c0f0ff> - {status}{msg} <#708090>({enabled})</#708090>  ║"
     },
-    "economy": {
-      "shop": {
-        "main-title": "<gradient:#279CF5:#279CF5>Boutique Serveur</gradient>",
-        "section-title": "<#279CF5>Boutique {section}",
-        "disabled": " <#FF2424>Boutique désactivée",
-        "balance-display": "<#279CF5>Votre Solde: <#c0f0ff>{balance}",
-        "buy-success": "<#279CF5>Achaté <white>{amount}x {item} <#279CF5>pour <#c0f0ff>{price}",
-        "sell-success": "<#279CF5>Vendu <white>{amount}x {item} <#279CF5>pour <#c0f0ff>{price}",
-        "cannot-afford": "<#FF2424>Impossible d'acheter {item} (coût: <#c0f0ff>{price})",
-        "no-items": "<#FF2424>Pas assez de {item} à vendre",
-        "no-section": "<#FF2424>Section boutique '<#c0f0ff>{section}<#FF2424>' introuvable!",
-        "reload-success": "<#279CF5>Configuration boutique rechargée.",
-        "reload-error": "<#FF2424>Erreur lors du rechargement de la configuration boutique. Vérifiez la console.",
-        "no-economy": "<#FF2424>Économie indisponible. La boutique est en mode visualisation uniquement.",
-        "transaction-failed": "<#FF2424>Transaction échouée: {error}",
-        "no-main-config": "<#FF2424>Configuration boutique introuvable. Contactez un admin.",
-        "gui": {
-          "close-button": "<#FF2424>✕ Fermer",
-          "back-button": "<#279CF5>← Retour",
-          "previous-page": "<#708090>← Précédent",
-          "next-page": "<#708090>Suivant →",
-          "loading": "<#708090>Chargement..."
-        }
-      },
-      "sellgui": {
-        "disabled": "<#FF2424>GUI Vente désactivé.",
-        "sold-success": "<#279CF5><bold>VENDU <white>{amount} <#279CF5>items pour <#c0f0ff>{symbol}{price}",
-        "returned-items": "<#708090>Retourné <white>{amount} <#708090>items invendables à votre inventaire",
-        "no-items": "<#708090>Aucun item à vendre",
-        "inventory-full": "<#279CF5>Certains items ont été lâchés (inventaire plein)",
-        "not-sellable": "<#FF2424>Cet item ne peut pas être vendu!",
-        "no-economy": "<#FF2424>Économie indisponible. Contactez un admin.",
-        "transaction-failed": "<#FF2424>Transaction échouée: {error}",
-        "title": "<#279CF5>Vendre des Items",
-        "info": {
-          "title": "<#279CF5>ZONE VENTE",
-          "subtitle": "<#708090>Placez les items ici pour vendre",
-          "instruction": "<#279CF5>Fermez l'inventaire pour traiter",
-          "value-prefix": "<#279CF5>Total: <#c0f0ff>"
+    "fr": {
+      "economy": {
+        "shop": {
+          "main-title": "<gradient:#279CF5:#279CF5>Boutique du Serveur</gradient>",
+          "section-title": "<#279CF5>Boutique : {section}",
+          "disabled": " <#FF2424>La boutique est désactivée",
+          "balance-display": "<#279CF5>Votre solde : <#c0f0ff>{balance}",
+          "buy-success": "<#279CF5>Acheté <white>{amount}x {item} <#279CF5>pour <#c0f0ff>{price}",
+          "sell-success": "<#279CF5>Vendu <white>{amount}x {item} <#279CF5>pour <#c0f0ff>{price}",
+          "cannot-afford": "<#FF2424>Vous ne pouvez pas acheter {item} (coût : <#c0f0ff>{price})",
+          "no-items": "<#FF2424>Pas assez de {item} à vendre",
+          "no-section": "<#FF2424>Section de boutique '<#c0f0ff>{section}<#FF2424>' introuvable !",
+          "reload-success": "<#279CF5>Configuration de la boutique rechargée.",
+          "reload-error": "<#FF2424>Erreur lors du rechargement de la configuration. Vérifiez la console.",
+          "no-economy": "<#FF2424>Économie indisponible. Boutique en lecture seule.",
+          "transaction-failed": "<#FF2424>Transaction échouée : {error}",
+          "no-main-config": "<#FF2424>Configuration de la boutique introuvable. Contactez un administrateur.",
+          "quantity-title": "<#279CF5>Sélectionnez la quantité : <#c0f0ff>{item}",
+          "custom-amount-prompt": "<#279CF5>Entrez dans le chat la quantité à acheter ou tapez <#FF2424>cancel<#279CF5> pour quitter.",
+          "custom-amount-timeout": "<#FF2424>✗ Temps de saisie écoulé.",
+          "cancelled": "<#FF2424>✗ Achat annulé",
+          "zero-quantity": "<#FF2424>✗ Veuillez choisir une quantité supérieure à 0",
+          "negative-amount": "<#FF2424>✗ La quantité doit être positive",
+          "invalid-amount": "<#FF2424>✗ Quantité invalide. Entrez un nombre.",
+          "cannot-afford-bulk": "<#FF2424>✗ Vous ne pouvez pas acheter {quantity}x {item} (coût : <#c0f0ff>{price})",
+          "bulk-buy-success": "<#279CF5>✓ Vous avez acheté {quantity}x {item} pour <#c0f0ff>{price}",
+          "gui": {
+            "close-button": "<#FF2424>✕ Fermer",
+            "back-button": "<#279CF5>← Retour",
+            "previous-page": "<#708090>← Précédente",
+            "next-page": "<#708090>Suivante →",
+            "loading": "<#708090>Chargement..."
+          }
+        },
+        "sellgui": {
+          "disabled": "<#FF2424>Le GUI de vente est désactivé.",
+          "sold-success": "<#279CF5><bold>VENDU <white>{amount} <#279CF5>objets pour <#c0f0ff>{symbol}{price}",
+          "returned-items": "<#708090>Retour de <white>{amount} <#708090>objets invendables dans votre inventaire",
+          "no-items": "<#708090>Aucun objet à vendre",
+          "inventory-full": "<#279CF5>Certains objets ont été déposés (inventaire plein)",
+          "not-sellable": "<#FF2424>Cet objet ne peut pas être vendu !",
+          "no-economy": "<#FF2424>Économie indisponible. Contactez un administrateur.",
+          "transaction-failed": "<#FF2424>Transaction échouée : {error}",
+          "title": "<#279CF5>Vendre des objets",
+          "info": {
+            "title": "<#279CF5>ZONE DE VENTE",
+            "subtitle": "<#708090>Placez les objets ici pour les vendre",
+            "instruction": "<#279CF5>Fermez l'inventaire pour traiter",
+            "value-prefix": "<#279CF5>Total : <#c0f0ff>"
+          }
         }
       }
     },

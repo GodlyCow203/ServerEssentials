@@ -1208,45 +1208,56 @@
       "none": "<#FF2424>Ei tietokantoja määritetty!",
       "entry": "<#4169E1>║  <#c0f0ff>{name}</#c0f0ff> - {status}{msg} <#708090>({enabled})</#708090>  ║"
     },
-    "economy": {
-      "shop": {
-        "main-title": "<gradient:#279CF5:#279CF5>Palvelimen Kauppa</gradient>",
-        "section-title": "<#279CF5>{section} Kauppa",
-        "disabled": " <#FF2424>Kauppa on pois käytöstä",
-        "balance-display": "<#279CF5>Saldo: <#c0f0ff>{balance}",
-        "buy-success": "<#279CF5>Ostettu <white>{amount}x {item}<#279CF5> hintaan <#c0f0ff>{price}",
-        "sell-success": "<#279CF5>Myyty <white>{amount}x {item}<#279CF5> hintaan <#c0f0ff>{price}",
-        "cannot-afford": "<#FF2424>Raha ei riitä {item} (hinta: <#c0f0ff>{price})",
-        "no-items": "<#FF2424>Ei tarpeeksi {item} myytäväksi",
-        "no-section": "<#FF2424>Kauppaosiota '<#c0f0ff>{section}<#FF2424>' ei löydy!",
-        "reload-success": "<#279CF5>Kauppa-asetukset päivitetty.",
-        "reload-error": "<#FF2424>Virhe päivittäessä kauppa-asetuksia. Tarkista konsoli.",
-        "no-economy": "<#FF2424>Talous ei käytettävissä. Kauppa on vain katseltavissa.",
-        "transaction-failed": "<#FF2424>Transaktio epäonnistui: {error}",
-        "no-main-config": "<#FF2424>Kauppa-asetuksia ei löydy. Ota yhteyttä ylläpitäjään.",
-        "gui": {
-          "close-button": "<#FF2424>✕ Sulje",
-          "back-button": "<#279CF5>← Takaisin",
-          "previous-page": "<#708090>← Edellinen",
-          "next-page": "<#708090>Seuraava →",
-          "loading": "<#708090>Ladataan..."
-        }
-      },
-      "sellgui": {
-        "disabled": "<#FF2424>Myynti-GUI on pois käytöstä.",
-        "sold-success": "<#279CF5><bold>MYYTY <white>{amount}<#279CF5> esinettä hintaan <#c0f0ff>{symbol}{price}",
-        "returned-items": "<#708090>Palautettu <white>{amount}<#708090> ei-myytävää esinettä reppuusi",
-        "no-items": "<#708090>Ei myytäviä esineitä",
-        "inventory-full": "<#279CF5>Joitakin esineitä pudotettiin (reppu täynnä)",
-        "not-sellable": "<#FF2424>Tätä esinettä ei voi myydä!",
-        "no-economy": "<#FF2424>Talous ei käytettävissä. Ota yhteyttä ylläpitäjään.",
-        "transaction-failed": "<#FF2424>Transaktio epäonnistui: {error}",
-        "title": "<#279CF5>Myy Esineitä",
-        "info": {
-          "title": "<#279CF5>MYYNTIALUE",
-          "subtitle": "<#708090>Aseta esineet tähän myydäksesi",
-          "instruction": "<#279CF5>Sulje reppu käsitelläksesi",
-          "value-prefix": "<#279CF5>Yhteensä: <#c0f0ff>"
+    "fi": {
+      "economy": {
+        "shop": {
+          "main-title": "<gradient:#279CF5:#279CF5>Palvelimen Kauppa</gradient>",
+          "section-title": "<#279CF5>{section}-kauppa",
+          "disabled": " <#FF2424>Kauppa on pois käytöstä",
+          "balance-display": "<#279CF5>Saldosi: <#c0f0ff>{balance}",
+          "buy-success": "<#279CF5>Ostit <white>{amount}x {item} <#279CF5>hintaan <#c0f0ff>{price}",
+          "sell-success": "<#279CF5>Myit <white>{amount}x {item} <#279CF5>hintaan <#c0f0ff>{price}",
+          "cannot-afford": "<#FF2424>Sinulla ei ole varaa: {item} (hinta: <#c0f0ff>{price})",
+          "no-items": "<#FF2424>Ei tarpeeksi {item} myytäväksi",
+          "no-section": "<#FF2424>Kauppaosastoa '<#c0f0ff>{section}<#FF2424>' ei löytynyt!",
+          "reload-success": "<#279CF5>Kaupan asetukset ladattu uudelleen.",
+          "reload-error": "<#FF2424>Virhe ladattaessa kaupan asetuksia. Tarkista konsoli.",
+          "no-economy": "<#FF2424>Talous ei ole käytettävissä. Kauppa vain katselutilassa.",
+          "transaction-failed": "<#FF2424>Tapahtuma epäonnistui: {error}",
+          "no-main-config": "<#FF2424>Kaupan asetuksia ei löytynyt. Ota yhteyttä ylläpitäjään.",
+          "quantity-title": "<#279CF5>Valitse määrä: <#c0f0ff>{item}",
+          "custom-amount-prompt": "<#279CF5>Kirjoita ostettava määrä chattiin tai kirjoita <#FF2424>cancel<#279CF5> poistuaksesi.",
+          "custom-amount-timeout": "<#FF2424>✗ Syöttöaika umpeutui.",
+          "cancelled": "<#FF2424>✗ Osto peruutettu",
+          "zero-quantity": "<#FF2424>✗ Valitse määrä, joka on suurempi kuin 0",
+          "negative-amount": "<#FF2424>✗ Määrän on oltava positiivinen",
+          "invalid-amount": "<#FF2424>✗ Virheellinen määrä. Anna numero.",
+          "cannot-afford-bulk": "<#FF2424>✗ Sinulla ei ole varaa {quantity}x {item} (hinta: <#c0f0ff>{price})",
+          "bulk-buy-success": "<#279CF5>✓ Ostit {quantity}x {item} hintaan <#c0f0ff>{price}",
+          "gui": {
+            "close-button": "<#FF2424>✕ Sulje",
+            "back-button": "<#279CF5>← Takaisin",
+            "previous-page": "<#708090>← Edellinen",
+            "next-page": "<#708090>Seuraava →",
+            "loading": "<#708090>Ladataan..."
+          }
+        },
+        "sellgui": {
+          "disabled": "<#FF2424>Myynti-GUI on pois käytöstä.",
+          "sold-success": "<#279CF5><bold>MYYTY <white>{amount} <#279CF5>esineitä hintaan <#c0f0ff>{symbol}{price}",
+          "returned-items": "<#708090>Palautettiin <white>{amount} <#708090>myymätöntä esinettä inventaarioosi",
+          "no-items": "<#708090>Ei myytäviä esineitä",
+          "inventory-full": "<#279CF5>Joitakin esineitä pudotettiin (inventaario täynnä)",
+          "not-sellable": "<#FF2424>Tätä esinettä ei voi myydä!",
+          "no-economy": "<#FF2424>Talous ei ole käytettävissä. Ota yhteyttä ylläpitäjään.",
+          "transaction-failed": "<#FF2424>Tapahtuma epäonnistui: {error}",
+          "title": "<#279CF5>Myy esineitä",
+          "info": {
+            "title": "<#279CF5>MYYNTIALUE",
+            "subtitle": "<#708090>Aseta esineet tähän myydäksesi ne",
+            "instruction": "<#279CF5>Sulje inventaario käsitelläksesi",
+            "value-prefix": "<#279CF5>Yhteensä: <#c0f0ff>"
+          }
         }
       }
     },

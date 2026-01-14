@@ -1207,45 +1207,56 @@
       "none": "<#FF2424>Geen databases geconfigureerd!",
       "entry": "<#4169E1>║  <#c0f0ff>{name}</#c0f0ff> - {status}{msg} <#708090>({enabled})</#708090>  ║"
     },
-    "economy": {
-      "shop": {
-        "main-title": "<gradient:#279CF5:#279CF5>Server Winkel</gradient>",
-        "section-title": "<#279CF5>{sectie} Winkel",
-        "disabled": " <#FF2424>Winkel is uitgeschakeld",
-        "balance-display": "<#279CF5>Je Saldo: <#c0f0ff>{balance}",
-        "buy-success": "<#279CF5><white>{amount}x {item} <#279CF5>gekocht voor <#c0f0ff>{price}",
-        "sell-success": "<#279CF5><white>{amount}x {item} <#279CF5>verkocht voor <#c0f0ff>{price}",
-        "cannot-afford": "<#FF2424>Kan {item} niet betalen (kosten: <#c0f0ff>{price})",
-        "no-items": "<#FF2424>Niet genoeg {item} om te verkopen",
-        "no-section": "<#FF2424>Winkel sectie '<#c0f0ff>{sectie}<#FF2424>' niet gevonden!",
-        "reload-success": "<#279CF5>Winkel configuratie herladen.",
-        "reload-error": "<#FF2424>Fout bij herladen winkel configuratie. Check console.",
-        "no-economy": "<#FF2424>Economie niet beschikbaar. Winkel is alleen-bekijk.",
-        "transaction-failed": "<#FF2424>Transactie mislukt: {error}",
-        "no-main-config": "<#FF2424>Winkel configuratie niet gevonden. Contacteer een admin.",
-        "gui": {
-          "close-button": "<#FF2424>✕ Sluiten",
-          "back-button": "<#279CF5>← Terug",
-          "previous-page": "<#708090>← Vorige",
-          "next-page": "<#708090>Volgende →",
-          "loading": "<#708090>Laden..."
-        }
-      },
-      "sellgui": {
-        "disabled": "<#FF2424>Verkoop GUI is uitgeschakeld.",
-        "sold-success": "<#279CF5><bold>VERKOCHT <white>{amount} <#279CF5>items voor <#c0f0ff>{symbol}{price}",
-        "returned-items": "<#708090><white>{amount} <#708090>niet-verkoopbare items teruggegeven aan je inventaris",
-        "no-items": "<#708090>Geen items om te verkopen",
-        "inventory-full": "<#279CF5>Enkele items zijn gespawned (inventaris vol)",
-        "not-sellable": "<#FF2424>Dit item kan niet verkocht worden!",
-        "no-economy": "<#FF2424>Economie niet beschikbaar. Contacteer een admin.",
-        "transaction-failed": "<#FF2424>Transactie mislukt: {error}",
-        "title": "<#279CF5>Items Verkopen",
-        "info": {
-          "title": "<#279CF5>VERKOOP ZONE",
-          "subtitle": "<#708090>Plaats items hier om te verkopen",
-          "instruction": "<#279CF5>Sluit inventaris om te verwerken",
-          "value-prefix": "<#279CF5>Totaal: <#c0f0ff>"
+    "nl": {
+      "economy": {
+        "shop": {
+          "main-title": "<gradient:#279CF5:#279CF5>Serverwinkel</gradient>",
+          "section-title": "<#279CF5>{section} Winkel",
+          "disabled": " <#FF2424>De winkel is uitgeschakeld",
+          "balance-display": "<#279CF5>Je saldo: <#c0f0ff>{balance}",
+          "buy-success": "<#279CF5>Gekocht: <white>{amount}x {item} <#279CF5>voor <#c0f0ff>{price}",
+          "sell-success": "<#279CF5>Verkocht: <white>{amount}x {item} <#279CF5>voor <#c0f0ff>{price}",
+          "cannot-afford": "<#FF2424>Je kunt {item} niet betalen (kosten: <#c0f0ff>{price})",
+          "no-items": "<#FF2424>Niet genoeg {item} om te verkopen",
+          "no-section": "<#FF2424>Winkelsectie '<#c0f0ff>{section}<#FF2424>' niet gevonden!",
+          "reload-success": "<#279CF5>Winkelconfiguratie herladen.",
+          "reload-error": "<#FF2424>Fout bij het herladen van de winkelconfiguratie. Controleer de console.",
+          "no-economy": "<#FF2424>Economie niet beschikbaar. Winkel is alleen bekijken.",
+          "transaction-failed": "<#FF2424>Transactie mislukt: {error}",
+          "no-main-config": "<#FF2424>Winkelconfiguratie niet gevonden. Neem contact op met een admin.",
+          "quantity-title": "<#279CF5>Selecteer hoeveelheid: <#c0f0ff>{item}",
+          "custom-amount-prompt": "<#279CF5>Typ in de chat het aantal dat je wilt kopen of typ <#FF2424>cancel<#279CF5> om te stoppen.",
+          "custom-amount-timeout": "<#FF2424>✗ Tijd om in te voeren is verstreken.",
+          "cancelled": "<#FF2424>✗ Aankoop geannuleerd",
+          "zero-quantity": "<#FF2424>✗ Kies een hoeveelheid groter dan 0",
+          "negative-amount": "<#FF2424>✗ Hoeveelheid moet positief zijn",
+          "invalid-amount": "<#FF2424>✗ Ongeldige hoeveelheid. Voer een nummer in.",
+          "cannot-afford-bulk": "<#FF2424>✗ Je kunt {quantity}x {item} niet betalen (kosten: <#c0f0ff>{price})",
+          "bulk-buy-success": "<#279CF5>✓ Je hebt {quantity}x {item} gekocht voor <#c0f0ff>{price}",
+          "gui": {
+            "close-button": "<#FF2424>✕ Sluiten",
+            "back-button": "<#279CF5>← Terug",
+            "previous-page": "<#708090>← Vorige",
+            "next-page": "<#708090>Volgende →",
+            "loading": "<#708090>Laden..."
+          }
+        },
+        "sellgui": {
+          "disabled": "<#FF2424>Verkoop-GUI is uitgeschakeld.",
+          "sold-success": "<#279CF5><bold>VERKOCHT <white>{amount} <#279CF5>items voor <#c0f0ff>{symbol}{price}",
+          "returned-items": "<#708090><white>{amount} <#708090>niet-verkoopbare items teruggegeven aan je inventaris",
+          "no-items": "<#708090>Geen items om te verkopen",
+          "inventory-full": "<#279CF5>Sommige items zijn gedropt (inventaris vol)",
+          "not-sellable": "<#FF2424>Dit item kan niet worden verkocht!",
+          "no-economy": "<#FF2424>Economie niet beschikbaar. Neem contact op met een admin.",
+          "transaction-failed": "<#FF2424>Transactie mislukt: {error}",
+          "title": "<#279CF5>Items verkopen",
+          "info": {
+            "title": "<#279CF5>VERKOOPZONE",
+            "subtitle": "<#708090>Plaats hier items om te verkopen",
+            "instruction": "<#279CF5>Sluit inventaris om te verwerken",
+            "value-prefix": "<#279CF5>Totaal: <#c0f0ff>"
+          }
         }
       }
     },

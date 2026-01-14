@@ -1208,45 +1208,56 @@
       "none": "<#FF2424>Базы данных не настроены!",
       "entry": "<#4169E1>║  <#c0f0ff>{name}</#c0f0ff> - {status}{msg} <#708090>({enabled})</#708090>  ║"
     },
-    "economy": {
-      "shop": {
-        "main-title": "<gradient:#279CF5:#279CF5>Серверный Магазин</gradient>",
-        "section-title": "<#279CF5>{section} Магазин",
-        "disabled": " <#FF2424>Магазин отключен",
-        "balance-display": "<#279CF5>Ваш Баланс: <#c0f0ff>{balance}",
-        "buy-success": "<#279CF5>Куплено <white>{amount}x {item} <#279CF5>за <#c0f0ff>{price}",
-        "sell-success": "<#279CF5>Продано <white>{amount}x {item} <#279CF5>за <#c0f0ff>{price}",
-        "cannot-afford": "<#FF2424>Не хватает денег для {item} (цена: <#c0f0ff>{price})",
-        "no-items": "<#FF2424>Недостаточно {item} для продажи",
-        "no-section": "<#FF2424>Раздел магазина '<#c0f0ff>{section}<#FF2424>' не найден!",
-        "reload-success": "<#279CF5>Конфигурация магазина перезагружена.",
-        "reload-error": "<#FF2424>Ошибка перезагрузки конфигурации магазина. Проверьте консоль.",
-        "no-economy": "<#FF2424>Экономика недоступна. Магазин только для просмотра.",
-        "transaction-failed": "<#FF2424>Транзакция не удалась: {error}",
-        "no-main-config": "<#FF2424>Конфигурация магазина не найдена. Обратитесь к администратору.",
-        "gui": {
-          "close-button": "<#FF2424>✕ Закрыть",
-          "back-button": "<#279CF5>← Назад",
-          "previous-page": "<#708090>← Предыдущая",
-          "next-page": "<#708090>Следующая →",
-          "loading": "<#708090>Загрузка..."
-        }
-      },
-      "sellgui": {
-        "disabled": "<#FF2424>GUI продажи отключено.",
-        "sold-success": "<#279CF5><bold>ПРОДАНО <white>{amount} <#279CF5>предметов за <#c0f0ff>{symbol}{price}",
-        "returned-items": "<#708090>Возвращено <white>{amount} <#708090>непродаваемых предметов в инвентарь",
-        "no-items": "<#708090>Нет предметов для продажи",
-        "inventory-full": "<#279CF5>Некоторые предметы выброшены на землю (инвентарь полон)",
-        "not-sellable": "<#FF2424>Этот предмет нельзя продать!",
-        "no-economy": "<#FF2424>Экономика недоступна. Обратитесь к администратору.",
-        "transaction-failed": "<#FF2424>Транзакция не удалась: {error}",
-        "title": "<#279CF5>Продать Предметы",
-        "info": {
-          "title": "<#279CF5>ЗОНА ПРОДАЖИ",
-          "subtitle": "<#708090>Разместите предметы здесь для продажи",
-          "instruction": "<#279CF5>Закройте инвентарь для обработки",
-          "value-prefix": "<#279CF5>Всего: <#c0f0ff>"
+    "ru": {
+      "economy": {
+        "shop": {
+          "main-title": "<gradient:#279CF5:#279CF5>Магазин Сервера</gradient>",
+          "section-title": "<#279CF5>Магазин: {section}",
+          "disabled": " <#FF2424>Магазин отключён",
+          "balance-display": "<#279CF5>Ваш баланс: <#c0f0ff>{balance}",
+          "buy-success": "<#279CF5>Куплено <white>{amount}x {item} <#279CF5>за <#c0f0ff>{price}",
+          "sell-success": "<#279CF5>Продано <white>{amount}x {item} <#279CF5>за <#c0f0ff>{price}",
+          "cannot-afford": "<#FF2424>Недостаточно средств для {item} (цена: <#c0f0ff>{price})",
+          "no-items": "<#FF2424>Недостаточно {item} для продажи",
+          "no-section": "<#FF2424>Раздел магазина '<#c0f0ff>{section}<#FF2424>' не найден!",
+          "reload-success": "<#279CF5>Конфигурация магазина перезагружена.",
+          "reload-error": "<#FF2424>Ошибка перезагрузки конфигурации магазина. Проверьте консоль.",
+          "no-economy": "<#FF2424>Экономика недоступна. Магазин только для просмотра.",
+          "transaction-failed": "<#FF2424>Транзакция не удалась: {error}",
+          "no-main-config": "<#FF2424>Конфигурация магазина не найдена. Обратитесь к администратору.",
+          "quantity-title": "<#279CF5>Выберите количество: <#c0f0ff>{item}",
+          "custom-amount-prompt": "<#279CF5>Введите в чат количество для покупки или напишите <#FF2424>cancel<#279CF5> для выхода.",
+          "custom-amount-timeout": "<#FF2424>✗ Время ввода истекло.",
+          "cancelled": "<#FF2424>✗ Покупка отменена",
+          "zero-quantity": "<#FF2424>✗ Выберите количество больше 0",
+          "negative-amount": "<#FF2424>✗ Количество должно быть положительным",
+          "invalid-amount": "<#FF2424>✗ Неверное количество. Введите число.",
+          "cannot-afford-bulk": "<#FF2424>✗ У вас недостаточно средств для {quantity}x {item} (цена: <#c0f0ff>{price})",
+          "bulk-buy-success": "<#279CF5>✓ Вы купили {quantity}x {item} за <#c0f0ff>{price}",
+          "gui": {
+            "close-button": "<#FF2424>✕ Закрыть",
+            "back-button": "<#279CF5>← Назад",
+            "previous-page": "<#708090>← Предыдущая",
+            "next-page": "<#708090>Следующая →",
+            "loading": "<#708090>Загрузка..."
+          }
+        },
+        "sellgui": {
+          "disabled": "<#FF2424>Интерфейс продажи отключён.",
+          "sold-success": "<#279CF5><bold>ПРОДАНО <white>{amount} <#279CF5>предметов за <#c0f0ff>{symbol}{price}",
+          "returned-items": "<#708090>Возвращено <white>{amount} <#708090>непродаваемых предметов в инвентарь",
+          "no-items": "<#708090>Нет предметов для продажи",
+          "inventory-full": "<#279CF5>Некоторые предметы были выброшены (инвентарь полон)",
+          "not-sellable": "<#FF2424>Этот предмет нельзя продать!",
+          "no-economy": "<#FF2424>Экономика недоступна. Обратитесь к администратору.",
+          "transaction-failed": "<#FF2424>Транзакция не удалась: {error}",
+          "title": "<#279CF5>Продать предметы",
+          "info": {
+            "title": "<#279CF5>ЗОНА ПРОДАЖИ",
+            "subtitle": "<#708090>Положите сюда предметы для продажи",
+            "instruction": "<#279CF5>Закройте инвентарь для обработки",
+            "value-prefix": "<#279CF5>Итого: <#c0f0ff>"
+          }
         }
       }
     },

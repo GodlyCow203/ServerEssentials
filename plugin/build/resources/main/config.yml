@@ -29,6 +29,52 @@ databases:
     file: playerdata.db   # General player data storage
     pool_size: 5
 
+
+settings:
+  gui:
+    title: "commands.settings.gui.title"
+    rows: 6
+    fill-border: true
+    fill-material: "GRAY_STAINED_GLASS_PANE"
+    border-material: "BLACK_STAINED_GLASS_PANE"
+  pagination:
+    enabled: true
+    items-per-page: 21
+    previous-slot: 48
+    next-slot: 50
+    previous-material: "ARROW"
+    next-material: "ARROW"
+    previous-name: "commands.settings.gui.previous"
+    next-name: "commands.settings.gui.next"
+  buttons:
+    Pay Confirm Toggle:
+      position: 18
+      material: "EMERALD"
+      name-key: "commands.settings.buttons.pct.name"
+      lore-keys:
+        - "commands.settings.buttons.pct.lore."
+      glow: false
+      command: "payconfirmtoggle"
+      permission: "serveressentials.settings.payconfirmtoggle"
+    language_settings:
+      position: 20
+      material: "BOOK"
+      name-key: "commands.settings.buttons.language.name"
+      lore-keys:
+        - "commands.settings.buttons.language.lore"
+      glow: true
+      command: "language"
+      permission: "serveressentials.settings.language"
+    scoreboard:
+      position: 22
+      material: "FIREWORK_ROCKET"
+      name-key: "commands.settings.buttons.scoreboard.name"
+      lore-keys:
+        - "commands.settings.buttons.scoreboard.lore"
+      glow: false
+      command: "scoreboard toggle"
+      permission: "serveressentials.settings.scoreboard"
+
 # TPA Module - Player-to-player teleport requests
 tpa:
   settings:
@@ -291,7 +337,10 @@ night:
 auction:
   enabled: true
 
-  items-per-page: 36
+  gui:
+    rows: 6
+
+  items-per-page: 20
   max-sell-limit: 64
   expiration-days: 7
   max-price-limit: 1000000.0

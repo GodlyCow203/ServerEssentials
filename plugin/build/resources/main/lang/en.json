@@ -1224,6 +1224,15 @@
         "no-economy": "<#FF2424>Economy unavailable. Shop is view-only.",
         "transaction-failed": "<#FF2424>Transaction failed: {error}",
         "no-main-config": "<#FF2424>Shop configuration not found. Contact an admin.",
+        "quantity-title": "<#279CF5>Select Quantity: <#c0f0ff>{item}",
+        "custom-amount-prompt": "<#279CF5>Please type the amount you want to buy in chat, or type <#FF2424>cancel<#279CF5> to exit.",
+        "custom-amount-timeout": "<#FF2424>✗ Custom amount input timed out.",
+        "cancelled": "<#FF2424>✗ Purchase cancelled",
+        "zero-quantity": "<#FF2424>✗ Please select a quantity greater than 0",
+        "negative-amount": "<#FF2424>✗ Amount must be positive",
+        "invalid-amount": "<#FF2424>✗ Invalid amount. Please enter a number.",
+        "cannot-afford-bulk": "<#FF2424>✗ You cannot afford {quantity}x {item} (cost: <#c0f0ff>{price})",
+        "bulk-buy-success": "<#279CF5>✓ You bought {quantity}x {item} for <#c0f0ff>{price}",
         "gui": {
           "close-button": "<#FF2424>✕ Close",
           "back-button": "<#279CF5>← Back",
@@ -1268,6 +1277,42 @@
       "no-kits-defined": "<#FF2424>No kits are currently defined!",
       "reload-success": "<#279CF5>Kits reloaded successfully!",
       "reload-no-permission": "<#FF2424>You don't have permission to reload kits!"
+    },
+
+    "settings": {
+      "only-player": "<red>Only players can use this command!",
+      "no-permission": "<red>You don't have permission to use <yellow>/settings</yellow>!",
+      "gui": {
+        "title": "<gold>⚙ Server Settings",
+        "previous": "<gold>← Previous Page",
+        "next": "<gold>Next Page →",
+        "close": "<red>✕ Close",
+        "page-indicator": "<gray>Page <white>{page}</white>/<white>{total}</white>"
+      },
+      "buttons": {
+        "pct": {
+          "name": "<#7CFF00>Pay Confirm Toggle",
+          "lore": [
+            "<gray>Click to enable or disable"
+          ]
+        },
+        "language": {
+          "name": "<#FFD900>Change Language",
+          "lore": [
+            "<gray>Select your preferred language"
+          ]
+        },
+        "scoreboard": {
+          "name": "<#EA00FF>Toggle Scoreboard",
+          "lore": [
+            "<gray>Click to toggle"
+          ]
+        }
+      },
+      "no-permission": "<red>You lack permission: <yellow>{permission}</yellow>",
+      "command-success": "<green>✓ Setting updated!",
+      "command-failed": "<red>✗ Failed: <gray>{command}",
+      "command-error": "<red>An error occurred while executing the command."
     },
     "mail": {
       "on-join": "<#279CF5>You have <#c0f0ff>{count}</#c0f0ff> unread mails! Use <white>/mail read</white>",

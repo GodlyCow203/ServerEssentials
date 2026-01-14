@@ -53,7 +53,6 @@ public class SellGUIManager implements Listener {
         this.displayKey = new NamespacedKey(plugin, "sellgui_display");
 
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
-        plugin.getLogger().info("[SellGUI] Manager initialized with " + config.getSellableMaterialsCount() + " sellable items");
     }
 
 

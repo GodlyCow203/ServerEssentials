@@ -17,41 +17,38 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
 import java.util.HashSet;
-import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class RtpListener implements Listener {
-
     private final Plugin plugin;
     private final PlayerLanguageManager langManager;
     private final RtpLocationStorage locationStorage;
     private final CooldownManager cooldownManager;
     private final BackManager backManager;
     private final RtpConfig config;
+    private final ConcurrentHashMap<UUID, Long> activeRtpSessions = new ConcurrentHashMap<>();
 
     private static final Set<Material> UNSAFE_MATERIALS = new HashSet<>();
     private static final Set<Material> NETHER_SAFE_GROUND = new HashSet<>();
+    private final ConcurrentHashMap<String, World> worldCache = new ConcurrentHashMap<>();
 
     static {
         UNSAFE_MATERIALS.add(Material.LAVA);
         UNSAFE_MATERIALS.add(Material.WATER);
-
         UNSAFE_MATERIALS.add(Material.FIRE);
         UNSAFE_MATERIALS.add(Material.SOUL_FIRE);
         UNSAFE_MATERIALS.add(Material.MAGMA_BLOCK);
         UNSAFE_MATERIALS.add(Material.CACTUS);
         UNSAFE_MATERIALS.add(Material.SWEET_BERRY_BUSH);
-
         UNSAFE_MATERIALS.add(Material.VOID_AIR);
         UNSAFE_MATERIALS.add(Material.CAVE_AIR);
-
         UNSAFE_MATERIALS.add(Material.WITHER_ROSE);
         UNSAFE_MATERIALS.add(Material.POWDER_SNOW);
 
@@ -62,24 +59,17 @@ public class RtpListener implements Listener {
         NETHER_SAFE_GROUND.add(Material.BASALT);
         NETHER_SAFE_GROUND.add(Material.BLACKSTONE);
         NETHER_SAFE_GROUND.add(Material.NETHER_BRICKS);
-        NETHER_SAFE_GROUND.add(Material.NETHERITE_BLOCK);
-        NETHER_SAFE_GROUND.add(Material.ANCIENT_DEBRIS);
     }
 
     public RtpListener(Plugin plugin, PlayerLanguageManager langManager,
                        RtpLocationStorage locationStorage, CooldownManager cooldownManager,
                        BackManager backManager, RtpConfig config) {
-
         this.plugin = plugin;
         this.langManager = langManager;
         this.locationStorage = locationStorage;
         this.cooldownManager = cooldownManager;
         this.backManager = backManager;
         this.config = config;
-
-        if (backManager == null) {
-            plugin.getLogger().warning("BackManager is null in RtpListener constructor!");
-        }
     }
 
     @EventHandler
@@ -89,10 +79,8 @@ public class RtpListener implements Listener {
         Inventory gui = event.getClickedInventory();
         if (gui == null) return;
 
-        Component expectedTitle = langManager.getMessageFor(player, "rtp.gui.title", "RTP Menu");
-        InventoryView view = player.getOpenInventory();
-
-        if (!view.title().equals(expectedTitle)) return;
+        Component expectedTitle = langManager.getMessageFor(player, "commands.rtp.gui.title", "RTP Menu");
+        if (!player.getOpenInventory().title().equals(expectedTitle)) return;
 
         event.setCancelled(true);
 
@@ -103,35 +91,48 @@ public class RtpListener implements Listener {
         if (world == null) return;
 
         if (!config.isWorldEnabled(world.getName())) {
-            player.sendMessage(langManager.getMessageFor(player, "rtp.world_disabled",
+            player.sendMessage(langManager.getMessageFor(player, "commands.rtp.world_disabled",
                     "RTP is disabled in this world!"));
             return;
         }
 
-        UUID id = player.getUniqueId();
+        UUID playerId = player.getUniqueId();
 
-        if (cooldownManager.isOnCooldown(id)) {
-            long remain = cooldownManager.getRemaining(id);
-            player.sendMessage(langManager.getMessageFor(player, "rtp.cooldown",
+        if (activeRtpSessions.putIfAbsent(playerId, System.currentTimeMillis()) != null) {
+            player.sendMessage(langManager.getMessageFor(player, "commands.rtp.already_pending",
+                    "<red>You already have a pending RTP request!"));
+            return;
+        }
+
+        if (cooldownManager.isOnCooldown(playerId)) {
+            activeRtpSessions.remove(playerId);
+            long remain = cooldownManager.getRemaining(playerId);
+            player.sendMessage(langManager.getMessageFor(player, "commands.rtp.cooldown",
                     "<red>Please wait <yellow>{seconds}s</yellow> before using RTP again.",
                     LanguageManager.ComponentPlaceholder.of("{seconds}", remain)));
             return;
         }
 
-        cooldownManager.setCooldown(id, config.getCooldown(world.getName()));
+        cooldownManager.setCooldown(playerId, config.getCooldown(world.getName()));
         player.closeInventory();
 
-        startRtpProcess(player, world);
+        CompletableFuture.runAsync(() -> {
+            startRtpProcess(player, world)
+                    .whenComplete((result, error) -> {
+                        activeRtpSessions.remove(playerId);
+                        if (error != null) {
+                            plugin.getLogger().warning("RTP failed for " + player.getName() + ": " + error.getMessage());
+                        }
+                    });
+        });
     }
 
-    private void startRtpProcess(Player player, World world) {
+    private CompletableFuture<Void> startRtpProcess(Player player, World world) {
+        return CompletableFuture.runAsync(() -> {
+            player.sendMessage(langManager.getMessageFor(player, "commands.rtp.searching",
+                    "<yellow>Searching for a safe location..."));
 
-        player.sendMessage(langManager.getMessageFor(player, "rtp.searching",
-                "<yellow>Searching for a safe location..."));
-
-        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
-            Random random = new Random();
-
+            java.util.Random random = new java.util.Random();
             int min = config.getMinRadius(world.getName());
             int max = config.getMaxRadius(world.getName());
 
@@ -144,41 +145,20 @@ public class RtpListener implements Listener {
             int maxAttempts = world.getEnvironment() == World.Environment.NETHER ? 50 : 25;
 
             for (int attempt = 0; attempt < maxAttempts; attempt++) {
-
                 int x = random.nextInt(max - min + 1) + min;
                 int z = random.nextInt(max - min + 1) + min;
                 if (random.nextBoolean()) x = -x;
                 if (random.nextBoolean()) z = -z;
 
-                final int fx = x;
-                final int fz = z;
-
-                CompletableFuture<Location> future = new CompletableFuture<>();
-
-                Bukkit.getScheduler().runTask(plugin, () -> {
-                    try {
-                        world.loadChunk(fx >> 4, fz >> 4, true);
-
-                        Location result;
-                        if (world.getEnvironment() == World.Environment.NETHER) {
-                            result = findSafeNetherLocation(world, fx, fz, random);
-                        } else {
-                            result = findSafeOverworldLocation(world, fx, fz);
-                        }
-
-                        future.complete(result);
-                    } catch (Exception e) {
-                        plugin.getLogger().warning("Error finding safe location: " + e.getMessage());
-                        future.complete(null);
-                    }
-                });
-
-                Location result = future.join();
+                Location result;
+                if (world.getEnvironment() == World.Environment.NETHER) {
+                    result = findSafeNetherLocation(world, x, z, random);
+                } else {
+                    result = findSafeOverworldLocation(world, x, z);
+                }
 
                 if (result != null) {
-                    Bukkit.getScheduler().runTask(plugin, () -> {
-                        completeRtpTeleport(player, result);
-                    });
+                    completeRtpTeleport(player, result);
                     return;
                 }
 
@@ -186,36 +166,55 @@ public class RtpListener implements Listener {
             }
 
             Bukkit.getScheduler().runTask(plugin, () -> {
-                player.sendMessage(langManager.getMessageFor(player, "rtp.unsafe_location",
+                player.sendMessage(langManager.getMessageFor(player, "commands.rtp.unsafe_location",
                         "<red>Could not find a safe location to teleport to!"));
             });
         });
     }
 
     private Location findSafeOverworldLocation(World world, int x, int z) {
-        int y = world.getHighestBlockYAt(x, z) + 1;
-        Location test = new Location(world, x + 0.5, y, z + 0.5);
+        try {
+            CompletableFuture<Location> future = new CompletableFuture<>();
 
-        if (isLocationSafeSync(test)) {
-            return test;
+            Bukkit.getScheduler().runTask(plugin, () -> {
+                try {
+                    world.loadChunk(x >> 4, z >> 4, true);
+                    int y = world.getHighestBlockYAt(x, z) + 1;
+                    Location test = new Location(world, x + 0.5, y, z + 0.5);
+                    future.complete(isLocationSafeSync(test) ? test : null);
+                } catch (Exception e) {
+                    future.complete(null);
+                }
+            });
+
+            return future.get();
+        } catch (Exception e) {
+            return null;
         }
-        return null;
     }
 
-    private Location findSafeNetherLocation(World world, int x, int z, Random random) {
+    private Location findSafeNetherLocation(World world, int x, int z, java.util.Random random) {
         for (int i = 0; i < 15; i++) {
-            int y;
-            if (i == 0) {
-                y = random.nextInt(90) + 30;
-            } else {
-                y = 30 + (i * 6);
-                if (y > 120) y = 120 - (i % 15);
-            }
+            int y = i == 0 ? random.nextInt(90) + 30 : 30 + (i * 6);
+            if (y > 120) y = 120 - (i % 15);
 
-            Location test = new Location(world, x + 0.5, y, z + 0.5);
+            try {
+                CompletableFuture<Location> future = new CompletableFuture<>();
 
-            if (isNetherLocationSafeSync(test)) {
-                return test;
+                final int finalY = y;
+                Bukkit.getScheduler().runTask(plugin, () -> {
+                    try {
+                        world.loadChunk(x >> 4, z >> 4, true);
+                        Location test = new Location(world, x + 0.5, finalY, z + 0.5);
+                        future.complete(isNetherLocationSafeSync(test) ? test : null);
+                    } catch (Exception e) {
+                        future.complete(null);
+                    }
+                });
+
+                Location result = future.get();
+                if (result != null) return result;
+            } catch (Exception e) {
             }
         }
         return null;
@@ -228,12 +227,8 @@ public class RtpListener implements Listener {
         int z = loc.getBlockZ();
 
         if (w == null) return false;
-
-        if (y < w.getMinHeight() + 1 || y > w.getMaxHeight() - 2)
-            return false;
-
-        if (!w.isChunkLoaded(x >> 4, z >> 4))
-            return false;
+        if (y < w.getMinHeight() + 1 || y > w.getMaxHeight() - 2) return false;
+        if (!w.isChunkLoaded(x >> 4, z >> 4)) return false;
 
         try {
             Block feet = w.getBlockAt(x, y, z);
@@ -244,11 +239,7 @@ public class RtpListener implements Listener {
             if (!head.getType().isAir()) return false;
 
             Material g = ground.getType();
-
-            if (UNSAFE_MATERIALS.contains(g)) return false;
-            if (!g.isSolid()) return false;
-
-            return true;
+            return g.isSolid() && !UNSAFE_MATERIALS.contains(g);
 
         } catch (Exception e) {
             plugin.getLogger().warning("Error checking block safety: " + e.getMessage());
@@ -256,20 +247,15 @@ public class RtpListener implements Listener {
         }
     }
 
-
     private boolean isNetherLocationSafeSync(Location loc) {
         World w = loc.getWorld();
         int x = loc.getBlockX();
         int y = loc.getBlockY();
         int z = loc.getBlockZ();
 
-        if (w == null) return false;
-
-        if (y < w.getMinHeight() + 1 || y > w.getMaxHeight() - 2)
-            return false;
-
-        if (!w.isChunkLoaded(x >> 4, z >> 4))
-            return false;
+        if (w == null || w.getEnvironment() != World.Environment.NETHER) return false;
+        if (y < w.getMinHeight() + 1 || y > w.getMaxHeight() - 2) return false;
+        if (!w.isChunkLoaded(x >> 4, z >> 4)) return false;
 
         try {
             Block feet = w.getBlockAt(x, y, z);
@@ -280,7 +266,6 @@ public class RtpListener implements Listener {
             if (!head.getType().isAir()) return false;
 
             Material g = ground.getType();
-
             if (UNSAFE_MATERIALS.contains(g)) return false;
 
             if (!NETHER_SAFE_GROUND.contains(g) && !g.isSolid()) return false;
@@ -303,39 +288,42 @@ public class RtpListener implements Listener {
     }
 
     private void completeRtpTeleport(Player player, Location loc) {
-        try {
-            if (backManager != null) {
-                backManager.setLastLocation(player.getUniqueId(), player.getLocation());
-            } else {
-                plugin.getLogger().warning("BackManager is null - cannot save return location");
+        Bukkit.getScheduler().runTask(plugin, () -> {
+            try {
+                if (backManager != null) {
+                    backManager.setLastLocation(player.getUniqueId(), player.getLocation());
+                }
+
+                player.teleport(loc);
+
+                player.sendMessage(langManager.getMessageFor(player, "commands.rtp.teleport_success",
+                        "<green>Teleported to <white>{world}</white>!",
+                        LanguageManager.ComponentPlaceholder.of("{world}", loc.getWorld().getName())));
+
+                locationStorage.saveRtpLocation(player.getUniqueId(), player.getName(), loc)
+                        .exceptionally(ex -> {
+                            plugin.getLogger().warning("Failed to save RTP location: " + ex.getMessage());
+                            return null;
+                        });
+
+            } catch (Exception e) {
+                plugin.getLogger().severe("Teleportation failed: " + e.getMessage());
+                player.sendMessage(langManager.getMessageFor(player, "commands.rtp.teleport_failed",
+                        "<red>Teleport failed. Please try again."));
             }
-
-            player.teleport(loc);
-
-            player.sendMessage(langManager.getMessageFor(player, "rtp.teleport_success",
-                    "<green>Teleported to <white>{world}</white>!",
-                    LanguageManager.ComponentPlaceholder.of("{world}", loc.getWorld().getName())));
-
-            locationStorage.saveRtpLocation(player.getUniqueId(), player.getName(), loc)
-                    .exceptionally(ex -> {
-                        plugin.getLogger().warning("Failed to save RTP location: " + ex.getMessage());
-                        return null;
-                    });
-
-        } catch (Exception e) {
-            plugin.getLogger().severe("Teleportation failed: " + e.getMessage());
-            e.printStackTrace();
-            player.sendMessage(langManager.getMessageFor(player, "rtp.teleport_failed",
-                    "<red>Teleport failed. Please try again."));
-        }
+        });
     }
 
     private World getTargetWorld(Material material) {
-        return switch (material) {
-            case GRASS_BLOCK -> Bukkit.getWorld("world");
-            case NETHERRACK -> Bukkit.getWorld("world_nether");
-            case END_STONE -> Bukkit.getWorld("world_the_end");
-            default -> null;
-        };
+        switch (material) {
+            case GRASS_BLOCK: return getWorld("world");
+            case NETHERRACK: return getWorld("world_nether");
+            case END_STONE: return getWorld("world_the_end");
+            default: return null;
+        }
+    }
+
+    private World getWorld(String name) {
+        return worldCache.computeIfAbsent(name, Bukkit::getWorld);
     }
 }

@@ -45,7 +45,6 @@ public class DatabaseManager {
                 hc.addDataSourceProperty("journal_mode", "WAL");
                 hc.addDataSourceProperty("synchronous", "NORMAL");
 
-                plugin.getLogger().info("SQLite path: " + path);
 
             } else {
                 String jdbc = String.format("jdbc:mysql://%s:%d/%s?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&connectTimeout=5000&socketTimeout=30000",

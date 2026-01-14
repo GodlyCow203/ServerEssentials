@@ -34,7 +34,6 @@ public final class ScoreboardConfig {
         loadLayouts(config.getConfigurationSection("layouts"), plugin);
         loadWorldSettings(config.getConfigurationSection("world-settings"), plugin);
 
-        plugin.getLogger().info("Loaded " + layouts.size() + " scoreboard layouts");
     }
 
     private void loadLayouts(ConfigurationSection section, Plugin plugin) {

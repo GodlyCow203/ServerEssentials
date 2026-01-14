@@ -1,6 +1,6 @@
 name: ServerEssentials
 main: net.godlycow.org.ServerEssentials
-version: 2.0.8.3
+version: 2.0.8.5
 api-version: 1.20
 softdepend:
   - Vault
@@ -17,6 +17,11 @@ commands:
     usage: /eco
     permission: serveressentials.command.eco
     permission-message: You do not have permission to use /eco.
+
+  settings:
+    description: Access to /settings
+    usage: /settings
+    permission: serveressentials.command.settings
 
 
   balance:
@@ -778,45 +783,6 @@ permissions:
     default: op
   serveressentials.vault10:
     description: Access to vault 10
-    default: op
-  serveressentials.kit1:
-    description: Allows use of Kit 1
-    default: op
-
-  serveressentials.kit2:
-    description: Allows use of Kit 2
-    default: op
-
-  serveressentials.kit3:
-    description: Allows use of Kit 3
-    default: op
-
-  serveressentials.kit4:
-    description: Allows use of Kit 4
-    default: op
-
-  serveressentials.kit5:
-    description: Allows use of Kit 5
-    default: op
-
-  serveressentials.kit6:
-    description: Allows use of Kit 6
-    default: op
-
-  serveressentials.kit7:
-    description: Allows use of Kit 7
-    default: op
-
-  serveressentials.kit8:
-    description: Allows use of Kit 8
-    default: op
-
-  serveressentials.kit9:
-    description: Allows use of Kit 9
-    default: op
-
-  serveressentials.kit10:
-    description: Allows use of Kit 10
     default: op
   serveressentials.enderchest.others:
     desciption: Open the enderchest of other Players

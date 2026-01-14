@@ -29,7 +29,6 @@ public final class SellConfig {
         this.enabled = config.getBoolean("sellgui.enabled", true);
         this.currencySymbol = config.getString("sellgui.currency-symbol", "$");
 
-        plugin.getLogger().info("[SellGUI] Loaded " + sellPrices.size() + " sellable items from shop configs");
 
         if (sellPrices.isEmpty()) {
             plugin.getLogger().warning("[SellGUI] No sellable items found! Sell GUI will be non-functional.");

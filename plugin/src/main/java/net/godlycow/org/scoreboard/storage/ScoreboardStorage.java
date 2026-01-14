@@ -18,7 +18,6 @@ public final class ScoreboardStorage {
     public ScoreboardStorage(Plugin plugin, DatabaseManager dbManager) {
         this.dbManager = dbManager;
         initTable();
-        plugin.getLogger().info("Scoreboard storage initialized with async support");
     }
 
 

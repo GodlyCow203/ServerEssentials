@@ -22,10 +22,6 @@ public final class EcoConfig {
         this.maxTransactionAmount = config.getDouble("eco.max-transaction-amount", 1000000.0);
         this.notifyTarget = config.getBoolean("eco.notify-target", true);
         this.logTransactions = config.getBoolean("eco.log-transactions", true);
-
-        plugin.getLogger().info("[Eco] Max transaction amount: " + maxTransactionAmount);
-        plugin.getLogger().info("[Eco] Notify target: " + notifyTarget);
-        plugin.getLogger().info("[Eco] Log transactions: " + logTransactions);
     }
 
 

@@ -1208,45 +1208,56 @@
       "none": "<#FF2424>Keine Datenbanken konfiguriert!",
       "entry": "<#4169E1>║  <#c0f0ff>{name}</#c0f0ff> - {status}{msg} <#708090>({enabled})</#708090>  ║"
     },
-    "economy": {
-      "shop": {
-        "main-title": "<gradient:#279CF5:#279CF5>Server Shop</gradient>",
-        "section-title": "<#279CF5>{section} Shop",
-        "disabled": " <#FF2424>Shop ist deaktiviert",
-        "balance-display": "<#279CF5>Dein Guthaben: <#c0f0ff>{balance}",
-        "buy-success": "<#279CF5><white>{amount}x {item} <#279CF5>gekauft für <#c0f0ff>{price}",
-        "sell-success": "<#279CF5><white>{amount}x {item} <#279CF5>verkauft für <#c0f0ff>{price}",
-        "cannot-afford": "<#FF2424>Kann {item} nicht leisten (Kosten: <#c0f0ff>{price})",
-        "no-items": "<#FF2424>Nicht genug {item} zum Verkaufen",
-        "no-section": "<#FF2424>Shop-Bereich '<#c0f0ff>{section}<#FF2424>' nicht gefunden!",
-        "reload-success": "<#279CF5>Shop-Konfiguration neu geladen.",
-        "reload-error": "<#FF2424>Fehler beim Neuladen der Shop-Konfiguration. Prüfe Konsole.",
-        "no-economy": "<#FF2424>Ökonomie nicht verfügbar. Shop ist nur zum Anschauen.",
-        "transaction-failed": "<#FF2424>Transaktion fehlgeschlagen: {error}",
-        "no-main-config": "<#FF2424>Shop-Konfiguration nicht gefunden. Kontaktiere einen Admin.",
-        "gui": {
-          "close-button": "<#FF2424>✕ Schließen",
-          "back-button": "<#279CF5>← Zurück",
-          "previous-page": "<#708090>← Vorherige",
-          "next-page": "<#708090>Nächste →",
-          "loading": "<#708090>Laden..."
-        }
-      },
-      "sellgui": {
-        "disabled": "<#FF2424>Verkaufs-GUI ist deaktiviert.",
-        "sold-success": "<#279CF5><bold>VERKAUFT <white>{amount} <#279CF5>Items für <#c0f0ff>{symbol}{price}",
-        "returned-items": "<#708090><white>{amount} <#708090>nicht verkaufbare Items wurden in dein Inventar zurückgegeben",
-        "no-items": "<#708090>Keine Items zu verkaufen",
-        "inventory-full": "<#279CF5>Einige Items wurden auf den Boden fallen gelassen (Inventar voll)",
-        "not-sellable": "<#FF2424>Dieses Item kann nicht verkauft werden!",
-        "no-economy": "<#FF2424>Ökonomie nicht verfügbar. Kontaktiere einen Admin.",
-        "transaction-failed": "<#FF2424>Transaktion fehlgeschlagen: {error}",
-        "title": "<#279CF5>Items Verkaufen",
-        "info": {
-          "title": "<#279CF5>VERKAUFS-BEREICH",
-          "subtitle": "<#708090>Platziere Items hier zum Verkaufen",
-          "instruction": "<#279CF5>Schließe Inventar zum Verarbeiten",
-          "value-prefix": "<#279CF5>Total: <#c0f0ff>"
+    "de": {
+      "economy": {
+        "shop": {
+          "main-title": "<gradient:#279CF5:#279CF5>Server-Shop</gradient>",
+          "section-title": "<#279CF5>{section}-Shop",
+          "disabled": " <#FF2424>Shop ist deaktiviert",
+          "balance-display": "<#279CF5>Dein Kontostand: <#c0f0ff>{balance}",
+          "buy-success": "<#279CF5>Gekauft: <white>{amount}x {item} <#279CF5>für <#c0f0ff>{price}",
+          "sell-success": "<#279CF5>Verkauft: <white>{amount}x {item} <#279CF5>für <#c0f0ff>{price}",
+          "cannot-afford": "<#FF2424>Du kannst dir {item} nicht leisten (Kosten: <#c0f0ff>{price})",
+          "no-items": "<#FF2424>Nicht genug {item} zum Verkaufen",
+          "no-section": "<#FF2424>Shop-Bereich '<#c0f0ff>{section}<#FF2424>' nicht gefunden!",
+          "reload-success": "<#279CF5>Shop-Konfiguration neu geladen.",
+          "reload-error": "<#FF2424>Fehler beim Neuladen der Shop-Konfiguration. Siehe Konsole.",
+          "no-economy": "<#FF2424>Wirtschaft nicht verfügbar. Shop nur zur Ansicht.",
+          "transaction-failed": "<#FF2424>Transaktion fehlgeschlagen: {error}",
+          "no-main-config": "<#FF2424>Shop-Konfiguration nicht gefunden. Kontaktiere einen Admin.",
+          "quantity-title": "<#279CF5>Menge auswählen: <#c0f0ff>{item}",
+          "custom-amount-prompt": "<#279CF5>Gib die gewünschte Menge im Chat ein oder tippe <#FF2424>cancel<#279CF5>, um abzubrechen.",
+          "custom-amount-timeout": "<#FF2424>✗ Zeit für die Eingabe abgelaufen.",
+          "cancelled": "<#FF2424>✗ Kauf abgebrochen",
+          "zero-quantity": "<#FF2424>✗ Bitte eine Menge größer als 0 wählen",
+          "negative-amount": "<#FF2424>✗ Die Menge muss positiv sein",
+          "invalid-amount": "<#FF2424>✗ Ungültige Menge. Bitte eine Zahl eingeben.",
+          "cannot-afford-bulk": "<#FF2424>✗ Du kannst dir {quantity}x {item} nicht leisten (Kosten: <#c0f0ff>{price})",
+          "bulk-buy-success": "<#279CF5>✓ Du hast {quantity}x {item} für <#c0f0ff>{price} gekauft",
+          "gui": {
+            "close-button": "<#FF2424>✕ Schließen",
+            "back-button": "<#279CF5>← Zurück",
+            "previous-page": "<#708090>← Vorherige",
+            "next-page": "<#708090>Nächste →",
+            "loading": "<#708090>Lädt..."
+          }
+        },
+        "sellgui": {
+          "disabled": "<#FF2424>Verkaufs-GUI ist deaktiviert.",
+          "sold-success": "<#279CF5><bold>VERKAUFT <white>{amount} <#279CF5>Gegenstände für <#c0f0ff>{symbol}{price}",
+          "returned-items": "<#708090><white>{amount} <#708090>nicht verkaufbare Gegenstände ins Inventar zurückgegeben",
+          "no-items": "<#708090>Keine Gegenstände zu verkaufen",
+          "inventory-full": "<#279CF5>Einige Gegenstände wurden fallen gelassen (Inventar voll)",
+          "not-sellable": "<#FF2424>Dieser Gegenstand kann nicht verkauft werden!",
+          "no-economy": "<#FF2424>Wirtschaft nicht verfügbar. Kontaktiere einen Admin.",
+          "transaction-failed": "<#FF2424>Transaktion fehlgeschlagen: {error}",
+          "title": "<#279CF5>Gegenstände verkaufen",
+          "info": {
+            "title": "<#279CF5>VERKAUFSZONE",
+            "subtitle": "<#708090>Lege Gegenstände hier ab, um sie zu verkaufen",
+            "instruction": "<#279CF5>Inventar schließen, um zu verarbeiten",
+            "value-prefix": "<#279CF5>Gesamt: <#c0f0ff>"
+          }
         }
       }
     },

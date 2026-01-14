@@ -31,7 +31,7 @@ public final class WarpAPIImpl implements WarpAPI {
     @Override
     public @NotNull CompletableFuture<Boolean> teleportToWarp(@NotNull Player player, @NotNull String warpName) {
         return CompletableFuture.supplyAsync(() -> {
-            Optional<java.util.Optional<WarpData>> warpDataOpt = Optional.ofNullable(getWarp(warpName).join());
+            Optional<Optional<WarpData>> warpDataOpt = Optional.ofNullable(getWarp(warpName).join());
             if (warpDataOpt.isEmpty()) {
                 return false;
             }
@@ -89,7 +89,7 @@ public final class WarpAPIImpl implements WarpAPI {
     @Override
     public @NotNull CompletableFuture<Boolean> deleteWarp(@NotNull String name, @NotNull Player deleter) {
         return CompletableFuture.supplyAsync(() -> {
-            Optional<java.util.Optional<WarpData>> warpDataOpt = Optional.ofNullable(getWarp(name).join());
+            Optional<Optional<WarpData>> warpDataOpt = Optional.ofNullable(getWarp(name).join());
             if (warpDataOpt.isEmpty()) {
                 return false;
             }
@@ -110,10 +110,10 @@ public final class WarpAPIImpl implements WarpAPI {
     }
 
     @Override
-    public @NotNull CompletableFuture<java.util.Optional<WarpData>> getWarp(@NotNull String name) {
+    public @NotNull CompletableFuture<Optional<WarpData>> getWarp(@NotNull String name) {
         return manager.getWarp(name).thenApply(locationOpt -> {
             if (locationOpt.isEmpty()) {
-                return java.util.Optional.empty();
+                return Optional.empty();
             }
 
             UUID creator = manager.getCreator(name).join().orElse(UUID.randomUUID());

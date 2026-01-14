@@ -1208,45 +1208,56 @@
       "none": "<#FF2424>Inga databaser konfigurerade!",
       "entry": "<#4169E1>║  <#c0f0ff>{name}</#c0f0ff> - {status}{msg} <#708090>({enabled})</#708090>  ║"
     },
-    "economy": {
-      "shop": {
-        "main-title": "<gradient:#279CF5:#279CF5>Serverbutik</gradient>",
-        "section-title": "<#279CF5>{section} Butik",
-        "disabled": " <#FF2424>Butiken är inaktiverad",
-        "balance-display": "<#279CF5>Ditt Saldo: <#c0f0ff>{balance}",
-        "buy-success": "<#279CF5>Köpte <white>{amount}x {item} <#279CF5>för <#c0f0ff>{price}",
-        "sell-success": "<#279CF5>Sålde <white>{amount}x {item} <#279CF5>för <#c0f0ff>{price}",
-        "cannot-afford": "<#FF2424>Kan inte ha råd med {item} (kostnad: <#c0f0ff>{price})",
-        "no-items": "<#FF2424>Inte tillräckligt med {item} att sälja",
-        "no-section": "<#FF2424>Butikssektion '<#c0f0ff>{section}<#FF2424>' hittades inte!",
-        "reload-success": "<#279CF5>Butikskonfiguration laddades om.",
-        "reload-error": "<#FF2424>Fel vid uppladdning av butikskonfiguration. Kontrollera konsolen.",
-        "no-economy": "<#FF2424>Ekonomi otillgänglig. Butiken är endast för visning.",
-        "transaction-failed": "<#FF2424>Transaktion misslyckad: {error}",
-        "no-main-config": "<#FF2424>Butikskonfiguration hittades inte. Kontakta en admin.",
-        "gui": {
-          "close-button": "<#FF2424>✕ Stäng",
-          "back-button": "<#279CF5>← Tillbaka",
-          "previous-page": "<#708090>← Föregående",
-          "next-page": "<#708090>Nästa →",
-          "loading": "<#708090>Laddar..."
-        }
-      },
-      "sellgui": {
-        "disabled": "<#FF2424>Sälj-GUI är inaktiverat.",
-        "sold-success": "<#279CF5><bold>SÅLDE <white>{amount} <#279CF5>föremål för <#c0f0ff>{symbol}{price}",
-        "returned-items": "<#708090>Returnerade <white>{amount} <#708090>osäljbara föremål till ditt lager",
-        "no-items": "<#708090>Inga föremål att sälja",
-        "inventory-full": "<#279CF5>Vissa föremål släpptes på marken (lagret fullt)",
-        "not-sellable": "<#FF2424>Detta föremål kan inte säljas!",
-        "no-economy": "<#FF2424>Ekonomi otillgänglig. Kontakta en admin.",
-        "transaction-failed": "<#FF2424>Transaktion misslyckad: {error}",
-        "title": "<#279CF5>Sälj Föremål",
-        "info": {
-          "title": "<#279CF5>SÄLJ ZON",
-          "subtitle": "<#708090>Placera föremål här för att sälja",
-          "instruction": "<#279CF5>Stäng inventory för att bearbeta",
-          "value-prefix": "<#279CF5>Totalt: <#c0f0ff>"
+    "sv": {
+      "economy": {
+        "shop": {
+          "main-title": "<gradient:#279CF5:#279CF5>Serverbutik</gradient>",
+          "section-title": "<#279CF5>{section} Butik",
+          "disabled": " <#FF2424>Butiken är inaktiverad",
+          "balance-display": "<#279CF5>Ditt saldo: <#c0f0ff>{balance}",
+          "buy-success": "<#279CF5>Köpte <white>{amount}x {item} <#279CF5>för <#c0f0ff>{price}",
+          "sell-success": "<#279CF5>Sålde <white>{amount}x {item} <#279CF5>för <#c0f0ff>{price}",
+          "cannot-afford": "<#FF2424>Har inte råd med {item} (kostnad: <#c0f0ff>{price})",
+          "no-items": "<#FF2424>Inte tillräckligt med {item} att sälja",
+          "no-section": "<#FF2424>Butikssektionen '<#c0f0ff>{section}<#FF2424>' hittades inte!",
+          "reload-success": "<#279CF5>Butikskonfigurationen laddades om.",
+          "reload-error": "<#FF2424>Fel vid omladdning av butikskonfiguration. Kontrollera konsolen.",
+          "no-economy": "<#FF2424>Ekonomi ej tillgänglig. Butiken är endast visning.",
+          "transaction-failed": "<#FF2424>Transaktionen misslyckades: {error}",
+          "no-main-config": "<#FF2424>Butikskonfiguration hittades inte. Kontakta en administratör.",
+          "quantity-title": "<#279CF5>Välj antal: <#c0f0ff>{item}",
+          "custom-amount-prompt": "<#279CF5>Skriv mängden du vill köpa i chatten, eller skriv <#FF2424>cancel<#279CF5> för att avbryta.",
+          "custom-amount-timeout": "<#FF2424>✗ Tiden för inmatning gick ut.",
+          "cancelled": "<#FF2424>✗ Köpet avbröts",
+          "zero-quantity": "<#FF2424>✗ Välj ett antal större än 0",
+          "negative-amount": "<#FF2424>✗ Antalet måste vara positivt",
+          "invalid-amount": "<#FF2424>✗ Ogiltigt antal. Ange ett nummer.",
+          "cannot-afford-bulk": "<#FF2424>✗ Du har inte råd med {quantity}x {item} (kostnad: <#c0f0ff>{price})",
+          "bulk-buy-success": "<#279CF5>✓ Du köpte {quantity}x {item} för <#c0f0ff>{price}",
+          "gui": {
+            "close-button": "<#FF2424>✕ Stäng",
+            "back-button": "<#279CF5>← Tillbaka",
+            "previous-page": "<#708090>← Föregående",
+            "next-page": "<#708090>Nästa →",
+            "loading": "<#708090>Laddar..."
+          }
+        },
+        "sellgui": {
+          "disabled": "<#FF2424>Sälj-GUI är inaktiverad.",
+          "sold-success": "<#279CF5><bold>SÅLT <white>{amount} <#279CF5>föremål för <#c0f0ff>{symbol}{price}",
+          "returned-items": "<#708090>Returnerade <white>{amount} <#708090>osäljbara föremål till ditt inventarium",
+          "no-items": "<#708090>Inga föremål att sälja",
+          "inventory-full": "<#279CF5>Vissa föremål släpptes (inventariet fullt)",
+          "not-sellable": "<#FF2424>Detta föremål kan inte säljas!",
+          "no-economy": "<#FF2424>Ekonomi ej tillgänglig. Kontakta en administratör.",
+          "transaction-failed": "<#FF2424>Transaktionen misslyckades: {error}",
+          "title": "<#279CF5>Sälj föremål",
+          "info": {
+            "title": "<#279CF5>SÄLJZON",
+            "subtitle": "<#708090>Lägg föremål här för att sälja",
+            "instruction": "<#279CF5>Stäng inventariet för att genomföra",
+            "value-prefix": "<#279CF5>Totalt: <#c0f0ff>"
+          }
         }
       }
     },

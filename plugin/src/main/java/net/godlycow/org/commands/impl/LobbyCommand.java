@@ -18,10 +18,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class LobbyCommand extends CommandModule implements CommandExecutor, TabCompleter {
 
@@ -29,6 +28,7 @@ public class LobbyCommand extends CommandModule implements CommandExecutor, TabC
     private final PlayerLanguageManager langManager;
     private final LobbyStorage lobbyStorage;
     private final LobbyConfig config;
+    private final Map<UUID, Long> cooldownMap = new ConcurrentHashMap<>();
 
     public LobbyCommand(
             JavaPlugin plugin,
@@ -121,6 +121,10 @@ public class LobbyCommand extends CommandModule implements CommandExecutor, TabC
             return;
         }
 
+        if (!checkCooldown(player)) {
+            return;
+        }
+
         String worldKey = config.isPerWorld()
                 ? player.getWorld().getName()
                 : "global";
@@ -130,94 +134,88 @@ public class LobbyCommand extends CommandModule implements CommandExecutor, TabC
                 Bukkit.getScheduler().runTask(plugin, () ->
                         player.sendMessage(langManager.getMessageFor(
                                 player,
-                                "lobby.no-lobby",
+                                "commands.lobby.no-lobby",
                                 "<red>No lobby has been set."
                         ))
                 );
                 return;
             }
-            checkCooldownAndTeleport(player);
+            performTeleport(player);
         }).exceptionally(ex -> {
             plugin.getLogger().severe("Failed to check lobby: " + ex.getMessage());
+            ex.printStackTrace();
             return null;
         });
     }
 
-    private void checkCooldownAndTeleport(Player player) {
-        checkCooldown(player).thenAccept(onCooldown -> {
-            if (onCooldown) return;
-
-            String worldKey = config.isPerWorld()
-                    ? player.getWorld().getName()
-                    : "global";
-
-            lobbyStorage.getLobby(worldKey).thenAccept(optLocation ->
-                    optLocation.ifPresent(lobby ->
-                            Bukkit.getScheduler().runTask(plugin, () -> {
-                                if (config.isAnimationEnabled()) {
-                                    AnimationHelper.playTeleportAnimation(
-                                            plugin,
-                                            player,
-                                            config.getAnimation()
-                                    );
-                                }
-                                player.teleport(lobby);
-                                player.sendMessage(langManager.getMessageFor(
-                                        player,
-                                        "lobby.teleported",
-                                        "<green>Teleported to lobby!"
-                                ));
-                            })
-                    )
-            );
-        }).exceptionally(ex -> {
-            plugin.getLogger().severe("Failed to teleport player: " + ex.getMessage());
-            return null;
-        });
-    }
-
-    private CompletableFuture<Boolean> checkCooldown(Player player) {
+    /**
+     * Checks if the player is on cooldown. If not, sets their cooldown timestamp.
+     * @param player The player to check
+     * @return true if cooldown has passed (or bypassed), false if still on cooldown
+     */
+    private boolean checkCooldown(Player player) {
         if (player.hasPermission("serveressentials.command.lobby.bypass-cooldown")) {
-            return CompletableFuture.completedFuture(false);
+            return true;
         }
 
         UUID uuid = player.getUniqueId();
         long now = Instant.now().getEpochSecond();
-        String cooldownKey = "last-used";
+        Long lastUsed = cooldownMap.get(uuid);
 
-        return this.storage.getState(uuid, getCommandName(), cooldownKey)
-                .thenApply(opt -> opt.map(Long::parseLong).orElse(0L))
-                .thenApply(lastUsed -> {
-                    long elapsed = now - lastUsed;
-                    long cooldownSeconds = config.getCooldown().getSeconds();
-                    if (elapsed < cooldownSeconds) {
-                        long remaining = cooldownSeconds - elapsed;
-                        Bukkit.getScheduler().runTask(plugin, () ->
-                                player.sendMessage(langManager.getMessageFor(
+        if (lastUsed != null) {
+            long elapsed = now - lastUsed;
+            long cooldownSeconds = config.getCooldown().getSeconds();
+
+            if (elapsed < cooldownSeconds) {
+                long remaining = cooldownSeconds - elapsed;
+                player.sendMessage(langManager.getMessageFor(
+                        player,
+                        "commands.lobby.cooldown-active",
+                        "<red>Please wait <yellow>{time}</yellow> seconds before teleporting again.",
+                        LanguageManager.ComponentPlaceholder.of(
+                                "{time}",
+                                String.valueOf(remaining)
+                        )
+                ));
+                plugin.getLogger().fine("Lobby cooldown active for " + player.getName() +
+                        ": " + remaining + "s remaining");
+                return false;
+            }
+        }
+
+        cooldownMap.put(uuid, now);
+        plugin.getLogger().fine("Lobby cooldown set for " + player.getName() + " at timestamp " + now);
+        return true;
+    }
+
+    private void performTeleport(Player player) {
+        String worldKey = config.isPerWorld()
+                ? player.getWorld().getName()
+                : "global";
+
+        lobbyStorage.getLobby(worldKey).thenAccept(optLocation ->
+                optLocation.ifPresent(lobby ->
+                        Bukkit.getScheduler().runTask(plugin, () -> {
+                            if (config.isAnimationEnabled()) {
+                                AnimationHelper.playTeleportAnimation(
+                                        plugin,
                                         player,
-                                        "lobby.cooldown-active",
-                                        "<red>Please wait <yellow>{time}</yellow> seconds before teleporting again.",
-                                        LanguageManager.ComponentPlaceholder.of(
-                                                "{time}",
-                                                String.valueOf(remaining)
-                                        )
-                                ))
-                        );
-                        return true;
-                    }
-                    return false;
-                })
-                .thenCompose(onCooldown -> {
-                    if (!onCooldown) {
-                        return this.storage.setState(
-                                uuid,
-                                getCommandName(),
-                                cooldownKey,
-                                String.valueOf(now)
-                        ).thenApply(v -> false);
-                    }
-                    return CompletableFuture.completedFuture(true);
-                });
+                                        config.getAnimation()
+                                );
+                            }
+                            player.teleport(lobby);
+                            player.sendMessage(langManager.getMessageFor(
+                                    player,
+                                    "commands.lobby.teleported",
+                                    "<green>Teleported to lobby!"
+                            ));
+                        })
+                )
+        ).exceptionally(ex -> {
+            plugin.getLogger().severe("Failed to teleport player: " + ex.getMessage());
+            ex.printStackTrace();
+            return null;
+        });
     }
 
     private void handleSetCommand(Player player, String[] args) {
@@ -245,7 +243,7 @@ public class LobbyCommand extends CommandModule implements CommandExecutor, TabC
                 : lobbyStorage.setLobby(loc);
 
         saveFuture.thenRun(() -> {
-            String messageKey = isWorldSpecific ? "lobby.set-world" : "lobby.set";
+            String messageKey = isWorldSpecific ? "commands.lobby.set-world" : "commands.lobby.set";
             Component message = isWorldSpecific
                     ? langManager.getMessageFor(
                     player,
@@ -264,6 +262,7 @@ public class LobbyCommand extends CommandModule implements CommandExecutor, TabC
             Bukkit.getScheduler().runTask(plugin, () -> player.sendMessage(message));
         }).exceptionally(ex -> {
             plugin.getLogger().severe("Failed to set lobby: " + ex.getMessage());
+            ex.printStackTrace();
             return null;
         });
     }
@@ -293,12 +292,13 @@ public class LobbyCommand extends CommandModule implements CommandExecutor, TabC
                 Bukkit.getScheduler().runTask(plugin, () ->
                         player.sendMessage(langManager.getMessageFor(
                                 player,
-                                "lobby.removed",
+                                "commands.lobby.removed",
                                 "<yellow>Lobby removed."
                         ))
                 )
         ).exceptionally(ex -> {
             plugin.getLogger().severe("Failed to remove lobby: " + ex.getMessage());
+            ex.printStackTrace();
             return null;
         });
     }
@@ -320,7 +320,7 @@ public class LobbyCommand extends CommandModule implements CommandExecutor, TabC
         if (args.length < 2) {
             player.sendMessage(langManager.getMessageFor(
                     player,
-                    "lobby.usage-world",
+                    "commands.lobby.usage-world",
                     "<red>Usage: <yellow>/lobby world <world-name>"
             ));
             return;
@@ -330,7 +330,7 @@ public class LobbyCommand extends CommandModule implements CommandExecutor, TabC
         if (plugin.getServer().getWorld(worldName) == null) {
             player.sendMessage(langManager.getMessageFor(
                     player,
-                    "lobby.world-not-found",
+                    "commands.lobby.world-not-found",
                     "<red>World <yellow>{world}</yellow> not found.",
                     LanguageManager.ComponentPlaceholder.of(
                             "{world}",
@@ -344,7 +344,7 @@ public class LobbyCommand extends CommandModule implements CommandExecutor, TabC
                 Bukkit.getScheduler().runTask(plugin, () ->
                         player.sendMessage(langManager.getMessageFor(
                                 player,
-                                "lobby.set-world",
+                                "commands.lobby.set-world",
                                 "<green>Lobby for world <yellow>{world}</yellow> set!",
                                 LanguageManager.ComponentPlaceholder.of(
                                         "{world}",
@@ -354,6 +354,7 @@ public class LobbyCommand extends CommandModule implements CommandExecutor, TabC
                 )
         ).exceptionally(ex -> {
             plugin.getLogger().severe("Failed to set world lobby: " + ex.getMessage());
+            ex.printStackTrace();
             return null;
         });
     }
