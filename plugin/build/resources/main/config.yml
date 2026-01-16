@@ -1,7 +1,7 @@
 # =========================================================================================
-# ServerEssentials Configuration File
+# EssentialsC Configuration File
 # =========================================================================================
-# For help: https://net.godlycow.org/serveressentials
+# For help: https://docs.godlycow.org/
 # MiniMessage Formatting Guide: https://docs.advntr.dev/minimessage/
 # PlaceholderAPI: https://github.com/PlaceholderAPI/PlaceholderAPI/wiki/Placeholders
 # =========================================================================================
@@ -30,6 +30,7 @@ databases:
     pool_size: 5
 
 
+# BETA - DO NOT USE
 settings:
   gui:
     title: "commands.settings.gui.title"
@@ -202,6 +203,7 @@ mail:
   cooldown: 5            # Seconds between sending messages
   max-length: 500        # Maximum characters per mail
   join-notify-delay: 40  # Ticks before notifying on join (20 ticks = 1 second)
+  enabled: true # enable the mail system ??
 
 # Player report system (/report)
 reports:
@@ -210,6 +212,7 @@ reports:
   auto-clear-after-days: 7  # Auto-remove old reports (0 = disable cleanup)
   notify-online-only: false # Only notify online staff (don't show pending count)
   join-notify-delay: 40  # Ticks before staff notification on join
+  enabled: true # should we enable reports ?
 
 # Shop GUI system (/shop)
 shop:
@@ -681,6 +684,13 @@ chat-filter:
   blacklist:
     - badword1
     - badword2
+
+# Join / Leave messages
+messages:
+  leave: "player left the game"
+  join: "player joined the game"
+
+
 
 # =========================================================================================
 # Placeholder Usage Examples:

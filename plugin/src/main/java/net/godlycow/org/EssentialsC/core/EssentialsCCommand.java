@@ -15,14 +15,14 @@ import java.net.URL;
 import java.util.*;
 import java.util.function.Consumer;
 
-public class ServerEssentialsCommand implements CommandExecutor, TabCompleter {
+public class EssentialsCCommand implements CommandExecutor, TabCompleter {
 
     private final Plugin plugin;
     private final Map<String, Consumer<CommandSender>> subCommands = new LinkedHashMap<>();
 
     private final String PREFIX = gradient("#FFCC33", "#FFF2AA", "EssentialsC") + " §8» §r";
 
-    public ServerEssentialsCommand(Plugin plugin) {
+    public EssentialsCCommand(Plugin plugin) {
         this.plugin = plugin;
 
         subCommands.put("help", this::sendHelp);
@@ -201,7 +201,7 @@ public class ServerEssentialsCommand implements CommandExecutor, TabCompleter {
 
     private String getLatestVersionFromModrinth() {
         try {
-            URL url = new URL("https://api.modrinth.com/v2/project/serveressentials/version");
+            URL url = new URL("https://api.modrinth.com/v2/project/essentialsc/version");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setConnectTimeout(4000);

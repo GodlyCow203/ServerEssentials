@@ -8,16 +8,15 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.plugin.Plugin;  // ADD THIS IMPORT
+import org.bukkit.plugin.Plugin;
 
 public class ShopGUIListener implements Listener {
     private final ShopGUIManager guiManager;
-    private final Plugin plugin;  // ADD THIS FIELD
+    private final Plugin plugin;
 
-    // ADD PLUGIN PARAMETER TO CONSTRUCTOR
     public ShopGUIListener(ShopGUIManager guiManager, Plugin plugin) {
         this.guiManager = guiManager;
-        this.plugin = plugin;  // STORE PLUGIN REFERENCE
+        this.plugin = plugin;
     }
 
     @EventHandler
@@ -25,13 +24,7 @@ public class ShopGUIListener implements Listener {
         if (!(event.getWhoClicked() instanceof Player player)) return;
         if (event.getClickedInventory() == null) return;
 
-        // REMOVE THIS: event.getCurrentItem() == null
-
-        // DEBUG LOG - You will see this now
-
-        // Handle quantity selector FIRST
         if (guiManager.getQuantitySelectorGUI().isGUIOpen(player.getUniqueId())) {
-            plugin.getLogger().info("QuantitySelectorGUI: Processing click for " + player.getName());
             event.setCancelled(true);
             guiManager.getQuantitySelectorGUI().handleClick(player, event.getSlot());
             return;
@@ -51,11 +44,12 @@ public class ShopGUIListener implements Listener {
     public void onInventoryClose(InventoryCloseEvent event) {
         if (!(event.getPlayer() instanceof Player player)) return;
 
-        // Delay cleanup to prevent state loss during GUI transitions
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
-            if (!guiManager.isShopGUIOpen(player.getUniqueId()) &&
-                    !guiManager.getQuantitySelectorGUI().isGUIOpen(player.getUniqueId())) {
+            if (!guiManager.getQuantitySelectorGUI().isGUIOpen(player.getUniqueId())) {
                 guiManager.getQuantitySelectorGUI().cleanupPlayer(player.getUniqueId());
+            }
+
+            if (!guiManager.isShopGUIOpen(player.getUniqueId())) {
                 guiManager.cleanupPlayer(player.getUniqueId());
             }
         }, 2L);

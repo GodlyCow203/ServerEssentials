@@ -48,7 +48,7 @@ public class VersionChecker {
 
                             if (!currentVersion.equalsIgnoreCase(latestVersion)) {
                                 Bukkit.getLogger().info(
-                                        AnsiColorUtil.warning("ServerEssentials") +
+                                        AnsiColorUtil.warning("EssentialsC") +
                                                 AnsiColorUtil.colorize(AnsiColorUtil.GRAY, " - ") +
                                                 AnsiColorUtil.warning("Update Available")
                                 );
@@ -56,11 +56,11 @@ public class VersionChecker {
 
                                 Bukkit.getLogger().info(AnsiColorUtil.secondary("Current: ") + AnsiColorUtil.danger(currentVersion));
                                 Bukkit.getLogger().info(AnsiColorUtil.secondary("Latest: ") + AnsiColorUtil.success(latestVersion));
-                                Bukkit.getLogger().info(AnsiColorUtil.secondary("Download: ") + AnsiColorUtil.info("https://modrinth.com/plugin/serveressentials"));
+                                Bukkit.getLogger().info(AnsiColorUtil.secondary("Download: ") + AnsiColorUtil.info("https://modrinth.com/plugin/essentialsc"));
 
                             } else {
                                 Bukkit.getLogger().info(
-                                        AnsiColorUtil.warning("ServerEssentials") +
+                                        AnsiColorUtil.warning("EssentialsC") +
                                                 AnsiColorUtil.colorize(AnsiColorUtil.GRAY, " - ") +
                                                 AnsiColorUtil.success("Up To Date")
                                 );
@@ -94,18 +94,18 @@ public class VersionChecker {
         String latest = getLatestVersion();
 
         if (!latest.equals("unknown") && !currentVersion.equals(latest)) {
-            if (player.hasPermission("serveressentials.version.notify") || player.isOp()) {
+            if (player.hasPermission("essentialsc.version.notify") || player.isOp()) {
 
                 player.sendMessage(MINI.deserialize("<gray> </gray>"));
                 player.sendMessage(MINI.deserialize("<gray>================================</gray>"));
 
-                player.sendMessage(MINI.deserialize("<gradient:#FFCC33:#FFF2AA>ServerEssentials - Update Available</gradient>"));
+                player.sendMessage(MINI.deserialize("<gradient:#FFCC33:#FFF2AA>EssentialsC - Update Available</gradient>"));
 
                 player.sendMessage(MINI.deserialize("<gray>--------------------------------</gray>"));
 
                 player.sendMessage(MINI.deserialize("<gray>Current: </gray><red>" + currentVersion + "</red>"));
                 player.sendMessage(MINI.deserialize("<gray>Latest: </gray><green>" + latest + "</green>"));
-                player.sendMessage(MINI.deserialize("<gray>Download: </gray><aqua>https://modrinth.com/plugin/serveressentials</aqua>"));
+                player.sendMessage(MINI.deserialize("<gray>Download: </gray><aqua>https://modrinth.com/plugin/essentialsc</aqua>"));
 
                 player.sendMessage(MINI.deserialize("<gray>================================</gray>"));
                 player.sendMessage(MINI.deserialize("<gray> </gray>"));

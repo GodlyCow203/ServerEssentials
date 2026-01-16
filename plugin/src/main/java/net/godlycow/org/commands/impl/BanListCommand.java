@@ -44,13 +44,13 @@ public class BanListCommand extends CommandModule implements CommandExecutor {
         storage.getAllBannedUUIDs().thenAccept(uuids -> {
             if (uuids.isEmpty()) {
                 sender.sendMessage(langManager.getMessageFor(sender instanceof Player ? (Player)sender : null,
-                        "banlist.empty",
+                        "commands.banlist.empty",
                         "<yellow>There are no banned players."));
                 return;
             }
 
             sender.sendMessage(langManager.getMessageFor(sender instanceof Player ? (Player)sender : null,
-                    "banlist.header",
+                    "commands.banlist.header",
                     "<gold>------[ Banned Players ]------"));
 
             uuids.forEach(uuid -> {
@@ -58,7 +58,7 @@ public class BanListCommand extends CommandModule implements CommandExecutor {
                     optData.ifPresent(data -> {
                         String time = data.until() == -1 ? "Permanent" : dateFormat.format(new Date(data.until()));
                         Component line = langManager.getMessageFor(sender instanceof Player ? (Player)sender : null,
-                                "banlist.format",
+                                "commands.banlist.format",
                                 "<red>{player} <gray>- <white>{reason} <gray>(<aqua>{time}</aqua>)",
                                 LanguageManager.ComponentPlaceholder.of("{player}", data.name()),
                                 LanguageManager.ComponentPlaceholder.of("{reason}", data.reason()),
@@ -69,7 +69,7 @@ public class BanListCommand extends CommandModule implements CommandExecutor {
             });
 
             sender.sendMessage(langManager.getMessageFor(sender instanceof Player ? (Player)sender : null,
-                    "banlist.footer",
+                    "commands.banlist.footer",
                     "<gold>-----------------------------"));
         });
 

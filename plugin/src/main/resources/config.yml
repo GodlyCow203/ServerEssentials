@@ -1,7 +1,7 @@
 # =========================================================================================
-# ServerEssentials Configuration File
+# EssentialsC Configuration File
 # =========================================================================================
-# For help: https://net.godlycow.org/serveressentials
+# For help: https://docs.godlycow.org/
 # MiniMessage Formatting Guide: https://docs.advntr.dev/minimessage/
 # PlaceholderAPI: https://github.com/PlaceholderAPI/PlaceholderAPI/wiki/Placeholders
 # =========================================================================================
@@ -30,6 +30,7 @@ databases:
     pool_size: 5
 
 
+# BETA - DO NOT USE
 settings:
   gui:
     title: "commands.settings.gui.title"

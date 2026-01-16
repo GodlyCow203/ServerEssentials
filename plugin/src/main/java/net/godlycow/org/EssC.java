@@ -82,7 +82,7 @@ import net.godlycow.org.sellgui.api.SellGUIAPIImpl;
 import net.godlycow.org.sellgui.gui.trigger.SellGUIListener;
 import net.godlycow.org.sellgui.gui.SellGUIManager;
 import net.godlycow.org.sellgui.storage.SellStorage;
-import net.godlycow.org.EssentialsC.core.ServerEssentialsCommand;
+import net.godlycow.org.EssentialsC.core.EssentialsCCommand;
 import net.godlycow.org.EssentialsC.version.resolver.VersionChecker;
 import net.godlycow.org.afk.*;
         import net.godlycow.org.back.*;
@@ -524,7 +524,7 @@ public class EssC extends JavaPlugin implements Listener {
         boolean papiAvailable = PlaceholderAPIHook.getInstance().init();
 
         if (papiAvailable) {
-            new ServerEssentialsPlaceholderExpansion(this).register();
+            new EssentialsCPlaceholderExpansion(this).register();
             getLogger().info("PlaceholderAPI integration enabled!");
         } else {
             getLogger().warning("PlaceholderAPI not found. Placeholders will be unavailable.");
@@ -1124,7 +1124,7 @@ public class EssC extends JavaPlugin implements Listener {
         this.PlaytimeManager = new PlaytimeManager(this);
         releaseLocation = new Location(Bukkit.getWorld("world"), 0, 65, 0);
 
-        if (!isCommandDisabled("se")) this.getCommand("se").setExecutor(new ServerEssentialsCommand(this));
+        if (!isCommandDisabled("se")) this.getCommand("se").setExecutor(new EssentialsCCommand(this));
 
         VersionChecker.checkLatestVersion(this);
         Bukkit.getPluginManager().registerEvents(new VersionNotifyJoinListener(), this);
@@ -1137,7 +1137,7 @@ public class EssC extends JavaPlugin implements Listener {
         EssC plugin = EssC.getInstance();
 
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
-            new ServerEssentialsPlaceholderExpansion(this).register();
+            new EssentialsCPlaceholderExpansion(this).register();
         } else {
             getLogger().warning("PlaceholderAPI not found! Placeholders won't work.");
         }

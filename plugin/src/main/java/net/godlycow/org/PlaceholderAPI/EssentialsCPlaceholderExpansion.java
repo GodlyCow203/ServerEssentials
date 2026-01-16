@@ -14,11 +14,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-public class ServerEssentialsPlaceholderExpansion extends PlaceholderExpansion {
+public class EssentialsCPlaceholderExpansion extends PlaceholderExpansion {
 
     private final EssC plugin;
 
-    public ServerEssentialsPlaceholderExpansion(EssC plugin) {
+    public EssentialsCPlaceholderExpansion(EssC plugin) {
         this.plugin = plugin;
     }
 

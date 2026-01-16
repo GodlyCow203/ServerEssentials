@@ -1,6 +1,6 @@
-name: ServerEssentials
+name: EssentialsC
 main: net.godlycow.org.EssC
-version: 2.0.8.5
+version: 3.0.0.0
 api-version: 1.20
 softdepend:
   - Vault
@@ -724,9 +724,14 @@ commands:
     usage: /notes <player> <note>
     permission: essc.command.notes
 
+# All permissions are OP for full customization
 permissions:
   essc.command.weather.clear:
     description: Allows you to set the weather to clear
+    default: op
+
+  essentialsc.version.notify:
+    description: Allows you to see the notification if a new version has released
     default: op
 
   essc.command.weather.rain:

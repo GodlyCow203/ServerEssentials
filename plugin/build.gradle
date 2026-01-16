@@ -3,7 +3,7 @@ plugins {
     id "com.gradleup.shadow" version "8.3.5"
 }
 
-version = "2.0.8.5"
+version = "3.0.0.0"
 
 dependencies {
     implementation project(":api")
@@ -29,13 +29,13 @@ processResources {
         expand(
                 name: rootProject.name,
                 version: project.version,
-                main: "net.godlycow.org.ServerEssentials"
+                main: "net.godlycow.org.EssC"
         )
     }
 }
 
 shadowJar {
-    archiveFileName = "ServerEssentials-${project.version}.jar"
+    archiveFileName = "EssentialsC-${project.version}.jar"
     destinationDirectory = rootProject.layout.projectDirectory.dir("dist/plugins")
     exclude "META-INF/**"
     configurations = [project.configurations.runtimeClasspath]
@@ -51,7 +51,7 @@ tasks.register("setUp") {
     dependsOn "shadowJar"
 
     doLast {
-        def pluginName = "ServerEssentials"
+        def pluginName = "EssentialsC"
         def jarPattern = ~/ServerEssentials-.*\.jar/
         def paperPluginsDir = file("paper-server/run/paper/plugins")
         def distPluginsDir = file("dist/plugins")
