@@ -1,4 +1,4 @@
-package net.godlycow.org.serverEssentials.core;
+package net.godlycow.org.EssentialsC.core;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.*;
@@ -20,7 +20,7 @@ public class ServerEssentialsCommand implements CommandExecutor, TabCompleter {
     private final Plugin plugin;
     private final Map<String, Consumer<CommandSender>> subCommands = new LinkedHashMap<>();
 
-    private final String PREFIX = gradient("#FFCC33", "#FFF2AA", "ServerEssentials") + " §8» §r";
+    private final String PREFIX = gradient("#FFCC33", "#FFF2AA", "EssentialsC") + " §8» §r";
 
     public ServerEssentialsCommand(Plugin plugin) {
         this.plugin = plugin;
@@ -73,15 +73,15 @@ public class ServerEssentialsCommand implements CommandExecutor, TabCompleter {
 
     private void sendHelp(CommandSender sender) {
         sendTitle(sender, "Command Overview");
-        sendMessage(sender, "#FFCC33", "• /se info - Plugin details");
-        sendMessage(sender, "#FFCC33", "• /se version - Check for updates");
-        sendMessage(sender, "#FFCC33", "• /se reload - Reload configuration");
-        sendMessage(sender, "#FFCC33", "• /se discord - Community Discord");
-        sendMessage(sender, "#FFCC33", "• /se website - Official Website");
+        sendMessage(sender, "#FFCC33", "• /essc info - Plugin details");
+        sendMessage(sender, "#FFCC33", "• /essc version - Check for updates");
+        sendMessage(sender, "#FFCC33", "• /essc reload - Reload configuration");
+        sendMessage(sender, "#FFCC33", "• /essc discord - Community Discord");
+        sendMessage(sender, "#FFCC33", "• /essc website - Official Website");
     }
 
     private void showInfo(CommandSender sender) {
-        sendTitle(sender, "ServerEssentials");
+        sendTitle(sender, "EssentialsC");
         sendMessage(sender, "#FFF2AA", "A clean, modern all-in-one server utility suite.");
         sendMessage(sender, "#AAAAAA", "Modules include:");
         sendMessage(sender, "#AAAAAA", "• RTP / Homes / Warps");
@@ -98,7 +98,7 @@ public class ServerEssentialsCommand implements CommandExecutor, TabCompleter {
 
     private void sendWebsite(CommandSender sender) {
         sendTitle(sender, "Website");
-        sendMessage(sender, "#FFCC33", "Visit: " + color("#FFFFFF") + "https://net.godlycow.org/");
+        sendMessage(sender, "#FFCC33", "Visit: " + color("#FFFFFF") + "https://docs.godlycow.org/");
     }
 
     private void showVersion(CommandSender sender) {

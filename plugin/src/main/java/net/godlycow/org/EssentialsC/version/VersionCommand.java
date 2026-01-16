@@ -1,6 +1,6 @@
-package net.godlycow.org.serverEssentials.version;
+package net.godlycow.org.EssentialsC.version;
 
-import net.godlycow.org.serverEssentials.version.resolver.VersionChecker;
+import net.godlycow.org.EssentialsC.version.resolver.VersionChecker;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -15,13 +15,13 @@ public class VersionCommand implements CommandExecutor {
         String latest = VersionChecker.getLatestVersion();
 
         sender.sendMessage(ChatColor.DARK_GRAY + "==============================");
-        sender.sendMessage(ChatColor.BLUE + "   ServerEssentials");
+        sender.sendMessage(ChatColor.BLUE + "   EssentialsC");
         sender.sendMessage(ChatColor.DARK_GRAY + "------------------------------");
         sender.sendMessage(ChatColor.GRAY + "Current Version: " + ChatColor.RED + current);
 
         if (!latest.equals("unknown") && !current.equalsIgnoreCase(latest)) {
             sender.sendMessage(ChatColor.GRAY + "Latest Version: " + ChatColor.GREEN + latest);
-            sender.sendMessage(ChatColor.GRAY + "Download: " + ChatColor.BLUE + "https://modrinth.com/plugin/serveressentials");
+            sender.sendMessage(ChatColor.GRAY + "Download: " + ChatColor.BLUE + "https://modrinth.com/plugin/essentialsc");
         } else {
             sender.sendMessage(ChatColor.WHITE + "You are running the latest &8version.");
         }

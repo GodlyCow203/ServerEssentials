@@ -1,4 +1,4 @@
-package net.godlycow.org.serverEssentials.version.resolver;
+package net.godlycow.org.EssentialsC.version.resolver;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
