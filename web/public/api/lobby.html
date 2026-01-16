@@ -1,0 +1,907 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="utf-8">
+    <title>Lobby API Documentation – _GodlyCow</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --surface: #111111;
+            --surface-2: #191919;
+            --border: #2d2d2d;
+            --text: #e0e0e0;
+            --text-2: #888888;
+            --primary: #FFFFFF;
+            --gold: #fbbf24;
+            --gold-dark: #d97706;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+            --font: 'Courier New', 'Monaco', 'Consolas', monospace;
+            --code-bg: #050505;
+            --error: #ef4444;
+        }
+        [data-theme="light"] {
+            --bg: #f0f0f0;
+            --surface: #ffffff;
+            --surface-2: #f7f7f7;
+            --border: #cccccc;
+            --text: #1a1a1a;
+            --text-2: #555555;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            --code-bg: #f5f5f5;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font);
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        .topbar {
+            background: var(--surface);
+            border-bottom: 2px solid var(--border);
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+            font-weight: bold;
+        }
+        .topbar a {
+            color: var(--text-2);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .topbar a:hover { color: var(--gold); }
+        .topbar .spacer { flex: 1; }
+        .theme-btn {
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 0.4rem 0.8rem;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        .theme-btn:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .hero {
+            background: linear-gradient(90deg, var(--surface) 0%, var(--surface-2) 100%);
+            border-bottom: 2px solid var(--border);
+            padding: 3rem 1.5rem;
+            text-align: center;
+            position: relative;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .hero p {
+            font-size: 1rem;
+            color: var(--text-2);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 0;
+        }
+        @media (max-width: 900px) {
+            .wrapper { grid-template-columns: 1fr; }
+        }
+        main { border-right: 2px solid var(--border); }
+
+        .card {
+            background: var(--surface);
+            border: none;
+            border-bottom: 2px solid var(--border);
+            margin-bottom: 0;
+        }
+        .card-header {
+            background: var(--surface-2);
+            padding: 1rem 1.5rem;
+            font-weight: bold;
+            color: var(--gold);
+            border-bottom: 1px solid var(--border);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+        }
+        .card-body { padding: 1.5rem; }
+
+        .method-section {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px dashed var(--border);
+        }
+        .method-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .method-title {
+            font-size: 1.1rem;
+            color: var(--gold);
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .method-signature {
+            background: var(--code-bg);
+            padding: 0.75rem;
+            border-left: 3px solid var(--gold);
+            margin: 0.75rem 0;
+            font-family: var(--font);
+            font-size: 0.95rem;
+            overflow-x: auto;
+        }
+        .method-desc {
+            margin: 0.75rem 0;
+            color: var(--text-2);
+            line-height: 1.6;
+        }
+        .method-params {
+            margin: 0.75rem 0;
+            padding-left: 1rem;
+        }
+        .method-params dt {
+            color: var(--gold);
+            font-weight: bold;
+            margin-top: 0.5rem;
+        }
+        .method-params dd {
+            color: var(--text-2);
+            margin-left: 1rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--border);
+            border-radius: 0;
+            padding: 1rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: var(--font);
+            font-size: 13px;
+            line-height: 1.4;
+        }
+        .code-block pre {
+            margin: 0;
+            white-space: pre;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--gold);
+            margin: 2rem 0 1rem 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+        }
+
+        .sidebar .card {
+            border-left: 2px solid var(--gold);
+            margin-bottom: 1rem;
+        }
+        .sidebar .card-body {
+            padding: 1rem;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar li {
+            margin-bottom: 0.5rem;
+            padding-left: 1rem;
+            position: relative;
+        }
+        .sidebar li::before {
+            content: ">";
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+        }
+        .sidebar a {
+            color: var(--text-2);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .sidebar a:hover {
+            color: var(--gold);
+        }
+
+        .footer {
+            background: var(--surface);
+            border-top: 2px solid var(--border);
+            padding: 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .footer-link {
+            color: var(--text-2);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .footer-link:hover { color: var(--gold); }
+    </style>
+</head>
+<body>
+
+<header class="topbar">
+    <a href="index.html">← BACK TO HOME</a>
+    <a href="https://github.com/GodlyCow203/ServerEssentials" target="_blank">GITHUB</a>
+    <a href="https://discord.gg/vmhQ2gZr8g" target="_blank">DISCORD</a>
+    <div class="spacer"></div>
+    <button class="theme-btn" id="themeBtn">🌙 DARK</button>
+</header>
+
+<section class="hero">
+    <h1>Lobby API Documentation</h1>
+    <p>Asynchronous lobby teleportation, per-world lobby support, dynamic configuration, and comprehensive event handling for monitoring lobby-related actions</p>
+</section>
+
+<div class="wrapper">
+    <main>
+        <div class="card">
+            <div class="card-header">Overview</div>
+            <div class="card-body">
+                <p style="margin-bottom: 1rem; color: var(--text-2);">
+                    The Lobby API provides public interfaces for managing lobby teleportation and configuration. Supports both global and per-world lobby locations with asynchronous operations and animation effects.
+                </p>
+                <div class="method-signature">Package: com.serveressentials.api.lobby</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Class: AnimationOptions</div>
+            <div class="card-body">
+                <div class="method-signature">Package: com.serveressentials.api.lobby</div>
+                <p style="margin: 1rem 0; color: var(--text-2);">
+                    Immutable data container that defines visual and auditory effects for lobby teleportation animations.
+                </p>
+
+                <div class="section-title">Constructor</div>
+                <div class="method-signature">AnimationOptions(String type, int duration, Particle particle, Sound sound, int particleCount)</div>
+
+                <div class="section-title">Methods</div>
+                <div class="method-section">
+                    <div class="method-title">getType()</div>
+                    <div class="method-signature">@NotNull String getType()</div>
+                    <div class="method-desc">Returns the animation type identifier (e.g., "spiral", "flash", "portal").</div>
+                    <div class="code-block">
+                        <pre>// Create a custom portal animation for VIP players
+public AnimationOptions createVIPAnimation() {
+    return new AnimationOptions(
+        "portal_vip",      // type
+        60,                // 3 second duration
+        Particle.PORTAL,   // particle effect
+        Sound.BLOCK_END_PORTAL_SPAWN,  // sound
+        200                // dense particle count
+    );
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getDuration()</div>
+                    <div class="method-signature">int getDuration()</div>
+                    <div class="method-desc">Returns the animation duration in ticks (20 ticks = 1 second).</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getParticle()</div>
+                    <div class="method-signature">@NotNull Particle getParticle()</div>
+                    <div class="method-desc">Returns the particle type used in the animation.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getSound()</div>
+                    <div class="method-signature">@NotNull Sound getSound()</div>
+                    <div class="method-desc">Returns the sound effect played during teleportation.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getParticleCount()</div>
+                    <div class="method-signature">int getParticleCount()</div>
+                    <div class="method-desc">Returns the number of particles to spawn (higher values = denser effects).</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Interface: LobbyAPI</div>
+            <div class="card-body">
+                <div class="method-section">
+                    <div class="method-title">teleportToLobby(Player player)</div>
+                    <div class="method-signature">CompletableFuture&lt;Boolean&gt; teleportToLobby(Player player)</div>
+                    <div class="method-desc">Teleports a player to the lobby location. Uses per-world lobby if enabled, otherwise global.</div>
+                    <div class="code-block">
+                        <pre>// Basic /lobby command
+public boolean onLobbyCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    if (!(sender instanceof Player)) {
+        sender.sendMessage("Only players can use this command.");
+        return true;
+    }
+
+    Player player = (Player) sender;
+
+    // Check if lobby feature is enabled
+    if (!lobbyAPI.isEnabled()) {
+        player.sendMessage("§cLobby system is disabled.");
+        return true;
+    }
+
+    // Check if lobby exists
+    lobbyAPI.hasLobby(null).thenAccept(hasLobby -> {
+        if (!hasLobby) {
+            player.sendMessage("§cNo lobby has been set. Contact an administrator.");
+            return;
+        }
+
+        // Perform teleport
+        lobbyAPI.teleportToLobby(player).thenAccept(success -> {
+            if (success) {
+                player.sendMessage("§aWhoosh! Teleported to lobby.");
+            } else {
+                player.sendMessage("§cTeleport failed. Location may be unsafe.");
+            }
+        });
+    });
+
+    return true;
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">teleportToLobby(Player player, String worldKey)</div>
+                    <div class="method-signature">CompletableFuture&lt;Boolean&gt; teleportToLobby(Player player, String worldKey)</div>
+                    <div class="method-desc">Teleports a player to a specific per-world lobby or the global lobby.</div>
+                    <div class="code-block">
+                        <pre>// Admin command to teleport to a specific world lobby
+public boolean onWorldLobbyCommand(CommandSender sender, String[] args) {
+    if (!(sender instanceof Player)) return false;
+    Player player = (Player) sender;
+
+    if (args.length < 1) {
+        player.sendMessage("Usage: /worldlobby <world>");
+        return true;
+    }
+
+    String worldName = args[0];
+
+    lobbyAPI.hasLobby(worldName).thenAccept(hasLobby -> {
+        if (!hasLobby) {
+            player.sendMessage("§cNo lobby set for world: " + worldName);
+            return;
+        }
+
+        lobbyAPI.teleportToLobby(player, worldName).thenAccept(success -> {
+            if (success) {
+                player.sendMessage("§aTeleported to " + worldName + " lobby.");
+            }
+        });
+    });
+
+    return true;
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">setLobby(Player player, Location location)</div>
+                    <div class="method-signature">CompletableFuture&lt;Void&gt; setLobby(Player player, Location location)</div>
+                    <div class="method-desc">Sets the global lobby location to the specified coordinates.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">setLobby(Player player, Location location, String worldKey)</div>
+                    <div class="method-signature">CompletableFuture&lt;Void&gt; setLobby(Player player, Location location, String worldKey)</div>
+                    <div class="method-desc">Sets a per-world lobby location for a specific world, or the global lobby if worldKey is null.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">removeLobby()</div>
+                    <div class="method-signature">CompletableFuture&lt;Void&gt; removeLobby()</div>
+                    <div class="method-desc">Removes the global lobby location from configuration.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">removeLobby(String worldKey)</div>
+                    <div class="method-signature">CompletableFuture&lt;Void&gt; removeLobby(String worldKey)</div>
+                    <div class="method-desc">Removes a per-world lobby for the specified world, or the global lobby if worldKey is null.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getLobby(String worldKey)</div>
+                    <div class="method-signature">CompletableFuture&lt;Optional&lt;LobbyLocation&gt;&gt; getLobby(String worldKey)</div>
+                    <div class="method-desc">Retrieves the lobby location for a specific world (if worldKey is provided) or the global lobby (if null).</div>
+                    <div class="code-block">
+                        <pre>// Display lobby coordinates
+public void showLobbyInfo(CommandSender sender, String worldName) {
+    lobbyAPI.getLobby(worldName).thenAccept(optionalLocation -> {
+        if (optionalLocation.isEmpty()) {
+            sender.sendMessage("§cNo lobby set for world: " + worldName);
+            return;
+        }
+
+        LobbyLocation loc = optionalLocation.get();
+        sender.sendMessage("§6Lobby Location:");
+        sender.sendMessage("§7World: " + loc.getWorld());
+        sender.sendMessage("§7Coords: " + String.format("%.1f, %.1f, %.1f", loc.getX(), loc.getY(), loc.getZ()));
+        sender.sendMessage("§7Yaw/Pitch: " + loc.getYaw() + " / " + loc.getPitch());
+    });
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">hasLobby(String worldKey)</div>
+                    <div class="method-signature">CompletableFuture&lt;Boolean&gt; hasLobby(String worldKey)</div>
+                    <div class="method-desc">Checks whether a lobby exists for the specified world (or global if null) without retrieving the actual location data.</div>
+                    <div class="method-params">
+                        <dt>When to Call:</dt>
+                        <dd>Use for quick validation checks where you only need a boolean result.</dd>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">isEnabled()</div>
+                    <div class="method-signature">boolean isEnabled()</div>
+                    <div class="method-desc">Checks whether the lobby system is currently enabled on the server.</div>
+                    <div class="method-params">
+                        <dt>When to Call:</dt>
+                        <dd>Always check this before performing any lobby operations.</dd>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">reload()</div>
+                    <div class="method-signature">CompletableFuture&lt;Void&gt; reload()</div>
+                    <div class="method-desc">Reloads all lobby configuration from disk without requiring a server restart.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Class: LobbyLocation</div>
+            <div class="card-body">
+                <div class="method-signature">Package: com.serveressentials.api.lobby</div>
+                <p style="margin: 1rem 0; color: var(--text-2);">
+                    Immutable data container that serializes a lobby location's coordinates and rotation.
+                </p>
+
+                <div class="section-title">Constructor</div>
+                <div class="method-signature">LobbyLocation(String world, double x, double y, double z, float yaw, float pitch)</div>
+
+                <div class="section-title">Methods</div>
+                <div class="method-section">
+                    <div class="method-title">getWorld()</div>
+                    <div class="method-signature">@NotNull String getWorld()</div>
+                    <div class="method-desc">Returns the world name for this lobby location.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getX(), getY(), getZ()</div>
+                    <div class="method-signature">double getX(), double getY(), double getZ()</div>
+                    <div class="method-desc">Returns the coordinate values for the lobby location.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getYaw(), getPitch()</div>
+                    <div class="method-signature">float getYaw(), float getPitch()</div>
+                    <div class="method-desc">Returns the rotation values for player orientation when teleported to this lobby.</div>
+                    <div class="code-block">
+                        <pre>// Convert LobbyLocation to Bukkit Location
+public Location toBukkitLocation(LobbyLocation lobby) {
+    World world = Bukkit.getWorld(lobby.getWorld());
+    if (world == null) return null;
+
+    return new Location(
+        world,
+        lobby.getX(),
+        lobby.getY(),
+        lobby.getZ(),
+        lobby.getYaw(),
+        lobby.getPitch()
+    );
+}</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Events</div>
+            <div class="card-body">
+                <div class="section-title">LobbyEvent</div>
+                <div class="method-signature">Package: com.serveressentials.api.lobby.event</div>
+                <div class="method-desc">Base event class for all lobby-related actions. Asynchronous if fired off main thread.</div>
+
+                <div class="section-title">LobbyRemoveEvent</div>
+                <div class="method-signature">Package: com.serveressentials.api.lobby.event</div>
+                <div class="method-desc">Fired when a lobby location is removed from configuration.</div>
+                <div class="code-block">
+                    <pre>@EventHandler
+public void onLobbyRemove(LobbyRemoveEvent event) {
+    Player player = event.getPlayer();
+    String worldKey = event.getWorldKey();
+    boolean isWorldSpecific = event.isWorldSpecific();
+
+    String lobbyType = isWorldSpecific ? "world lobby" : "global lobby";
+    String worldInfo = isWorldSpecific ? " for world: " + worldKey : "";
+
+    getLogger().info(
+        player.getName() + " removed the " + lobbyType + worldInfo
+    );
+}</pre>
+                </div>
+
+                <div class="section-title">LobbySetEvent</div>
+                <div class="method-signature">Package: com.serveressentials.api.lobby.event</div>
+                <div class="method-desc">Fired when a lobby location is set or updated.</div>
+                <div class="code-block">
+                    <pre>@EventHandler
+public void onLobbySet(LobbySetEvent event) {
+    Player player = event.getPlayer();
+    LobbyLocation loc = event.getLobbyLocation();
+
+    getLogger().info(String.format(
+        "%s set lobby at %.1f, %.1f, %.1f in world %s",
+        player.getName(),
+        loc.getX(),
+        loc.getY(),
+        loc.getZ(),
+        loc.getWorld()
+    ));
+}</pre>
+                </div>
+
+                <div class="section-title">LobbyTeleportEvent</div>
+                <div class="method-signature">Package: com.serveressentials.api.lobby.event</div>
+                <div class="method-desc">Fired when a player is teleported to a lobby. This is the most commonly used event for monitoring lobby usage.</div>
+                <div class="code-block">
+                    <pre>@EventHandler
+public void onLobbyTeleport(LobbyTeleportEvent event) {
+    Player player = event.getPlayer();
+    LobbyLocation lobby = event.getLobbyLocation();
+    Location from = event.getFromLocation();
+
+    if (from != null) {
+        double distance = from.distance(new Location(
+            Bukkit.getWorld(lobby.getWorld()),
+            lobby.getX(),
+            lobby.getY(),
+            lobby.getZ()
+        ));
+
+        getLogger().info(player.getName() + " teleported " + String.format("%.1f", distance) + " blocks to lobby");
+
+        // Save location for /back if significant distance
+        if (distance > 100) {
+            backAPI.setBackLocation(player, from);
+        }
+    }
+
+    // Custom welcome message
+    player.sendMessage("§6§lWelcome to the Lobby!");
+}</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Complete Usage Scenario</div>
+            <div class="card-body">
+                <p style="margin-bottom: 1rem; color: var(--text-2);">
+                    Multi-World Network Hub - Manages complex multi-world server networks with per-world lobbies, automated lobby returns, and usage analytics:
+                </p>
+                <div class="code-block">
+                    <pre>package com.networkhub;
+
+import com.serveressentials.api.lobby.*;
+import com.serveressentials.api.lobby.event.*;
+import org.bukkit.*;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerChangedWorldEvent;
+import org.bukkit.plugin.java.JavaPlugin;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+public class NetworkHubPlugin extends JavaPlugin implements Listener {
+    private LobbyAPI lobbyAPI;
+    private Map<String, Integer> worldLobbyUsage;
+
+    @Override
+    public void onEnable() {
+        this.lobbyAPI = getLobbyAPI();
+        this.worldLobbyUsage = new ConcurrentHashMap<>();
+
+        getServer().getPluginManager().registerEvents(this, this);
+        getCommand("networklobby").setExecutor(this::onNetworkLobbyCommand);
+
+        // Schedule lobby usage report
+        getServer().getScheduler().runTaskTimerAsynchronously(this,
+            this::sendUsageReport, 20L * 60 * 60, 20L * 60 * 60); // Hourly
+    }
+
+    @EventHandler
+    public void onWorldChange(PlayerChangedWorldEvent event) {
+        Player player = event.getPlayer();
+        String worldName = player.getWorld().getName();
+
+        // Auto-teleport to that world's lobby on first join
+        if (!player.hasPlayedBefore()) {
+            lobbyAPI.teleportToLobby(player, worldName).thenAccept(success -> {
+                if (success) {
+                    player.sendMessage("§aWelcome to " + worldName + "! Teleported to spawn lobby.");
+                }
+            });
+        }
+    }
+
+    @EventHandler
+    public void onLobbyTeleport(LobbyTeleportEvent event) {
+        Player player = event.getPlayer();
+        String worldKey = event.getWorldKey();
+
+        // Track usage
+        String key = worldKey != null ? worldKey : "global";
+        worldLobbyUsage.merge(key, 1, Integer::sum);
+
+        // Custom effects for different worlds
+        if ("minigames".equals(worldKey)) {
+            player.playSound(player.getLocation(), Sound.ENTITY_FIREWORK_ROCKET_LAUNCH, 1.0f, 1.0f);
+            player.getWorld().spawnParticle(Particle.FIREWORKS_SPARK, player.getLocation(), 50, 0.5, 0.5, 0.5, 0.1);
+        }
+    }
+
+    private boolean onNetworkLobbyCommand(CommandSender sender, String[] args) {
+        if (!(sender instanceof Player)) {
+            sender.sendMessage("Only players can use this command.");
+            return true;
+        }
+
+        Player player = (Player) sender;
+        String subCmd = args[0].toLowerCase();
+
+        switch (subCmd) {
+            case "teleport":
+                handleTeleport(player, args);
+                break;
+            case "set":
+                handleSet(player, args);
+                break;
+            case "remove":
+                handleRemove(player, args);
+                break;
+            case "info":
+                handleInfo(player, args);
+                break;
+            default:
+                player.sendMessage("§cUnknown subcommand.");
+        }
+
+        return true;
+    }
+
+    private void handleTeleport(Player player, String[] args) {
+        String worldKey = args.length > 1 ? args[1] : null;
+
+        lobbyAPI.hasLobby(worldKey).thenAccept(hasLobby -> {
+            if (!hasLobby) {
+                player.sendMessage("§cNo lobby found" + (worldKey != null ? " for world: " + worldKey : ""));
+                return;
+            }
+
+            lobbyAPI.teleportToLobby(player, worldKey).thenAccept(success -> {
+                if (success) {
+                    player.sendMessage("§aTeleported to lobby!");
+                }
+            });
+        });
+    }
+
+    private void handleSet(Player player, String[] args) {
+        if (!player.hasPermission("networklobby.admin.set")) {
+            player.sendMessage("§cNo permission.");
+            return;
+        }
+
+        String worldKey = args.length > 1 ? args[1] : null;
+        Location loc = player.getLocation();
+
+        lobbyAPI.setLobby(player, loc, worldKey).thenAccept(v -> {
+            player.sendMessage("§aLobby set!");
+            player.playSound(loc, Sound.BLOCK_BEACON_ACTIVATE, 1.0f, 1.0f);
+        });
+    }
+
+    private void handleRemove(Player player, String[] args) {
+        if (!player.hasPermission("networklobby.admin.remove")) {
+            player.sendMessage("§cNo permission.");
+            return;
+        }
+
+        String worldKey = args.length > 1 ? args[1] : null;
+
+        lobbyAPI.removeLobby(worldKey).thenAccept(v -> {
+            player.sendMessage("§cLobby removed!");
+        });
+    }
+
+    private void handleInfo(Player player, String[] args) {
+        String worldKey = args.length > 1 ? args[1] : null;
+
+        lobbyAPI.getLobby(worldKey).thenAccept(optLoc -> {
+            if (optLoc.isEmpty()) {
+                player.sendMessage("§cNo lobby found.");
+                return;
+            }
+
+            LobbyLocation loc = optLoc.get();
+            player.sendMessage("§6Lobby Info:");
+            player.sendMessage("§7World: " + loc.getWorld());
+            player.sendMessage("§7Coords: " + String.format("%.1f, %.1f, %.1f", loc.getX(), loc.getY(), loc.getZ()));
+
+            // Show usage stats
+            String key = worldKey != null ? worldKey : "global";
+            int usage = worldLobbyUsage.getOrDefault(key, 0);
+            player.sendMessage("§7Times used: " + usage);
+        });
+    }
+
+    private void sendUsageReport() {
+        // Send usage analytics to admins
+        Bukkit.getOnlinePlayers().forEach(player -> {
+            if (player.hasPermission("networklobby.stats")) {
+                player.sendMessage("§6§lLobby Usage Report:");
+                worldLobbyUsage.forEach((world, count) -> {
+                    player.sendMessage("§7" + world + ": " + count + " teleports");
+                });
+            }
+        });
+    }
+}</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Error Handling Best Practices</div>
+            <div class="card-body">
+                <div class="code-block">
+                    <pre>public void safeLobbyTeleport(Player player, String worldKey) {
+    // Check if lobby system is enabled first
+    if (!lobbyAPI.isEnabled()) {
+        player.sendMessage("§cLobby system is disabled.");
+        return;
+    }
+
+    // Validate player
+    if (player == null || !player.isOnline()) {
+        getLogger().warning("Attempted to teleport null/offline player to lobby.");
+        return;
+    }
+
+    // Check if lobby exists before attempting teleport
+    lobbyAPI.hasLobby(worldKey).thenAccept(hasLobby -> {
+        if (!hasLobby) {
+            player.sendMessage("§cNo lobby is configured" +
+                (worldKey != null ? " for world: " + worldKey : "") +
+                ".");
+            return;
+        }
+
+        // Perform teleport with error handling
+        lobbyAPI.teleportToLobby(player, worldKey)
+            .exceptionally(throwable -> {
+                getLogger().log(Level.SEVERE, "Lobby teleport failed for " + player.getName(), throwable);
+                player.sendMessage("§cTeleport failed due to internal error.");
+                return false;
+            })
+            .thenAccept(success -> {
+                if (!success) {
+                    player.sendMessage("§cTeleport blocked. Location may be unsafe or obstructed.");
+                }
+            });
+    });
+}</pre>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <aside class="sidebar">
+        <div class="card">
+            <div class="card-header">Quick Navigation</div>
+            <div class="card-body">
+                <ul>
+                    <li><a href="#top">AnimationOptions Class</a></li>
+                    <li><a href="#top">LobbyAPI Interface</a></li>
+                    <li><a href="#top">LobbyLocation Class</a></li>
+                    <li><a href="#top">Event Listeners</a></li>
+                    <li><a href="#top">Usage Examples</a></li>
+                    <li><a href="#top">Error Handling</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Package Structure</div>
+            <div class="card-body">
+                <ul>
+                    <li>com.serveressentials.api.lobby.LobbyAPI</li>
+                    <li>com.serveressentials.api.lobby.LobbyLocation</li>
+                    <li>com.serveressentials.api.lobby.AnimationOptions</li>
+                    <li>com.serveressentials.api.lobby.event.*</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Implementation Notes</div>
+            <div class="card-body" style="font-size: 0.85rem; color: var(--text-2);">
+                <p>All lobby teleportations run asynchronously. Zero lag reported on servers with 100+ concurrent players.</p>
+                <p style="margin-top: 0.75rem;">Per-world lobbies enable complex multi-world network architectures with separate spawn points per world.</p>
+            </div>
+        </div>
+    </aside>
+</div>
+
+<footer>
+    <div class="footer-links">
+        <a href="https://modrinth.com/user/_GodlyCow" class="footer-link" target="_blank">Modrinth Profile</a>
+        <a href="https://github.com/GodlyCow203" class="footer-link" target="_blank">GitHub</a>
+        <a href="https://discord.gg/vmhQ2gZr8g" class="footer-link" target="_blank">Discord</a>
+        <a href="mailto:godlycowcow@gmail.com" class="footer-link">Email</a>
+    </div>
+    <p>&copy; <span id="yr"></span> _GodlyCow – Building plugins for the Minecraft community</p>
+</footer>
+
+<script>
+    const themeBtn = document.getElementById('themeBtn');
+    const root = document.documentElement;
+    const saved = localStorage.getItem('theme') || 'dark';
+    root.setAttribute('data-theme', saved);
+    themeBtn.textContent = saved === 'dark' ? '☀️ LIGHT' : '🌙 DARK';
+
+    themeBtn.addEventListener('click', () => {
+        const t = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', t);
+        localStorage.setItem('theme', t);
+        themeBtn.textContent = t === 'dark' ? '☀️ LIGHT' : '🌙 DARK';
+    });
+
+    document.getElementById('yr').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

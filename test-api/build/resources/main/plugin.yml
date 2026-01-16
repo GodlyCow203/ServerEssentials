@@ -1,0 +1,44 @@
+name: TestAPI
+main: com.godlycow.testapi.TestAPI
+version: 2.0.7.20
+api-version: '1.20'
+depend:
+  - ServerEssentials
+
+commands:
+  shoptest:
+    description: Test all Shop API features
+    usage: /shoptest <command> [args]
+  auctiontest:
+    description: Test all the auctiion API feaatures
+    usage: /aauctiontest <command>
+  backapitest:
+    description: .
+    usage: /backapitest <command>
+  dailyapitest:
+    description: e
+    usage: /dailyapitest <command>
+  economytest:
+    description: e
+    usage: /economytest <command><
+  kittest:
+    description: e
+    usage: /kittest comand
+  lobbyapitest:
+    description: e
+    usage: /lobbyapitest <command>
+  mailapitest:
+    description: e
+    usage: /mailapitest <command>
+  nickapitest:
+    description: e
+    usage: /nickapitest <command>
+  reportapitest:
+    description: E
+    usage: /reportapitest <command>>
+  rtapitest:
+    description: e
+    usage: /rtapitest command
+  scoreboardtest:
+    description: e
+    usage: /scoreboardtest

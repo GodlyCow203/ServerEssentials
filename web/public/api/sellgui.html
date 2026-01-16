@@ -1,0 +1,1021 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="utf-8">
+    <title>SellGUI API Documentation – _GodlyCow</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --surface: #111111;
+            --surface-2: #191919;
+            --border: #2d2d2d;
+            --text: #e0e0e0;
+            --text-2: #888888;
+            --primary: #FFFFFF;
+            --primary-2: #e0e0e0;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+            --font: 'Courier New', 'Monaco', 'Consolas', monospace;
+            --code-bg: #050505;
+            --error: #ef4444;
+        }
+        [data-theme="light"] {
+            --bg: #f0f0f0;
+            --surface: #ffffff;
+            --surface-2: #f7f7f7;
+            --border: #cccccc;
+            --text: #1a1a1a;
+            --text-2: #555555;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            --code-bg: #f5f5f5;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font);
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        .topbar {
+            background: var(--surface);
+            border-bottom: 2px solid var(--border);
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+            font-weight: bold;
+        }
+        .topbar a {
+            color: var(--text-2);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .topbar a:hover { color: var(--primary); }
+        .topbar .spacer { flex: 1; }
+        .theme-btn {
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 0.4rem 0.8rem;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        .theme-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .hero {
+            background: linear-gradient(90deg, var(--surface) 0%, var(--surface-2) 100%);
+            border-bottom: 2px solid var(--border);
+            padding: 3rem 1.5rem;
+            text-align: center;
+            position: relative;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .hero p {
+            font-size: 1rem;
+            color: var(--text-2);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 0;
+        }
+        @media (max-width: 900px) {
+            .wrapper { grid-template-columns: 1fr; }
+        }
+        main { border-right: 2px solid var(--border); }
+
+        .card {
+            background: var(--surface);
+            border: none;
+            border-bottom: 2px solid var(--border);
+            margin-bottom: 0;
+        }
+        .card-header {
+            background: var(--surface-2);
+            padding: 1rem 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            border-bottom: 1px solid var(--border);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .card-body { padding: 1.5rem; }
+
+        .method-section {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px dashed var(--border);
+        }
+        .method-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .method-title {
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .method-signature {
+            background: var(--code-bg);
+            padding: 0.75rem;
+            border-left: 3px solid var(--primary);
+            margin: 0.75rem 0;
+            font-family: var(--font);
+            font-size: 0.95rem;
+            overflow-x: auto;
+        }
+        .method-desc {
+            margin: 0.75rem 0;
+            color: var(--text-2);
+            line-height: 1.6;
+        }
+        .method-params {
+            margin: 0.75rem 0;
+            padding-left: 1rem;
+        }
+        .method-params dt {
+            color: var(--primary);
+            font-weight: bold;
+            margin-top: 0.5rem;
+        }
+        .method-params dd {
+            color: var(--text-2);
+            margin-left: 1rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--border);
+            border-radius: 0;
+            padding: 1rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: var(--font);
+            font-size: 13px;
+            line-height: 1.4;
+        }
+        .code-block pre {
+            margin: 0;
+            white-space: pre;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin: 2rem 0 1rem 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+        }
+
+        .sidebar .card {
+            border-left: 2px solid var(--primary);
+            margin-bottom: 1rem;
+        }
+        .sidebar .card-body {
+            padding: 1rem;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar li {
+            margin-bottom: 0.5rem;
+            padding-left: 1rem;
+            position: relative;
+        }
+        .sidebar li::before {
+            content: ">";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+        .sidebar a {
+            color: var(--text-2);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .sidebar a:hover {
+            color: var(--primary);
+        }
+
+        .footer {
+            background: var(--surface);
+            border-top: 2px solid var(--border);
+            padding: 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .footer-link {
+            color: var(--text-2);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .footer-link:hover { color: var(--primary); }
+    </style>
+</head>
+<body>
+
+<header class="topbar">
+    <a href="index.html">← BACK TO HOME</a>
+    <a href="https://github.com/GodlyCow203/ServerEssentials" target="_blank">GITHUB</a>
+    <a href="https://discord.gg/vmhQ2gZr8g" target="_blank">DISCORD</a>
+    <div class="spacer"></div>
+    <button class="theme-btn" id="themeBtn">🌙 DARK</button>
+</header>
+
+<section class="hero">
+    <h1>SellGUI API Documentation</h1>
+    <p>Asynchronous graphical item selling system with price management, transaction logging, and comprehensive event handling for sales analytics</p>
+</section>
+
+<div class="wrapper">
+    <main>
+        <div class="card">
+            <div class="card-header">Overview</div>
+            <div class="card-body">
+                <p style="margin-bottom: 1rem; color: var(--text-2);">
+                    The SellGUI API provides public interfaces for managing a graphical item selling system. Supports opening sell GUIs for players, checking item sellability, retrieving prices, processing bulk sell transactions, logging sales, and handling sell-related events. The system is designed to be asynchronous where appropriate to prevent blocking the main server thread during database operations.
+                </p>
+                <div class="method-signature">Package: com.serveressentials.api.sellgui</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Interface: SellGUIAPI</div>
+            <div class="card-body">
+                <div class="method-section">
+                    <div class="method-title">openSellGUI(Player player)</div>
+                    <div class="method-signature">CompletableFuture&lt;Boolean&gt; openSellGUI(@NotNull Player player)</div>
+                    <div class="method-desc">Opens the sell GUI menu for a player, displaying all configured sellable items with their current prices.</div>
+                    <div class="method-params">
+                        <dt>Parameters:</dt>
+                        <dd><strong>player:</strong> The player who will view the sell GUI. Must be online and not null.</dd>
+                    </div>
+                    <div class="code-block">
+                        <pre>// Basic /sell command implementation
+public boolean onSellCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    if (!(sender instanceof Player)) {
+        sender.sendMessage("Only players can use this command.");
+        return true;
+    }
+
+    Player player = (Player) sender;
+
+    if (!sellGUIAPI.isEnabled()) {
+        player.sendMessage("§cSellGUI system is disabled.");
+        return true;
+    }
+
+    sellGUIAPI.openSellGUI(player).thenAccept(success -> {
+        if (!success) {
+            player.sendMessage("§cFailed to open sell GUI. No items available or system error.");
+        }
+    });
+
+    return true;
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">isSellable(Material material)</div>
+                    <div class="method-signature">boolean isSellable(@NotNull Material material)</div>
+                    <div class="method-desc">Checks whether a specific material can be sold through the GUI.</div>
+                    <div class="method-params">
+                        <dt>Parameters:</dt>
+                        <dd><strong>material:</strong> The Bukkit Material to check (e.g., Material.DIAMOND, Material.OAK_LOG).</dd>
+                    </div>
+                    <div class="code-block">
+                        <pre>// Reward players with random sellable items
+public void giveMiningReward(Player player) {
+    Material[] allMaterials = Material.values();
+    Random random = new Random();
+
+    // Try up to 10 times to find a sellable material
+    for (int i = 0; i < 10; i++) {
+        Material randomMaterial = allMaterials[random.nextInt(allMaterials.length)];
+
+        if (sellGUIAPI.isSellable(randomMaterial)) {
+            player.getInventory().addItem(new ItemStack(randomMaterial, 5));
+            player.sendMessage("§aYou found 5 " + randomMaterial.name() + "!");
+            return;
+        }
+    }
+
+    player.sendMessage("§cNo sellable items found in loot table this time.");
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getSellPrice(Material material)</div>
+                    <div class="method-signature">double getSellPrice(@NotNull Material material)</div>
+                    <div class="method-desc">Retrieves the price per single item for a given material.</div>
+                    <div class="method-params">
+                        <dt>Parameters:</dt>
+                        <dd><strong>material:</strong> The material to price.</dd>
+                    </div>
+                    <div class="code-block">
+                        <pre>// Calculate total value of player's inventory
+public double calculateInventoryValue(Player player) {
+    double totalValue = 0.0;
+
+    for (ItemStack item : player.getInventory().getContents()) {
+        if (item != null && !item.getType().isAir()) {
+            double price = sellGUIAPI.getSellPrice(item.getType());
+            totalValue += price * item.getAmount();
+        }
+    }
+
+    return totalValue;
+}
+
+// Usage in a command
+public void showInventoryValue(Player player) {
+    double value = calculateInventoryValue(player);
+    String currency = sellGUIAPI.getCurrencySymbol();
+    player.sendMessage("§6Your inventory is worth: §a" + currency + String.format("%.2f", value));
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getSellableItems()</div>
+                    <div class="method-signature">CompletableFuture&lt;List&lt;SellableItem&gt;&gt; getSellableItems()</div>
+                    <div class="method-desc">Retrieves a list of all configured sellable items with their prices.</div>
+                    <div class="code-block">
+                        <pre>// /sellprices command - lists all sellable items
+public boolean onSellPricesCommand(CommandSender sender) {
+    if (!sender.hasPermission("sellgui.admin.prices")) {
+        sender.sendMessage("§cNo permission.");
+        return true;
+    }
+
+    sender.sendMessage("§6§lSellable Items:");
+
+    sellGUIAPI.getSellableItems().thenAccept(items -> {
+        if (items.isEmpty()) {
+            sender.sendMessage("§cNo items configured.");
+            return;
+        }
+
+        String currency = sellGUIAPI.getCurrencySymbol();
+
+        // Sort by material name for readability
+        items.stream()
+            .sorted((a, b) -> a.getMaterial().name().compareTo(b.getMaterial().name()))
+            .forEach(item -> {
+                sender.sendMessage("§7" + item.getMaterial().name() + ": §a" +
+                    currency + String.format("%.2f", item.getPrice()));
+            });
+
+        sender.sendMessage("§7Total items: " + items.size());
+    });
+
+    return true;
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getLayout()</div>
+                    <div class="method-signature">SellGUILayout getLayout()</div>
+                    <div class="method-desc">Retrieves the GUI layout configuration including title, size, and currency symbol.</div>
+                    <div class="code-block">
+                        <pre>// Create a custom compact sell GUI
+public void openQuickSellGUI(Player player, Material specificMaterial) {
+    SellGUILayout layout = sellGUIAPI.getLayout();
+
+    // Create inventory with same title style
+    Inventory quickSellGUI = Bukkit.createInventory(
+        null,
+        27,
+        layout.getTitle() + " - Quick Sell"
+    );
+
+    // Add items matching the specific material
+    int slot = 10;
+    for (ItemStack item : player.getInventory().all(specificMaterial).values()) {
+        if (slot >= 17) break; // Only fill middle row
+
+        quickSellGUI.setItem(slot, item.clone());
+        slot++;
+    }
+
+    player.openInventory(quickSellGUI);
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">processSellTransaction(Player player, Map&lt;Material, Integer&gt; items)</div>
+                    <div class="method-signature">CompletableFuture&lt;SellTransaction&gt; processSellTransaction(@NotNull Player player, @NotNull Map&lt;Material, Integer&gt; items)</div>
+                    <div class="method-desc">Programmatically sells items from a player's inventory without opening the GUI.</div>
+                    <div class="method-params">
+                        <dt>Parameters:</dt>
+                        <dd><strong>player:</strong> The player selling items. Must be online.</dd>
+                        <dd><strong>items:</strong> Map of Material to quantity to sell. Only includes items that are sellable.</dd>
+                    </div>
+                    <div class="code-block">
+                        <pre>// /sellall command
+public boolean onSellAllCommand(CommandSender sender) {
+    if (!(sender instanceof Player)) {
+        sender.sendMessage("Only players can use this command.");
+        return true;
+    }
+
+    Player player = (Player) sender;
+
+    // Collect all sellable items from inventory
+    Map<Material, Integer> itemsToSell = new HashMap<>();
+
+    for (ItemStack item : player.getInventory().getContents()) {
+        if (item == null || item.getType().isAir()) continue;
+
+        Material material = item.getType();
+        if (sellGUIAPI.isSellable(material)) {
+            itemsToSell.merge(material, item.getAmount(), Integer::sum);
+        }
+    }
+
+    if (itemsToSell.isEmpty()) {
+        player.sendMessage("§cNo sellable items in your inventory.");
+        return true;
+    }
+
+    // Process the sale
+    player.sendMessage("§eSelling all items...");
+
+    sellGUIAPI.processSellTransaction(player, itemsToSell)
+        .thenAccept(transaction -> {
+            String currency = sellGUIAPI.getCurrencySymbol();
+            player.sendMessage("§a✓ Sale complete! Earned: " + currency +
+                String.format("%.2f", transaction.getTotalPrice()));
+            player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);
+        })
+        .exceptionally(throwable -> {
+            player.sendMessage("§cSale failed: " + throwable.getMessage());
+            getLogger().log(Level.WARNING, "Sell transaction failed", throwable);
+            return null;
+        });
+
+    return true;
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">logTransaction(SellTransaction transaction)</div>
+                    <div class="method-signature">CompletableFuture&lt;Void&gt; logTransaction(@NotNull SellTransaction transaction)</div>
+                    <div class="method-desc">Manually logs a sell transaction to persistent storage. Useful for custom sale implementations.</div>
+                    <div class="method-params">
+                        <dt>Parameters:</dt>
+                        <dd><strong>transaction:</strong> A complete SellTransaction object to persist.</dd>
+                    </div>
+                    <div class="code-block">
+                        <pre>// Log a web store purchase as a SellGUI transaction
+public void logWebStoreSale(UUID playerId, String playerName, Material material, int quantity, double pricePerItem) {
+    SellTransaction transaction = new SellTransaction(
+        playerId,
+        playerName,
+        material,
+        quantity,
+        pricePerItem,
+        pricePerItem * quantity,
+        System.currentTimeMillis()
+    );
+
+    sellGUIAPI.logTransaction(transaction).thenAccept(v -> {
+        getLogger().info("Logged web store sale: " + transaction);
+
+        // Could also fire event for other plugins
+        Player player = Bukkit.getPlayer(playerId);
+        if (player != null) {
+            SellGUITransactionCompleteEvent event = new SellGUITransactionCompleteEvent(player, transaction);
+            Bukkit.getPluginManager().callEvent(event);
+        }
+    });
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">isEnabled()</div>
+                    <div class="method-signature">boolean isEnabled()</div>
+                    <div class="method-desc">Checks whether the SellGUI system is globally enabled on the server.</div>
+                    <div class="code-block">
+                        <pre>@EventHandler
+public void onPlayerJoin(PlayerJoinEvent event) {
+    Player player = event.getPlayer();
+
+    // Only notify if SellGUI is enabled
+    if (sellGUIAPI.isEnabled()) {
+        player.sendMessage("§eUse §f/sell §eto sell your items!");
+        player.sendMessage("§7Type /sellprices to see all prices.");
+    }
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getCurrencySymbol()</div>
+                    <div class="method-signature">@NotNull String getCurrencySymbol()</div>
+                    <div class="method-desc">Returns the currency symbol used for displaying prices (e.g., "$", "€", "⛁").</div>
+                    <div class="code-block">
+                        <pre>public void announceSale(Player player, double amount) {
+    String currency = sellGUIAPI.getCurrencySymbol();
+    Bukkit.broadcastMessage("§6" + player.getName() + " just sold items worth " +
+        currency + String.format("%.2f", amount) + "!");
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">reload()</div>
+                    <div class="method-signature">CompletableFuture&lt;Void&gt; reload()</div>
+                    <div class="method-desc">Reloads SellGUI configuration from disk without server restart. Updates prices, enabled status, and layout.</div>
+                    <div class="code-block">
+                        <pre>// /sellreload command (admin)
+public boolean onSellReloadCommand(CommandSender sender) {
+    if (!sender.hasPermission("sellgui.admin.reload")) {
+        sender.sendMessage("§cNo permission.");
+        return true;
+    }
+
+    sender.sendMessage("§eReloading SellGUI configuration...");
+
+    sellGUIAPI.reload().thenAccept(v -> {
+        sender.sendMessage("§aSellGUI configuration reloaded!");
+
+        // Show updated item count
+        sellGUIAPI.getSellableItems().thenAccept(items -> {
+            sender.sendMessage("§7Loaded " + items.size() + " sellable items.");
+        });
+
+        getLogger().info("SellGUI configuration reloaded by " + sender.getName());
+
+    }).exceptionally(throwable -> {
+        sender.sendMessage("§cFailed to reload config: " + throwable.getMessage());
+        getLogger().log(Level.SEVERE, "SellGUI reload failed", throwable);
+        return null;
+    });
+
+    return true;
+}</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Class: SellableItem</div>
+            <div class="card-body">
+                <div class="method-signature">Package: com.serveressentials.api.sellgui</div>
+                <p style="margin: 1rem 0; color: var(--text-2);">Immutable data container representing a single sellable item type with its price.</p>
+
+                <div class="section-title">Constructor</div>
+                <div class="method-signature">SellableItem(@NotNull Material material, double price)</div>
+
+                <div class="section-title">Methods</div>
+                <div class="method-section">
+                    <div class="method-title">getMaterial()</div>
+                    <div class="method-signature">Material getMaterial()</div>
+                    <div class="method-desc">Returns the Bukkit material type that can be sold.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getPrice()</div>
+                    <div class="method-signature">double getPrice()</div>
+                    <div class="method-desc">Returns price per single item (not per stack).</div>
+                </div>
+
+                <div class="code-block">
+                    <pre>// Generate price book item
+public ItemStack createPriceBook() {
+    List&lt;String&gt; lore = new ArrayList&lt;&gt;();
+    lore.add("§6Sell Prices:");
+
+    sellGUIAPI.getSellableItems().join().forEach(item -> {
+        String currency = sellGUIAPI.getCurrencySymbol();
+        lore.add("§7" + item.getMaterial().name() + ": §a" +
+            currency + String.format("%.2f", item.getPrice()));
+    });
+
+    ItemStack book = new ItemStack(Material.WRITTEN_BOOK);
+    ItemMeta meta = book.getItemMeta();
+    meta.setDisplayName("§ePrice Catalog");
+    meta.setLore(lore);
+    book.setItemMeta(meta);
+
+    return book;
+}</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Class: SellTransaction</div>
+            <div class="card-body">
+                <div class="method-signature">Package: com.serveressentials.api.sellgui</div>
+                <p style="margin: 1rem 0; color: var(--text-2);">Immutable data container recording complete details of a sell transaction for logging and analytics.</p>
+
+                <div class="section-title">Constructor</div>
+                <div class="method-signature">SellTransaction(@NotNull UUID playerId, @NotNull String playerName, @NotNull Material material, int quantity, double pricePerItem, double totalPrice, long timestamp)</div>
+
+                <div class="section-title">Methods</div>
+                <div class="method-section">
+                    <div class="method-title">getPlayerId()</div>
+                    <div class="method-signature">UUID getPlayerId()</div>
+                    <div class="method-desc">Returns unique ID of the selling player.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getPlayerName()</div>
+                    <div class="method-signature">String getPlayerName()</div>
+                    <div class="method-desc">Returns name of the selling player.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getMaterial()</div>
+                    <div class="method-signature">Material getMaterial()</div>
+                    <div class="method-desc">Returns type of item sold.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getQuantity()</div>
+                    <div class="method-signature">int getQuantity()</div>
+                    <div class="method-desc">Returns number of items sold in this transaction.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getPricePerItem()</div>
+                    <div class="method-signature">double getPricePerItem()</div>
+                    <div class="method-desc">Returns price per individual item.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getTotalPrice()</div>
+                    <div class="method-signature">double getTotalPrice()</div>
+                    <div class="method-desc">Returns total amount earned (pricePerItem × quantity).</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getTimestamp()</div>
+                    <div class="method-signature">long getTimestamp()</div>
+                    <div class="method-desc">Returns Unix timestamp in milliseconds when transaction occurred.</div>
+                </div>
+
+                <div class="code-block">
+                    <pre>// Daily sales analytics
+public class SalesAnalytics implements Listener {
+    private Map&lt;Material, Integer&gt; dailySold = new HashMap&lt;&gt;();
+    private double dailyRevenue = 0.0;
+
+    @EventHandler
+    public void onTransactionComplete(SellGUITransactionCompleteEvent event) {
+        SellTransaction tx = event.getTransaction();
+
+        // Update material count
+        dailySold.merge(tx.getMaterial(), tx.getQuantity(), Integer::sum);
+
+        // Update revenue
+        dailyRevenue += tx.getTotalPrice();
+    }
+
+    public void printDailyReport(CommandSender sender) {
+        sender.sendMessage("§6§lDaily Sales Report:");
+        sender.sendMessage("§7Revenue: §a" + sellGUIAPI.getCurrencySymbol() + String.format("%.2f", dailyRevenue));
+
+        dailySold.forEach((material, quantity) -> {
+            sender.sendMessage("§7" + material.name() + ": §e" + quantity + " sold");
+        });
+    }
+}</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Class: SellGUILayout</div>
+            <div class="card-body">
+                <div class="method-signature">Package: com.serveressentials.api.sellgui</div>
+                <p style="margin: 1rem 0; color: var(--text-2);">Immutable configuration data for GUI appearance.</p>
+
+                <div class="section-title">Constructor</div>
+                <div class="method-signature">SellGUILayout(@NotNull String title, int size, @NotNull String currencySymbol)</div>
+
+                <div class="section-title">Methods</div>
+                <div class="method-section">
+                    <div class="method-title">getTitle()</div>
+                    <div class="method-signature">String getTitle()</div>
+                    <div class="method-desc">Returns GUI title format (may contain placeholders).</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getSize()</div>
+                    <div class="method-signature">int getSize()</div>
+                    <div class="method-desc">Returns inventory size (e.g., 54 for double chest).</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getCurrencySymbol()</div>
+                    <div class="method-signature">String getCurrencySymbol()</div>
+                    <div class="method-desc">Returns currency symbol for display.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Events</div>
+            <div class="card-body">
+                <div class="section-title">SellGUIEvent (Base Event)</div>
+                <div class="method-signature">Package: com.serveressentials.api.sellgui.event</div>
+                <div class="method-desc">Abstract base class for all SellGUI events. Automatically detects threading context.</div>
+
+                <div class="section-title">SellGUIOpenEvent</div>
+                <div class="method-signature">Package: com.serveressentials.api.sellgui.event</div>
+                <div class="method-desc">Fired when a player opens the SellGUI interface.</div>
+                <div class="code-block">
+                    <pre>@EventHandler
+public void onSellGUIOpen(SellGUIOpenEvent event) {
+    Player player = event.getPlayer();
+    long openTime = event.getOpenTime();
+
+    // Track GUI open time
+    playerGUIActivity.put(player.getUniqueId(), openTime);
+
+    getLogger().info(player.getName() + " opened SellGUI at " + openTime);
+}</pre>
+                </div>
+
+                <div class="section-title">SellGUIItemSellEvent</div>
+                <div class="method-signature">Package: com.serveressentials.api.sellgui.event</div>
+                <div class="method-desc">Fired when a single item type is sold. More granular than transaction complete event.</div>
+                <div class="code-block">
+                    <pre>@EventHandler
+public void onItemSell(SellGUIItemSellEvent event) {
+    Player player = event.getPlayer();
+    Material material = event.getMaterial();
+
+    // Bonus for selling diamonds
+    if (material == Material.DIAMOND) {
+        double bonus = event.getTotalPrice() * 0.1; // 10% bonus
+        economy.depositPlayer(player, bonus);
+        player.sendMessage("§6§lBONUS! §a+" + sellGUIAPI.getCurrencySymbol() + String.format("%.2f", bonus));
+    }
+}</pre>
+                </div>
+
+                <div class="section-title">SellGUITransactionCompleteEvent</div>
+                <div class="method-signature">Package: com.serveressentials.api.sellgui.event</div>
+                <div class="method-desc">Fired after all items in a transaction have been processed and money deposited.</div>
+                <div class="code-block">
+                    <pre>@EventHandler
+public void onTransactionComplete(SellGUITransactionCompleteEvent event) {
+    SellTransaction tx = event.getTransaction();
+
+    // Log to external analytics
+    analytics.logSale(
+        tx.getPlayerId(),
+        tx.getMaterial().name(),
+        tx.getQuantity(),
+        tx.getTotalPrice(),
+        tx.getTimestamp()
+    );
+
+    // Discord webhook
+    if (tx.getTotalPrice() > 1000.0) {
+        discord.sendMessage("🎉 " + tx.getPlayerName() + " just sold " +
+            tx.getQuantity() + " " + tx.getMaterial().name() + " for " +
+            sellGUIAPI.getCurrencySymbol() + String.format("%.2f", tx.getTotalPrice()));
+    }
+}</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Complete Usage Scenario</div>
+            <div class="card-body">
+                <p style="margin-bottom: 1rem; color: var(--text-2);">
+                    Advanced sell shop with tiered pricing based on player rank.
+                </p>
+                <div class="code-block">
+                    <pre>package com.advancedsellshop;
+
+import com.serveressentials.api.sellgui.*;
+import com.serveressentials.api.sellgui.event.*;
+import org.bukkit.*;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.plugin.java.JavaPlugin;
+import java.util.*;
+
+public class AdvancedSellShop extends JavaPlugin implements Listener {
+    private SellGUIAPI sellGUIAPI;
+
+    // Rank multipliers
+    private Map&lt;String, Double&gt; rankMultipliers = Map.of(
+        "default", 1.0,
+        "vip", 1.25,
+        "mvp", 1.5,
+        "legend", 2.0
+    );
+
+    @Override
+    public void onEnable() {
+        this.sellGUIAPI = getSellGUIAPI(); // Obtain from plugin manager
+
+        // Register events
+        getServer().getPluginManager().registerEvents(this, this);
+
+        // Register commands
+        getCommand("sell").setExecutor(this::onSellCommand);
+        getCommand("sellall").setExecutor(this::onSellAllCommand);
+        getCommand("sellprices").setExecutor(this::onSellPricesCommand);
+    }
+
+    @EventHandler
+    public void onItemSell(SellGUIItemSellEvent event) {
+        Player player = event.getPlayer();
+        String rank = getPrimaryRank(player);
+        double multiplier = rankMultipliers.getOrDefault(rank, 1.0);
+
+        if (multiplier > 1.0) {
+            double bonus = (event.getTotalPrice() * multiplier) - event.getTotalPrice();
+            economy.depositPlayer(player, bonus);
+
+            player.sendMessage("§6§l" + rank.toUpperCase() + " BONUS! §a+" +
+                sellGUIAPI.getCurrencySymbol() + String.format("%.2f", bonus));
+        }
+    }
+
+    private String getPrimaryRank(Player player) {
+        // Implement your permission group logic
+        if (player.hasPermission("rank.legend")) return "legend";
+        if (player.hasPermission("rank.mvp")) return "mvp";
+        if (player.hasPermission("rank.vip")) return "vip";
+        return "default";
+    }
+}</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Error Handling Best Practices</div>
+            <div class="card-body">
+                <div class="code-block">
+                    <pre>public void safeBulkSell(Player player, Map&lt;Material, Integer&gt; items) {
+    // Validate prerequisites
+    if (!sellGUIAPI.isEnabled()) {
+        player.sendMessage("§cSellGUI system is disabled.");
+        return;
+    }
+
+    if (player == null || !player.isOnline()) {
+        getLogger().warning("Attempted sale for null/offline player.");
+        return;
+    }
+
+    if (items == null || items.isEmpty()) {
+        player.sendMessage("§cNo items specified to sell.");
+        return;
+    }
+
+    // Validate all items are sellable
+    Map&lt;Material, Integer&gt; validItems = new HashMap&lt;&gt;();
+    for (Map.Entry&lt;Material, Integer&gt; entry : items.entrySet()) {
+        if (sellGUIAPI.isSellable(entry.getKey())) {
+            validItems.put(entry.getKey(), entry.getValue());
+        }
+    }
+
+    if (validItems.isEmpty()) {
+        player.sendMessage("§cNo sellable items in your selection.");
+        return;
+    }
+
+    // Process with comprehensive error handling
+    sellGUIAPI.processSellTransaction(player, validItems)
+        .thenAccept(transaction -> {
+            String currency = sellGUIAPI.getCurrencySymbol();
+            player.sendMessage("§a✓ Sold " + transaction.getQuantity() + " " +
+                transaction.getMaterial().name() + " for " + currency +
+                String.format("%.2f", transaction.getTotalPrice()));
+        })
+        .exceptionally(throwable -> {
+            player.sendMessage("§cSale failed: " + throwable.getMessage());
+            getLogger().log(Level.WARNING, "Transaction failed for " + player.getName(), throwable);
+            return null;
+        });
+}</pre>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <aside class="sidebar">
+        <div class="card">
+            <div class="card-header">Quick Navigation</div>
+            <div class="card-body">
+                <ul>
+                    <li><a href="#top">SellGUIAPI Interface</a></li>
+                    <li><a href="#top">SellableItem Class</a></li>
+                    <li><a href="#top">SellTransaction Class</a></li>
+                    <li><a href="#top">SellGUILayout Class</a></li>
+                    <li><a href="#top">Event Listeners</a></li>
+                    <li><a href="#top">Usage Examples</a></li>
+                    <li><a href="#top">Error Handling</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Package Structure</div>
+            <div class="card-body">
+                <ul>
+                    <li>com.serveressentials.api.sellgui.SellGUIAPI</li>
+                    <li>com.serveressentials.api.sellgui.SellableItem</li>
+                    <li>com.serveressentials.api.sellgui.SellTransaction</li>
+                    <li>com.serveressentials.api.sellgui.SellGUILayout</li>
+                    <li>com.serveressentials.api.sellgui.event.*</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Implementation Notes</div>
+            <div class="card-body" style="font-size: 0.85rem; color: var(--text-2);">
+                <p>All sell operations run asynchronously with automatic inventory management. Zero lag reported on servers with 100+ concurrent players and high transaction volumes.</p>
+                <p style="margin-top: 0.75rem;">Supports bulk transactions, transaction logging, and comprehensive event monitoring for sales analytics and integration with external systems.</p>
+            </div>
+        </div>
+    </aside>
+</div>
+
+<footer>
+    <div class="footer-links">
+        <a href="https://modrinth.com/user/_GodlyCow" class="footer-link" target="_blank">Modrinth Profile</a>
+        <a href="https://github.com/GodlyCow203" class="footer-link" target="_blank">GitHub</a>
+        <a href="https://discord.gg/vmhQ2gZr8g" class="footer-link" target="_blank">Discord</a>
+        <a href="mailto:godlycowcow@gmail.com" class="footer-link">Email</a>
+    </div>
+    <p>&copy; <span id="yr"></span> _GodlyCow – Building plugins for the Minecraft community</p>
+</footer>
+
+<script>
+    const themeBtn = document.getElementById('themeBtn');
+    const root = document.documentElement;
+    const saved = localStorage.getItem('theme') || 'dark';
+    root.setAttribute('data-theme', saved);
+    themeBtn.textContent = saved === 'dark' ? '☀️ LIGHT' : '🌙 DARK';
+
+    themeBtn.addEventListener('click', () => {
+        const t = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', t);
+        localStorage.setItem('theme', t);
+        themeBtn.textContent = t === 'dark' ? '☀️ LIGHT' : '🌙 DARK';
+    });
+
+    document.getElementById('yr').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

@@ -1,0 +1,1310 @@
+{
+  "commands": {
+    "nick": {
+      "disabled": "<#FF2424>Smeknamnssystemet är för närvarande inaktiverat.",
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Användning: <white>/nick <smeknamn> eller /nick återställ",
+      "invalid-length": "<#FF2424>Smeknamnet måste vara mellan <#c0f0ff>{min} <#FF2424>och <#c0f0ff>{max} <#FF2424>tecken.",
+      "blocked-word": "<#FF2424>Ordet <#c0f0ff>{word} <#FF2424>är inte tillåtet.",
+      "blacklisted": "<#FF2424>Detta smeknamnsformat är inte tillåtet.",
+      "no-formatting": "<#FF2424>Formatering är inte tillåten i smeknamn.",
+      "reset-self": "<#279CF5>Ditt smeknamn har återställts.",
+      "set": "<#279CF5>Ditt smeknamn har ställts in till <#c0f0ff>{nick}<#279CF5>."
+    },
+    "eco": {
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}!",
+      "no-economy": "<#FF2424>Ekonomisystemet är inte tillgängligt!",
+      "usage": "<#279CF5>Användning: <#c0f0ff>/{label} ge <spelare> <belopp>...",
+      "player-not-found": "<#FF2424>Spelare hittades inte: <#c0f0ff>{player}",
+      "unknown-subcommand": "<#FF2424>Okänd underkommando: <#c0f0ff>{sub}\n<#708090>Tillgängliga: ge, ta, sätt, återställ",
+      "negative-amount": "<#FF2424>Beloppet kan inte vara negativt!",
+      "invalid-amount": "<#FF2424>Ogiltigt belopp: <#c0f0ff>{amount}",
+      "amount-too-high": "<#FF2424>Beloppet överskrider maximalt tillåtna: <#c0f0ff>{max}",
+      "offline-player": "<#FF2424>Kan inte ändra saldo för offline-spelare.",
+      "transaction-failed": "<#FF2424>Transaktionen misslyckades: {error}",
+      "give-usage": "<#279CF5>Användning: <#c0f0ff>{usage}",
+      "give-success": "<#279CF5>Gav <#c0f0ff>{amount} <#279CF5>till <#c0f0ff>{player}",
+      "give-received": "<#279CF5>Du mottog <#c0f0ff>{amount}",
+      "take-usage": "<#279CF5>Användning: <#c0f0ff>{usage}",
+      "take-success": "<#FF2424>Tog <#c0f0ff>{amount} <#FF2424>från <#c0f0ff>{player}",
+      "take-taken": "<#FF2424>{amount} <#708090>togs från ditt saldo",
+      "set-usage": "<#279CF5>Användning: <#c0f0ff>{usage}",
+      "set-success": "<#279CF5>Ställ in saldo för <#c0f0ff>{player} <#279CF5>till <#c0f0ff>{amount}",
+      "set-received": "<#279CF5>Ditt saldo ställdes in till <#c0f0ff>{amount}",
+      "reset-success": "<#279CF5>Återställde saldo för <#c0f0ff>{player}",
+      "reset-already-zero": "<#708090>Saldo för <#c0f0ff>{player} <#708090>är redan noll"
+    },
+    "nicks": {
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Användning: <white>/nicks ladda om|återställ <spelare>",
+      "reload": "<#279CF5>Smeknamnssystemet laddades om.",
+      "reset": "<#279CF5>Återställde smeknamn för <#c0f0ff>{player}<#279CF5>.",
+      "not-found": "<#FF2424>Spelare <#c0f0ff>{player} <#FF2424>hittades inte."
+    },
+    "afk": {
+      "disabled": "<#FF2424>AFK-systemet är inaktiverat.",
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Användning: <white>/afk [ladda om]",
+      "enter-afk": "<#279CF5>{player} är nu AFK.",
+      "leave-afk": "<#279CF5>{player} är inte längre AFK.",
+      "kick": "<#FF2424>Du blev utkickad för att vara AFK.",
+      "reload": "<#279CF5>AFK-systemet laddades om."
+    },
+    "homes": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando!",
+      "gui": {
+        "title": "<#279CF5>Hem Hanterare",
+        "confirm-title": "<#FF2424>Bekräfta Åtgärd",
+        "home-title": "<#279CF5><bold>Hem <#c0f0ff>{slot}",
+        "manage-title": "<#279CF5><bold>Hantera Hem <#c0f0ff>{slot}",
+        "no-permission": "<#FF2424>Ingen behörighet!",
+        "click-set": "<#279CF5>Klicka för att ställa in",
+        "click-teleport": "<#20B2AA>Vänsterklicka för att teleportera",
+        "click-manage": "<#279CF5>Högerklicka för att hantera",
+        "click-remove": "<#c0f0ff>Klicka för att ta bort",
+        "empty": "<#708090>Tom plats",
+        "name": "<#708090>Namn: <#279CF5>{name}",
+        "coords": "<#708090>XYZ: <#279CF5>{x} {y} {z}",
+        "world": "<#708090>Värld: <#279CF5>{world}",
+        "confirm": "<#279CF5>Bekräfta",
+        "cancel": "<#FF2424>Avbryt",
+        "info": "<#279CF5>Hem <#c0f0ff>{slot} <#279CF5>- {mode}"
+      },
+      "empty-slot": "<#708090>Inget hem inställt i plats <#c0f0ff>{slot}<#708090>.",
+      "world-missing": "<#FF2424>Hemvärlden är inte längre tillgänglig!",
+      "world-disabled": "<#FF2424>Du kan inte komma åt hem i denna värld!",
+      "require-empty-inventory": "<#FF2424>Du måste ha ett tomt lager för att ställa in ett hem!",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-remove": "<#FF2424>Du har inte behörighet att ta bort hem!",
+      "teleport-cooldown": "<#FF2424>Vänta <#c0f0ff>{seconds}s <#FF2424>innan du teleporterar igen!",
+      "set-cooldown": "<#FF2424>Vänta <#c0f0ff>{seconds}s <#FF2424>innan du ställer in ett annat hem!",
+      "cross-world-disabled": "<#FF2424>Teleportering mellan världar är inaktiverat!",
+      "teleport-restricted": "<#FF2424>Du kan inte teleportera från denna värld!",
+      "teleport": "<#279CF5>Teleporterade till hem <#c0f0ff>{slot}<#279CF5>.",
+      "set": "<#279CF5>Hem <#c0f0ff>{slot} <#279CF5>inställt på <#c0f0ff>{world} {x} {y} {z}<#279CF5>.",
+      "remove": "<#279CF5>Hem <#c0f0ff>{slot}<#279CF5> borttaget.",
+      "rename": {
+        "prompt": "<#279CF5>Ange ett nytt namn för detta hem i chatten:",
+        "success": "<#279CF5>Hem bytte namn till <#c0f0ff>{name}<#279CF5>.",
+        "duplicate": "<#FF2424>Du har redan ett hem med namnet '<#c0f0ff>{name}<#FF2424>'!",
+        "too-long": "<#FF2424>Namnet för långt! Max <#c0f0ff>{max} <#FF2424>tecken."
+      }
+    },
+    "loom": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "gui-title": "<#D2691E><bold>Stolpsäng Gränssnitt",
+      "error-item-name": "<#D2691E><bold>Fel",
+      "error-item-lore": "<#708090>Funktion inte implementerad",
+      "opened": "<#279CF5>Stolpsängsgränssnitt öppnat.",
+      "clicked-error": "<#FF2424>Du klickade på fel föremålet! Ej implementerat."
+    },
+    "stonecutter": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "opened": "<#279CF5>Stenskärare öppnad."
+    },
+    "grindstone": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "opened": "<#279CF5>Sliptuta öppnad."
+    },
+    "cartographytable": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "opened": "<#279CF5>Kartografibord öppnat."
+    },
+    "anvil": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "opened": "<#279CF5>Amboss öppnad."
+    },
+    "craftingtable": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "opened": "<#279CF5>Tillverkningsbord öppnat."
+    },
+    "smithingtable": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "success": "<#279CF5>Smidesbord öppnat."
+    },
+    "broadcast": {
+      "no-permission": "<#FF2424>Du har inte behörighet att använda detta kommando!",
+      "usage": "<#FF2424>Användning: /broadcast <meddelande>",
+      "format": "<#279CF5>[Server] <white>{message}"
+    },
+    "reboot": {
+      "no-permission": "<#FF2424>Du har inte behörighet att använda detta kommando!",
+      "usage": "<#FF2424>Användning: /reboot <minuter>",
+      "announce-scheduled": "<#FF2424>Servern kommer att starta om om {time} minut(er).",
+      "announce-minutes": "<#279CF5>Omstart om {time} minut(er).",
+      "announce-seconds": "<#279CF5>Omstart om {time} sekund(er).",
+      "announce-now": "<#FF2424><bold>Startar om nu!",
+      "titles": {
+        "minute-warning": "<#279CF5>Omstart om {time} minut(er).",
+        "second-warning": "<#279CF5><bold>{time}",
+        "now": "<#FF2424><bold>Startar om nu!"
+      }
+    },
+    "broadcastworld": {
+      "no-permission": "<#FF2424>Du har inte behörighet att använda detta kommando!",
+      "usage": "<#FF2424>Användning: /broadcastworld <värld> <meddelande>",
+      "world-not-found": "<#FF2424>Värld <#c0f0ff>{world}<#FF2424> hittades inte!",
+      "message-sent": "<#279CF5>Meddelande sänt till värld <#c0f0ff>{world}<#279CF5>.",
+      "broadcast": "<white>{message}"
+    },
+    "spawner": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando.",
+      "no-permission": "<#FF2424>Du har inte behörighet att använda detta kommando!",
+      "usage": "<#279CF5>Användning: <white>/spawner <varelse>",
+      "look-at-spawner": "<#FF2424>Titta på en spawner för att ändra den!",
+      "no-permission-mob": "<#FF2424>Du har inte behörighet att ställa in en spawner till {mob}!",
+      "changed": "<#279CF5>Spawner-typ ändrad till <#c0f0ff>{mob}<#279CF5>.",
+      "invalid-mob": "<#FF2424>Ogiltig varelsetyp: {mob}",
+      "help": {
+        "header": "<#279CF5><bold>=== Spawner Kommando Hjälp ===</bold>",
+        "description": "<#279CF5>Beskrivning: <white>Ändra typen av en varelse-spawner.",
+        "usage": "<#279CF5>Användning:</#279CF5> <white>/spawner <mob>",
+        "permission": "<#279CF5>Krävd Behörighet:</#279CF5> <white>{permission}",
+        "available": {
+          "header": "<#279CF5>Tillgängliga Varelsetyper:</#279CF5>",
+          "mob": "  <white>• {mob}",
+          "more": "  <gray>... och {count} till</gray>"
+        },
+        "footer": "<gray>Använd <white>/spawner help</white> för att se detta meddelande igen.</gray>"
+      }
+    },
+    "serverinfo": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando!",
+      "no-permission": "<#FF2424>Du har inte behörighet att använda detta kommando!",
+      "header": "<#279CF5>========== Serverinformation ==========",
+      "ram": "<#279CF5>RAM: <white>{used}MB / {max}MB",
+      "disk": "<#279CF5>Disk: <white>{free}MB ledigt / {total}MB totalt",
+      "tps": "<#279CF5>TPS: <white>{tps}",
+      "cpu": "<#279CF5>CPU: <white>{cores} kärnor, {load} belastning",
+      "os": "<#279CF5>OS: <white>{name} {version} ({arch})",
+      "uptime": "<#279CF5>Upptid: <white>{hours}t {minutes}m {seconds}s",
+      "java": "<#279CF5>Java: <white>{version}",
+      "host": "<#279CF5>Värd: <white>{hostname} ({address})",
+      "net": "<#279CF5>Nätverk: <white>{interfaces}",
+      "plugins": "<#279CF5>Plugins: <white>{count}",
+      "minecraft": "<#279CF5>Minecraft: <white>{version}",
+      "paper": "<#279CF5>Server: <white>{version}",
+      "players": "<#279CF5>Spelare: <white>{online}/{max}",
+      "gpu": "<#279CF5>GPU: <white>{gpu}",
+      "jvm": "<#279CF5>JVM Args: <white>{args}"
+    },
+    "unloadworld": {
+      "no-permission": "<#FF2424>Du har inte behörighet att använda detta kommando!",
+      "usage": "<#FF2424>Användning: /unloadworld <värld>",
+      "not-found": "<#FF2424>Värld <#c0f0ff>{world}<#FF2424> hittades inte!",
+      "failed": "<#FF2424>Misslyckades med att stänga av värld <#c0f0ff>{world}<#FF2424>!",
+      "success": "<#279CF5>Stängde av värld <#c0f0ff>{world}<#279CF5>."
+    },
+    "uptime": {
+      "no-permission": "<#FF2424>Du har inte behörighet att använda detta kommando!",
+      "info": "<#279CF5>Upptid: <white>{uptime}"
+    },
+    "loadworld": {
+      "no-permission": "<#FF2424>Du har inte behörighet att använda detta kommando!",
+      "usage": "<#FF2424>Användning: /loadworld <värld>",
+      "already-loaded": "<#FF2424>Värld <#c0f0ff>{world}<#FF2424> är redan laddad!",
+      "success": "<#279CF5>Laddade värld <#c0f0ff>{world}<#279CF5>.",
+      "failed": "<#FF2424>Misslyckades med att ladda värld <#c0f0ff>{world}<#FF2424>!"
+    },
+    "worldlist": {
+      "no-permission": "<#FF2424>Du har inte behörighet att använda detta kommando!",
+      "header": "<#279CF5>========== Världar ==========",
+      "status-loaded": "<#279CF5>Laddad",
+      "entry": "<#279CF5>{world} <#708090>({status}) <white>- Chunks: {chunks}, Entiteter: {entities}, Spelare: {players}"
+    },
+    "playerinfo": {
+      "no-permission": "<#FF2424>Du har inte behörighet att använda detta kommando!",
+      "usage": "<#279CF5>Användning: <white>/playerinfo <spelare>",
+      "not-found": "<#FF2424>Spelare hittades inte.",
+      "header": "<#279CF5>----- Spelarinfo -----",
+      "name": "<#279CF5>Namn: <white>{player}",
+      "uuid": "<#279CF5>UUID: <white>{uuid}",
+      "health": "<#279CF5>Hälsa: <white>{health}/{maxhealth}",
+      "food": "<#279CF5>Mat: <white>{food}",
+      "location": "<#279CF5>Plats: <white>{location}"
+    },
+    "heal": {
+      "no-permission": "<#FF2424>Du har inte behörighet att använda detta kommando!",
+      "no-permission-others": "<#FF2424>Du har inte behörighet att hela andra spelare!",
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando!",
+      "player-not-found": "<#FF2424>Spelare hittades inte: {player}",
+      "usage": "<#FF2424>Användning: /heal [spelare]",
+      "success-self": "<#279CF5>Du har blivit helad.",
+      "success-other": "<#279CF5>Du helade <#c0f0ff>{player}<#279CF5>.",
+      "success-healed": "<#279CF5>Du har blivit helad av <#c0f0ff>{healer}<#279CF5>."
+    },
+    "endersee": {
+      "no-permission": "<#FF2424>Du har inte behörighet att visa din enderkista!",
+      "no-permission-others": "<#FF2424>Du har inte behörighet att visa andra spelares enderkistor!",
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando!",
+      "usage": "<#279CF5>Användning: <white>/endersee [spelare]",
+      "player-not-found": "<#FF2424>Spelare <#c0f0ff>{player}<#FF2424> hittades inte!",
+      "opened-self": "<#279CF5>Öppnade din enderkista.",
+      "opened-other": "<#279CF5>Öppnade enderkista för <#c0f0ff>{player}<#279CF5>."
+    },
+    "freeze": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando!",
+      "usage": "<#FF2424>Användning: /freeze <spelare>",
+      "player-not-found": "<#FF2424>Spelare <#c0f0ff>{player}<#FF2424> hittades inte.",
+      "froze": "<#279CF5>Fryste <#c0f0ff>{player}<#279CF5>.",
+      "unfroze": "<#279CF5>Frigjorde <#c0f0ff>{player}<#279CF5>.",
+      "target-frozen": "<#FF2424>Du har blivit fryst!",
+      "target-unfrozen": "<#279CF5>Du har blivit frigjord."
+    },
+    "unfreeze": {
+      "no-permission": "<#FF2424>Du har inte behörighet att använda detta kommando!",
+      "usage": "<#FF2424>Användning: /unfreeze <spelare>",
+      "player-not-found": "<#FF2424>Spelare <#c0f0ff>{player}<#FF2424> hittades inte!",
+      "not-frozen": "<#FF2424>Spelare <#c0f0ff>{player}<#FF2424> är inte fryst!",
+      "success": "<#279CF5>Frigjorde <#c0f0ff>{player}<#279CF5>.",
+      "target-unfrozen": "<#279CF5>Du har blivit frigjord."
+    },
+    "clearchat": {
+      "no-permission": "<#FF2424>Du har inte behörighet att använda detta kommando.",
+      "cleared": "<#708090>Chat rensad av <#FF2424>{player}</#FF2424>."
+    },
+    "vanish": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando!",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "vanished": "<#279CF5>Du är nu osynlig.",
+      "visible": "<#279CF5>Du är nu synlig för alla spelare."
+    },
+    "god": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando!",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "enabled": "<#279CF5>Gudsläge aktiverat.",
+      "disabled": "<#FF2424>Gudsläge inaktiverat."
+    },
+    "invsee": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Användning: <white>/invsee <spelare>",
+      "player-not-found": "<#FF2424>Spelare hittades inte: <white>{player}",
+      "success": "<#279CF5>Visar <#c0f0ff>{player}s<#279CF5> lager.",
+      "help": {
+        "header": "<#279CF5><bold>=== Invsee Kommando Hjälp ===</bold>",
+        "description": "<#279CF5>Beskrivning: <white>Visa en annan spelares lager.",
+        "usage": "<#279CF5>Användning:</#279CF5> <white>/invsee <spelare>",
+        "permission": "<#279CF5>Krävd Behörighet:</#279CF5> <white>{permission}",
+        "footer": "<gray>Använd <white>/invsee help</white> för att se detta meddelande igen.</gray>"
+      }
+    },
+    "invclear": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando!",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "player-not-found": "<#FF2424>Spelare <#c0f0ff>{player}<#FF2424> hittades inte!",
+      "cleared": "<#279CF5>Ditt lager har rensats.",
+      "cleared-other": "<#279CF5>Rensade <#c0f0ff>{player}s<#279CF5> lager."
+    },
+    "tp": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando!",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#FF2424>Användning: /tp <spelare>",
+      "player-not-found": "<#FF2424>Spelare <#c0f0ff>{player}<#FF2424> hittades inte.",
+      "success": "<#279CF5>Teleporterade till <#c0f0ff>{player}<#279CF5>."
+    },
+    "kickall": {
+      "usage": "<#FF2424>Användning: /kickall <anledning>",
+      "kick-message": "<#FF2424>Utsparkad av <#c0f0ff>{admin}<#FF2424>!\n<#708090>Anledning: <white>{reason}",
+      "sender-message": "<#279CF5>Sparkade ut <#c0f0ff>{count}<#279CF5> spelare.\n<#708090>Anledning: <white>{reason}",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!"
+    },
+    "pingall": {
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "header": "<#279CF5>Online Spelares Ping:",
+      "player-line": "<#279CF5>- {player}: <#c0f0ff>{ping}ms"
+    },
+    "alts": {
+      "usage": "<#FF2424>Användning: /alts <spelare>",
+      "player-offline": "<#FF2424>Spelaren måste vara online för att kontrollera deras IP.",
+      "header": "<#279CF5>Spelare med samma IP som {target}:",
+      "none": "<#708090>- Ingen hittades online.",
+      "found": "<#708090>- {player}",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!"
+    },
+    "stafflist": {
+      "header": "<#4169E1>--- Online Personal ---",
+      "none": "<#708090>Ingen personal online.",
+      "format": "<#279CF5><#c0f0ff>{player}",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!"
+    },
+    "editsign": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "not-looking-at-sign": "<#FF2424>Du tittar inte på en skylt.",
+      "usage": "<#279CF5>Användning: <white>/editsign <rad1>|<rad2>|<rad3>|<rad4>",
+      "success": "<#279CF5>Skylt uppdaterad."
+    },
+    "iteminfo": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "no-item": "<#FF2424>Du måste hålla ett föremål i din huvudhand.",
+      "header": "<#4169E1>≡ <bold>Föremålsinformation</bold> <#4169E1>≡",
+      "type": "<#708090>Typ: <white>{type}",
+      "amount": "<#708090>Antal: <white>{amount}",
+      "name": "<#708090>Namn: <white>{name}",
+      "lore-header": "<#708090>≡ <bold>Beskrivning</bold> <#708090>≡",
+      "lore-content": "<white>>> {lore}",
+      "no-meta": "<#708090>Ingen ytterligare metadata.",
+      "enchants-header": "<#708090>≡ <bold>Förtrollningar</bold> <#708090>≡",
+      "enchant-line": "<#c0f0ff>✦ <white>{enchant} <#708090>Nivå {level}",
+      "flags-header": "<#708090>≡ <bold>Föremålsflaggor</bold> <#708090>≡",
+      "flag-line": "<#c0f0ff>- <#708090>{flag}"
+    },
+    "death": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "count": "<#FF2424>Du har dött <#c0f0ff>{deaths} <#FF2424>gånger."
+    },
+    "realname": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Användning: <white>/realname <smeknamn>",
+      "found": "<#279CF5>Smeknamn <#c0f0ff>{nickname} <#279CF5>tillhör <#c0f0ff>{realname}<#279CF5>.",
+      "not-found": "<#FF2424>Ingen spelare hittades med smeknamn <#c0f0ff>{nickname}<#FF2424>."
+    },
+    "speed": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Användning: <white>/speed <1-10>",
+      "invalid-number": "<#FF2424>Hastighet måste vara mellan <#c0f0ff>1-10<#FF2424>.",
+      "fly-set": "<#279CF5>Flyghastighet inställd på <#c0f0ff>{speed}<#279CF5>.",
+      "walk-set": "<#279CF5>Gånghastighet inställd på <#c0f0ff>{speed}<#279CF5>."
+    },
+    "launch": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "launched": "<#279CF5><bold>Whoosh!</bold> <white>Du har skickats iväg!"
+    },
+    "repair": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "no-item": "<#FF2424>Du måste hålla ett föremål i din huvudhand för att reparera det.",
+      "cannot-repair": "<#FF2424>Detta föremål kan inte repareras.",
+      "already-full": "<#279CF5>Föremålet är redan vid full hållbarhet.",
+      "success": "<#279CF5>Föremålet fullständigt reparerat."
+    },
+    "sleep": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "broadcast": "<#279CF5>{player} hoppade över natten! <#708090>(Sov kommando)",
+      "success": "<#279CF5>Natt hoppades över och väder rensades."
+    },
+    "ping": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "show": "<#708090>Din ping: {ping}ms"
+    },
+    "disposal": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "inventory-title": "<#FF2424><bold>Förstöring",
+      "opened": "<#279CF5>Förstöring öppnad. Placera föremål här för att ta bort dem."
+    },
+    "compass": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "facing": "<#279CF5>Du vänder mot <#279CF5><bold>{direction}"
+    },
+    "top": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "teleported": "<#279CF5>Teleporterade till högsta blocket ovanför dig!",
+      "no-block": "<#FF2424>Inget fast block hittades ovanför dig!"
+    },
+    "ext": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando!",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-others": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424> för att släcka andra spelare!",
+      "player-not-found": "<#FF2424>Spelare hittades inte!",
+      "self": "<#279CF5>Du har blivit släckt.",
+      "target": "<#279CF5>Du släckte <#c0f0ff>{target}"
+    },
+    "tpp": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando!",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-world": "<#FF2424>Du har inte behörighet att komma åt värld <#c0f0ff>{world}<#FF2424>!",
+      "no-permission-others": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424> för att teleportera andra spelare!",
+      "usage": "<#279CF5>Användning: /tpp <spelare> <värld> [x y z]",
+      "player-not-found": "<#FF2424>Spelare <#c0f0ff>{player}<#FF2424> hittades inte!",
+      "world-not-loaded": "<#FF2424>Värld <#c0f0ff>{world}<#FF2424> är inte laddad!",
+      "invalid-coords": "<#FF2424>Koordinater måste vara nummer!",
+      "teleported-target": "<#279CF5>Teleporterade <#c0f0ff>{target} <#279CF5>till värld <#c0f0ff>{world}<#279CF5>.",
+      "teleported-self": "<#279CF5>Du blev teleporterad till värld <#c0f0ff>{world} <#279CF5>på <#708090>({x}, {y}, {z})"
+    },
+    "magnet": {
+      "only-player": "<#279CF5>Endast spelare kan använda detta kommando.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "toggle-on": "<#279CF5>Magnet aktiverad. Föremål inom <#c0f0ff>{radius}<#279CF5> block kommer att dras till dig.",
+      "toggle-off": "<#FF2424>Magnet inaktiverad.",
+      "error": "<#FF2424>Misslyckades med att växla magnet: <#c0f0ff>{error}"
+    },
+    "day": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "success": "<#279CF5>Tid inställd på dag i värld <#c0f0ff>{world}<#279CF5>."
+    },
+    "inventorysort": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "success": "<#279CF5>Lager staplat och sorterat."
+    },
+    "book": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando!",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-others": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424> för att ge böcker till andra!",
+      "player-not-found": "<#FF2424>Spelare <#c0f0ff>{player}<#FF2424> hittades inte!",
+      "inventory-full-self": "<#FF2424>Ditt lager är fullt!",
+      "inventory-full-other": "<#FF2424>{target}s lager är fullt!",
+      "self-success": "<#279CF5>Du mottog informationsboken.",
+      "target-success": "<#279CF5>Du gav en bok till <#c0f0ff>{player}<#279CF5>.",
+      "received": "<#279CF5>Du mottog en bok från <#c0f0ff>{sender}<#279CF5>."
+    },
+    "break": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "no-block": "<#FF2424>Inget brytbart block hittades inom <#c0f0ff>{distance}<#FF2424> block.",
+      "success": "<#279CF5>Bröt blocket på <#c0f0ff>{x} {y} {z}<#279CF5>."
+    },
+    "setloreline": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Användning: <white>/setloreline <text>",
+      "no-item": "<#FF2424>Du håller inte i ett föremål.",
+      "lore-set": "<#279CF5>Beskrivning inställd på: <white>{lore}"
+    },
+    "track": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Användning: <white>/track <spelare>",
+      "not-found": "<#FF2424>Spelare <#c0f0ff>{target}<#FF2424> hittades inte.",
+      "success": "<#279CF5>Spårar nu <#c0f0ff>{target}<#279CF5>. Kompass uppdaterad."
+    },
+    "suicide": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "success": "<#FF2424>Du har tagit ditt eget liv.",
+      "error": "<#FF2424>Misslyckades med att registrera självmordsförsök."
+    },
+    "kill": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "kill-count": "<#279CF5>Du har <#c0f0ff>{kills} <#279CF5>spelardödar."
+    },
+    "bottom": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "success": "<#279CF5>Teleporterade till botten! <#708090>(Y: {y})",
+      "no-safe-ground": "<#FF2424>Ingen säker mark nedanför!"
+    },
+    "condense": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando!",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "success": "<#279CF5>Sammanpressade föremål till <#c0f0ff>{blocks}<#279CF5> block.",
+      "not-enough": "<#279CF5>Du har inte tillräckligt med föremål för att sammanpressa."
+    },
+    "nuke": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "deployed": "<#279CF5>Kärnvapen utplacerat! <#708090>(Kraft: {power})"
+    },
+    "weather": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-sub": "<#FF2424>Du behöver behörighet <#c0f0ff>{subpermission}<#FF2424>!",
+      "usage": "<#279CF5>Användning: <white>/weather <klar|regn|åskväder>",
+      "clear": "<#279CF5>Väder inställt på klart i <white>{duration}s<#279CF5>.",
+      "rain": "<#c0f0ff>Väder inställt på regn i <white>{duration}s<#c0f0ff>.",
+      "thunderstorm": "<#279CF5>Väder inställt på åskväder i <white>{duration}s<#279CF5>.",
+      "invalid-type": "<#FF2424>Ogiltig vädertyp. Använd: klar, regn eller åskväder.",
+      "help": {
+        "header": "<#279CF5><bold>=== Väder Kommando Hjälp ===</bold>",
+        "description": "<#279CF5>Beskrivning: <white>Ändra vädret i din nuvarande värld för en viss tid.",
+        "usage": "<#279CF5>Användning:</#279CF5> <white>/weather <typ>",
+        "types": {
+          "header": "<#279CF5>Tillgängliga Vädertyper:</#279CF5>",
+          "clear": "  <white>klar</white> <gray>- Soligt</gray>",
+          "clear.no-perm": "  <#FF2424>klar</#FF2424> <gray>- Ingen behörighet</gray>",
+          "rain": "  <white>regn</white> <gray>- Regn</gray>",
+          "rain.no-perm": "  <#FF2424>regn</#FF2424> <gray>- Ingen behörighet</gray>",
+          "thunderstorm": "  <white>åskväder</white> <gray>- Åskväder</gray>",
+          "thunderstorm.no-perm": "  <#FF2424>åskväder</#FF2424> <gray>- Ingen behörighet</gray>"
+        },
+        "duration": "<#279CF5>Varaktighet:</#279CF5> <white>{duration} sekunder",
+        "examples": {
+          "header": "<#279CF5>Exempel:</#279CF5>",
+          "clear": "  <white>/weather klar</white> <gray>- Ställ in väder till soligt</gray>",
+          "rain": "  <white>/weather regn</white> <gray>- Ställ in väder till regn</gray>",
+          "thunderstorm": "  <white>/weather åskväder</white> <gray>- Ställ in väder till åskväder</gray>"
+        },
+        "footer": "<gray>Använd <white>/weather help</white> för att se detta meddelande igen.</gray>"
+      }
+    },
+    "playtime": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Användning: <white>/playtime",
+      "playtime": "<#279CF5>Din speltid: <#c0f0ff>{hours}t {minutes}m"
+    },
+    "recipe": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Användning: <white>/recipe <recept>",
+      "not-found": "<#FF2424>Recept hittades inte!",
+      "result": "<#279CF5>Recept för: <#c0f0ff>{item}",
+      "shaped-header": "<#279CF5>Formade Recept Ingredienser:",
+      "shapeless-header": "<#279CF5>Formlösa Recept Ingredienser:",
+      "ingredient-line": "<#279CF5>- {char}: <white>{item} <#279CF5>x{amount}",
+      "ingredient-line-shapeless": "<#279CF5>- <white>{item} <#279CF5>x{amount}",
+      "unknown-type": "<#FF2424>Okänd recepttyp!"
+    },
+    "enderchest": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-others": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Användning: <white>/enderchest [spelare]",
+      "opening": "<#279CF5>Öppnar din enderkista...",
+      "opening-other": "<#279CF5>Öppnar <#c0f0ff>{player}s<#279CF5> enderkista...",
+      "player-not-found": "<#FF2424>Spelare <#c0f0ff>{player}<#FF2424> hittades inte.",
+      "offline-not-supported": "<#FF2424>Kan inte öppna enderkista för offline-spelare <#c0f0ff>{player}<#FF2424>."
+    },
+    "seen": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Användning: <white>/seen <spelare>",
+      "player-not-found": "<#FF2424>Spelare <#c0f0ff>{player}<#FF2424> hittades inte.",
+      "result": "<#279CF5>{player} sågs senast <white>{lastSeen}",
+      "result-online": "<#279CF5>{player} är för närvarande <bold>online<#279CF5>!",
+      "never-joined": "<#279CF5>{player} har aldrig gått med i servern."
+    },
+    "back": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-sub": "<#FF2424>Du behöver behörighet <#c0f0ff>{subpermission}<#FF2424>!",
+      "usage": "<#279CF5>Användning: <white>/back [lobby|död|tillbaka]",
+      "no-back": "<#FF2424>Ingen tidigare plats sparad.",
+      "invalid-back": "<#FF2424>Din senaste plats är ogiltig.",
+      "teleported-back": "<#279CF5>Teleporterade tillbaka till din tidigare plats.",
+      "lobby-not-set": "<#FF2424>Lobby-plats inte inställd eller värld är avstängd.",
+      "teleported-lobby": "<#279CF5>Teleporterade till lobbyn.",
+      "no-death-location": "<#FF2424>Ingen dödsplats hittades.",
+      "teleported-death": "<#279CF5>Teleporterade till din senaste dödsplats.",
+      "unknown-usage": "<#FF2424>Okänt underkommando. Använd: <white>/back, /back lobby, /back death"
+    },
+    "tree": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "specify-type": "<#279CF5>Vänligen ange en trädtyp.",
+      "invalid-type": "<#FF2424>Ogiltig trädtyp! Giltiga typer: <#c0f0ff>{types}",
+      "tree-planted": "<#279CF5>Träd planterat: <#c0f0ff>{type}",
+      "cannot-grow": "<#FF2424>Trädet kan inte växa här! Se till att det finns tillräckligt med utrymme och lämplig mark."
+    },
+    "notes": {
+      "only-player": "<#708090>Endast spelare kan använda anteckningar.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424> för att använda anteckningar!",
+      "usage": "<#279CF5>Användning:</#279CF5> <white>/notes <namn> [innehåll]",
+      "list-empty": "<#708090>Du har inga sparade anteckningar.",
+      "list-header": "<#279CF5>Dina anteckningar:</#279CF5> ",
+      "not-found": "<#FF2424>Anteckning '<#c0f0ff>{name}<#FF2424>' hittades inte.",
+      "view": "<#279CF5>Anteckning '<#c0f0ff>{name}<#279CF5>':</#279CF5> <white>{content}",
+      "saved": "<#279CF5>Sparade anteckning '<#c0f0ff>{name}<#279CF5>':</#279CF5> <white>{content}"
+    },
+    "scoreboard": {
+      "only-player": "<#FF2424>Endast spelare kan använda resultattavlekommandon.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424> för att använda detta!",
+      "no-permission-reload": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424> för att ladda om!",
+      "no-permission-toggle": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424> för att växla!",
+      "no-permission-color": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424> för att ändra layouter!",
+      "usage": "<#279CF5>Användning:</#279CF5> <white>/scoreboard <reload|toggle|color> [layout]",
+      "toggle": {
+        "enabled": "<#279CF5>Resultattavla aktiverad!",
+        "disabled": "<#708090>Resultattavla inaktiverad!"
+      },
+      "reload": {
+        "success": "<#279CF5>Alla resultattavlor laddades om!"
+      },
+      "color": {
+        "usage": "<#279CF5>Användning: /scoreboard color <layout>",
+        "not-found": "<#FF2424>Layout '<#c0f0ff>{layout}<#FF2424>' hittades inte!",
+        "changed": "<#279CF5>Layout ändrad till <#c0f0ff>{layout}<#279CF5>."
+      }
+    },
+    "burn": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando!",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-sub": "<#FF2424>Du behöver behörighet <#c0f0ff>{subpermission}<#FF2424>!",
+      "usage": "<#279CF5>Användning: <white>/burn <spelare> [sekunder]",
+      "player-not-found": "<#FF2424>Spelare <#c0f0ff>{target}<#FF2424> hittades inte!",
+      "immune-gamemode": "<#FF2424>{target} är i <#c0f0ff>{gamemode}<#FF2424>-läge och är immun!",
+      "invalid-number": "<#FF2424>Använd <#c0f0ff>1-{max}<#FF2424> sekunder.",
+      "target-burned": "<#FF2424>Du har satts i brand av <#c0f0ff>{attacker}<#FF2424>!",
+      "sender-burned": "<#279CF5>{target} brinner nu i <#c0f0ff>{seconds}s<#279CF5>.",
+      "self-burned": "<#279CF5>Du satte dig själv i brand i <#c0f0ff>{seconds}s<#279CF5>."
+    },
+    "feed": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-others": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Användning: <white>/feed [spelare]",
+      "player-not-found": "<#FF2424>Spelare <#c0f0ff>{target}<#FF2424> hittades inte!",
+      "fed-self": "<#279CF5>Du har blivit mättad.",
+      "fed-other": "<#279CF5>Du mättade <#c0f0ff>{target}<#279CF5>.",
+      "fed-by-other": "<#279CF5>Du blev mättad av <#c0f0ff>{sender}<#279CF5>."
+    },
+    "hat": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "no-item": "<#FF2424>Du måste hålla ett föremål i din huvudhand för att bära det som hatt!",
+      "item-not-allowed": "<#FF2424>Detta föremål kan inte bäras som hatt! Kontrollera konfig.",
+      "success": "<#279CF5>Din hatt har uppdaterats."
+    },
+    "ptime": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-sub": "<#FF2424>Du behöver behörighet <#c0f0ff>{subpermission}<#FF2424>!",
+      "usage": "<#279CF5>Användning: <white>/ptime <dag|natt|återställ>",
+      "invalid-option": "<#FF2424>Använd: <white>dag, natt eller återställ",
+      "success": "<#279CF5>Personlig tid inställd på <#c0f0ff>{option}<#279CF5>."
+    },
+    "night": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "success": "<#279CF5>Tid inställd på natt i värld <#c0f0ff>{world}<#279CF5>."
+    },
+    "auction": {
+      "only-player": "<#279CF5>Endast spelare kan använda detta kommando.",
+      "no-economy": "<#FF2424>✗ Ekonomisystemet är inte tillgängligt.",
+      "usage": "<#279CF5>Användning: <white>/auction [sälj <pris>|mina]",
+
+      "gui": {
+        "titles": {
+          "auction": "<#279CF5>Auktionshus - Sida <#c0f0ff>{page}",
+          "my-items": "<#279CF5>Dina Föremål - Sida <#c0f0ff>{page}",
+          "remove-confirm": "<#FF2424>Bekräfta Borttagning"
+        },
+
+        "navigation": {
+          "prev": "<#279CF5>⬅ Föregående Sida",
+          "next": "<#279CF5>Nästa Sida ➡",
+          "refresh": "<#279CF5>↻ Uppdatera",
+          "my-items": "<#279CF5>📦 Dina Föremål",
+          "close": "<#FF2424>✕ Stäng"
+        },
+
+        "balance": {
+          "message": "<#279CF5>Saldo: <#c0f0ff>${balance}",
+          "item-name": "<#279CF5>Saldo: <#c0f0ff>${balance}"
+        },
+
+        "refresh": "<#279CF5>Auktion uppdaterad!",
+
+        "item": {
+          "name": "<#279CF5>Pris: <#c0f0ff>${price}",
+          "lore": {
+            "seller": "<#279CF5>Säljare: <#c0f0ff>{seller}",
+            "seller-price": "<#279CF5>Ditt pris: <#c0f0ff>${price}",
+            "expires": "<#279CF5>Går ut: <#c0f0ff>{date}",
+            "buyer-click": "<#c0f0ff>Klicka för att köpa",
+            "seller-click": "<#c0f0ff>Klicka för att ta bort"
+          }
+        },
+
+        "remove": {
+          "confirm": "<#279CF5>✓ Bekräfta Borttagning",
+          "cancel": "<#FF2424>✗ Avbryt"
+        }
+      },
+
+      "sell": {
+        "no-item": "<#FF2424>Du måste hålla ett föremål i din hand för att sälja!",
+        "usage": "<#FF2424>Användning: <white>/auction sell <pris>",
+        "invalid-price": "<#FF2424>Priset måste vara ett positivt nummer.",
+        "max-limit": "<#FF2424>Du kan bara sälja upp till <#c0f0ff>{max}<#FF2424> föremål åt gången!",
+        "success": "<#279CF5>Föremål listat för <#c0f0ff>${price}<#279CF5>."
+      },
+
+      "purchase": {
+        "not-found": "<#FF2424>Föremålet är inte längre tillgängligt!",
+        "no-economy": "<#FF2424>✗ Ekonomisystemet är inte tillgängligt.",
+        "not-enough-money": "<#FF2424>Du har inte tillräckligt med pengar!",
+        "failed": "<#FF2424>Transaktionen misslyckades: <white>{error}",
+        "success": "<#279CF5>Köpt för <#c0f0ff>${price}<#279CF5>!",
+        "seller-message": "<#279CF5><#c0f0ff>{buyer}<#279CF5> köpte ditt föremål för <#c0f0ff>${price}<#279CF5>!"
+      },
+
+      "remove": {
+        "no-pending": "<#FF2424>Ingen väntande borttagning hittades!",
+        "success": "<#279CF5>Föremål borttaget framgångsrikt!",
+        "inventory-full": "<#279CF5>Föremål släppt på marken (lagret fullt)",
+        "cancelled": "<#279CF5>Borttagning avbruten.",
+        "not-found": "<#FF2424>Föremål hittades inte!",
+        "failed": "<#FF2424>Misslyckades med att ta bort föremålet. Försök igen."
+      }
+    },
+    "paytoggle": {
+      "only-player": "<#279CF5>Endast spelare kan använda detta kommando.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "enabled": "<#279CF5>Betalningar <#c0f0ff>aktiverade<#279CF5>.",
+      "disabled": "<#FF2424>Betalningar <#c0f0ff>inaktiverade<#FF2424>.",
+      "error": "<#FF2424>Fel vid växling av betalningstillstånd."
+    },
+    "pay": {
+      "only-player": "<#279CF5>Endast spelare kan använda detta kommando.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Användning: <white>{usage}",
+      "player-not-found": "<#FF2424>Spelare hittades inte: <white>{player}",
+      "self-payment": "<#FF2424>Du kan inte betala dig själv!",
+      "invalid-amount": "<#FF2424>Ogiltigt belopp: <white>{amount}",
+      "positive-amount": "<#FF2424>Beloppet måste vara positivt!",
+      "not-enough": "<#FF2424>Du behöver <#c0f0ff>${needed}<#FF2424>, du har <#279CF5>${balance}",
+      "target-disabled": "<#FF2424>{player} har inaktiverat betalningar!",
+      "confirmation-expired": "<#FF2424>Föregående betalningsbekräftelse gick ut.",
+      "pending-other": "<#279CF5>Väntande betalning till <#c0f0ff>{player} <#279CF5>för <#c0f0ff>${amount}",
+      "confirm-message": "<#279CF5>Klicka för att bekräfta: Betala <#c0f0ff>${amount} <#279CF5>till <#c0f0ff>{player}",
+      "confirm-instruction": "<#708090>Skriv <white>{command} <#708090>igen för att bekräfta.",
+      "success-sender": "<#279CF5>Du betalade <#c0f0ff>${amount} <#279CF5>till <#c0f0ff>{player}",
+      "success-target": "<#279CF5>Du mottog <#c0f0ff>${amount} <#279CF5>från <#c0f0ff>{player}",
+      "error": "<#FF2424>Fel vid kontroll av betalningsstatus."
+    },
+    "payconfirmtoggle": {
+      "only-player": "<#279CF5>Endast spelare kan använda detta kommando.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "disabled": "<#279CF5>Betalningsbekräftelser <#c0f0ff>inaktiverade<#279CF5>.",
+      "enabled": "<#279CF5>Betalningsbekräftelser <#c0f0ff>aktiverade<#279CF5>.",
+      "error": "<#FF2424>Fel vid växling av bekräftelsetillstånd."
+    },
+    "balance": {
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-others": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Användning: <white>{usage}",
+      "only-player": "<#FF2424>Endast spelare kan kontrollera sitt eget saldo.",
+      "player-not-found": "<#FF2424>Spelare hittades inte: <white>{player}",
+      "self": "<#279CF5>Ditt saldo är <#c0f0ff>{balance}<#279CF5>.",
+      "other": "<#279CF5>{player}s saldo är <#c0f0ff>{balance}<#279CF5>."
+    },
+    "balancetop": {
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "header": "<#279CF5>=== Topp {limit} Rikaste Spelare ===",
+      "entry": "<#279CF5>#{rank} <white>{player} <#708090>- <#279CF5>{balance}",
+      "footer": "<#279CF5>========================="
+    },
+    "coinflip": {
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Användning: <white>{usage}",
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando.",
+      "invalid-amount": "<#FF2424>Ogiltigt belopp: <white>{amount}",
+      "positive-amount": "<#FF2424>Beloppet måste vara positivt!",
+      "not-enough": "<#FF2424>Du behöver <#c0f0ff>${needed}<#FF2424>, du har <#279CF5>${balance}",
+      "win": "<#279CF5>Du vann <#c0f0ff>${amount}<#279CF5>!",
+      "lose": "<#FF2424>Du förlorade <#c0f0ff>${amount}<#FF2424>."
+    },
+    "powertool": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-create": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424> för att skapa PowerVerktyg!",
+      "usage": "<#279CF5>Användning: <white>/powertool <kommando> | <användningar> | <namn> | <verktyg> | förtrollad <ja/nej>",
+      "invalid-uses": "<#FF2424>Användningar måste vara -1 (oändligt) eller 1-{max}.",
+      "invalid-tool": "<#FF2424>Ogiltigt verktygsmaterjal: <white>{tool}",
+      "received-tool": "<#279CF5>Du mottog PowerVerktyg: <white>{name}",
+      "out-of-uses": "<#FF2424>Ditt PowerVerktyg har tagit slut på användningar!"
+    },
+    "gravity": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando.",
+      "target-not-found": "<#FF2424>Spelare hittades inte.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-sub": "<#FF2424>Du behöver behörighet <#c0f0ff>{subpermission}<#FF2424>!",
+      "usage": "<#279CF5>Användning: <white>/gravity [spelare] [-s]",
+      "toggled-self": "<#279CF5>Gravitation <#c0f0ff>{state}<#279CF5>.",
+      "toggled-other": "<#279CF5>Gravitation <#c0f0ff>{state}<#279CF5> för <#c0f0ff>{target}<#279CF5>."
+    },
+    "thunder": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando!",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-others": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "struck": "<#279CF5>Åsk-effekt framkallad vid <#c0f0ff>{target}<#279CF5>.",
+      "self-name": "<white>dig själv"
+    },
+    "celebrate": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando!",
+      "target-not-found": "<#FF2424>Spelare hittades inte.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-others": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Användning: /celebrate [spelare] [-s]",
+      "message": "<#279CF5>Boom! Firande!",
+      "message-other": "<#279CF5>Firande för <#c0f0ff>{target}<#279CF5>.",
+      "self-name": "<white>dig själv"
+    },
+    "fireball": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando!",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "launched": "<#279CF5>Eldkula avfyrad."
+    },
+    "fakeop": {
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Användning: <white>/fakeop <spelare>",
+      "target-not-found": "<#FF2424>Spelare hittades inte.",
+      "fake-message": "<#708090><italic>[Server: Gjorde {target} till serveroperatör]",
+      "success": "<#279CF5>Fake OP skickat till <#c0f0ff>{target}<#279CF5>."
+    },
+    "whois": {
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Användning: <white>/whois <spelare>",
+      "target-not-found": "<#FF2424>Spelare hittades inte.",
+      "info-header": "<#279CF5>Spelarinfo:",
+      "info-name": "<#708090>Namn: <white>{name}",
+      "info-health": "<#708090>Hälsa: <white>{health}",
+      "info-location": "<#708090>Plats: <white>{location}"
+    },
+    "kittycannon": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando!",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Användning: <white>/kittycannon [hastighet]",
+      "fired": "<#279CF5>Kattlekanon avfyrad med hastighet {velocity}.",
+      "name": "<#279CF5>Kattlekanon!"
+    },
+    "explosion": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando!",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "no-radius": "<#279CF5>Vänligen ange en radie!",
+      "invalid-radius": "<#FF2424>Ogiltig radie: {input}",
+      "created": "<#279CF5>Explosion skapad med radie <#c0f0ff>{radius}<#279CF5>.",
+      "usage": "<#279CF5>Användning: <white>/explosion <radie>"
+    },
+    "canon": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Användning: <white>/canon",
+      "success": "<#279CF5>Woosh! Du sköts upp i luften!"
+    },
+    "lightning": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando!",
+      "target-not-found": "<#FF2424>Spelare <white>{target}</white> hittades inte.",
+      "no-permission": "<#FF2424>Du behöver <white>{permission}</white>-behörigheten.",
+      "struck-self": "<#279CF5>Blixt slog ner!",
+      "struck-other": "<#279CF5>Blixt slog <#c0f0ff>{target}<#279CF5>.",
+      "usage": "<#279CF5>Användning: <white>/lightning [spelare] [-s]"
+    },
+    "swap": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando!",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Användning: <white>/swap <spelare>",
+      "target-not-found": "<#FF2424>Spelare <white>{target}</white> hittades inte eller kan inte byta med dig själv.",
+      "success": "<#279CF5>Du bytte platser med <#c0f0ff>{target}<#279CF5>.",
+      "target-notified": "<#279CF5><#c0f0ff>{player}</#c0f0ff> bytte platser med dig!"
+    },
+    "beezooka": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando!",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Användning: <white>/beezooka [hastighet]",
+      "fired": "<#279CF5>Beezooka avfyrad med hastighet {velocity}.",
+      "name": "<#279CF5>Beezooka-Bi!"
+    },
+    "glow": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando!",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Användning: <white>/glow",
+      "disabled": "<#708090>Lysande inaktiverat.",
+      "enabled": "<#279CF5>Lysande aktiverat."
+    },
+    "near": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "header": "<#279CF5>Spelare nära dig:",
+      "entry": "<#279CF5>- {name} <#708090>({distance} block)",
+      "none": "<#FF2424>Inga spelare i närheten."
+    },
+    "rename": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#FF2424>Användning: /rename <namn>",
+      "no-item": "<#FF2424>Du håller inte i ett föremål.",
+      "no-meta": "<#FF2424>Kunde inte få föremålsmetadata.",
+      "renamed": "<#279CF5>Föremål bytte namn till: <white>{item}"
+    },
+    "world": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#FF2424>Användning: /world",
+      "current": "<#279CF5>Du är i värld: <#c0f0ff>{world}"
+    },
+    "language": {
+      "usage": "<#279CF5>Användning: /language <språk>",
+      "invalid": "<#FF2424>Ogiltigt språk: <white>{lang}",
+      "changed": "<#279CF5>Språk ändrat till: <white>{lang}"
+    },
+    "warp": {
+      "usage": "<#279CF5>Användning: <#279CF5>/warp <namn>",
+      "not-found": "<#FF2424>Warp <#c0f0ff>{warp}<#FF2424> hittades inte.",
+      "success": "<#279CF5>Teleporterade till warp <#c0f0ff>{warp}",
+      "cooldown-active": "<#FF2424>Vänta <#c0f0ff>{time}<#FF2424> sekunder innan du warpar igen."
+    },
+    "setwarp": {
+      "usage": "<#279CF5>Användning: <#279CF5>/setwarp <namn>",
+      "limit-reached": "<#FF2424>Du har nått din warp-gräns på <#c0f0ff>{limit}<#FF2424>!",
+      "already-exists": "<#FF2424>Warp <#c0f0ff>{warp}<#FF2424> finns redan.",
+      "success": "<#279CF5>Skapade warp <#c0f0ff>{warp}"
+    },
+    "delwarp": {
+      "usage": "<#FF2424>Användning: <#279CF5>/delwarp <namn>",
+      "not-found": "<#FF2424>Warp <#c0f0ff>{warp}<#FF2424> hittades inte.",
+      "no-permission": "<#FF2424>Du har inte behörighet att ta bort denna warp!",
+      "success": "<#279CF5>Tog bort warp <#c0f0ff>{warp}"
+    },
+    "warps": {
+      "empty": "<#279CF5>Inga warps har ställts in!",
+      "header": "<#279CF5>------[ Warps ]------",
+      "entry": "<#279CF5>{warp}",
+      "footer": "<#279CF5>-------------------"
+    },
+    "ban": {
+      "usage": "<#FF2424>Användning: <#279CF5>/ban <spelare> <tid> <anledning>",
+      "never-joined": "<#FF2424>Den spelaren har aldrig gått med i servern.",
+      "invalid-time": "<#FF2424>Ogiltigt tidsformat. Använd <#c0f0ff>s/m/t/d<#FF2424> eller <#c0f0ff>perm<#FF2424>",
+      "success": "<#279CF5><#c0f0ff>{player}<#279CF5> har blivit bannad.",
+      "kick-message": "<#FF2424>Du har blivit bannad från <#FF2424>{server}\n<#708090>Anledning: <#c0f0ff>{reason}\n<#708090>Bannad av: <#c0f0ff>{banner}\n<#708090>Fram till: <#c0f0ff>{until}\n\n<#708090>Överklaga på: <#c0f0ff>{discord}"
+    },
+    "banlist": {
+      "empty": "<#279CF5>Det finns inga bannade spelare.",
+      "header": "<#279CF5>------[ Bannade Spelare ]------",
+      "format": "<#FF2424>{player} <#708090>- <white>{reason} <#708090>(<#c0f0ff>{time})",
+      "footer": "<#279CF5>-----------------------------"
+    },
+    "unban": {
+      "usage": "<#279CF5>Användning: <#279CF5>/unban <spelare>",
+      "player-not-found": "<#279CF5>Kunde inte hitta bannad spelare med namn '<#c0f0ff>{player}<#279CF5>'.",
+      "not-banned": "<#279CF5>{player} är inte för närvarande bannad.",
+      "success": "<#279CF5>{player} har blivit avbannad."
+    },
+    "mute": {
+      "usage": "<#FF2424>Användning: <#279CF5>/mute <spelare> <anledning> [varaktighet]",
+      "not-found": "<#FF2424>Spelare hittades inte.",
+      "already-muted": "<#FF2424><#c0f0ff>{player}<#FF2424> är redan tystad för <white>{reason}",
+      "success": "<#279CF5>Du tystade <#c0f0ff>{player} <#279CF5>för <white>{reason} <#279CF5>({duration}).",
+      "notify": "<#FF2424>Du har blivit tystad! <#708090>Anledning: <white>{reason} <#279CF5>({duration})",
+      "chat-blocked": "<#FF2424>Du är tystad! Anledning: <white>{reason}"
+    },
+    "unmute": {
+      "usage": "<#279CF5>Användning: <#279CF5>/unmute <spelare>",
+      "player-not-found": "<#279CF5>Spelare <#c0f0ff>{player}<#279CF5> hittades inte.",
+      "not-muted": "<#FF2424><#c0f0ff>{player}<#FF2424> är inte för närvarande tystad.",
+      "unmuted": "<#279CF5>Framgångsrikt avtystade <#c0f0ff>{player}",
+      "notify": "<#279CF5>Du har blivit avtystad!"
+    },
+    "adminchat": {
+      "format": "<#4B5563>[<#FF2424>AdminChat<#4B5563>] <#279CF5>{player} <#708090>» <white>{message}",
+      "toggle": "<#279CF5>Admin chatt-läge: {state}",
+      "only-players": "<#FF2424>Endast spelare kan använda detta kommando.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!"
+    },
+    "daily": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando!",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "command": {
+        "no-permission": "<#FF2424>Du behöver behörighet <yellow>{permission}</yellow>!"
+      },
+      "gui": {
+        "title": "<#279CF5><bold>Dagliga Belöningar</bold> - Sida <#c0f0ff>{page}",
+        "previous": "<#279CF5>⬅ Föregående Sida",
+        "next": "<#279CF5>Nästa Sida ➡",
+        "close": "<#FF2424>✕ Stäng",
+        "cooldown-display": "<#c0f0ff>Återställning: <#EBA916>{time}"
+      },
+      "rewards": {
+        "claimed": {
+          "name": "<#21D0B2><bold>✓ Uppburen</bold>",
+          "lore": "<#c0f0ff>Du har tagit emot denna belöning."
+        },
+        "cooldown": {
+          "name": "<#EBA916><bold>⏱ Återställning</bold>",
+          "lore": "<#c0f0ff>Vänta: <#EBA916>{time}"
+        },
+        "locked": {
+          "name": "<#FF2424><bold>🔒 Låst</bold>",
+          "lore": "<#c0f0ff>Slutför tidigare dagar först."
+        },
+        "available": {
+          "name": "<#279CF5>Dag <#c0f0ff>{day}"
+        }
+      },
+      "messages": {
+        "claim-already": "<#FF2424>Du har redan tagit emot denna belöning!",
+        "claim-locked": "<#FF2424>Du måste ta emot tidigare dagar först!",
+        "claim-cooldown": "<#FF2424>Du måste vänta <#c0f0ff>{time}<#FF2424> innan du kan ta emot igen!",
+        "claim-success": "<#279CF5>Du tog emot Dag <#c0f0ff>{day}<#279CF5> belöning!",
+        "claim-error": "<#FF2424>Misslyckades med att ta emot belöning. Försök igen."
+      }
+    },
+    "tpa": {
+      "no-player": "<#FF2424>Spelare <#c0f0ff>{player}<#FF2424> hittades inte.",
+      "cannot-tpa-self": "<#FF2424>Du kan inte skicka en TPA-förfrågan till dig själv.",
+      "target-toggled": "<#FF2424>{player} har inaktiverat TPA-förfrågningar.",
+      "crossworld-disabled": "<#FF2424>Teleportering mellan världar är inaktiverad.",
+      "blocked-world": "<#FF2424>Du kan inte teleportera till denna värld.",
+      "cooldown": "<#FF2424>Vänta <#c0f0ff>{time}<#FF2424> sekunder innan du använder TPA igen.",
+      "not-enough-money": "<#FF2424>Du behöver <#c0f0ff>${cost}<#FF2424> för denna TPA-förfrågan.",
+      "request-sent": "<#279CF5>TPA-förfrågan skickad till <#c0f0ff>{player}",
+      "request-sent-here": "<#279CF5>TPA-hit-förfrågan skickad till <#c0f0ff>{player}",
+      "request-received": "<#279CF5><bold>{player}</bold> vill teleportera till dig! <white>[<#279CF5>/tpaccept {player} | <#FF2424>/tpdeny {player}]",
+      "request-received-here": "<#279CF5><bold>{player}</bold> vill att du teleporterar till dem! <white>[<#279CF5>/tpaccept {player} | <#FF2424>/tpdeny {player}]",
+      "request-received-all": "<#279CF5><bold>{player}</bold> vill att alla teleporterar! <white>[<#279CF5>/tpaccept {player}]",
+      "request-accepted": "<#279CF5>{player} accepterade din förfrågan! Teleporterar om <#c0f0ff>{delay}s",
+      "request-accepted-target": "<#279CF5>Du accepterade <#c0f0ff>{player}s<#279CF5> förfrågan.",
+      "request-denied": "<#FF2424>{player} nekade din TPA-förfrågan.",
+      "request-denied-target": "<#279CF5>Du nekade <#c0f0ff>{player}s<#279CF5> förfrågan.",
+      "no-request": "<#FF2424>Du har inga väntande TPA-förfrågningar.",
+      "no-request-from-player": "<#FF2424>Ingen väntande förfrågan från <#c0f0ff>{player}",
+      "no-requests-sent": "<#FF2424>Du har inga väntande TPA-förfrågningar att avbryta.",
+      "teleport-cancelled-move": "<#FF2424>Teleportering avbruten på grund av rörelse!",
+      "warmup-start": "<#279CF5>Uppvärmning startad... <#FF2424>Rör dig inte!",
+      "toggle-on": "<#279CF5>TPA-förfrågningar är nu <bold>INAKTIVERADE",
+      "toggle-off": "<#279CF5>TPA-förfrågningar är nu <bold>AKTIVERADE",
+      "request-cancelled": "<#279CF5>Avbröt TPA-förfrågan till <#c0f0ff>{player}",
+      "request-cancelled-target": "<#279CF5>{player} avbröt deras TPA-förfrågan.",
+      "request-cancelled-all": "<#279CF5>Avbröt alla dina TPA-förfrågningar.",
+      "request-expired": "<#FF2424>Din TPA-förfrågan till <#c0f0ff>{player} <#FF2424>gick ut.",
+      "request-expired-target": "<#FF2424>TPA-förfrågan från <#c0f0ff>{player} <#FF2424>gick ut.",
+      "request-sent-all": "<#279CF5>Skickade TPA-förfrågan till <#c0f0ff>{count} <#279CF5>spelare.",
+      "info-incoming-header": "<#279CF5><bold>Inkommande Förfrågningar:",
+      "info-outgoing-header": "<#279CF5><bold>Utgående Förfrågningar:",
+      "info-request": "<#279CF5>- {player} <#708090>({type})"
+    },
+    "fly": {
+      "enabled": "<#279CF5>Flygning aktiverad! Tryck <white>MELLANSLAG<#279CF5> två gånger för att flyga.",
+      "disabled": "<#FF2424>Flygning inaktiverad.",
+      "error": "<#FF2424>Fel: Kunde inte spara flygningstillstånd.",
+      "cooldown": "<#FF2424>Vänta <#c0f0ff>{time}s<#FF2424> innan du växlar flygning igen.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>fly.use<#FF2424> för att använda detta kommando."
+    },
+    "reports": {
+      "cooldown": "<#FF2424>Vänta <#c0f0ff>{time}<#FF2424> sekunder innan du rapporterar igen.",
+      "reason-too-long": "<#FF2424>Anledning för lång! Max <#c0f0ff>{max}<#FF2424> tecken.",
+      "error": "<#FF2424>Fel vid behandling av rapport.",
+      "command": {
+        "usage": "<#FF2424>Användning: /report <spelare> <anledning>",
+        "invalid-player": "<#FF2424>Spelare <#c0f0ff>{player}<#FF2424> hittades inte.",
+        "submitted": "<#279CF5>Rapport inlämnad mot <#c0f0ff>{player}",
+        "notify": "<#FF2424>[REPORT] <#279CF5>{reporter} <#FF2424>rapporterade <#279CF5>{target} <#708090>för {reason} <#708090>(ID: {id})"
+      },
+      "commandclear": {
+        "usage": "<#279CF5>Användning: /reportclear <id>",
+        "invalid": "<#279CF5>Ogiltigt rapport-ID: <#c0f0ff>{id}",
+        "cleared": "<#279CF5>Rensade rapport-ID: <#c0f0ff>{id}"
+      },
+      "list": {
+        "header": "<#279CF5>----- <#279CF5>Alla Rapporter<#279CF5> -----",
+        "none": "<#279CF5>Inga rapporter hittades.",
+        "entry": "<#708090>[{id}] <#279CF5>{reporter} → <#279CF5>{target}: <white>{reason}",
+        "footer": "<#279CF5>Totalt: <#c0f0ff>{count} <#279CF5>rapporter"
+      },
+      "reportslist": {
+        "header": "<#279CF5>Du har väntande rapporter att granska:",
+        "entry": "<#FF2424>[VÄNTANDE] <#279CF5>{reporter} → <#279CF5>{target}: <#708090>{reason} <#708090>(ID: {id})"
+      }
+    },
+    "rules": {
+      "only-player": "<#FF2424>Endast spelare kan använda detta kommando.",
+      "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-sub": "<#FF2424>Du behöver behörighet <#c0f0ff>{subpermission}<#FF2424>!",
+      "usage": "<#279CF5>Användning: <white>/rules [acceptera|ladda om]",
+      "no-rules": "<#FF2424>Inga regler är för närvarande konfigurerade.",
+      "already-accepted": "<#279CF5>Du har redan accepterat de senaste reglerna.",
+      "error": "<#FF2424>Ett fel uppstod: <#c0f0ff>{error}",
+      "reload-success": "<#279CF5>Regler laddades om framgångsrikt!",
+      "reload-failure": "<#FF2424>Misslyckades med att ladda om regler: <#c0f0ff>{error}",
+      "gui": {
+        "title": "<#279CF5>Serverregler",
+        "no-rules": "<#FF2424>Inga regler är för närvarande konfigurerade.",
+        "info-title": "<#FFD700><bold>ℹ Server Regler Info",
+        "info-line1": "<#708090>Vänligen läs och acceptera",
+        "info-line2": "<#708090>våra gemenskapsriktlinjer",
+        "page-info": "<#FFB000>Sida <#FFFFFF>{current}<#FFB000> / <#FFFFFF>{total}",
+        "prev-page": "<#279CF5>← Föregående Sida",
+        "prev-page-lore": "<#708090>Klicka för att gå tillbaka",
+        "next-page": "<#279CF5>Nästa Sida →",
+        "next-page-lore": "<#708090>Klicka för att fortsätta",
+        "accept-title": "<#00FF7F><bold>✔ Acceptera Regler",
+        "accept-lore1": "<#708090>Klicka för att acceptera reglerna",
+        "accept-lore2": "<#708090>och få tillgång till servern",
+        "decline-title": "<#FF2424><bold>✖ Avböj & Lämna",
+        "decline-lore1": "<#708090>Klicka för att avböja och",
+        "decline-lore2": "<#708090>lämna servern",
+        "rule-name": "<#FFFFFF><bold>Regel #{number}",
+        "rule-content": "<#C0C0C0>",
+        "rule-hint": "<#708090><italic>Läs alla regler innan du accepterar"
+      },
+      "accept": {
+        "success": "<#279CF5>Du har accepterat serverreglerna!"
+      },
+      "decline": {
+        "kick-message": "<#FF2424>Du måste acceptera reglerna för att gå med i denna server!"
+      },
+      "close": {
+        "cannot-close": "<#FF2424>⚠ Du måste acceptera reglerna innan du spelar!"
+      }
+    },
+    "chatfilter": {
+      "blocked": "<#FF2424>Ditt meddelande innehöll olämpligt språk.",
+      "staff-notice": "<#F54927>[<#FF2424>Filter<#F54927>] <white>{player}<#FF2424> : <white>{message}"
+    },
+    "rtp": {
+      "gui": {
+        "title": "<bold><gradient:#279CF5:#279CF5>RTP Meny</gradient>",
+        "overworld": {
+          "name": "<#279CF5>Övervärlden",
+          "lore": [
+            "<#708090>Klicka för att teleportera till slumpmässig",
+            "<#708090>plats i övervärlden"
+          ]
+        },
+        "nether": {
+          "name": "<#FF2424>Nederländerna",
+          "lore": [
+            "<#708090>Klicka för att teleportera till slumpmässig",
+            "<#708090>plats i nederländerna"
+          ]
+        },
+        "end": {
+          "name": "<#4169E1>Slutet",
+          "lore": [
+            "<#708090>Klicka för att teleportera till slumpmässig",
+            "<#708090>plats i slutet"
+          ]
+        }
+      },
+      "world_disabled": "<#FF2424>RTP är inaktiverat i denna värld!",
+      "cooldown": "<#FF2424>Vänta <#c0f0ff>{seconds} sekunder</#c0f0ff> innan du använder RTP igen!",
+      "teleport_success": "<#279CF5>Framgångsrikt teleporterad till <white>{world}",
+      "reloaded": "<#279CF5>RTP-konfiguration laddades om!"
+    },
+    "lobby": {
+      "no-lobby": "<#FF2424>Ingen lobby har ställts in för denna värld.",
+      "teleported": "<#279CF5>Teleporterad till lobby!",
+      "set": "<#279CF5>Lobby-plats inställd!",
+      "set-world": "<#279CF5>Lobby för värld <#c0f0ff>{world}<#279CF5> inställd!",
+      "removed": "<#279CF5>Lobby-plats borttagen.",
+      "cooldown-active": "<#FF2424>Vänta <#c0f0ff>{time}<#FF2424> sekunder innan du teleporterar igen.",
+      "usage-world": "<#FF2424>Användning: <#279CF5>/lobby world <värld-namn>",
+      "world-not-found": "<#FF2424>Värld <#c0f0ff>{world}<#FF2424> hittades inte."
+    },
+    "general": {
+      "error": "<#FF2424>Ett fel uppstod: {error}",
+      "success": "<#279CF5>Framgång!",
+      "loading": "<#708090>Laddar..."
+    },
+    "database": {
+      "header": "<#4169E1>╔════════════════════════════════════╗",
+      "title": "<#4169E1>║  <bold>Databasstatus</bold>                     ║",
+      "separator": "<#4169E1>╠════════════════════════════════════╣",
+      "footer": "<#4169E1>╚════════════════════════════════════╝",
+      "none": "<#FF2424>Inga databaser konfigurerade!",
+      "entry": "<#4169E1>║  <#c0f0ff>{name}</#c0f0ff> - {status}{msg} <#708090>({enabled})</#708090>  ║"
+    },
+    "sv": {
+      "economy": {
+        "shop": {
+          "main-title": "<gradient:#279CF5:#279CF5>Serverbutik</gradient>",
+          "section-title": "<#279CF5>{section} Butik",
+          "disabled": " <#FF2424>Butiken är inaktiverad",
+          "balance-display": "<#279CF5>Ditt saldo: <#c0f0ff>{balance}",
+          "buy-success": "<#279CF5>Köpte <white>{amount}x {item} <#279CF5>för <#c0f0ff>{price}",
+          "sell-success": "<#279CF5>Sålde <white>{amount}x {item} <#279CF5>för <#c0f0ff>{price}",
+          "cannot-afford": "<#FF2424>Har inte råd med {item} (kostnad: <#c0f0ff>{price})",
+          "no-items": "<#FF2424>Inte tillräckligt med {item} att sälja",
+          "no-section": "<#FF2424>Butikssektionen '<#c0f0ff>{section}<#FF2424>' hittades inte!",
+          "reload-success": "<#279CF5>Butikskonfigurationen laddades om.",
+          "reload-error": "<#FF2424>Fel vid omladdning av butikskonfiguration. Kontrollera konsolen.",
+          "no-economy": "<#FF2424>Ekonomi ej tillgänglig. Butiken är endast visning.",
+          "transaction-failed": "<#FF2424>Transaktionen misslyckades: {error}",
+          "no-main-config": "<#FF2424>Butikskonfiguration hittades inte. Kontakta en administratör.",
+          "quantity-title": "<#279CF5>Välj antal: <#c0f0ff>{item}",
+          "custom-amount-prompt": "<#279CF5>Skriv mängden du vill köpa i chatten, eller skriv <#FF2424>cancel<#279CF5> för att avbryta.",
+          "custom-amount-timeout": "<#FF2424>✗ Tiden för inmatning gick ut.",
+          "cancelled": "<#FF2424>✗ Köpet avbröts",
+          "zero-quantity": "<#FF2424>✗ Välj ett antal större än 0",
+          "negative-amount": "<#FF2424>✗ Antalet måste vara positivt",
+          "invalid-amount": "<#FF2424>✗ Ogiltigt antal. Ange ett nummer.",
+          "cannot-afford-bulk": "<#FF2424>✗ Du har inte råd med {quantity}x {item} (kostnad: <#c0f0ff>{price})",
+          "bulk-buy-success": "<#279CF5>✓ Du köpte {quantity}x {item} för <#c0f0ff>{price}",
+          "gui": {
+            "close-button": "<#FF2424>✕ Stäng",
+            "back-button": "<#279CF5>← Tillbaka",
+            "previous-page": "<#708090>← Föregående",
+            "next-page": "<#708090>Nästa →",
+            "loading": "<#708090>Laddar..."
+          }
+        },
+        "sellgui": {
+          "disabled": "<#FF2424>Sälj-GUI är inaktiverad.",
+          "sold-success": "<#279CF5><bold>SÅLT <white>{amount} <#279CF5>föremål för <#c0f0ff>{symbol}{price}",
+          "returned-items": "<#708090>Returnerade <white>{amount} <#708090>osäljbara föremål till ditt inventarium",
+          "no-items": "<#708090>Inga föremål att sälja",
+          "inventory-full": "<#279CF5>Vissa föremål släpptes (inventariet fullt)",
+          "not-sellable": "<#FF2424>Detta föremål kan inte säljas!",
+          "no-economy": "<#FF2424>Ekonomi ej tillgänglig. Kontakta en administratör.",
+          "transaction-failed": "<#FF2424>Transaktionen misslyckades: {error}",
+          "title": "<#279CF5>Sälj föremål",
+          "info": {
+            "title": "<#279CF5>SÄLJZON",
+            "subtitle": "<#708090>Lägg föremål här för att sälja",
+            "instruction": "<#279CF5>Stäng inventariet för att genomföra",
+            "value-prefix": "<#279CF5>Totalt: <#c0f0ff>"
+          }
+        }
+      }
+    },
+    "kits": {
+      "gui": {
+        "title": "<bold><gradient:#279CF5:#279CF5>Tillgängliga Kit</gradient>",
+        "preview-title": "<white>Förhandsgranska Kit: <#c0f0ff>{kit}"
+      },
+      "cooldown": "<#FF2424>Vänta <#c0f0ff>{time}s</#c0f0ff> innan du hämtar <white>{kit}</white> igen!",
+      "no-permission": "<#FF2424>Du har inte behörighet att hämta <white>{kit}</white>!",
+      "claim-success": "<#279CF5>Framgångsrikt hämtat kit <white>{kit}</white>!",
+      "kit-not-found": "<#FF2424>Kit <white>{kit}</white> hittades inte!",
+      "locked-name": "<#FF2424>Låst: <#708090>{kit}",
+      "requires-permission": "<#708090>Kräver: <white>{permission}",
+      "cooldown-info": "<#708090>Återställning: <#FF2424>{time}s återstår",
+      "claim-button": "<#279CF5>Hämta Kit",
+      "cooldown-button": "<#FF2424>På Återställning",
+      "back-button": "<#FF2424>← Tillbaka",
+      "no-kits-defined": "<#FF2424>Inga kit är för närvarande definierade!",
+      "reload-success": "<#279CF5>Kit laddades om framgångsrikt!",
+      "reload-no-permission": "<#FF2424>Du har inte behörighet att ladda om kit!"
+    },
+    "mail": {
+      "on-join": "<#279CF5>Du har <#c0f0ff>{count}</#c0f0ff> olästa meddelanden! Använd <white>/mail read</white>",
+      "send-usage": "<#FF2424>Användning: /mail send <spelare> <meddelande>",
+      "no-mail": "<#279CF5>Du har ingen mail.",
+      "usage": {
+        "header": "<#279CF5>----- <white>Mail System <#279CF5>-----",
+        "read": "<#279CF5>/mail read <#708090>- <white>Läs din inkorg",
+        "send": "<#279CF5>/mail send <spelare> <meddelande> <#708090>- <white>Skicka ett mail",
+        "clear": "<#279CF5>/mail clear <#708090>- <white>Rensa all mail",
+        "footer": "<#279CF5>---------------------------"
+      },
+      "header": "<#279CF5><bold>Din Mailbox:</bold>",
+      "message": {
+        "index": "<#708090>[{index}]",
+        "sender": "<#279CF5>{sender}: "
+      },
+      "footer": "<#279CF5>-------------------- <#708090>({count} meddelanden)",
+      "cooldown": "<#FF2424>Vänta {time} sekunder innan du skickar mail igen.",
+      "player-not-found": "<#FF2424>Spelare <#c0f0ff>{player}<#FF2424> hittades inte.",
+      "message-too-long": "<#FF2424>Meddelande för långt! Max <#c0f0ff>{max}<#FF2424> tecken.",
+      "sent": "<#279CF5>Mail skickat till <#c0f0ff>{player}",
+      "received": "<#279CF5>Du har nytt mail från <#c0f0ff>{sender}</#c0f0ff>! Använd <white>/mail read</white>",
+      "error": "<#FF2424>Fel vid bearbetning av mail.",
+      "cleared": "<#279CF5>All mail rensad!"
+    },
+    "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}<#FF2424>!"
+  }
+}

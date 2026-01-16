@@ -1,0 +1,1006 @@
+name: ServerEssentials
+main: net.godlycow.org.EssC
+version: 2.0.8.5
+api-version: 1.20
+softdepend:
+  - Vault
+  - Luckperms
+  - PlaceholderAPI
+website: https://net.godlycow.org/serveressentials
+author: _GodlyCow
+commands:
+  eco:
+    description: Check or modify a player's balance.
+    usage: /eco
+    permission: essc.command.eco
+
+  settings:
+    description: Access to /settings
+    usage: /settings
+    permission: essc.command.settings
+
+
+  balance:
+    description: Check your or another player's balance
+    usage: /balance [player]
+    permission: essc.command.balance
+
+  fuck:
+    description: Sends a funny custom message
+    usage: /fuck
+    permission: essc.command.fuck
+  firstjoin:
+    description: FirstJoin admin
+    usage: /firstjoin <reload|gui <id>>
+    permission: firstjoin.admin
+  sell:
+    description: Sell Items !
+    usage: /sellgui
+    permission: essc.command.sell
+    aliases:
+      - sellg
+  unloadworld:
+    description: Unloads a specific world
+    usage: /unloadworld <world_name>
+    permission: essc.command.unloadworld
+
+  session:
+    description: Shows how long you've been online this session.
+    usage: /session
+    permission: essc.command.session
+
+  iteminfo:
+    description: Shows information about the item in your hand.
+    usage: /iteminfo
+    permission: essc.command.iteminfo
+
+  tpp:
+    description: Teleport a player to a world or specific coordinates.
+    usage: /tpp <player> <world> [x y z]
+    permission: essc.command.tpp
+
+  pingall:
+    description: Shows the ping of every online player.
+    usage: /pingall
+    permission: essc.command.pingall
+
+  loadworld:
+    description: Load a world by name
+    usage: /loadworld <worldname>
+    permission: essc.command.loadworld
+
+  uptime:
+    description: Shows how long the server has been running.
+    usage: /uptime
+    permission: essc.command.uptime
+
+  worldlist:
+    description: Lists all worlds and their loaded/unloaded status.
+    usage: /worldlist
+    permission: essc.command.worldlist
+
+  balancetop:
+    description: Show top richest players
+    usage: /balancetop
+    permission: essc.command.balancetop
+    aliases:
+      - baltop
+
+  serveressentials:
+    description: Main command for ServerEssentials
+    usage: /serveressentials [Info/Version/Help/Reload]
+    permission: essc.use
+
+  shop:
+    description: Open the premium shop GUI
+    usage: /shop
+    permission: essc.command.shop
+    aliases: [shopgui, store, market]
+
+
+
+  tree:
+    descirption: Spawn a tree
+    usage: /tree <type>
+    permission: essc.command.tree
+
+  rtp:
+    description: Random teleport.
+    usage: /rtp
+    permission: essc.command.rtp
+
+  vanish:
+    description: Vanish from other players.
+    usage: /vanish
+    permission: essc.command.vanish
+
+  god:
+    description: Toggle god mode.
+    usage: /god
+    permission: essc.command.god
+
+  invsee:
+    description: View another player's inventory.
+    usage: /invsee <player>
+    permission: essc.command.invsee
+
+  invclear:
+    description: Clear a player's inventory.
+    usage: /invclear <player>
+    permission: essc.command.invclear
+
+  tp:
+    description: Teleport to a player.
+    usage: /tp <player>
+    permission: essc.command.tp
+
+  se:
+    description: Its a command gng
+    usage: /se <Info/Version/Reload>
+    permission: essc.se
+
+  powertool:
+    description: Gives you a PowerTool stick.
+    aliases:
+      - pt
+    usage: /powertool <command> <uses> <name>
+    permission: essc.command.powertool
+
+  auction:
+    description: Open the auction GUI or manage auction items
+    usage: /auction [my|sell <price>]
+    aliases:
+      - ah
+    permission: essc.command.auction.use
+
+  adminchat:
+    description: Admin-only chat.
+    usage: /adminchat
+    permission: essc.command.adminchat
+
+  home:
+    description: List all your homes.
+    usage: /home
+    permission: essc.command.homes
+
+  nick:
+    description: Set your nickname
+    usage: /nick <newNick/reset>
+    permission: essc.command.nick
+
+  nicks:
+    description: Nick management commands
+    usage: /nicks <reload|reset <player>>
+    permission: essc.command.nicks
+
+  rename:
+    description: Rename the item in your hand
+    usage: /rename <name>
+    permission: essc.command.rename
+
+  setloreline:
+    description: Set the first lore line of an item
+    usage: /setloreline <text>
+    permission: essc.command.setloreline
+
+  ping:
+    description: Check your current ping to the server
+    usage: /ping
+    permission: essc.command.ping
+    aliases:
+      - latency
+      - ms
+  lobby:
+    description: Teleport to lobby or manage lobby locations
+    usage: /lobby | /lobby set | /lobby remove | /lobby world <world-name>
+    permission: essc.command.lobby
+
+  back:
+    description: Teleport to your last location, lobby, or death location.
+    usage: /back [back|lobby|death]
+    permission: essc.command.back
+
+  heal:
+    description: Heal yourself
+    usage: /heal
+    permission: essc.command.heal
+
+  feed:
+    description: Feed yourself
+    usage: /feed
+    permission: essc.command.feed
+
+  ptime:
+    description: Set your personal time
+    usage: /ptime <day|night|reset>
+    permission: essc.command.ptime
+
+  playtime:
+    description: View your total playtime
+    usage: /playtime
+    permission: essc.command.playtime
+
+  playerinfo:
+    description: View info about a player
+    usage: /playerinfo <player>
+    permission: essc.command.playerinfo
+
+  launch:
+    description: Launch yourself forward
+    usage: /launch
+    permission: essc.command.launch
+
+  gravity:
+    description: Toggle gravity.
+    usage: /gravity
+    permission: essc.command.gravity
+
+  repair:
+    description: Repair the item in your hand.
+    usage: /repair
+    permission: essc.command.repair
+
+  afk:
+    description: AFK
+    usage: /afk
+    permission: essc.command.afk
+
+  enderchest:
+    description: Open your ender chest.
+    usage: /enderchest
+    permission: essc.command.enderchest
+
+  endersee:
+    description: View another player's ender chest.
+    usage: /endersee <player>
+    permission: essc.command.endersee
+
+  mute:
+    description: Mute a player from chatting
+    usage: /mute <player> <reason> [duration]
+    permission: essc.command.mute
+
+  unmute:
+    description: Unmute a player
+    usage: /unmute <player>
+    permission: essc.command.unmute
+
+  night:
+    description: Set time to night
+    usage: /night
+    permission: essc.command.night
+
+  day:
+    description: Set time to day
+    usage: /day
+    permission: essc.command.day
+
+  weather:
+    description: Change the weather
+    usage: /weather <clear|rain|thunderstorm>
+    permission: essc.command.weather
+
+  mail:
+    description: Manage player mail
+    usage: /mail <read|send|clear>
+    aliases:
+      - email
+    permission: essc.command.mail
+
+  kickall:
+    description: Kick all players
+    usage: /kickall
+    permission: essc.commmand.kickall
+
+  suicide:
+    description: Kill yourself :(
+    usage: /suicide
+    permission: essc.command.suicide
+
+  explosion:
+    description: Create an explosion at your location
+    usage: /explosion <radius>
+    permission: essc.command.explosion
+
+  cartographytable:
+    description: Opens a virtual Cartography Table
+    usage: /cartographytable
+    permission: essc.command.cartographytable
+
+  inventorysort:
+    description: Sorts your inventory
+    usage: /inventorysort
+    permission: essc.command.inventorysort
+
+  tpa:
+    description: Send a teleport request to a player.
+    usage: /tpa <player>
+    permission: essc.command.tpa
+
+  tpahere:
+    description: Request a player to teleport to you.
+    usage: /tpahere <player>
+    permission: essc.command.tpahere
+
+  tpaccept:
+    description: Accept a teleport request.
+    usage: /tpaccept [player]
+    permission: essc.command.tpaccept
+
+  tpdeny:
+    description: Deny a teleport request.
+    usage: /tpdeny [player]
+    permission: essc.command.tpdeny
+
+  tpacancel:
+    description: Cancel your outgoing TPA request.
+    usage: /tpacancel [player]
+    permission: essc.command.tpacancel
+
+  tpall:
+    description: Teleport all players to you.
+    usage: /tpall
+    permission: essc.command.tpall
+
+  tpatoggle:
+    description: Toggle receiving TPA requests.
+    usage: /tpatoggle
+    permission: essc.command.tpatoggle
+
+  tpainfo:
+    description: Get information about your active TPA requests.
+    usage: /tpainfo
+    permission: essc.command.tpainfo
+
+  craftingtable:
+    description: Opens a virtual Crafting Table
+    usage: /craftingtable
+    permission: essc.command.craftingtable
+
+  anvil:
+    description: Opens a virtual Anvil
+    usage: /anvil
+    permission: essc.command.anvil
+
+  grindstone:
+    description: Opens a virtual Grindstone
+    usage: /grindstone
+    permission: essc.command.grindstone
+
+  stonecutter:
+    description: Opens a virtual Stonecutter
+    usage: /stonecutter
+    permission: essc.command.stonecutter
+
+  loom:
+    description: Opens a virtual Loom
+    usage: /loom
+    permission: essc.command.loom
+
+  smithingtable:
+    description: Opens a virtual Smithing Table
+    usage: /smithingtable
+    permission: essc.command.smithingtable
+
+  brewingstand:
+    description: Opens a virtual Brewing Stand
+    usage: /brewingstand
+    permission: essc.command.brewingstand
+
+  warp:
+    description: Teleport to a warp
+    usage: /warp <name>
+    permission: essc.command.warp
+
+  setwarp:
+    description: Set a warp location
+    usage: /setwarp <name>
+    permission: essc.command.setwarp
+
+  delwarp:
+    description: Delete a warp
+    usage: /delwarp <name>
+    permission: essc.command.delwarp
+
+  warps:
+    description: List all warps
+    usage: /warps
+    permission: essc.command.warps
+
+  deletewarp:
+    description: Delete a warp
+    usage: /deletewarp <name>
+    permission: essc.command.deletewarp
+
+  disposal:
+    description: Open a disposal inventory.
+    usage: /disposal
+    permission: essc.command.disposal
+
+  editsign:
+    description: Edit a sign
+    usage: /editsign
+    permission: essc.command.editsign
+
+  spawner:
+    description: Change a spawner's mob type
+    usage: /spawner <mob>
+    permission: essc.command.spawner
+
+  condense:
+    description: Condense items
+    usage: /condense
+    permission: essc.command.condense
+
+  msgtoggle:
+    description: Toggle messages
+    usage: /msgtoggle
+    permission: essc.msgtoggle
+  paytoggle:
+    description: Toggle payments
+    usage: /paytoggle
+    permission: essc.command.paytoggle
+
+  payconfirmtoggle:
+    description: Toggle payment confirmations
+    usage: /payconfirmtoggle
+    permission: essc.command.payconfirmtoggle
+
+  whois:
+    description: Get player information
+    usage: /whois
+    permission: essc.command.whois
+
+  seen:
+    description: Check when a player was last online
+    usage: /seen <player>
+    permission: essc.command.seen
+
+  ext:
+    description: Extension command
+    usage: /<command>
+    permission: essc.command.ext
+
+  kittycannon:
+    description: Launch a flying cat!
+    usage: /kittycannon [velocity]
+    permission: essc.command.kittycannon
+
+  beezooka:
+    description: Launch a flying bee!
+    usage: /beezooka [velocity]
+    permission: essc.command.beezooka
+
+  nuke:
+    description: Nuke a location
+    usage: /nuke
+    permission: essc.command.nuke
+
+  fireball:
+    description: Shoot a fireball
+    usage: /fireball
+    permission: essc.command.fireball
+
+  lightning:
+    description: Strike lightning
+    usage: /lightning
+    permission: essc.command.lightning
+
+  thunder:
+    description: Summon a fun lightning effect
+    usage: /thunder [player]
+    permission: essc.command.thunder
+
+  broadcastworld:
+    description: Broadcast to a world
+    usage: /broadcastworld
+    permission: essc.command.broadcastworld
+
+  book:
+    description: Give a book
+    usage: /book
+    permission: essc.command.book
+
+  recipe:
+    description: Show a recipe
+    usage: /recipe
+    permission: essc.command.recipe
+
+  near:
+    description: Show nearby players
+    usage: /nears
+    permission: essc.command.near
+
+  top:
+    description: Teleport to the top block.
+    usage: /top
+    permission: essc.command.top
+
+  bottom:
+    description: Teleport to the lowest non-air block.
+    usage: /bottom
+    permission: essc.command.bottom
+
+  hat:
+    description: Wear the item in your hand as a hat.
+    usage: /hat
+    permission: essc.command.hat
+
+  realname:
+    description: Get a player's real Minecraft name.
+    usage: /realname <nickname>
+    permission: essc.command.realname
+
+  Pay:
+    description: /pay <player> <amount>
+    usage: /pay <player> <amount>
+    permission: essc.command.pay
+
+  Freeze:
+    description: Freeze a Player
+    usage: freeze <player>
+    permission: essc.command.freeze
+
+  Unfreeze:
+    description: Unfreeze a Player
+    usage: /freeze <player>
+    permission: essc.command.unfreeze
+
+  World:
+    description: See what wolrd you are in
+    usage: /world
+    permission: essc.command.world
+
+  Compass:
+    description: Open a COmpass via Command
+    usage: /compass
+    permission: essc.command.compass
+
+  Break:
+    description: Break a Block via Command
+    usage: /break
+    permission: essc.command.break
+
+  alts:
+    description: View alternate accounts by IP
+    usage: /alts <player>
+    permission: essc.command.alts
+
+  reboot:
+    description: Reboots the server with a countdown
+    usage: /reboot <minutes>
+    permission: essc.command.reboot
+    aliases:
+      - reboot
+
+  glow:
+    description: Toggle glowing effect on yourself.
+    usage: /glow
+    permission: essc.command.glow
+    permission-message: You don't have permission to use /glow.
+
+  Track:
+    description: Track a player with your compass.
+    usage: /track <player>
+    permission: essc.command.track
+  burn:
+    description: Burn a player
+    usage: /burn <player> [seconds]
+    permission: essc.command.burn
+
+  celebrate:
+    description: Launch a firework at your location.
+    usage: /celebrate
+    permission: essc.command.celebrate
+
+  stafflist:
+    description: List online staff members
+    usage: /stafflist
+    permission: essc.command.stafflist
+
+  coinflip:
+    description: Flip a coin and gamble your money
+    usage: /coinflip <amount>
+    permission: essc.command.coinflip
+
+  report:
+    description: Report a player
+    usage: /<command> <player> <reason>
+    permission: essc.command.report
+
+  reportclear:
+    description: Clear a report by ID
+    usage: /<command> <id>
+    permission: essc.command.report.*
+
+  reportslist:
+    description: List all reports
+    usage: /<command>
+    permission: essc.command.report.*
+
+  database:
+    description: Show database status
+    usage: /database
+    permission: essc.command.database
+
+  language:
+    description: Change the language
+    usage: /language <lang>
+    permission: essc.command.language
+
+  kit:
+    description: Opens the kit menu or reloads kits
+    usage: /kit [reload]
+    permission: essc.command.kits
+
+  death:
+    description: Shows how many times you've died.
+    usage: /death
+    permission: essc.command.death
+    aliases:
+      - deaths
+  ban:
+    description: Ban a player from the server
+    usage: /ban <player> <time> <reason>
+    aliases: [b]
+    permission: essc.command.ban
+
+  banlist:
+    description: List all banned players
+    usage: /banlist
+    permission: essc.command.banlist
+  unban:
+    description: Unban a player
+    usage: /unban <player>
+    permission: essc.command.unban
+
+  broadcast:
+    description: Broadcast a message to all players
+    usage: /broadcast <message>
+    permission: essc.command.broadcast
+
+  scoreboard:
+    description: Reload scoreboard config
+    usage: /scoreboard reload | enable | disable
+    permission: essc.command.scoreboard
+
+  serverinfo:
+    description: Displays detailed server statistics
+    usage: /serverinfo
+    permission: essc.command.serverinfo
+
+  clearchat:
+    description: Clears the chat for everyone
+    usage: /clearchat
+    permission: essc.command.clearchat
+
+  rules:
+    description: View and accept server rules
+    usage: /rules [accept|reload]
+    permission: essc.command.rules
+
+  fly:
+    description: Toggles fly mode
+    usage: /fly
+    permission: essc.command.fly
+
+  speed:
+    description: Set walk/fly speed
+    usage: /speed [1-10]
+    permission: essc.command.speed
+
+  fakeop:
+    description: Pretend to OP a player
+    usage: /fakeop <player>
+    permission: essc.command.fakeop
+
+  swap:
+    description: Swap location with another player
+    usage: /swap <player>
+    permission: essc.command.swap
+
+  sleep:
+    description: Skip night and clear weather
+    usage: /sleep
+    permission: essc.command.sleep
+
+  magnet:
+    description: Toggle item magnet
+    usage: /magnet
+    permission: essc.command.magnet
+
+  daily:
+    description: Open the Daily Rewards GUI
+    usage: /daily
+    permission: essc.command.daily
+
+  canon:
+    description: Use a canon
+    usage: /canon
+    permission: essc.command.canon
+
+  notes:
+    description: Add a staff note to a player
+    usage: /notes <player> <note>
+    permission: essc.command.notes
+
+permissions:
+  essc.command.weather.clear:
+    description: Allows you to set the weather to clear
+    default: op
+
+  essc.command.weather.rain:
+    description: Allows you to set the weather to rain
+    default: op
+
+  essc.command.weather.thunderstorm:
+    description: Allows you to set the weather to thunderstorm
+    default: op
+
+  essc.command.rules.reload:
+    description: Reload the rules
+    default: op
+
+  essc.command.spawner.*:
+    description: Allows setting any spawner type
+    default: op
+
+  essc.command.rules:
+    description: Allows you to view the server rules
+    default: op
+
+# todo
+  essc.serveressentials.use:
+    description: Allows use of /essc command
+    default: op
+
+  essc.serveressentials.version:
+    description: Allows access to /essc version
+    default: op
+
+  serveressentials.serveressentials.reload:
+    essc: Allows access to /essc reload
+    default: op
+
+  essc.serveressentials.info:
+    description: Allows access to /essc info
+    default: op
+
+  essc.serveressentials.help:
+    description: Allows access to /essc help
+    default: op
+#
+
+  essc.command.sethome:
+    description: Allows opening the homes GUI
+    default: true
+
+  essc.command.sethome.*:
+    description: Allows you to set the max. amount of homes
+    default: op
+
+  essc.command.sethome.1:
+    description: Allows you to set 1 Homes
+    default: op
+
+  essc.command.sethome.2:
+    description: Allows you to set 2 Homes
+    default: op
+
+  essc.command.sethome.3:
+    description: Allows you to set 3 Homes
+    default: op
+
+  essc.command.sethome.4:
+    description: Allows you to set 4 Homes
+    default: op
+
+  essc.command.sethome.5:
+    description: Allows you to set 5 Homes
+    default: op
+
+  essc.command.sethome.6:
+    description: Allows you to set 6 Homes
+    default: op
+
+  essc.command.sethome.7:
+    description: Allows you to set 7 Homes
+    default: op
+
+  essc.command.sethome.8:
+    description: Allows you to set 8 Homes
+    default: op
+
+  essc.command.removehome:
+    description: Allows you to remove your home
+    default: op
+
+  essc.command.renamehome:
+    description: Allows you to rename your home
+    default: op
+
+  essc.command.ttp.world:
+    default: op
+    description: Allows you to tpp to a specific world
+
+  essc.command.ttp.others:
+    description: Allows you to tpp others
+    default: op
+
+  essc.command.enderchest.others:
+    description: Allows you to see other players enderchests
+    default: op
+
+  essc.command.back.lobby:
+    description: Allows you to do the /back lobby subcommand
+    default: op
+
+  essc.command.back.death:
+    description: Allows you to do the /back subcommand
+    default: op
+
+  essc.command.scoreboard.reload:
+    description: Allows you to reload the scoreboard
+    default: op
+
+  essc.command.scoreboard.toggle:
+    description: Allows you to toggle the scoreboard
+    default: op
+
+  essc.command.scoreboard.color:
+    description: Allows you to change the personal scoreboard color
+    default: op
+
+  essc.command.burn.others:
+    description: Allows you to burn other players
+    default: op
+
+  essc.command.feed.others:
+    description: Allows you to feed other players
+    default: op
+
+  essc.command.ptime.day:
+    description: Allows you to set your personal time to day
+    default: op
+
+  essc.command.ptime.night:
+    description: Allows you to set your personal time to night
+    default: op
+
+  essc.command.ptime.reset:
+    description: Allows you to reset your personal time
+    default: op
+
+  essc.command.balance.others:
+    description: Allows you to see other Players balances
+    default: op
+
+  essc.command.thunder.others:
+    description: Allows you to summon thunder at other players locations
+    default: op
+
+  essc.command.celebrate.others:
+    description: Allows you to "celebrate" other players
+    default: op
+
+  essc.command.auction.sell:
+    description: Allows you to sell items
+    default: op
+
+  essc.command.auction:
+    description: Allows you to use the auction
+    default: op
+
+  essc.command.lobby.bypass-cooldown:
+    description: Allows you to bypass the lobby cooldown
+    default: op
+
+  essc.command.lobby.set:
+    description: Allows you to set a/the Lobby
+    default: op
+
+  essc.command.lobby.remove:
+    description: Allows you to remove a/the Lobby
+    default: op
+
+  essc.command.lobby.world:
+    description: Allows you to set a/the per-world Lobby
+    default: op
+
+  essc.command.rtp.reload:
+    description: Allows you to reload the rtp System
+    default: op
+
+  essc.command.tpa.bypass.cooldown:
+    description: Allows you to bypass the TPA Cooldown
+    default: op
+
+  essc.command.heal.others:
+    description: Allows you to heal other Players
+    default: op
+
+  essc.command.endersee.others:
+    description: Allows you to see other Players enderchest
+    default: op
+#
+  essc.firstjoin.reload:
+    default: op
+    description: i forgot
+
+  essc.firstjoin.gui:
+    default: op
+    description: First Join GUI
+
+  essc.firstjoin.admin:
+    default: op
+    description: Admin Command for first join
+
+#
+
+  essc.command.ext.others:
+    default: op
+    description: Allows you to extinguish other players
+
+  essc.command.warp:
+    description: Allows you to warp to other Warps
+    default: op
+
+  essc.command.warp.bypass-cooldown:
+    description: Allows you to bypass the warp cooldown
+    default: op
+
+  essc.command.setwarp:
+    description: Allows you to set Warps
+    default: op
+
+  essc.command.setwarp.unlimited:
+    description: Allows you to set unlimited warps
+    default: op
+
+  essc.command.delwarp:
+    description: Allows you to delete your warps
+    default: op
+
+  essc.command.all:
+    description: Allows you to delete all warps
+    default: op
+
+  essc.command.delwarp.others:
+    description: Allows you to delete other warps
+    default: op
+
+  essc.command.warps:
+    description: Allows you to list all warps
+    default: op
+
+  essc.command.mail.read:
+    description: Allows you to read your mails
+    default: op
+
+  essc.command.mail.clear:
+    description: Allows you to clear your mails
+    default: op
+
+  essc.command.mail.send:
+    description: Allows you to send mails
+    default: op
+
+  essc.command.kits.reload:
+    description: Allows you to reload kits
+    default: op
+
+  essc.command.chatfilter.bypass:
+    description: Allows you to bypass the chatfilter
+    default: op
+
+  essc.command.chatfilter.see-bad-words:
+    description: Allows you to see blocked words
+    default: op
+
+  essc.command.afk.exempt:
+    description: Allows you to bypass the afk system
+    default: op
+
+
+
+

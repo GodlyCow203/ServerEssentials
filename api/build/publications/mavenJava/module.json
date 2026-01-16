@@ -1,0 +1,100 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.github.GodlyCow203",
+    "module": "ServerEssentials-api",
+    "version": "2.0.8.2",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.5"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 21,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api"
+      },
+      "files": [
+        {
+          "name": "ServerEssentials-api-2.0.8.2.jar",
+          "url": "ServerEssentials-api-2.0.8.2.jar",
+          "size": 129028,
+          "sha512": "4333a88f261b1a35de0233575a0a28f55f61cf7ca4c88832954e2b86438f3a0f94f71caad5c0b14df1288290a832648232192786dd0a90f219c17231d2cbfed8",
+          "sha256": "848e4d40d71c731da1403bb6296bf6c478d61d5e52d1af9b88511705d289158c",
+          "sha1": "070b05d5dbaf7aa5d2a5d75aee8b9d7fdd48fc91",
+          "md5": "d1002a0c60cf79abefe9a61050e3a69a"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 21,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "ServerEssentials-api-2.0.8.2.jar",
+          "url": "ServerEssentials-api-2.0.8.2.jar",
+          "size": 129028,
+          "sha512": "4333a88f261b1a35de0233575a0a28f55f61cf7ca4c88832954e2b86438f3a0f94f71caad5c0b14df1288290a832648232192786dd0a90f219c17231d2cbfed8",
+          "sha256": "848e4d40d71c731da1403bb6296bf6c478d61d5e52d1af9b88511705d289158c",
+          "sha1": "070b05d5dbaf7aa5d2a5d75aee8b9d7fdd48fc91",
+          "md5": "d1002a0c60cf79abefe9a61050e3a69a"
+        }
+      ]
+    },
+    {
+      "name": "sourcesElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "ServerEssentials-api-2.0.8.2-sources.jar",
+          "url": "ServerEssentials-api-2.0.8.2-sources.jar",
+          "size": 81594,
+          "sha512": "118368f5a595c0fcf3515e4f7df32c9f21693017195795d036cf922b2025298ce32045d6060bcd342a5f127ae86d359b6e728ffcf13a20b1f2d5e2c57da71449",
+          "sha256": "191787dfd474d6eee9864966fc5406f5280a0d032c2c5edcb5f9a96ff9f8b2d2",
+          "sha1": "65a1b82b7172ab41cb1fa73fb563e4c88c0f0081",
+          "md5": "ead3029b025d79081c8b61d58f2945d4"
+        }
+      ]
+    },
+    {
+      "name": "javadocElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "javadoc",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "ServerEssentials-api-2.0.8.2-javadoc.jar",
+          "url": "ServerEssentials-api-2.0.8.2-javadoc.jar",
+          "size": 563318,
+          "sha512": "b85c387d3b02b7b2cd407f7715c891093bb5e17f312d072f9cc43d17f180be8e5849a9ad7bfbb068a2c4c48bd7197a899e5386aea6d803940f0a2d64d8eb676f",
+          "sha256": "1cd94e6b9528c824ded72630372583f5af7429d61e0ce5d04d98ae82d152739f",
+          "sha1": "7bbdc18e081e3015a5509c3ac90317b6cb235360",
+          "md5": "66d40543e9e50663a96fda1e96754ae9"
+        }
+      ]
+    }
+  ]
+}

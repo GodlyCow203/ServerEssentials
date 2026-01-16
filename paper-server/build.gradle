@@ -1,0 +1,56 @@
+// Development server - only for local testing
+
+def runDir = layout.projectDirectory.dir('run/paper')
+def paperJar = runDir.file('paper.jar')
+def runPluginsDir = runDir.dir('plugins')
+
+tasks.register('downloadPaper') {
+    outputs.file(paperJar)
+    doLast {
+        if (!paperJar.asFile.exists()) {
+            runDir.asFile.mkdirs()
+            def version = "1.21.1"
+            def json = new groovy.json.JsonSlurper()
+                    .parseText(new URL("https://api.papermc.io/v2/projects/paper/versions/${version}").text)
+            def build = json.builds.last()
+            def url = "https://api.papermc.io/v2/projects/paper/versions/${version}/builds/${build}/downloads/paper-${version}-${build}.jar"
+            println "Downloading Paper ${version} build ${build}"
+            paperJar.asFile.bytes = new URL(url).bytes
+        }
+    }
+}
+
+tasks.register('copyPlugin', Copy) {
+    dependsOn ':plugin:shadowJar'
+    from(rootProject.layout.projectDirectory.dir('dist/plugins')) {
+        include "ServerEssentials-${rootProject.version}.jar"
+    }
+    into runPluginsDir
+}
+
+tasks.register('prepareRunServer') {
+    dependsOn downloadPaper, copyPlugin
+    doLast {
+        runDir.asFile.mkdirs()
+        runPluginsDir.asFile.mkdirs()
+
+        def eula = runDir.file('eula.txt').asFile
+        if (!eula.exists()) eula.text = "eula=true\n"
+
+        def props = runDir.file('server.properties').asFile
+        if (!props.exists()) {
+            props.text = """
+                server-port=25565
+                online-mode=false
+                motd=ServerEssentials Dev Server
+            """.stripIndent()
+        }
+    }
+}
+
+tasks.register('runPaper', Exec) {
+    dependsOn prepareRunServer
+    workingDir runDir
+    commandLine 'java', '-Xms1G', '-Xmx2G', '-jar', 'paper.jar', '--nogui'
+    standardInput = System.in
+}

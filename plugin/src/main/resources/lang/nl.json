@@ -1,0 +1,1309 @@
+{
+  "commands": {
+    "nick": {
+      "disabled": "<#FF2424>Het nickname systeem is momenteel uitgeschakeld.",
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Gebruik: <white>/nick <nickname> of /nick reset",
+      "invalid-length": "<#FF2424>Nickname moet tussen <#c0f0ff>{min} <#FF2424>en <#c0f0ff>{max} <#FF2424>tekens zijn.",
+      "blocked-word": "<#FF2424>Het woord <#c0f0ff>{word} <#FF2424>is niet toegestaan.",
+      "blacklisted": "<#FF2424>Dit nickname formaat is niet toegestaan.",
+      "no-formatting": "<#FF2424>Formatteren is niet toegestaan in nicknames.",
+      "reset-self": "<#279CF5>Je nickname is gereset.",
+      "set": "<#279CF5>Je nickname is ingesteld op <#c0f0ff>{nick}<#279CF5>."
+    },
+    "eco": {
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}!",
+      "no-economy": "<#FF2424>Economie systeem is niet beschikbaar!",
+      "usage": "<#279CF5>Gebruik: <#c0f0ff>/{label} give <speler> <bedrag>...",
+      "player-not-found": "<#FF2424>Speler niet gevonden: <#c0f0ff>{player}",
+      "unknown-subcommand": "<#FF2424>Onbekend subcommando: <#c0f0ff>{sub}\n<#708090>Beschikbaar: give, take, set, reset",
+      "negative-amount": "<#FF2424>Bedrag kan niet negatief zijn!",
+      "invalid-amount": "<#FF2424>Ongeldig bedrag: <#c0f0ff>{amount}",
+      "amount-too-high": "<#FF2424>Bedrag overschrijdt maximaal toegestane: <#c0f0ff>{max}",
+      "offline-player": "<#FF2424>Kan saldo van offline spelers niet wijzigen.",
+      "transaction-failed": "<#FF2424>Transactie mislukt: {error}",
+      "give-usage": "<#279CF5>Gebruik: <#c0f0ff>{usage}",
+      "give-success": "<#279CF5>Heeft <#c0f0ff>{amount} <#279CF5>gegeven aan <#c0f0ff>{player}",
+      "give-received": "<#279CF5>Je hebt <#c0f0ff>{amount} ontvangen",
+      "take-usage": "<#279CF5>Gebruik: <#c0f0ff>{usage}",
+      "take-success": "<#FF2425>Heeft <#c0f0ff>{amount} <#FF2425>afgenomen van <#c0f0ff>{player}",
+      "take-taken": "<#FF2425>{amount} <#708090>is van je saldo afgehaald",
+      "set-usage": "<#279CF5>Gebruik: <#c0f0ff>{usage}",
+      "set-success": "<#279CF5>Saldo voor <#c0f0ff>{player} <#279CF5>ingesteld op <#c0f0ff>{amount}",
+      "set-received": "<#279CF5>Je saldo is ingesteld op <#c0f0ff>{amount}",
+      "reset-success": "<#279CF5>Saldo gereset voor <#c0f0ff>{player}",
+      "reset-already-zero": "<#708090>Saldo voor <#c0f0ff>{player} <#708090>is al nul"
+    },
+    "nicks": {
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Gebruik: <white>/nicks reload|reset <speler>",
+      "reload": "<#279CF5>Nickname systeem herladen.",
+      "reset": "<#279CF5>Nickname gereset voor <#c0f0ff>{player}<#279CF5>.",
+      "not-found": "<#FF2424>Speler <#c0f0ff>{player} <#FF2424>niet gevonden."
+    },
+    "afk": {
+      "disabled": "<#FF2424>AFK systeem is uitgeschakeld.",
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Gebruik: <white>/afk [reload]",
+      "enter-afk": "<#279CF5>{player} is nu AFK.",
+      "leave-afk": "<#279CF5>{player} is niet meer AFK.",
+      "kick": "<#FF2424>Je bent gekickt voor AFK zijn.",
+      "reload": "<#279CF5>AFK systeem herladen."
+    },
+    "homes": {
+      "gui": {
+        "title": "<#279CF5>Home Beheerder",
+        "confirm-title": "<#FF2424>Actie Bevestigen",
+        "home-title": "<#279CF5><bold>Home <#c0f0ff>{slot}",
+        "manage-title": "<#279CF5><bold>Beheer Home <#c0f0ff>{slot}",
+        "no-permission": "<#FF2424>Geen toestemming!",
+        "click-set": "<#279CF5>Klik om in te stellen",
+        "click-teleport": "<#20B2AA>Linksklik om te teleporteren",
+        "click-manage": "<#279CF5>Rechtsklik om te beheren",
+        "click-remove": "<#c0f0ff>Klik om te verwijderen",
+        "empty": "<#708090>Lege sleuf",
+        "name": "<#708090>Naam: <#279CF5>{name}",
+        "coords": "<#708090>XYZ: <#279CF5>{x} {y} {z}",
+        "world": "<#708090>Wereld: <#279CF5>{world}",
+        "confirm": "<#279CF5>Bevestigen",
+        "cancel": "<#FF2424>Annuleren",
+        "info": "<#279CF5>Home <#c0f0ff>{slot} <#279CF5>- {mode}"
+      },
+      "empty-slot": "<#708090>Geen home ingesteld in sleuf <#c0f0ff>{slot}<#708090>.",
+      "world-missing": "<#FF2424>Home wereld is niet meer beschikbaar!",
+      "world-disabled": "<#FF2424>Je kunt geen homes in deze wereld gebruiken!",
+      "require-empty-inventory": "<#FF2424>Je moet een lege inventaris hebben om een home in te stellen!",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-remove": "<#FF2424>Je hebt geen toestemming om homes te verwijderen!",
+      "teleport-cooldown": "<#FF2424>Wacht <#c0f0ff>{seconds}s <#FF2424>voordat je weer kunt teleporteren!",
+      "set-cooldown": "<#FF2424>Wacht <#c0f0ff>{seconds}s <#FF2424>voordat je een andere home instelt!",
+      "cross-world-disabled": "<#FF2424>Cross-wereld teleporteren is uitgeschakeld!",
+      "teleport-restricted": "<#FF2424>Je kunt niet vanuit deze wereld teleporteren!",
+      "teleport": "<#279CF5>Geteleporteerd naar home <#c0f0ff>{slot}<#279CF5>.",
+      "set": "<#279CF5>Home <#c0f0ff>{slot} <#279CF5>ingesteld op <#c0f0ff>{world} {x} {y} {z}<#279CF5>.",
+      "remove": "<#279CF5>Home <#c0f0ff>{slot}<#279CF5> verwijderd.",
+      "rename": {
+        "prompt": "<#279CF5>Voer een nieuwe naam voor deze home in chat:",
+        "success": "<#279CF5>Home hernoemd naar <#c0f0ff>{name}<#279CF5>.",
+        "duplicate": "<#FF2424>Je hebt al een home genaamd '<#c0f0ff>{name}<#FF2424>'!",
+        "too-long": "<#FF2424>Naam te lang! Max <#c0f0ff>{max} <#FF2424>tekens."
+      }
+    },
+    "loom": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "gui-title": "<#D2691E><bold>Loom Interface",
+      "error-item-name": "<#D2691E><bold>Fout",
+      "error-item-lore": "<#708090>Functie niet geïmplementeerd",
+      "opened": "<#279CF5>Loom interface geopend.",
+      "clicked-error": "<#FF2424>Je hebt op het fout item geklikt! Niet geïmplementeerd."
+    },
+    "stonecutter": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "opened": "<#279CF5>Stenen snijder geopend."
+    },
+    "grindstone": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "opened": "<#279CF5>Slijpmachine geopend."
+    },
+    "cartographytable": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "opened": "<#279CF5>Kaarten tafel geopend."
+    },
+    "anvil": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "opened": "<#279CF5>Aambeeld geopend."
+    },
+    "craftingtable": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "opened": "<#279CF5>Werkbank geopend."
+    },
+    "smithingtable": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "success": "<#279CF5>Smidse tafel geopend."
+    },
+    "broadcast": {
+      "no-permission": "<#FF2424>Je hebt geen toestemming om dit commando te gebruiken!",
+      "usage": "<#FF2424>Gebruik: /broadcast <bericht>",
+      "format": "<#279CF5>[Server] <white>{message}"
+    },
+    "reboot": {
+      "no-permission": "<#FF2424>Je hebt geen toestemming om dit commando te gebruiken!",
+      "usage": "<#FF2424>Gebruik: /reboot <minuten>",
+      "announce-scheduled": "<#FF2424>Server zal rebooten in {time} minuut/minuten.",
+      "announce-minutes": "<#279CF5>Reboot in {time} minuut/minuten.",
+      "announce-seconds": "<#279CF5>Reboot in {time} seconde(n).",
+      "announce-now": "<#FF2424><bold>Nu aan het rebooten!",
+      "titles": {
+        "minute-warning": "<#279CF5>Reboot in {time} minuut/minuten.",
+        "second-warning": "<#279CF5><bold>{time}",
+        "now": "<#FF2424><bold>Nu aan het rebooten!"
+      }
+    },
+    "broadcastworld": {
+      "no-permission": "<#FF2424>Je hebt geen toestemming om dit commando te gebruiken!",
+      "usage": "<#FF2424>Gebruik: /broadcastworld <wereld> <bericht>",
+      "world-not-found": "<#FF2424>Wereld <#c0f0ff>{world}<#FF2424> niet gevonden!",
+      "message-sent": "<#279CF5>Bericht uitgezonden naar wereld <#c0f0ff>{world}<#279CF5>.",
+      "broadcast": "<white>{message}"
+    },
+    "spawner": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken.",
+      "no-permission": "<#FF2424>Je hebt geen toestemming om dit commando te gebruiken!",
+      "usage": "<#279CF5>Gebruik: <white>/spawner <mob>",
+      "look-at-spawner": "<#FF2424>Kijk naar een spawner om deze te veranderen!",
+      "no-permission-mob": "<#FF2424>Je hebt geen toestemming om een spawner in te stellen op {mob}!",
+      "changed": "<#279CF5>Spawner type veranderd naar <#c0f0ff>{mob}<#279CF5>.",
+      "invalid-mob": "<#FF2424>Ongeldig mob type: {mob}",
+      "help": {
+        "header": "<#279CF5><bold>=== Spawner Commando Help ===</bold>",
+        "description": "<#279CF5>Beschrijving: <white>Verander het type van een creature spawner.",
+        "usage": "<#279CF5>Gebruik:</#279CF5> <white>/spawner <mob>",
+        "permission": "<#279CF5>Vereiste Toestemming:</#279CF5> <white>{permission}",
+        "available": {
+          "header": "<#279CF5>Beschikbare Mob Types:</#279CF5>",
+          "mob": "  <white>• {mob}",
+          "more": "  <gray>... en {count} meer</gray>"
+        },
+        "footer": "<gray>Gebruik <white>/spawner help</white> om dit bericht opnieuw te zien.</gray>"
+      }
+    },
+    "serverinfo": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken!",
+      "no-permission": "<#FF2424>Je hebt geen toestemming om dit commando te gebruiken!",
+      "header": "<#279CF5>========== Server Informatie ==========",
+      "ram": "<#279CF5>RAM: <white>{used}MB / {max}MB",
+      "disk": "<#279CF5>Schijf: <white>{free}MB vrij / {total}MB totaal",
+      "tps": "<#279CF5>TPS: <white>{tps}",
+      "cpu": "<#279CF5>CPU: <white>{cores} cores, {load} belasting",
+      "os": "<#279CF5>OS: <white>{name} {version} ({arch})",
+      "uptime": "<#279CF5>Uptime: <white>{hours}u {minutes}m {seconds}s",
+      "java": "<#279CF5>Java: <white>{version}",
+      "host": "<#279CF5>Host: <white>{hostname} ({address})",
+      "net": "<#279CF5>Netwerk: <white>{interfaces}",
+      "plugins": "<#279CF5>Plugins: <white>{count}",
+      "minecraft": "<#279CF5>Minecraft: <white>{version}",
+      "paper": "<#279CF5>Server: <white>{version}",
+      "players": "<#279CF5>Spelers: <white>{online}/{max}",
+      "gpu": "<#279CF5>GPU: <white>{gpu}",
+      "jvm": "<#279CF5>JVM Args: <white>{args}"
+    },
+    "unloadworld": {
+      "no-permission": "<#FF2424>Je hebt geen toestemming om dit commando te gebruiken!",
+      "usage": "<#FF2424>Gebruik: /unloadworld <wereld>",
+      "not-found": "<#FF2424>Wereld <#c0f0ff>{world}<#FF2424> niet gevonden!",
+      "failed": "<#FF2424>Mislukt om wereld <#c0f0ff>{world}<#FF2424> te unloaden!",
+      "success": "<#279CF5>Wereld <#c0f0ff>{world}<#279CF5> geunloaded."
+    },
+    "uptime": {
+      "no-permission": "<#FF2424>Je hebt geen toestemming om dit commando te gebruiken!",
+      "info": "<#279CF5>Uptime: <white>{uptime}"
+    },
+    "loadworld": {
+      "no-permission": "<#FF2424>Je hebt geen toestemming om dit commando te gebruiken!",
+      "usage": "<#FF2424>Gebruik: /loadworld <wereld>",
+      "already-loaded": "<#FF2424>Wereld <#c0f0ff>{world}<#FF2424> is al geladen!",
+      "success": "<#279CF5>Wereld <#c0f0ff>{world}<#279CF5> geladen.",
+      "failed": "<#FF2424>Mislukt om wereld <#c0f0ff>{world}<#FF2424> te laden!"
+    },
+    "worldlist": {
+      "no-permission": "<#FF2424>Je hebt geen toestemming om dit commando te gebruiken!",
+      "header": "<#279CF5>========== Werelden ==========",
+      "status-loaded": "<#279CF5>Geladen",
+      "entry": "<#279CF5>{world} <#708090>({status}) <white>- Chunks: {chunks}, Entities: {entities}, Spelers: {players}"
+    },
+    "playerinfo": {
+      "no-permission": "<#FF2424>Je hebt geen toestemming om dit commando te gebruiken!",
+      "usage": "<#279CF5>Gebruik: <white>/playerinfo <speler>",
+      "not-found": "<#FF2424>Speler niet gevonden.",
+      "header": "<#279CF5>----- Speler Info -----",
+      "name": "<#279CF5>Naam: <white>{player}",
+      "uuid": "<#279CF5>UUID: <white>{uuid}",
+      "health": "<#279CF5>Gezondheid: <white>{health}/{maxhealth}",
+      "food": "<#279CF5>Voedsel: <white>{food}",
+      "location": "<#279CF5>Locatie: <white>{location}"
+    },
+    "heal": {
+      "no-permission": "<#FF2424>Je hebt geen toestemming om dit commando te gebruiken!",
+      "no-permission-others": "<#FF2424>Je hebt geen toestemming om andere spelers te helen!",
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken!",
+      "player-not-found": "<#FF2424>Speler niet gevonden: {player}",
+      "usage": "<#FF2424>Gebruik: /heal [speler]",
+      "success-self": "<#279CF5>Je bent geheeld.",
+      "success-other": "<#279CF5>Je hebt <#c0f0ff>{player}<#279CF5> geheeld.",
+      "success-healed": "<#279CF5>Je bent geheeld door <#c0f0ff>{healer}<#279CF5>."
+    },
+    "endersee": {
+      "no-permission": "<#FF2424>Je hebt geen toestemming om je ender chest te bekijken!",
+      "no-permission-others": "<#FF2424>Je hebt geen toestemming om andere spelers hun ender chest te bekijken!",
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken!",
+      "usage": "<#279CF5>Gebruik: <white>/endersee [speler]",
+      "player-not-found": "<#FF2424>Speler <#c0f0ff>{player}<#FF2424> niet gevonden!",
+      "opened-self": "<#279CF5>Je ender chest geopend.",
+      "opened-other": "<#279CF5>Ender chest van <#c0f0ff>{player}<#279CF5> geopend."
+    },
+    "freeze": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken!",
+      "usage": "<#FF2424>Gebruik: /freeze <speler>",
+      "player-not-found": "<#FF2424>Speler <#c0f0ff>{player}<#FF2424> niet gevonden.",
+      "froze": "<#279CF5><#c0f0ff>{player}<#279CF5> bevroren.",
+      "unfroze": "<#279CF5><#c0f0ff>{player}<#279CF5> ontdooid.",
+      "target-frozen": "<#FF2424>Je bent bevroren!",
+      "target-unfrozen": "<#279CF5>Je bent ontdooid."
+    },
+    "unfreeze": {
+      "no-permission": "<#FF2424>Je hebt geen toestemming om dit commando te gebruiken!",
+      "usage": "<#FF2424>Gebruik: /unfreeze <speler>",
+      "player-not-found": "<#FF2424>Speler <#c0f0ff>{player}<#FF2424> niet gevonden!",
+      "not-frozen": "<#FF2424>Speler <#c0f0ff>{player}<#FF2424> is niet bevroren!",
+      "success": "<#279CF5><#c0f0ff>{player}<#279CF5> ontdooid.",
+      "target-unfrozen": "<#279CF5>Je bent ontdooid."
+    },
+    "clearchat": {
+      "no-permission": "<#FF2424>Je hebt geen toestemming om dit commando te gebruiken.",
+      "cleared": "<#708090>Chat geleegd door <#FF2424>{player}</#FF2424>."
+    },
+    "vanish": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken!",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "vanished": "<#279CF5>Je bent nu verdwenen.",
+      "visible": "<#279CF5>Je bent nu zichtbaar voor alle spelers."
+    },
+    "god": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken!",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "enabled": "<#279CF5>God modus ingeschakeld.",
+      "disabled": "<#FF2424>God modus uitgeschakeld."
+    },
+    "invsee": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Gebruik: <white>/invsee <speler>",
+      "player-not-found": "<#FF2424>Speler niet gevonden: <white>{player}",
+      "success": "<#279CF5>Je bekijkt de inventaris van <#c0f0ff>{player}<#279CF5>.",
+      "help": {
+        "header": "<#279CF5><bold>=== Invsee Commando Help ===</bold>",
+        "description": "<#279CF5>Beschrijving: <white>Bekijk de inventaris van een andere speler.",
+        "usage": "<#279CF5>Gebruik:</#279CF5> <white>/invsee <speler>",
+        "permission": "<#279CF5>Vereiste Toestemming:</#279CF5> <white>{permission}",
+        "footer": "<gray>Gebruik <white>/invsee help</white> om dit bericht opnieuw te zien.</gray>"
+      }
+    },
+    "invclear": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken!",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "player-not-found": "<#FF2424>Speler <#c0f0ff>{player}<#FF2424> niet gevonden!",
+      "cleared": "<#279CF5>Je inventaris is geleegd.",
+      "cleared-other": "<#279CF5>Inventaris van <#c0f0ff>{player}<#279CF5> geleegd."
+    },
+    "tp": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken!",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#FF2424>Gebruik: /tp <speler>",
+      "player-not-found": "<#FF2424>Speler <#c0f0ff>{player}<#FF2424> niet gevonden.",
+      "success": "<#279CF5>Geteleporteerd naar <#c0f0ff>{player}<#279CF5>."
+    },
+    "kickall": {
+      "usage": "<#FF2424>Gebruik: /kickall <reden>",
+      "kick-message": "<#FF2425>Gekickt door <#c0f0ff>{admin}<#FF2425>!\n<#708090>Reden: <white>{reason}",
+      "sender-message": "<#279CF5><#c0f0ff>{count}<#279CF5> spelers gekickt.\n<#708090>Reden: <white>{reason}",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!"
+    },
+    "pingall": {
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "header": "<#279CF5>Online Speler Pings:",
+      "player-line": "<#279CF5>- {player}: <#c0f0ff>{ping}ms"
+    },
+    "alts": {
+      "usage": "<#FF2424>Gebruik: /alts <speler>",
+      "player-offline": "<#FF2424>Speler moet online zijn om hun IP te checken.",
+      "header": "<#279CF5>Spelers met hetzelfde IP als {target}:",
+      "none": "<#708090>- Geen gevonden online.",
+      "found": "<#708090>- {player}",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!"
+    },
+    "stafflist": {
+      "header": "<#4169E1>--- Online Staff ---",
+      "none": "<#708090>Geen staff leden online.",
+      "format": "<#279CF5><#c0f0ff>{player}",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!"
+    },
+    "editsign": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "not-looking-at-sign": "<#FF2424>Je kijkt niet naar een bord.",
+      "usage": "<#279CF5>Gebruik: <white>/editsign <regel1>|<regel2>|<regel3>|<regel4>",
+      "success": "<#279CF5>Bord bijgewerkt."
+    },
+    "iteminfo": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "no-item": "<#FF2424>Je moet een item in je hoofdhand vasthouden.",
+      "header": "<#4169E1>≡ <bold>Item Informatie</bold> <#4169E1>≡",
+      "type": "<#708090>Type: <white>{type}",
+      "amount": "<#708090>Aantal: <white>{amount}",
+      "name": "<#708090>Naam: <white>{name}",
+      "lore-header": "<#708090>≡ <bold>Lore</bold> <#708090>≡",
+      "lore-content": "<white>>> {lore}",
+      "no-meta": "<#708090>Geen aanvullende metadata.",
+      "enchants-header": "<#708090>≡ <bold>Enchantments</bold> <#708090>≡",
+      "enchant-line": "<#c0f0ff>✦ <white>{enchant} <#708090>Level {level}",
+      "flags-header": "<#708090>≡ <bold>Item Flags</bold> <#708090>≡",
+      "flag-line": "<#c0f0ff>- <#708090>{flag}"
+    },
+    "death": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "count": "<#FF2424>Je bent <#c0f0ff>{deaths} <#FF2424>keer gestorven."
+    },
+    "realname": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Gebruik: <white>/realname <nickname>",
+      "found": "<#279CF5>Nickname <#c0f0ff>{nickname} <#279CF5>behoort aan <#c0f0ff>{realname}<#279CF5>.",
+      "not-found": "<#FF2424>Geen speler gevonden met nickname <#c0f0ff>{nickname}<#FF2424>."
+    },
+    "speed": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Gebruik: <white>/speed <1-10>",
+      "invalid-number": "<#FF2424>Snelheid moet tussen <#c0f0ff>1-10<#FF2424> zijn.",
+      "fly-set": "<#279CF5>Vliegsnelheid ingesteld op <#c0f0ff>{speed}<#279CF5>.",
+      "walk-set": "<#279CF5>Loopsnelheid ingesteld op <#c0f0ff>{speed}<#279CF5>."
+    },
+    "launch": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "launched": "<#279CF5><bold>Woosh!</bold> <white>Je bent gelanceerd!"
+    },
+    "repair": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "no-item": "<#FF2424>Je moet een item in je hoofdhand vasthouden om te repareren.",
+      "cannot-repair": "<#FF2424>Dit item kan niet gerepareerd worden.",
+      "already-full": "<#279CF5>Item is al op volledige duurzaamheid.",
+      "success": "<#279CF5>Item volledig gerepareerd."
+    },
+    "sleep": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "broadcast": "<#279CF5>{player} heeft de nacht overgeslagen! <#708090>(Slaap commando)",
+      "success": "<#279CF5>Nacht overgeslagen en weer opgehelderd."
+    },
+    "ping": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "show": "<#708090>Je ping: {ping}ms"
+    },
+    "disposal": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "inventory-title": "<#FF2424><bold>Verwijdering",
+      "opened": "<#279CF5>Verwijdering geopend. Plaats items hier om ze te verwijderen."
+    },
+    "compass": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "facing": "<#279CF5>Je kijkt naar <#279CF5><bold>{direction}"
+    },
+    "top": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "teleported": "<#279CF5>Geteleporteerd naar het hoogste blok boven je!",
+      "no-block": "<#FF2424>Geen solide blok gevonden boven je!"
+    },
+    "ext": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken!",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-others": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424> om andere spelers te blussen!",
+      "player-not-found": "<#FF2424>Speler niet gevonden!",
+      "self": "<#279CF5>Je bent geblust.",
+      "target": "<#279CF5>Je hebt <#c0f0ff>{target} geblust"
+    },
+    "tpp": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-world": "<#FF2424>Je hebt geen toestemming om wereld <#c0f0ff>{world}<#FF2424> te gebruiken!",
+      "no-permission-others": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424> om andere spelers te teleporteren!",
+      "usage": "<#279CF5>Gebruik: /tpp <speler> <wereld> [x y z]",
+      "player-not-found": "<#FF2424>Speler <#c0f0ff>{player}<#FF2424> niet gevonden!",
+      "world-not-loaded": "<#FF2424>Wereld <#c0f0ff>{world}<#FF2424> is niet geladen!",
+      "invalid-coords": "<#FF2424>Coördinaten moeten nummers zijn!",
+      "teleported-target": "<#279CF5><#c0f0ff>{target} <#279CF5>geteleporteerd naar wereld <#c0f0ff>{world}<#279CF5>.",
+      "teleported-self": "<#279CF5>Je bent geteleporteerd naar wereld <#c0f0ff>{world} <#279CF5>op <#708090>({x}, {y}, {z})"
+    },
+    "magnet": {
+      "only-player": "<#279CF5>Alleen spelers kunnen dit commando gebruiken.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "toggle-on": "<#279CF5>Magnet ingeschakeld. Items binnen <#c0f0ff>{radius}<#279CF5> blokken worden naar je toe getrokken.",
+      "toggle-off": "<#FF2424>Magnet uitgeschakeld.",
+      "error": "<#FF2424>Mislukt om magnet te wisselen: <#c0f0ff>{error}"
+    },
+    "day": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "success": "<#279CF5>Tijd ingesteld op dag in wereld <#c0f0ff>{world}<#279CF5>."
+    },
+    "inventorysort": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "success": "<#279CF5>Inventaris gestapeld en gesorteerd."
+    },
+    "book": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken!",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-others": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424> om boeken aan anderen te geven!",
+      "player-not-found": "<#FF2424>Speler <#c0f0ff>{player}<#FF2424> niet gevonden!",
+      "inventory-full-self": "<#FF2424>Je inventaris is vol!",
+      "inventory-full-other": "<#FF2424>Inventaris van {target} is vol!",
+      "self-success": "<#279CF5>Je hebt het informatieboek ontvangen.",
+      "target-success": "<#279CF5>Je hebt een boek gegeven aan <#c0f0ff>{player}<#279CF5>.",
+      "received": "<#279CF5>Je hebt een boek ontvangen van <#c0f0ff>{sender}<#279CF5>."
+    },
+    "break": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "no-block": "<#FF2424>Geen breekbaar blok gevonden binnen <#c0f0ff>{distance}<#FF2424> blokken.",
+      "success": "<#279CF5>Het blok op <#c0f0ff>{x} {y} {z}<#279CF5> is gebroken."
+    },
+    "setloreline": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Gebruik: <white>/setloreline <tekst>",
+      "no-item": "<#FF2424>Je houdt geen item vast.",
+      "lore-set": "<#279CF5>Lore ingesteld op: <white>{lore}"
+    },
+    "track": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Gebruik: <white>/track <speler>",
+      "not-found": "<#FF2424>Speler <#c0f0ff>{target}<#FF2424> niet gevonden.",
+      "success": "<#279CF5>Volgt nu <#c0f0ff>{target}<#279CF5>. Kompas bijgewerkt."
+    },
+    "suicide": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "success": "<#FF2424>Je hebt je eigen leven genomen.",
+      "error": "<#FF2424>Mislukt om zelfmoord poging te registreren."
+    },
+    "kill": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "kill-count": "<#279CF5>Je hebt <#c0f0ff>{kills} <#279CF5>speler moorden."
+    },
+    "bottom": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "success": "<#279CF5>Geteleporteerd naar de bodem! <#708090>(Y: {y})",
+      "no-safe-ground": "<#FF2424>Geen veilige grond onder!"
+    },
+    "condense": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken!",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "success": "<#279CF5>Items gecondenseerd tot <#c0f0ff>{blocks}<#279CF5> blokken.",
+      "not-enough": "<#279CF5>Je hebt niet genoeg items om te condenseren."
+    },
+    "nuke": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken!",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "deployed": "<#279CF5>Nuke geplaatst! <#708090>(Kracht: {power})"
+    },
+    "weather": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-sub": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{subpermission}<#FF2424>!",
+      "usage": "<#279CF5>Gebruik: <white>/weather <clear|rain|thunderstorm>",
+      "clear": "<#279CF5>Weer ingesteld op helder voor <white>{duration}s<#279CF5>.",
+      "rain": "<#c0f0ff>Weer ingesteld op regen voor <white>{duration}s<#c0f0ff>.",
+      "thunderstorm": "<#279CF5>Weer ingesteld op onweer voor <white>{duration}s<#279CF5>.",
+      "invalid-type": "<#FF2424>Ongeldig weer type. Gebruik: clear, rain, of thunderstorm.",
+      "help": {
+        "header": "<#279CF5><bold>=== Weather Commando Help ===</bold>",
+        "description": "<#279CF5>Beschrijving: <white>Verander het weer in je huidige wereld voor een bepaalde duur.",
+        "usage": "<#279CF5>Gebruik:</#279CF5> <white>/weather <type>",
+        "types": {
+          "header": "<#279CF5>Beschikbare Weer Types:</#279CF5>",
+          "clear": "  <white>clear</white> <gray>- Zonnig</gray>",
+          "clear.no-perm": "  <#FF2424>clear</#FF2424> <gray>- Geen toestemming</gray>",
+          "rain": "  <white>rain</white> <gray>- Regen</gray>",
+          "rain.no-perm": "  <#FF2424>rain</#FF2424> <gray>- Geen toestemming</gray>",
+          "thunderstorm": "  <white>thunderstorm</white> <gray>- Onweer</gray>",
+          "thunderstorm.no-perm": "  <#FF2424>thunderstorm</#FF2424> <gray>- Geen toestemming</gray>"
+        },
+        "duration": "<#279CF5>Duur:</#279CF5> <white>{duration} seconden",
+        "examples": {
+          "header": "<#279CF5>Voorbeelden:</#279CF5>",
+          "clear": "  <white>/weather clear</white> <gray>- Zet weer op zonnig</gray>",
+          "rain": "  <white>/weather rain</white> <gray>- Zet weer op regen</gray>",
+          "thunderstorm": "  <white>/weather thunderstorm</white> <gray>- Zet weer op onweer</gray>"
+        },
+        "footer": "<gray>Gebruik <white>/weather help</white> om dit bericht opnieuw te zien.</gray>"
+      }
+    },
+    "playtime": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Gebruik: <white>/playtime",
+      "playtime": "<#279CF5>Je speeltijd: <#c0f0ff>{hours}u {minutes}m"
+    },
+    "recipe": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Gebruik: <white>/recipe <recept>",
+      "not-found": "<#FF2424>Recept niet gevonden!",
+      "result": "<#279CF5>Recept voor: <#c0f0ff>{item}",
+      "shaped-header": "<#279CF5>Vorm Recept Ingrediënten:",
+      "shapeless-header": "<#279CF5>Vormloos Recept Ingrediënten:",
+      "ingredient-line": "<#279CF5>- {char}: <white>{item} <#279CF5>x{amount}",
+      "ingredient-line-shapeless": "<#279CF5>- <white>{item} <#279CF5>x{amount}",
+      "unknown-type": "<#FF2424>Onbekend recept type!"
+    },
+    "enderchest": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-others": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Gebruik: <white>/enderchest [speler]",
+      "opening": "<#279CF5>Je ender chest wordt geopend...",
+      "opening-other": "<#279CF5>Ender chest van <#c0f0ff>{player}<#279CF5> wordt geopend...",
+      "player-not-found": "<#FF2424>Speler <#c0f0ff>{player}<#FF2424> niet gevonden.",
+      "offline-not-supported": "<#FF2424>Kan ender chest van offline speler <#c0f0ff>{player}<#FF2424> niet openen."
+    },
+    "seen": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Gebruik: <white>/seen <speler>",
+      "player-not-found": "<#FF2424>Speler <#c0f0ff>{player}<#FF2424> niet gevonden.",
+      "result": "<#279CF5>{player} voor het laatst gezien op <white>{lastSeen}",
+      "result-online": "<#279CF5>{player} is momenteel <bold>online<#279CF5>!",
+      "never-joined": "<#279CF5>{player} heeft nog nooit de server gejoined."
+    },
+    "back": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-sub": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{subpermission}<#FF2424>!",
+      "usage": "<#279CF5>Gebruik: <white>/back [lobby|death|back]",
+      "no-back": "<#FF2424>Geen vorige locatie opgeslagen.",
+      "invalid-back": "<#FF2424>Je laatste locatie is ongeldig.",
+      "teleported-back": "<#279CF5>Geteleporteerd naar je vorige locatie.",
+      "lobby-not-set": "<#FF2424>Lobby locatie niet ingesteld of wereld is unloaded.",
+      "teleported-lobby": "<#279CF5>Geteleporteerd naar de lobby.",
+      "no-death-location": "<#FF2424>Geen death locatie gevonden.",
+      "teleported-death": "<#279CF5>Geteleporteerd naar je laatste death locatie.",
+      "unknown-usage": "<#FF2424>Onbekend subcommando. Gebruik: <white>/back, /back lobby, /back death"
+    },
+    "tree": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "specify-type": "<#279CF5>Specificeer een boom type.",
+      "invalid-type": "<#FF2424>Ongeldig boom type! Geldige types: <#c0f0ff>{types}",
+      "tree-planted": "<#279CF5>Boom geplant: <#c0f0ff>{type}",
+      "cannot-grow": "<#FF2424>Boom kan hier niet groeien! Zorg dat er genoeg ruimte en geschikte grond is."
+    },
+    "notes": {
+      "only-player": "<#708090>Alleen spelers kunnen notities gebruiken.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424> om notities te gebruiken!",
+      "usage": "<#279CF5>Gebruik:</#279CF5> <white>/notes <naam> [inhoud]",
+      "list-empty": "<#708090>Je hebt geen opgeslagen notities.",
+      "list-header": "<#279CF5>Je notities:</#279CF5> ",
+      "not-found": "<#FF2424>Notitie '<#c0f0ff>{name}<#FF2424>' niet gevonden.",
+      "view": "<#279CF5>Notitie '<#c0f0ff>{name}<#279CF5>':</#279CF5> <white>{content}",
+      "saved": "<#279CF5>Notitie '<#c0f0ff>{name}<#279CF5>' opgeslagen:</#279CF5> <white>{content}"
+    },
+    "scoreboard": {
+      "only-player": "<#FF2424>Alleen spelers kunnen scoreboard commando's gebruiken.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424> om dit te gebruiken!",
+      "no-permission-reload": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424> om te herladen!",
+      "no-permission-toggle": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424> om te wisselen!",
+      "no-permission-color": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424> om layouts te wijzigen!",
+      "usage": "<#279CF5>Gebruik:</#279CF5> <white>/scoreboard <reload|toggle|color> [layout]",
+      "toggle": {
+        "enabled": "<#279CF5>Scoreboard ingeschakeld!",
+        "disabled": "<#708090>Scoreboard uitgeschakeld!"
+      },
+      "reload": {
+        "success": "<#279CF5>Alle scoreboards herladen!"
+      },
+      "color": {
+        "usage": "<#279CF5>Gebruik: /scoreboard color <layout>",
+        "not-found": "<#FF2424>Layout '<#c0f0ff>{layout}<#FF2424>' niet gevonden!",
+        "changed": "<#279CF5>Layout veranderd naar <#c0f0ff>{layout}<#279CF5>."
+      }
+    },
+    "burn": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken!",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-sub": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{subpermission}<#FF2424>!",
+      "usage": "<#279CF5>Gebruik: <white>/burn <speler> [seconden]",
+      "player-not-found": "<#FF2424>Speler <#c0f0ff>{target}<#FF2424> niet gevonden!",
+      "immune-gamemode": "<#FF2424>{target} is in <#c0f0ff>{gamemode}<#FF2424> modus en is immuun!",
+      "invalid-number": "<#FF2424>Gebruik <#c0f0ff>1-{max}<#FF2424> seconden.",
+      "target-burned": "<#FF2424>Je bent in brand gestoken door <#c0f0ff>{attacker}<#FF2424>!",
+      "sender-burned": "<#279CF5>{target} brandt nu voor <#c0f0ff>{seconds}s<#279CF5>.",
+      "self-burned": "<#279CF5>Je hebt jezelf in brand gestoken voor <#c0f0ff>{seconds}s<#279CF5>."
+    },
+    "feed": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-others": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Gebruik: <white>/feed [speler]",
+      "player-not-found": "<#FF2424>Speler <#c0f0ff>{target}<#FF2424> niet gevonden!",
+      "fed-self": "<#279CF5>Je bent volledig gevoed.",
+      "fed-other": "<#279CF5>Je hebt <#c0f0ff>{target}<#279CF5> volledig gevoed.",
+      "fed-by-other": "<#279CF5>Je bent volledig gevoed door <#c0f0ff>{sender}<#279CF5>."
+    },
+    "hat": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "no-item": "<#FF2424>Je moet een item in je hoofdhand vasthouden om het als hoed te dragen!",
+      "item-not-allowed": "<#FF2424>Dit item kan niet als hoed gedragen worden! Check config.",
+      "success": "<#279CF5>Je hoed is bijgewerkt."
+    },
+    "ptime": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-sub": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{subpermission}<#FF2424>!",
+      "usage": "<#279CF5>Gebruik: <white>/ptime <day|night|reset>",
+      "invalid-option": "<#FF2424>Gebruik: <white>day, night, of reset",
+      "success": "<#279CF5>Persoonlijke tijd ingesteld op <#c0f0ff>{option}<#279CF5>."
+    },
+    "night": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "success": "<#279CF5>Tijd ingesteld op nacht in wereld <#c0f0ff>{world}<#279CF5>."
+    },
+    "auction": {
+      "only-player": "<#279CF5>Alleen spelers kunnen dit commando gebruiken.",
+      "no-economy": "<#FF2424>✗ Economie systeem is niet beschikbaar.",
+      "usage": "<#279CF5>Gebruik: <white>/auction [sell <prijs>|my]",
+
+      "gui": {
+        "titles": {
+          "auction": "<#279CF5>Veiling Huis - Pagina <#c0f0ff>{page}",
+          "my-items": "<#279CF5>Jouw Items - Pagina <#c0f0ff>{page}",
+          "remove-confirm": "<#FF2424>Verwijdering Bevestigen"
+        },
+
+        "navigation": {
+          "prev": "<#279CF5>⬅ Vorige Pagina",
+          "next": "<#279CF5>Volgende Pagina ➡",
+          "refresh": "<#279CF5>↻ Vernieuwen",
+          "my-items": "<#279CF5>📦 Jouw Items",
+          "close": "<#FF2424>✕ Sluiten"
+        },
+
+        "balance": {
+          "message": "<#279CF5>Saldo: <#c0f0ff>${balance}",
+          "item-name": "<#279CF5>Saldo: <#c0f0ff>${balance}"
+        },
+
+        "refresh": "<#279CF5>Veiling vernieuwd!",
+
+        "item": {
+          "name": "<#279CF5>Prijs: <#c0f0ff>${price}",
+          "lore": {
+            "seller": "<#279CF5>Verkoper: <#c0f0ff>{seller}",
+            "seller-price": "<#279CF5>Jouw prijs: <#c0f0ff>${price}",
+            "expires": "<#279CF5>Vervalt: <#c0f0ff>{date}",
+            "buyer-click": "<#c0f0ff>Klik om te kopen",
+            "seller-click": "<#c0f0ff>Klik om te verwijderen"
+          }
+        },
+
+        "remove": {
+          "confirm": "<#279CF5>✓ Verwijdering Bevestigen",
+          "cancel": "<#FF2424>✗ Annuleren"
+        }
+      },
+
+      "sell": {
+        "no-item": "<#FF2424>Je moet een item in je hand vasthouden om te verkopen!",
+        "usage": "<#FF2424>Gebruik: <white>/auction sell <prijs>",
+        "invalid-price": "<#FF2424>Prijs moet een positief getal zijn.",
+        "max-limit": "<#FF2424>Je kunt maximaal <#c0f0ff>{max}<#FF2424> items tegelijk verkopen!",
+        "success": "<#279CF5>Item vermeld voor <#c0f0ff>${prijs}<#279CF5>."
+      },
+
+      "purchase": {
+        "not-found": "<#FF2424>Item niet meer beschikbaar!",
+        "no-economy": "<#FF2424>✗ Economie systeem is niet beschikbaar.",
+        "not-enough-money": "<#FF2424>Je hebt niet genoeg geld!",
+        "failed": "<#FF2424>Transactie mislukt: <white>{error}",
+        "success": "<#279CF5>Gekocht voor <#c0f0ff>${prijs}<#279CF5>!",
+        "seller-message": "<#279CF5><#c0f0ff>{buyer}<#279CF5> heeft je item gekocht voor <#c0f0ff>${prijs}<#279CF5>!"
+      },
+
+      "remove": {
+        "no-pending": "<#FF2424>Geen hangende verwijdering gevonden!",
+        "success": "<#279CF5>Item succesvol verwijderd!",
+        "inventory-full": "<#279CF5>Item op de grond gespawned (inventaris vol)",
+        "cancelled": "<#279CF5>Verwijdering geannuleerd.",
+        "not-found": "<#FF2424>Item niet gevonden!",
+        "failed": "<#FF2424>Verwijdering mislukt. Probeer opnieuw."
+      }
+    },
+    "paytoggle": {
+      "only-player": "<#279CF5>Alleen spelers kunnen dit commando gebruiken.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "enabled": "<#279CF5>Betalingen <#c0f0ff>ingeschakeld<#279CF5>.",
+      "disabled": "<#FF2424>Betalingen <#c0f0ff>uitgeschakeld<#FF2424>.",
+      "error": "<#FF2424>Fout bij wisselen betaalstatus."
+    },
+    "pay": {
+      "only-player": "<#279CF5>Alleen spelers kunnen dit commando gebruiken.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Gebruik: <white>{usage}",
+      "player-not-found": "<#FF2424>Speler niet gevonden: <white>{player}",
+      "self-payment": "<#FF2424>Je kunt jezelf niet betalen!",
+      "invalid-amount": "<#FF2424>Ongeldig bedrag: <white>{amount}",
+      "positive-amount": "<#FF2424>Bedrag moet positief zijn!",
+      "not-enough": "<#FF2424>Je hebt <#c0f0ff>${needed}<#FF2424> nodig, je hebt <#279CF5>${balance}",
+      "target-disabled": "<#FF2424>{player} heeft betalingen uitgeschakeld!",
+      "confirmation-expired": "<#FF2424>Vorige betalingsbevestiging verlopen.",
+      "pending-other": "<#279CF5>Hangende betaling aan <#c0f0ff>{player} <#279CF5>voor <#c0f0ff>${amount}",
+      "confirm-message": "<#279CF5>Klik om te bevestigen: Betaal <#c0f0ff>${amount} <#279CF5>aan <#c0f0ff>{player}",
+      "confirm-instruction": "<#708090>Type <white>{command} <#708090>opnieuw om te bevestigen.",
+      "success-sender": "<#279CF5>Je hebt <#c0f0ff>${amount} <#279CF5>betaald aan <#c0f0ff>{player}",
+      "success-target": "<#279CF5>Je hebt <#c0f0ff>${amount} <#279CF5>ontvangen van <#c0f0ff>{player}",
+      "error": "<#FF2424>Fout bij controleren betaalstatus."
+    },
+    "payconfirmtoggle": {
+      "only-player": "<#279CF5>Alleen spelers kunnen dit commando gebruiken.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "disabled": "<#279CF5>Betalingsbevestigingen <#c0f0ff>uitgeschakeld<#279CF5>.",
+      "enabled": "<#279CF5>Betalingsbevestigingen <#c0f0ff>ingeschakeld<#279CF5>.",
+      "error": "<#FF2424>Fout bij wisselen bevestigingsstatus."
+    },
+    "balance": {
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-others": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Gebruik: <white>{usage}",
+      "only-player": "<#FF2424>Alleen spelers kunnen hun eigen saldo checken.",
+      "player-not-found": "<#FF2424>Speler niet gevonden: <white>{player}",
+      "self": "<#279CF5>Je saldo is <#c0f0ff>{balance}<#279CF5>.",
+      "other": "<#279CF5>Saldo van {player} is <#c0f0ff>{balance}<#279CF5>."
+    },
+    "balancetop": {
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "header": "<#279CF5>=== Top {limit} Rijkste Spelers ===",
+      "entry": "<#279CF5>#{rank} <white>{player} <#708090>- <#279CF5>{balance}",
+      "footer": "<#279CF5>========================="
+    },
+    "coinflip": {
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Gebruik: <white>{usage}",
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken.",
+      "invalid-amount": "<#FF2424>Ongeldig bedrag: <white>{amount}",
+      "positive-amount": "<#FF2424>Bedrag moet positief zijn!",
+      "not-enough": "<#FF2424>Je hebt <#c0f0ff>${needed}<#FF2424> nodig, je hebt <#279CF5>${balance}",
+      "win": "<#279CF5>Je hebt <#c0f0ff>${amount}<#279CF5> gewonnen!",
+      "lose": "<#FF2424>Je hebt <#c0f0ff>${amount}<#FF2424> verloren."
+    },
+    "powertool": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-create": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424> om PowerTools te maken!",
+      "usage": "<#279CF5>Gebruik: <white>/powertool <commando> | <gebruiken> | <naam> | <gereedschap> | enchanted <ja/nee>",
+      "invalid-uses": "<#FF2424>Gebruiken moet -1 (oneindig) of 1-{max} zijn.",
+      "invalid-tool": "<#FF2424>Ongeldig gereedschap materiaal: <white>{tool}",
+      "received-tool": "<#279CF5>Je hebt PowerTool ontvangen: <white>{name}",
+      "out-of-uses": "<#FF2424>Je PowerTool heeft geen gebruiken meer!"
+    },
+    "gravity": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken.",
+      "target-not-found": "<#FF2424>Speler niet gevonden.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-sub": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{subpermission}<#FF2424>!",
+      "usage": "<#279CF5>Gebruik: <white>/gravity [speler] [-s]",
+      "toggled-self": "<#279CF5>Zwaartekracht <#c0f0ff>{state}<#279CF5>.",
+      "toggled-other": "<#279CF5>Zwaartekracht <#c0f0ff>{state}<#279CF5> voor <#c0f0ff>{target}<#279CF5>."
+    },
+    "thunder": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken!",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-others": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "struck": "<#279CF5>Onweer effect gespawned bij <#c0f0ff>{target}<#279CF5>.",
+      "self-name": "<white>jezelf"
+    },
+    "celebrate": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken!",
+      "target-not-found": "<#FF2424>Speler niet gevonden.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-others": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Gebruik: /celebrate [speler] [-s]",
+      "message": "<#279CF5>Boom! Viering!",
+      "message-other": "<#279CF5>Viering voor <#c0f0ff>{target}<#279CF5>.",
+      "self-name": "<white>jezelf"
+    },
+    "fireball": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken!",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "launched": "<#279CF5>Vuurbal gelanceerd."
+    },
+    "fakeop": {
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Gebruik: <white>/fakeop <speler>",
+      "target-not-found": "<#FF2424>Speler niet gevonden.",
+      "fake-message": "<#708090><italic>[Server: Maakte {target} een server operator]",
+      "success": "<#279CF5>Fake OP verstuurd naar <#c0f0ff>{target}<#279CF5>."
+    },
+    "whois": {
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Gebruik: <white>/whois <speler>",
+      "target-not-found": "<#FF2424>Speler niet gevonden.",
+      "info-header": "<#279CF5>Speler info:",
+      "info-name": "<#708090>Naam: <white>{name}",
+      "info-health": "<#708090>Gezondheid: <white>{health}",
+      "info-location": "<#708090>Locatie: <white>{location}"
+    },
+    "kittycannon": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken!",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Gebruik: <white>/kittycannon [velocity]",
+      "fired": "<#279CF5>Kitty kanon afgevuurd met snelheid {velocity}.",
+      "name": "<#279CF5>Kitty Kanon!"
+    },
+    "explosion": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken!",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "no-radius": "<#279CF5>Specificeer een radius!",
+      "invalid-radius": "<#FF2424>Ongeldige radius: {input}",
+      "created": "<#279CF5>Explosie gecreëerd met radius <#c0f0ff>{radius}<#279CF5>.",
+      "usage": "<#279CF5>Gebruik: <white>/explosion <radius>"
+    },
+    "canon": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken!",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Gebruik: <white>/canon",
+      "success": "<#279CF5>Woosh! Je bent de lucht in gelanceerd!"
+    },
+    "lightning": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken!",
+      "target-not-found": "<#FF2424>Speler <white>{target}</white> niet gevonden.",
+      "no-permission": "<#FF2424>Je hebt de <white>{permission}</white> toestemming nodig.",
+      "struck-self": "<#279CF5>Bliksem ingeslagen!",
+      "struck-other": "<#279CF5>Bliksem ingeslagen bij <#c0f0ff>{target}<#279CF5>.",
+      "usage": "<#279CF5>Gebruik: <white>/lightning [speler] [-s]"
+    },
+    "swap": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken!",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Gebruik: <white>/swap <speler>",
+      "target-not-found": "<#FF2424>Speler <white>{target}</white> niet gevonden of je kunt niet met jezelf wisselen.",
+      "success": "<#279CF5>Je hebt locaties gewisseld met <#c0f0ff>{target}<#279CF5>.",
+      "target-notified": "<#279CF5><#c0f0ff>{player}</#c0f0ff> heeft locaties met je gewisseld!"
+    },
+    "beezooka": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken!",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Gebruik: <white>/beezooka [velocity]",
+      "fired": "<#279CF5>Beezooka afgevuurd met snelheid {velocity}.",
+      "name": "<#279CF5>Beezooka Bij!"
+    },
+    "glow": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken!",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#279CF5>Gebruik: <white>/glow",
+      "disabled": "<#708090>Glow uitgeschakeld.",
+      "enabled": "<#279CF5>Glow ingeschakeld."
+    },
+    "near": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "header": "<#279CF5>Spelers bij jou in de buurt:",
+      "entry": "<#279CF5>- {name} <#708090>({distance} blokken)",
+      "none": "<#FF2424>Geen spelers in de buurt."
+    },
+    "rename": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#FF2424>Gebruik: /rename <naam>",
+      "no-item": "<#FF2424>Je houdt geen item vast.",
+      "no-meta": "<#FF2424>Kon item meta niet krijgen.",
+      "renamed": "<#279CF5>Item hernoemd naar: <white>{item}"
+    },
+    "world": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "usage": "<#FF2424>Gebruik: /world",
+      "current": "<#279CF5>Je bent in wereld: <#c0f0ff>{world}"
+    },
+    "language": {
+      "usage": "<#279CF5>Gebruik: /language <taal>",
+      "invalid": "<#FF2424>Ongeldige taal: <white>{lang}",
+      "changed": "<#279CF5>Taal veranderd naar: <white>{lang}"
+    },
+    "warp": {
+      "usage": "<#279CF5>Gebruik: <#279CF5>/warp <naam>",
+      "not-found": "<#FF2424>Warp <#c0f0ff>{warp}<#FF2424> niet gevonden.",
+      "success": "<#279CF5>Geteleporteerd naar warp <#c0f0ff>{warp}",
+      "cooldown-active": "<#FF2424>Wacht <#c0f0ff>{time}<#FF2424> seconden voordat je weer kunt warpen."
+    },
+    "setwarp": {
+      "usage": "<#279CF5>Gebruik: <#279CF5>/setwarp <naam>",
+      "limit-reached": "<#FF2424>Je hebt je warp limiet van <#c0f0ff>{limit}<#FF2424> bereikt!",
+      "already-exists": "<#FF2424>Warp <#c0f0ff>{warp}<#FF2424> bestaat al.",
+      "success": "<#279CF5>Warp <#c0f0ff>{warp} gecreëerd"
+    },
+    "delwarp": {
+      "usage": "<#FF2424>Gebruik: <#279CF5>/delwarp <naam>",
+      "not-found": "<#FF2424>Warp <#c0f0ff>{warp}<#FF2424> niet gevonden.",
+      "no-permission": "<#FF2424>Je hebt geen toestemming om deze warp te verwijderen!",
+      "success": "<#279CF5>Warp <#c0f0ff>{warp} verwijderd"
+    },
+    "warps": {
+      "empty": "<#279CF5>Er zijn nog geen warps ingesteld!",
+      "header": "<#279CF5>------[ Warps ]------",
+      "entry": "<#279CF5>{warp}",
+      "footer": "<#279CF5>-------------------"
+    },
+    "ban": {
+      "usage": "<#FF2424>Gebruik: <#279CF5>/ban <speler> <tijd> <reden>",
+      "never-joined": "<#FF2424>Die speler heeft nog nooit de server gejoined.",
+      "invalid-time": "<#FF2424>Ongeldig tijd formaat. Gebruik <#c0f0ff>s/m/h/d<#FF2424> of <#c0f0ff>perm<#FF2424>",
+      "success": "<#279CF5><#c0f0ff>{speler}<#279CF5> is verbannen.",
+      "kick-message": "<#FF2424>Je bent verbannen van <#FF2424>{server}\n<#708090>Reden: <#c0f0ff>{reason}\n<#708090>Verbannen door: <#c0f0ff>{banner}\n<#708090>Tot: <#c0f0ff>{until}\n\n<#708090>Bezwaar maken op: <#c0f0ff>{discord}"
+    },
+    "banlist": {
+      "empty": "<#279CF5>Er zijn geen verbannen spelers.",
+      "header": "<#279CF5>------[ Verbannen Spelers ]------",
+      "format": "<#FF2424>{player} <#708090>- <white>{reason} <#708090>(<#c0f0ff>{time})",
+      "footer": "<#279CF5>-----------------------------"
+    },
+    "unban": {
+      "usage": "<#279CF5>Gebruik: <#279CF5>/unban <speler>",
+      "player-not-found": "<#279CF5>Kon geen verbannen speler vinden met naam '<#c0f0ff>{player}<#279CF5>'.",
+      "not-banned": "<#279CF5>{player} is momenteel niet verbannen.",
+      "success": "<#279CF5>{player} is ontbannen."
+    },
+    "mute": {
+      "usage": "<#FF2424>Gebruik: <#279CF5>/mute <speler> <reden> [duur]",
+      "not-found": "<#FF2424>Speler niet gevonden.",
+      "already-muted": "<#FF2424><#c0f0ff>{player}<#FF2424> is al gemute voor <white>{reason}",
+      "success": "<#279CF5>Je hebt <#c0f0ff>{player} <#279CF5>gemute voor <white>{reason} <#279CF5>({duur}).",
+      "notify": "<#FF2424>Je bent gemute! <#708090>Reden: <white>{reason} <#279CF5>({duur})",
+      "chat-blocked": "<#FF2424>Je bent gemute! Reden: <white>{reason}"
+    },
+    "unmute": {
+      "usage": "<#279CF5>Gebruik: <#279CF5>/unmute <speler>",
+      "player-not-found": "<#279CF5>Speler <#c0f0ff>{player}<#279CF5> niet gevonden.",
+      "not-muted": "<#FF2424><#c0f0ff>{player}<#FF2424> is momenteel niet gemute.",
+      "unmuted": "<#279CF5>Succesvol <#c0f0ff>{player} ontmute",
+      "notify": "<#279CF5>Je bent ontmute!"
+    },
+    "adminchat": {
+      "format": "<#4B5563>[<#FF2424>AdminChat<#4B5563>] <#279CF5>{speler} <#708090>» <white>{bericht}",
+      "toggle": "<#279CF5>Admin chat modus: {state}",
+      "only-players": "<#FF2424>Alleen spelers kunnen dit commando gebruiken.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!"
+    },
+    "daily": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken!",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "command": {
+        "no-permission": "<#FF2424>Je hebt toestemming nodig <yellow>{permission}</yellow>!"
+      },
+      "gui": {
+        "title": "<#279CF5><bold>Dagelijkse Beloningen</bold> - Pagina <#c0f0ff>{page}",
+        "previous": "<#279CF5>⬅ Vorige Pagina",
+        "next": "<#279CF5>Volgende Pagina ➡",
+        "close": "<#FF2424>✕ Sluiten",
+        "cooldown-display": "<#c0f0ff>Cooldown: <#EBA916>{time}"
+      },
+      "rewards": {
+        "claimed": {
+          "name": "<#21D0B2><bold>✓ Geclaimed</bold>",
+          "lore": "<#c0f0ff>Je hebt deze beloning geclaimd."
+        },
+        "cooldown": {
+          "name": "<#EBA916><bold>⏱ Cooldown</bold>",
+          "lore": "<#c0f0ff>Wacht: <#EBA916>{time}"
+        },
+        "locked": {
+          "name": "<#FF2424><bold>🔒 Vergrendeld</bold>",
+          "lore": "<#c0f0ff>Voltooi eerst de vorige dagen."
+        },
+        "available": {
+          "name": "<#279CF5>Dag <#c0f0ff>{day}"
+        }
+      },
+      "messages": {
+        "claim-already": "<#FF2424>Je hebt deze beloning al geclaimd!",
+        "claim-locked": "<#FF2424>Je moet eerst de vorige dagen claimen!",
+        "claim-cooldown": "<#FF2424>Je moet <#c0f0ff>{time}<#FF2424> wachten voordat je weer kunt claimen!",
+        "claim-success": "<#279CF5>Je hebt Dag <#c0f0ff>{day}<#279CF5> beloning geclaimd!",
+        "claim-error": "<#FF2424>Mislukt om beloning te claimen. Probeer opnieuw."
+      }
+    },
+    "tpa": {
+      "no-player": "<#FF2424>Speler <#c0f0ff>{speler}<#FF2424> niet gevonden.",
+      "cannot-tpa-self": "<#FF2424>Je kunt geen TPA verzoek naar jezelf sturen.",
+      "target-toggled": "<#FF2424>{speler} heeft TPA verzoeken uitgeschakeld.",
+      "crossworld-disabled": "<#FF2424>Cross-wereld teleporteren is uitgeschakeld.",
+      "blocked-world": "<#FF2424>Je kunt niet naar deze wereld teleporteren.",
+      "cooldown": "<#FF2424>Wacht <#c0f0ff>{time}<#FF2424> seconden voordat je TPA weer gebruikt.",
+      "not-enough-money": "<#FF2424>Je hebt <#c0f0ff>${cost}<#FF2424> nodig voor dit TPA verzoek.",
+      "request-sent": "<#279CF5>TPA verzoek verstuurd naar <#c0f0ff>{speler}",
+      "request-sent-here": "<#279CF5>TPAhere verzoek verstuurd naar <#c0f0ff>{speler}",
+      "request-received": "<#279CF5><bold>{speler}</bold> wil naar je teleporteren! <white>[<#279CF5>/tpaccept {speler} | <#FF2424>/tpdeny {speler}]",
+      "request-received-here": "<#279CF5><bold>{speler}</bold> wil dat je naar hen teleporteert! <white>[<#279CF5>/tpaccept {speler} | <#FF2424>/tpdeny {speler}]",
+      "request-received-all": "<#279CF5><bold>{speler}</bold> wil dat iedereen teleporteert! <white>[<#279CF5>/tpaccept {speler}]",
+      "request-accepted": "<#279CF5>{speler} accepteerde je verzoek! Teleporteren in <#c0f0ff>{delay}s",
+      "request-accepted-target": "<#279CF5>Je accepteerde het verzoek van <#c0f0ff>{speler}<#279CF5>.",
+      "request-denied": "<#FF2424>{speler} weigerde je TPA verzoek.",
+      "request-denied-target": "<#279CF5>Je weigerde het verzoek van <#c0f0ff>{speler}<#279CF5>.",
+      "no-request": "<#FF2424>Je hebt geen hangende TPA verzoeken.",
+      "no-request-from-player": "<#FF2424>Geen hangend verzoek van <#c0f0ff>{speler}",
+      "no-requests-sent": "<#FF2424>Je hebt geen hangende TPA verzoeken om te annuleren.",
+      "teleport-cancelled-move": "<#FF2424>Teleporteren geannuleerd door beweging!",
+      "warmup-start": "<#279CF5>Warmup gestart... <#FF2424>Beweeg niet!",
+      "toggle-on": "<#279CF5>TPA verzoeken zijn nu <bold>UITGESCHAKELD",
+      "toggle-off": "<#279CF5>TPA verzoeken zijn nu <bold>INGESCHAKELD",
+      "request-cancelled": "<#279CF5>TPA verzoek naar <#c0f0ff>{speler} geannuleerd",
+      "request-cancelled-target": "<#279CF5>{speler} annuleerde hun TPA verzoek.",
+      "request-cancelled-all": "<#279CF5>Al je TPA verzoeken geannuleerd.",
+      "request-expired": "<#FF2424>Je TPA verzoek naar <#c0f0ff>{speler} <#FF2424>is verlopen.",
+      "request-expired-target": "<#FF2424>TPA verzoek van <#c0f0ff>{speler} <#FF2424>is verlopen.",
+      "request-sent-all": "<#279CF5>TPA verzoek verstuurd naar <#c0f0ff>{count} <#279CF5>spelers.",
+      "info-incoming-header": "<#279CF5><bold>Inkomende Verzoeken:",
+      "info-outgoing-header": "<#279CF5><bold>Uitgaande Verzoeken:",
+      "info-request": "<#279CF5>- {speler} <#708090>({type})"
+    },
+    "fly": {
+      "enabled": "<#279CF5>Vlucht ingeschakeld! Druk <white>SPATIE<#279CF5> twee keer om te vliegen.",
+      "disabled": "<#FF2424>Vlucht uitgeschakeld.",
+      "error": "<#FF2424>Fout: Kon vlucht status niet opslaan.",
+      "cooldown": "<#FF2424>Wacht <#c0f0ff>{time}s<#FF2424> voordat je vlucht weer wisselt.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>fly.use<#FF2424> om dit commando te gebruiken."
+    },
+    "reports": {
+      "cooldown": "<#FF2424>Wacht <#c0f0ff>{time}<#FF2424> seconden voordat je weer rapporteert.",
+      "reason-too-long": "<#FF2424>Reden te lang! Max <#c0f0ff>{max}<#FF2424> tekens.",
+      "error": "<#FF2424>Fout bij verwerken rapport.",
+      "command": {
+        "usage": "<#FF2424>Gebruik: /report <speler> <reden>",
+        "invalid-player": "<#FF2424>Speler <#c0f0ff>{speler}<#FF2424> niet gevonden.",
+        "submitted": "<#279CF5>Rapport ingediend tegen <#c0f0ff>{speler}",
+        "notify": "<#FF2424>[RAPPORT] <#279CF5>{reporter} <#FF2424>rapporteerde <#279CF5>{target} <#708090>voor {reden} <#708090>(ID: {id})"
+      },
+      "commandclear": {
+        "usage": "<#279CF5>Gebruik: /reportclear <id>",
+        "invalid": "<#279CF5>Ongeldig rapport ID: <#c0f0ff>{id}",
+        "cleared": "<#279CF5>Rapport ID gewist: <#c0f0ff>{id}"
+      },
+      "list": {
+        "header": "<#279CF5>----- <#279CF5>Alle Rapporten<#279CF5> -----",
+        "none": "<#279CF5>Geen rapporten gevonden.",
+        "entry": "<#708090>[{id}] <#279CF5>{reporter} → <#279CF5>{target}: <white>{reden}",
+        "footer": "<#279CF5>Totaal: <#c0f0ff>{count} <#279CF5>rapporten"
+      },
+      "reportslist": {
+        "header": "<#279CF5>Je hebt hangende rapporten om te reviewen:",
+        "entry": "<#FF2424>[PENDING] <#279CF5>{reporter} → <#279CF5>{target}: <#708090>{reden} <#708090>(ID: {id})"
+      }
+    },
+    "rules": {
+      "only-player": "<#FF2424>Alleen spelers kunnen dit commando gebruiken.",
+      "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!",
+      "no-permission-sub": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{subpermission}<#FF2424>!",
+      "usage": "<#279CF5>Gebruik: <white>/rules [accept|reload]",
+      "no-rules": "<#FF2424>Er zijn momenteel geen regels geconfigureerd.",
+      "already-accepted": "<#279CF5>Je hebt de laatste regels al geaccepteerd.",
+      "error": "<#FF2424>Er trad een fout op: <#c0f0ff>{error}",
+      "reload-success": "<#279CF5>Regels succesvol herladen!",
+      "reload-failure": "<#FF2424>Mislukt om regels te herladen: <#c0f0ff>{error}",
+      "gui": {
+        "title": "<#279CF5>Server Regels",
+        "no-rules": "<#FF2424>Er zijn momenteel geen regels geconfigureerd.",
+        "info-title": "<#FFD700><bold>ℹ Server Regels Info",
+        "info-line1": "<#708090>Lees en accepteer alsjeblieft",
+        "info-line2": "<#708090>onze community richtlijnen",
+        "page-info": "<#FFB000>Pagina <#FFFFFF>{current}<#FFB000> / <#FFFFFF>{total}",
+        "prev-page": "<#279CF5>← Vorige Pagina",
+        "prev-page-lore": "<#708090>Klik om terug te gaan",
+        "next-page": "<#279CF5>Volgende Pagina →",
+        "next-page-lore": "<#708090>Klik om verder te gaan",
+        "accept-title": "<#00FF7F><bold>✔ Accepteer Regels",
+        "accept-lore1": "<#708090>Klik om de regels te accepteren",
+        "accept-lore2": "<#708090>en toegang te krijgen tot de server",
+        "decline-title": "<#FF2424><bold>✖ Weiger & Verlaat",
+        "decline-lore1": "<#708090>Klik om te weigeren en",
+        "decline-lore2": "<#708090>de server te verlaten",
+        "rule-name": "<#FFFFFF><bold>Regel #{number}",
+        "rule-content": "<#C0C0C0>",
+        "rule-hint": "<#708090><italic>Lees alle regels voordat je accepteert"
+      },
+      "accept": {
+        "success": "<#279CF5>Je hebt de server regels geaccepteerd!"
+      },
+      "decline": {
+        "kick-message": "<#FF2424>Je moet de regels accepteren om deze server te joinen!"
+      },
+      "close": {
+        "cannot-close": "<#FF2424>⚠ Je moet de regels accepteren voordat je kunt spelen!"
+      }
+    },
+    "chatfilter": {
+      "blocked": "<#FF2424>Je bericht bevatte ongepaste taal.",
+      "staff-notice": "<#F54927>[<#FF2424>Filter<#F54927>] <white>{speler}<#FF2424> : <white>{bericht}"
+    },
+    "rtp": {
+      "gui": {
+        "title": "<bold><gradient:#279CF5:#279CF5>RTP Menu</gradient>",
+        "overworld": {
+          "name": "<#279CF5>Overworld",
+          "lore": [
+            "<#708090>Klik om te teleporteren naar willekeurige",
+            "<#708090>locatie in de overworld"
+          ]
+        },
+        "nether": {
+          "name": "<#FF2424>Nether",
+          "lore": [
+            "<#708090>Klik om te teleporteren naar willekeurige",
+            "<#708090>locatie in de nether"
+          ]
+        },
+        "end": {
+          "name": "<#4169E1>The End",
+          "lore": [
+            "<#708090>Klik om te teleporteren naar willekeurige",
+            "<#708090>locatie in the end"
+          ]
+        }
+      },
+      "world_disabled": "<#FF2424>RTP is uitgeschakeld in deze wereld!",
+      "cooldown": "<#FF2424>Wacht <#c0f0ff>{seconds} seconden</#c0f0ff> voordat je RTP weer gebruikt!",
+      "teleport_success": "<#279CF5>Succesvol geteleporteerd naar <white>{world}",
+      "reloaded": "<#279CF5>RTP configuratie herladen!"
+    },
+    "lobby": {
+      "no-lobby": "<#FF2424>Er is geen lobby ingesteld voor deze wereld.",
+      "teleported": "<#279CF5>Geteleporteerd naar lobby!",
+      "set": "<#279CF5>Lobby locatie ingesteld!",
+      "set-world": "<#279CF5>Lobby voor wereld <#c0f0ff>{world}<#279CF5> ingesteld!",
+      "removed": "<#279CF5>Lobby locatie verwijderd.",
+      "cooldown-active": "<#FF2424>Wacht <#c0f0ff>{time}<#FF2424> seconden voordat je weer kunt teleporteren.",
+      "usage-world": "<#FF2424>Gebruik: <#279CF5>/lobby world <wereld-naam>",
+      "world-not-found": "<#FF2424>Wereld <#c0f0ff>{world}<#FF2424> niet gevonden."
+    },
+    "general": {
+      "error": "<#FF2424>Er trad een fout op: {error}",
+      "success": "<#279CF5>Succes!",
+      "loading": "<#708090>Laden..."
+    },
+    "database": {
+      "header": "<#4169E1>╔════════════════════════════════════╗",
+      "title": "<#4169E1>║  <bold>Database Status</bold>                     ║",
+      "separator": "<#4169E1>╠════════════════════════════════════╣",
+      "footer": "<#4169E1>╚════════════════════════════════════╝",
+      "none": "<#FF2424>Geen databases geconfigureerd!",
+      "entry": "<#4169E1>║  <#c0f0ff>{name}</#c0f0ff> - {status}{msg} <#708090>({enabled})</#708090>  ║"
+    },
+    "nl": {
+      "economy": {
+        "shop": {
+          "main-title": "<gradient:#279CF5:#279CF5>Serverwinkel</gradient>",
+          "section-title": "<#279CF5>{section} Winkel",
+          "disabled": " <#FF2424>De winkel is uitgeschakeld",
+          "balance-display": "<#279CF5>Je saldo: <#c0f0ff>{balance}",
+          "buy-success": "<#279CF5>Gekocht: <white>{amount}x {item} <#279CF5>voor <#c0f0ff>{price}",
+          "sell-success": "<#279CF5>Verkocht: <white>{amount}x {item} <#279CF5>voor <#c0f0ff>{price}",
+          "cannot-afford": "<#FF2424>Je kunt {item} niet betalen (kosten: <#c0f0ff>{price})",
+          "no-items": "<#FF2424>Niet genoeg {item} om te verkopen",
+          "no-section": "<#FF2424>Winkelsectie '<#c0f0ff>{section}<#FF2424>' niet gevonden!",
+          "reload-success": "<#279CF5>Winkelconfiguratie herladen.",
+          "reload-error": "<#FF2424>Fout bij het herladen van de winkelconfiguratie. Controleer de console.",
+          "no-economy": "<#FF2424>Economie niet beschikbaar. Winkel is alleen bekijken.",
+          "transaction-failed": "<#FF2424>Transactie mislukt: {error}",
+          "no-main-config": "<#FF2424>Winkelconfiguratie niet gevonden. Neem contact op met een admin.",
+          "quantity-title": "<#279CF5>Selecteer hoeveelheid: <#c0f0ff>{item}",
+          "custom-amount-prompt": "<#279CF5>Typ in de chat het aantal dat je wilt kopen of typ <#FF2424>cancel<#279CF5> om te stoppen.",
+          "custom-amount-timeout": "<#FF2424>✗ Tijd om in te voeren is verstreken.",
+          "cancelled": "<#FF2424>✗ Aankoop geannuleerd",
+          "zero-quantity": "<#FF2424>✗ Kies een hoeveelheid groter dan 0",
+          "negative-amount": "<#FF2424>✗ Hoeveelheid moet positief zijn",
+          "invalid-amount": "<#FF2424>✗ Ongeldige hoeveelheid. Voer een nummer in.",
+          "cannot-afford-bulk": "<#FF2424>✗ Je kunt {quantity}x {item} niet betalen (kosten: <#c0f0ff>{price})",
+          "bulk-buy-success": "<#279CF5>✓ Je hebt {quantity}x {item} gekocht voor <#c0f0ff>{price}",
+          "gui": {
+            "close-button": "<#FF2424>✕ Sluiten",
+            "back-button": "<#279CF5>← Terug",
+            "previous-page": "<#708090>← Vorige",
+            "next-page": "<#708090>Volgende →",
+            "loading": "<#708090>Laden..."
+          }
+        },
+        "sellgui": {
+          "disabled": "<#FF2424>Verkoop-GUI is uitgeschakeld.",
+          "sold-success": "<#279CF5><bold>VERKOCHT <white>{amount} <#279CF5>items voor <#c0f0ff>{symbol}{price}",
+          "returned-items": "<#708090><white>{amount} <#708090>niet-verkoopbare items teruggegeven aan je inventaris",
+          "no-items": "<#708090>Geen items om te verkopen",
+          "inventory-full": "<#279CF5>Sommige items zijn gedropt (inventaris vol)",
+          "not-sellable": "<#FF2424>Dit item kan niet worden verkocht!",
+          "no-economy": "<#FF2424>Economie niet beschikbaar. Neem contact op met een admin.",
+          "transaction-failed": "<#FF2424>Transactie mislukt: {error}",
+          "title": "<#279CF5>Items verkopen",
+          "info": {
+            "title": "<#279CF5>VERKOOPZONE",
+            "subtitle": "<#708090>Plaats hier items om te verkopen",
+            "instruction": "<#279CF5>Sluit inventaris om te verwerken",
+            "value-prefix": "<#279CF5>Totaal: <#c0f0ff>"
+          }
+        }
+      }
+    },
+    "kits": {
+      "gui": {
+        "title": "<bold><gradient:#279CF5:#279CF5>Beschikbare Kits</gradient>",
+        "preview-title": "<white>Preview Kit: <#c0f0ff>{kit}"
+      },
+      "cooldown": "<#FF2424>Wacht <#c0f0ff>{time}s</#c0f0ff> voordat je <white>{kit}</white> weer claimt!",
+      "no-permission": "<#FF2424>Je hebt geen toestemming om <white>{kit}</white> te claimen!",
+      "claim-success": "<#279CF5>Succesvol kit <white>{kit}</white> geclaimd!",
+      "kit-not-found": "<#FF2424>Kit <white>{kit}</white> niet gevonden!",
+      "locked-name": "<#FF2424>Vergrendeld: <#708090>{kit}",
+      "requires-permission": "<#708090>Vereist: <white>{permission}",
+      "cooldown-info": "<#708090>Cooldown: <#FF2424>{time}s resterend",
+      "claim-button": "<#279CF5>Claim Kit",
+      "cooldown-button": "<#FF2424>Op Cooldown",
+      "back-button": "<#FF2424>← Terug",
+      "no-kits-defined": "<#FF2424>Er zijn momenteel geen kits gedefinieerd!",
+      "reload-success": "<#279CF5>Kits succesvol herladen!",
+      "reload-no-permission": "<#FF2424>Je hebt geen toestemming om kits te herladen!"
+    },
+    "mail": {
+      "on-join": "<#279CF5>Je hebt <#c0f0ff>{count}</#c0f0ff> ongelezen mails! Gebruik <white>/mail read</white>",
+      "send-usage": "<#FF2424>Gebruik: /mail send <speler> <bericht>",
+      "no-mail": "<#279CF5>Je hebt geen mail.",
+      "usage": {
+        "header": "<#279CF5>----- <white>Mail Systeem <#279CF5>-----",
+        "read": "<#279CF5>/mail read <#708090>- <white>Lees je inbox",
+        "send": "<#279CF5>/mail send <speler> <bericht> <#708090>- <white>Verstuur een mail",
+        "clear": "<#279CF5>/mail clear <#708090>- <white>Maak alle mail leeg",
+        "footer": "<#279CF5>---------------------------"
+      },
+      "header": "<#279CF5><bold>Je Mailbox:</bold>",
+      "message": {
+        "index": "<#708090>[{index}]",
+        "sender": "<#279CF5>{sender}: "
+      },
+      "footer": "<#279CF5>-------------------- <#708090>({count} berichten)",
+      "cooldown": "<#FF2424>Wacht {time} seconden voordat je weer mail verstuurt.",
+      "player-not-found": "<#FF2424>Speler <#c0f0ff>{speler}<#FF2424> niet gevonden.",
+      "message-too-long": "<#FF2424>Bericht te lang! Max <#c0f0ff>{max}<#FF2424> tekens.",
+      "sent": "<#279CF5>Mail verstuurd naar <#c0f0ff>{speler}",
+      "received": "<#279CF5>Je hebt nieuwe mail van <#c0f0ff>{sender}</#c0f0ff>! Gebruik <white>/mail read</white>",
+      "error": "<#FF2424>Fout bij verwerken mail.",
+      "cleared": "<#279CF5>Alle mail gewist!"
+    },
+    "no-permission": "<#FF2424>Je hebt toestemming nodig <#c0f0ff>{permission}<#FF2424>!"
+  }
+}

@@ -1,0 +1,1001 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="utf-8">
+    <title>RTP API Documentation – _GodlyCow</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --surface: #111111;
+            --surface-2: #191919;
+            --border: #2d2d2d;
+            --text: #e0e0e0;
+            --text-2: #888888;
+            --primary: #FFFFFF;
+            --primary-2: #e0e0e0;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+            --font: 'Courier New', 'Monaco', 'Consolas', monospace;
+            --code-bg: #050505;
+            --error: #ef4444;
+        }
+        [data-theme="light"] {
+            --bg: #f0f0f0;
+            --surface: #ffffff;
+            --surface-2: #f7f7f7;
+            --border: #cccccc;
+            --text: #1a1a1a;
+            --text-2: #555555;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            --code-bg: #f5f5f5;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font);
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        .topbar {
+            background: var(--surface);
+            border-bottom: 2px solid var(--border);
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+            font-weight: bold;
+        }
+        .topbar a {
+            color: var(--text-2);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .topbar a:hover { color: var(--primary); }
+        .topbar .spacer { flex: 1; }
+        .theme-btn {
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 0.4rem 0.8rem;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        .theme-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .hero {
+            background: linear-gradient(90deg, var(--surface) 0%, var(--surface-2) 100%);
+            border-bottom: 2px solid var(--border);
+            padding: 3rem 1.5rem;
+            text-align: center;
+            position: relative;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .hero p {
+            font-size: 1rem;
+            color: var(--text-2);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 0;
+        }
+        @media (max-width: 900px) {
+            .wrapper { grid-template-columns: 1fr; }
+        }
+        main { border-right: 2px solid var(--border); }
+
+        .card {
+            background: var(--surface);
+            border: none;
+            border-bottom: 2px solid var(--border);
+            margin-bottom: 0;
+        }
+        .card-header {
+            background: var(--surface-2);
+            padding: 1rem 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            border-bottom: 1px solid var(--border);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .card-body { padding: 1.5rem; }
+
+        .method-section {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px dashed var(--border);
+        }
+        .method-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .method-title {
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .method-signature {
+            background: var(--code-bg);
+            padding: 0.75rem;
+            border-left: 3px solid var(--primary);
+            margin: 0.75rem 0;
+            font-family: var(--font);
+            font-size: 0.95rem;
+            overflow-x: auto;
+        }
+        .method-desc {
+            margin: 0.75rem 0;
+            color: var(--text-2);
+            line-height: 1.6;
+        }
+        .method-params {
+            margin: 0.75rem 0;
+            padding-left: 1rem;
+        }
+        .method-params dt {
+            color: var(--primary);
+            font-weight: bold;
+            margin-top: 0.5rem;
+        }
+        .method-params dd {
+            color: var(--text-2);
+            margin-left: 1rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--border);
+            border-radius: 0;
+            padding: 1rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: var(--font);
+            font-size: 13px;
+            line-height: 1.4;
+        }
+        .code-block pre {
+            margin: 0;
+            white-space: pre;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin: 2rem 0 1rem 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+        }
+
+        .sidebar .card {
+            border-left: 2px solid var(--primary);
+            margin-bottom: 1rem;
+        }
+        .sidebar .card-body {
+            padding: 1rem;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar li {
+            margin-bottom: 0.5rem;
+            padding-left: 1rem;
+            position: relative;
+        }
+        .sidebar li::before {
+            content: ">";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+        .sidebar a {
+            color: var(--text-2);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .sidebar a:hover {
+            color: var(--primary);
+        }
+
+        .footer {
+            background: var(--surface);
+            border-top: 2px solid var(--border);
+            padding: 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .footer-link {
+            color: var(--text-2);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .footer-link:hover { color: var(--primary); }
+    </style>
+</head>
+<body>
+
+<header class="topbar">
+    <a href="index.html">← BACK TO HOME</a>
+    <a href="https://github.com/GodlyCow203/ServerEssentials" target="_blank">GITHUB</a>
+    <a href="https://discord.gg/vmhQ2gZr8g" target="_blank">DISCORD</a>
+    <div class="spacer"></div>
+    <button class="theme-btn" id="themeBtn">🌙 DARK</button>
+</header>
+
+<section class="hero">
+    <h1>RTP API Documentation</h1>
+    <p>Asynchronous random teleportation within configurable world boundaries, cooldown management, RTP history tracking, per-world configuration, GUI integration, and comprehensive event handling for teleportation monitoring</p>
+</section>
+
+<div class="wrapper">
+    <main>
+        <div class="card">
+            <div class="card-header">Overview</div>
+            <div class="card-body">
+                <p style="margin-bottom: 1rem; color: var(--text-2);">
+                    The RTP API provides public interfaces for managing random teleportation. Supports teleportation in current or specified worlds, GUI management, location history, and cooldown enforcement. All operations are asynchronous to prevent blocking the main server thread during world generation checks and location calculations.
+                </p>
+                <div class="method-signature">Package: com.serveressentials.api.rtp</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Interface: RtpAPI</div>
+            <div class="card-body">
+                <div class="method-section">
+                    <div class="method-title">randomTeleport(Player player)</div>
+                    <div class="method-signature">CompletableFuture&lt;Boolean&gt; randomTeleport(Player player)</div>
+                    <div class="method-desc">Teleports a player to a random location within the configured boundaries of their current world.</div>
+                    <div class="code-block">
+                        <pre>// Basic /rtp command handler
+public boolean onRtpCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    if (!(sender instanceof Player)) {
+        sender.sendMessage("Only players can use RTP.");
+        return true;
+    }
+
+    Player player = (Player) sender;
+
+    if (!rtpAPI.isEnabled()) {
+        player.sendMessage("§cRTP system is disabled.");
+        return true;
+    }
+
+    // Check if RTP is enabled in current world
+    String worldName = player.getWorld().getName();
+    rtpAPI.isRtpEnabled(worldName).thenAccept(enabled -> {
+        if (!enabled) {
+            player.sendMessage("§cRTP is not enabled in this world.");
+            return;
+        }
+
+        // Perform RTP
+        rtpAPI.randomTeleport(player).thenAccept(success -> {
+            if (success) {
+                player.sendMessage("§aWhoosh! You've been teleported to a random location.");
+                player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1.0f, 1.0f);
+
+                // Get the location for display
+                rtpAPI.getLastRtpLocation(player.getUniqueId()).thenAccept(optLoc -> {
+                    optLoc.ifPresent(loc -> {
+                        player.sendMessage("§7Coordinates: " + String.format("%.0f, %.0f, %.0f",
+                            loc.getX(), loc.getY(), loc.getZ()));
+                    });
+                });
+            } else {
+                player.sendMessage("§cFailed to find a safe location. Try again.");
+            }
+        });
+    });
+
+    return true;
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">randomTeleport(Player player, World world)</div>
+                    <div class="method-signature">CompletableFuture&lt;Boolean&gt; randomTeleport(Player player, World world)</div>
+                    <div class="method-desc">Teleports a player to a random location within a specific world's RTP boundaries.</div>
+                    <div class="code-block">
+                        <pre>// /rtpworld &lt;world&gt; command
+public boolean onRtpWorldCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    if (!(sender instanceof Player)) {
+        sender.sendMessage("Only players can use this command.");
+        return true;
+    }
+
+    Player player = (Player) sender;
+
+    if (args.length < 1) {
+        player.sendMessage("Usage: /rtpworld &lt;world&gt;");
+        return true;
+    }
+
+    String worldName = args[0];
+    World targetWorld = Bukkit.getWorld(worldName);
+
+    if (targetWorld == null) {
+        player.sendMessage("§cWorld not found: " + worldName);
+        return true;
+    }
+
+    if (!rtpAPI.isEnabled()) {
+        player.sendMessage("§cRTP system is disabled.");
+        return true;
+    }
+
+    rtpAPI.isRtpEnabled(worldName).thenAccept(enabled -> {
+        if (!enabled) {
+            player.sendMessage("§cRTP is not enabled in world: " + worldName);
+            return;
+        }
+
+        // Perform RTP
+        rtpAPI.randomTeleport(player, targetWorld).thenAccept(success -> {
+            if (success) {
+                player.sendMessage("§aTeleported to " + worldName + "!");
+            } else {
+                player.sendMessage("§cFailed to find safe location in " + worldName);
+            }
+        });
+    });
+
+    return true;
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">openRtpGUI(Player player)</div>
+                    <div class="method-signature">CompletableFuture&lt;Boolean&gt; openRtpGUI(Player player)</div>
+                    <div class="method-desc">Opens an RTP GUI menu for the player, showing available worlds and RTP options if configured.</div>
+                    <div class="code-block">
+                        <pre>// /rtpgui command
+public boolean onRtpGuiCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    if (!(sender instanceof Player)) {
+        sender.sendMessage("Only players can open the RTP GUI.");
+        return true;
+    }
+
+    Player player = (Player) sender;
+
+    if (!rtpAPI.isEnabled()) {
+        player.sendMessage("§cRTP system is disabled.");
+        return true;
+    }
+
+    rtpAPI.openRtpGUI(player).thenAccept(success -> {
+        if (!success) {
+            player.sendMessage("§cFailed to open RTP GUI. No worlds available or system error.");
+        }
+    });
+
+    return true;
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getLastRtpLocation(UUID playerId)</div>
+                    <div class="method-signature">CompletableFuture&lt;Optional&lt;RtpLocation&gt;&gt; getLastRtpLocation(UUID playerId)</div>
+                    <div class="method-desc">Retrieves the player's most recent RTP location.</div>
+                    <div class="code-block">
+                        <pre>// /rtplast command
+public boolean onRtpLastCommand(CommandSender sender, String[] args) {
+    UUID targetId;
+
+    if (args.length > 0) {
+        OfflinePlayer target = Bukkit.getOfflinePlayer(args[0]);
+        targetId = target.getUniqueId();
+    } else if (sender instanceof Player) {
+        targetId = ((Player) sender).getUniqueId();
+    } else {
+        sender.sendMessage("§cSpecify a player or run as a player.");
+        return true;
+    }
+
+    rtpAPI.getLastRtpLocation(targetId).thenAccept(optLocation -> {
+        if (optLocation.isEmpty()) {
+            sender.sendMessage("No RTP history found.");
+            return;
+        }
+
+        RtpLocation loc = optLocation.get();
+        String playerName = loc.getPlayerName();
+
+        sender.sendMessage("§6Last RTP for " + playerName + ":");
+        sender.sendMessage("§7World: " + loc.getWorldName());
+        sender.sendMessage("§7Coords: " + String.format("%.1f, %.1f, %.1f",
+            loc.getX(), loc.getY(), loc.getZ()));
+    });
+
+    return true;
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">saveRtpLocation(UUID playerId, Location location)</div>
+                    <div class="method-signature">CompletableFuture&lt;Void&gt; saveRtpLocation(UUID playerId, Location location)</div>
+                    <div class="method-desc">Manually saves an RTP location for a player.</div>
+                    <div class="code-block">
+                        <pre>// Save custom random teleport location
+public void customWildernessTp(Player player) {
+    Location randomLocation = findRandomSafeLocation(player.getWorld());
+
+    // Save as RTP location for tracking
+    rtpAPI.saveRtpLocation(player.getUniqueId(), randomLocation).thenAccept(v -> {
+        getLogger().info("Saved custom RTP location for " + player.getName());
+    });
+
+    // Then teleport
+    player.teleport(randomLocation);
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getRemainingCooldown(UUID playerId)</div>
+                    <div class="method-signature">CompletableFuture&lt;Long&gt; getRemainingCooldown(UUID playerId)</div>
+                    <div class="method-desc">Retrieves the remaining cooldown time before a player can use RTP again.</div>
+                    <div class="code-block">
+                        <pre>// Display RTP status
+public void showRtpStatus(Player player) {
+    rtpAPI.getRemainingCooldown(player.getUniqueId()).thenAccept(cooldown -> {
+        rtpAPI.getWorldConfig(player.getWorld().getName()).thenAccept(optConfig -> {
+            if (optConfig.isPresent()) {
+                RtpWorldConfig config = optConfig.get();
+
+                if (!config.isEnabled()) {
+                    player.sendMessage("§cRTP disabled in this world.");
+                    return;
+                }
+
+                if (cooldown > 0) {
+                    String timeLeft = formatCooldown(cooldown);
+                    player.sendMessage("§cRTP cooldown: " + timeLeft);
+                    player.sendMessage("§7Cooldown: " + config.getCooldownSeconds() + " seconds");
+                } else {
+                    player.sendMessage("§aRTP is ready!");
+                    player.sendMessage("§7Range: " + config.getMinRadius() + " to " + config.getMaxRadius() + " blocks");
+                }
+            }
+        });
+    });
+}
+
+private String formatCooldown(long seconds) {
+    if (seconds < 60) {
+        return seconds + " seconds";
+    }
+    long minutes = seconds / 60;
+    return minutes + " minutes, " + (seconds % 60) + " seconds";
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getWorldConfig(String worldName)</div>
+                    <div class="method-signature">CompletableFuture&lt;Optional&lt;RtpWorldConfig&gt;&gt; getWorldConfig(String worldName)</div>
+                    <div class="method-desc">Retrieves the RTP configuration for a specific world.</div>
+                    <div class="code-block">
+                        <pre>// Display RTP config for a world
+public boolean onRtpConfigCommand(CommandSender sender, String[] args) {
+    if (args.length < 1) {
+        sender.sendMessage("Usage: /rtpconfig &lt;world&gt;");
+        return true;
+    }
+
+    String worldName = args[0];
+
+    rtpAPI.getWorldConfig(worldName).thenAccept(optConfig -> {
+        if (optConfig.isEmpty()) {
+            sender.sendMessage("§cRTP not configured for world: " + worldName);
+            return;
+        }
+
+        RtpWorldConfig config = optConfig.get();
+        sender.sendMessage("§6§lRTP Config for " + worldName + ":");
+        sender.sendMessage("§7Enabled: " + (config.isEnabled() ? "§aYes" : "§cNo"));
+        sender.sendMessage("§7Min Radius: " + config.getMinRadius() + " blocks");
+        sender.sendMessage("§7Max Radius: " + config.getMaxRadius() + " blocks");
+        sender.sendMessage("§7Cooldown: " + config.getCooldownSeconds() + " seconds");
+    });
+
+    return true;
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">isRtpEnabled(String worldName)</div>
+                    <div class="method-signature">CompletableFuture&lt;Boolean&gt; isRtpEnabled(String worldName)</div>
+                    <div class="method-desc">Checks whether RTP is specifically enabled for a given world.</div>
+                    <div class="code-block">
+                        <pre>// Tab completion for RTP commands
+@Override
+public List&lt;String&gt; onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
+    List&lt;String&gt; completions = new ArrayList&lt;&gt;();
+
+    if (args.length == 1 && "rtpworld".startsWith(args[0].toLowerCase())) {
+        for (World world : Bukkit.getWorlds()) {
+            rtpAPI.isRtpEnabled(world.getName()).thenAccept(enabled -> {
+                if (enabled && world.getName().toLowerCase().startsWith(args[0].toLowerCase())) {
+                    completions.add(world.getName());
+                }
+            });
+        }
+    }
+
+    return completions;
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">isEnabled()</div>
+                    <div class="method-signature">boolean isEnabled()</div>
+                    <div class="method-desc">Checks whether the RTP system is globally enabled on the server.</div>
+                    <div class="code-block">
+                        <pre>@EventHandler
+public void onPlayerJoin(PlayerJoinEvent event) {
+    Player player = event.getPlayer();
+
+    // Only notify if RTP is globally enabled
+    if (rtpAPI.isEnabled()) {
+        String worldName = player.getWorld().getName();
+
+        rtpAPI.isRtpEnabled(worldName).thenAccept(enabled -> {
+            if (enabled) {
+                player.sendMessage("§eUse §f/rtp §eto explore the wilderness!");
+            }
+        });
+    }
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">reload()</div>
+                    <div class="method-signature">CompletableFuture&lt;Void&gt; reload()</div>
+                    <div class="method-desc">Reloads the RTP configuration from disk without requiring a server restart.</div>
+                    <div class="code-block">
+                        <pre>// Command: /rtp reload (admin)
+public boolean onRtpReloadCommand(CommandSender sender) {
+    if (!sender.hasPermission("rtp.admin.reload")) {
+        sender.sendMessage("§cNo permission.");
+        return true;
+    }
+
+    sender.sendMessage("§eReloading RTP configuration...");
+
+    rtpAPI.reload().thenAccept(v -> {
+        sender.sendMessage("§aRTP configuration reloaded!");
+
+        // Show updated world configs
+        sender.sendMessage("§7Active worlds:");
+        Bukkit.getWorlds().forEach(world -> {
+            rtpAPI.getWorldConfig(world.getName()).thenAccept(optConfig -> {
+                if (optConfig.isPresent()) {
+                    RtpWorldConfig config = optConfig.get();
+                    sender.sendMessage("§7- " + world.getName() + ": " +
+                        (config.isEnabled() ? "§a✓" : "§c✗"));
+                }
+            });
+        });
+
+        getLogger().info("RTP configuration reloaded by " + sender.getName());
+
+    }).exceptionally(throwable -> {
+        sender.sendMessage("§cFailed to reload RTP config: " + throwable.getMessage());
+        getLogger().log(Level.SEVERE, "RTP reload failed", throwable);
+        return null;
+    });
+
+    return true;
+}</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Class: RtpLocation</div>
+            <div class="card-body">
+                <div class="method-signature">Package: com.serveressentials.api.rtp</div>
+                <p style="margin: 1rem 0; color: var(--text-2);">An immutable data container that records details about a specific RTP event: player ID/name, world name, coordinates, and timestamp. Used for history tracking and analytics.</p>
+
+                <div class="section-title">Constructor</div>
+                <div class="method-signature">RtpLocation(UUID playerId, String playerName, String worldName, double x, double y, double z, long timestamp)</div>
+
+                <div class="section-title">Methods</div>
+                <div class="method-section">
+                    <div class="method-title">getPlayerId(), getPlayerName()</div>
+                    <div class="method-signature">@NotNull UUID getPlayerId(), @NotNull String getPlayerName()</div>
+                    <div class="method-desc">Returns the UUID and name of the player who performed RTP.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getWorldName()</div>
+                    <div class="method-signature">@NotNull String getWorldName()</div>
+                    <div class="method-desc">Returns the world name where RTP occurred.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getX(), getY(), getZ()</div>
+                    <div class="method-signature">double getX(), double getY(), double getZ()</div>
+                    <div class="method-desc">Returns the coordinate values of the RTP location.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getTimestamp()</div>
+                    <div class="method-signature">long getTimestamp()</div>
+                    <div class="method-desc">Returns when RTP occurred (milliseconds since epoch).</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">toLocation(World world)</div>
+                    <div class="method-signature">Location toLocation(World world)</div>
+                    <div class="method-desc">Converts this RTP location to a Bukkit Location object.</div>
+                    <div class="code-block">
+                        <pre>// Teleport player back to last RTP location
+public void teleportToLastRtp(Player player, RtpLocation rtpLoc) {
+    World world = Bukkit.getWorld(rtpLoc.getWorldName());
+    if (world == null) {
+        player.sendMessage("§cWorld not found: " + rtpLoc.getWorldName());
+        return;
+    }
+
+    Location loc = rtpLoc.toLocation(world);
+    player.teleport(loc);
+    player.sendMessage("§aTeleported to your last RTP location!");
+}</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Class: RtpWorldConfig</div>
+            <div class="card-body">
+                <div class="method-signature">Package: com.serveressentials.api.rtp</div>
+                <p style="margin: 1rem 0; color: var(--text-2);">An immutable data container representing per-world RTP settings, including enabled status, teleportation radius boundaries, and cooldown duration.</p>
+
+                <div class="section-title">Constructor</div>
+                <div class="method-signature">RtpWorldConfig(String worldName, boolean enabled, int minRadius, int maxRadius, int cooldownSeconds)</div>
+
+                <div class="section-title">Methods</div>
+                <div class="method-section">
+                    <div class="method-title">getWorldName()</div>
+                    <div class="method-signature">@NotNull String getWorldName()</div>
+                    <div class="method-desc">Returns the world name for this config.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">isEnabled()</div>
+                    <div class="method-signature">boolean isEnabled()</div>
+                    <div class="method-desc">Indicates whether RTP is enabled in this world.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getMinRadius(), getMaxRadius()</div>
+                    <div class="method-signature">int getMinRadius(), int getMaxRadius()</div>
+                    <div class="method-desc">Returns minimum and maximum teleportation distance from world spawn.</div>
+                    <div class="code-block">
+                        <pre>// Display RTP settings for a world
+public void showRtpSettings(Player player, String worldName) {
+    rtpAPI.getWorldConfig(worldName).thenAccept(optConfig -> {
+        if (optConfig.isPresent()) {
+            RtpWorldConfig config = optConfig.get();
+            player.sendMessage("§6RTP Settings for " + worldName + ":");
+            player.sendMessage("§7Status: " + (config.isEnabled() ? "§aEnabled" : "§cDisabled"));
+            player.sendMessage("§7Radius: " + config.getMinRadius() + " to " + config.getMaxRadius() + " blocks");
+            player.sendMessage("§7Cooldown: " + config.getCooldownSeconds() + " seconds");
+        } else {
+            player.sendMessage("§cRTP not configured for " + worldName);
+        }
+    });
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getCooldownSeconds()</div>
+                    <div class="method-signature">int getCooldownSeconds()</div>
+                    <div class="method-desc">Returns seconds between allowed RTP uses in this world.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Events</div>
+            <div class="card-body">
+                <div class="section-title">RtpEvent</div>
+                <div class="method-signature">Package: com.serveressentials.api.rtp.event</div>
+                <div class="method-desc">Base event class for all RTP-related actions. Asynchronous if fired off main thread.</div>
+
+                <div class="section-title">RtpLocationSaveEvent</div>
+                <div class="method-signature">Package: com.serveressentials.api.rtp.event</div>
+                <div class="method-desc">Fired when an RTP location is successfully saved to the player's history.</div>
+                <div class="code-block">
+                    <pre>@EventHandler
+public void onRtpLocationSave(RtpLocationSaveEvent event) {
+    Player player = event.getPlayer();
+    RtpLocation loc = event.getRtpLocation();
+
+    getLogger().info(String.format(
+        "%s RTP'd to %.1f, %.1f, %.1f in %s",
+        player.getName(),
+        loc.getX(),
+        loc.getY(),
+        loc.getZ(),
+        loc.getWorldName()
+    ));
+
+    // Update analytics
+    analyticsAPI.trackRTP(
+        player.getUniqueId(),
+        loc.getWorldName(),
+        loc.getX(),
+        loc.getZ(),
+        loc.getTimestamp()
+    );
+}</pre>
+                </div>
+
+                <div class="section-title">RtpTeleportEvent</div>
+                <div class="method-signature">Package: com.serveressentials.api.rtp.event</div>
+                <div class="method-desc">Fired immediately before a player is teleported via RTP.</div>
+                <div class="code-block">
+                    <pre>@EventHandler
+public void onRtpTeleport(RtpTeleportEvent event) {
+    Player player = event.getPlayer();
+    RtpLocation rtpLoc = event.getRtpLocation();
+    Location from = event.getFromLocation();
+
+    if (from != null) {
+        // Calculate distance
+        Location to = new Location(
+            Bukkit.getWorld(rtpLoc.getWorldName()),
+            rtpLoc.getX(),
+            rtpLoc.getY(),
+            rtpLoc.getZ()
+        );
+        double distance = from.distance(to);
+
+        getLogger().info(player.getName() + " RTP'd " + String.format("%.0f", distance) + " blocks");
+
+        // Save location for /back if significant
+        if (distance > 500) {
+            backAPI.setBackLocation(player, from);
+        }
+    }
+}</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Complete Usage Scenario</div>
+            <div class="card-body">
+                <p style="margin-bottom: 1rem; color: var(--text-2);">
+                    Advanced RTP management plugin with cooldown reduction for VIPs, RTP statistics tracking, and safe RTP verification:
+                </p>
+                <div class="code-block">
+                    <pre>package com.advancedrtp;
+
+import com.serveressentials.api.rtp.*;
+import com.serveressentials.api.rtp.event.*;
+import org.bukkit.*;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.plugin.java.JavaPlugin;
+import java.util.*;
+
+public class AdvancedRTPPlugin extends JavaPlugin implements Listener {
+    private RtpAPI rtpAPI;
+    private Map&lt;UUID, Integer&gt; playerRtpCounts;
+
+    @Override
+    public void onEnable() {
+        this.rtpAPI = getRtpAPI();
+        this.playerRtpCounts = new HashMap&lt;&gt;();
+
+        getServer().getPluginManager().registerEvents(this, this);
+        getCommand("artp").setExecutor(this::onArtpCommand);
+        getCommand("rtpstats").setExecutor(this::onRtpStatsCommand);
+    }
+
+    @EventHandler
+    public void onRtpTeleport(RtpTeleportEvent event) {
+        Player player = event.getPlayer();
+        UUID playerId = player.getUniqueId();
+
+        // Increment player's RTP count
+        int count = playerRtpCounts.getOrDefault(playerId, 0) + 1;
+        playerRtpCounts.put(playerId, count);
+
+        // Achievement: First RTP
+        if (count == 1) {
+            player.sendMessage("§6§lFirst RTP! §aYou've teleported for the first time!");
+            player.getInventory().addItem(new ItemStack(Material.COMPASS));
+        }
+
+        // Log for analytics
+        getLogger().info(player.getName() + " RTP #" + count + " to " + event.getWorldName());
+    }
+}</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Error Handling Best Practices</div>
+            <div class="card-body">
+                <div class="code-block">
+                    <pre>public void safeRtp(Player player, World world) {
+    // Check if RTP is enabled globally first
+    if (!rtpAPI.isEnabled()) {
+        player.sendMessage("§cRTP system is disabled.");
+        return;
+    }
+
+    // Validate parameters
+    if (player == null || !player.isOnline()) {
+        getLogger().warning("Attempted RTP for null/offline player.");
+        return;
+    }
+
+    if (world == null) {
+        player.sendMessage("§cInvalid world.");
+        return;
+    }
+
+    // Check world configuration
+    rtpAPI.getWorldConfig(world.getName()).thenAccept(optConfig -> {
+        if (optConfig.isEmpty()) {
+            player.sendMessage("§cRTP not configured for this world.");
+            return;
+        }
+
+        if (!optConfig.get().isEnabled()) {
+            player.sendMessage("§cRTP disabled in this world.");
+            return;
+        }
+
+        // Check cooldown
+        rtpAPI.getRemainingCooldown(player.getUniqueId()).thenAccept(cooldown -> {
+            if (cooldown > 0) {
+                player.sendMessage("§cYou're on cooldown. Wait " + formatTime(cooldown));
+                return;
+            }
+
+            // Perform RTP with error handling
+            rtpAPI.randomTeleport(player, world)
+                .exceptionally(throwable -> {
+                    getLogger().log(Level.SEVERE, "RTP failed for " + player.getName(), throwable);
+                    player.sendMessage("§cCritical RTP error. Contact staff.");
+                    return false;
+                })
+                .thenAccept(success -> {
+                    if (!success) {
+                        player.sendMessage("§cFailed to find safe location. Try again.");
+                    }
+                });
+        });
+    });
+}
+
+private String formatTime(long seconds) {
+    long minutes = seconds / 60;
+    return String.format("%d minutes, %d seconds", minutes, seconds % 60);
+}</pre>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <aside class="sidebar">
+        <div class="card">
+            <div class="card-header">Quick Navigation</div>
+            <div class="card-body">
+                <ul>
+                    <li><a href="#top">RtpAPI Interface</a></li>
+                    <li><a href="#top">RtpLocation Class</a></li>
+                    <li><a href="#top">RtpWorldConfig Class</a></li>
+                    <li><a href="#top">Event Listeners</a></li>
+                    <li><a href="#top">Usage Examples</a></li>
+                    <li><a href="#top">Error Handling</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Package Structure</div>
+            <div class="card-body">
+                <ul>
+                    <li>com.serveressentials.api.rtp.RtpAPI</li>
+                    <li>com.serveressentials.api.rtp.RtpLocation</li>
+                    <li>com.serveressentials.api.rtp.RtpWorldConfig</li>
+                    <li>com.serveressentials.api.rtp.event.*</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Implementation Notes</div>
+            <div class="card-body" style="font-size: 0.85rem; color: var(--text-2);">
+                <p>All RTP operations run asynchronously with automatic safe location detection. Zero lag reported on servers with 100+ concurrent players.</p>
+                <p style="margin-top: 0.75rem;">Supports per-world configuration, GUI integration, and comprehensive event monitoring for analytics and anti-cheat integration.</p>
+            </div>
+        </div>
+    </aside>
+</div>
+
+<footer>
+    <div class="footer-links">
+        <a href="https://modrinth.com/user/_GodlyCow" class="footer-link" target="_blank">Modrinth Profile</a>
+        <a href="https://github.com/GodlyCow203" class="footer-link" target="_blank">GitHub</a>
+        <a href="https://discord.gg/vmhQ2gZr8g" class="footer-link" target="_blank">Discord</a>
+        <a href="mailto:godlycowcow@gmail.com" class="footer-link">Email</a>
+    </div>
+    <p>&copy; <span id="yr"></span> _GodlyCow – Building plugins for the Minecraft community</p>
+</footer>
+
+<script>
+    const themeBtn = document.getElementById('themeBtn');
+    const root = document.documentElement;
+    const saved = localStorage.getItem('theme') || 'dark';
+    root.setAttribute('data-theme', saved);
+    themeBtn.textContent = saved === 'dark' ? '☀️ LIGHT' : '🌙 DARK';
+
+    themeBtn.addEventListener('click', () => {
+        const t = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', t);
+        localStorage.setItem('theme', t);
+        themeBtn.textContent = t === 'dark' ? '☀️ LIGHT' : '🌙 DARK';
+    });
+
+    document.getElementById('yr').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

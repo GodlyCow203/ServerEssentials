@@ -1,0 +1,688 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="utf-8">
+    <title>Auction API Documentation – _GodlyCow</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --surface: #111111;
+            --surface-2: #191919;
+            --border: #2d2d2d;
+            --text: #e0e0e0;
+            --text-2: #888888;
+            --primary: #FFFFFF;
+            --primary-2: #e0e0e0;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+            --font: 'Courier New', 'Monaco', 'Consolas', monospace;
+            --code-bg: #050505;
+            --error: #ef4444;
+        }
+        [data-theme="light"] {
+            --bg: #f0f0f0;
+            --surface: #ffffff;
+            --surface-2: #f7f7f7;
+            --border: #cccccc;
+            --text: #1a1a1a;
+            --text-2: #555555;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            --code-bg: #f5f5f5;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font);
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        .topbar {
+            background: var(--surface);
+            border-bottom: 2px solid var(--border);
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+            font-weight: bold;
+        }
+        .topbar a {
+            color: var(--text-2);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .topbar a:hover { color: var(--primary); }
+        .topbar .spacer { flex: 1; }
+        .theme-btn {
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 0.4rem 0.8rem;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        .theme-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .hero {
+            background: linear-gradient(90deg, var(--surface) 0%, var(--surface-2) 100%);
+            border-bottom: 2px solid var(--border);
+            padding: 3rem 1.5rem;
+            text-align: center;
+            position: relative;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .hero p {
+            font-size: 1rem;
+            color: var(--text-2);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 0;
+        }
+        @media (max-width: 900px) {
+            .wrapper { grid-template-columns: 1fr; }
+        }
+        main { border-right: 2px solid var(--border); }
+
+        .card {
+            background: var(--surface);
+            border: none;
+            border-bottom: 2px solid var(--border);
+            margin-bottom: 0;
+        }
+        .card-header {
+            background: var(--surface-2);
+            padding: 1rem 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            border-bottom: 1px solid var(--border);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+        }
+        .card-body { padding: 1.5rem; }
+
+        .method-section {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px dashed var(--border);
+        }
+        .method-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .method-title {
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .method-signature {
+            background: var(--code-bg);
+            padding: 0.75rem;
+            border-left: 3px solid var(--primary);
+            margin: 0.75rem 0;
+            font-family: var(--font);
+            font-size: 0.95rem;
+            overflow-x: auto;
+        }
+        .method-desc {
+            margin: 0.75rem 0;
+            color: var(--text-2);
+            line-height: 1.6;
+        }
+        .method-params {
+            margin: 0.75rem 0;
+            padding-left: 1rem;
+        }
+        .method-params dt {
+            color: var(--primary);
+            font-weight: bold;
+            margin-top: 0.5rem;
+        }
+        .method-params dd {
+            color: var(--text-2);
+            margin-left: 1rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--border);
+            border-radius: 0;
+            padding: 1rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: var(--font);
+            font-size: 13px;
+            line-height: 1.4;
+        }
+        .code-block pre {
+            margin: 0;
+            white-space: pre;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin: 2rem 0 1rem 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+        }
+
+        .sidebar .card {
+            border-left: 2px solid var(--primary);
+            margin-bottom: 1rem;
+        }
+        .sidebar .card-body {
+            padding: 1rem;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar li {
+            margin-bottom: 0.5rem;
+            padding-left: 1rem;
+            position: relative;
+        }
+        .sidebar li::before {
+            content: ">";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+        .sidebar a {
+            color: var(--text-2);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .sidebar a:hover {
+            color: var(--primary);
+        }
+
+        .footer {
+            background: var(--surface);
+            border-top: 2px solid var(--border);
+            padding: 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .footer-link {
+            color: var(--text-2);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .footer-link:hover { color: var(--primary); }
+    </style>
+</head>
+<body>
+
+<header class="topbar">
+    <a href="index.html">← BACK TO HOME</a>
+    <a href="https://github.com/GodlyCow203/ServerEssentials" target="_blank">GITHUB</a>
+    <a href="https://discord.gg/vmhQ2gZr8g" target="_blank">DISCORD</a>
+    <div class="spacer"></div>
+    <button class="theme-btn" id="themeBtn">🌙 DARK</button>
+</header>
+
+<section class="hero">
+    <h1>Auction API Documentation</h1>
+    <p>Programmatic control over auction listings, transactions, and economy integration for Server Essentials</p>
+</section>
+
+<div class="wrapper">
+    <main>
+        <div class="card">
+            <div class="card-header">Overview</div>
+            <div class="card-body">
+                <p style="margin-bottom: 1rem; color: var(--text-2);">
+                    The Auction API provides complete programmatic access to the auction house system. Manage listings, handle transactions, listen to events, and integrate with the server's economy.
+                </p>
+                <div class="method-signature">Package: com.serveressentials.api.auction</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Interface: AuctionAPI</div>
+            <div class="card-body">
+                <div class="method-section">
+                    <div class="method-title">openAuction(Player player)</div>
+                    <div class="method-signature">void openAuction(Player player)</div>
+                    <div class="method-desc">Opens the main auction house GUI for the specified player.</div>
+                    <div class="code-block">
+                        <pre>public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    if (!(sender instanceof Player)) {
+        sender.sendMessage("Only players can use this command.");
+        return true;
+    }
+
+    Player player = (Player) sender;
+    if (auctionAPI.isAuctionEnabled()) {
+        auctionAPI.openAuction(player);
+    } else {
+        player.sendMessage("§cThe auction house is currently disabled.");
+    }
+    return true;
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">openMyAuctionItems(Player player)</div>
+                    <div class="method-signature">void openMyAuctionItems(Player player)</div>
+                    <div class="method-desc">Opens a GUI displaying only the items the player has listed for sale.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">addAuctionItem(Player seller, ItemStack item, double price)</div>
+                    <div class="method-signature">CompletableFuture&lt;Boolean&gt; addAuctionItem(Player seller, ItemStack item, double price)</div>
+                    <div class="method-desc">Programmatically lists a new item in the auction house without GUI interaction.</div>
+                    <div class="method-params">
+                        <dt>Parameters:</dt>
+                        <dd><strong>seller</strong> - The Player selling the item. Must have permission and not exceed listing limit.</dd>
+                        <dd><strong>item</strong> - The ItemStack to auction. The entire stack is listed as one item.</dd>
+                        <dd><strong>price</strong> - The selling price in server currency. Must be positive and not exceed getMaxPriceLimit().</dd>
+                    </div>
+                    <div class="code-block">
+                        <pre>public void onRareDrop(PlayerDeathEvent event) {
+    Player killer = event.getEntity().getKiller();
+    if (killer == null) return;
+
+    ItemStack rareDrop = new ItemStack(Material.NETHERITE_INGOT, 2);
+    double marketPrice = 500.0;
+
+    auctionAPI.addAuctionItem(killer, rareDrop, marketPrice)
+        .thenAccept(success -> {
+            if (success) {
+                killer.sendMessage("§aYour rare drop has been automatically listed!");
+            } else {
+                killer.sendMessage("§cFailed to list item. You may have reached your auction limit.");
+            }
+        });
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">removeAuctionItem(UUID itemId)</div>
+                    <div class="method-signature">CompletableFuture&lt;Boolean&gt; removeAuctionItem(UUID itemId)</div>
+                    <div class="method-desc">Removes a specific item from auction and returns it to the seller.</div>
+                    <div class="code-block">
+                        <pre>public boolean removeAuctionItemCommand(Player admin, String itemIdStr) {
+    try {
+        UUID itemId = UUID.fromString(itemIdStr);
+        auctionAPI.removeAuctionItem(itemId).thenAccept(success -> {
+            if (success) {
+                admin.sendMessage("§aItem removed and returned to seller.");
+            } else {
+                admin.sendMessage("§cItem not found or removal failed.");
+            }
+        });
+        return true;
+    } catch (IllegalArgumentException e) {
+        admin.sendMessage("§cInvalid UUID format.");
+        return false;
+    }
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getActiveItems()</div>
+                    <div class="method-signature">CompletableFuture&lt;Collection&lt;AuctionItem&gt;&gt; getActiveItems()</div>
+                    <div class="method-desc">Retrieves all items currently listed in the auction house.</div>
+                    <div class="code-block">
+                        <pre>public void generateMarketReport(Player admin) {
+    auctionAPI.getActiveItems().thenAccept(items -> {
+        admin.sendMessage("=== Auction Market Report ===");
+        admin.sendMessage("Total active listings: " + items.size());
+
+        double totalValue = items.stream()
+            .mapToDouble(AuctionItem::getPrice)
+            .sum();
+        admin.sendMessage("Total market value: $" + String.format("%.2f", totalValue));
+    });
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getPlayerItems(UUID playerId)</div>
+                    <div class="method-signature">CompletableFuture&lt;Collection&lt;AuctionItem&gt;&gt; getPlayerItems(UUID playerId)</div>
+                    <div class="method-desc">Retrieves all auction items listed by a specific player.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">isAuctionEnabled()</div>
+                    <div class="method-signature">boolean isAuctionEnabled()</div>
+                    <div class="method-desc">Checks whether the auction house system is currently enabled.</div>
+                    <div class="method-params">
+                        <dt>When to Call:</dt>
+                        <dd>Always check this before performing any auction-related operations.</dd>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getMaxPriceLimit()</div>
+                    <div class="method-signature">double getMaxPriceLimit()</div>
+                    <div class="method-desc">Returns the configured maximum price allowed per auction item.</div>
+                    <div class="code-block">
+                        <pre>public boolean validateListingPrice(Player player, double price) {
+    double maxPrice = auctionAPI.getMaxPriceLimit();
+    if (price > maxPrice) {
+        player.sendMessage("§cPrice exceeds maximum allowed ($" + maxPrice + ")");
+        return false;
+    }
+    if (price <= 0) {
+        player.sendMessage("§cPrice must be positive.");
+        return false;
+    }
+    return true;
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getMaxItemsPerPlayer()</div>
+                    <div class="method-signature">int getMaxItemsPerPlayer()</div>
+                    <div class="method-desc">Returns the maximum number of items a player can list simultaneously.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Class: AuctionItem</div>
+            <div class="card-body">
+                <div class="method-signature">Package: com.serveressentials.api.auction</div>
+                <p style="margin: 1rem 0; color: var(--text-2);">Immutable data container representing a single auction listing.</p>
+
+                <div class="section-title">Constructor</div>
+                <div class="method-signature">AuctionItem(UUID id, UUID seller, ItemStack item, double price, long expiration, long createdAt)</div>
+
+                <div class="section-title">Methods</div>
+                <div class="method-section">
+                    <div class="method-title">getId()</div>
+                    <div class="method-signature">UUID getId()</div>
+                    <div class="method-desc">Returns the unique identifier for this auction listing.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getSeller()</div>
+                    <div class="method-signature">UUID getSeller()</div>
+                    <div class="method-desc">Returns the UUID of the player who listed this item.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getItem()</div>
+                    <div class="method-signature">ItemStack getItem()</div>
+                    <div class="method-desc">Returns the actual ItemStack being sold.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getPrice()</div>
+                    <div class="method-signature">double getPrice()</div>
+                    <div class="method-desc">Returns the selling price of this item.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getExpiration()</div>
+                    <div class="method-signature">long getExpiration()</div>
+                    <div class="method-desc">Returns the timestamp when this listing will expire.</div>
+                    <div class="code-block">
+                        <pre>public String getTimeRemaining(AuctionItem item) {
+    long now = System.currentTimeMillis();
+    long diff = item.getExpiration() - now;
+    if (diff <= 0) return "Expired";
+    long hours = diff / (1000 * 60 * 60);
+    return hours + " hours remaining";
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getCreatedAt()</div>
+                    <div class="method-signature">long getCreatedAt()</div>
+                    <div class="method-desc">Returns the timestamp when this listing was created.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Events</div>
+            <div class="card-body">
+                <div class="section-title">AuctionListEvent</div>
+                <div class="method-signature">Package: com.serveressentials.api.auction.event</div>
+                <div class="method-desc">Fired when a player successfully lists a new item.</div>
+                <div class="code-block">
+                    <pre>@EventHandler
+public void onAuctionList(AuctionListEvent event) {
+    Player player = event.getPlayer();
+    ItemStack item = event.getItem();
+    double price = event.getPrice();
+
+    getLogger().info(String.format(
+        "%s listed %s x%d for $%.2f",
+        player.getName(),
+        item.getType(),
+        item.getAmount(),
+        price
+    ));
+}</pre>
+                </div>
+
+                <div class="section-title">AuctionPurchaseEvent</div>
+                <div class="method-signature">Package: com.serveressentials.api.auction.event</div>
+                <div class="method-desc">Fired when a player successfully purchases an item.</div>
+                <div class="code-block">
+                    <pre>@EventHandler
+public void onAuctionPurchase(AuctionPurchaseEvent event) {
+    Player buyer = event.getBuyer();
+    UUID sellerId = event.getSellerId();
+    double price = event.getPrice();
+
+    // Apply 5% sales tax
+    double taxAmount = price * 0.05;
+    Player seller = Bukkit.getPlayer(sellerId);
+    if (seller != null && seller.isOnline()) {
+        economy.withdrawPlayer(seller, taxAmount);
+        seller.sendMessage("§7A 5% sales tax ($" + taxAmount + ") was applied.");
+    }
+}</pre>
+                </div>
+
+                <div class="section-title">AuctionRemoveEvent</div>
+                <div class="method-signature">Package: com.serveressentials.api.auction.event</div>
+                <div class="method-desc">Fired when an item is removed from auction.</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Complete Usage Scenario</div>
+            <div class="card-body">
+                <p style="margin-bottom: 1rem; color: var(--text-2);">
+                    Dynamic Pricing Integration - Monitors auction listings to automatically adjust shop prices:
+                </p>
+                <div class="code-block">
+                    <pre>package com.dynamicpricing;
+
+import com.serveressentials.api.auction.AuctionAPI;
+import com.serveressentials.api.auction.AuctionItem;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+public class DynamicPricingPlugin extends JavaPlugin {
+    private AuctionAPI auctionAPI;
+    private Map<String, Double> marketPrices;
+
+    @Override
+    public void onEnable() {
+        this.auctionAPI = getAuctionAPI();
+        this.marketPrices = new ConcurrentHashMap<>();
+
+        // Analyze market every 5 minutes
+        getServer().getScheduler().runTaskTimerAsynchronously(this,
+            this::analyzeMarket, 6000L, 6000L);
+    }
+
+    private void analyzeMarket() {
+        if (!auctionAPI.isAuctionEnabled()) return;
+
+        auctionAPI.getActiveItems().thenAccept(items -> {
+            marketPrices.clear();
+            Map<String, Double> totalValue = new ConcurrentHashMap<>();
+            Map<String, Integer> itemCount = new ConcurrentHashMap<>();
+
+            items.forEach(item -> {
+                String key = item.getItem().getType().name();
+                totalValue.merge(key, item.getPrice(), Double::sum);
+                itemCount.merge(key, 1, Integer::sum);
+            });
+
+            itemCount.forEach((itemType, count) -> {
+                double avgPrice = totalValue.get(itemType) / count;
+                marketPrices.put(itemType, avgPrice);
+            });
+        });
+    }
+}</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Error Handling Best Practices</div>
+            <div class="card-body">
+                <div class="code-block">
+                    <pre>public void safeAddAuctionItem(Player seller, ItemStack item, double price) {
+    if (!auctionAPI.isAuctionEnabled()) {
+        seller.sendMessage("§cAuction house is currently disabled.");
+        return;
+    }
+
+    if (price <= 0 || price > auctionAPI.getMaxPriceLimit()) {
+        seller.sendMessage("§cInvalid price. Must be between $1 and $" + auctionAPI.getMaxPriceLimit());
+        return;
+    }
+
+    if (item == null || item.getType() == Material.AIR) {
+        seller.sendMessage("§cCannot auction empty item.");
+        return;
+    }
+
+    auctionAPI.addAuctionItem(seller, item, price)
+        .exceptionally(throwable -> {
+            getLogger().log(Level.SEVERE, "Auction listing failed", throwable);
+            seller.sendMessage("§cAn error occurred while listing your item.");
+            return false;
+        })
+        .thenAccept(success -> {
+            if (success) {
+                seller.sendMessage("§aItem listed successfully!");
+            } else {
+                seller.sendMessage("§cFailed to list item. Check inventory space and listing limits.");
+            }
+        });
+}</pre>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <aside class="sidebar">
+        <div class="card">
+            <div class="card-header">Quick Navigation</div>
+            <div class="card-body">
+                <ul>
+                    <li><a href="#top">AuctionAPI Interface</a></li>
+                    <li><a href="#top">AuctionItem Class</a></li>
+                    <li><a href="#top">Event Listeners</a></li>
+                    <li><a href="#top">Usage Examples</a></li>
+                    <li><a href="#top">Error Handling</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Package Structure</div>
+            <div class="card-body">
+                <ul>
+                    <li>com.serveressentials.api.auction.AuctionAPI</li>
+                    <li>com.serveressentials.api.auction.AuctionItem</li>
+                    <li>com.serveressentials.api.auction.event.*</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Implementation Notes</div>
+            <div class="card-body" style="font-size: 0.85rem; color: var(--text-2);">
+                <p>All auction operations run asynchronously. Zero lag reported on servers with 100+ concurrent players.</p>
+                <p style="margin-top: 0.75rem;">CompletableFuture methods should be handled properly to avoid blocking the main thread.</p>
+            </div>
+        </div>
+    </aside>
+</div>
+
+<footer>
+    <div class="footer-links">
+        <a href="https://modrinth.com/user/_GodlyCow" class="footer-link" target="_blank">Modrinth Profile</a>
+        <a href="https://github.com/GodlyCow203" class="footer-link" target="_blank">GitHub</a>
+        <a href="https://discord.gg/vmhQ2gZr8g" class="footer-link" target="_blank">Discord</a>
+        <a href="mailto:godlycowcow@gmail.com" class="footer-link">Email</a>
+    </div>
+    <p>&copy; <span id="yr"></span> _GodlyCow – Building plugins for the Minecraft community</p>
+</footer>
+
+<script>
+    const themeBtn = document.getElementById('themeBtn');
+    const root = document.documentElement;
+    const saved = localStorage.getItem('theme') || 'dark';
+    root.setAttribute('data-theme', saved);
+    themeBtn.textContent = saved === 'dark' ? '☀️ LIGHT' : '🌙 DARK';
+
+    themeBtn.addEventListener('click', () => {
+        const t = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', t);
+        localStorage.setItem('theme', t);
+        themeBtn.textContent = t === 'dark' ? '☀️ LIGHT' : '🌙 DARK';
+    });
+
+    document.getElementById('yr').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

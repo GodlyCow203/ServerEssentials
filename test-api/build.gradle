@@ -1,0 +1,32 @@
+plugins {
+    id 'java-library'
+    id 'com.gradleup.shadow' version '8.3.5'
+}
+
+version = rootProject.version
+
+repositories {
+    mavenCentral()
+    maven { url = 'https://jitpack.io' }
+    maven { url = 'https://repo.papermc.io/repository/maven-public/' }
+}
+
+dependencies {
+    compileOnly 'io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT'
+    compileOnly 'com.github.GodlyCow203:ServerEssentials:api-0.2.8'
+
+}
+
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+
+tasks.register("shadowAll", ShadowJar) {
+    archiveFileName.set("ServerEssentials-TestAPI-${project.version}.jar")
+    destinationDirectory.set(file("${rootProject.projectDir}/dist/plugins"))
+    from sourceSets.main.output
+    configurations = [project.configurations.runtimeClasspath]
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+tasks.named("build") {
+    dependsOn(tasks.named("shadowAll"))
+}

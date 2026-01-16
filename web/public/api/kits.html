@@ -1,0 +1,971 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="utf-8">
+    <title>Kit API Documentation – _GodlyCow</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --surface: #111111;
+            --surface-2: #191919;
+            --border: #2d2d2d;
+            --text: #e0e0e0;
+            --text-2: #888888;
+            --primary: #FFFFFF;
+            --primary-2: #e0e0e0;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+            --font: 'Courier New', 'Monaco', 'Consolas', monospace;
+            --code-bg: #050505;
+            --error: #ef4444;
+        }
+        [data-theme="light"] {
+            --bg: #f0f0f0;
+            --surface: #ffffff;
+            --surface-2: #f7f7f7;
+            --border: #cccccc;
+            --text: #1a1a1a;
+            --text-2: #555555;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            --code-bg: #f5f5f5;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font);
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        .topbar {
+            background: var(--surface);
+            border-bottom: 2px solid var(--border);
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+            font-weight: bold;
+        }
+        .topbar a {
+            color: var(--text-2);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .topbar a:hover { color: var(--primary); }
+        .topbar .spacer { flex: 1; }
+        .theme-btn {
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 0.4rem 0.8rem;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        .theme-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .hero {
+            background: linear-gradient(90deg, var(--surface) 0%, var(--surface-2) 100%);
+            border-bottom: 2px solid var(--border);
+            padding: 3rem 1.5rem;
+            text-align: center;
+            position: relative;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .hero p {
+            font-size: 1rem;
+            color: var(--text-2);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 0;
+        }
+        @media (max-width: 900px) {
+            .wrapper { grid-template-columns: 1fr; }
+        }
+        main { border-right: 2px solid var(--border); }
+
+        .card {
+            background: var(--surface);
+            border: none;
+            border-bottom: 2px solid var(--border);
+            margin-bottom: 0;
+        }
+        .card-header {
+            background: var(--surface-2);
+            padding: 1rem 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            border-bottom: 1px solid var(--border);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+        }
+        .card-body { padding: 1.5rem; }
+
+        .method-section {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px dashed var(--border);
+        }
+        .method-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .method-title {
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .method-signature {
+            background: var(--code-bg);
+            padding: 0.75rem;
+            border-left: 3px solid var(--primary);
+            margin: 0.75rem 0;
+            font-family: var(--font);
+            font-size: 0.95rem;
+            overflow-x: auto;
+        }
+        .method-desc {
+            margin: 0.75rem 0;
+            color: var(--text-2);
+            line-height: 1.6;
+        }
+        .method-params {
+            margin: 0.75rem 0;
+            padding-left: 1rem;
+        }
+        .method-params dt {
+            color: var(--primary);
+            font-weight: bold;
+            margin-top: 0.5rem;
+        }
+        .method-params dd {
+            color: var(--text-2);
+            margin-left: 1rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--border);
+            border-radius: 0;
+            padding: 1rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: var(--font);
+            font-size: 13px;
+            line-height: 1.4;
+        }
+        .code-block pre {
+            margin: 0;
+            white-space: pre;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin: 2rem 0 1rem 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+        }
+
+        .sidebar .card {
+            border-left: 2px solid var(--primary);
+            margin-bottom: 1rem;
+        }
+        .sidebar .card-body {
+            padding: 1rem;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar li {
+            margin-bottom: 0.5rem;
+            padding-left: 1rem;
+            position: relative;
+        }
+        .sidebar li::before {
+            content: ">";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+        .sidebar a {
+            color: var(--text-2);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .sidebar a:hover {
+            color: var(--primary);
+        }
+
+        .footer {
+            background: var(--surface);
+            border-top: 2px solid var(--border);
+            padding: 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .footer-link {
+            color: var(--text-2);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .footer-link:hover { color: var(--primary); }
+    </style>
+</head>
+<body>
+
+<header class="topbar">
+    <a href="index.html">← BACK TO HOME</a>
+    <a href="https://github.com/GodlyCow203/ServerEssentials" target="_blank">GITHUB</a>
+    <a href="https://discord.gg/vmhQ2gZr8g" target="_blank">DISCORD</a>
+    <div class="spacer"></div>
+    <button class="theme-btn" id="themeBtn">🌙 DARK</button>
+</header>
+
+<section class="hero">
+    <h1>Kit API Documentation</h1>
+    <p>Programmatic control over kit claiming, cooldown management, GUI interactions, and event handling with full async support</p>
+</section>
+
+<div class="wrapper">
+    <main>
+        <div class="card">
+            <div class="card-header">Overview</div>
+            <div class="card-body">
+                <p style="margin-bottom: 1rem; color: var(--text-2);">
+                    The Kit API provides public interfaces for managing player kits, claim history, cooldown tracking, and reward distribution. All operations are asynchronous to prevent server thread blocking.
+                </p>
+                <div class="method-signature">Package: com.serveressentials.api.kit</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Interface: KitAPI</div>
+            <div class="card-body">
+                <div class="method-section">
+                    <div class="method-title">claimKit(Player player, String kitId)</div>
+                    <div class="method-signature">CompletableFuture&lt;Boolean&gt; claimKit(Player player, String kitId)</div>
+                    <div class="method-desc">Attempts to claim a specific kit for a player, delivering items and applying cooldown.</div>
+                    <div class="code-block">
+                        <pre>// Custom /claim command handler
+public boolean onClaimCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    if (!(sender instanceof Player)) {
+        sender.sendMessage("Only players can claim kits.");
+        return true;
+    }
+    
+    Player player = (Player) sender;
+    if (args.length < 1) {
+        player.sendMessage("Usage: /claim <kit-id>");
+        return true;
+    }
+    
+    String kitId = args[0].toLowerCase();
+    
+    if (!kitAPI.isEnabled()) {
+        player.sendMessage("§cKit system is currently disabled.");
+        return true;
+    }
+    
+    kitAPI.claimKit(player, kitId).thenAccept(success -> {
+        if (success) {
+            player.sendMessage("§aSuccessfully claimed kit: " + kitId);
+            player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0f, 1.0f);
+        } else {
+            player.sendMessage("§cFailed to claim kit. Check permissions, cooldown, or inventory space.");
+        }
+    }).exceptionally(throwable -> {
+        getLogger().log(Level.SEVERE, "Error claiming kit for " + player.getName(), throwable);
+        player.sendMessage("§cAn error occurred while claiming the kit.");
+        return null;
+    });
+    
+    return true;
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">openKitGUI(Player player)</div>
+                    <div class="method-signature">CompletableFuture&lt;Boolean&gt; openKitGUI(Player player)</div>
+                    <div class="method-desc">Opens the main kit GUI for the specified player, displaying all kits they have permission to claim.</div>
+                    <div class="code-block">
+                        <pre>// Command to open kit GUI
+public boolean onKitsCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    if (!(sender instanceof Player)) {
+        sender.sendMessage("Only players can open the kit GUI.");
+        return true;
+    }
+    
+    Player player = (Player) sender;
+    
+    if (!kitAPI.isEnabled()) {
+        player.sendMessage("§cKit system is disabled.");
+        return true;
+    }
+    
+    kitAPI.openKitGUI(player).thenAccept(success -> {
+        if (!success) {
+            player.sendMessage("§cFailed to open kit menu. No kits available or system error.");
+        }
+    });
+    
+    return true;
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">openKitPreview(Player player, String kitId)</div>
+                    <div class="method-signature">CompletableFuture&lt;Boolean&gt; openKitPreview(Player player, String kitId)</div>
+                    <div class="method-desc">Opens a preview GUI showing the contents of a specific kit without allowing the player to claim it.</div>
+                    <div class="code-block">
+                        <pre>// Command to preview kit contents
+public boolean onPreviewCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    if (!(sender instanceof Player)) {
+        sender.sendMessage("Only players can preview kits.");
+        return true;
+    }
+    
+    Player player = (Player) sender;
+    
+    if (args.length < 1) {
+        player.sendMessage("Usage: /kitpreview <kit-id>");
+        return true;
+    }
+    
+    String kitId = args[0].toLowerCase();
+    
+    kitAPI.openKitPreview(player, kitId).thenAccept(success -> {
+        if (!success) {
+            player.sendMessage("§cKit '" + kitId + "' not found or preview unavailable.");
+        }
+    });
+    
+    return true;
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getAvailableKits(Player player)</div>
+                    <div class="method-signature">CompletableFuture&lt;List&lt;KitInfo&gt;&gt; getAvailableKits(Player player)</div>
+                    <div class="method-desc">Retrieves a list of all kits that a player has permission to claim, along with their metadata and cooldown information.</div>
+                    <div class="code-block">
+                        <pre>// Generate kit list for custom GUI
+public void createCustomKitMenu(Player player) {
+    kitAPI.getAvailableKits(player).thenAccept(kitList -> {
+        if (kitList.isEmpty()) {
+            player.sendMessage("§cNo kits available to you.");
+            return;
+        }
+        
+        Inventory kitMenu = Bukkit.createInventory(null, 54, "§6Available Kits");
+        
+        for (KitInfo kit : kitList) {
+            // Create display item
+            Material material = Material.matchMaterial(kit.getDisplayMaterial());
+            if (material == null) material = Material.CHEST;
+            
+            ItemStack kitItem = new ItemStack(material);
+            ItemMeta meta = kitItem.getItemMeta();
+            meta.setDisplayName(kit.getDisplayName());
+            
+            // Add lore with cooldown info
+            List<String> lore = new ArrayList<>(kit.getDisplayLore());
+            lore.add("");
+            
+            // Check if on cooldown
+            kitAPI.getRemainingCooldown(player, kit.getId()).thenAccept(remainingCooldown -> {
+                if (remainingCooldown > 0) {
+                    String timeFormatted = formatCooldown(remainingCooldown);
+                    lore.add("§cCooldown: " + timeFormatted);
+                    meta.addEnchant(Enchantment.LUCK, 1, true);
+                    meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+                } else {
+                    lore.add("§aClick to claim!");
+                }
+                
+                meta.setLore(lore);
+                kitItem.setItemMeta(meta);
+                
+                kitMenu.setItem(kit.getSlot(), kitItem);
+            });
+        }
+        
+        player.openInventory(kitMenu);
+    });
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getRemainingCooldown(Player player, String kitId)</div>
+                    <div class="method-signature">CompletableFuture&lt;Long&gt; getRemainingCooldown(Player player, String kitId)</div>
+                    <div class="method-desc">Retrieves the remaining cooldown time (in seconds) for a specific kit for a player.</div>
+                    <div class="code-block">
+                        <pre>// Check if kit is ready to claim
+public boolean isKitReady(Player player, String kitId) {
+    CompletableFuture<Boolean> canClaim = kitAPI.getRemainingCooldown(player, kitId)
+        .thenApply(cooldown -> cooldown <= 0);
+    
+    return canClaim.join(); // Use join() only if you must block
+}
+
+// Show cooldown in scoreboard
+public void updateKitCooldownScoreboard(Player player) {
+    String kitId = "vip"; // Track VIP kit
+    
+    kitAPI.getRemainingCooldown(player, kitId).thenAccept(remainingCooldown -> {
+        Scoreboard board = player.getScoreboard();
+        Objective obj = board.getObjective("kitCooldown");
+        
+        if (remainingCooldown > 0) {
+            String timeLeft = formatCooldown(remainingCooldown);
+            obj.getScore("§cVIP Kit").setScore((int) remainingCooldown);
+            obj.setDisplayName("§6Kit Cooldown: " + timeLeft);
+        } else {
+            obj.getScore("§aVIP Kit §eREADY").setScore(0);
+        }
+    });
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">isEnabled()</div>
+                    <div class="method-signature">boolean isEnabled()</div>
+                    <div class="method-desc">Checks whether the kit system is currently enabled on the server.</div>
+                    <div class="method-params">
+                        <dt>When to Call:</dt>
+                        <dd>Always check this before performing any kit operations.</dd>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">reload()</div>
+                    <div class="method-signature">CompletableFuture&lt;Void&gt; reload()</div>
+                    <div class="method-desc">Reloads all kit configurations from disk without requiring a server restart.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Class: KitClaimData</div>
+            <div class="card-body">
+                <div class="method-signature">Package: com.serveressentials.api.kit</div>
+                <p style="margin: 1rem 0; color: var(--text-2);">
+                    Immutable data container that tracks a player's claim history for a specific kit.
+                </p>
+
+                <div class="section-title">Constructor</div>
+                <div class="method-signature">KitClaimData(long lastClaimed, int claimCount)</div>
+
+                <div class="section-title">Methods</div>
+                <div class="method-section">
+                    <div class="method-title">getLastClaimed()</div>
+                    <div class="method-signature">long getLastClaimed()</div>
+                    <div class="method-desc">Returns the timestamp (milliseconds since epoch) of the last claim.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getClaimCount()</div>
+                    <div class="method-signature">int getClaimCount()</div>
+                    <div class="method-desc">Returns the total number of times the kit has been claimed.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Class: KitInfo</div>
+            <div class="card-body">
+                <div class="method-signature">Package: com.serveressentials.api.kit</div>
+                <p style="margin: 1rem 0; color: var(--text-2);">
+                    Immutable data container representing a kit's configuration metadata.
+                </p>
+
+                <div class="section-title">Constructor</div>
+                <div class="method-signature">KitInfo(String id, String name, String permission, String displayName, String displayMaterial, List&lt;String&gt; displayLore, int slot, int cooldown, List&lt;KitItem&gt; items)</div>
+
+                <div class="section-title">Methods</div>
+                <div class="method-section">
+                    <div class="method-title">getId()</div>
+                    <div class="method-signature">@NotNull String getId()</div>
+                    <div class="method-desc">Returns the unique identifier of the kit.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getPermission()</div>
+                    <div class="method-signature">@Nullable String getPermission()</div>
+                    <div class="method-desc">Returns the permission node required to claim this kit.</div>
+                    <div class="code-block">
+                        <pre>// Show permission requirements
+public void showKitPermissions(Player player) {
+    kitAPI.getAvailableKits(player).thenAccept(kitList -> {
+        for (KitInfo kit : kitList) {
+            String perm = kit.getPermission();
+            if (perm != null) {
+                boolean hasPerm = player.hasPermission(perm);
+                player.sendMessage("§7" + kit.getDisplayName() + 
+                                 " §fPermission: " + (hasPerm ? "§a✓" : "§c✗ " + perm));
+            }
+        }
+    });
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getDisplayName()</div>
+                    <div class="method-signature">@NotNull String getDisplayName()</div>
+                    <div class="method-desc">Returns the formatted display name shown in GUIs.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getDisplayMaterial()</div>
+                    <div class="method-signature">@NotNull String getDisplayMaterial()</div>
+                    <div class="method-desc">Returns the material string used for the GUI icon.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getSlot()</div>
+                    <div class="method-signature">int getSlot()</div>
+                    <div class="method-desc">Returns the inventory slot position where this kit appears in the GUI.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getCooldown()</div>
+                    <div class="method-signature">int getCooldown()</div>
+                    <div class="method-desc">Returns the configured cooldown time in seconds for this kit.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getItems()</div>
+                    <div class="method-signature">@NotNull List&lt;KitItem&gt; getItems()</div>
+                    <div class="method-desc">Returns the list of items contained in the kit.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Class: KitItem</div>
+            <div class="card-body">
+                <div class="method-signature">Package: com.serveressentials.api.kit</div>
+                <p style="margin: 1rem 0; color: var(--text-2);">
+                    Immutable data container representing a single item within a kit.
+                </p>
+
+                <div class="section-title">Constructor</div>
+                <div class="method-signature">KitItem(String type, int amount, String name, List&lt;String&gt; lore, Map&lt;String, Integer&gt; enchantments)</div>
+
+                <div class="section-title">Methods</div>
+                <div class="method-section">
+                    <div class="method-title">getType()</div>
+                    <div class="method-signature">@NotNull String getType()</div>
+                    <div class="method-desc">Returns the material type string.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getAmount()</div>
+                    <div class="method-signature">int getAmount()</div>
+                    <div class="method-desc">Returns the item stack size.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getName()</div>
+                    <div class="method-signature">@Nullable String getName()</div>
+                    <div class="method-desc">Returns the custom display name.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getLore()</div>
+                    <div class="method-signature">@Nullable List&lt;String&gt; getLore()</div>
+                    <div class="method-desc">Returns the lore lines.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getEnchantments()</div>
+                    <div class="method-signature">@Nullable Map&lt;String, Integer&gt; getEnchantments()</div>
+                    <div class="method-desc">Returns enchantment map.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Events</div>
+            <div class="card-body">
+                <div class="section-title">KitEvent</div>
+                <div class="method-signature">Package: com.serveressentials.api.kit.event</div>
+                <div class="method-desc">Base event class for all kit-related actions. Asynchronous if fired off main thread.</div>
+
+                <div class="section-title">KitClaimEvent</div>
+                <div class="method-signature">Package: com.serveressentials.api.kit.event</div>
+                <div class="method-desc">Fired when a player successfully claims a kit.</div>
+                <div class="code-block">
+                    <pre>@EventHandler
+public void onKitClaim(KitClaimEvent event) {
+    Player player = event.getPlayer();
+    String kitId = event.getKitId();
+    String kitName = event.getKitName();
+    
+    getLogger().info(String.format(
+        "%s claimed kit '%s' (%s)",
+        player.getName(),
+        kitName,
+        kitId
+    ));
+    
+    // Broadcast special kit claims
+    if (kitId.equals("legendary")) {
+        Bukkit.broadcastMessage("§6§l" + player.getName() + " just claimed the LEGENDARY kit!");
+        Bukkit.getOnlinePlayers().forEach(p -> 
+            p.playSound(p.getLocation(), Sound.ENTITY_FIREWORK_ROCKET_BLAST, 1.0f, 1.0f)
+        );
+    }
+}</pre>
+                </div>
+
+                <div class="section-title">KitOpenGUIEvent</div>
+                <div class="method-signature">Package: com.serveressentials.api.kit.event</div>
+                <div class="method-desc">Fired when a player opens the main kit GUI.</div>
+                <div class="code-block">
+                    <pre>@EventHandler
+public void onKitGUIOpen(KitOpenGUIEvent event) {
+    Player player = event.getPlayer();
+    int kitCount = event.getKitCount();
+    
+    player.playSound(player.getLocation(), Sound.BLOCK_CHEST_OPEN, 1.0f, 1.0f);
+    
+    // Send tip message for first-time users
+    if (!player.hasPlayedBefore()) {
+        player.sendMessage("§eTip: Claim kits daily for free items and gear!");
+    }
+}</pre>
+                </div>
+
+                <div class="section-title">KitOpenPreviewEvent</div>
+                <div class="method-signature">Package: com.serveressentials.api.kit.event</div>
+                <div class="method-desc">Fired when a player opens a kit preview GUI.</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Complete Usage Scenario</div>
+            <div class="card-body">
+                <p style="margin-bottom: 1rem; color: var(--text-2);">
+                    Advanced Kit Management Plugin - Extends Kit API with loyalty rewards, dynamic unlocking, and usage analytics:
+                </p>
+                <div class="code-block">
+                    <pre>package com.kitmanager;
+
+import com.serveressentials.api.kit.*;
+import com.serveressentials.api.kit.event.*;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.plugin.java.JavaPlugin;
+import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
+
+public class AdvancedKitManager extends JavaPlugin implements Listener {
+    private KitAPI kitAPI;
+    private Map<UUID, Integer> playerKitStreaks;
+    
+    @Override
+    public void onEnable() {
+        this.kitAPI = getKitAPI();
+        this.playerKitStreaks = new ConcurrentHashMap<>();
+        
+        getServer().getPluginManager().registerEvents(this, this);
+        getCommand("advancedkit").setExecutor(this::onAdvancedKitCommand);
+        getCommand("kitstats").setExecutor(this::onKitStatsCommand);
+    }
+
+    @EventHandler
+    public void onKitClaim(KitClaimEvent event) {
+        Player player = event.getPlayer();
+        String kitId = event.getKitId();
+        UUID playerId = player.getUniqueId();
+        
+        int currentStreak = playerKitStreaks.getOrDefault(playerId, 0) + 1;
+        playerKitStreaks.put(playerId, currentStreak);
+        
+        // Award loyalty bonus
+        if (currentStreak % 7 == 0) {
+            player.sendMessage("§6§lWeek Streak Bonus! §7(" + currentStreak + " days)");
+            economyAPI.deposit(player, 1000.0);
+            player.sendMessage("§a+$1000 bonus money!");
+        }
+        
+        // Unlock special kit after 30 days
+        if (currentStreak == 30) {
+            unlockSpecialKit(player, "veteran");
+            player.sendMessage("§6§lCONGRATULATIONS! §aYou've unlocked the Veteran kit!");
+        }
+        
+        // Log to analytics
+        logKitClaim(playerId, kitId, currentStreak);
+    }
+
+    private void unlockSpecialKit(Player player, String kitId) {
+        permissionAPI.addPermission(player, "essentials.kit." + kitId, true);
+        player.sendMessage("§7You now have access to §f/kit " + kitId);
+    }
+
+    private boolean onAdvancedKitCommand(CommandSender sender, String[] args) {
+        if (!(sender instanceof Player)) return false;
+        Player player = (Player) sender;
+        
+        if (args.length < 1) {
+            player.sendMessage("Usage: /advancedkit <kit-id>");
+            return true;
+        }
+        
+        String kitId = args[0];
+        
+        // Check if kit exists and is available
+        kitAPI.getAvailableKits(player).thenAccept(kitList -> {
+            KitInfo targetKit = kitList.stream()
+                .filter(kit -> kit.getId().equalsIgnoreCase(kitId))
+                .findFirst()
+                .orElse(null);
+            
+            if (targetKit == null) {
+                player.sendMessage("§cKit not available or doesn't exist.");
+                return;
+            }
+            
+            // Check cooldown
+            kitAPI.getRemainingCooldown(player, kitId).thenAccept(cooldown -> {
+                if (cooldown > 0) {
+                    player.sendMessage("§cKit is on cooldown: " + formatTime(cooldown));
+                    return;
+                }
+                
+                // Confirm claim
+                player.sendMessage("§6Claiming kit: " + targetKit.getDisplayName());
+                
+                kitAPI.claimKit(player, kitId).thenAccept(success -> {
+                    if (success) {
+                        player.sendMessage("§aKit claimed successfully!");
+                        kitAPI.openKitPreview(player, kitId); // Show what they got
+                    } else {
+                        player.sendMessage("§cFailed to claim kit. Check inventory space.");
+                    }
+                });
+            });
+        });
+        
+        return true;
+    }
+
+    private boolean onKitStatsCommand(CommandSender sender, String[] args) {
+        if (!(sender instanceof Player)) return false;
+        Player player = (Player) sender;
+        UUID playerId = player.getUniqueId();
+        
+        player.sendMessage("§6§lYour Kit Statistics:");
+        
+        // Get all available kits
+        kitAPI.getAvailableKits(player).thenAccept(kitList -> {
+            player.sendMessage("§7Total kits available: §f" + kitList.size());
+            
+            // Show streak
+            int streak = playerKitStreaks.getOrDefault(playerId, 0);
+            player.sendMessage("§7Claim streak: §e" + streak + " days");
+            
+            // Show each kit's cooldown status
+            player.sendMessage("§7Kit Statuses:");
+            for (KitInfo kit : kitList) {
+                String kitId = kit.getId();
+                
+                kitAPI.getRemainingCooldown(player, kitId).thenAccept(cooldown -> {
+                    String status = cooldown > 0 ? "§cOn CD" : "§aReady";
+                    String time = cooldown > 0 ? " (" + formatTime(cooldown) + ")" : "";
+                    player.sendMessage("  §f- " + kit.getDisplayName() + ": " + status + time);
+                });
+            }
+        });
+        
+        return true;
+    }
+
+    private String formatTime(long seconds) {
+        long hours = seconds / 3600;
+        long minutes = (seconds % 3600) / 60;
+        long secs = seconds % 60;
+        return String.format("%02d:%02d:%02d", hours, minutes, secs);
+    }
+
+    private void logKitClaim(UUID playerId, String kitId, int streak) {
+        getLogger().info(String.format(
+            "KIT_CLAIM: %s claimed %s (streak: %d)",
+            playerId,
+            kitId,
+            streak
+        ));
+    }
+}</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Error Handling Best Practices</div>
+            <div class="card-body">
+                <div class="code-block">
+                    <pre>public void safeKitClaim(Player player, String kitId) {
+    // Check if kit system is enabled first
+    if (!kitAPI.isEnabled()) {
+        player.sendMessage("§cKit system is disabled.");
+        return;
+    }
+    
+    // Validate parameters
+    if (player == null || !player.isOnline()) {
+        getLogger().warning("Attempted to claim kit for null/offline player.");
+        return;
+    }
+    
+    if (kitId == null || kitId.isEmpty()) {
+        player.sendMessage("§cInvalid kit ID.");
+        return;
+    }
+    
+    // Perform claim with comprehensive error handling
+    kitAPI.claimKit(player, kitId)
+        .exceptionally(throwable -> {
+            getLogger().log(Level.SEVERE, "Kit claim failed for " + player.getName(), throwable);
+            player.sendMessage("§cCritical error occurred. Contact staff.");
+            return false;
+        })
+        .thenAccept(success -> {
+            if (!success) {
+                // Check why it failed
+                kitAPI.getRemainingCooldown(player, kitId).thenAccept(cooldown -> {
+                    if (cooldown > 0) {
+                        player.sendMessage("§cKit is on cooldown: " + formatCooldown(cooldown));
+                    } else {
+                        player.sendMessage("§cFailed to claim kit. Check permissions and inventory space.");
+                    }
+                });
+            }
+        });
+}
+
+private String formatCooldown(long seconds) {
+    long hours = TimeUnit.SECONDS.toHours(seconds);
+    long minutes = TimeUnit.SECONDS.toMinutes(seconds) % 60;
+    return String.format("%dh %dm", hours, minutes);
+}</pre>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <aside class="sidebar">
+        <div class="card">
+            <div class="card-header">Quick Navigation</div>
+            <div class="card-body">
+                <ul>
+                    <li><a href="#top">KitAPI Interface</a></li>
+                    <li><a href="#top">KitClaimData Class</a></li>
+                    <li><a href="#top">KitInfo Class</a></li>
+                    <li><a href="#top">KitItem Class</a></li>
+                    <li><a href="#top">Event Listeners</a></li>
+                    <li><a href="#top">Usage Examples</a></li>
+                    <li><a href="#top">Error Handling</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Package Structure</div>
+            <div class="card-body">
+                <ul>
+                    <li>com.serveressentials.api.kit.KitAPI</li>
+                    <li>com.serveressentials.api.kit.KitClaimData</li>
+                    <li>com.serveressentials.api.kit.KitInfo</li>
+                    <li>com.serveressentials.api.kit.KitItem</li>
+                    <li>com.serveressentials.api.kit.event.*</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Implementation Notes</div>
+            <div class="card-body" style="font-size: 0.85rem; color: var(--text-2);">
+                <p>All kit operations run asynchronously. Zero lag reported on servers with 100+ concurrent players.</p>
+                <p style="margin-top: 0.75rem;">Cooldown calculations use server time and support both per-kit and global cooldowns.</p>
+            </div>
+        </div>
+    </aside>
+</div>
+
+<footer>
+    <div class="footer-links">
+        <a href="https://modrinth.com/user/_GodlyCow" class="footer-link" target="_blank">Modrinth Profile</a>
+        <a href="https://github.com/GodlyCow203" class="footer-link" target="_blank">GitHub</a>
+        <a href="https://discord.gg/vmhQ2gZr8g" class="footer-link" target="_blank">Discord</a>
+        <a href="mailto:godlycowcow@gmail.com" class="footer-link">Email</a>
+    </div>
+    <p>&copy; <span id="yr"></span> _GodlyCow – Building plugins for the Minecraft community</p>
+</footer>
+
+<script>
+    const themeBtn = document.getElementById('themeBtn');
+    const root = document.documentElement;
+    const saved = localStorage.getItem('theme') || 'dark';
+    root.setAttribute('data-theme', saved);
+    themeBtn.textContent = saved === 'dark' ? '☀️ LIGHT' : '🌙 DARK';
+
+    themeBtn.addEventListener('click', () => {
+        const t = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', t);
+        localStorage.setItem('theme', t);
+        themeBtn.textContent = t === 'dark' ? '☀️ LIGHT' : '🌙 DARK';
+    });
+
+    document.getElementById('yr').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

@@ -1,0 +1,844 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="utf-8">
+    <title>Daily Rewards API Documentation – _GodlyCow</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --surface: #111111;
+            --surface-2: #191919;
+            --border: #2d2d2d;
+            --text: #e0e0e0;
+            --text-2: #888888;
+            --primary: #FFFFFF;
+            --primary-2: #e0e0e0;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+            --font: 'Courier New', 'Monaco', 'Consolas', monospace;
+            --code-bg: #050505;
+            --error: #ef4444;
+        }
+        [data-theme="light"] {
+            --bg: #f0f0f0;
+            --surface: #ffffff;
+            --surface-2: #f7f7f7;
+            --border: #cccccc;
+            --text: #1a1a1a;
+            --text-2: #555555;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            --code-bg: #f5f5f5;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font);
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        .topbar {
+            background: var(--surface);
+            border-bottom: 2px solid var(--border);
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+            font-weight: bold;
+        }
+        .topbar a {
+            color: var(--text-2);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .topbar a:hover { color: var(--primary); }
+        .topbar .spacer { flex: 1; }
+        .theme-btn {
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 0.4rem 0.8rem;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        .theme-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .hero {
+            background: linear-gradient(90deg, var(--surface) 0%, var(--surface-2) 100%);
+            border-bottom: 2px solid var(--border);
+            padding: 3rem 1.5rem;
+            text-align: center;
+            position: relative;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .hero p {
+            font-size: 1rem;
+            color: var(--text-2);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 0;
+        }
+        @media (max-width: 900px) {
+            .wrapper { grid-template-columns: 1fr; }
+        }
+        main { border-right: 2px solid var(--border); }
+
+        .card {
+            background: var(--surface);
+            border: none;
+            border-bottom: 2px solid var(--border);
+            margin-bottom: 0;
+        }
+        .card-header {
+            background: var(--surface-2);
+            padding: 1rem 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            border-bottom: 1px solid var(--border);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+        }
+        .card-body { padding: 1.5rem; }
+
+        .method-section {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px dashed var(--border);
+        }
+        .method-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .method-title {
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .method-signature {
+            background: var(--code-bg);
+            padding: 0.75rem;
+            border-left: 3px solid var(--primary);
+            margin: 0.75rem 0;
+            font-family: var(--font);
+            font-size: 0.95rem;
+            overflow-x: auto;
+        }
+        .method-desc {
+            margin: 0.75rem 0;
+            color: var(--text-2);
+            line-height: 1.6;
+        }
+        .method-params {
+            margin: 0.75rem 0;
+            padding-left: 1rem;
+        }
+        .method-params dt {
+            color: var(--primary);
+            font-weight: bold;
+            margin-top: 0.5rem;
+        }
+        .method-params dd {
+            color: var(--text-2);
+            margin-left: 1rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--border);
+            border-radius: 0;
+            padding: 1rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: var(--font);
+            font-size: 13px;
+            line-height: 1.4;
+        }
+        .code-block pre {
+            margin: 0;
+            white-space: pre;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin: 2rem 0 1rem 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+        }
+
+        .sidebar .card {
+            border-left: 2px solid var(--primary);
+            margin-bottom: 1rem;
+        }
+        .sidebar .card-body {
+            padding: 1rem;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar li {
+            margin-bottom: 0.5rem;
+            padding-left: 1rem;
+            position: relative;
+        }
+        .sidebar li::before {
+            content: ">";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+        .sidebar a {
+            color: var(--text-2);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .sidebar a:hover {
+            color: var(--primary);
+        }
+
+        .footer {
+            background: var(--surface);
+            border-top: 2px solid var(--border);
+            padding: 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .footer-link {
+            color: var(--text-2);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .footer-link:hover { color: var(--primary); }
+    </style>
+</head>
+<body>
+
+<header class="topbar">
+    <a href="index.html">← BACK TO HOME</a>
+    <a href="https://github.com/GodlyCow203/ServerEssentials" target="_blank">GITHUB</a>
+    <a href="https://discord.gg/vmhQ2gZr8g" target="_blank">DISCORD</a>
+    <div class="spacer"></div>
+    <button class="theme-btn" id="themeBtn">🌙 DARK</button>
+</header>
+
+<section class="hero">
+    <h1>Daily Rewards API Documentation</h1>
+    <p>Complete programmatic control over daily login rewards, streak tracking, cooldown management, and custom reward integration</p>
+</section>
+
+<div class="wrapper">
+    <main>
+        <div class="card">
+            <div class="card-header">Overview</div>
+            <div class="card-body">
+                <p style="margin-bottom: 1rem; color: var(--text-2);">
+                    The Daily Rewards API provides public interfaces for managing player login rewards, claim history, cooldown tracking, and reward distribution. All operations are asynchronous to prevent server thread blocking.
+                </p>
+                <div class="method-signature">Package: com.serveressentials.api.daily</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Interface: DailyAPI</div>
+            <div class="card-body">
+                <div class="method-section">
+                    <div class="method-title">openDailyGUI(Player player, int page)</div>
+                    <div class="method-signature">CompletableFuture&lt;Boolean&gt; openDailyGUI(Player player, int page)</div>
+                    <div class="method-desc">Opens the daily rewards GUI for the specified player at the requested page number.</div>
+                    <div class="code-block">
+                        <pre>public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    if (!(sender instanceof Player)) {
+        sender.sendMessage("Only players can use this command.");
+        return true;
+    }
+
+    Player player = (Player) sender;
+    if (!dailyAPI.isDailyEnabled()) {
+        player.sendMessage("§cDaily rewards are currently disabled.");
+        return true;
+    }
+
+    dailyAPI.openDailyGUI(player, 1).thenAccept(success -> {
+        if (!success) {
+            player.sendMessage("§cFailed to open daily rewards. Please try again.");
+        }
+    });
+    return true;
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">claimReward(Player player, int day)</div>
+                    <div class="method-signature">CompletableFuture&lt;Boolean&gt; claimReward(Player player, int day)</div>
+                    <div class="method-desc">Attempts to claim a specific day's reward for a player. Bypasses the GUI.</div>
+                    <div class="code-block">
+                        <pre>public boolean onAdminRewardCommand(CommandSender sender, String[] args) {
+    if (args.length < 2) {
+        sender.sendMessage("Usage: /grantdaily <player> <day>");
+        return true;
+    }
+
+    Player target = Bukkit.getPlayer(args[0]);
+    if (target == null) {
+        sender.sendMessage("§cPlayer not found.");
+        return true;
+    }
+
+    try {
+        int day = Integer.parseInt(args[1]);
+        dailyAPI.claimReward(target, day).thenAccept(success -> {
+            if (success) {
+                sender.sendMessage("§aGranted Day " + day + " reward to " + target.getName());
+            } else {
+                sender.sendMessage("§cFailed to grant reward. Player may have already claimed it.");
+            }
+        });
+    } catch (NumberFormatException e) {
+        sender.sendMessage("§cInvalid day number.");
+    }
+    return true;
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getLastClaimTime(UUID playerId)</div>
+                    <div class="method-signature">CompletableFuture&lt;Optional&lt;LocalDateTime&gt;&gt; getLastClaimTime(UUID playerId)</div>
+                    <div class="method-desc">Retrieves the timestamp of when a player last claimed any daily reward.</div>
+                    <div class="code-block">
+                        <pre>public void showLastClaimInfo(Player player) {
+    dailyAPI.getLastClaimTime(player.getUniqueId()).thenAccept(optionalTime -> {
+        if (optionalTime.isPresent()) {
+            LocalDateTime lastClaim = optionalTime.get();
+            String formatted = lastClaim.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+            player.sendMessage("§7Your last reward claim: §f" + formatted);
+        } else {
+            player.sendMessage("§7You haven't claimed any daily rewards yet!");
+        }
+    });
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getClaimedDays(UUID playerId)</div>
+                    <div class="method-signature">CompletableFuture&lt;Set&lt;Integer&gt;&gt; getClaimedDays(UUID playerId)</div>
+                    <div class="method-desc">Retrieves the complete set of day numbers that a player has successfully claimed.</div>
+                    <div class="code-block">
+                        <pre>public void showProgress(Player player) {
+    dailyAPI.getClaimedDays(player.getUniqueId()).thenAccept(claimedDays -> {
+        int totalDays = 30;
+        int claimed = claimedDays.size();
+        double percentage = (claimed * 100.0) / totalDays;
+
+        player.sendMessage("§6Daily Rewards Progress:");
+        player.sendMessage("§7Claimed: §f" + claimed + "/" + totalDays +
+                          " §7(" + String.format("%.1f", percentage) + "%)");
+
+        if (claimed < totalDays) {
+            player.sendMessage("§7Unclaimed days: §f" + getUnclaimedDays(claimedDays, totalDays));
+        }
+    });
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">hasClaimedToday(UUID playerId)</div>
+                    <div class="method-signature">CompletableFuture&lt;Boolean&gt; hasClaimedToday(UUID playerId)</div>
+                    <div class="method-desc">Checks whether a player has already claimed a daily reward within the current server day.</div>
+                    <div class="code-block">
+                        <pre>// BossBar indicator for daily rewards
+public void updateDailyRewardBossBar(Player player) {
+    dailyAPI.hasClaimedToday(player.getUniqueId()).thenAccept(hasClaimed -> {
+        BossBar bossBar = getDailyRewardBossBar(player);
+        if (hasClaimed) {
+            bossBar.setTitle("§cDaily reward claimed");
+            bossBar.setColor(BarColor.RED);
+        } else {
+            bossBar.setTitle("§aDaily reward available!");
+            bossBar.setColor(BarColor.GREEN);
+        }
+    });
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getTimeUntilNextClaim(UUID playerId)</div>
+                    <div class="method-signature">CompletableFuture&lt;DailyCooldownInfo&gt; getTimeUntilNextClaim(UUID playerId)</div>
+                    <div class="method-desc">Retrieves detailed cooldown information showing exactly how long a player must wait before they can claim their next daily reward.</div>
+                    <div class="code-block">
+                        <pre>// Display cooldown timer on actionbar
+public void showCooldownTimer(Player player) {
+    dailyAPI.getTimeUntilNextClaim(player.getUniqueId()).thenAccept(cooldown -> {
+        if (cooldown.isOnCooldown()) {
+            String timeLeft = cooldown.format();
+            player.spigot().sendMessage(ChatMessageType.ACTION_BAR,
+                new TextComponent("§cNext reward in: §f" + timeLeft));
+        } else {
+            player.spigot().sendMessage(ChatMessageType.ACTION_BAR,
+                new TextComponent("§aDaily reward ready to claim!"));
+        }
+    });
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">reload()</div>
+                    <div class="method-signature">CompletableFuture&lt;Void&gt; reload()</div>
+                    <div class="method-desc">Reloads the daily rewards configuration from disk without requiring a server restart.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">isDailyEnabled()</div>
+                    <div class="method-signature">boolean isDailyEnabled()</div>
+                    <div class="method-desc">Checks whether the daily rewards system is currently enabled and functional.</div>
+                    <div class="method-params">
+                        <dt>When to Call:</dt>
+                        <dd>Always check this before performing any daily reward operations.</dd>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Class: DailyCooldownInfo</div>
+            <div class="card-body">
+                <div class="method-signature">Package: com.serveressentials.api.daily</div>
+                <p style="margin: 1rem 0; color: var(--text-2);">
+                    Immutable data container representing precise cooldown duration information.
+                </p>
+
+                <div class="section-title">Constructor</div>
+                <div class="method-signature">DailyCooldownInfo(long hours, long minutes, long seconds, boolean onCooldown)</div>
+
+                <div class="section-title">Methods</div>
+                <div class="method-section">
+                    <div class="method-title">getHours(), getMinutes(), getSeconds()</div>
+                    <div class="method-signature">long getHours(), long getMinutes(), long getSeconds()</div>
+                    <div class="method-desc">Returns individual time components of the cooldown duration.</div>
+                    <div class="code-block">
+                        <pre>public void sendCooldownMessage(Player player, DailyCooldownInfo cooldown) {
+    if (cooldown.isOnCooldown()) {
+        player.sendMessage(String.format(
+            "⏰ Time until next claim: %dh %dm %ds",
+            cooldown.getHours(),
+            cooldown.getMinutes(),
+            cooldown.getSeconds()
+        ));
+    }
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">isOnCooldown()</div>
+                    <div class="method-signature">boolean isOnCooldown()</div>
+                    <div class="method-desc">Indicates whether the player is currently on cooldown and cannot claim rewards.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">format()</div>
+                    <div class="method-signature">@NotNull String format()</div>
+                    <div class="method-desc">Formats the cooldown duration into a human-readable string with zero-padded two-digit numbers.</div>
+                    <div class="method-desc">Returns format: "02h 15m 30s"</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Class: DailyReward</div>
+            <div class="card-body">
+                <div class="method-signature">Package: com.serveressentials.api.daily</div>
+                <p style="margin: 1rem 0; color: var(--text-2);">
+                    Immutable data container representing a configured daily reward definition.
+                </p>
+
+                <div class="section-title">Constructor</div>
+                <div class="method-signature">DailyReward(int day, int slot, int page, List&lt;DailyRewardItem&gt; items)</div>
+
+                <div class="section-title">Methods</div>
+                <div class="method-section">
+                    <div class="method-title">getDay()</div>
+                    <div class="method-signature">int getDay()</div>
+                    <div class="method-desc">Returns the day number this reward represents.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getSlot()</div>
+                    <div class="method-signature">int getSlot()</div>
+                    <div class="method-desc">Returns the GUI slot position where this reward appears.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getPage()</div>
+                    <div class="method-signature">int getPage()</div>
+                    <div class="method-desc">Returns the GUI page number containing this reward.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getItems()</div>
+                    <div class="method-signature">@NotNull List&lt;DailyRewardItem&gt; getItems()</div>
+                    <div class="method-desc">Returns the list of items that will be given when this reward is claimed.</div>
+                    <div class="code-block">
+                        <pre>public void previewReward(Player player, DailyReward reward) {
+    player.sendMessage("§6Day " + reward.getDay() + " Reward:");
+    for (DailyRewardItem item : reward.getItems()) {
+        String name = item.getName() != null ? item.getName() : item.getMaterial().name();
+        player.sendMessage("§f- " + name + " x" + item.getAmount());
+    }
+}</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Class: DailyRewardItem</div>
+            <div class="card-body">
+                <div class="method-signature">Package: com.serveressentials.api.daily</div>
+                <p style="margin: 1rem 0; color: var(--text-2);">
+                    Immutable data container representing a single item within a daily reward.
+                </p>
+
+                <div class="section-title">Constructor</div>
+                <div class="method-signature">DailyRewardItem(Material material, int amount, String name, List&lt;String&gt; lore, Map&lt;String, Integer&gt; enchantments, boolean glow, Map&lt;String, String&gt; nbt)</div>
+
+                <div class="section-title">Methods</div>
+                <div class="method-section">
+                    <div class="method-title">getMaterial()</div>
+                    <div class="method-signature">@NotNull Material getMaterial()</div>
+                    <div class="method-desc">Returns the item material type.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getAmount()</div>
+                    <div class="method-signature">int getAmount()</div>
+                    <div class="method-desc">Returns the item stack size.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getName()</div>
+                    <div class="method-signature">@Nullable String getName()</div>
+                    <div class="method-desc">Returns the custom display name, or null if using default.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getLore()</div>
+                    <div class="method-signature">@NotNull List&lt;String&gt; getLore()</div>
+                    <div class="method-desc">Returns the item's lore/description lines.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getEnchantments()</div>
+                    <div class="method-signature">@NotNull Map&lt;String, Integer&gt; getEnchantments()</div>
+                    <div class="method-desc">Returns the enchantments to be applied to this item.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">isGlow()</div>
+                    <div class="method-signature">boolean isGlow()</div>
+                    <div class="method-desc">Indicates whether the item should have the enchantment glow effect.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getNbt()</div>
+                    <div class="method-signature">@NotNull Map&lt;String, String&gt; getNbt()</div>
+                    <div class="method-desc">Returns custom NBT data for this item.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Events</div>
+            <div class="card-body">
+                <div class="section-title">DailyEvent</div>
+                <div class="method-signature">Package: com.serveressentials.api.daily.event</div>
+                <div class="method-desc">Base event class for all daily reward-related actions.</div>
+
+                <div class="section-title">DailyGUIOpenEvent</div>
+                <div class="method-signature">Package: com.serveressentials.api.daily.event</div>
+                <div class="method-desc">Fired when a player opens the daily rewards GUI.</div>
+                <div class="code-block">
+                    <pre>@EventHandler
+public void onDailyGUIOpen(DailyGUIOpenEvent event) {
+    Player player = event.getPlayer();
+    int page = event.getPage();
+    player.playSound(player.getLocation(), Sound.BLOCK_CHEST_OPEN, 1.0f, 1.0f);
+    if (page == 1) {
+        player.sendMessage("§eTip: Claim rewards daily to earn bonus items!");
+    }
+}</pre>
+                </div>
+
+                <div class="section-title">DailyRewardClaimEvent</div>
+                <div class="method-signature">Package: com.serveressentials.api.daily.event</div>
+                <div class="method-desc">Fired when a player successfully claims a daily reward.</div>
+                <div class="code-block">
+                    <pre>@EventHandler
+public void onDailyRewardClaim(DailyRewardClaimEvent event) {
+    Player player = event.getPlayer();
+    int day = event.getDay();
+
+    // Broadcast milestone rewards
+    if (day % 7 == 0) {
+        Bukkit.broadcastMessage("§6§l" + player.getName() + " just claimed Week " + (day / 7) + "!");
+    }
+}</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Complete Usage Scenario</div>
+            <div class="card-body">
+                <p style="margin-bottom: 1rem; color: var(--text-2);">
+                    Streak Tracker Plugin - Tracks daily reward streaks, provides bonuses, and displays streak information:
+                </p>
+                <div class="code-block">
+                    <pre>package com.streaktracker;
+
+import com.serveressentials.api.daily.*;
+import com.serveressentials.api.daily.event.DailyRewardClaimEvent;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.plugin.java.JavaPlugin;
+import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
+
+public class StreakTrackerPlugin extends JavaPlugin implements Listener {
+    private DailyAPI dailyAPI;
+    private Map<UUID, Integer> playerStreaks;
+
+    @Override
+    public void onEnable() {
+        this.dailyAPI = getDailyAPI();
+        this.playerStreaks = new ConcurrentHashMap<>();
+        getServer().getPluginManager().registerEvents(this, this);
+        getCommand("streak").setExecutor(this::onStreakCommand);
+    }
+
+    @EventHandler
+    public void onDailyClaim(DailyRewardClaimEvent event) {
+        Player player = event.getPlayer();
+        UUID playerId = player.getUniqueId();
+
+        dailyAPI.getClaimedDays(playerId).thenAccept(claimedDays -> {
+            int streak = calculateStreak(claimedDays);
+            playerStreaks.put(playerId, streak);
+
+            if (streak > 1) {
+                double multiplier = 1.0 + (streak * 0.05);
+                player.sendMessage("§a§lStreak Bonus! §7(" + streak + " days)");
+                player.sendMessage("§eYour reward value increased by " + (int)(multiplier * 100 - 100) + "%!");
+
+                if (streak % 5 == 0) {
+                    player.getInventory().addItem(new ItemStack(Material.DIAMOND, streak / 5));
+                }
+            }
+        });
+    }
+
+    private int calculateStreak(Set<Integer> claimedDays) {
+        if (claimedDays.isEmpty()) return 0;
+        int streak = 0;
+        for (int day = 1; day <= 365; day++) {
+            if (claimedDays.contains(day)) {
+                streak++;
+            } else {
+                break;
+            }
+        }
+        return streak;
+    }
+
+    private boolean onStreakCommand(CommandSender sender, String[] args) {
+        if (!(sender instanceof Player)) return false;
+        Player player = (Player) sender;
+        UUID playerId = player.getUniqueId();
+
+        dailyAPI.getClaimedDays(playerId).thenAccept(claimedDays -> {
+            int streak = playerStreaks.getOrDefault(playerId, calculateStreak(claimedDays));
+            player.sendMessage("§6§lYour Daily Streak: §e" + streak + " days");
+
+            String progressBar = createProgressBar(streak, 30);
+            player.sendMessage(progressBar);
+
+            int nextMilestone = ((streak / 7) + 1) * 7;
+            player.sendMessage("§7Next milestone: Day " + nextMilestone);
+
+            dailyAPI.getTimeUntilNextClaim(playerId).thenAccept(cooldown -> {
+                if (cooldown.isOnCooldown()) {
+                    player.sendMessage("§7Next claim in: §f" + cooldown.format());
+                }
+            });
+        });
+        return true;
+    }
+
+    private String createProgressBar(int current, int max) {
+        int bars = 20;
+        int filled = (current * bars) / max;
+        return "§a" + "|".repeat(filled) + "§7" + "|".repeat(bars - filled) + " §f" + current + "/" + max;
+    }
+}</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Error Handling Best Practices</div>
+            <div class="card-body">
+                <div class="code-block">
+                    <pre>public void safeClaimReward(Player player, int day) {
+    if (!dailyAPI.isDailyEnabled()) {
+        player.sendMessage("§cDaily rewards are disabled on this server.");
+        return;
+    }
+
+    if (day < 1 || day > 31) {
+        player.sendMessage("§cInvalid day number. Must be 1-31.");
+        return;
+    }
+
+    dailyAPI.hasClaimedToday(player.getUniqueId()).thenAccept(hasClaimed -> {
+        if (hasClaimed) {
+            dailyAPI.getTimeUntilNextClaim(player.getUniqueId()).thenAccept(cooldown -> {
+                player.sendMessage("§cYou already claimed today!");
+                player.sendMessage("§7Next claim in: " + cooldown.format());
+            });
+            return;
+        }
+
+        dailyAPI.claimReward(player, day)
+            .exceptionally(throwable -> {
+                getLogger().log(Level.SEVERE, "Reward claim failed for " + player.getName(), throwable);
+                player.sendMessage("§cAn error occurred while claiming your reward.");
+                return false;
+            })
+            .thenAccept(success -> {
+                if (success) {
+                    player.sendMessage("§aReward claimed successfully!");
+                    player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0f, 1.0f);
+                } else {
+                    player.sendMessage("§cFailed to claim reward. Check your inventory space.");
+                }
+            });
+    });
+}</pre>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <aside class="sidebar">
+        <div class="card">
+            <div class="card-header">Quick Navigation</div>
+            <div class="card-body">
+                <ul>
+                    <li><a href="#top">DailyAPI Interface</a></li>
+                    <li><a href="#top">DailyCooldownInfo Class</a></li>
+                    <li><a href="#top">DailyReward Class</a></li>
+                    <li><a href="#top">DailyRewardItem Class</a></li>
+                    <li><a href="#top">Event Listeners</a></li>
+                    <li><a href="#top">Usage Examples</a></li>
+                    <li><a href="#top">Error Handling</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Package Structure</div>
+            <div class="card-body">
+                <ul>
+                    <li>com.serveressentials.api.daily.DailyAPI</li>
+                    <li>com.serveressentials.api.daily.DailyCooldownInfo</li>
+                    <li>com.serveressentials.api.daily.DailyReward</li>
+                    <li>com.serveressentials.api.daily.DailyRewardItem</li>
+                    <li>com.serveressentials.api.daily.event.*</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Implementation Notes</div>
+            <div class="card-body" style="font-size: 0.85rem; color: var(--text-2);">
+                <p>All database operations run asynchronously. Zero lag reported on servers with 100+ concurrent players.</p>
+                <p style="margin-top: 0.75rem;">Cooldown calculations use server time and respect timezone configurations.</p>
+            </div>
+        </div>
+    </aside>
+</div>
+
+<footer>
+    <div class="footer-links">
+        <a href="https://modrinth.com/user/_GodlyCow" class="footer-link" target="_blank">Modrinth Profile</a>
+        <a href="https://github.com/GodlyCow203" class="footer-link" target="_blank">GitHub</a>
+        <a href="https://discord.gg/vmhQ2gZr8g" class="footer-link" target="_blank">Discord</a>
+        <a href="mailto:godlycowcow@gmail.com" class="footer-link">Email</a>
+    </div>
+    <p>&copy; <span id="yr"></span> _GodlyCow – Building plugins for the Minecraft community</p>
+</footer>
+
+<script>
+    const themeBtn = document.getElementById('themeBtn');
+    const root = document.documentElement;
+    const saved = localStorage.getItem('theme') || 'dark';
+    root.setAttribute('data-theme', saved);
+    themeBtn.textContent = saved === 'dark' ? '☀️ LIGHT' : '🌙 DARK';
+
+    themeBtn.addEventListener('click', () => {
+        const t = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', t);
+        localStorage.setItem('theme', t);
+        themeBtn.textContent = t === 'dark' ? '☀️ LIGHT' : '🌙 DARK';
+    });
+
+    document.getElementById('yr').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

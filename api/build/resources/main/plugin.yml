@@ -1,0 +1,4 @@
+name: API
+version: '${version}'
+main: net.godlycow.org.PluginAPI
+api-version: '1.21'

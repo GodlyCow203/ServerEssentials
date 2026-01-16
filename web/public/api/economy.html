@@ -1,0 +1,734 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="utf-8">
+    <title>Economy API Documentation – _GodlyCow</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --surface: #111111;
+            --surface-2: #191919;
+            --border: #2d2d2d;
+            --text: #e0e0e0;
+            --text-2: #888888;
+            --primary: #FFFFFF;
+            --primary-2: #e0e0e0;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+            --font: 'Courier New', 'Monaco', 'Consolas', monospace;
+            --code-bg: #050505;
+            --error: #ef4444;
+        }
+        [data-theme="light"] {
+            --bg: #f0f0f0;
+            --surface: #ffffff;
+            --surface-2: #f7f7f7;
+            --border: #cccccc;
+            --text: #1a1a1a;
+            --text-2: #555555;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            --code-bg: #f5f5f5;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font);
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        .topbar {
+            background: var(--surface);
+            border-bottom: 2px solid var(--border);
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+            font-weight: bold;
+        }
+        .topbar a {
+            color: var(--text-2);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .topbar a:hover { color: var(--primary); }
+        .topbar .spacer { flex: 1; }
+        .theme-btn {
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 0.4rem 0.8rem;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        .theme-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .hero {
+            background: linear-gradient(90deg, var(--surface) 0%, var(--surface-2) 100%);
+            border-bottom: 2px solid var(--border);
+            padding: 3rem 1.5rem;
+            text-align: center;
+            position: relative;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .hero p {
+            font-size: 1rem;
+            color: var(--text-2);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 0;
+        }
+        @media (max-width: 900px) {
+            .wrapper { grid-template-columns: 1fr; }
+        }
+        main { border-right: 2px solid var(--border); }
+
+        .card {
+            background: var(--surface);
+            border: none;
+            border-bottom: 2px solid var(--border);
+            margin-bottom: 0;
+        }
+        .card-header {
+            background: var(--surface-2);
+            padding: 1rem 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            border-bottom: 1px solid var(--border);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+        }
+        .card-body { padding: 1.5rem; }
+
+        .method-section {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px dashed var(--border);
+        }
+        .method-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .method-title {
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .method-signature {
+            background: var(--code-bg);
+            padding: 0.75rem;
+            border-left: 3px solid var(--primary);
+            margin: 0.75rem 0;
+            font-family: var(--font);
+            font-size: 0.95rem;
+            overflow-x: auto;
+        }
+        .method-desc {
+            margin: 0.75rem 0;
+            color: var(--text-2);
+            line-height: 1.6;
+        }
+        .method-params {
+            margin: 0.75rem 0;
+            padding-left: 1rem;
+        }
+        .method-params dt {
+            color: var(--primary);
+            font-weight: bold;
+            margin-top: 0.5rem;
+        }
+        .method-params dd {
+            color: var(--text-2);
+            margin-left: 1rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--border);
+            border-radius: 0;
+            padding: 1rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: var(--font);
+            font-size: 13px;
+            line-height: 1.4;
+        }
+        .code-block pre {
+            margin: 0;
+            white-space: pre;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin: 2rem 0 1rem 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+        }
+
+        .sidebar .card {
+            border-left: 2px solid var(--primary);
+            margin-bottom: 1rem;
+        }
+        .sidebar .card-body {
+            padding: 1rem;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar li {
+            margin-bottom: 0.5rem;
+            padding-left: 1rem;
+            position: relative;
+        }
+        .sidebar li::before {
+            content: ">";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+        .sidebar a {
+            color: var(--text-2);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .sidebar a:hover {
+            color: var(--primary);
+        }
+
+        .footer {
+            background: var(--surface);
+            border-top: 2px solid var(--border);
+            padding: 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .footer-link {
+            color: var(--text-2);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .footer-link:hover { color: var(--primary); }
+    </style>
+</head>
+<body>
+
+<header class="topbar">
+    <a href="index.html">← BACK TO HOME</a>
+    <a href="https://github.com/GodlyCow203/ServerEssentials" target="_blank">GITHUB</a>
+    <a href="https://discord.gg/vmhQ2gZr8g" target="_blank">DISCORD</a>
+    <div class="spacer"></div>
+    <button class="theme-btn" id="themeBtn">🌙 DARK</button>
+</header>
+
+<section class="hero">
+    <h1>Economy API Documentation</h1>
+    <p>Asynchronous balance operations, payment controls, transaction events, and integration support for online and offline players</p>
+</section>
+
+<div class="wrapper">
+    <main>
+        <div class="card">
+            <div class="card-header">Overview</div>
+            <div class="card-body">
+                <p style="margin-bottom: 1rem; color: var(--text-2);">
+                    The Economy API provides public interfaces for managing player economy and transactions. All financial operations are asynchronous and return CompletableFuture instances to prevent blocking the main server thread.
+                </p>
+                <div class="method-signature">Package: com.serveressentials.api.economy</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Interface: EconomyAPI</div>
+            <div class="card-body">
+                <div class="method-section">
+                    <div class="method-title">isEnabled()</div>
+                    <div class="method-signature">boolean isEnabled()</div>
+                    <div class="method-desc">Checks whether the economy system is currently enabled and functional.</div>
+                    <div class="method-params">
+                        <dt>When to Call:</dt>
+                        <dd>Always check this before performing any economy operations.</dd>
+                    </div>
+                    <div class="code-block">
+                        <pre>public void onPlayerJoin(PlayerJoinEvent event) {
+    Player player = event.getPlayer();
+    if (economyAPI.isEnabled()) {
+        economyAPI.getBalance(player).thenAccept(balance -> {
+            player.sendMessage("§7Your balance: §a" + economyAPI.format(balance));
+        });
+    }
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getEconomyName()</div>
+                    <div class="method-signature">@NotNull String getEconomyName()</div>
+                    <div class="method-desc">Returns the name of the currently active economy system (e.g., "Vault", "Internal").</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getBalance(OfflinePlayer player)</div>
+                    <div class="method-signature">CompletableFuture&lt;Double&gt; getBalance(OfflinePlayer player)</div>
+                    <div class="method-desc">Retrieves a player's current account balance. Works for both online and offline players.</div>
+                    <div class="code-block">
+                        <pre>public void showBalanceGUI(Player viewer, OfflinePlayer target) {
+    economyAPI.getBalance(target).thenAccept(balance -> {
+        String formattedBalance = economyAPI.format(balance);
+        String targetName = target.getName() != null ? target.getName() : "Unknown";
+        viewer.sendMessage("§6" + targetName + "'s Balance: §a" + formattedBalance);
+    });
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">has(OfflinePlayer player, double amount)</div>
+                    <div class="method-signature">CompletableFuture&lt;Boolean&gt; has(OfflinePlayer player, double amount)</div>
+                    <div class="method-desc">Checks whether a player has at least the specified amount of money in their account.</div>
+                    <div class="code-block">
+                        <pre>// Validate if player can afford an item
+public boolean canAffordPurchase(Player buyer, double price) {
+    return economyAPI.has(buyer, price).join();
+}
+
+// Better async approach
+public void processPurchase(Player buyer, double price, Runnable onSuccess) {
+    economyAPI.has(buyer, price).thenAccept(hasEnough -> {
+        if (hasEnough) {
+            onSuccess.run();
+        } else {
+            buyer.sendMessage("§cInsufficient funds!");
+        }
+    });
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">deposit(OfflinePlayer player, double amount)</div>
+                    <div class="method-signature">CompletableFuture&lt;EconomyResponse&gt; deposit(OfflinePlayer player, double amount)</div>
+                    <div class="method-desc">Adds money to a player's account. Use for rewards, shop sales, admin commands.</div>
+                    <div class="code-block">
+                        <pre>public void rewardPlayer(Player player, double amount, String questName) {
+    economyAPI.deposit(player, amount).thenAccept(response -> {
+        if (response.isSuccess()) {
+            player.sendMessage("§a+" + economyAPI.format(amount) + " §7for completing " + questName);
+            player.sendMessage("§7New balance: §f" + economyAPI.format(response.getBalance()));
+            player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);
+        } else {
+            player.sendMessage("§cFailed to receive quest reward: " + response.getErrorMessage());
+        }
+    });
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">withdraw(OfflinePlayer player, double amount)</div>
+                    <div class="method-signature">CompletableFuture&lt;EconomyResponse&gt; withdraw(OfflinePlayer player, double amount)</div>
+                    <div class="method-desc">Removes money from a player's account. Use for purchases, taxes, fines.</div>
+                    <div class="code-block">
+                        <pre>// Process a shop purchase
+public void processShopPurchase(Player buyer, ItemStack item, double price) {
+    economyAPI.withdraw(buyer, price).thenAccept(response -> {
+        if (response.isSuccess()) {
+            buyer.getInventory().addItem(item);
+            buyer.sendMessage("§aPurchase successful! " + economyAPI.format(price) + " deducted.");
+            buyer.sendMessage("§7Remaining balance: §f" + economyAPI.format(response.getBalance()));
+        } else {
+            buyer.sendMessage("§cPurchase failed: " + response.getErrorMessage());
+        }
+    });
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">format(double amount)</div>
+                    <div class="method-signature">@NotNull String format(double amount)</div>
+                    <div class="method-desc">Converts a raw numeric amount into a formatted currency string suitable for display.</div>
+                    <div class="method-desc">Use this every time you display money to players. Never display raw doubles directly.</div>
+                    <div class="code-block">
+                        <pre>public void showBalance(Player player) {
+    economyAPI.getBalance(player).thenAccept(balance -> {
+        String formatted = economyAPI.format(balance);
+        player.sendMessage("§7Your balance: §a" + formatted);
+    });
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">createAccount(OfflinePlayer player)</div>
+                    <div class="method-signature">CompletableFuture&lt;Boolean&gt; createAccount(OfflinePlayer player)</div>
+                    <div class="method-desc">Creates a new economy account for a player if one does not already exist.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getPaymentSettings(String playerUuid)</div>
+                    <div class="method-signature">CompletableFuture&lt;EconomyPaymentSettings&gt; getPaymentSettings(String playerUuid)</div>
+                    <div class="method-desc">Retrieves a player's payment-related settings, including disabled payments and confirmation preferences.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">setPaymentsDisabled(String playerUuid, String playerName, boolean disabled)</div>
+                    <div class="method-signature">CompletableFuture&lt;Void&gt; setPaymentsDisabled(String playerUuid, String playerName, boolean disabled)</div>
+                    <div class="method-desc">Enables or disables incoming payments for a player.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">setPayConfirmDisabled(String playerUuid, String playerName, boolean disabled)</div>
+                    <div class="method-signature">CompletableFuture&lt;Void&gt; setPayConfirmDisabled(String playerUuid, String playerName, boolean disabled)</div>
+                    <div class="method-desc">Enables or disables pay confirmation prompts for a player.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">reload()</div>
+                    <div class="method-signature">CompletableFuture&lt;Void&gt; reload()</div>
+                    <div class="method-desc">Reloads the economy configuration from disk without requiring a server restart.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Class: EconomyPaymentSettings</div>
+            <div class="card-body">
+                <div class="method-signature">Package: com.serveressentials.api.economy</div>
+                <p style="margin: 1rem 0; color: var(--text-2);">Immutable data container holding a player's payment-related configuration settings.</p>
+
+                <div class="section-title">Constructor</div>
+                <div class="method-signature">EconomyPaymentSettings(boolean paymentsDisabled, boolean payConfirmDisabled)</div>
+
+                <div class="section-title">Methods</div>
+                <div class="method-section">
+                    <div class="method-title">isPaymentsDisabled()</div>
+                    <div class="method-signature">boolean isPaymentsDisabled()</div>
+                    <div class="method-desc">Checks if incoming payments are disabled for the player.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">isPayConfirmDisabled()</div>
+                    <div class="method-signature">boolean isPayConfirmDisabled()</div>
+                    <div class="method-desc">Checks if pay confirmation prompts are disabled for the player.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Class: EconomyResponse</div>
+            <div class="card-body">
+                <div class="method-signature">Package: com.serveressentials.api.economy</div>
+                <p style="margin: 1rem 0; color: var(--text-2);">Immutable data container representing the result of an economy transaction.</p>
+
+                <div class="section-title">Constructor</div>
+                <div class="method-signature">EconomyResponse(double amount, double balance, boolean success, String errorMessage)</div>
+
+                <div class="section-title">Methods</div>
+                <div class="method-section">
+                    <div class="method-title">getAmount()</div>
+                    <div class="method-signature">double getAmount()</div>
+                    <div class="method-desc">Returns the transaction amount.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getBalance()</div>
+                    <div class="method-signature">double getBalance()</div>
+                    <div class="method-desc">Returns the player's balance after the transaction completed.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">isSuccess()</div>
+                    <div class="method-signature">boolean isSuccess()</div>
+                    <div class="method-desc">Indicates whether the transaction completed successfully.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getErrorMessage()</div>
+                    <div class="method-signature">@Nullable String getErrorMessage()</div>
+                    <div class="method-desc">Returns an error message describing why a transaction failed.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Events</div>
+            <div class="card-body">
+                <div class="section-title">EconomyEvent</div>
+                <div class="method-signature">Package: com.serveressentials.api.economy.event</div>
+                <div class="method-desc">Base event class for all economy-related actions. Asynchronous if fired off main thread.</div>
+
+                <div class="section-title">EconomyDepositEvent</div>
+                <div class="method-signature">Package: com.serveressentials.api.economy.event</div>
+                <div class="method-desc">Fired when a deposit transaction completes.</div>
+                <div class="code-block">
+                    <pre>@EventHandler
+public void onEconomyDeposit(EconomyDepositEvent event) {
+    OfflinePlayer player = event.getPlayer();
+    double amount = event.getAmount();
+    EconomyResponse response = event.getResponse();
+
+    getLogger().info(String.format(
+        "[ECONOMY] DEPOSIT: %s +%s (New Balance: %s)",
+        player.getName(),
+        economyAPI.format(amount),
+        economyAPI.format(response.getBalance())
+    ));
+}</pre>
+                </div>
+
+                <div class="section-title">EconomyWithdrawEvent</div>
+                <div class="method-signature">Package: com.serveressentials.api.economy.event</div>
+                <div class="method-desc">Fired when a withdrawal transaction completes.</div>
+                <div class="code-block">
+                    <pre>@EventHandler
+public void onEconomyWithdraw(EconomyWithdrawEvent event) {
+    OfflinePlayer player = event.getPlayer();
+    double amount = event.getAmount();
+
+    if (player.isOnline() && event.getResponse().isSuccess()) {
+        Player onlinePlayer = (Player) player;
+        onlinePlayer.sendTitle(
+            "§c-" + economyAPI.format(amount),
+            "§7Balance: " + economyAPI.format(event.getResponse().getBalance()),
+            10, 40, 10
+        );
+    }
+}</pre>
+                </div>
+
+                <div class="section-title">EconomyPaymentSettingsChangeEvent</div>
+                <div class="method-signature">Package: com.serveressentials.api.economy.event</div>
+                <div class="method-desc">Fired when a player modifies their payment settings.</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Complete Usage Scenario</div>
+            <div class="card-body">
+                <p style="margin-bottom: 1rem; color: var(--text-2);">
+                    Tax Collection Plugin - Automatically collects taxes from online players:
+                </p>
+                <div class="code-block">
+                    <pre>package com.taxcollector;
+
+import com.serveressentials.api.economy.EconomyAPI;
+import com.serveressentials.api.economy.EconomyResponse;
+import com.serveressentials.api.economy.event.EconomyWithdrawEvent;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.plugin.java.JavaPlugin;
+
+public class TaxCollectorPlugin extends JavaPlugin implements Listener {
+    private EconomyAPI economyAPI;
+    private double taxRate = 0.02; // 2% tax
+
+    @Override
+    public void onEnable() {
+        this.economyAPI = getEconomyAPI();
+
+        // Tax collection every hour
+        getServer().getScheduler().runTaskTimerAsynchronously(this,
+            this::collectTaxes, 0L, 20L * 60 * 60);
+
+        getServer().getPluginManager().registerEvents(this, this);
+    }
+
+    private void collectTaxes() {
+        if (!economyAPI.isEnabled()) return;
+
+        for (Player player : getServer().getOnlinePlayers()) {
+            economyAPI.getBalance(player).thenAccept(balance -> {
+                double taxAmount = balance * taxRate;
+
+                if (taxAmount < 1.0) return;
+
+                economyAPI.getPaymentSettings(player.getUniqueId().toString()).thenAccept(settings -> {
+                    if (settings.isPaymentsDisabled()) {
+                        getLogger().info("Skipping tax for " + player.getName() + " (payments disabled)");
+                        return;
+                    }
+
+                    economyAPI.withdraw(player, taxAmount).thenAccept(response -> {
+                        if (response.isSuccess()) {
+                            player.sendMessage("§c§lTAX COLLECTED: §f-" + economyAPI.format(taxAmount));
+                            depositToServer(taxAmount);
+                        }
+                    });
+                });
+            });
+        }
+    }
+
+    private void depositToServer(double amount) {
+        OfflinePlayer serverAccount = Bukkit.getOfflinePlayer("Server");
+        economyAPI.createAccount(serverAccount).thenAccept(created -> {
+            economyAPI.deposit(serverAccount, amount);
+        });
+    }
+
+    @EventHandler
+    public void onEconomyWithdraw(EconomyWithdrawEvent event) {
+        // Log tax-related withdrawals
+        if (event.getAmount() > 0 && event.getPlayer().isOnline()) {
+            Player player = (Player) event.getPlayer();
+            if (player.hasMetadata("tax_collector")) {
+                getLogger().info("Tax collected from " + player.getName() + ": " + economyAPI.format(event.getAmount()));
+            }
+        }
+    }
+}</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Error Handling Best Practices</div>
+            <div class="card-body">
+                <div class="code-block">
+                    <pre>public void safeTransaction(OfflinePlayer player, double amount, String transactionType) {
+    if (!economyAPI.isEnabled()) {
+        getLogger().warning("Economy is disabled. Aborting " + transactionType + ".");
+        return;
+    }
+
+    if (amount <= 0) {
+        getLogger().warning("Invalid transaction amount: " + amount);
+        return;
+    }
+
+    if (player == null) {
+        getLogger().warning("Null player in transaction: " + transactionType);
+        return;
+    }
+
+    economyAPI.withdraw(player, amount)
+        .exceptionally(throwable -> {
+            getLogger().log(Level.SEVERE, "Critical error in " + transactionType + " for " + player.getName(), throwable);
+            if (player.isOnline()) {
+                ((Player) player).sendMessage("§cCritical transaction error. Contact staff.");
+            }
+            return new EconomyResponse(amount, 0.0, false, throwable.getMessage());
+        })
+        .thenAccept(response -> {
+            if (!response.isSuccess()) {
+                getLogger().warning(
+                    String.format("Transaction failed for %s: %s (Amount: %s)",
+                        player.getName(),
+                        response.getErrorMessage(),
+                        economyAPI.format(amount)
+                    )
+                );
+            }
+        });
+}</pre>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <aside class="sidebar">
+        <div class="card">
+            <div class="card-header">Quick Navigation</div>
+            <div class="card-body">
+                <ul>
+                    <li><a href="#top">EconomyAPI Interface</a></li>
+                    <li><a href="#top">EconomyPaymentSettings Class</a></li>
+                    <li><a href="#top">EconomyResponse Class</a></li>
+                    <li><a href="#top">Event Listeners</a></li>
+                    <li><a href="#top">Usage Examples</a></li>
+                    <li><a href="#top">Error Handling</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Package Structure</div>
+            <div class="card-body">
+                <ul>
+                    <li>com.serveressentials.api.economy.EconomyAPI</li>
+                    <li>com.serveressentials.api.economy.EconomyPaymentSettings</li>
+                    <li>com.serveressentials.api.economy.EconomyResponse</li>
+                    <li>com.serveressentials.api.economy.event.*</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Implementation Notes</div>
+            <div class="card-body" style="font-size: 0.85rem; color: var(--text-2);">
+                <p>All economy operations run asynchronously. Zero lag reported on servers with 100+ concurrent players and high transaction volumes.</p>
+                <p style="margin-top: 0.75rem;">Supports both Vault integration and internal fallback economy system.</p>
+            </div>
+        </div>
+    </aside>
+</div>
+
+<footer>
+    <div class="footer-links">
+        <a href="https://modrinth.com/user/_GodlyCow" class="footer-link" target="_blank">Modrinth Profile</a>
+        <a href="https://github.com/GodlyCow203" class="footer-link" target="_blank">GitHub</a>
+        <a href="https://discord.gg/vmhQ2gZr8g" class="footer-link" target="_blank">Discord</a>
+        <a href="mailto:godlycowcow@gmail.com" class="footer-link">Email</a>
+    </div>
+    <p>&copy; <span id="yr"></span> _GodlyCow – Building plugins for the Minecraft community</p>
+</footer>
+
+<script>
+    const themeBtn = document.getElementById('themeBtn');
+    const root = document.documentElement;
+    const saved = localStorage.getItem('theme') || 'dark';
+    root.setAttribute('data-theme', saved);
+    themeBtn.textContent = saved === 'dark' ? '☀️ LIGHT' : '🌙 DARK';
+
+    themeBtn.addEventListener('click', () => {
+        const t = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', t);
+        localStorage.setItem('theme', t);
+        themeBtn.textContent = t === 'dark' ? '☀️ LIGHT' : '🌙 DARK';
+    });
+
+    document.getElementById('yr').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

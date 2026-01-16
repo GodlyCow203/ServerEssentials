@@ -1,0 +1,650 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="utf-8">
+    <title>AFK API Documentation – _GodlyCow</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --surface: #111111;
+            --surface-2: #191919;
+            --border: #2d2d2d;
+            --text: #e0e0e0;
+            --text-2: #888888;
+            --primary: #FFFFFF;
+            --gold: #fbbf24;
+            --gold-dark: #d97706;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+            --font: 'Courier New', 'Monaco', 'Consolas', monospace;
+            --code-bg: #050505;
+            --error: #ef4444;
+        }
+        [data-theme="light"] {
+            --bg: #f0f0f0;
+            --surface: #ffffff;
+            --surface-2: #f7f7f7;
+            --border: #cccccc;
+            --text: #1a1a1a;
+            --text-2: #555555;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            --code-bg: #f5f5f5;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font);
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        .topbar {
+            background: var(--surface);
+            border-bottom: 2px solid var(--border);
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+            font-weight: bold;
+        }
+        .topbar a {
+            color: var(--text-2);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .topbar a:hover { color: var(--gold); }
+        .topbar .spacer { flex: 1; }
+        .theme-btn {
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 0.4rem 0.8rem;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        .theme-btn:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .hero {
+            background: linear-gradient(90deg, var(--surface) 0%, var(--surface-2) 100%);
+            border-bottom: 2px solid var(--border);
+            padding: 3rem 1.5rem;
+            text-align: center;
+            position: relative;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .hero p {
+            font-size: 1rem;
+            color: var(--text-2);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 0;
+        }
+        @media (max-width: 900px) {
+            .wrapper { grid-template-columns: 1fr; }
+        }
+        main { border-right: 2px solid var(--border); }
+
+        .card {
+            background: var(--surface);
+            border: none;
+            border-bottom: 2px solid var(--border);
+            margin-bottom: 0;
+        }
+        .card-header {
+            background: var(--surface-2);
+            padding: 1rem 1.5rem;
+            font-weight: bold;
+            color: var(--gold);
+            border-bottom: 1px solid var(--border);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+        }
+        .card-body { padding: 1.5rem; }
+
+        .method-section {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px dashed var(--border);
+        }
+        .method-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .method-title {
+            font-size: 1.1rem;
+            color: var(--gold);
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .method-signature {
+            background: var(--code-bg);
+            padding: 0.75rem;
+            border-left: 3px solid var(--gold);
+            margin: 0.75rem 0;
+            font-family: var(--font);
+            font-size: 0.95rem;
+            overflow-x: auto;
+        }
+        .method-desc {
+            margin: 0.75rem 0;
+            color: var(--text-2);
+            line-height: 1.6;
+        }
+        .method-params {
+            margin: 0.75rem 0;
+            padding-left: 1rem;
+        }
+        .method-params dt {
+            color: var(--gold);
+            font-weight: bold;
+            margin-top: 0.5rem;
+        }
+        .method-params dd {
+            color: var(--text-2);
+            margin-left: 1rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            border: 1px solid var(--border);
+            border-radius: 0;
+            padding: 1rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: var(--font);
+            font-size: 13px;
+            line-height: 1.4;
+        }
+        .code-block pre {
+            margin: 0;
+            white-space: pre;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--gold);
+            margin: 2rem 0 1rem 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+        }
+
+        .sidebar .card {
+            border-left: 2px solid var(--gold);
+            margin-bottom: 1rem;
+        }
+        .sidebar .card-body {
+            padding: 1rem;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar li {
+            margin-bottom: 0.5rem;
+            padding-left: 1rem;
+            position: relative;
+        }
+        .sidebar li::before {
+            content: ">";
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+        }
+        .sidebar a {
+            color: var(--text-2);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .sidebar a:hover {
+            color: var(--gold);
+        }
+
+        .footer {
+            background: var(--surface);
+            border-top: 2px solid var(--border);
+            padding: 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .footer-link {
+            color: var(--text-2);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .footer-link:hover { color: var(--gold); }
+    </style>
+</head>
+<body>
+
+<header class="topbar">
+    <a href="index.html">← BACK TO HOME</a>
+    <a href="https://github.com/GodlyCow203/ServerEssentials" target="_blank">GITHUB</a>
+    <a href="https://discord.gg/vmhQ2gZr8g" target="_blank">DISCORD</a>
+    <div class="spacer"></div>
+    <button class="theme-btn" id="themeBtn">🌙 DARK</button>
+</header>
+
+<section class="hero">
+    <h1>AFK API Documentation</h1>
+    <p>Complete programmatic control over player AFK status, events, and activity tracking for Server Essentials</p>
+</section>
+
+<div class="wrapper">
+    <main>
+        <div class="card">
+            <div class="card-header">Overview</div>
+            <div class="card-body">
+                <p style="margin-bottom: 1rem; color: var(--text-2);">
+                    The AFK API provides public interfaces for managing player AFK (Away From Keyboard) status in Server Essentials.
+                    Plugin developers can query states, force AFK status, listen to events, and integrate custom activity tracking.
+                </p>
+                <div class="method-signature">Package: com.serveressentials.api.afk</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Interface: AFKAPI</div>
+            <div class="card-body">
+                <div class="method-section">
+                    <div class="method-title">isAFK(Player player)</div>
+                    <div class="method-signature">boolean isAFK(Player player)</div>
+                    <div class="method-desc">Checks if a player is currently marked as AFK.</div>
+                    <div class="method-params">
+                        <dt>Parameters:</dt>
+                        <dd><strong>player</strong> - The Bukkit Player object. Must be online.</dd>
+                        <dt>Returns:</dt>
+                        <dd>true if the player is AFK, false otherwise.</dd>
+                    </div>
+                    <div class="code-block">
+                        <pre>public void onPlayerChat(PlayerChatEvent event) {
+    Player sender = event.getPlayer();
+    if (afkAPI.isAFK(sender)) {
+        event.setCancelled(true);
+        sender.sendMessage("You cannot chat while AFK.");
+    }
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">setAFK(Player player, boolean afk)</div>
+                    <div class="method-signature">CompletableFuture&lt;Boolean&gt; setAFK(Player player, boolean afk)</div>
+                    <div class="method-desc">Explicitly sets a player's AFK status. Useful for custom triggers or admin commands.</div>
+                    <div class="method-params">
+                        <dt>Parameters:</dt>
+                        <dd><strong>player</strong> - The target Player object. Must be online.</dd>
+                        <dd><strong>afk</strong> - true to mark AFK, false to remove AFK status.</dd>
+                        <dt>Returns:</dt>
+                        <dd>CompletableFuture that completes with true if successful, false if failed.</dd>
+                    </div>
+                    <div class="code-block">
+                        <pre>public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    Player target = Bukkit.getPlayer(args[0]);
+    if (target != null) {
+        afkAPI.setAFK(target, true).thenAccept(success -> {
+            if (success) {
+                sender.sendMessage("Forced " + target.getName() + " into AFK mode.");
+            }
+        });
+    }
+    return true;
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">toggleAFK(Player player)</div>
+                    <div class="method-signature">CompletableFuture&lt;Boolean&gt; toggleAFK(Player player)</div>
+                    <div class="method-desc">Toggles a player's AFK status without needing to check current state.</div>
+                    <div class="code-block">
+                        <pre>public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    if (!(sender instanceof Player)) return false;
+    Player player = (Player) sender;
+    afkAPI.toggleAFK(player);
+    return true;
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getAFKPlayers()</div>
+                    <div class="method-signature">Collection&lt;UUID&gt; getAFKPlayers()</div>
+                    <div class="method-desc">Retrieves all players currently marked as AFK.</div>
+                    <div class="method-params">
+                        <dt>Returns:</dt>
+                        <dd>Collection of UUIDs for all AFK players (empty if none).</dd>
+                    </div>
+                    <div class="code-block">
+                        <pre>public void notifyAFKPlayers(String message) {
+    Collection&lt;UUID&gt; afkPlayers = afkAPI.getAFKPlayers();
+    for (UUID playerId : afkPlayers) {
+        Player afkPlayer = Bukkit.getPlayer(playerId);
+        if (afkPlayer != null && afkPlayer.isOnline()) {
+            afkPlayer.sendMessage("§7[AFK] " + message);
+        }
+    }
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getAFKTimeoutSeconds()</div>
+                    <div class="method-signature">long getAFKTimeoutSeconds()</div>
+                    <div class="method-desc">Returns the configured AFK timeout duration in seconds.</div>
+                    <div class="code-block">
+                        <pre>public void showAFKInfo(Player player) {
+    long timeoutMinutes = afkAPI.getAFKTimeoutSeconds() / 60;
+    player.sendMessage("AFK timeout: " + timeoutMinutes + " minutes");
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">isAFKEnabled()</div>
+                    <div class="method-signature">boolean isAFKEnabled()</div>
+                    <div class="method-desc">Checks whether the AFK system is currently enabled.</div>
+                    <div class="method-params">
+                        <dt>When to Call:</dt>
+                        <dd>Always check this before performing AFK operations.</dd>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">updatePlayerActivity(Player player)</div>
+                    <div class="method-signature">void updatePlayerActivity(Player player)</div>
+                    <div class="method-desc">Manually records player activity, resetting their AFK timer.</div>
+                    <div class="method-desc">Use for custom interactions not automatically captured by the AFK system.</div>
+                    <div class="code-block">
+                        <pre>public void onCustomGuiClick(Player player, String elementId) {
+    // Process the click...
+    afkAPI.updatePlayerActivity(player); // Prevent AFK kick
+}</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Class: AFKPlayer</div>
+            <div class="card-body">
+                <div class="method-signature">Package: com.serveressentials.api.afk</div>
+                <p style="margin: 1rem 0; color: var(--text-2);">
+                    Immutable data container representing a player's AFK state at a specific time.
+                </p>
+
+                <div class="section-title">Constructor</div>
+                <div class="method-signature">AFKPlayer(UUID playerId, boolean isAFK, long since)</div>
+
+                <div class="section-title">Methods</div>
+                <div class="method-section">
+                    <div class="method-title">getPlayerId()</div>
+                    <div class="method-signature">UUID getPlayerId()</div>
+                    <div class="code-block">
+                        <pre>public String getAFKPlayerSummary(AFKPlayer afkPlayer) {
+    UUID playerId = afkPlayer.getPlayerId();
+    String playerName = Bukkit.getOfflinePlayer(playerId).getName();
+    return playerName + " is " + (afkPlayer.isAFK() ? "AFK" : "Active");
+}</pre>
+                    </div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">isAFK()</div>
+                    <div class="method-signature">boolean isAFK()</div>
+                    <div class="method-desc">Returns the AFK status stored in this data object.</div>
+                </div>
+
+                <div class="method-section">
+                    <div class="method-title">getSince()</div>
+                    <div class="method-signature">long getSince()</div>
+                    <div class="method-desc">Returns the timestamp (milliseconds since epoch) when the player entered their current AFK state.</div>
+                    <div class="code-block">
+                        <pre>public long getAFKDurationMinutes(AFKPlayer afkPlayer) {
+    if (!afkPlayer.isAFK()) return 0;
+    long currentTime = System.currentTimeMillis();
+    long afkStartTime = afkPlayer.getSince();
+    return (currentTime - afkStartTime) / (1000 * 60);
+}</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Class: AFKStatusEvent</div>
+            <div class="card-body">
+                <div class="method-signature">Package: com.serveressentials.api.afk.event</div>
+                <p style="margin: 1rem 0; color: var(--text-2);">
+                    Bukkit event that fires whenever a player's AFK status changes. Synchronous, not cancellable.
+                </p>
+
+                <div class="section-title">Event Listener Example</div>
+                <div class="code-block">
+                    <pre>import com.serveressentials.api.afk.event.AFKStatusEvent;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+
+public class AFKStatusListener implements Listener {
+    @EventHandler
+    public void onAFKStatusChange(AFKStatusEvent event) {
+        Player player = event.getPlayer();
+        boolean nowAFK = event.isAFK();
+
+        if (nowAFK) {
+            Bukkit.broadcastMessage("§7" + player.getName() + " is now AFK.");
+            player.setAllowFlight(false);
+            player.setFlying(false);
+        } else {
+            Bukkit.broadcastMessage("§a" + player.getName() + " is no longer AFK.");
+            if (player.hasPermission("essentials.fly")) {
+                player.setAllowFlight(true);
+            }
+        }
+    }
+}</pre>
+                </div>
+
+                <div class="code-block">
+                    <pre>// Register in your plugin's onEnable()
+getServer().getPluginManager().registerEvents(new AFKStatusListener(), this);</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Complete Usage Scenario</div>
+            <div class="card-body">
+                <p style="margin-bottom: 1rem; color: var(--text-2);">
+                    AFK Prevention System for creative mode builders:
+                </p>
+                <div class="code-block">
+                    <pre>package com.buildprotectplugin;
+
+import com.serveressentials.api.afk.AFKAPI;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
+
+public class BuildProtectPlugin extends JavaPlugin {
+    private AFKAPI afkAPI;
+    private Set&lt;UUID&gt; buildModePlayers;
+
+    @Override
+    public void onEnable() {
+        this.afkAPI = getAFKAPI(); // Get your API instance
+        this.buildModePlayers = new HashSet<>();
+        getCommand("buildmode").setExecutor(new BuildModeCommand());
+
+        // Update activity every second for build mode players
+        getServer().getScheduler().runTaskTimer(this, this::updateBuildModeActivity, 20L, 20L);
+    }
+
+    private void updateBuildModeActivity() {
+        if (!afkAPI.isAFKEnabled()) return;
+
+        for (UUID playerId : buildModePlayers) {
+            Player player = getServer().getPlayer(playerId);
+            if (player != null && player.isOnline()) {
+                afkAPI.updatePlayerActivity(player); // Keep timer reset
+            }
+        }
+    }
+
+    public class BuildModeCommand implements CommandExecutor {
+        @Override
+        public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+            if (!(sender instanceof Player)) return false;
+
+            Player player = (Player) sender;
+            UUID playerId = player.getUniqueId();
+
+            if (buildModePlayers.contains(playerId)) {
+                buildModePlayers.remove(playerId);
+                player.sendMessage("Build mode disabled.");
+                afkAPI.updatePlayerActivity(player);
+            } else {
+                buildModePlayers.add(playerId);
+                player.sendMessage("Build mode enabled. AFK timer suspended.");
+                afkAPI.updatePlayerActivity(player);
+            }
+            return true;
+        }
+    }
+}</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Error Handling Best Practices</div>
+            <div class="card-body">
+                <div class="code-block">
+                    <pre>public void safelySetAFK(Player player, boolean afkState) {
+    // Check if AFK system is enabled first
+    if (!afkAPI.isAFKEnabled()) {
+        player.sendMessage("AFK system is currently disabled.");
+        return;
+    }
+
+    // Validate player
+    if (player == null || !player.isOnline()) {
+        return;
+    }
+
+    // Perform operation with error handling
+    afkAPI.setAFK(player, afkState)
+        .exceptionally(throwable -> {
+            getLogger().log(Level.SEVERE, "Failed to set AFK state", throwable);
+            return false;
+        })
+        .thenAccept(success -> {
+            if (!success) {
+                player.sendMessage("Could not change AFK state. You may already be in that state.");
+            }
+        });
+}</pre>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <aside class="sidebar">
+        <div class="card">
+            <div class="card-header">Quick Navigation</div>
+            <div class="card-body">
+                <ul>
+                    <li><a href="#top">AFKAPI Interface</a></li>
+                    <li><a href="#top">AFKPlayer Class</a></li>
+                    <li><a href="#top">AFKStatusEvent</a></li>
+                    <li><a href="#top">Usage Examples</a></li>
+                    <li><a href="#top">Error Handling</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Package Structure</div>
+            <div class="card-body">
+                <ul>
+                    <li>com.serveressentials.api.afk.AFKAPI</li>
+                    <li>com.serveressentials.api.afk.AFKPlayer</li>
+                    <li>com.serveressentials.api.afk.event.AFKStatusEvent</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Implementation Notes</div>
+            <div class="card-body" style="font-size: 0.85rem; color: var(--text-2);">
+                <p>All database operations run asynchronously. Zero lag reported on servers with 100+ concurrent players.</p>
+                <p style="margin-top: 0.75rem;">Methods returning CompletableFuture should be handled properly to avoid blocking the main thread.</p>
+            </div>
+        </div>
+    </aside>
+</div>
+
+<footer>
+    <div class="footer-links">
+        <a href="https://modrinth.com/user/_GodlyCow" class="footer-link" target="_blank">Modrinth Profile</a>
+        <a href="https://github.com/GodlyCow203" class="footer-link" target="_blank">GitHub</a>
+        <a href="https://discord.gg/vmhQ2gZr8g" class="footer-link" target="_blank">Discord</a>
+        <a href="mailto:godlycowcow@gmail.com" class="footer-link">Email</a>
+    </div>
+    <p>&copy; <span id="yr"></span> _GodlyCow – Building plugins for the Minecraft community</p>
+</footer>
+
+<script>
+    const themeBtn = document.getElementById('themeBtn');
+    const root = document.documentElement;
+    const saved = localStorage.getItem('theme') || 'dark';
+    root.setAttribute('data-theme', saved);
+    themeBtn.textContent = saved === 'dark' ? '☀️ LIGHT' : '🌙 DARK';
+
+    themeBtn.addEventListener('click', () => {
+        const t = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', t);
+        localStorage.setItem('theme', t);
+        themeBtn.textContent = t === 'dark' ? '☀️ LIGHT' : '🌙 DARK';
+    });
+
+    document.getElementById('yr').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

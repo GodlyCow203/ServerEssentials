@@ -1,0 +1,396 @@
+# mobs.yml  –  MiniMessage edition, clean palette
+size: 54
+pages: 100
+player-head-slot: 4
+close-button-slot: 49
+
+layout:
+  "0":
+    material: GRAY_STAINED_GLASS_PANE
+    name: "<gray>"
+    clickable: false
+  "1":
+    material: GRAY_STAINED_GLASS_PANE
+    name: "<gray>"
+    clickable: false
+  "2":
+    material: WHITE_STAINED_GLASS_PANE
+    name: "<white>"
+    clickable: false
+  "3":
+    material: WHITE_STAINED_GLASS_PANE
+    name: "<white>"
+    clickable: false
+  "5":
+    material: WHITE_STAINED_GLASS_PANE
+    name: "<white>"
+    clickable: false
+  "6":
+    material: WHITE_STAINED_GLASS_PANE
+    name: "<white>"
+    clickable: false
+  "7":
+    material: GRAY_STAINED_GLASS_PANE
+    name: "<gray>"
+    clickable: false
+  "8":
+    material: GRAY_STAINED_GLASS_PANE
+    name: "<gray>"
+    clickable: false
+  "9":
+    material: GRAY_STAINED_GLASS_PANE
+    name: "<gray>"
+    clickable: false
+  "17":
+    material: GRAY_STAINED_GLASS_PANE
+    name: "<gray>"
+    clickable: false
+  "45":
+    material: ARROW
+    name: "<yellow>Previous Page"
+    previous-page: true
+    clickable: true
+  "53":
+    material: ARROW
+    name: "<yellow>Next Page"
+    next-page: true
+    clickable: true
+
+items:
+  rotten_flesh:
+    material: ROTTEN_FLESH
+    name: "<white>Rotten Flesh"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 10
+    page: 1
+    clickable: true
+
+  bone:
+    material: BONE
+    name: "<white>Bone"
+    lore:
+      - "<gray>Buy: <green>4"
+      - "<gray>Sell: <red>1"
+    buy-price: 4.0
+    sell-price: 1.0
+    amount: 1
+    slot: 12
+    page: 1
+    clickable: true
+
+  string:
+    material: STRING
+    name: "<white>String"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 14
+    page: 1
+    clickable: true
+
+  spider_eye:
+    material: SPIDER_EYE
+    name: "<white>Spider Eye"
+    lore:
+      - "<gray>Buy: <green>5"
+      - "<gray>Sell: <red>2"
+    buy-price: 5.0
+    sell-price: 2.0
+    amount: 1
+    slot: 16
+    page: 1
+    clickable: true
+
+  gunpowder:
+    material: GUNPOWDER
+    name: "<white>Gunpowder"
+    lore:
+      - "<gray>Buy: <green>6"
+      - "<gray>Sell: <red>2"
+    buy-price: 6.0
+    sell-price: 2.0
+    amount: 1
+    slot: 19
+    page: 1
+    clickable: true
+
+  ender_pearl:
+    material: ENDER_PEARL
+    name: "<white>Ender Pearl"
+    lore:
+      - "<gray>Buy: <green>10"
+      - "<gray>Sell: <red>5"
+    buy-price: 10.0
+    sell-price: 5.0
+    amount: 1
+    slot: 21
+    page: 1
+    clickable: true
+
+  blaze_rod:
+    material: BLAZE_ROD
+    name: "<white>Blaze Rod"
+    lore:
+      - "<gray>Buy: <green>8"
+      - "<gray>Sell: <red>4"
+    buy-price: 8.0
+    sell-price: 4.0
+    amount: 1
+    slot: 23
+    page: 1
+    clickable: true
+
+  ghast_tear:
+    material: GHAST_TEAR
+    name: "<white>Ghast Tear"
+    lore:
+      - "<gray>Buy: <green>15"
+      - "<gray>Sell: <red>6"
+    buy-price: 15.0
+    sell-price: 6.0
+    amount: 1
+    slot: 25
+    page: 1
+    clickable: true
+
+  magma_cream:
+    material: MAGMA_CREAM
+    name: "<white>Magma Cream"
+    lore:
+      - "<gray>Buy: <green>6"
+      - "<gray>Sell: <red>3"
+    buy-price: 6.0
+    sell-price: 3.0
+    amount: 1
+    slot: 28
+    page: 1
+    clickable: true
+
+  slime_ball:
+    material: SLIME_BALL
+    name: "<white>Slimeball"
+    lore:
+      - "<gray>Buy: <green>5"
+      - "<gray>Sell: <red>2"
+    buy-price: 5.0
+    sell-price: 2.0
+    amount: 1
+    slot: 30
+    page: 1
+    clickable: true
+
+  phantom_membrane:
+    material: PHANTOM_MEMBRANE
+    name: "<white>Phantom Membrane"
+    lore:
+      - "<gray>Buy: <green>12"
+      - "<gray>Sell: <red>5"
+    buy-price: 12.0
+    sell-price: 5.0
+    amount: 1
+    slot: 32
+    page: 1
+    clickable: true
+
+  shulker_shell:
+    material: SHULKER_SHELL
+    name: "<white>Shulker Shell"
+    lore:
+      - "<gray>Buy: <green>20"
+      - "<gray>Sell: <red>10"
+    buy-price: 20.0
+    sell-price: 10.0
+    amount: 1
+    slot: 34
+    page: 1
+    clickable: true
+
+  prismarine_shard:
+    material: PRISMARINE_SHARD
+    name: "<white>Prismarine Shard"
+    lore:
+      - "<gray>Buy: <green>6"
+      - "<gray>Sell: <red>3"
+    buy-price: 6.0
+    sell-price: 3.0
+    amount: 1
+    slot: 37
+    page: 1
+    clickable: true
+
+  prismarine_crystals:
+    material: PRISMARINE_CRYSTALS
+    name: "<white>Prismarine Crystals"
+    lore:
+      - "<gray>Buy: <green>6"
+      - "<gray>Sell: <red>3"
+    buy-price: 6.0
+    sell-price: 3.0
+    amount: 1
+    slot: 39
+    page: 1
+    clickable: true
+
+  glow_ink_sac:
+    material: GLOW_INK_SAC
+    name: "<white>Glow Ink Sac"
+    lore:
+      - "<gray>Buy: <green>4"
+      - "<gray>Sell: <red>2"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 41
+    page: 1
+    clickable: true
+
+  ink_sac:
+    material: INK_SAC
+    name: "<white>Ink Sac"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 43
+    page: 1
+    clickable: true
+
+  leather:
+    material: LEATHER
+    name: "<white>Leather"
+    lore:
+      - "<gray>Buy: <green>4"
+      - "<gray>Sell: <red>2"
+    buy-price: 4.0
+    sell-price: 2.0
+    amount: 1
+    slot: 10
+    page: 2
+    clickable: true
+
+  raw_beef:
+    material: BEEF
+    name: "<white>Raw Beef"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 12
+    page: 2
+    clickable: true
+
+  raw_mutton:
+    material: MUTTON
+    name: "<white>Raw Mutton"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 14
+    page: 2
+    clickable: true
+
+  raw_porkchop:
+    material: PORKCHOP
+    name: "<white>Raw Porkchop"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 16
+    page: 2
+    clickable: true
+
+  raw_chicken:
+    material: CHICKEN
+    name: "<white>Raw Chicken"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 19
+    page: 2
+    clickable: true
+
+  feather:
+    material: FEATHER
+    name: "<white>Feather"
+    lore:
+      - "<gray>Buy: <green>2"
+      - "<gray>Sell: <red>1"
+    buy-price: 2.0
+    sell-price: 1.0
+    amount: 1
+    slot: 21
+    page: 2
+    clickable: true
+
+  rabbit_hide:
+    material: RABBIT_HIDE
+    name: "<white>Rabbit Hide"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 23
+    page: 2
+    clickable: true
+
+  rabbit_foot:
+    material: RABBIT_FOOT
+    name: "<white>Rabbit's Foot"
+    lore:
+      - "<gray>Buy: <green>8"
+      - "<gray>Sell: <red>3"
+    buy-price: 8.0
+    sell-price: 3.0
+    amount: 1
+    slot: 25
+    page: 2
+    clickable: true
+
+  raw_cod:
+    material: COD
+    name: "<white>Raw Cod"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 28
+    page: 2
+    clickable: true
+
+  raw_salmon:
+    material: SALMON
+    name: "<white>Raw Salmon"
+    lore:
+      - "<gray>Buy: <green>3"
+      - "<gray>Sell: <red>1"
+    buy-price: 3.0
+    sell-price: 1.0
+    amount: 1
+    slot: 30
+    page: 2
+    clickable: true

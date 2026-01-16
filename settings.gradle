@@ -1,0 +1,6 @@
+rootProject.name = "EssentialsC"
+
+include("api")
+include("plugin")
+include("paper-server")
+include("paper-server-test-api")
