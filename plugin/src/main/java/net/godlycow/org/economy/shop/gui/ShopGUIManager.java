@@ -279,6 +279,7 @@ public class ShopGUIManager {
     }
 
     public void openMainGUI(Player player) {
+
         if (!configsLoaded) {
             player.sendMessage(langManager.getMessageFor(player, "commands.economy.shop.loading",
                     "<yellow>Loading shop..."));
@@ -294,7 +295,8 @@ public class ShopGUIManager {
         Component title = langManager.getMessageFor(player, "commands.economy.shop.main-title",
                 mainConfigCache.title != null ? mainConfigCache.title : "<green>Main Shop");
 
-        Inventory inv = Bukkit.createInventory(null, config.mainSize, title);
+        ShopInventoryHolder holder = new ShopInventoryHolder(this, true);
+        Inventory inv = Bukkit.createInventory(holder, config.mainSize, title);
 
         for (Map.Entry<Integer, MainShopConfig.LayoutItem> entry : mainConfigCache.layout.entrySet()) {
             int slot = entry.getKey();
@@ -340,7 +342,8 @@ public class ShopGUIManager {
                 "<green>{section} Shop",
                 LanguageManager.ComponentPlaceholder.of("{section}", displayTitle));
 
-        Inventory inv = Bukkit.createInventory(null, section.size, title);
+        ShopInventoryHolder holder = new ShopInventoryHolder(this, false);
+        Inventory inv = Bukkit.createInventory(holder, section.size, title);
 
         for (Map.Entry<Integer, ShopSectionConfig.LayoutItem> entry : section.layout.entrySet()) {
             int slot = entry.getKey();

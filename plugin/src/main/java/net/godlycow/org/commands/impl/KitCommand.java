@@ -2,6 +2,7 @@ package net.godlycow.org.commands.impl;
 
 import net.godlycow.org.commands.config.KitConfig;
 import net.godlycow.org.kit.KitConfigManager;
+import net.godlycow.org.kit.gui.KitGUIManager;
 import net.godlycow.org.kit.trigger.KitGUIListener;
 import net.godlycow.org.kit.KitManager;
 import net.godlycow.org.kit.storage.KitStorage;
@@ -22,6 +23,8 @@ public class KitCommand implements CommandExecutor {
     private final KitConfig kitConfig;
     private final KitGUIListener guiListener;
     private static final LegacyComponentSerializer LEGACY_SERIALIZER = LegacyComponentSerializer.legacySection();
+    private final KitGUIManager kitGUIManager;
+
 
     public KitCommand(Plugin plugin, PlayerLanguageManager langManager, KitStorage kitStorage, KitConfig kitConfig, KitGUIListener guiListener) {
         this.plugin = plugin;
@@ -29,6 +32,7 @@ public class KitCommand implements CommandExecutor {
         this.kitStorage = kitStorage;
         this.kitConfig = kitConfig;
         this.guiListener = guiListener;
+        this.kitGUIManager = new KitGUIManager();
     }
 
     @Override

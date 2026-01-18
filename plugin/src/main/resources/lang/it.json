@@ -12,6 +12,12 @@
       "reset-self": "<#279CF5>Il tuo nickname è stato resettato.",
       "set": "<#279CF5>Il tuo nickname è stato impostato su <#c0f0ff>{nick}<#279CF5>."
     },
+
+    "module": {
+      "header": "<279CF5>Moduli e comandi:",
+      "module": "<c0f0ff><module> <status>",
+      "command": " - <cmd> : <status>"
+    },
     "eco": {
       "no-permission": "<#FF2424>Hai bisogno del permesso <#c0f0ff>{permission}!",
       "no-economy": "<#FF2424>Il sistema economico non è disponibile!",

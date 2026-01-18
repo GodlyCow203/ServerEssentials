@@ -687,8 +687,162 @@ chat-filter:
 
 # Join / Leave messages
 messages:
-  leave: "player left the game"
-  join: "player joined the game"
+  leave: "<#FF5100><player> <#FFAD87>left the game"
+  join: "<#FFCF00><player> <#FFEA96>joined the game"
+
+modules:
+  admin:
+    enabled: true
+    commands:
+      # Moderation & Administration
+      module: true
+      database: true
+      scoreboard: true
+      stafflist: true
+      notes: true
+      alts: true
+      reboot: true
+      broadcast: true
+      clearchat: true
+      ban: true
+      banlist: true
+      unban: true
+      freeze: true
+      unfreeze: true
+      kickall: true
+      mute: true
+      unmute: true
+      vanish: true
+      god: true
+      invsee: true
+      invclear: true
+      tp: true
+      heal: true
+      endersee: true
+      fly: true
+      speed: true
+      fakeop: true
+      whois: true
+      kittycannon: true
+      explosion: true
+      canon: true
+      lightning: true
+      swap: true
+      beezooka: true
+      glow: true
+      burn: true
+      celebrate: true
+      broadcastworld: true
+      editsign: true
+      tpall: true
+
+  teleport:
+    enabled: true
+    commands:
+      # Teleportation & Movement
+      home: true
+      rtp: true
+      back: true
+      lobby: true
+      top: true
+      bottom: true
+      tpa: true
+      tpahere: true
+      tpaccept: true
+      tpdeny: true
+      tpacancel: true
+      tpatoggle: true
+      tpainfo: true
+      tpp: true
+      warp: true
+      setwarp: true
+      delwarp: true
+      warps: true
+      deletewarp: true
+
+  economy:
+    enabled: true
+    commands:
+      # Economy & Trading
+      eco: true
+      balance: true
+      balancetop: true
+      pay: true
+      paytoggle: true
+      payconfirmtoggle: true
+      sell: true
+      auction: true
+      kit: true
+      coinflip: true
+      shop: true
+      daily: true
+
+  world:
+    enabled: true
+    commands:
+      # World Management
+      world: true
+      day: true
+      night: true
+      weather: true
+      loadworld: true
+      unloadworld: true
+      worldlist: true
+      spawner: true
+
+  player:
+    enabled: true
+    commands:
+      # Player Utilities & Features
+      settings: true
+      language: true
+      session: true
+      iteminfo: true
+      pingall: true
+      ping: true
+      playerinfo: true
+      seen: true
+      realname: true
+      near: true
+      launch: true
+      gravity: true
+      repair: true
+      afk: true
+      enderchest: true
+      compass: true
+      track: true
+      glow: true
+      sleep: true
+      ptime: true
+      hat: true
+      rename: true
+      setloreline: true
+      disposal: true
+      inventorysort: true
+      playtime: true
+      death: true
+      suicide: true
+      condense: true
+      nuke: true
+      book: true
+      recipe: true
+      craftingtable: true
+      anvil: true
+      grindstone: true
+      stonecutter: true
+      loom: true
+      cartographytable: true
+      smithingtable: true
+
+  misc:
+    enabled: true
+    commands:
+      # Miscellaneous
+      ext: true
+      magnet: true
+      tree: true
+
+
 
 
 

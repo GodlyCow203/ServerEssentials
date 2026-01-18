@@ -12,6 +12,11 @@
       "reset-self": "<#279CF5>Ditt smeknamn har återställts.",
       "set": "<#279CF5>Ditt smeknamn har ställts in till <#c0f0ff>{nick}<#279CF5>."
     },
+    "module": {
+      "header": "<279CF5>Moduler och kommandon:",
+      "module": "<c0f0ff><module> <status>",
+      "command": " - <cmd> : <status>"
+    },
     "eco": {
       "no-permission": "<#FF2424>Du behöver behörighet <#c0f0ff>{permission}!",
       "no-economy": "<#FF2424>Ekonomisystemet är inte tillgängligt!",

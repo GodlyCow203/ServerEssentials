@@ -36,6 +36,8 @@ public class HooksManager {
             vaultActive = false;
         }
 
+
+
         try {
             luckPermsActive = LuckPermsHook.getInstance().init();
             if (luckPermsActive) {

@@ -94,7 +94,7 @@ public class VersionChecker {
         String latest = getLatestVersion();
 
         if (!latest.equals("unknown") && !currentVersion.equals(latest)) {
-            if (player.hasPermission("essentialsc.version.notify") || player.isOp()) {
+            if (player.hasPermission("essc.version.notify") || player.isOp()) {
 
                 player.sendMessage(MINI.deserialize("<gray> </gray>"));
                 player.sendMessage(MINI.deserialize("<gray>================================</gray>"));

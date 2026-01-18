@@ -12,6 +12,11 @@
       "reset-self": "<#279CF5>Tu apodo ha sido restablecido.",
       "set": "<#279CF5>Tu apodo ha sido establecido a <#c0f0ff>{nick}<#279CF5>."
     },
+    "module": {
+      "header": "<279CF5>Módulos y comandos:",
+      "module": "<c0f0ff><module> <status>",
+      "command": " - <cmd> : <status>"
+    },
     "eco": {
       "no-permission": "<#FF2424>¡Necesitas el permiso <#c0f0ff>{permission}!",
       "no-economy": "<#FF2424>¡El sistema de economía no está disponible!",

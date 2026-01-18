@@ -1,12 +1,12 @@
-name: ServerEssentials
+name: EssentialsC
 main: net.godlycow.org.EssC
-version: 3.0.0.0
+version: 3.0.0.1
 api-version: 1.20
 softdepend:
   - Vault
   - Luckperms
   - PlaceholderAPI
-website: https://net.godlycow.org/serveressentials
+website: https://docs.godlycow.org/essentialsc-get-started.html
 author: _GodlyCow
 commands:
   eco:
@@ -19,6 +19,10 @@ commands:
     usage: /settings
     permission: essc.command.settings
 
+  module:
+    description: Allows you to check the plugin modules
+    usage: /module <subcommand>
+    permission: essc.command.module
 
   balance:
     description: Check your or another player's balance
@@ -39,6 +43,7 @@ commands:
     permission: essc.command.sell
     aliases:
       - sellg
+
   unloadworld:
     description: Unloads a specific world
     usage: /unloadworld <world_name>
@@ -86,18 +91,16 @@ commands:
     aliases:
       - baltop
 
-  serveressentials:
-    description: Main command for ServerEssentials
-    usage: /serveressentials [Info/Version/Help/Reload]
-    permission: essc.use
+  essc:
+    description: Allows you to use the /essc command
+    usage: /essc <subcommandd>
+    permission: essc.command.essc
 
   shop:
     description: Open the premium shop GUI
     usage: /shop
     permission: essc.command.shop
     aliases: [shopgui, store, market]
-
-
 
   tree:
     descirption: Spawn a tree
@@ -1006,6 +1009,30 @@ permissions:
     description: Allows you to bypass the afk system
     default: op
 
+  essc.command.essc.help:
+    description: Allows you to use the /essc help command
+    default: op
 
+  essc.command.essc.info:
+    description: Allows you to use the /essc info command
+    default: op
 
+  essc.command.essc.version:
+    description: Allows you to use the /essc version command
+    default: op
 
+  essc.command.essc.reload:
+    description: Allows you to use the /essc reload command
+    default: op
+
+  essc.command.essc.discord:
+    description: Allows you to use the /essc discord command
+    default: op
+
+  essc.command.essc.website:
+    description: Allows you to use the /essc website command
+    default: op
+
+  essc.version.notify:
+    description: Notifies the player when a new version of the plugin is out
+    default: op

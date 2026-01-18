@@ -28,19 +28,22 @@ import net.godlycow.org.back.storage.BackDataStorage;
 import net.godlycow.org.back.trigger.BackListener;
 import net.godlycow.org.ban.storage.BanStorage;
 import net.godlycow.org.ban.trigger.BanListener;
+import net.godlycow.org.bootstrap.CommandBootstrap;
 import net.godlycow.org.daily.api.DailyAPIImpl;
 import net.godlycow.org.daily.trigger.DailyListener;
 import net.godlycow.org.database.type.DatabaseType;
 import net.godlycow.org.economy.api.EconomyAPIImpl;
 import net.godlycow.org.economy.eco.EconomyManager;
 import net.godlycow.org.economy.shop.ShopDataManager;
+import net.godlycow.org.economy.shop.api.ShopAPIImpl;
 import net.godlycow.org.economy.shop.gui.ShopGUIManager;
 import net.godlycow.org.economy.shop.gui.trigger.ShopGUIListener;
 import net.godlycow.org.economy.shop.storage.ShopStorage;
-import net.godlycow.org.executor.CommandExecutor;
+import net.godlycow.org.executor.FirstInstallCommandRunner;
 import net.godlycow.org.homes.gui.trigger.HomeGUIListener;
 import net.godlycow.org.homes.storage.HomeStorage;
 import net.godlycow.org.kit.api.KitAPIImpl;
+import net.godlycow.org.kit.gui.KitGUIManager;
 import net.godlycow.org.kit.trigger.KitGUIListener;
 import net.godlycow.org.listeners.admin.AdminChatListener;
 import net.godlycow.org.listeners.admin.AdminUtilitiesListener;
@@ -60,6 +63,10 @@ import net.godlycow.org.managers.cooldown.CooldownManager;
 import net.godlycow.org.managers.player.PlaytimeManager;
 import net.godlycow.org.managers.player.SessionManager;
 import net.godlycow.org.managers.plugin.ReloadManager;
+import net.godlycow.org.managers.plugin.Reloadable;
+import net.godlycow.org.modules.ModuleCommand;
+import net.godlycow.org.modules.ModuleManager;
+import net.godlycow.org.modules.WrappedCommand;
 import net.godlycow.org.mute.storage.MuteStorage;
 import net.godlycow.org.nick.api.NickAPIImpl;
 import net.godlycow.org.nick.storage.NickStorage;
@@ -134,7 +141,8 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.*;
-        import java.util.regex.Pattern;
+import java.util.logging.Level;
+import java.util.regex.Pattern;
 
 
 
@@ -487,11 +495,27 @@ public class EssC extends JavaPlugin implements Listener {
     private SellGUIAPI sellguiAPI;
     private TPAAPI tpaAPI;
     private WarpAPI warpAPI;
-    private ShopGUIManager shopGUIManager;
     private ShopCommand shopCommand;
     private ShopDataManager shopDataManager;
     private ShopStorage shopStorage;
     private ShopGUIManager shopGuiManager;
+    private KitGUIManager kitGUIManager;
+
+    private ShopGUIListener shopGuiListener;
+
+
+    public ModuleManager moduleManager;
+
+    private DatabaseCommand databaseCommand;
+    private LanguageCommand languageCommand;
+
+    private CommandBootstrap commandBootstrap;
+
+    private ModuleCommand moduleCommand;
+
+    private SettingsConfig settingsConfig; // Never initialized
+    private SettingsGUI settingsGUI; // Never initialized
+
 
 
 
@@ -513,10 +537,41 @@ public class EssC extends JavaPlugin implements Listener {
         databaseManager = new DatabaseManager(this);
         initializeDatabases();
 
+        // Reload Manager
+
+
+        initializeCommandModules();
+
+        ReloadManager reloadManager = new ReloadManager(this);
+
+        reloadManager.register(new Reloadable() {
+            @Override
+            public String name() {
+                return "Homes";
+            }
+
+            @Override
+            public void reload() {
+                getHomeManager().reload();
+            }
+        });
+
+        PlayerLanguageStorage langStorage = new PlayerLanguageStorage.YamlStorage(this);
+        playerLanguageManager = new PlayerLanguageManager(langStorage, languageManager);
+        languageCommand = new LanguageCommand(languageManager, playerLanguageManager);
 
 
 
 
+        moduleManager = new ModuleManager(this, playerLanguageManager);
+        moduleManager.loadFromConfig();
+
+        commandBootstrap = new CommandBootstrap(moduleManager);
+
+
+
+
+        // Hooks
         hooksManager = HooksManager.getInstance(this);
         hooksManager.initializeHooks();
 
@@ -548,30 +603,9 @@ public class EssC extends JavaPlugin implements Listener {
         if (hooksManager.isLuckPermsActive()) {
         }
 
-        PlayerLanguageStorage langStorage = new PlayerLanguageStorage.YamlStorage(this);
-        playerLanguageManager = new PlayerLanguageManager(langStorage, languageManager);
 
-        initializeKitSystem();
-        initializeTPASystem();
-        initializeCommandModules();
-        initializeMailSystem();
-        initializeReportSystem();
-        initializeRtpSystem();
-        initializeDailySystem();
-        initializeRulesSystem();
-        initializeBackSystem();
-        initializeNotesSystem();
-        initializeScoreboardSystem();
-        initializeSessionSystem();
-        initializeAuctionSystem();
-        initializeSellGuiSystem();
-        initializeHomesSystem();
-        initializeLobbySystem();
-        initializeBanSystem();
-        initializeMuteSystem();
-        initializeWarpSystem();
-        initializeNickSystem();
-        initializeShopSystem();
+
+
 
 
 
@@ -851,6 +885,11 @@ public class EssC extends JavaPlugin implements Listener {
         afkConfig = new AFKConfig(this);
         afkManager = new AFKManager(this, afkConfig);
         afkCommand = new AFKCommand(playerLanguageManager, afkConfig, afkManager);
+        rebootCommand = new RebootCommand(this, playerLanguageManager, rebootConfig);
+
+        moduleCommand = new ModuleCommand(moduleManager, playerLanguageManager);
+        databaseCommand = new DatabaseCommand(databaseManager, playerLanguageManager);
+
 
 
 
@@ -859,172 +898,56 @@ public class EssC extends JavaPlugin implements Listener {
 
 
 
-        // Commands
-        getCommand("fly").setExecutor(flyCommand);
-        getCommand("tpa").setExecutor(tpaCommand);
-        getCommand("tpahere").setExecutor(tpaCommand);
-        getCommand("tpaccept").setExecutor(tpaCommand);
-        getCommand("tpdeny").setExecutor(tpaCommand);
-        getCommand("tpacancel").setExecutor(tpaCommand);
-        getCommand("tpall").setExecutor(tpaCommand);
-        getCommand("tpatoggle").setExecutor(tpaCommand);
-        getCommand("tpainfo").setExecutor(tpaCommand);
-        getCommand("mail").setExecutor(mailCommand);
-        getCommand("report").setExecutor(reportCommand);
-        getCommand("report").setTabCompleter(reportCommand);
-        getCommand("reportclear").setExecutor(reportCommand);
-        getCommand("reportslist").setExecutor(reportsListCommand);
-        getCommand("daily").setExecutor(dailyCommand);
-        getCommand("near").setExecutor(nearCommand);
-        getCommand("rename").setExecutor(renameItemCommand);
-        getCommand("world").setExecutor(worldCommand);
-        getCommand("ext").setExecutor(extCommand);
-        getCommand("tpp").setExecutor(tppCommand);
-        getCommand("magnet").setExecutor(magnetCommand);
-        getCommand("day").setExecutor(dayCommand);
-        getCommand("inventorysort").setExecutor(inventorySortCommand);
-        getCommand("rules").setExecutor(rulesCommand);
-        getCommand("break").setExecutor(breakCommand);
-        getCommand("setloreline").setExecutor(setLoreLineCommand);
-        getCommand("track").setExecutor(trackCommand);
-        getCommand("suicide").setExecutor(suicideCommand);
-        getCommand("bottom").setExecutor(bottomCommand);
-        getCommand("condense").setExecutor(condenseCommand);
-        getCommand("nuke").setExecutor(nukeCommand);
-        getCommand("weather").setExecutor(weatherCommand);
-        getCommand("playtime").setExecutor(playtimeCommand);
-        getCommand("recipe").setExecutor(recipeCommand);
-        getCommand("enderchest").setExecutor(enderChestCommand);
-        getCommand("seen").setExecutor(seenCommand);
-        getCommand("tree").setExecutor(treeCommand);
-        getCommand("session").setExecutor(sessionCommand);
-        getCommand("iteminfo").setExecutor(itemInfoCommand);
-        getCommand("death").setExecutor(deathCommand);
-        getCommand("realname").setExecutor(realNameCommand);
-        getCommand("speed").setExecutor(speedCommand);
-        getCommand("launch").setExecutor(launchCommand);
-        getCommand("repair").setExecutor(repairCommand);
-        getCommand("sleep").setExecutor(sleepCommand);
-        getCommand("ping").setExecutor(pingCommand);
-        getCommand("disposal").setExecutor(disposalCommand);
-        getCommand("compass").setExecutor(compassCommand);
-        getCommand("top").setExecutor(topCommand);
-        getCommand("burn").setExecutor(burnCommand);
-        getCommand("feed").setExecutor(feedCommand);
-        getCommand("hat").setExecutor(hatCommand);
-        getCommand("ptime").setExecutor(pTimeCommand);
-        getCommand("night").setExecutor(nightCommand);
-        getCommand("auction").setExecutor(auctionCommand);
-        getCommand("paytoggle").setExecutor(payToggleCommand);
-        getCommand("pay").setExecutor(payCommand);
-        getCommand("eco").setExecutor(ecoCommand);
-        getCommand("payconfirmtoggle").setExecutor(payConfirmToggleCommand);
-        getCommand("balance").setExecutor(balanceCommand);
-        getCommand("balancetop").setExecutor(balanceTopCommand);
-        getCommand("coinflip").setExecutor(coinFlipCommand);
-        getCommand("sell").setExecutor(sellCommand);
-        getCommand("powertool").setExecutor(powerToolCommand);
-        getCommand("gravity").setExecutor(gravityCommand);
-        getCommand("thunder").setExecutor(thunderCommand);
-        getCommand("celebrate").setExecutor(celebrateCommand);
-        getCommand("fireball").setExecutor(fireballCommand);
-        getCommand("fakeop").setExecutor(fakeopCommand);
-        getCommand("whois").setExecutor(whoisCommand);
-        getCommand("kittycannon").setExecutor(kittycannonCommand);
-        getCommand("explosion").setExecutor(explosionCommand);
-        getCommand("canon").setExecutor(canonCommand);
-        getCommand("lightning").setExecutor(lightningCommand);
-        getCommand("swap").setExecutor(swapCommand);
-        getCommand("beezooka").setExecutor(beezookaCommand);
-        getCommand("glow").setExecutor(glowCommand);
-        getCommand("home").setExecutor(homeCommand);
-        getCommand("loom").setExecutor(loomCommand);
-        getCommand("stonecutter").setExecutor(stonecutterCommand);
-        getCommand("grindstone").setExecutor(grindstoneCommand);
-        getCommand("cartographytable").setExecutor(cartographyTableCommand);
-        getCommand("anvil").setExecutor(anvilCommand);
-        getCommand("craftingtable").setExecutor(craftingTableCommand);
-        getCommand("smithingtable").setExecutor(smithingTableCommand);
-        getCommand("lobby").setExecutor(lobbyCommand);
-        getCommand("broadcast").setExecutor(broadcastCommand);
-        getCommand("reboot").setExecutor(rebootCommand);
-        getCommand("broadcastworld").setExecutor(broadcastWorldCommand);
-        getCommand("spawner").setExecutor(spawnerCommand);
-        getCommand("serverinfo").setExecutor(serverInfoCommand);
-        getCommand("unloadworld").setExecutor(unloadWorldCommand);
-        getCommand("uptime").setExecutor(uptimeCommand);
-        getCommand("loadworld").setExecutor(loadWorldCommand);
-        getCommand("worldlist").setExecutor(worldListCommand);
-        getCommand("playerinfo").setExecutor(playerInfoCommand);
-        getCommand("ban").setExecutor(banCommand);
-        getCommand("banlist").setExecutor(banListCommand);
-        getCommand("unban").setExecutor(unbanCommand);
-        getCommand("heal").setExecutor(healCommand);
-        getCommand("endersee").setExecutor(enderSeeCommand);
-        getCommand("freeze").setExecutor(freezeCommand);
-        getCommand("unfreeze").setExecutor(unfreezeCommand);
-        getCommand("clearchat").setExecutor(clearChatCommand);
-        getCommand("vanish").setExecutor(vanishCommand);
-        getCommand("god").setExecutor(godCommand);
-        getCommand("invsee").setExecutor(invseeCommand);
-        getCommand("invclear").setExecutor(invClearCommand);
-        getCommand("tp").setExecutor(tpCommand);
-        getCommand("kickall").setExecutor(kickAllCommand);
-        getCommand("pingall").setExecutor(pingAllCommand);
-        getCommand("mute").setExecutor(muteCommand);
-        getCommand("unmute").setExecutor(unmuteCommand);
-        getCommand("language").setExecutor(new LanguageCommand(languageManager, playerLanguageManager));
-        getCommand("database").setExecutor(new DatabaseCommand(databaseManager, languageManager));
-        getCommand("rtp").setExecutor(new RtpCommand(this, playerLanguageManager, rtpConfig));
-        getCommand("kit").setExecutor(kitCommand);
-        getCommand("alts").setExecutor(altsCommand);
-        getCommand("stafflist").setExecutor(staffListCommand);
-        getCommand("editsign").setExecutor(editSignCommand);
-        getCommand("warp").setExecutor(warpCommand);
-        getCommand("setwarp").setExecutor(setwarpCommand);
-        getCommand("delwarp").setExecutor(delwarpCommand);
-        getCommand("warps").setExecutor(warpsCommand);
-        getCommand("nick").setExecutor(nickCommand);
-        getCommand("nicks").setExecutor(nickCommand);
-        getCommand("afk").setExecutor(afkCommand);
-        getCommand("settings").setExecutor(new SettingsCommand(playerLanguageManager, settingsConfig, settingsGUI));
+
+
+        long elapsed = System.currentTimeMillis() - start;
+        BannerUtil.printBanner(elapsed);
+
+
+        HashMap<UUID, UUID> lastMessageMap = new HashMap<>();
+
+
+        try {
+            Metrics metrics = new Metrics(this, BSTATS_PLUGIN_ID);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        this.adventure = BukkitAudiences.create(this);
 
 
 
-        // Tab Completer
-        getCommand("tpp").setTabCompleter(tppCommand);
-        getCommand("weather").setTabCompleter(weatherCommand);
-        getCommand("recipe").setTabCompleter(recipeCommand);
-        getCommand("tree").setTabCompleter(treeCommand);
-        getCommand("ptime").setTabCompleter(pTimeCommand);
-        getCommand("auction").setTabCompleter(auctionCommand);
-        getCommand("eco").setTabCompleter(ecoCommand);
-        getCommand("coinflip").setTabCompleter(coinFlipCommand);
-        getCommand("gravity").setTabCompleter(gravityCommand);
-        getCommand("thunder").setTabCompleter(thunderCommand);
-        getCommand("celebrate").setTabCompleter(celebrateCommand);
-        getCommand("kittycannon").setTabCompleter(kittycannonCommand);
-        getCommand("explosion").setTabCompleter(explosionCommand);
-        getCommand("beezooka").setTabCompleter(beezookaCommand);
-        getCommand("spawner").setTabCompleter(spawnerCommand);
-        getCommand("unloadworld").setTabCompleter(unloadWorldCommand);
-        getCommand("ban").setTabCompleter(banCommand);
-        getCommand("endersee").setTabCompleter(enderSeeCommand);
-        getCommand("freeze").setTabCompleter(freezeCommand);
-        getCommand("adminchat").setExecutor(adminChatCommand);
-        getCommand("invsee").setTabCompleter(invseeCommand);
-        getCommand("tp").setTabCompleter(tpCommand);
-        getCommand("invclear").setTabCompleter(invClearCommand);
-        getServer().getPluginManager().registerEvents(settingsListener, this);
+        initializeKitSystem();
+        initializeTPASystem();
+        initializeMailSystem();
+        initializeReportSystem();
+        initializeRtpSystem();
+        initializeDailySystem();
+        initializeRulesSystem();
+        initializeBackSystem();
+        initializeNotesSystem();
+        initializeScoreboardSystem();
+        initializeSessionSystem();
+        initializeAuctionSystem();
+        initializeSellGuiSystem();
+        initializeHomesSystem();
+        initializeLobbySystem();
+        initializeBanSystem();
+        initializeMuteSystem();
+        initializeWarpSystem();
+        initializeNickSystem();
+        initializeShopSystem();
+
+        registerAPIServices();
 
 
 
+        moduleManager = new ModuleManager(this, playerLanguageManager);
+        moduleManager.loadFromConfig();
 
-
-
-
-
-
+        commandBootstrap = new CommandBootstrap(moduleManager);
+        initializeAllCommands();
+        commandBootstrap.bootstrap();
 
         getServer().getPluginManager().registerEvents(reportListener, this);
         getServer().getPluginManager().registerEvents(tpaListener, this);
@@ -1042,38 +965,7 @@ public class EssC extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(new AdminUtilitiesListener(this, godCommand, vanishCommand), this);
         getServer().getPluginManager().registerEvents(muteListener, this);
         getServer().getPluginManager().registerEvents(afkManager, this);
-        getServer().getPluginManager().registerEvents(muteListener, this);
-
-
-
-
-
-
-
-
-
-
-
-        registerAPIServices();
-
-
-        long elapsed = System.currentTimeMillis() - start;
-        BannerUtil.printBanner(elapsed);
-        saveDefaultPlaceholders();
-        loadPlaceholders();
-
-
-        HashMap<UUID, UUID> lastMessageMap = new HashMap<>();
-
-
-        try {
-            Metrics metrics = new Metrics(this, BSTATS_PLUGIN_ID);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        this.adventure = BukkitAudiences.create(this);
-
+        getServer().getPluginManager().registerEvents(settingsListener, this);
 
 
 
@@ -1086,7 +978,7 @@ public class EssC extends JavaPlugin implements Listener {
 
         loadOfflineConfig();
 
-        new CommandExecutor(this).runIfFirstInstall();
+        new FirstInstallCommandRunner(this).runIfFirstInstall();
 
 
 
@@ -1103,17 +995,6 @@ public class EssC extends JavaPlugin implements Listener {
         saveLangFile("sv.json");
 
 
-
-
-
-
-
-
-
-
-
-
-
         saveDefaultConfig();
         saveResource("config.yml", false);
 
@@ -1124,7 +1005,6 @@ public class EssC extends JavaPlugin implements Listener {
         this.PlaytimeManager = new PlaytimeManager(this);
         releaseLocation = new Location(Bukkit.getWorld("world"), 0, 65, 0);
 
-        if (!isCommandDisabled("se")) this.getCommand("se").setExecutor(new EssentialsCCommand(this));
 
         VersionChecker.checkLatestVersion(this);
         Bukkit.getPluginManager().registerEvents(new VersionNotifyJoinListener(), this);
@@ -1170,7 +1050,6 @@ public class EssC extends JavaPlugin implements Listener {
 
         Bukkit.getPluginManager().registerEvents(this, this);
 
-        disableCommands();
         getServer().getPluginManager().registerEvents(new org.bukkit.event.Listener() {
             @org.bukkit.event.EventHandler
             public void onJoin(org.bukkit.event.player.PlayerJoinEvent event) {
@@ -1282,6 +1161,141 @@ public class EssC extends JavaPlugin implements Listener {
         }
     }
 
+    private void initializeAllCommands() {
+        commandBootstrap.register(CommandBootstrap.Modules.ADMIN, "module", moduleCommand, moduleCommand);
+        commandBootstrap.register(CommandBootstrap.Modules.ADMIN, "database", databaseCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.ADMIN, "scoreboard", scoreboardCommand, scoreboardCommand);
+        commandBootstrap.register(CommandBootstrap.Modules.ADMIN, "stafflist", staffListCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.ADMIN, "notes", notesCommand, notesCommand);
+        commandBootstrap.register(CommandBootstrap.Modules.ADMIN, "alts", altsCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.ADMIN, "reboot", rebootCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.ADMIN, "broadcast", broadcastCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.ADMIN, "clearchat", clearChatCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.ADMIN, "ban", banCommand, banCommand);
+        commandBootstrap.register(CommandBootstrap.Modules.ADMIN, "banlist", banListCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.ADMIN, "unban", unbanCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.ADMIN, "freeze", freezeCommand, freezeCommand);
+        commandBootstrap.register(CommandBootstrap.Modules.ADMIN, "unfreeze", unfreezeCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.ADMIN, "kickall", kickAllCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.ADMIN, "mute", muteCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.ADMIN, "unmute", unmuteCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.ADMIN, "vanish", vanishCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.ADMIN, "god", godCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.ADMIN, "invsee", invseeCommand, invseeCommand);
+        commandBootstrap.register(CommandBootstrap.Modules.ADMIN, "invclear", invClearCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.ADMIN, "tp", tpCommand, tpCommand);
+        commandBootstrap.register(CommandBootstrap.Modules.ADMIN, "heal", healCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.ADMIN, "endersee", enderSeeCommand, enderSeeCommand);
+        commandBootstrap.register(CommandBootstrap.Modules.ADMIN, "fly", flyCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.ADMIN, "speed", speedCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.ADMIN, "fakeop", fakeopCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.ADMIN, "whois", whoisCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.ADMIN, "kittycannon", kittycannonCommand, kittycannonCommand);
+        commandBootstrap.register(CommandBootstrap.Modules.ADMIN, "explosion", explosionCommand, explosionCommand);
+        commandBootstrap.register(CommandBootstrap.Modules.ADMIN, "canon", canonCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.ADMIN, "lightning", lightningCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.ADMIN, "swap", swapCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.ADMIN, "beezooka", beezookaCommand, beezookaCommand);
+        commandBootstrap.register(CommandBootstrap.Modules.ADMIN, "glow", glowCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.ADMIN, "burn", burnCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.ADMIN, "celebrate", celebrateCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.ADMIN, "broadcastworld", broadcastWorldCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.ADMIN, "editsign", editSignCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.ADMIN, "tpall", tpaCommand, null);
+        // ---
+        commandBootstrap.register(CommandBootstrap.Modules.TELEPORT, "home", homeCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.TELEPORT, "rtp", new RtpCommand(this, playerLanguageManager, rtpConfig), null);
+        commandBootstrap.register(CommandBootstrap.Modules.TELEPORT, "back", backCommand, backCommand);
+        commandBootstrap.register(CommandBootstrap.Modules.TELEPORT, "lobby", lobbyCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.TELEPORT, "top", topCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.TELEPORT, "bottom", bottomCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.TELEPORT, "tpa", tpaCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.TELEPORT, "tpahere", tpaCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.TELEPORT, "tpaccept", tpaCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.TELEPORT, "tpdeny", tpaCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.TELEPORT, "tpacancel", tpaCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.TELEPORT, "tpatoggle", tpaCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.TELEPORT, "tpainfo", tpaCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.TELEPORT, "tpp", tppCommand, tppCommand);
+        commandBootstrap.register(CommandBootstrap.Modules.TELEPORT, "warp", warpCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.TELEPORT, "setwarp", setwarpCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.TELEPORT, "delwarp", delwarpCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.TELEPORT, "warps", warpsCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.TELEPORT, "deletewarp", delwarpCommand, null);
+        // ---
+        commandBootstrap.register(CommandBootstrap.Modules.ECONOMY, "eco", ecoCommand, ecoCommand);
+        commandBootstrap.register(CommandBootstrap.Modules.ECONOMY, "balance", balanceCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.ECONOMY, "balancetop", balanceTopCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.ECONOMY, "pay", payCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.ECONOMY, "paytoggle", payToggleCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.ECONOMY, "payconfirmtoggle", payConfirmToggleCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.ECONOMY, "sell", sellCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.ECONOMY, "auction", auctionCommand, auctionCommand);
+        commandBootstrap.register(CommandBootstrap.Modules.ECONOMY, "kit", kitCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.ECONOMY, "coinflip", coinFlipCommand, coinFlipCommand);
+        commandBootstrap.register(CommandBootstrap.Modules.ECONOMY, "shop", shopCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.ECONOMY, "daily", dailyCommand, null);
+        // ---
+        commandBootstrap.register(CommandBootstrap.Modules.WORLD, "world", worldCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.WORLD, "day", dayCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.WORLD, "night", nightCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.WORLD, "weather", weatherCommand, weatherCommand);
+        commandBootstrap.register(CommandBootstrap.Modules.WORLD, "loadworld", loadWorldCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.WORLD, "unloadworld", unloadWorldCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.WORLD, "worldlist", worldListCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.WORLD, "spawner", spawnerCommand, spawnerCommand);
+        // ---
+        commandBootstrap.register(CommandBootstrap.Modules.PLAYER, "settings", new SettingsCommand(playerLanguageManager, settingsConfig, settingsGUI), null);
+        commandBootstrap.register(CommandBootstrap.Modules.PLAYER, "language", languageCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.PLAYER, "session", sessionCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.PLAYER, "iteminfo", itemInfoCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.PLAYER, "pingall", pingAllCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.PLAYER, "ping", pingCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.PLAYER, "playerinfo", playerInfoCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.PLAYER, "seen", seenCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.PLAYER, "realname", realNameCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.PLAYER, "near", nearCommand, null);
+        // ---
+        commandBootstrap.register(CommandBootstrap.Modules.PLAYER, "launch", launchCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.PLAYER, "gravity", gravityCommand, gravityCommand);
+        commandBootstrap.register(CommandBootstrap.Modules.PLAYER, "repair", repairCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.PLAYER, "afk", afkCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.PLAYER, "enderchest", enderChestCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.PLAYER, "compass", compassCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.PLAYER, "track", trackCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.PLAYER, "glow", glowCommand, null);
+        // ---
+        commandBootstrap.register(CommandBootstrap.Modules.PLAYER, "sleep", sleepCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.PLAYER, "ptime", pTimeCommand, pTimeCommand);
+        // ---
+        commandBootstrap.register(CommandBootstrap.Modules.PLAYER, "hat", hatCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.PLAYER, "rename", renameItemCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.PLAYER, "setloreline", setLoreLineCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.PLAYER, "disposal", disposalCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.PLAYER, "inventorysort", inventorySortCommand, null);
+        // ---
+        commandBootstrap.register(CommandBootstrap.Modules.PLAYER, "playtime", playtimeCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.PLAYER, "death", deathCommand, null);
+        // ---
+        commandBootstrap.register(CommandBootstrap.Modules.PLAYER, "suicide", suicideCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.PLAYER, "condense", condenseCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.PLAYER, "nuke", nukeCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.PLAYER, "book", bookCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.PLAYER, "recipe", recipeCommand, recipeCommand);
+        // ---
+        commandBootstrap.register(CommandBootstrap.Modules.PLAYER, "craftingtable", craftingTableCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.PLAYER, "anvil", anvilCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.PLAYER, "grindstone", grindstoneCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.PLAYER, "stonecutter", stonecutterCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.PLAYER, "loom", loomCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.PLAYER, "cartographytable", cartographyTableCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.PLAYER, "smithingtable", smithingTableCommand, null);
+        // ---
+        commandBootstrap.register(CommandBootstrap.Modules.MISC, "ext", extCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.MISC, "magnet", magnetCommand, null);
+        commandBootstrap.register(CommandBootstrap.Modules.MISC, "tree", treeCommand, treeCommand);
+    }
+
 
     public BukkitAudiences adventure() {
         return this.adventure;
@@ -1294,9 +1308,6 @@ public class EssC extends JavaPlugin implements Listener {
             VersionChecker.notifyIfOutdated(event.getPlayer());
         }
     }
-    public FileConfiguration getStarterMoneyConfig() {
-        return starterMoneyConfig;
-    }
     public FileConfiguration getPrefixConfig() {
         return prefixConfig;
     }
@@ -1304,81 +1315,12 @@ public class EssC extends JavaPlugin implements Listener {
         return PlaytimeManager;
     }
 
-
-
-
-    private void saveDefaultPlaceholders() {
-        if (!getDataFolder().exists()) getDataFolder().mkdirs();
-        placeholdersFile = new File(getDataFolder(), "placeholders.yml");
-
-        if (!placeholdersFile.exists()) {
-            saveResource("placeholders.yml", false);
-        }
-    }
-    private void loadPlaceholders() {
-        placeholdersFile = new File(getDataFolder(), "placeholders.yml");
-        placeholdersConfig = YamlConfiguration.loadConfiguration(placeholdersFile);
-    }
-
     public HooksManager getHooksManager() {
         return hooksManager;
     }
 
-
     public EconomyManager getEconomyManager() {
         return economyManager;
-    }
-
-
-
-
-    private boolean isCommandDisabled(String commandName) {
-        List<String> disabled = getConfig().getStringList("disabled-commands");
-        return disabled.contains(commandName.toLowerCase());
-    }
-
-    private void disableCommands() {
-        List<String> disabled = getConfig().getStringList("disabled-commands");
-
-        try {
-            Field commandMapField = Bukkit.getServer().getClass().getDeclaredField("commandMap");
-            commandMapField.setAccessible(true);
-            CommandMap commandMap = (CommandMap) commandMapField.get(Bukkit.getServer());
-
-            if (commandMap instanceof SimpleCommandMap) {
-                SimpleCommandMap simpleCommandMap = (SimpleCommandMap) commandMap;
-                Field knownCommandsField = SimpleCommandMap.class.getDeclaredField("knownCommands");
-                knownCommandsField.setAccessible(true);
-
-                java.util.Map<String, Command> knownCommands = (java.util.Map<String, Command>) knownCommandsField.get(simpleCommandMap);
-
-                for (String cmdName : disabled) {
-                    Command cmd = knownCommands.get(cmdName);
-
-                    if (cmd != null) {
-                        knownCommands.remove(cmdName);
-
-                        knownCommands.remove(getNameSpaced(cmdName));
-
-                        for (String alias : cmd.getAliases()) {
-                            knownCommands.remove(alias);
-                            knownCommands.remove(getNameSpaced(alias));
-                        }
-
-                        getLogger().info("Completely removed command: /" + cmdName);
-                    }
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    private void initializeReportSystem() {
-        reportConfig = new ReportConfig(this);
-        reportStorage = new ReportStorage(this, databaseManager);
-        reportCommand = new ReportCommand(this, playerLanguageManager, reportStorage, reportConfig);
-        reportsListCommand = new ReportsListCommand(this, playerLanguageManager, reportStorage);
-        reportListener = new ReportListener(reportCommand);
     }
 
     private void initializeDatabases() {
@@ -1423,9 +1365,6 @@ public class EssC extends JavaPlugin implements Listener {
         databaseManager.initializePool("tpa", new DatabaseConfig(DatabaseType.SQLITE, "tpa.db", null, 0, null, null, null, 5));
     }
 
-
-
-
     private void initializeMuteSystem() {
         muteConfig = new MuteConfig(this);
         muteStorage = new MuteStorage(this, databaseManager);
@@ -1434,33 +1373,38 @@ public class EssC extends JavaPlugin implements Listener {
         muteListener = new MuteListener(muteStorage, playerLanguageManager, this);
     }
 
+    private void initializeReportSystem() {
+        reportConfig = new ReportConfig(this);
+        reportStorage = new ReportStorage(this, databaseManager);
+        reportCommand = new ReportCommand(this, playerLanguageManager, reportStorage, reportConfig);
+        reportsListCommand = new ReportsListCommand(this, playerLanguageManager, reportStorage);
+        reportListener = new ReportListener(reportCommand);
+    }
+
     private void initializeHomesSystem() {
         homesConfig = new HomesConfig(this);
         homeStorage = new HomeStorage(databaseManager);
         homeManager = new HomeManager(homeStorage, homesConfig);
         homeGUIListener = new HomeGUIListener(this, playerLanguageManager, homesConfig, homeManager);
         homeCommand = new HomeCommand(this, playerLanguageManager, homeGUIListener, homesConfig);
-        getCommand("home").setExecutor(homeCommand);
 
     }
+
     private void initializeAuctionSystem() {
         auctionConfig = new AuctionConfig(this);
         auctionStorage = new AuctionStorage(databaseManager);
         auctionGUIListener = new AuctionGUIListener(this, playerLanguageManager, auctionConfig, auctionStorage, economyManager);
         auctionCommand = new AuctionCommand(this, playerLanguageManager, auctionConfig, auctionStorage, auctionGUIListener, economyManager);
         auctionAPI = new AuctionAPIImpl(this, auctionConfig, auctionGUIListener, auctionStorage, economyManager);
-        getLogger().info("Auction system initialized successfully");
     }
+
     private void initializeScoreboardSystem() {
         this.scoreboardConfig = new ScoreboardConfig(this);
         this.scoreboardStorage = new ScoreboardStorage(this, databaseManager);
         this.scoreboardUpdater = new ScoreboardUpdater(this, scoreboardConfig, scoreboardStorage);
         this.scoreboardListener = new ScoreboardListener(this ,playerLanguageManager, scoreboardConfig, scoreboardStorage, scoreboardUpdater);
         this.scoreboardCommand = new ScoreboardCommand(this, playerLanguageManager, scoreboardConfig, scoreboardStorage, scoreboardUpdater);
-
-        getCommand("scoreboard").setExecutor(scoreboardCommand);
         getServer().getPluginManager().registerEvents(scoreboardListener, this);
-
         getLogger().info("Scoreboard system initialized with " + scoreboardConfig.layouts.size() + " layouts");
     }
 
@@ -1468,11 +1412,8 @@ public class EssC extends JavaPlugin implements Listener {
         this.rulesConfig = new RulesConfig(this);
         this.rulesStorage = new RulesStorage(this, databaseManager);
         this.rulesGUI = new RulesGUI(playerLanguageManager, rulesStorage, rulesConfig, this);
-
         this.rulesListener = new RulesListener(playerLanguageManager, rulesStorage, rulesConfig, this);
         this.rulesCommand = new RulesCommand(playerLanguageManager, rulesConfig, rulesStorage, this);
-
-
     }
 
     private void initializeNotesSystem() {
@@ -1481,7 +1422,6 @@ public class EssC extends JavaPlugin implements Listener {
 
         this.notesCommand = new NotesCommand(playerLanguageManager, notesConfig, notesStorage);
 
-        getCommand("notes").setExecutor(notesCommand);
     }
 
     private void initializeLobbySystem() {
@@ -1503,25 +1443,83 @@ public class EssC extends JavaPlugin implements Listener {
         mailCommand = new MailCommand(this, playerLanguageManager, mailStorage, mailConfig);
         mailListener = new MailListener(mailStorage, playerLanguageManager, mailConfig, this);
     }
-    private void diagnoseMySQL(DatabaseConfig config) {
-        Bukkit.getLogger().warning("MySQL Connection Failed!");
-        Bukkit.getLogger().warning("=== TROUBLESHOOTING CHECKLIST ===");
-        Bukkit.getLogger().warning("1. Is MySQL server running? Check: sudo systemctl status mysql");
-        Bukkit.getLogger().warning("2. Host/Port correct? Config shows: " + config.mysqlHost() + ":" + config.mysqlPort());
-        Bukkit.getLogger().warning("3. Firewall blocking? Try: telnet " + config.mysqlHost() + " " + config.mysqlPort());
-        Bukkit.getLogger().warning("4. User has remote access? Run: GRANT ALL ON " + config.mysqlDatabase() + ".* TO '" + config.mysqlUser() + "'@'%';");
-        Bukkit.getLogger().warning("5. Database exists? Run: CREATE DATABASE IF NOT EXISTS " + config.mysqlDatabase() + ";");
-        Bukkit.getLogger().warning("6. Check my.cnf for: bind-address = 0.0.0.0");
-        Bukkit.getLogger().warning("7. Test manually: mysql -u " + config.mysqlUser() + " -p -h " + config.mysqlHost());
-    }
-
-
 
     private void initializeTPASystem() {
         tpaConfig = new TPAConfig(this);
         tpaStorage = new TPAStorage(this, databaseManager);
         tpaListener = new TPAListener(tpaConfig, playerLanguageManager);
         tpaCommand = new TPACommand(this, playerLanguageManager, tpaStorage, tpaConfig, tpaListener);
+    }
+
+    private void initializeSellGuiSystem() {
+        sellConfig = new SellConfig(this);
+        sellStorage = new SellStorage(this, databaseManager);
+        sellGuiManager = new SellGUIManager(this, playerLanguageManager, sellStorage, sellConfig, economyManager);
+        sellCommand = new SellCommand(this, playerLanguageManager, sellConfig, sellGuiManager, economyManager);
+        sellGuiListener = new SellGUIListener(playerLanguageManager, sellGuiManager);
+        getServer().getPluginManager().registerEvents(sellGuiListener, this);
+        getLogger().info("SellGUI system initialized with " + sellConfig.getSellableMaterialsCount() + " items");
+    }
+
+    private void initializeSessionSystem() {
+        this.sessionManager = new SessionManager(databaseManager, commandDataStorage);
+        sessionManager.initialize();
+        this.sessionConfig = new SessionConfig(this);
+        this.sessionCommand = new SessionCommand(
+                playerLanguageManager,
+                sessionConfig,
+                sessionManager,
+                commandDataStorage
+        );
+        this.sessionListener = new SessionListener(sessionManager);
+        getServer().getPluginManager().registerEvents(sessionListener, this);
+    }
+
+    private void initializeKitSystem() {
+        kitConfig = new KitConfig(this);
+        kitStorage = new KitStorage(this, databaseManager, "kits");
+        this.kitGUIManager = new KitGUIManager();
+        this.kitGuiListener = new KitGUIListener(this, playerLanguageManager, kitStorage, kitConfig, kitGUIManager);
+        kitCommand = new KitCommand(this, playerLanguageManager, kitStorage, kitConfig, kitGuiListener);
+        getServer().getPluginManager().registerEvents(kitGuiListener, this);
+        KitConfigManager.setup(this);
+        KitManager.loadKits(KitConfigManager.getConfig());
+        getLogger().info("Kit system initialized with " + KitManager.getKits().size() + " kits");
+    }
+
+    private void initializeBanSystem() {
+        banConfig = new BanConfig(this);
+        banStorage = new BanStorage(this, databaseManager);
+        banListener = new BanListener(banStorage, playerLanguageManager, this);
+        banCommand = new BanCommand(this, playerLanguageManager, commandDataStorage, banStorage, banConfig);
+        banListCommand = new BanListCommand(playerLanguageManager, commandDataStorage, banStorage);
+    }
+
+    private void initializeBackSystem() {
+        this.backConfig = new BackConfig(this);
+        this.backDataStorage = new BackDataStorage(this, databaseManager);
+        this.backManager = new BackManager(backDataStorage);
+        this.backListener = new BackListener(backManager, backConfig);
+        this.backCommand = new BackCommand(playerLanguageManager, backConfig, backManager, commandDataStorage, this);
+        getServer().getPluginManager().registerEvents(backListener, this);
+    }
+
+    private void initializeWarpSystem() {
+        warpConfig = new WarpConfig(this);
+        warpStorage = new WarpStorage(this, databaseManager);
+        warpManager = new WarpManager(warpStorage, warpConfig, playerLanguageManager);
+        warpCommand = new WarpTeleportCommand(this,warpManager, playerLanguageManager, commandDataStorage);
+        setwarpCommand = new WarpSetCommand(warpManager, playerLanguageManager, commandDataStorage);
+        delwarpCommand = new WarpDeleteCommand(warpManager, playerLanguageManager, commandDataStorage);
+        warpsCommand = new WarpsCommand(warpManager, playerLanguageManager, commandDataStorage);
+    }
+
+    private void initializeRtpSystem() {
+        RtpConfig rtpConfig = new RtpConfig(this);
+        rtpLocationStorage = new RtpLocationStorage(this, databaseManager, "rtp");
+        CooldownManager cooldownManager = new CooldownManager();
+        getServer().getPluginManager().registerEvents(
+                new RtpListener(this, playerLanguageManager, rtpLocationStorage, cooldownManager, backManager, rtpConfig), this);
     }
 
     private DatabaseConfig loadDatabaseConfig(String key) {
@@ -1538,38 +1536,6 @@ public class EssC extends JavaPlugin implements Listener {
         );
     }
 
-    public LanguageManager getLanguageManager() {
-        return languageManager;
-    }
-
-    private String getNameSpaced(String command) {
-        return getName().toLowerCase() + ":" + command.toLowerCase();
-    }
-
-
-
-
-    private void initializeKitSystem() {
-        kitConfig = new KitConfig(this);
-
-        kitStorage = new KitStorage(this, databaseManager, "kits");
-
-        kitGuiListener = new KitGUIListener(this, playerLanguageManager, kitStorage, kitConfig);
-
-        kitCommand = new KitCommand(this, playerLanguageManager, kitStorage, kitConfig, kitGuiListener);
-        getCommand("kit").setExecutor(kitCommand);
-
-        getServer().getPluginManager().registerEvents(kitGuiListener, this);
-
-        KitConfigManager.setup(this);
-        KitManager.loadKits(KitConfigManager.getConfig());
-
-        getLogger().info("Kit system initialized with " + KitManager.getKits().size() + " kits");
-    }
-
-
-
-
     private void initializeCommandModules() {
         commandDataStorage = new CommandDataStorage(this, databaseManager);
 
@@ -1577,19 +1543,7 @@ public class EssC extends JavaPlugin implements Listener {
         flyListener = new FlyListener(flyCommand);
     }
 
-
-    private void initializeRtpSystem() {
-        RtpConfig rtpConfig = new RtpConfig(this);
-        rtpLocationStorage = new RtpLocationStorage(this, databaseManager, "rtp");
-        CooldownManager cooldownManager = new CooldownManager();
-
-        getCommand("rtp").setExecutor(new RtpCommand(this, playerLanguageManager, rtpConfig));
-        getServer().getPluginManager().registerEvents(
-                new RtpListener(this, playerLanguageManager, rtpLocationStorage, cooldownManager, backManager, rtpConfig), this);
-    }
-
-
-
+    // Load default shop files
     private final String[] defaultShopFiles = {
             "food.yml",
             "main.yml",
@@ -1607,57 +1561,7 @@ public class EssC extends JavaPlugin implements Listener {
             "customsection3",
             "customsection2",
             "customsection1",
-
-
-
-
     };
-
-    public void saveDefaultShopFiles() {
-        File shopDir = new File(getDataFolder(), "shop");
-        if (!shopDir.exists()) shopDir.mkdirs();
-
-        for (String fileName : defaultShopFiles) {
-            File out = new File(shopDir, fileName);
-            if (!out.exists()) {
-                saveResource("shop/" + fileName, false);
-                getLogger().info("Created shop file: " + fileName);
-            }
-        }
-    }
-
-    private void initializeSellGuiSystem() {
-        sellConfig = new SellConfig(this);
-        sellStorage = new SellStorage(this, databaseManager);
-        sellGuiManager = new SellGUIManager(this, playerLanguageManager, sellStorage, sellConfig, economyManager);
-        sellCommand = new SellCommand(this, playerLanguageManager, sellConfig, sellGuiManager, economyManager);
-        sellGuiListener = new SellGUIListener(playerLanguageManager, sellGuiManager);
-
-        getCommand("sell").setExecutor(sellCommand);
-        getServer().getPluginManager().registerEvents(sellGuiListener, this);
-
-        getLogger().info("SellGUI system initialized with " + sellConfig.getSellableMaterialsCount() + " items");
-    }
-
-    private void initializeSessionSystem() {
-        this.sessionManager = new SessionManager(databaseManager, commandDataStorage);
-
-        sessionManager.initialize();
-
-        this.sessionConfig = new SessionConfig(this);
-        this.sessionCommand = new SessionCommand(
-                playerLanguageManager,
-                sessionConfig,
-                sessionManager,
-                commandDataStorage
-        );
-
-        this.sessionListener = new SessionListener(sessionManager);
-        getServer().getPluginManager().registerEvents(sessionListener, this);
-
-        getCommand("session").setExecutor(sessionCommand);
-
-    }
 
     public static class SessionListener implements org.bukkit.event.Listener {
         private final SessionManager sessionManager;
@@ -1676,45 +1580,6 @@ public class EssC extends JavaPlugin implements Listener {
             sessionManager.endSession(event.getPlayer());
         }
     }
-
-    private void initializeBanSystem() {
-        banConfig = new BanConfig(this);
-        banStorage = new BanStorage(this, databaseManager);
-        banListener = new BanListener(banStorage, playerLanguageManager, this);
-        banCommand = new BanCommand(this, playerLanguageManager, commandDataStorage, banStorage, banConfig);
-        banListCommand = new BanListCommand(playerLanguageManager, commandDataStorage, banStorage);
-    }
-    private void initializeBackSystem() {
-        this.backConfig = new BackConfig(this);
-        this.backDataStorage = new BackDataStorage(this, databaseManager);
-        this.backManager = new BackManager(backDataStorage);
-        this.backListener = new BackListener(backManager, backConfig);
-        this.backCommand = new BackCommand(
-                playerLanguageManager,
-                backConfig,
-                backManager,
-                commandDataStorage,
-                this
-        );
-
-        getCommand("back").setExecutor(backCommand);
-        getCommand("back").setTabCompleter(backCommand);
-        getServer().getPluginManager().registerEvents(backListener, this);
-
-    }
-
-
-
-    private void initializeWarpSystem() {
-        warpConfig = new WarpConfig(this);
-        warpStorage = new WarpStorage(this, databaseManager);
-        warpManager = new WarpManager(warpStorage, warpConfig, playerLanguageManager);
-        warpCommand = new WarpTeleportCommand(this,warpManager, playerLanguageManager, commandDataStorage);
-        setwarpCommand = new WarpSetCommand(warpManager, playerLanguageManager, commandDataStorage);
-        delwarpCommand = new WarpDeleteCommand(warpManager, playerLanguageManager, commandDataStorage);
-        warpsCommand = new WarpsCommand(warpManager, playerLanguageManager, commandDataStorage);
-    }
-
     private void saveLangFile(String fileName) {
         File langFolder = new File(getDataFolder(), "lang");
         if (!langFolder.exists()) {
@@ -1987,6 +1852,24 @@ public class EssC extends JavaPlugin implements Listener {
         );
 
         getLogger().info("Successfully registered all API services!");
+    }
+
+
+    private void wrap(String module, String command, FirstInstallCommandRunner executor) {
+        PluginCommand cmd = getCommand(command);
+        if (cmd == null) return;
+
+        WrappedCommand wrapped = new WrappedCommand(
+                module,
+                command,
+                (CommandExecutor) executor,
+                executor instanceof TabCompleter tc ? tc : null,
+                moduleManager,
+                playerLanguageManager
+        );
+
+        cmd.setExecutor(wrapped);
+        cmd.setTabCompleter(wrapped);
     }
 
 }

@@ -1208,6 +1208,11 @@
       "none": "<#FF2424>Aucune base de données configurée!",
       "entry": "<#4169E1>║  <#c0f0ff>{name}</#c0f0ff> - {status}{msg} <#708090>({enabled})</#708090>  ║"
     },
+    "module": {
+      "header": "<279CF5>Modules et commandes :",
+      "module": "<c0f0ff><module> <status>",
+      "command": " - <cmd> : <status>"
+    },
     "fr": {
       "economy": {
         "shop": {

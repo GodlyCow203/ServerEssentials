@@ -1,15 +1,18 @@
+// File: KitGUIListener.java (UPDATED)
 package net.godlycow.org.kit.trigger;
 
 import net.godlycow.org.commands.config.KitConfig;
 import net.godlycow.org.kit.KitConfigManager;
 import net.godlycow.org.kit.KitManager;
+import net.godlycow.org.kit.gui.KitGUIManager;
+import net.godlycow.org.kit.gui.KitInventoryHolder;
 import net.godlycow.org.kit.model.Kit;
 import net.godlycow.org.kit.permission.KitPermission;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.godlycow.org.kit.storage.KitStorage;
 import net.godlycow.org.language.LanguageManager;
 import net.godlycow.org.language.PlayerLanguageManager;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -19,6 +22,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -34,16 +38,18 @@ public class KitGUIListener implements Listener {
     private final PlayerLanguageManager langManager;
     private final KitStorage kitStorage;
     private final KitConfig kitConfig;
+    private final KitGUIManager kitGUIManager;
     private static final String GUI_TITLE_KEY = "kits.gui.title";
     private static final String PREVIEW_TITLE_KEY = "kits.gui.preview-title";
     private final MiniMessage miniMessage = MiniMessage.miniMessage();
     private static final LegacyComponentSerializer LEGACY_SERIALIZER = LegacyComponentSerializer.legacySection();
 
-    public KitGUIListener(Plugin plugin, PlayerLanguageManager langManager, KitStorage kitStorage, KitConfig kitConfig) {
+    public KitGUIListener(Plugin plugin, PlayerLanguageManager langManager, KitStorage kitStorage, KitConfig kitConfig, KitGUIManager kitGUIManager) {
         this.plugin = plugin;
         this.langManager = langManager;
         this.kitStorage = kitStorage;
         this.kitConfig = kitConfig;
+        this.kitGUIManager = kitGUIManager;
     }
 
     public void openKitGUI(Player player) {
@@ -51,7 +57,11 @@ public class KitGUIListener implements Listener {
 
         Component titleComponent = langManager.getMessageFor(player, GUI_TITLE_KEY, kitConfig.getGuiTitle());
         String legacyTitle = LEGACY_SERIALIZER.serialize(titleComponent);
-        Inventory gui = Bukkit.createInventory(null, kitConfig.getGuiSize(), legacyTitle);
+
+        KitInventoryHolder holder = new KitInventoryHolder(kitGUIManager, false);
+        Inventory gui = Bukkit.createInventory(holder, kitConfig.getGuiSize(), legacyTitle);
+        gui.clear();
+
 
         ConfigurationSection kitsSec = KitConfigManager.getConfig().getConfigurationSection("kits");
         if (kitsSec == null) {
@@ -78,6 +88,7 @@ public class KitGUIListener implements Listener {
         }
 
         player.openInventory(gui);
+        kitGUIManager.setPlayerInMainGUI(player.getUniqueId(), true);
     }
 
     private ItemStack createKitIcon(Kit kit, Player player, boolean hasPermission) {
@@ -135,7 +146,10 @@ public class KitGUIListener implements Listener {
         Component titleComponent = langManager.getMessageFor(player, PREVIEW_TITLE_KEY, kitConfig.getPreviewTitle(),
                 LanguageManager.ComponentPlaceholder.of("{kit}", kitId));
         String legacyTitle = LEGACY_SERIALIZER.serialize(titleComponent);
-        Inventory preview = Bukkit.createInventory(null, 54, legacyTitle);
+
+        KitInventoryHolder holder = new KitInventoryHolder(kitGUIManager, true);
+        Inventory preview = Bukkit.createInventory(holder, 54, legacyTitle);
+        preview.clear();
 
         List<ItemStack> items = kit.getItems();
         for (int i = 0; i < items.size() && i < 45; i++) {
@@ -149,6 +163,7 @@ public class KitGUIListener implements Listener {
         preview.setItem(45, backButton);
 
         player.openInventory(preview);
+        kitGUIManager.setPlayerInPreviewGUI(player.getUniqueId(), true);
     }
 
     private ItemStack createClaimButton(Player player, String kitId) {
@@ -195,15 +210,9 @@ public class KitGUIListener implements Listener {
     public void onInventoryClick(InventoryClickEvent event) {
         if (!(event.getWhoClicked() instanceof Player player)) return;
 
-        String clickedTitle = event.getView().getTitle();
-
-        String mainTitle = LEGACY_SERIALIZER.serialize(langManager.getMessageFor(player, GUI_TITLE_KEY, kitConfig.getGuiTitle()));
-        String previewTitle = LEGACY_SERIALIZER.serialize(langManager.getMessageFor(player, PREVIEW_TITLE_KEY, kitConfig.getPreviewTitle()));
-
-        boolean isMainGui = clickedTitle.equals(mainTitle);
-        boolean isPreviewGui = clickedTitle.contains("Preview Kit") || clickedTitle.startsWith(previewTitle.split("\\{kit\\}")[0]);
-
-        if (!isMainGui && !isPreviewGui) return;
+        if (!(event.getView().getTopInventory().getHolder() instanceof KitInventoryHolder)) {
+            return;
+        }
 
         event.setCancelled(true);
 
@@ -230,6 +239,13 @@ public class KitGUIListener implements Listener {
         if (kitId != null) {
             openKitPreview(player, kitId);
         }
+    }
+
+    @EventHandler
+    public void onInventoryClose(InventoryCloseEvent event) {
+        if (!(event.getPlayer() instanceof Player player)) return;
+
+        kitGUIManager.cleanupPlayer(player.getUniqueId());
     }
 
     private void claimKit(Player player, String kitId) {

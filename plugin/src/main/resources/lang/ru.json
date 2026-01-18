@@ -12,6 +12,11 @@
       "reset-self": "<#279CF5>Ваш никнейм сброшен.",
       "set": "<#279CF5>Ваш никнейм установлен на <#c0f0ff>{nick}<#279CF5>."
     },
+    "module": {
+      "header": "<279CF5>Модули и команды:",
+      "module": "<c0f0ff><module> <status>",
+      "command": " - <cmd> : <status>"
+    },
     "eco": {
       "no-permission": "<#FF2424>Вам нужно разрешение <#c0f0ff>{permission}!",
       "no-economy": "<#FF2424>Экономическая система недоступна!",

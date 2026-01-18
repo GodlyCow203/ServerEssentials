@@ -20,6 +20,7 @@ public class EssentialsCCommand implements CommandExecutor, TabCompleter {
     private final Plugin plugin;
     private final Map<String, Consumer<CommandSender>> subCommands = new LinkedHashMap<>();
 
+    private static final String BASE_PERMISSION = "essc.command.essc";
     private final String PREFIX = gradient("#FFCC33", "#FFF2AA", "EssentialsC") + " §8» §r";
 
     public EssentialsCCommand(Plugin plugin) {
@@ -34,10 +35,21 @@ public class EssentialsCCommand implements CommandExecutor, TabCompleter {
     }
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command,
-                             @NotNull String label, @NotNull String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender,
+                             @NotNull Command command,
+                             @NotNull String label,
+                             @NotNull String[] args) {
+
+        if (!sender.hasPermission(BASE_PERMISSION)) {
+            sendNoPermission(sender, BASE_PERMISSION);
+            return true;
+        }
 
         if (args.length == 0) {
+            if (!hasSubPermission(sender, "help")) {
+                sendNoPermission(sender, permissionOf("help"));
+                return true;
+            }
             sendHelp(sender);
             return true;
         }
@@ -46,7 +58,12 @@ public class EssentialsCCommand implements CommandExecutor, TabCompleter {
         Consumer<CommandSender> action = subCommands.get(sub);
 
         if (action == null) {
-            sendMessage(sender, "#FF5555", "Unknown subcommand. Use /" + label + " help");
+            sendMessage(sender, "#FF5555", "Unknown subcommand. Use /essc help");
+            return true;
+        }
+
+        if (!hasSubPermission(sender, sub)) {
+            sendNoPermission(sender, permissionOf(sub));
             return true;
         }
 
@@ -55,20 +72,35 @@ public class EssentialsCCommand implements CommandExecutor, TabCompleter {
     }
 
     @Override
-    public @Nullable List<String> onTabComplete(@NotNull CommandSender sender,
-                                                @NotNull Command command,
-                                                @NotNull String alias,
-                                                @NotNull String[] args) {
+    public  List<String> onTabComplete( CommandSender sender,
+                                                 Command command,
+                                                 String alias,
+                                                 String[] args) {
+
         if (args.length == 1) {
             String input = args[0].toLowerCase();
             return subCommands.keySet().stream()
-                    .filter(s -> s.startsWith(input))
+                    .filter(sub -> sub.startsWith(input))
+                    .filter(sub -> sender.hasPermission(permissionOf(sub)))
                     .sorted()
                     .toList();
         }
         return Collections.emptyList();
     }
 
+
+    private boolean hasSubPermission(CommandSender sender, String sub) {
+        return sender.hasPermission(permissionOf(sub));
+    }
+
+    private String permissionOf(String sub) {
+        return BASE_PERMISSION + "." + sub;
+    }
+
+    private void sendNoPermission(CommandSender sender, String perm) {
+        sendMessage(sender, "#FF5555", "You do not have permission.");
+        sendMessage(sender, "#AAAAAA", "Required: " + color("#FFFFFF") + perm);
+    }
 
 
     private void sendHelp(CommandSender sender) {
@@ -127,8 +159,6 @@ public class EssentialsCCommand implements CommandExecutor, TabCompleter {
         });
     }
 
-
-
     private void reloadPlugin(CommandSender sender) {
         if (!(plugin instanceof EssC)) {
             sendMessage(sender, "#FF5555", "Reload failed: plugin instance mismatch.");
@@ -145,7 +175,6 @@ public class EssentialsCCommand implements CommandExecutor, TabCompleter {
             e.printStackTrace();
         }
     }
-
 
 
     private void sendTitle(CommandSender sender, String title) {

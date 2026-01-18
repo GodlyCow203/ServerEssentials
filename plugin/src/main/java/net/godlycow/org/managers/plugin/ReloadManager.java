@@ -1,13 +1,17 @@
 package net.godlycow.org.managers.plugin;
 
-import org.bukkit.command.CommandSender;
 import net.godlycow.org.EssC;
+import org.bukkit.command.CommandSender;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class ReloadManager {
 
     private static ReloadManager instance;
     private final EssC plugin;
+
+    private final Map<String, Reloadable> reloadables = new LinkedHashMap<>();
 
     public ReloadManager(EssC plugin) {
         this.plugin = plugin;
@@ -21,17 +25,27 @@ public class ReloadManager {
         return instance;
     }
 
+    public void register(Reloadable reloadable) {
+        reloadables.put(reloadable.name().toLowerCase(), reloadable);
+    }
+
     public static void reloadAll(CommandSender sender) {
         getInstance().reloadEverything(sender);
     }
 
     public void reloadEverything(CommandSender sender) {
-        if (plugin.getHomeManager() != null) {
-            plugin.getHomeManager().reload();
-            sender.sendMessage("§a✔ Homes system reloaded!");
-        } else {
-            sender.sendMessage("§c✗ Homes system not available!");
-        }
+        sender.sendMessage("§6§lReloading modules...");
 
+        reloadables.values().forEach(reloadable -> {
+            try {
+                reloadable.reload();
+                sender.sendMessage("§a✔ " + reloadable.name() + " reloaded!");
+            } catch (Exception e) {
+                sender.sendMessage("§c✗ " + reloadable.name() + " failed to reload!");
+                e.printStackTrace();
+            }
+        });
+
+        sender.sendMessage("§a§lReload complete.");
     }
 }

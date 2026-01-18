@@ -73,7 +73,11 @@ public class QuantitySelectorGUI {
         return state != null && state.awaitingCustomAmount;
     }
 
-    public void cleanupPlayer(UUID playerUuid) {
+    public void cleanupGUI(UUID playerUuid) {
+        playerState.remove(playerUuid);
+    }
+
+    public void cleanupChat(UUID playerUuid) {
         State state = playerState.remove(playerUuid);
         if (state != null) {
             state.awaitingCustomAmount = false;
@@ -90,7 +94,8 @@ public class QuantitySelectorGUI {
             player.sendMessage(langManager.getMessageFor(player,
                     "commands.economy.shop.cancelled",
                     "<red>✗ Purchase cancelled"));
-            cleanupPlayer(player.getUniqueId());
+
+            cleanupChat(player.getUniqueId());
 
             Bukkit.getScheduler().runTask(plugin, () ->
                     shopGUIManager.openSectionGUI(player, state.sectionFile, state.page));
@@ -99,35 +104,38 @@ public class QuantitySelectorGUI {
 
         try {
             int customAmount = Integer.parseInt(message);
-            if (customAmount < 0) {
+
+            if (customAmount <= 0) {
                 player.sendMessage(langManager.getMessageFor(player,
                         "commands.economy.shop.negative-amount",
-                        "<red>✗ Amount must be positive"));
+                        "<red>✗ Amount must be greater than 0"));
             } else {
                 state.quantity = customAmount;
-                Bukkit.getScheduler().runTask(plugin, () -> {
-                    Inventory inv = createInventory(player, state.shopItem, state.quantity);
-                    player.openInventory(inv);
-                });
             }
+
         } catch (NumberFormatException e) {
             player.sendMessage(langManager.getMessageFor(player,
                     "commands.economy.shop.invalid-amount",
                     "<red>✗ Invalid amount. Please enter a number."));
-
-            Bukkit.getScheduler().runTask(plugin, () -> {
-                Inventory inv = createInventory(player, state.shopItem, state.quantity);
-                player.openInventory(inv);
-            });
         }
+
+        Bukkit.getScheduler().runTask(plugin, () -> {
+            Inventory inv = createInventory(player, state.shopItem, state.quantity);
+            player.openInventory(inv);
+        });
     }
+
 
     private Inventory createInventory(Player player, ShopSectionConfig.ShopItem shopItem, int quantity) {
         Component title = langManager.getMessageFor(player, "commands.economy.shop.quantity-title",
                 "<gold>Select Quantity: <gray>{item}",
                 LanguageManager.ComponentPlaceholder.of("{item}", shopItem.name));
 
-        Inventory inv = Bukkit.createInventory(null, INVENTORY_SIZE, title);
+        Inventory inv = Bukkit.createInventory(
+                new QuantityInventoryHolder(),
+                INVENTORY_SIZE,
+                title
+        );
 
         inv.setItem(4, createPlayerHead(player));
         inv.setItem(13, createItemDisplay(shopItem, quantity));
@@ -264,6 +272,7 @@ public class QuantitySelectorGUI {
         if (state == null) return;
 
         state.awaitingCustomAmount = true;
+
         player.closeInventory();
 
         player.sendMessage(langManager.getMessageFor(player,
@@ -276,16 +285,17 @@ public class QuantitySelectorGUI {
                 player.sendMessage(langManager.getMessageFor(player,
                         "commands.economy.shop.custom-amount-timeout",
                         "<red>✗ Custom amount input timed out."));
-                cleanupPlayer(player.getUniqueId());
+                cleanupChat(player.getUniqueId());
             }
         }, 20 * 60);
     }
+
 
     private void cancel(Player player) {
         State state = playerState.get(player.getUniqueId());
         if (state == null) return;
 
-        cleanupPlayer(player.getUniqueId());
+        cleanupGUI(player.getUniqueId());
         player.sendMessage(langManager.getMessageFor(player,
                 "commands.economy.shop.cancelled",
                 "<red>✗ Purchase cancelled"));
@@ -316,6 +326,11 @@ public class QuantitySelectorGUI {
                     LanguageManager.ComponentPlaceholder.of("{quantity}", state.quantity),
                     LanguageManager.ComponentPlaceholder.of("{item}", item.name),
                     LanguageManager.ComponentPlaceholder.of("{price}", economyManager.format(totalPrice))));
+            cleanupGUI(player.getUniqueId());
+
+            Bukkit.getScheduler().runTask(plugin, () ->
+                    shopGUIManager.openSectionGUI(player, state.sectionFile, state.page)
+            );
             return;
         }
 
@@ -343,7 +358,7 @@ public class QuantitySelectorGUI {
                     LanguageManager.ComponentPlaceholder.of("{price}", economyManager.format(totalPrice))));
 
             Bukkit.getScheduler().runTask(plugin, () -> {
-                cleanupPlayer(player.getUniqueId());
+                cleanupGUI(player.getUniqueId());
                 shopGUIManager.openSectionGUI(player, state.sectionFile, state.page);
             });
         } else {

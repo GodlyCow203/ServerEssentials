@@ -12,6 +12,11 @@
       "reset-self": "<#279CF5>Seu apelido foi redefinido.",
       "set": "<#279CF5>Seu apelido foi definido para <#c0f0ff>{nick}<#279CF5>."
     },
+    "module": {
+      "header": "<279CF5>Módulos e comandos:",
+      "module": "<c0f0ff><module> <status>",
+      "command": " - <cmd> : <status>"
+    },
     "eco": {
       "no-permission": "<#FF2424>Você precisa da permissão <#c0f0ff>{permission}!",
       "no-economy": "<#FF2424>O sistema de economia não está disponível!",

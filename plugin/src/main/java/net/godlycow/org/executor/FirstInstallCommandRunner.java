@@ -7,25 +7,22 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-public class CommandExecutor {
+public class FirstInstallCommandRunner {
 
     private final Plugin plugin;
     private final File flagFile;
     private final List<String> commands;
 
-    public CommandExecutor(Plugin plugin) {
+    public FirstInstallCommandRunner(Plugin plugin) {
         this.plugin = plugin;
         this.flagFile = new File(plugin.getDataFolder(), ".installed");
-
 
         this.commands = List.of(
                 "papi ecloud download Vault",
                 "papi ecloud download Statistic",
                 "papi ecloud download Server",
-
                 "language reload"
-
-                );
+        );
     }
 
     public void runIfFirstInstall() {
@@ -42,9 +39,10 @@ public class CommandExecutor {
                 long delay = 0L;
 
                 for (String cmd : commands) {
+                    long finalDelay = delay;
                     Bukkit.getScheduler().runTaskLater(plugin, () -> {
                         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd);
-                    }, delay);
+                    }, finalDelay);
 
                     delay += 20L * 3;
                 }
@@ -54,9 +52,6 @@ public class CommandExecutor {
             }, 20L * 10);
         }
     }
-
-
-
 
     private void markAsInstalled() {
         try {
